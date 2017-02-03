@@ -8,12 +8,20 @@
 
 /* Begin PBXBuildFile section */
 		D9D2F9871E44FF7600667237 /* GatheredKit.h in Headers */ = {isa = PBXBuildFile; fileRef = D9D2F9851E44FF7600667237 /* GatheredKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D9D2F98F1E45024500667237 /* DataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9D2F98E1E45024500667237 /* DataSource.swift */; };
+		D9D2F9911E4502BE00667237 /* DataSourceData.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9D2F9901E4502BE00667237 /* DataSourceData.swift */; };
+		D9D2F9931E45076B00667237 /* TimerBasedDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9D2F9921E45076B00667237 /* TimerBasedDataSource.swift */; };
+		D9D2F9961E450D1D00667237 /* Timer+Block.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9D2F9951E450D1D00667237 /* Timer+Block.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		D9D2F9821E44FF7600667237 /* GatheredKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = GatheredKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D9D2F9851E44FF7600667237 /* GatheredKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GatheredKit.h; sourceTree = "<group>"; };
 		D9D2F9861E44FF7600667237 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D9D2F98E1E45024500667237 /* DataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataSource.swift; sourceTree = "<group>"; };
+		D9D2F9901E4502BE00667237 /* DataSourceData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataSourceData.swift; sourceTree = "<group>"; };
+		D9D2F9921E45076B00667237 /* TimerBasedDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimerBasedDataSource.swift; sourceTree = "<group>"; };
+		D9D2F9951E450D1D00667237 /* Timer+Block.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Timer+Block.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -46,10 +54,30 @@
 		D9D2F9841E44FF7600667237 /* GatheredKit */ = {
 			isa = PBXGroup;
 			children = (
+				D9D2F98D1E45023B00667237 /* Protocols */,
+				D9D2F9941E450D0B00667237 /* Extensions */,
 				D9D2F9851E44FF7600667237 /* GatheredKit.h */,
 				D9D2F9861E44FF7600667237 /* Info.plist */,
 			);
 			path = GatheredKit;
+			sourceTree = "<group>";
+		};
+		D9D2F98D1E45023B00667237 /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				D9D2F98E1E45024500667237 /* DataSource.swift */,
+				D9D2F9901E4502BE00667237 /* DataSourceData.swift */,
+				D9D2F9921E45076B00667237 /* TimerBasedDataSource.swift */,
+			);
+			name = Protocols;
+			sourceTree = "<group>";
+		};
+		D9D2F9941E450D0B00667237 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				D9D2F9951E450D1D00667237 /* Timer+Block.swift */,
+			);
+			name = Extensions;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -96,6 +124,7 @@
 					D9D2F9811E44FF7600667237 = {
 						CreatedOnToolsVersion = 8.2.1;
 						DevelopmentTeam = UHD73N826Y;
+						LastSwiftMigration = 0820;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -132,6 +161,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D9D2F9931E45076B00667237 /* TimerBasedDataSource.swift in Sources */,
+				D9D2F9911E4502BE00667237 /* DataSourceData.swift in Sources */,
+				D9D2F98F1E45024500667237 /* DataSource.swift in Sources */,
+				D9D2F9961E450D1D00667237 /* Timer+Block.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -240,6 +273,7 @@
 		D9D2F98B1E44FF7600667237 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = UHD73N826Y;
@@ -252,6 +286,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = net.josephduffy.GatheredKit;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
@@ -259,6 +294,7 @@
 		D9D2F98C1E44FF7600667237 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = UHD73N826Y;
