@@ -12,6 +12,7 @@
 		D9D2F9911E4502BE00667237 /* DataSourceData.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9D2F9901E4502BE00667237 /* DataSourceData.swift */; };
 		D9D2F9931E45076B00667237 /* TimerBasedDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9D2F9921E45076B00667237 /* TimerBasedDataSource.swift */; };
 		D9D2F9961E450D1D00667237 /* Timer+Block.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9D2F9951E450D1D00667237 /* Timer+Block.swift */; };
+		D9D2F9991E45164800667237 /* DataSourceDataUnit.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9D2F9981E45164800667237 /* DataSourceDataUnit.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,6 +23,7 @@
 		D9D2F9901E4502BE00667237 /* DataSourceData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataSourceData.swift; sourceTree = "<group>"; };
 		D9D2F9921E45076B00667237 /* TimerBasedDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimerBasedDataSource.swift; sourceTree = "<group>"; };
 		D9D2F9951E450D1D00667237 /* Timer+Block.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Timer+Block.swift"; sourceTree = "<group>"; };
+		D9D2F9981E45164800667237 /* DataSourceDataUnit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataSourceDataUnit.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -67,6 +69,7 @@
 			children = (
 				D9D2F98E1E45024500667237 /* DataSource.swift */,
 				D9D2F9901E4502BE00667237 /* DataSourceData.swift */,
+				D9D2F9981E45164800667237 /* DataSourceDataUnit.swift */,
 				D9D2F9921E45076B00667237 /* TimerBasedDataSource.swift */,
 			);
 			name = Protocols;
@@ -164,6 +167,7 @@
 				D9D2F9931E45076B00667237 /* TimerBasedDataSource.swift in Sources */,
 				D9D2F9911E4502BE00667237 /* DataSourceData.swift in Sources */,
 				D9D2F98F1E45024500667237 /* DataSource.swift in Sources */,
+				D9D2F9991E45164800667237 /* DataSourceDataUnit.swift in Sources */,
 				D9D2F9961E450D1D00667237 /* Timer+Block.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -330,6 +334,7 @@
 				D9D2F98C1E44FF7600667237 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

@@ -17,6 +17,8 @@ import Foundation
  */
 open class TimerBasedDataSource {
 
+    /// How frequently the data source will update. A value of `nil` indicates that
+    /// the data source will not perform automatic updates
     public fileprivate(set) var updateFrequency: TimeInterval?
 
     /// The `Timer` used to provide periodic updates
@@ -26,6 +28,11 @@ open class TimerBasedDataSource {
 
 public extension ManuallyUpdatableDataSource where Self: TimerBasedDataSource {
 
+    /**
+     Start monitoring changes to the data source, updating every `updateFrequency` seconds
+
+     - parameter updateFrequency: The number of seconds between data refreshes
+     */
     public func startMonitoring(updateFrequency: TimeInterval) {
         stopMonitoring()
 
@@ -36,11 +43,13 @@ public extension ManuallyUpdatableDataSource where Self: TimerBasedDataSource {
             
             self.refreshData()
         }
-        monitoringTimer.tolerance = updateFrequency/10
         self.monitoringTimer = monitoringTimer
         RunLoop.current.add(monitoringTimer, forMode: RunLoopMode.defaultRunLoopMode)
     }
 
+    /**
+     Stop performing automatic date refreshes
+     */
     public func stopMonitoring() {
         guard let monitoringTimer = self.monitoringTimer else { return }
 
