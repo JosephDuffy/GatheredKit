@@ -11,7 +11,7 @@ import Foundation
 extension Timer {
 
     /**
-     Creates and returns a `Timer` that repeates every `timerInterval` seconds
+     Creates and returns a `Timer` that repeats every `timerInterval` seconds
      
      - parameter timeInterval: The number of seconds between firings of the timer. If seconds is less than or equal to 0.0, this method chooses the nonnegative value of 0.1 milliseconds instead
      - parameter block: The execution body of the timer; the timer itself is passed as the parameter to this block when executed to aid in avoiding cyclical references
