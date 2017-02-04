@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D9909A6F1E452746005F9C9E /* Units.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9909A6E1E452746005F9C9E /* Units.swift */; };
 		D9D2F9871E44FF7600667237 /* GatheredKit.h in Headers */ = {isa = PBXBuildFile; fileRef = D9D2F9851E44FF7600667237 /* GatheredKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D9D2F98F1E45024500667237 /* DataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9D2F98E1E45024500667237 /* DataSource.swift */; };
 		D9D2F9911E4502BE00667237 /* DataSourceData.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9D2F9901E4502BE00667237 /* DataSourceData.swift */; };
@@ -16,6 +17,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		D9909A6E1E452746005F9C9E /* Units.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Units.swift; sourceTree = "<group>"; };
 		D9D2F9821E44FF7600667237 /* GatheredKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = GatheredKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D9D2F9851E44FF7600667237 /* GatheredKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GatheredKit.h; sourceTree = "<group>"; };
 		D9D2F9861E44FF7600667237 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -37,6 +39,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		D9909A6D1E45273C005F9C9E /* Units */ = {
+			isa = PBXGroup;
+			children = (
+				D9909A6E1E452746005F9C9E /* Units.swift */,
+			);
+			name = Units;
+			sourceTree = "<group>";
+		};
 		D9D2F9781E44FF7600667237 = {
 			isa = PBXGroup;
 			children = (
@@ -56,6 +66,7 @@
 		D9D2F9841E44FF7600667237 /* GatheredKit */ = {
 			isa = PBXGroup;
 			children = (
+				D9909A6D1E45273C005F9C9E /* Units */,
 				D9D2F98D1E45023B00667237 /* Protocols */,
 				D9D2F9941E450D0B00667237 /* Extensions */,
 				D9D2F9851E44FF7600667237 /* GatheredKit.h */,
@@ -165,6 +176,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D9D2F9931E45076B00667237 /* TimerBasedDataSource.swift in Sources */,
+				D9909A6F1E452746005F9C9E /* Units.swift in Sources */,
 				D9D2F9911E4502BE00667237 /* DataSourceData.swift in Sources */,
 				D9D2F98F1E45024500667237 /* DataSource.swift in Sources */,
 				D9D2F9991E45164800667237 /* DataSourceDataUnit.swift in Sources */,
