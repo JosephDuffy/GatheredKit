@@ -22,7 +22,7 @@ public struct DataSourceData {
     /// The unmodified, unformatted, original value
     public let rawValue: Any?
 
-    /// A human-readable formatted value
+    /// A human-friendly formatted value
     /// Note that this may differ from the result of `unit.formattedString(for:)`
     public let formattedValue: String?
 
@@ -35,7 +35,7 @@ public struct DataSourceData {
      - parameter displayName: A user-friendly name for the data source
      - parameter dataSource: The data source that supplied the data
      - parameter rawValue: The unmodified, unformatted, original value
-     - parameter formattedValue: A human-readable formatted value. Default is `nil`
+     - parameter formattedValue: A human-friendly formatted value. Default is `nil`
      - parameter unit: A unit of measurement for the data source's value. Default is `nil`
      */
     init(displayName: String, dataSource: DataSource.Type, rawValue: Any?, formattedValue: String? = nil, unit: DataSourceDataUnit? = nil) {
