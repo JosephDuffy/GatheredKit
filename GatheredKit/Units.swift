@@ -143,6 +143,44 @@ public struct Meter: NumberBasedDataSourceDataUnit {
     }
 }
 
+public struct Percent: NumberBasedDataSourceDataUnit {
+
+    public let singularValueSuffix = "%"
+
+    public let pluralValueSuffix: String? = nil
+
+    public let maximumFractionDigits: Int
+
+    public init(maximumFractionDigits: Int) {
+        self.maximumFractionDigits = maximumFractionDigits
+    }
+
+    public init() {
+        self.maximumFractionDigits = 0
+    }
+
+    /**
+     Generates a human-friendly string for the given value.
+     
+     This will use a `NumberFormatter` with a `numberStyle` of `percent`, meaning that
+     values are multiflied by 100 before being formatter, e.g. "0.79" is represented as "79%"
+     
+     - parameter value: The value to be formatted. Must be castable to `NSNumber`
+
+     - throws: `DataSourceDataUnitError.unsupportedType` if the `value` cannot be cast to an `NSNumber`
+
+     - returns: The formatted string
+    */
+    public func formattedString(for value: Any) throws -> String {
+        let formatter = NumberFormatter()
+        formatter.numberStyle = .percent
+        formatter.maximumFractionDigits = maximumFractionDigits
+
+        return try self.formattedString(for: value, usingFormatter: formatter)
+    }
+    
+}
+
 public struct Pixel: NumberBasedDataSourceDataUnit {
 
     public let singularValueSuffix = " Pixel"
