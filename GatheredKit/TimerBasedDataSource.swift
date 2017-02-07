@@ -10,10 +10,10 @@ import Foundation
 
 /**
  The base for a `DataSource` that uses a `Timer` to provide periodic updates. Subclasses should
- override the `updateData()` method and provide the missing properties and methods of `DataSource`.
+ implement the missing properties and methods of `ManuallyUpdatableVariableUpdateFrequencyDataSource`.
  
  Note that to provide a default implementation for `startMonitoring(updateFrequency:)` and `stopMonitoring()`
- the subclass *must* conform to `ManuallyUpdatableDataSource`
+ the subclass *must* conform to `ManuallyUpdatableVariableUpdateFrequencyDataSource`
  */
 open class TimerBasedDataSource {
 
@@ -26,25 +26,41 @@ open class TimerBasedDataSource {
 
 }
 
-public extension ManuallyUpdatableDataSource where Self: TimerBasedDataSource {
+public extension ManuallyUpdatableVariableUpdateFrequencyDataSource where Self: TimerBasedDataSource {
 
     /**
      Start monitoring changes to the data source, updating every `updateFrequency` seconds
 
      - parameter updateFrequency: The number of seconds between data refreshes
+     - parameter updateNow: If `true`, `refreshData()` will be called. Default is `true`
      */
-    public func startMonitoring(updateFrequency: TimeInterval) {
+    public func startMonitoring(updateFrequency: TimeInterval, updateNow: Bool = true) {
         stopMonitoring()
 
-        self.updateFrequency = nil
+        self.updateFrequency = updateFrequency
+
+        if updateNow {
+            refreshData()
+        }
 
         let monitoringTimer = Timer.createRepeatingTimer(timeInterval: updateFrequency) { [weak self] _ in
             guard let `self` = self else { return }
-            
-            self.refreshData()
+
+            let newData = self.refreshData()
+            self.delegate?.dataSource(self, updatedData: newData)
         }
         self.monitoringTimer = monitoringTimer
         RunLoop.current.add(monitoringTimer, forMode: RunLoopMode.defaultRunLoopMode)
+    }
+
+    /**
+     A convenience method that calls `startMonitoring(updateFrequency:updateNow:)`, passing the `updateFrequency`
+     paramater and using `true` for `updateNow`
+     
+     - parameter updateFrequency: The number of seconds between data refreshes
+    */
+    public func startMonitoring(updateFrequency: TimeInterval) {
+        startMonitoring(updateFrequency: updateFrequency, updateNow: true)
     }
 
     /**
