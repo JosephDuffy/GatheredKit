@@ -26,11 +26,6 @@ public protocol DataSource: class {
     /// documented order to the data in this array.
     var data: [DataSourceData] { get }
 
-    /**
-     Creates a new instance of the data source
-     */
-    init()
-
 }
 
 /**

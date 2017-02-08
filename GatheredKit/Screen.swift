@@ -22,8 +22,8 @@ open class Screen: AutomaticallyUpdatingDataSource, ManuallyUpdatableDataSource 
     /// A delegate that will recieve messages about the screen's data changing
     public weak var delegate: DataSourceDelegate?
 
-    /// The `UIScreen` this `Screen` represents
-    public let screen: UIScreen
+    /// The `ScreenBackingData` this `Screen` represents
+    public let screen: ScreenBackingData
 
     /**
      An array of the information about the screen, in the following order:
@@ -63,18 +63,11 @@ open class Screen: AutomaticallyUpdatingDataSource, ManuallyUpdatableDataSource 
     public private(set) var brightness: TypedDataSourceData<CGFloat>
 
     /**
-     Create a new instance of `Screen` with `UIScreen.main` as the `screen`
-    */
-    public convenience required init() {
-        self.init(screen: .main)
-    }
-
-    /**
      Create a new instance of `Screen` for the given `UIScreen` instance
      
      - parameter screen: The `UIScreen` to get data from
     */
-    public required init(screen: UIScreen) {
+    public required init(screen: ScreenBackingData = UIScreen.main) {
         self.screen = screen
         reportedScreenResolution = TypedDataSourceData(displayName: "Screen Resolution (reported)", dataSource: type(of: self), unit: Point())
         nativeScreenResolution = TypedDataSourceData(displayName: "Screen Resolution (native)", dataSource: type(of: self), unit: Pixel())
@@ -142,7 +135,7 @@ open class Screen: AutomaticallyUpdatingDataSource, ManuallyUpdatableDataSource 
      
      - returns: The formatted string
     */
-    private func formattedString(for size: CGSize) -> String {
+    internal func formattedString(for size: CGSize) -> String {
         let formatter = NumberFormatter()
         let widthString = formatter.string(from: size.width as NSNumber) ?? "\(size.width)"
         let heightString = formatter.string(from: size.height as NSNumber) ?? "\(size.height)"
@@ -151,3 +144,27 @@ open class Screen: AutomaticallyUpdatingDataSource, ManuallyUpdatableDataSource 
     }
 
 }
+
+/**
+ The backing data for the `Screen` data source. `UIScreen` conforms to this without any changes
+ */
+public protocol ScreenBackingData {
+
+    /// Bounds of entire screen in points
+    var bounds: CGRect { get }
+
+    /// The natural scale factor associated with the screen.
+    var scale: CGFloat { get }
+
+    /// Native bounds of the physical screen in pixels
+    var nativeBounds: CGRect { get }
+
+    /// Native scale factor of the physical screen
+    var nativeScale: CGFloat { get }
+
+    /// 0 .. 1.0, where 1.0 is maximum brightness. Only supported by main screen.
+    var brightness: CGFloat { get }
+
+}
+
+extension UIScreen: ScreenBackingData {}
