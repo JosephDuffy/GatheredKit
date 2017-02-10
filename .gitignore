@@ -30,3 +30,8 @@ xcuserdata/
 
 fastlane/report.xml
 fastlane/test_output
+
+## Carthage
+
+Carthage/Checkouts
+Carthage/Build

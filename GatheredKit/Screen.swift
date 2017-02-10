@@ -69,11 +69,11 @@ open class Screen: AutomaticallyUpdatingDataSource, ManuallyUpdatableDataSource 
     */
     public required init(screen: ScreenBackingData = UIScreen.main) {
         self.screen = screen
-        reportedScreenResolution = TypedDataSourceData(displayName: "Screen Resolution (reported)", dataSource: type(of: self), unit: Point())
-        nativeScreenResolution = TypedDataSourceData(displayName: "Screen Resolution (native)", dataSource: type(of: self), unit: Pixel())
-        reportedScreenScale = TypedDataSourceData(displayName: "Screen Resolution (reported)", dataSource: type(of: self))
-        nativeScreenScale = TypedDataSourceData(displayName: "Screen Resolution (native)", dataSource: type(of: self))
-        brightness = TypedDataSourceData(displayName: "Brightness", dataSource: type(of: self), unit: Percent())
+        reportedScreenResolution = TypedDataSourceData(displayName: "Screen Resolution (reported)", unit: Point())
+        nativeScreenResolution = TypedDataSourceData(displayName: "Screen Resolution (native)", unit: Pixel())
+        reportedScreenScale = TypedDataSourceData(displayName: "Screen Resolution (reported)")
+        nativeScreenScale = TypedDataSourceData(displayName: "Screen Resolution (native)")
+        brightness = TypedDataSourceData(displayName: "Brightness", unit: Percent())
     }
 
     /**
@@ -162,7 +162,7 @@ public protocol ScreenBackingData {
     /// Native scale factor of the physical screen
     var nativeScale: CGFloat { get }
 
-    /// 0 .. 1.0, where 1.0 is maximum brightness. Only supported by main screen.
+    /// 0 ... 1.0, where 1.0 is maximum brightness
     var brightness: CGFloat { get }
 
 }

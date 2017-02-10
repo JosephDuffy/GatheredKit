@@ -28,7 +28,26 @@
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       shouldUseLaunchSchemeArgsEnv = "YES">
       <Testables>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "D975D6AD1E4A2EC500789F1B"
+               BuildableName = "GatheredKitTests.xctest"
+               BlueprintName = "GatheredKitTests"
+               ReferencedContainer = "container:GatheredKit.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
       </Testables>
+      <MacroExpansion>
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "D9D2F9811E44FF7600667237"
+            BuildableName = "GatheredKit.framework"
+            BlueprintName = "GatheredKit"
+            ReferencedContainer = "container:GatheredKit.xcodeproj">
+         </BuildableReference>
+      </MacroExpansion>
       <AdditionalOptions>
       </AdditionalOptions>
    </TestAction>
