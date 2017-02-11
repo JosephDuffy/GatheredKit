@@ -45,8 +45,8 @@ public extension CustomisableUpdateFrequencyDataSource where Self: ManuallyUpdat
         let monitoringTimer = Timer.createRepeatingTimer(timeInterval: updateFrequency) { [weak self] _ in
             guard let `self` = self else { return }
 
-            let newData = self.refreshData()
-            self.delegate?.dataSource(self, updatedData: newData)
+            self.refreshData()
+            self.notifyListenersDataUpdated()
         }
         self.monitoringTimer = monitoringTimer
         RunLoop.current.add(monitoringTimer, forMode: RunLoopMode.defaultRunLoopMode)
