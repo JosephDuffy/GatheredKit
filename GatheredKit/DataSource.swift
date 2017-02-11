@@ -19,11 +19,12 @@ public protocol DataSource: class {
     /// A user-friendly name for the data source
     static var displayName: String { get }
 
-    /// A delegate that will recieve messages about the data source
+    /// A delegate that will receive messages about the data source
     weak var delegate: DataSourceDelegate? { get set }
 
-    /// The latest data values. All implementations within GatheredKit have a concistent and
-    /// documented order to the data in this array.
+    /// The latest data values. All implementations within GatheredKit have a consistent and
+    /// documented order to the data in this array, along with type-safe properties for each
+    /// of the pieces of data
     var data: [DataSourceData] { get }
 
 }
@@ -32,6 +33,9 @@ public protocol DataSource: class {
  A `DataSource` that performs updates in real-time, rather than manually or at a set frequency
  */
 public protocol AutomaticallyUpdatingDataSource: DataSource {
+
+    /// A boolean indicating if the data source is currently generting new data
+    var isMonitoring: Bool { get }
 
     /**
      Start automatically monitoring changes to the data source. This will start delegate methods being called
@@ -47,13 +51,16 @@ public protocol AutomaticallyUpdatingDataSource: DataSource {
 }
 
 /**
- A data source that supports a variable update frequency
+ A data source that supports updating at any given time interval
  */
-public protocol VariableUpdateFrequencyDataSource: DataSource {
+public protocol CustomisableUpdateFrequencyDataSource: DataSource {
 
     /// How frequently the data source will update. A value of `nil` indicates that
     /// the data source will not perform automatic updates
     var updateFrequency: TimeInterval? { get }
+
+    /// A boolean indicating if the data source is currently updating every `updateFrequency`
+    var isMonitoring: Bool { get }
 
     /**
      Start monitoring changes to the data source, updating every `updateFrequency` seconds. This will start
@@ -76,7 +83,7 @@ public protocol VariableUpdateFrequencyDataSource: DataSource {
 public protocol ManuallyUpdatableDataSource: DataSource {
 
     /**
-     Force fresh data to be loaded
+     Force the loading of new data from the backing data
      
      - returns: The new data
      */
@@ -85,17 +92,12 @@ public protocol ManuallyUpdatableDataSource: DataSource {
 
 }
 
-/**
- A `DataSource` that supports both manual updating and a variable update frequency
- */
-public protocol ManuallyUpdatableVariableUpdateFrequencyDataSource: ManuallyUpdatableDataSource, VariableUpdateFrequencyDataSource {}
-
 // MARK:- Extensions
 
-public extension VariableUpdateFrequencyDataSource {
+public extension CustomisableUpdateFrequencyDataSource {
 
-    /// A boolean indicating if the data source is currently generting new data
-    var isMonitoring: Bool {
+    /// A boolean indicating if the data source is currently updating every `updateFrequency`
+    public var isMonitoring: Bool {
         return updateFrequency != nil
     }
 
