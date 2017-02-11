@@ -14,6 +14,7 @@
 		D9909A6F1E452746005F9C9E /* Units.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9909A6E1E452746005F9C9E /* Units.swift */; };
 		D9D2211F1E45FF1A005988E3 /* Screen.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9D2211E1E45FF1A005988E3 /* Screen.swift */; };
 		D9D2213F1E477523005988E3 /* DataSourceDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9D2213E1E477523005988E3 /* DataSourceDelegate.swift */; };
+		D9D221411E4E6A1B005988E3 /* ProximitySensor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9D221401E4E6A1B005988E3 /* ProximitySensor.swift */; };
 		D9D2F9871E44FF7600667237 /* GatheredKit.h in Headers */ = {isa = PBXBuildFile; fileRef = D9D2F9851E44FF7600667237 /* GatheredKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D9D2F98F1E45024500667237 /* DataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9D2F98E1E45024500667237 /* DataSource.swift */; };
 		D9D2F9911E4502BE00667237 /* DataSourceData.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9D2F9901E4502BE00667237 /* DataSourceData.swift */; };
@@ -41,6 +42,7 @@
 		D9909A6E1E452746005F9C9E /* Units.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Units.swift; sourceTree = "<group>"; };
 		D9D2211E1E45FF1A005988E3 /* Screen.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Screen.swift; sourceTree = "<group>"; };
 		D9D2213E1E477523005988E3 /* DataSourceDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataSourceDelegate.swift; sourceTree = "<group>"; };
+		D9D221401E4E6A1B005988E3 /* ProximitySensor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProximitySensor.swift; sourceTree = "<group>"; };
 		D9D2F9821E44FF7600667237 /* GatheredKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = GatheredKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D9D2F9851E44FF7600667237 /* GatheredKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GatheredKit.h; sourceTree = "<group>"; };
 		D9D2F9861E44FF7600667237 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -162,6 +164,7 @@
 			children = (
 				D9D2F9921E45076B00667237 /* TimerBasedDataSource.swift */,
 				D9D2211E1E45FF1A005988E3 /* Screen.swift */,
+				D9D221401E4E6A1B005988E3 /* ProximitySensor.swift */,
 			);
 			name = "Data Sources";
 			sourceTree = "<group>";
@@ -292,6 +295,7 @@
 				D9D2F9931E45076B00667237 /* TimerBasedDataSource.swift in Sources */,
 				D9909A6F1E452746005F9C9E /* Units.swift in Sources */,
 				D9D2F9911E4502BE00667237 /* DataSourceData.swift in Sources */,
+				D9D221411E4E6A1B005988E3 /* ProximitySensor.swift in Sources */,
 				D9D2F98F1E45024500667237 /* DataSource.swift in Sources */,
 				D9D2F9991E45164800667237 /* DataSourceDataUnit.swift in Sources */,
 				D9D2F9961E450D1D00667237 /* Timer+Block.swift in Sources */,
