@@ -59,24 +59,63 @@ open class Screen: AutomaticallyUpdatingDataSource, ManuallyUpdatableDataSource 
         ]
     }
 
-    /// The screen resolution reported by the system. This is measured in points. The `formattedValue`
-    /// property will contain the value formatted in the following way: "\(width) x \(height)"
+    /**
+     The screen resolution reported by the system
+
+     **Properties**
+
+     Display name: Screen Resolution (reported)
+
+     Unit: Point
+     
+     Formatted value: "\(width) x \(height)"
+     */
     public private(set) var reportedScreenResolution: TypedDataSourceData<CGSize>
 
-    /// The native resolution of the screen. This is measured in pixels. The `formattedValue`
-    /// property will contain the value formatted in the following way: "\(width) x \(height)"
+    /**
+     The native resolution of the screen
+ 
+     **Properties**
+
+     Display name: Screen Resolution (native)
+
+     Unit: Pixel
+
+     Formatted value: "\(width) x \(height)"
+    */
     public private(set) var nativeScreenResolution: TypedDataSourceData<CGSize>
 
-    /// The natural scale factor associated with the screen
+    /**
+     The natural scale factor associated with the screen
+     
+     **Properties**
+
+     Display name: Screen Scale (reported)
+     */
     public private(set) var reportedScreenScale: TypedDataSourceData<CGFloat>
 
-    /// The native scale factor for the physical screen
+    /**
+     The native scale factor for the physical screen
+ 
+     **Properties**
+ 
+     Display name: Screen Scale (native)
+     */
     public private(set) var nativeScreenScale: TypedDataSourceData<CGFloat>
 
-    /// The brightness level of the screen. The value of this property will be a number between
-    /// 0.0 and 1.0, inclusive. The value is represented as a percentage by default
+    /**
+     The brightness level of the screen. The value of this property will be a number between
+     0.0 and 1.0, inclusive
+
+     **Properties**
+ 
+     Display name: Brightness
+ 
+     Unit: Percent
+     */
     public private(set) var brightness: TypedDataSourceData<CGFloat>
 
+    /// The internal state, indicating if the screen is monitoring for changes
     private var state: State = .notMonitoring
 
     /**
@@ -88,8 +127,8 @@ open class Screen: AutomaticallyUpdatingDataSource, ManuallyUpdatableDataSource 
         self.screen = screen
         reportedScreenResolution = TypedDataSourceData(displayName: "Screen Resolution (reported)", unit: Point())
         nativeScreenResolution = TypedDataSourceData(displayName: "Screen Resolution (native)", unit: Pixel())
-        reportedScreenScale = TypedDataSourceData(displayName: "Screen Resolution (reported)")
-        nativeScreenScale = TypedDataSourceData(displayName: "Screen Resolution (native)")
+        reportedScreenScale = TypedDataSourceData(displayName: "Screen Scale (reported)")
+        nativeScreenScale = TypedDataSourceData(displayName: "Screen Scale (native)")
         brightness = TypedDataSourceData(displayName: "Brightness", unit: Percent())
     }
 
