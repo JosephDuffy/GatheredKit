@@ -10,10 +10,9 @@ import Foundation
 
 /**
  The base for a `DataSource` that uses a `Timer` to provide periodic updates. Subclasses should
- implement the missing properties and methods of `ManuallyUpdatableVariableUpdateFrequencyDataSource`.
- 
- Note that to provide a default implementation for `startMonitoring(updateFrequency:)` and `stopMonitoring()`
- the subclass *must* conform to `ManuallyUpdatableVariableUpdateFrequencyDataSource`
+ implement the missing properties and methods of `ManuallyUpdatableDataSource`. By adding the missing
+ properties and methods for `ManuallyUpdatableDataSource` and adding conformance to `CustomisableUpdateFrequencyDataSource`
+ the methods required by `CustomisableUpdateFrequencyDataSource` will be provided for free via an extention
  */
 open class TimerBasedDataSource {
 
@@ -26,7 +25,7 @@ open class TimerBasedDataSource {
 
 }
 
-public extension ManuallyUpdatableVariableUpdateFrequencyDataSource where Self: TimerBasedDataSource {
+public extension CustomisableUpdateFrequencyDataSource where Self: ManuallyUpdatableDataSource, Self: TimerBasedDataSource {
 
     /**
      Start monitoring changes to the data source, updating every `updateFrequency` seconds
