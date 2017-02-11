@@ -13,13 +13,28 @@ import UIKit
  */
 open class Screen: AutomaticallyUpdatingDataSource, ManuallyUpdatableDataSource {
 
+    private enum State {
+        case notMonitoring
+        case monitoring(brightnessChangeObeserver: NSObjectProtocol)
+    }
+
     /// A boolean indicating if the data source is available on the current device
     public static var isAvailable = true
 
     /// A user-friendly name for the data source
     public static var displayName = "Screen"
 
-    /// A delegate that will recieve messages about the screen's data changing
+    /// A boolean indicating if the screen is monitoring for brightness changes
+    public var isMonitoring: Bool {
+        switch state {
+        case .notMonitoring:
+            return false
+        case .monitoring(_):
+            return true
+        }
+    }
+
+    /// A delegate that will receive messages about the screen's data changing
     public weak var delegate: DataSourceDelegate?
 
     /// The `ScreenBackingData` this `Screen` represents
@@ -62,6 +77,8 @@ open class Screen: AutomaticallyUpdatingDataSource, ManuallyUpdatableDataSource 
     /// 0.0 and 1.0, inclusive. The value is represented as a percentage by default
     public private(set) var brightness: TypedDataSourceData<CGFloat>
 
+    private var state: State = .notMonitoring
+
     /**
      Create a new instance of `Screen` for the given `UIScreen` instance
      
@@ -76,25 +93,39 @@ open class Screen: AutomaticallyUpdatingDataSource, ManuallyUpdatableDataSource 
         brightness = TypedDataSourceData(displayName: "Brightness", unit: Percent())
     }
 
+    deinit {
+        stopMonitoring()
+    }
+
     /**
      Start automatically monitoring changes to the data source. This will start delegate methods being called
      when new data is available
      */
     public func startMonitoring() {
-        refreshData()
+        guard !isMonitoring else { return }
 
-        NotificationCenter.default.addObserver(forName: .UIScreenBrightnessDidChange, object: screen, queue: OperationQueue.main) { [weak self] _ in
+        let brightnessChangeObeserver = NotificationCenter.default.addObserver(forName: .UIScreenBrightnessDidChange, object: screen, queue: .main) { [weak self] _ in
             guard let `self` = self else { return }
 
             self.brightness.value = self.screen.brightness
+            self.notifyListenersDataUpdated()
         }
+
+        state = .monitoring(brightnessChangeObeserver: brightnessChangeObeserver)
+
+        refreshData()
+        notifyListenersDataUpdated()
     }
 
     /**
      Stop performing automatic date refreshes
      */
     public func stopMonitoring() {
-        NotificationCenter.default.removeObserver(self)
+        guard case .monitoring(let brightnessChangeObeserver) = state else { return }
+
+        NotificationCenter.default.removeObserver(brightnessChangeObeserver)
+
+        state = .notMonitoring
     }
 
     /**
@@ -118,8 +149,6 @@ open class Screen: AutomaticallyUpdatingDataSource, ManuallyUpdatableDataSource 
         nativeScreenScale.value = screen.nativeScale
 
         brightness.value = screen.brightness
-
-        delegate?.dataSource(self, updatedData: data)
 
         return data
     }
