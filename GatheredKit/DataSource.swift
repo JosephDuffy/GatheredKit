@@ -102,3 +102,24 @@ public extension CustomisableUpdateFrequencyDataSource {
     }
 
 }
+
+extension Notification.Name {
+
+    /// Posted when a data source's data updates. Object is the data source that got new data
+    public static let dataSourceDataUpdated = Notification.Name("DataSourceDataUpdated")
+
+}
+
+internal extension DataSource {
+
+    /**
+     Notifies listeners that the data source got new data. First the delegate is notified,
+     then the `dataSourceDataUpdated` notification is posted with `self` as the object
+     */
+    func notifyListenersDataUpdated() {
+        delegate?.dataSource(self, updatedData: data)
+
+        NotificationCenter.default.post(name: .dataSourceDataUpdated, object: self)
+    }
+
+}
