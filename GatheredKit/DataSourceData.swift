@@ -11,13 +11,13 @@ import Foundation
 /**
  An implementation of `TypedDataSourceDataProtocol` that is type-safe  by using generics
  */
-public struct TypedDataSourceData<RawValueType: Any>: TypedDataSourceDataProtocol {
+public struct TypedDataSourceData<ValueType: Any>: TypedDataSourceDataProtocol {
 
     /// A user-friendly name for the data source
     public let displayName: String
 
-    /// The unmodified, unformatted, original value
-    public var value: RawValueType?
+    /// The value of the data
+    public var value: ValueType
 
     /// A human-friendly formatted value
     /// Note that this may differ from the result of `unit.formattedString(for:)`
@@ -30,11 +30,11 @@ public struct TypedDataSourceData<RawValueType: Any>: TypedDataSourceDataProtoco
      Create a new `DataSourceData`
 
      - parameter displayName: A user-friendly name for the data source
-     - parameter rawValue: The unmodified, unformatted, original value
+     - parameter value: The value of the data
      - parameter formattedValue: A human-friendly formatted value. Default is `nil`
      - parameter unit: A unit of measurement for the data source's value. Default is `nil`
      */
-    public init(displayName: String, value: RawValueType? = nil, formattedValue: String? = nil, unit: DataSourceDataUnit? = nil) {
+    public init(displayName: String, value: ValueType, formattedValue: String? = nil, unit: DataSourceDataUnit? = nil) {
         self.displayName = displayName
         self.value = value
         self.formattedValue = formattedValue
@@ -45,9 +45,10 @@ public struct TypedDataSourceData<RawValueType: Any>: TypedDataSourceDataProtoco
      Create a new `DataSourceData`
 
      - parameter displayName: A user-friendly name for the data source
+     - parameter value: The value of the data
      */
-    public init(displayName: String) {
-        self.init(displayName: displayName, value: nil, formattedValue: nil, unit: nil)
+    public init(displayName: String, value: ValueType) {
+        self.init(displayName: displayName, value: value, formattedValue: nil, unit: nil)
     }
     
 }
@@ -86,7 +87,7 @@ public protocol TypedDataSourceDataProtocol: DataSourceData {
     associatedtype ValueType
 
     /// The unmodified, unformatted, original value
-    var value: ValueType? { get set }
+    var value: ValueType { get set }
 
 }
 
