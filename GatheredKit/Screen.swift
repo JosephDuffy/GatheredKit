@@ -11,7 +11,7 @@ import UIKit
 /**
  A wrapper around `UIScreen`
  */
-open class Screen: AutomaticallyUpdatingDataSource, ManuallyUpdatableDataSource {
+public final class Screen: AutomaticallyUpdatingDataSource, ManuallyUpdatableDataSource {
 
     private enum State {
         case notMonitoring
@@ -125,11 +125,11 @@ open class Screen: AutomaticallyUpdatingDataSource, ManuallyUpdatableDataSource 
     */
     public required init(screen: ScreenBackingData = UIScreen.main) {
         self.screen = screen
-        reportedScreenResolution = TypedDataSourceData(displayName: "Screen Resolution (reported)", unit: Point())
-        nativeScreenResolution = TypedDataSourceData(displayName: "Screen Resolution (native)", unit: Pixel())
-        reportedScreenScale = TypedDataSourceData(displayName: "Screen Scale (reported)")
-        nativeScreenScale = TypedDataSourceData(displayName: "Screen Scale (native)")
-        brightness = TypedDataSourceData(displayName: "Brightness", unit: Percent())
+        reportedScreenResolution = TypedDataSourceData(displayName: "Screen Resolution (reported)", value: screen.bounds.size, unit: Point())
+        nativeScreenResolution = TypedDataSourceData(displayName: "Screen Resolution (native)", value: screen.nativeBounds.size, unit: Pixel())
+        reportedScreenScale = TypedDataSourceData(displayName: "Screen Scale (reported)", value: screen.scale)
+        nativeScreenScale = TypedDataSourceData(displayName: "Screen Scale (native)", value: screen.nativeScale)
+        brightness = TypedDataSourceData(displayName: "Brightness", value: screen.brightness, unit: Percent())
     }
 
     deinit {
