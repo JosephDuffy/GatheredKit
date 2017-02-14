@@ -71,13 +71,6 @@ public protocol DataSourceData {
     /// A unit of measurement for the data source's value
     var unit: DataSourceDataUnit? { get }
 
-    /**
-     Create a new `DataSourceData`
-     
-     - parameter displayName: A user-friendly name for the data source
-     */
-    init(displayName: String)
-
 }
 
 /**
