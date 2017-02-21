@@ -19,7 +19,7 @@ public protocol DataSource: class {
     /// A user-friendly name for the data source
     static var displayName: String { get }
 
-    /// A delegate that will receive messages about the data source
+    /// A delegate that will receive messages about the data source's data
     weak var delegate: DataSourceDelegate? { get set }
 
     /// The latest data values. All implementations within GatheredKit have a consistent and
@@ -30,7 +30,7 @@ public protocol DataSource: class {
 }
 
 /**
- A `DataSource` that performs updates in real-time, rather than manually or at a set frequency
+ A `DataSource` that delivers new data in real-time, rather than manually or at a set frequency
  */
 public protocol AutomaticallyUpdatingDataSource: DataSource {
 
@@ -44,7 +44,7 @@ public protocol AutomaticallyUpdatingDataSource: DataSource {
     func startMonitoring()
 
     /**
-     Stop performing automatic date refreshes
+     Stop monitoring for date updates
      */
     func stopMonitoring()
 
@@ -56,36 +56,36 @@ public protocol AutomaticallyUpdatingDataSource: DataSource {
 public protocol CustomisableUpdateFrequencyDataSource: DataSource {
 
     /// How frequently the data source will update. A value of `nil` indicates that
-    /// the data source will not perform automatic updates
+    /// the data source is not performing automatic periodic updates
     var updateFrequency: TimeInterval? { get }
 
-    /// A boolean indicating if the data source is currently updating every `updateFrequency`
-    var isMonitoring: Bool { get }
+    /// A boolean indicating if the data source is currently refreshing its data every `updateFrequency`
+    var isRefreshing: Bool { get }
 
     /**
-     Start monitoring changes to the data source, updating every `updateFrequency` seconds. This will start
-     delegate methods being called when new data is found
+     Start performing periodic updates, updating every `updateFrequency` seconds. This will cause
+     delegate methods to be called every `updateFrequency`, even if the data has not changed
 
      - parameter updateFrequency: The number of seconds between data refreshes
      */
-    func startMonitoring(updateFrequency: TimeInterval)
+    func startRefreshing(every refreshFrequency: TimeInterval)
 
     /**
-     Stop performing automatic date refreshes
+     Stop performing periodic data refreshes
      */
-    func stopMonitoring()
+    func stopRefreshing()
 
 }
 
 /**
  A `DataSource` that supporting refreshing its data on request
  */
-public protocol ManuallyUpdatableDataSource: DataSource {
+public protocol ManuallyRefreshableDataSource: DataSource {
 
     /**
-     Force the loading of new data from the backing data
+     Force the refreshing of the data
      
-     - returns: The new data
+     - returns: The data
      */
     @discardableResult
     func refreshData() -> [DataSourceData]
@@ -96,8 +96,8 @@ public protocol ManuallyUpdatableDataSource: DataSource {
 
 public extension CustomisableUpdateFrequencyDataSource {
 
-    /// A boolean indicating if the data source is currently updating every `updateFrequency`
-    public var isMonitoring: Bool {
+    /// A boolean indicating if the data source is currently refreshing its data every `updateFrequency`
+    public var isRefreshing: Bool {
         return updateFrequency != nil
     }
 
@@ -117,7 +117,7 @@ internal extension DataSource {
      then the `dataSourceDataUpdated` notification is posted with `self` as the object
      */
     func notifyListenersDataUpdated() {
-        delegate?.dataSource(self, updatedData: data)
+        delegate?.dataSource(self, refreshedData: data)
 
         NotificationCenter.default.post(name: .dataSourceDataUpdated, object: self)
     }

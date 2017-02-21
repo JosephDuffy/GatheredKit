@@ -11,7 +11,7 @@ import UIKit
 /**
  A wrapper around `UIScreen`
  */
-public final class Screen: AutomaticallyUpdatingDataSource, ManuallyUpdatableDataSource {
+public final class Screen: AutomaticallyUpdatingDataSource, ManuallyRefreshableDataSource {
 
     private enum State {
         case notMonitoring
@@ -146,7 +146,7 @@ public final class Screen: AutomaticallyUpdatingDataSource, ManuallyUpdatableDat
         let brightnessChangeObeserver = NotificationCenter.default.addObserver(forName: .UIScreenBrightnessDidChange, object: screen, queue: .main) { [weak self] _ in
             guard let `self` = self else { return }
 
-            self.brightness.value = self.screen.brightness
+            self.brightness.updateData(value: self.screen.brightness)
             self.notifyListenersDataUpdated()
         }
 
@@ -177,17 +177,15 @@ public final class Screen: AutomaticallyUpdatingDataSource, ManuallyUpdatableDat
         let resolution = screen.bounds.size
         let nativeResolution = screen.nativeBounds.size
 
-        reportedScreenResolution.value = resolution
-        reportedScreenResolution.formattedValue = formattedString(for: resolution)
+        reportedScreenResolution.updateData(value: resolution, formattedValue: formattedString(for: resolution))
 
-        nativeScreenResolution.value = nativeResolution
-        nativeScreenResolution.formattedValue = formattedString(for: nativeResolution)
+        nativeScreenResolution.updateData(value: nativeResolution, formattedValue: formattedString(for: nativeResolution))
 
-        reportedScreenScale.value = screen.scale
+        reportedScreenScale.updateData(value: screen.scale)
 
-        nativeScreenScale.value = screen.nativeScale
+        nativeScreenScale.updateData(value: screen.nativeScale)
 
-        brightness.value = screen.brightness
+        brightness.updateData(value: screen.brightness)
 
         return data
     }

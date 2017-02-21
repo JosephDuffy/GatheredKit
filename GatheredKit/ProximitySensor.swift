@@ -12,7 +12,7 @@ import UIKit
  A sensor that detects if an object is close to the sensor. By default it will be backed by `UIDevice.current`, which
  will use the proximity sensor available on iPhones
  */
-public final class ProximitySensor: AutomaticallyUpdatingDataSource, ManuallyUpdatableDataSource {
+public final class ProximitySensor: AutomaticallyUpdatingDataSource, ManuallyRefreshableDataSource {
 
     private enum State {
         case notMonitoring
@@ -107,7 +107,7 @@ public final class ProximitySensor: AutomaticallyUpdatingDataSource, ManuallyUpd
         let proximityStateChangeObeserver = NotificationCenter.default.addObserver(forName: .UIDeviceProximityStateDidChange, object: backingData, queue: .main) { [weak self] _ in
             guard let `self` = self else { return }
 
-            self.objectDetected.value = self.backingData.proximityState
+            self.objectDetected.updateData(value: self.backingData.proximityState)
 
             self.notifyListenersDataUpdated()
         }
@@ -138,7 +138,7 @@ public final class ProximitySensor: AutomaticallyUpdatingDataSource, ManuallyUpd
      */
     @discardableResult
     public func refreshData() -> [DataSourceData] {
-        objectDetected.value = backingData.proximityState
+        objectDetected.updateData(value: backingData.proximityState)
 
         return data
     }
