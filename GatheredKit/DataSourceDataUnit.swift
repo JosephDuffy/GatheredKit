@@ -35,6 +35,8 @@ public protocol DataSourceDataUnit {
  */
 public protocol NumberBasedDataSourceDataUnit: DataSourceDataUnit {
 
+    static var defaultMaximumFractionDigits: Int { get }
+
     /// The string that will be appended to the end of the string when
     /// the value is equal to 1, or `pluralValueSuffix` is `nil`
     var singularValueSuffix: String { get }
@@ -48,11 +50,6 @@ public protocol NumberBasedDataSourceDataUnit: DataSourceDataUnit {
     var maximumFractionDigits: Int { get }
 
     /**
-     Create a new instance of the unit with the default `maximumFractionDigits` value
-    */
-    init()
-
-    /**
      Create a new instance of the unit
 
      - parameter maximumFractionDigits: The maximum number of digits to show after the decimal place
@@ -62,6 +59,14 @@ public protocol NumberBasedDataSourceDataUnit: DataSourceDataUnit {
 }
 
 public extension NumberBasedDataSourceDataUnit {
+
+    /**
+     Create a new instance of the unit with the default `maximumFractionDigits` value. See the
+     `defaultMaximumFractionDigits` static property for the default value
+     */
+    init() {
+        self.init(maximumFractionDigits: Self.defaultMaximumFractionDigits)
+    }
 
     /**
      Generates a human-friendly string for the given value.
