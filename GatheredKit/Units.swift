@@ -10,6 +10,8 @@ import Foundation
 
 public struct BeatsPerMinute: NumberBasedDataSourceDataUnit {
 
+    public static let defaultMaximumFractionDigits: Int = 0
+
     public let singularValueSuffix = " BPM"
 
     public let pluralValueSuffix: String? = nil
@@ -18,10 +20,6 @@ public struct BeatsPerMinute: NumberBasedDataSourceDataUnit {
 
     public init(maximumFractionDigits: Int) {
         self.maximumFractionDigits = maximumFractionDigits
-    }
-
-    public init() {
-        self.maximumFractionDigits = 0
     }
     
 }
@@ -73,6 +71,8 @@ public struct Boolean: DataSourceDataUnit {
 
 public struct Decibel: NumberBasedDataSourceDataUnit {
 
+    public static let defaultMaximumFractionDigits: Int = 0
+
     public let singularValueSuffix = " dB"
 
     public let pluralValueSuffix: String? = nil
@@ -83,13 +83,11 @@ public struct Decibel: NumberBasedDataSourceDataUnit {
         self.maximumFractionDigits = maximumFractionDigits
     }
 
-    public init() {
-        self.maximumFractionDigits = 0
-    }
-
 }
 
 public struct Degree: NumberBasedDataSourceDataUnit {
+
+    public static let defaultMaximumFractionDigits: Int = 0
 
     public let singularValueSuffix = "º"
 
@@ -100,14 +98,12 @@ public struct Degree: NumberBasedDataSourceDataUnit {
     public init(maximumFractionDigits: Int) {
         self.maximumFractionDigits = maximumFractionDigits
     }
-
-    public init() {
-        self.maximumFractionDigits = 0
-    }
     
 }
 
 public struct Kilopascal: NumberBasedDataSourceDataUnit {
+
+    public static let defaultMaximumFractionDigits: Int = 2
 
     public let singularValueSuffix = " kPa"
 
@@ -118,15 +114,13 @@ public struct Kilopascal: NumberBasedDataSourceDataUnit {
     public init(maximumFractionDigits: Int) {
         self.maximumFractionDigits = maximumFractionDigits
     }
-
-    public init() {
-        self.maximumFractionDigits = 2
-    }
     
 }
 
 
 public struct Meter: NumberBasedDataSourceDataUnit {
+
+    public static let defaultMaximumFractionDigits: Int = 2
 
     public let singularValueSuffix = " Meter"
 
@@ -138,12 +132,11 @@ public struct Meter: NumberBasedDataSourceDataUnit {
         self.maximumFractionDigits = maximumFractionDigits
     }
 
-    public init() {
-        self.maximumFractionDigits = 2
-    }
 }
 
 public struct Percent: NumberBasedDataSourceDataUnit {
+
+    public static let defaultMaximumFractionDigits: Int = 2
 
     public let singularValueSuffix = "%"
 
@@ -153,10 +146,6 @@ public struct Percent: NumberBasedDataSourceDataUnit {
 
     public init(maximumFractionDigits: Int) {
         self.maximumFractionDigits = maximumFractionDigits
-    }
-
-    public init() {
-        self.maximumFractionDigits = 0
     }
 
     /**
@@ -183,6 +172,8 @@ public struct Percent: NumberBasedDataSourceDataUnit {
 
 public struct Pixel: NumberBasedDataSourceDataUnit {
 
+    public static let defaultMaximumFractionDigits: Int = 0
+
     public let singularValueSuffix = " Pixel"
 
     public let pluralValueSuffix: String? = nil
@@ -193,13 +184,11 @@ public struct Pixel: NumberBasedDataSourceDataUnit {
         self.maximumFractionDigits = maximumFractionDigits
     }
 
-    public init() {
-        self.maximumFractionDigits = 0
-    }
-
 }
 
 public struct Point: NumberBasedDataSourceDataUnit {
+
+    public static let defaultMaximumFractionDigits: Int = 0
 
     public let singularValueSuffix = " Point"
 
@@ -209,10 +198,6 @@ public struct Point: NumberBasedDataSourceDataUnit {
 
     public init(maximumFractionDigits: Int) {
         self.maximumFractionDigits = maximumFractionDigits
-    }
-
-    public init() {
-        self.maximumFractionDigits = 0
     }
     
 }
