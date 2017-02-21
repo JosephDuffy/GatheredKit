@@ -30,7 +30,7 @@ public protocol DataSource: class {
 }
 
 /**
- A `DataSource` that delivers new data in real-time, rather than manually or at a set frequency
+ A data source that delivers new data in real-time, rather than manually or at a set frequency
  */
 public protocol AutomaticallyUpdatingDataSource: DataSource {
 
@@ -51,7 +51,7 @@ public protocol AutomaticallyUpdatingDataSource: DataSource {
 }
 
 /**
- A data source that supports updating at any given time interval
+ A data source that supports updating at a given time interval
  */
 public protocol CustomisableUpdateIntervalDataSource: DataSource {
 
@@ -77,7 +77,7 @@ public protocol CustomisableUpdateIntervalDataSource: DataSource {
 }
 
 /**
- A `DataSource` that supports refreshing its data on request
+ A protocol that inherits `DataSource` and adds support for refreshing data on request
  */
 public protocol ManuallyUpdateableDataSource: DataSource {
 
