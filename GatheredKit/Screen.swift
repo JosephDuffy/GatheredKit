@@ -11,7 +11,7 @@ import UIKit
 /**
  A wrapper around `UIScreen`
  */
-public final class Screen: AutomaticallyUpdatingDataSource, ManuallyRefreshableDataSource {
+public final class Screen: AutomaticallyUpdatingDataSource, ManuallyUpdateableDataSource {
 
     private enum State {
         case notMonitoring
@@ -152,7 +152,7 @@ public final class Screen: AutomaticallyUpdatingDataSource, ManuallyRefreshableD
 
         state = .monitoring(brightnessChangeObeserver: brightnessChangeObeserver)
 
-        refreshData()
+        updateData()
         notifyListenersDataUpdated()
     }
 
@@ -168,12 +168,13 @@ public final class Screen: AutomaticallyUpdatingDataSource, ManuallyRefreshableD
     }
 
     /**
-     Update and return the information about the screen
-     
-     - returns: The new data
+     Force the screen to update its data. Note that there is no guarantee that new data
+     will be available
+
+     - returns: The data
      */
     @discardableResult
-    public func refreshData() -> [DataSourceData] {
+    public func updateData() -> [DataSourceData] {
         let resolution = screen.bounds.size
         let nativeResolution = screen.nativeBounds.size
 

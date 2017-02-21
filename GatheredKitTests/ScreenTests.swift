@@ -24,7 +24,7 @@ final class ScreenTests: QuickSpec {
                 screen = Screen(screen: mock)
             }
 
-            context("that has not had `refreshData()` called") {
+            context("that has not had `updateData()` called") {
 
                 it("will load the reported screen resolution from the backing data") {
                     expect(mock.boundsWasCalled).to(beTrue())
@@ -72,10 +72,10 @@ final class ScreenTests: QuickSpec {
                 }
             }
 
-            context("that has had `refreshData()` called") {
+            context("that has had `updateData()` called") {
 
                 beforeEach {
-                    screen.refreshData()
+                    screen.updateData()
                 }
 
                 it("will load the reported screen resolution from the backing data") {
