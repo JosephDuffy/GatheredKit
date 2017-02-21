@@ -117,6 +117,21 @@ public struct Kilopascal: NumberBasedDataSourceDataUnit {
     
 }
 
+public struct MicroTesla: NumberBasedDataSourceDataUnit {
+
+    public static let defaultMaximumFractionDigits: Int = 2
+
+    public let singularValueSuffix = " µT"
+
+    public let pluralValueSuffix: String? = nil
+
+    public let maximumFractionDigits: Int
+
+    public init(maximumFractionDigits: Int) {
+        self.maximumFractionDigits = maximumFractionDigits
+    }
+
+}
 
 public struct Meter: NumberBasedDataSourceDataUnit {
 

@@ -53,52 +53,52 @@ public protocol AutomaticallyUpdatingDataSource: DataSource {
 /**
  A data source that supports updating at any given time interval
  */
-public protocol CustomisableUpdateFrequencyDataSource: DataSource {
+public protocol CustomisableUpdateIntervalDataSource: DataSource {
 
-    /// How frequently the data source will update. A value of `nil` indicates that
+    /// The time interval between data updates. A value of `nil` indicates that
     /// the data source is not performing automatic periodic updates
-    var updateFrequency: TimeInterval? { get }
+    var updateInterval: TimeInterval? { get }
 
-    /// A boolean indicating if the data source is currently refreshing its data every `updateFrequency`
-    var isRefreshing: Bool { get }
-
-    /**
-     Start performing periodic updates, updating every `updateFrequency` seconds. This will cause
-     delegate methods to be called every `updateFrequency`, even if the data has not changed
-
-     - parameter updateFrequency: The number of seconds between data refreshes
-     */
-    func startRefreshing(every refreshFrequency: TimeInterval)
+    /// A boolean indicating if the data source is performing period updates every `updateInterval`
+    var isUpdating: Bool { get }
 
     /**
-     Stop performing periodic data refreshes
+     Start performing periodic updates, updating every `updateInterval` seconds
+
+     - parameter updateInterval: The interval between data updates, measured in seconds
      */
-    func stopRefreshing()
+    func startUpdating(every updateInterval: TimeInterval)
+
+    /**
+     Stop performing periodic data updated
+     */
+    func stopUpdating()
 
 }
 
 /**
- A `DataSource` that supporting refreshing its data on request
+ A `DataSource` that supports refreshing its data on request
  */
-public protocol ManuallyRefreshableDataSource: DataSource {
+public protocol ManuallyUpdateableDataSource: DataSource {
 
     /**
-     Force the refreshing of the data
+     Force the data source to update its data. Note that there is no guarantee that new data
+     will be available
      
      - returns: The data
      */
     @discardableResult
-    func refreshData() -> [DataSourceData]
+    func updateData() -> [DataSourceData]
 
 }
 
 // MARK:- Extensions
 
-public extension CustomisableUpdateFrequencyDataSource {
+public extension CustomisableUpdateIntervalDataSource {
 
-    /// A boolean indicating if the data source is currently refreshing its data every `updateFrequency`
+    /// A boolean indicating if the data source is currently refreshing its data every `updateInterval`
     public var isRefreshing: Bool {
-        return updateFrequency != nil
+        return updateInterval != nil
     }
 
 }
@@ -117,9 +117,15 @@ internal extension DataSource {
      then the `dataSourceDataUpdated` notification is posted with `self` as the object
      */
     func notifyListenersDataUpdated() {
-        delegate?.dataSource(self, refreshedData: data)
+        delegate?.dataSource(self, updatedData: data)
 
         NotificationCenter.default.post(name: .dataSourceDataUpdated, object: self)
+    }
+
+    func notifyDelegate(errorOccurred error: Error?) {
+        guard let delegate = self.delegate as? DataSourceErrorHandlingDelegate else { return }
+
+        delegate.dataSource(self, gotErrorWhileRefreshing: error)
     }
 
 }
