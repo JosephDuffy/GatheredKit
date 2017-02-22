@@ -1,4 +1,4 @@
-#![GatheredKit](../.github/banner.png)
+#![GatheredKit](img/banner.png)
 
 [![Documentation](badge.svg)](https://josephduffy.github.io/GatheredKit/) [![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage) [![MIT License](https://img.shields.io/badge/License-MIT-4BC51D.svg?style=flat)](https://github.com/josephduffy/GatheredKit/blob/master/LICENSE)
 --
