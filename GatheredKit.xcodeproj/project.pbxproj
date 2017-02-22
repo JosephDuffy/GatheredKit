@@ -105,6 +105,7 @@
 				D975D6B01E4A2EC500789F1B /* ScreenTests.swift */,
 			);
 			name = "Data Sources";
+			path = "Data Sources";
 			sourceTree = "<group>";
 		};
 		D9909A6D1E45273C005F9C9E /* Units */ = {
@@ -113,6 +114,7 @@
 				D9909A6E1E452746005F9C9E /* Units.swift */,
 			);
 			name = Units;
+			path = Units;
 			sourceTree = "<group>";
 		};
 		D9D221461E4F8EE6005988E3 /* Device Motion */ = {
@@ -122,6 +124,7 @@
 				D9D221471E4F8F07005988E3 /* SmoothMagnetometer.swift */,
 			);
 			name = "Device Motion";
+			path = "Device Motion";
 			sourceTree = "<group>";
 		};
 		D9D2F9781E44FF7600667237 = {
@@ -145,10 +148,10 @@
 		D9D2F9841E44FF7600667237 /* GatheredKit */ = {
 			isa = PBXGroup;
 			children = (
-				D9D2F9971E4513F200667237 /* Data Sources */,
-				D9909A6D1E45273C005F9C9E /* Units */,
 				D9D2F98D1E45023B00667237 /* Core */,
+				D9D2F9971E4513F200667237 /* Data Sources */,
 				D9D2F9941E450D0B00667237 /* Extensions */,
+				D9909A6D1E45273C005F9C9E /* Units */,
 				D9D2F9851E44FF7600667237 /* GatheredKit.h */,
 				D9D2F9861E44FF7600667237 /* Info.plist */,
 			);
@@ -159,12 +162,13 @@
 			isa = PBXGroup;
 			children = (
 				D9D2F98E1E45024500667237 /* DataSource.swift */,
-				D9D2213E1E477523005988E3 /* DataSourceDelegate.swift */,
 				D9D2F9901E4502BE00667237 /* DataSourceData.swift */,
 				D9D2F9981E45164800667237 /* DataSourceDataUnit.swift */,
+				D9D2213E1E477523005988E3 /* DataSourceDelegate.swift */,
 				D9A132CC1E5CCEBA005A4603 /* Result.swift */,
 			);
 			name = Core;
+			path = Core;
 			sourceTree = "<group>";
 		};
 		D9D2F9941E450D0B00667237 /* Extensions */ = {
@@ -173,17 +177,19 @@
 				D9D2F9951E450D1D00667237 /* Timer+Block.swift */,
 			);
 			name = Extensions;
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 		D9D2F9971E4513F200667237 /* Data Sources */ = {
 			isa = PBXGroup;
 			children = (
 				D9D221461E4F8EE6005988E3 /* Device Motion */,
-				D9D2F9921E45076B00667237 /* TimerBasedDataSource.swift */,
-				D9D2211E1E45FF1A005988E3 /* Screen.swift */,
 				D9D221401E4E6A1B005988E3 /* ProximitySensor.swift */,
+				D9D2211E1E45FF1A005988E3 /* Screen.swift */,
+				D9D2F9921E45076B00667237 /* TimerBasedDataSource.swift */,
 			);
 			name = "Data Sources";
+			path = "Data Sources";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
