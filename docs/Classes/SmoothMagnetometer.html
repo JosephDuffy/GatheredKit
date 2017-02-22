@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>SmoothMagnetometer Class Reference</title>
+    <link rel="stylesheet" type="text/css" href="../css/jazzy.css" />
+    <link rel="stylesheet" type="text/css" href="../css/highlight.css" />
+    <meta charset='utf-8'>
+    <script src="../js/jquery.min.js" defer></script>
+    <script src="../js/jazzy.js" defer></script>
+    
+  </head>
+  <body>
+    <a name="//apple_ref/swift/Class/SmoothMagnetometer" class="dashAnchor"></a>
+    <a title="SmoothMagnetometer Class Reference"></a>
+    <header>
+      <div class="content-wrapper">
+        <p><a href="../index.html">GatheredKit Docs</a> (100% documented)</p>
+        <p class="header-right"><a href="https://github.com/josephduffy/GatheredKit"><img src="../img/gh.png"/>View on GitHub</a></p>
+      </div>
+    </header>
+    <div class="content-wrapper">
+      <p id="breadcrumbs">
+        <a href="../index.html">GatheredKit Reference</a>
+        <img id="carat" src="../img/carat.png" />
+        SmoothMagnetometer Class Reference
+      </p>
+    </div>
+    <div class="content-wrapper">
+      <nav class="sidebar">
+        <ul class="nav-groups">
+          <li class="nav-group-name">
+            <a href="../Classes.html">Classes</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Classes/DeviceMotionDataSourceBase.html">DeviceMotionDataSourceBase</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/ProximitySensor.html">ProximitySensor</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/Screen.html">Screen</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/SmoothMagnetometer.html">SmoothMagnetometer</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/TimerBasedDataSource.html">TimerBasedDataSource</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Enums.html">Enums</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Enums/DataSourceDataUnitError.html">DataSourceDataUnitError</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Extensions.html">Extensions</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Extensions/Notification.html">Notification</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Protocols.html">Protocols</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Protocols/AutomaticallyUpdatingDataSource.html">AutomaticallyUpdatingDataSource</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/CustomisableUpdateIntervalDataSource.html">CustomisableUpdateIntervalDataSource</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/DataSource.html">DataSource</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/DataSourceData.html">DataSourceData</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/DataSourceDataUnit.html">DataSourceDataUnit</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/DataSourceDelegate.html">DataSourceDelegate</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/DataSourceErrorHandlingDelegate.html">DataSourceErrorHandlingDelegate</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/ManuallyUpdateableDataSource.html">ManuallyUpdateableDataSource</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/NumberBasedDataSourceDataUnit.html">NumberBasedDataSourceDataUnit</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/ProximitySensorBackingData.html">ProximitySensorBackingData</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/ScreenBackingData.html">ScreenBackingData</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/TypedDataSourceDataProtocol.html">TypedDataSourceDataProtocol</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Structs.html">Structs</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Structs/BeatsPerMinute.html">BeatsPerMinute</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Boolean.html">Boolean</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Byte.html">Byte</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Decibel.html">Decibel</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Degree.html">Degree</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Kilopascal.html">Kilopascal</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Meter.html">Meter</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Microtesla.html">Microtesla</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Percent.html">Percent</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Pixel.html">Pixel</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Point.html">Point</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/TypedDataSourceData.html">TypedDataSourceData</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+      <article class="main-content">
+        <section>
+          <section class="section">
+            <h1>SmoothMagnetometer</h1>
+              <div class="declaration">
+                <div class="language">
+                  <pre class="highlight"><code><span class="kd">public</span> <span class="kd">final</span> <span class="kd">class</span> <span class="kt">SmoothMagnetometer</span><span class="p">:</span> <span class="kt"><a href="../Classes/DeviceMotionDataSourceBase.html">DeviceMotionDataSourceBase</a></span><span class="p">,</span> <span class="kt"><a href="../Protocols/CustomisableUpdateIntervalDataSource.html">CustomisableUpdateIntervalDataSource</a></span></code></pre>
+
+                </div>
+              </div>
+            <p>A sensor that measure magnetic fields. This will report values that have been corrected for the bias introduced
+by the device and its electronic components</p>
+
+          </section>
+          <section class="section task-group-section">
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:ZvC11GatheredKit18SmoothMagnetometer11isAvailableSb"></a>
+                    <a name="//apple_ref/swift/Variable/isAvailable" class="dashAnchor"></a>
+                    <a class="token" href="#/s:ZvC11GatheredKit18SmoothMagnetometer11isAvailableSb">isAvailable</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>A boolean indicating if a magnetometer with values corrected for the device&rsquo;s bias is available on the current device</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">static</span> <span class="k">var</span> <span class="nv">isAvailable</span><span class="p">:</span> <span class="kt">Bool</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/JosephDuffy/GatheredKit/tree/master/GatheredKit/SmoothMagnetometer.swift#L19-L21">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:ZvC11GatheredKit18SmoothMagnetometer11displayNameSS"></a>
+                    <a name="//apple_ref/swift/Variable/displayName" class="dashAnchor"></a>
+                    <a class="token" href="#/s:ZvC11GatheredKit18SmoothMagnetometer11displayNameSS">displayName</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>A user-friendly name for the magnetometer</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">static</span> <span class="k">var</span> <span class="nv">displayName</span> <span class="o">=</span> <span class="s">"Magnetometer (corrected for device)"</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/JosephDuffy/GatheredKit/tree/master/GatheredKit/SmoothMagnetometer.swift#L24">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:vC11GatheredKit18SmoothMagnetometer4dataGSaPS_14DataSourceData__"></a>
+                    <a name="//apple_ref/swift/Property/data" class="dashAnchor"></a>
+                    <a class="token" href="#/s:vC11GatheredKit18SmoothMagnetometer4dataGSaPS_14DataSourceData__">data</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>An array of the data reported by the magnetometer, in the following order:</p>
+
+<ul>
+<li>x</li>
+<li>y</li>
+<li>z</li>
+<li>Accuracy</li>
+</ul>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">data</span><span class="p">:</span> <span class="p">[</span><span class="kt"><a href="../Protocols/DataSourceData.html">DataSourceData</a></span><span class="p">]</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/JosephDuffy/GatheredKit/tree/master/GatheredKit/SmoothMagnetometer.swift#L34-L41">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:vC11GatheredKit18SmoothMagnetometer1xGVS_19TypedDataSourceDataGSqSd__"></a>
+                    <a name="//apple_ref/swift/Property/x" class="dashAnchor"></a>
+                    <a class="token" href="#/s:vC11GatheredKit18SmoothMagnetometer1xGVS_19TypedDataSourceDataGSqSd__">x</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>X-axis magnetic field, measured in microteslas</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">private(set)</span> <span class="k">var</span> <span class="nv">x</span><span class="p">:</span> <span class="kt"><a href="../Structs/TypedDataSourceData.html">TypedDataSourceData</a></span><span class="o">&lt;</span><span class="kt">Optional</span><span class="o">&lt;</span><span class="kt">Double</span><span class="o">&gt;&gt;</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/JosephDuffy/GatheredKit/tree/master/GatheredKit/SmoothMagnetometer.swift#L44">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:vC11GatheredKit18SmoothMagnetometer1yGVS_19TypedDataSourceDataGSqSd__"></a>
+                    <a name="//apple_ref/swift/Property/y" class="dashAnchor"></a>
+                    <a class="token" href="#/s:vC11GatheredKit18SmoothMagnetometer1yGVS_19TypedDataSourceDataGSqSd__">y</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Y-axis magnetic field, measured in microteslas</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">private(set)</span> <span class="k">var</span> <span class="nv">y</span><span class="p">:</span> <span class="kt"><a href="../Structs/TypedDataSourceData.html">TypedDataSourceData</a></span><span class="o">&lt;</span><span class="kt">Optional</span><span class="o">&lt;</span><span class="kt">Double</span><span class="o">&gt;&gt;</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/JosephDuffy/GatheredKit/tree/master/GatheredKit/SmoothMagnetometer.swift#L47">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:vC11GatheredKit18SmoothMagnetometer1zGVS_19TypedDataSourceDataGSqSd__"></a>
+                    <a name="//apple_ref/swift/Property/z" class="dashAnchor"></a>
+                    <a class="token" href="#/s:vC11GatheredKit18SmoothMagnetometer1zGVS_19TypedDataSourceDataGSqSd__">z</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Z-axis magnetic field, measured in microteslas</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">private(set)</span> <span class="k">var</span> <span class="nv">z</span><span class="p">:</span> <span class="kt"><a href="../Structs/TypedDataSourceData.html">TypedDataSourceData</a></span><span class="o">&lt;</span><span class="kt">Optional</span><span class="o">&lt;</span><span class="kt">Double</span><span class="o">&gt;&gt;</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/JosephDuffy/GatheredKit/tree/master/GatheredKit/SmoothMagnetometer.swift#L50">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:vC11GatheredKit18SmoothMagnetometer8accuracyGVS_19TypedDataSourceDataGSqOSC34CMMagneticFieldCalibrationAccuracy__"></a>
+                    <a name="//apple_ref/swift/Property/accuracy" class="dashAnchor"></a>
+                    <a class="token" href="#/s:vC11GatheredKit18SmoothMagnetometer8accuracyGVS_19TypedDataSourceDataGSqOSC34CMMagneticFieldCalibrationAccuracy__">accuracy</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The accuracy of the magnetic field estimate</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">private(set)</span> <span class="k">var</span> <span class="nv">accuracy</span><span class="p">:</span> <span class="kt"><a href="../Structs/TypedDataSourceData.html">TypedDataSourceData</a></span><span class="o">&lt;</span><span class="kt">Optional</span><span class="o">&lt;</span><span class="kt">CMMagneticFieldCalibrationAccuracy</span><span class="o">&gt;&gt;</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/JosephDuffy/GatheredKit/tree/master/GatheredKit/SmoothMagnetometer.swift#L53">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:vC11GatheredKit18SmoothMagnetometer14referenceFrameGSqVSC24CMAttitudeReferenceFrame_"></a>
+                    <a name="//apple_ref/swift/Property/referenceFrame" class="dashAnchor"></a>
+                    <a class="token" href="#/s:vC11GatheredKit18SmoothMagnetometer14referenceFrameGSqVSC24CMAttitudeReferenceFrame_">referenceFrame</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The reference frame to</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="k">let</span> <span class="nv">referenceFrame</span><span class="p">:</span> <span class="kt">CMAttitudeReferenceFrame</span><span class="p">?</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/JosephDuffy/GatheredKit/tree/master/GatheredKit/SmoothMagnetometer.swift#L56">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FC11GatheredKit18SmoothMagnetometercFT14referenceFrameGSqVSC24CMAttitudeReferenceFrame__S0_"></a>
+                    <a name="//apple_ref/swift/Method/init(referenceFrame:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FC11GatheredKit18SmoothMagnetometercFT14referenceFrameGSqVSC24CMAttitudeReferenceFrame__S0_">init(referenceFrame:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Create a new <code>SmoothMagnetometer</code></p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">required</span> <span class="nf">init</span><span class="p">(</span><span class="nv">referenceFrame</span><span class="p">:</span> <span class="kt">CMAttitudeReferenceFrame</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>referenceFrame</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The frame to use for device motion updates. See <code>CMAttitudeReferenceFrame</code> for info. Default is <code>nil</code></p>
+
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/JosephDuffy/GatheredKit/tree/master/GatheredKit/SmoothMagnetometer.swift#L63-L69">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FC11GatheredKit18SmoothMagnetometer13startUpdatingFT5everySd_T_"></a>
+                    <a name="//apple_ref/swift/Method/startUpdating(every:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FC11GatheredKit18SmoothMagnetometer13startUpdatingFT5everySd_T_">startUpdating(every:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Start performing periodic updates, updating every <code>updateInterval</code> seconds</p>
+
+<p><strong>N.B.</strong></p>
+
+<p>This method will cause motion updates will be performed on the main operation queue, which could cause performance issues. To avoid
+this, provide an <code>OperationQueue</code> using the <code>operationQueue</code> parameter</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">startUpdating</span><span class="p">(</span><span class="n">every</span> <span class="nv">updateInterval</span><span class="p">:</span> <span class="kt">TimeInterval</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>updateInterval</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The interval between data refreshes, measured in seconds</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/JosephDuffy/GatheredKit/tree/master/GatheredKit/SmoothMagnetometer.swift#L81-L83">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FC11GatheredKit18SmoothMagnetometer13startUpdatingFT5everySd14operationQueueCSo14OperationQueue_T_"></a>
+                    <a name="//apple_ref/swift/Method/startUpdating(every:operationQueue:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FC11GatheredKit18SmoothMagnetometer13startUpdatingFT5everySd14operationQueueCSo14OperationQueue_T_">startUpdating(every:operationQueue:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Start performing periodic updates, updating every <code>updateInterval</code> seconds</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">startUpdating</span><span class="p">(</span><span class="n">every</span> <span class="nv">updateInterval</span><span class="p">:</span> <span class="kt">TimeInterval</span><span class="p">,</span> <span class="nv">operationQueue</span><span class="p">:</span> <span class="kt">OperationQueue</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>updateInterval</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The interval to perform data refreshes</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>operationQueue</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The queue that motion updates will be performed on. This can be high frequency so it’s recommend that the main queue is not used</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/JosephDuffy/GatheredKit/tree/master/GatheredKit/SmoothMagnetometer.swift#L91-L93">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </section>
+        </section>
+        <section id="footer">
+          <p>&copy; 2017 <a class="link" href="https://josephduffy.co.uk" target="_blank" rel="external">Joseph Duffy</a>. All rights reserved. (Last updated: 2017-02-22)</p>
+          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.7.4</a>, a <a class="link" href="http://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+        </section>
+      </article>
+    </div>
+  </body>
+</div>
+</html>

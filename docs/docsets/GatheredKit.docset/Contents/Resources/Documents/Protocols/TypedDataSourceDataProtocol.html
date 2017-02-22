@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>TypedDataSourceDataProtocol Protocol Reference</title>
+    <link rel="stylesheet" type="text/css" href="../css/jazzy.css" />
+    <link rel="stylesheet" type="text/css" href="../css/highlight.css" />
+    <meta charset='utf-8'>
+    <script src="../js/jquery.min.js" defer></script>
+    <script src="../js/jazzy.js" defer></script>
+    
+  </head>
+  <body>
+    <a name="//apple_ref/swift/Protocol/TypedDataSourceDataProtocol" class="dashAnchor"></a>
+    <a title="TypedDataSourceDataProtocol Protocol Reference"></a>
+    <header>
+      <div class="content-wrapper">
+        <p><a href="../index.html">GatheredKit Docs</a> (100% documented)</p>
+        <p class="header-right"><a href="https://github.com/josephduffy/GatheredKit"><img src="../img/gh.png"/>View on GitHub</a></p>
+      </div>
+    </header>
+    <div class="content-wrapper">
+      <p id="breadcrumbs">
+        <a href="../index.html">GatheredKit Reference</a>
+        <img id="carat" src="../img/carat.png" />
+        TypedDataSourceDataProtocol Protocol Reference
+      </p>
+    </div>
+    <div class="content-wrapper">
+      <nav class="sidebar">
+        <ul class="nav-groups">
+          <li class="nav-group-name">
+            <a href="../Classes.html">Classes</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Classes/DeviceMotionDataSourceBase.html">DeviceMotionDataSourceBase</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/ProximitySensor.html">ProximitySensor</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/Screen.html">Screen</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/SmoothMagnetometer.html">SmoothMagnetometer</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/TimerBasedDataSource.html">TimerBasedDataSource</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Enums.html">Enums</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Enums/DataSourceDataUnitError.html">DataSourceDataUnitError</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Extensions.html">Extensions</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Extensions/Notification.html">Notification</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Protocols.html">Protocols</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Protocols/AutomaticallyUpdatingDataSource.html">AutomaticallyUpdatingDataSource</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/CustomisableUpdateIntervalDataSource.html">CustomisableUpdateIntervalDataSource</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/DataSource.html">DataSource</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/DataSourceData.html">DataSourceData</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/DataSourceDataUnit.html">DataSourceDataUnit</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/DataSourceDelegate.html">DataSourceDelegate</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/DataSourceErrorHandlingDelegate.html">DataSourceErrorHandlingDelegate</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/ManuallyUpdateableDataSource.html">ManuallyUpdateableDataSource</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/NumberBasedDataSourceDataUnit.html">NumberBasedDataSourceDataUnit</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/ProximitySensorBackingData.html">ProximitySensorBackingData</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/ScreenBackingData.html">ScreenBackingData</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/TypedDataSourceDataProtocol.html">TypedDataSourceDataProtocol</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Structs.html">Structs</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Structs/BeatsPerMinute.html">BeatsPerMinute</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Boolean.html">Boolean</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Byte.html">Byte</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Decibel.html">Decibel</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Degree.html">Degree</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Kilopascal.html">Kilopascal</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Meter.html">Meter</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Microtesla.html">Microtesla</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Percent.html">Percent</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Pixel.html">Pixel</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Point.html">Point</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/TypedDataSourceData.html">TypedDataSourceData</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+      <article class="main-content">
+        <section>
+          <section class="section">
+            <h1>TypedDataSourceDataProtocol</h1>
+              <div class="declaration">
+                <div class="language">
+                  <pre class="highlight"><code><span class="kd">public</span> <span class="kd">protocol</span> <span class="kt">TypedDataSourceDataProtocol</span><span class="p">:</span> <span class="kt"><a href="../Protocols/DataSourceData.html">DataSourceData</a></span></code></pre>
+
+                </div>
+              </div>
+            <p>An protocol that inherits <code><a href="../Protocols/DataSourceData.html">DataSourceData</a></code> to add a type-safe the <code>value</code> property and associated methods</p>
+
+          </section>
+          <section class="section task-group-section">
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:vP11GatheredKit27TypedDataSourceDataProtocol5valuewx9ValueType"></a>
+                    <a name="//apple_ref/swift/Property/value" class="dashAnchor"></a>
+                    <a class="token" href="#/s:vP11GatheredKit27TypedDataSourceDataProtocol5valuewx9ValueType">value</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The value of the data</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="k">var</span> <span class="nv">value</span><span class="p">:</span> <span class="kt"><a href="../Protocols/TypedDataSourceDataProtocol.html#/s:P11GatheredKit27TypedDataSourceDataProtocol9ValueType">ValueType</a></span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/JosephDuffy/GatheredKit/tree/master/GatheredKit/DataSourceData.swift#L130">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:P11GatheredKit27TypedDataSourceDataProtocol9ValueType"></a>
+                    <a name="//apple_ref/swift/Alias/ValueType" class="dashAnchor"></a>
+                    <a class="token" href="#/s:P11GatheredKit27TypedDataSourceDataProtocol9ValueType">ValueType</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The type of the stored data</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="k">associatedtype</span> <span class="kt">ValueType</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/JosephDuffy/GatheredKit/tree/master/GatheredKit/DataSourceData.swift#L127">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FP11GatheredKit27TypedDataSourceDataProtocolcFT11displayNameSS5valuewx9ValueType14formattedValueGSqSS_4unitGSqPS_18DataSourceDataUnit__4dateV10Foundation4Date_x"></a>
+                    <a name="//apple_ref/swift/Method/init(displayName:value:formattedValue:unit:date:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FP11GatheredKit27TypedDataSourceDataProtocolcFT11displayNameSS5valuewx9ValueType14formattedValueGSqSS_4unitGSqPS_18DataSourceDataUnit__4dateV10Foundation4Date_x">init(displayName:value:formattedValue:unit:date:)</a>
+                    </code>
+                      <span class="declaration-note">
+                        Default implementation
+                      </span>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Create a new <code>TypedDataSourceDataProtocol</code></p>
+
+                      </div>
+                      <h4>Default Implementation</h4>
+                      <div class="default_impl abstract">
+                        <p>Create a new <code>TypedDataSourceDataProtocol</code></p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="nf">init</span><span class="p">(</span><span class="nv">displayName</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">value</span><span class="p">:</span> <span class="kt"><a href="../Protocols/TypedDataSourceDataProtocol.html#/s:P11GatheredKit27TypedDataSourceDataProtocol9ValueType">ValueType</a></span><span class="p">,</span> <span class="nv">formattedValue</span><span class="p">:</span> <span class="kt">String</span><span class="p">?,</span> <span class="nv">unit</span><span class="p">:</span> <span class="kt"><a href="../Protocols/DataSourceDataUnit.html">DataSourceDataUnit</a></span><span class="p">?,</span> <span class="nv">date</span><span class="p">:</span> <span class="kt">Date</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>displayName</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>A user-friendly name for the data source</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>value</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The value of the data</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>formattedValue</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>A human-friendly formatted value</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>unit</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>A unit of measurement for the data source’s value</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>date</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The date that the value was recorded</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/JosephDuffy/GatheredKit/tree/master/GatheredKit/DataSourceData.swift#L141">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FP11GatheredKit27TypedDataSourceDataProtocol10updateDataFT5valuewx9ValueType14formattedValueGSqSS_4dateV10Foundation4Date_T_"></a>
+                    <a name="//apple_ref/swift/Method/updateData(value:formattedValue:date:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FP11GatheredKit27TypedDataSourceDataProtocol10updateDataFT5valuewx9ValueType14formattedValueGSqSS_4dateV10Foundation4Date_T_">updateData(value:formattedValue:date:)</a>
+                    </code>
+                      <span class="declaration-note">
+                        Default implementation
+                      </span>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Updates the data backing this <code>TypedDataSourceDataProtocol</code></p>
+
+                      </div>
+                      <h4>Default Implementation</h4>
+                      <div class="default_impl abstract">
+                        <p>Updates the data backing this <code>TypedDataSourceDataProtocol</code></p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="k">mutating</span> <span class="kd">func</span> <span class="nf">updateData</span><span class="p">(</span><span class="nv">value</span><span class="p">:</span> <span class="kt"><a href="../Protocols/TypedDataSourceDataProtocol.html#/s:P11GatheredKit27TypedDataSourceDataProtocol9ValueType">ValueType</a></span><span class="p">,</span> <span class="nv">formattedValue</span><span class="p">:</span> <span class="kt">String</span><span class="p">?,</span> <span class="nv">date</span><span class="p">:</span> <span class="kt">Date</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>value</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The new value of the data</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>formattedValue</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The new human-friendly formatted value</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>date</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The date the <code>value</code> was recorded</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/JosephDuffy/GatheredKit/tree/master/GatheredKit/DataSourceData.swift#L150">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:vE11GatheredKitPS_27TypedDataSourceDataProtocol8rawValueGSqP__"></a>
+                    <a name="//apple_ref/swift/Property/rawValue" class="dashAnchor"></a>
+                    <a class="token" href="#/s:vE11GatheredKitPS_27TypedDataSourceDataProtocol8rawValueGSqP__">rawValue</a>
+                    </code>
+                      <span class="declaration-note">
+                        Extension method
+                      </span>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The raw value of the data</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">rawValue</span><span class="p">:</span> <span class="kt">Any</span><span class="p">?</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/JosephDuffy/GatheredKit/tree/master/GatheredKit/DataSourceData.swift#L190-L192">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </section>
+        </section>
+        <section id="footer">
+          <p>&copy; 2017 <a class="link" href="https://josephduffy.co.uk" target="_blank" rel="external">Joseph Duffy</a>. All rights reserved. (Last updated: 2017-02-22)</p>
+          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.7.4</a>, a <a class="link" href="http://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+        </section>
+      </article>
+    </div>
+  </body>
+</div>
+</html>
