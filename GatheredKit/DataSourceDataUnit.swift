@@ -35,16 +35,16 @@ public protocol DataSourceDataUnit {
  */
 public protocol NumberBasedDataSourceDataUnit: DataSourceDataUnit {
 
+    /// The value for `maximumFractionDigits` that will be used with the empty initialiser 
     static var defaultMaximumFractionDigits: Int { get }
 
     /// The string that will be appended to the end of the string when
-    /// the value is equal to 1, or `pluralValueSuffix` is `nil`
+    /// the value does equal 1
     var singularValueSuffix: String { get }
 
     /// The string that will be appended to the end of the string when
-    /// the value does not equal 1. If the value does not equal 1, but this
-    /// vlaue is nil, `singularValueSuffix` will be used
-    var pluralValueSuffix: String? { get }
+    /// the value does not equal 1
+    var pluralValueSuffix: String { get }
 
     /// The maximum number of digits to show after the decimal place
     var maximumFractionDigits: Int { get }
@@ -107,7 +107,7 @@ public extension NumberBasedDataSourceDataUnit {
 
         let defaultValue = String(describing: numberValue)
 
-        let suffix = numberValue == 1 ? singularValueSuffix : (pluralValueSuffix ?? singularValueSuffix)
+        let suffix = numberValue == 1 ? singularValueSuffix : pluralValueSuffix
         let value = formatter.string(from: numberValue) ?? defaultValue
 
         return value + suffix
