@@ -1,6 +1,6 @@
 #![GatheredKit](../.github/banner.png)
 
-[![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage) [![Documentation](badge.svg)](https://github.com/Carthage/Carthage)
+[![Documentation](badge.svg)](https://josephduffy.github.io/GatheredKit/) [![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage) [![MIT License](https://img.shields.io/badge/License-MIT-4BC51D.svg?style=flat)](https://github.com/josephduffy/GatheredKit/blob/master/LICENSE)
 --
 
 GatheredKit is a framework that provides a consistent and easy to use API for various data sources offered by iOS. It is based on the code used by my app, Gathered ([App Store](https://itunes.apple.com/us/app/apple-store/id929726748?mt=8)), but improved for more general use.
@@ -32,7 +32,7 @@ public protocol DataSource: class {
 
 There are more protocols, but this is the base protocol that all others inherit from.
 
-Each protocol that inherits from `DataSource` declares its own methods for updating the data source's data. These protocols are defined in [`DataSource`](LINK TO DOCUMENTATION)
+Each protocol that inherits from `DataSource` declares its own methods for updating the data source's data. These protocols are defined in [`DataSource`](https://josephduffy.github.io/GatheredKit/Protocols/DataSource.html)
 
 ##Installation
 
