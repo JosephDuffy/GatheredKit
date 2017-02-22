@@ -8,30 +8,62 @@
 
 import Foundation
 
+/**
+ A struct that represents Beats Per Minute (BPS)
+ */
 public struct BeatsPerMinute: NumberBasedDataSourceDataUnit {
 
+    /// The value for `maximumFractionDigits` that will be used with the empty initialiser
     public static let defaultMaximumFractionDigits: Int = 0
 
+    /// The string that will be appended to the end of the string when
+    /// the value does equal 1
     public let singularValueSuffix = " BPM"
 
-    public let pluralValueSuffix: String? = nil
+    /// The string that will be appended to the end of the string when
+    /// the value does not equal 1
+    public let pluralValueSuffix = " BPM"
 
+    /// The maximum number of digits to show after the decimal place
     public let maximumFractionDigits: Int
 
+    /**
+     Create a new instance of the unit
+
+     - parameter maximumFractionDigits: The maximum number of digits to show after the decimal place
+    */
     public init(maximumFractionDigits: Int) {
         self.maximumFractionDigits = maximumFractionDigits
     }
     
 }
 
-public struct Byte {
+/**
+ A struct that represents computer bytes
+ */
+public struct Byte: DataSourceDataUnit {
 
+    /// How the bytes should be styled
     public let countStyle: ByteCountFormatter.CountStyle
 
+    /**
+     Create a new `Byte` instance
+     
+     - parameter countStyle: How the bytes should be styled. It is recommended that the `files` or `memory` style is used
+     */
     public init(countStyle: ByteCountFormatter.CountStyle) {
         self.countStyle = countStyle
     }
 
+    /**
+     Generates a human-friendly string for the given number
+
+     - parameter value: The number to be formatted
+
+     - throws: `DataSourceDataUnitError.unsupportedType` if the `value` parameter's type is not an `NSNumber`
+
+     - returns: The formatted string
+     */
     public func formattedString(for value: Any) throws -> String {
         guard let numberValue = value as? NSNumber else {
             throw DataSourceDataUnitError.unsupportedType(type: type(of: value))
@@ -42,17 +74,37 @@ public struct Byte {
 
 }
 
+/**
+ A struct that represents a value that can be either true or false
+ */
 public struct Boolean: DataSourceDataUnit {
 
+    /// The string that will be returned from `formattedString(for:)` when the value is `true`. If `nil`, "true" will be returned
     public let trueString: String?
 
+    /// The string that will be returned from `formattedString(for:)` when the value is `false`. If `nil`, "false" will be returned
     public let falseString: String?
 
+    /**
+     Create a new `Boolean` instance
+     
+     - parameter trueString: The string to return from `formattedString(for:)` when the value is `true`. If `nil`, "true" will be used
+     - parameter falseString: The string to return from `formattedString(for:)` when the value is `false`. If `nil`, "false" will be used
+     */
     public init(trueString: String?, falseString: String?) {
         self.trueString = trueString
         self.falseString = falseString
     }
 
+    /**
+     Generates a human-friendly string for the given boolean
+
+     - parameter value: The boolean to be formatted
+
+     - throws: `DataSourceDataUnitError.unsupportedType` if the `value` parameter's type is not a `Bool`
+
+     - returns: The formatted string
+     */
     public func formattedString(for value: Any) throws -> String {
         guard let boolValue = value as? Bool else {
             throw DataSourceDataUnitError.unsupportedType(type: type(of: value))
@@ -63,102 +115,192 @@ public struct Boolean: DataSourceDataUnit {
         } else if !boolValue, let falseString = falseString {
             return falseString
         } else {
-            return boolValue.description
+            switch boolValue {
+            case true:
+                return "true"
+            case false:
+                return "false"
+            }
         }
     }
 
 }
 
+/**
+ A struct that represents decibels
+ */
 public struct Decibel: NumberBasedDataSourceDataUnit {
 
+    /// The value for `maximumFractionDigits` that will be used with the empty initialiser
     public static let defaultMaximumFractionDigits: Int = 0
 
+    /// The string that will be appended to the end of the string when
+    /// the value does equal 1
     public let singularValueSuffix = " dB"
 
-    public let pluralValueSuffix: String? = nil
+    /// The string that will be appended to the end of the string when
+    /// the value does not equal 1
+    public let pluralValueSuffix = " dB"
 
+    /// The maximum number of digits to show after the decimal place
     public let maximumFractionDigits: Int
 
+    /**
+     Create a new instance of the unit
+
+     - parameter maximumFractionDigits: The maximum number of digits to show after the decimal place
+    */
     public init(maximumFractionDigits: Int) {
         self.maximumFractionDigits = maximumFractionDigits
     }
 
 }
 
+
+/**
+ A struct that represents degrees
+ */
 public struct Degree: NumberBasedDataSourceDataUnit {
 
+    /// The value for `maximumFractionDigits` that will be used with the empty initialiser
     public static let defaultMaximumFractionDigits: Int = 0
 
+    /// The string that will be appended to the end of the string when
+    /// the value does equal 1
     public let singularValueSuffix = "º"
 
-    public let pluralValueSuffix: String? = nil
+    /// The string that will be appended to the end of the string when
+    /// the value does not equal 1
+    public let pluralValueSuffix = "º"
 
+    /// The maximum number of digits to show after the decimal place
     public let maximumFractionDigits: Int
 
+    /**
+     Create a new instance of the unit
+
+     - parameter maximumFractionDigits: The maximum number of digits to show after the decimal place
+    */
     public init(maximumFractionDigits: Int) {
         self.maximumFractionDigits = maximumFractionDigits
     }
     
 }
 
+/**
+ A struct that represents kilopascals
+ */
 public struct Kilopascal: NumberBasedDataSourceDataUnit {
 
+    /// The value for `maximumFractionDigits` that will be used with the empty initialiser
     public static let defaultMaximumFractionDigits: Int = 2
 
+    /// The string that will be appended to the end of the string when
+    /// the value does equal 1
     public let singularValueSuffix = " kPa"
 
-    public let pluralValueSuffix: String? = nil
+    /// The string that will be appended to the end of the string when
+    /// the value does not equal 1
+    public let pluralValueSuffix = " kPa"
 
+    /// The maximum number of digits to show after the decimal place
     public let maximumFractionDigits: Int
 
+    /**
+     Create a new instance of the unit
+
+     - parameter maximumFractionDigits: The maximum number of digits to show after the decimal place
+    */
     public init(maximumFractionDigits: Int) {
         self.maximumFractionDigits = maximumFractionDigits
     }
     
 }
 
-public struct MicroTesla: NumberBasedDataSourceDataUnit {
+/**
+ A struct that represents microteslas
+ */
+public struct Microtesla: NumberBasedDataSourceDataUnit {
 
+    /// The value for `maximumFractionDigits` that will be used with the empty initialiser
     public static let defaultMaximumFractionDigits: Int = 2
 
+    /// The string that will be appended to the end of the string when
+    /// the value does equal 1
     public let singularValueSuffix = " µT"
 
-    public let pluralValueSuffix: String? = nil
+    /// The string that will be appended to the end of the string when
+    /// the value does not equal 1
+    public let pluralValueSuffix = " µT"
 
+    /// The maximum number of digits to show after the decimal place
     public let maximumFractionDigits: Int
 
+    /**
+     Create a new instance of the unit
+
+     - parameter maximumFractionDigits: The maximum number of digits to show after the decimal place
+    */
     public init(maximumFractionDigits: Int) {
         self.maximumFractionDigits = maximumFractionDigits
     }
 
 }
 
+/**
+ A struct that represents meters
+ */
 public struct Meter: NumberBasedDataSourceDataUnit {
 
+    /// The value for `maximumFractionDigits` that will be used with the empty initialiser
     public static let defaultMaximumFractionDigits: Int = 2
 
+    /// The string that will be appended to the end of the string when
+    /// the value does equal 1
     public let singularValueSuffix = " Meter"
 
-    public let pluralValueSuffix: String? = " Meters"
+    /// The string that will be appended to the end of the string when
+    /// the value does not equal 1
+    public let pluralValueSuffix = " Meters"
 
+    /// The maximum number of digits to show after the decimal place
     public let maximumFractionDigits: Int
 
+    /**
+     Create a new instance of the unit
+
+     - parameter maximumFractionDigits: The maximum number of digits to show after the decimal place
+    */
     public init(maximumFractionDigits: Int) {
         self.maximumFractionDigits = maximumFractionDigits
     }
 
 }
 
+/**
+ A struct that represents a percentage
+ */
 public struct Percent: NumberBasedDataSourceDataUnit {
 
+    /// The value for `maximumFractionDigits` that will be used with the empty initialiser
     public static let defaultMaximumFractionDigits: Int = 2
 
+    /// The string that will be appended to the end of the string when
+    /// the value does equal 1
     public let singularValueSuffix = "%"
 
-    public let pluralValueSuffix: String? = nil
+    /// The string that will be appended to the end of the string when
+    /// the value does not equal 1
+    public let pluralValueSuffix = "%"
 
+    /// The maximum number of digits to show after the decimal place
     public let maximumFractionDigits: Int
 
+    /**
+     Create a new instance of the unit
+
+     - parameter maximumFractionDigits: The maximum number of digits to show after the decimal place
+    */
     public init(maximumFractionDigits: Int) {
         self.maximumFractionDigits = maximumFractionDigits
     }
@@ -185,32 +327,60 @@ public struct Percent: NumberBasedDataSourceDataUnit {
     
 }
 
+/**
+ A struct that represents a screen's pixels
+ */
 public struct Pixel: NumberBasedDataSourceDataUnit {
 
+    /// The value for `maximumFractionDigits` that will be used with the empty initialiser
     public static let defaultMaximumFractionDigits: Int = 0
 
+    /// The string that will be appended to the end of the string when
+    /// the value does equal 1
     public let singularValueSuffix = " Pixel"
 
-    public let pluralValueSuffix: String? = nil
+    /// The string that will be appended to the end of the string when
+    /// the value does not equal 1
+    public let pluralValueSuffix = " Pixels"
 
+    /// The maximum number of digits to show after the decimal place
     public let maximumFractionDigits: Int
 
+    /**
+     Create a new instance of the unit
+
+     - parameter maximumFractionDigits: The maximum number of digits to show after the decimal place
+    */
     public init(maximumFractionDigits: Int) {
         self.maximumFractionDigits = maximumFractionDigits
     }
 
 }
 
+/**
+ A struct that represents a screen's resolution measured in points
+ */
 public struct Point: NumberBasedDataSourceDataUnit {
 
+    /// The value for `maximumFractionDigits` that will be used with the empty initialiser
     public static let defaultMaximumFractionDigits: Int = 0
 
+    /// The string that will be appended to the end of the string when
+    /// the value does equal 1
     public let singularValueSuffix = " Point"
 
-    public let pluralValueSuffix: String? = " Points"
+    /// The string that will be appended to the end of the string when
+    /// the value does not equal 1
+    public let pluralValueSuffix = " Points"
 
+    /// The maximum number of digits to show after the decimal place
     public let maximumFractionDigits: Int
 
+    /**
+     Create a new instance of the unit
+
+     - parameter maximumFractionDigits: The maximum number of digits to show after the decimal place
+    */
     public init(maximumFractionDigits: Int) {
         self.maximumFractionDigits = maximumFractionDigits
     }
