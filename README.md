@@ -1,6 +1,6 @@
-#![GatheredKit](.github/banner.png)
+#![GatheredKit](https://josephduffy.github.io/GatheredKit/img/banner.png)
 
-[![Documentation](./docs/badge.svg)](https://josephduffy.github.io/GatheredKit/) [![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage) [![MIT License](https://img.shields.io/badge/License-MIT-4BC51D.svg?style=flat)](./LICENSE)
+[![Documentation](https://josephduffy.github.io/GatheredKit/badge.svg)](https://josephduffy.github.io/GatheredKit/) [![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage) [![MIT License](https://img.shields.io/badge/License-MIT-4BC51D.svg?style=flat)](./LICENSE)
 --
 
 GatheredKit is a framework that provides a consistent and easy to use API for various data sources offered by iOS. It is based on the code used by my app, Gathered ([App Store](https://itunes.apple.com/us/app/apple-store/id929726748?mt=8)), but improved for more general use.
