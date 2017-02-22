@@ -54,10 +54,6 @@ If you plan to submit an app to Apple that uses GatheredKit, remember to add Gat
 $(SRCROOT)/Carthage/Build/iOS/GatheredKit.framework
 ```
 
-##Documentation
-
-Documentation for GatheredKit is provided in the source code. Browsable documentation is available at [https://josephduffy.github.io/GatheredKit/](https://josephduffy.github.io/GatheredKit/).
-
 ##Tests
 
 Running the tests for GatheredKit requires `Quick` and `Nimble`, which can be installed using Carthage:
