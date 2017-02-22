@@ -61,9 +61,9 @@ public final class SmoothMagnetometer: DeviceMotionDataSourceBase, CustomisableU
      - parameter referenceFrame: The frame to use for device motion updates. See `CMAttitudeReferenceFrame` for info. Default is `nil`
      */
     public required init(referenceFrame: CMAttitudeReferenceFrame? = nil) {
-        x = TypedDataSourceData(displayName: "x", value: nil, unit: MicroTesla())
-        y = TypedDataSourceData(displayName: "y", value: nil, unit: MicroTesla())
-        z = TypedDataSourceData(displayName: "z", value: nil, unit: MicroTesla())
+        x = TypedDataSourceData(displayName: "x", value: nil, unit: Microtesla())
+        y = TypedDataSourceData(displayName: "y", value: nil, unit: Microtesla())
+        z = TypedDataSourceData(displayName: "z", value: nil, unit: Microtesla())
         accuracy = TypedDataSourceData(displayName: "Accuracy", value: nil)
         self.referenceFrame = referenceFrame
     }
