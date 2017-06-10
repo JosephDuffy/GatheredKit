@@ -107,10 +107,16 @@ public extension NumberBasedSourcePropertyUnit {
 
         let defaultValue = String(describing: numberValue)
 
-        let suffix = numberValue == 1 ? singularValueSuffix : pluralValueSuffix
+
         let value = formatter.string(from: numberValue) ?? defaultValue
 
-        return value + suffix
+        switch formatter.numberStyle {
+        case .none, .decimal:
+            let suffix = numberValue == 1 ? singularValueSuffix : pluralValueSuffix
+            return value + suffix
+        default:
+            return value
+        }
     }
     
 }
