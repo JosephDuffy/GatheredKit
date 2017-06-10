@@ -1,5 +1,5 @@
 //
-//  DataSourceDataUnit.swift
+//  SourcePropertyUnit.swift
 //  GatheredKit
 //
 //  Created by Joseph Duffy on 03/02/2017.
@@ -9,19 +9,19 @@
 import Foundation
 
 /**
- A unit of measurement for an instance of `DataSourceData`
+ A unit of measurement for an instance of `SourceProperty`
  */
-public protocol DataSourceDataUnit {
+public protocol SourcePropertyUnit {
 
     /**
      Generates a human-friendly string for the given value.
      
      Note: The implementation may choose to throw any arbitrary `Error`, but see
-     `DataSourceDataUnitError` for common errors
+     `SourcePropertyUnitError` for common errors
      
      - parameter value: The value to be formatted
      
-     - throws: `DataSourceDataUnitError.unsupportedType` if the `value` parameter's type is not supported
+     - throws: `SourcePropertyUnitError.unsupportedType` if the `value` parameter's type is not supported
      - throws: Any arbitrary `Error` the implementor decides
      
      - returns: The formatted string
@@ -33,7 +33,7 @@ public protocol DataSourceDataUnit {
 /**
  A unit of measurement that is usually associated to a number.
  */
-public protocol NumberBasedDataSourceDataUnit: DataSourceDataUnit {
+public protocol NumberBasedSourcePropertyUnit: SourcePropertyUnit {
 
     /// The value for `maximumFractionDigits` that will be used with the empty initialiser 
     static var defaultMaximumFractionDigits: Int { get }
@@ -58,7 +58,7 @@ public protocol NumberBasedDataSourceDataUnit: DataSourceDataUnit {
 
 }
 
-public extension NumberBasedDataSourceDataUnit {
+public extension NumberBasedSourcePropertyUnit {
 
     /**
      Create a new instance of the unit with the default `maximumFractionDigits` value. See the
@@ -76,7 +76,7 @@ public extension NumberBasedDataSourceDataUnit {
 
      - parameter value: The value to be formatted. Must be castable to `NSNumber`
 
-     - throws: `DataSourceDataUnitError.unsupportedType` if the `value` cannot be cast to an `NSNumber`
+     - throws: `SourcePropertyUnitError.unsupportedType` if the `value` cannot be cast to an `NSNumber`
 
      - returns: The formatted string
      */
@@ -96,13 +96,13 @@ public extension NumberBasedDataSourceDataUnit {
      - parameter value: The value to be formatted. Must be castable to `NSNumber`
      - parameter formatter: The formatter to use to format the numeric value
 
-     - throws: `DataSourceDataUnitError.unsupportedType` if the `value` cannot be cast to an `NSNumber`
+     - throws: `SourcePropertyUnitError.unsupportedType` if the `value` cannot be cast to an `NSNumber`
 
      - returns: The formatted string
     */
     public func formattedString(for value: Any, usingFormatter formatter: NumberFormatter) throws -> String {
         guard let numberValue = value as? NSNumber else {
-            throw DataSourceDataUnitError.unsupportedType(type: type(of: value))
+            throw SourcePropertyUnitError.unsupportedType(type: type(of: value))
         }
 
         let defaultValue = String(describing: numberValue)
@@ -116,9 +116,9 @@ public extension NumberBasedDataSourceDataUnit {
 }
 
 /** 
- An error thrown by a `DataSourceDataUnit`
+ An error thrown by a `SourcePropertyUnit`
  */
-public enum DataSourceDataUnitError: Error {
+public enum SourcePropertyUnitError: Error {
 
     /// Thrown when the supplied value's type is not supported.
     case unsupportedType(type: Any.Type)

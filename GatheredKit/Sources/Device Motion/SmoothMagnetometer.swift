@@ -13,7 +13,7 @@ import CoreMotion
  A sensor that measure magnetic fields. This will report values that have been corrected for the bias introduced
  by the device and its electronic components
  */
-public final class SmoothMagnetometer: DeviceMotionDataSourceBase, CustomisableUpdateIntervalDataSource {
+public final class SmoothMagnetometer: DeviceMotionSourceBase, CustomisableUpdateIntervalSource {
 
     /// A boolean indicating if a magnetometer with values corrected for the device's bias is available on the current device
     public static var isAvailable: Bool {
@@ -23,36 +23,19 @@ public final class SmoothMagnetometer: DeviceMotionDataSourceBase, CustomisableU
     /// A user-friendly name for the magnetometer
     public static var displayName = "Magnetometer (corrected for device)"
 
-    /**
-     An array of the data reported by the magnetometer, in the following order:
-
-      - x
-      - y
-      - z
-      - Accuracy
-     */
-    public var data: [DataSourceData] {
-        return [
-            x,
-            y,
-            z,
-            accuracy,
-        ]
-    }
-
     /// X-axis magnetic field, measured in microteslas
-    public private(set) var x: TypedDataSourceData<Optional<Double>>
+    public private(set) var x: SourceProperty<Optional<Double>>
 
     /// Y-axis magnetic field, measured in microteslas
-    public private(set) var y: TypedDataSourceData<Optional<Double>>
+    public private(set) var y: SourceProperty<Optional<Double>>
 
     /// Z-axis magnetic field, measured in microteslas
-    public private(set) var z: TypedDataSourceData<Optional<Double>>
+    public private(set) var z: SourceProperty<Optional<Double>>
 
     /// The accuracy of the magnetic field estimate
-    public private(set) var accuracy: TypedDataSourceData<Optional<CMMagneticFieldCalibrationAccuracy>>
+    public private(set) var accuracy: SourceProperty<Optional<CMMagneticFieldCalibrationAccuracy>>
 
-    /// The reference frame to
+    /// The reference frame to use for device motion updates. See `CMAttitudeReferenceFrame` for info
     public let referenceFrame: CMAttitudeReferenceFrame?
 
     /**
@@ -61,10 +44,10 @@ public final class SmoothMagnetometer: DeviceMotionDataSourceBase, CustomisableU
      - parameter referenceFrame: The frame to use for device motion updates. See `CMAttitudeReferenceFrame` for info. Default is `nil`
      */
     public required init(referenceFrame: CMAttitudeReferenceFrame? = nil) {
-        x = TypedDataSourceData(displayName: "x", value: nil, unit: Microtesla())
-        y = TypedDataSourceData(displayName: "y", value: nil, unit: Microtesla())
-        z = TypedDataSourceData(displayName: "z", value: nil, unit: Microtesla())
-        accuracy = TypedDataSourceData(displayName: "Accuracy", value: nil)
+        x = SourceProperty(displayName: "x", value: nil, unit: Microtesla())
+        y = SourceProperty(displayName: "y", value: nil, unit: Microtesla())
+        z = SourceProperty(displayName: "z", value: nil, unit: Microtesla())
+        accuracy = SourceProperty(displayName: "Accuracy", value: nil)
         self.referenceFrame = referenceFrame
     }
 
@@ -79,7 +62,7 @@ public final class SmoothMagnetometer: DeviceMotionDataSourceBase, CustomisableU
      - parameter updateInterval: The interval between data refreshes, measured in seconds
      */
     public func startUpdating(every updateInterval: TimeInterval) {
-        self.startUpdating(every: updateInterval, operationQueue: .main)
+        startUpdating(every: updateInterval, operationQueue: .main)
     }
 
     /**
@@ -89,15 +72,15 @@ public final class SmoothMagnetometer: DeviceMotionDataSourceBase, CustomisableU
      - parameter operationQueue: The queue that motion updates will be performed on. This can be high frequency so it's recommend that the main queue is not used
      */
     public func startUpdating(every updateInterval: TimeInterval, operationQueue: OperationQueue) {
-        super.startRefreshing(every: updateInterval, operationQueue: operationQueue, referenceFrame: referenceFrame, dataRefreshedHandler: self.refreshed(motionData:))
+        super.startUpdating(every: updateInterval, to: operationQueue, referenceFrame: referenceFrame, handler: updated(motionData:))
     }
 
     /**
-     A function intended to be used as the handler for when motion data refreshes. This method will update the data and notify listeners
+     A function intended to be used as the handler for when motion data refreshes. This method will update the properties and notify listeners
      
      - parameter motionData: The new motion data
     */
-    private func refreshed(motionData: CMDeviceMotion) {
+    private func updated(motionData: CMDeviceMotion) {
         let date = Date(timeIntervalSinceReferenceDate: motionData.timestamp)
         let magneticField = motionData.magneticField
         let field = magneticField.field
@@ -121,7 +104,7 @@ public final class SmoothMagnetometer: DeviceMotionDataSourceBase, CustomisableU
 
         accuracy.updateData(value: magneticField.accuracy, formattedValue: accuracyFormattedValue, date: date)
         
-        notifyListenersDataUpdated()
+        notifyListenersPropertiesUpdated()
     }
 
 }

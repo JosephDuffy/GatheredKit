@@ -75,7 +75,7 @@ final class ScreenTests: QuickSpec {
             context("that has had `updateData()` called") {
 
                 beforeEach {
-                    screen.updateData()
+                    screen.updateProperties()
                 }
 
                 it("will load the reported screen resolution from the backing data") {
