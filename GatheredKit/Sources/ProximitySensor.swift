@@ -87,7 +87,7 @@ public final class ProximitySensor: AutomaticallyUpdatingSource {
 
      - parameter backingData: The `ProximitySensorBackingData` to get data from. Defaults to `UIDevice.current`
      */
-    public required init(backedBy backingData: ProximitySensorBackingData?) {
+    public required init(backedBy backingData: ProximitySensorBackingData? = nil) {
         self.backingData = backingData ?? ProximitySensor.defaultBackingData
         objectDetected = SourceProperty(displayName: "Object Detected", value: nil, unit: Boolean(trueString: "Yes", falseString: "No"))
     }
