@@ -19,6 +19,10 @@ public protocol Source: class {
     /// A delegate that will receive messages about the source
     weak var delegate: SourceDelegate? { get set }
 
+    /// An array of key paths for the source's properties in a pre-defined order. All key paths will
+    /// return an object of type `SourceProperty`
+    var properties: [AnySourceProperty] { get }
+
 }
 
 /**

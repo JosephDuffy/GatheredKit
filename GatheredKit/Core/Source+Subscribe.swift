@@ -25,7 +25,7 @@ public extension Source {
      */
     @discardableResult
     public func subscribeToChanges(queue: OperationQueue? = .main, listener: @escaping (Self, Unsubscriber) -> Void) -> Unsubscriber {
-        var observer: NSObjectProtocol? = NotificationCenter.default.addObserver(forName: .sourcePropertiesUpdated, object: self, queue: queue) { [weak self] notification in
+        var observer = NotificationCenter.default.addObserver(forName: .sourcePropertiesUpdated, object: self, queue: queue) { [weak self] notification in
             guard let `self` = self else {
                 unsubscribe()
                 return
@@ -35,7 +35,7 @@ public extension Source {
         }
 
         func unsubscribe() {
-            observer = nil
+            NotificationCenter.default.removeObserver(observer)
         }
 
         return unsubscribe
