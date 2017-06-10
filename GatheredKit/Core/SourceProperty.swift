@@ -9,9 +9,9 @@
 import Foundation
 
 /**
- A property of a `Source`
+ A generic implementation of `SourcePropertyProtocol`, a property of a source
  */
-public struct SourceProperty<ValueType> {
+public struct SourceProperty<ValueType>: SourcePropertyProtocol {
 
     /// A user-friendly name for the property
     public let displayName: String
@@ -64,3 +64,29 @@ public struct SourceProperty<ValueType> {
     }
     
 }
+
+/**
+ A property of a source
+ */
+public protocol SourcePropertyProtocol {
+
+    /// The type of the `value` property
+    associatedtype ValueType
+
+    /// A user-friendly name for the property
+    var displayName: String { get }
+
+    /// The value of the property
+    var value: ValueType { get }
+
+    /// A human-friendly formatted value
+    /// Note that this may differ from the result of `unit.formattedString(for:)`
+    var formattedValue: String? { get }
+
+    /// A unit of measurement for the value
+    var unit: SourcePropertyUnit? { get }
+
+    /// The date that the latest value was recorded
+    var date: Date { get }
+}
+

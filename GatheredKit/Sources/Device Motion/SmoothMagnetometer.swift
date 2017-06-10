@@ -35,6 +35,23 @@ public final class SmoothMagnetometer: DeviceMotionSourceBase, CustomisableUpdat
     /// The accuracy of the magnetic field estimate
     public private(set) var accuracy: SourceProperty<Optional<CMMagneticFieldCalibrationAccuracy>>
 
+    /**
+     An array of the magnetometer's properties, in the following order:
+
+     - x
+     - y
+     - z
+     - Accuracy
+     */
+    public var properties: [AnySourceProperty] {
+        return [
+            x.any(),
+            y.any(),
+            z.any(),
+            accuracy.any(),
+        ]
+    }
+
     /// The reference frame to use for device motion updates. See `CMAttitudeReferenceFrame` for info
     public let referenceFrame: CMAttitudeReferenceFrame?
 
