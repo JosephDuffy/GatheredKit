@@ -11,7 +11,7 @@ import Foundation
 /**
  A struct that represents Beats Per Minute (BPS)
  */
-public struct BeatsPerMinute: NumberBasedDataSourceDataUnit {
+public struct BeatsPerMinute: NumberBasedSourcePropertyUnit {
 
     /// The value for `maximumFractionDigits` that will be used with the empty initialiser
     public static let defaultMaximumFractionDigits: Int = 0
@@ -41,7 +41,7 @@ public struct BeatsPerMinute: NumberBasedDataSourceDataUnit {
 /**
  A struct that represents computer bytes
  */
-public struct Byte: DataSourceDataUnit {
+public struct Byte: SourcePropertyUnit {
 
     /// How the bytes should be styled
     public let countStyle: ByteCountFormatter.CountStyle
@@ -60,13 +60,13 @@ public struct Byte: DataSourceDataUnit {
 
      - parameter value: The number to be formatted
 
-     - throws: `DataSourceDataUnitError.unsupportedType` if the `value` parameter's type is not an `NSNumber`
+     - throws: `SourcePropertyUnitError.unsupportedType` if the `value` parameter's type is not an `NSNumber`
 
      - returns: The formatted string
      */
     public func formattedString(for value: Any) throws -> String {
         guard let numberValue = value as? NSNumber else {
-            throw DataSourceDataUnitError.unsupportedType(type: type(of: value))
+            throw SourcePropertyUnitError.unsupportedType(type: type(of: value))
         }
 
         return ByteCountFormatter.string(fromByteCount: numberValue.int64Value, countStyle: countStyle)
@@ -77,7 +77,7 @@ public struct Byte: DataSourceDataUnit {
 /**
  A struct that represents a value that can be either true or false
  */
-public struct Boolean: DataSourceDataUnit {
+public struct Boolean: SourcePropertyUnit {
 
     /// The string that will be returned from `formattedString(for:)` when the value is `true`. If `nil`, "true" will be returned
     public let trueString: String?
@@ -101,13 +101,13 @@ public struct Boolean: DataSourceDataUnit {
 
      - parameter value: The boolean to be formatted
 
-     - throws: `DataSourceDataUnitError.unsupportedType` if the `value` parameter's type is not a `Bool`
+     - throws: `SourcePropertyUnitError.unsupportedType` if the `value` parameter's type is not a `Bool`
 
      - returns: The formatted string
      */
     public func formattedString(for value: Any) throws -> String {
         guard let boolValue = value as? Bool else {
-            throw DataSourceDataUnitError.unsupportedType(type: type(of: value))
+            throw SourcePropertyUnitError.unsupportedType(type: type(of: value))
         }
 
         if boolValue, let trueString = trueString {
@@ -129,7 +129,7 @@ public struct Boolean: DataSourceDataUnit {
 /**
  A struct that represents decibels
  */
-public struct Decibel: NumberBasedDataSourceDataUnit {
+public struct Decibel: NumberBasedSourcePropertyUnit {
 
     /// The value for `maximumFractionDigits` that will be used with the empty initialiser
     public static let defaultMaximumFractionDigits: Int = 0
@@ -160,7 +160,7 @@ public struct Decibel: NumberBasedDataSourceDataUnit {
 /**
  A struct that represents degrees
  */
-public struct Degree: NumberBasedDataSourceDataUnit {
+public struct Degree: NumberBasedSourcePropertyUnit {
 
     /// The value for `maximumFractionDigits` that will be used with the empty initialiser
     public static let defaultMaximumFractionDigits: Int = 0
@@ -190,7 +190,7 @@ public struct Degree: NumberBasedDataSourceDataUnit {
 /**
  A struct that represents kilopascals
  */
-public struct Kilopascal: NumberBasedDataSourceDataUnit {
+public struct Kilopascal: NumberBasedSourcePropertyUnit {
 
     /// The value for `maximumFractionDigits` that will be used with the empty initialiser
     public static let defaultMaximumFractionDigits: Int = 2
@@ -220,7 +220,7 @@ public struct Kilopascal: NumberBasedDataSourceDataUnit {
 /**
  A struct that represents microteslas
  */
-public struct Microtesla: NumberBasedDataSourceDataUnit {
+public struct Microtesla: NumberBasedSourcePropertyUnit {
 
     /// The value for `maximumFractionDigits` that will be used with the empty initialiser
     public static let defaultMaximumFractionDigits: Int = 2
@@ -250,7 +250,7 @@ public struct Microtesla: NumberBasedDataSourceDataUnit {
 /**
  A struct that represents meters
  */
-public struct Meter: NumberBasedDataSourceDataUnit {
+public struct Meter: NumberBasedSourcePropertyUnit {
 
     /// The value for `maximumFractionDigits` that will be used with the empty initialiser
     public static let defaultMaximumFractionDigits: Int = 2
@@ -280,7 +280,7 @@ public struct Meter: NumberBasedDataSourceDataUnit {
 /**
  A struct that represents a percentage
  */
-public struct Percent: NumberBasedDataSourceDataUnit {
+public struct Percent: NumberBasedSourcePropertyUnit {
 
     /// The value for `maximumFractionDigits` that will be used with the empty initialiser
     public static let defaultMaximumFractionDigits: Int = 2
@@ -313,7 +313,7 @@ public struct Percent: NumberBasedDataSourceDataUnit {
      
      - parameter value: The value to be formatted. Must be castable to `NSNumber`
 
-     - throws: `DataSourceDataUnitError.unsupportedType` if the `value` cannot be cast to an `NSNumber`
+     - throws: `SourcePropertyUnitError.unsupportedType` if the `value` cannot be cast to an `NSNumber`
 
      - returns: The formatted string
     */
@@ -330,7 +330,7 @@ public struct Percent: NumberBasedDataSourceDataUnit {
 /**
  A struct that represents a screen's pixels
  */
-public struct Pixel: NumberBasedDataSourceDataUnit {
+public struct Pixel: NumberBasedSourcePropertyUnit {
 
     /// The value for `maximumFractionDigits` that will be used with the empty initialiser
     public static let defaultMaximumFractionDigits: Int = 0
@@ -360,7 +360,7 @@ public struct Pixel: NumberBasedDataSourceDataUnit {
 /**
  A struct that represents a screen's resolution measured in points
  */
-public struct Point: NumberBasedDataSourceDataUnit {
+public struct Point: NumberBasedSourcePropertyUnit {
 
     /// The value for `maximumFractionDigits` that will be used with the empty initialiser
     public static let defaultMaximumFractionDigits: Int = 0

@@ -1,5 +1,5 @@
 //
-//  TimerBasedDataSource.swift
+//  TimerBasedSource.swift
 //  GatheredKit
 //
 //  Created by Joseph Duffy on 03/02/2017.
@@ -10,14 +10,14 @@ import Foundation
 
 /**
  The base for a `DataSource` that uses a `Timer` to provide periodic updates. Subclasses should
- implement the missing properties and methods of `ManuallyUpdateableDataSource`. By adding the missing
- properties and methods for `ManuallyUpdateableDataSource` and adding conformance to `CustomisableUpdateIntervalDataSource`
+ implement the missing properties and methods of `ManuallyUpdatableSource`. By adding the missing
+ properties and methods for `ManuallyUpdatableSource` and adding conformance to `CustomisableUpdateIntervalSource`
  the methods required by `CustomisableUpdateIntervalDataSource` will be provided for free via an extention
  */
-open class TimerBasedDataSource {
+open class TimerBasedSource {
 
-    /// How frequently the data source will update. A value of `nil` indicates that
-    /// the data source is not performing automatic periodic updates
+    /// How frequently the source will update. A value of `nil` indicates that
+    /// the source is not performing automatic periodic updates
     public var updateInterval: TimeInterval? {
         return monitoringTimer?.timeInterval
     }
@@ -27,7 +27,7 @@ open class TimerBasedDataSource {
 
 }
 
-public extension CustomisableUpdateIntervalDataSource where Self: ManuallyUpdateableDataSource, Self: TimerBasedDataSource {
+public extension CustomisableUpdateIntervalSource where Self: ManuallyUpdatableSource, Self: TimerBasedSource {
 
     /**
      Start performing periodic updates, updating every `updateInterval` seconds. This will cause
@@ -43,8 +43,8 @@ public extension CustomisableUpdateIntervalDataSource where Self: ManuallyUpdate
         let monitoringTimer = Timer.createRepeatingTimer(timeInterval: updateInterval) { [weak self] _ in
             guard let `self` = self else { return }
 
-            self.updateData()
-            self.notifyListenersDataUpdated()
+            self.updateProperties()
+            self.notifyListenersPropertiesUpdated()
         }
         self.monitoringTimer = monitoringTimer
         RunLoop.current.add(monitoringTimer, forMode: RunLoopMode.defaultRunLoopMode)
