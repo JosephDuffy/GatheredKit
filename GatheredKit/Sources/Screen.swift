@@ -11,21 +11,21 @@ import UIKit
 /**
  A wrapper around `UIScreen`
  */
-public final class Screen: AutomaticallyUpdatingDataSource, ManuallyUpdateableDataSource {
+public final class Screen: AutomaticallyUpdatingSource, ManuallyUpdatableSource {
 
     private enum State {
         case notMonitoring
         case monitoring(brightnessChangeObeserver: NSObjectProtocol)
     }
 
-    /// A boolean indicating if the data source is available on the current device
+    /// A boolean indicating if the source is available on the current device
     public static var isAvailable = true
 
-    /// A user-friendly name for the data source
+    /// A user-friendly name for the source
     public static var displayName = "Screen"
 
     /// A boolean indicating if the screen is monitoring for brightness changes
-    public var isMonitoring: Bool {
+    public var isUpdating: Bool {
         switch state {
         case .notMonitoring:
             return false
@@ -35,29 +35,10 @@ public final class Screen: AutomaticallyUpdatingDataSource, ManuallyUpdateableDa
     }
 
     /// A delegate that will receive messages about the screen's data changing
-    public weak var delegate: DataSourceDelegate?
+    public weak var delegate: SourceDelegate?
 
     /// The `ScreenBackingData` this `Screen` represents
-    public let screen: ScreenBackingData
-
-    /**
-     An array of the information about the screen, in the following order:
-     
-      - Screen Resolution (reported)
-      - Screen Resolution (native)
-      - Screen Resolution (reported)
-      - Screen Resolution (native)
-      - Brightness
-    */
-    public var data: [DataSourceData] {
-        return [
-            reportedScreenResolution,
-            nativeScreenResolution,
-            reportedScreenScale,
-            nativeScreenScale,
-            brightness,
-        ]
-    }
+    internal let screen: ScreenBackingData
 
     /**
      The screen resolution reported by the system
@@ -70,7 +51,7 @@ public final class Screen: AutomaticallyUpdatingDataSource, ManuallyUpdateableDa
      
      Formatted value: "\(width) x \(height)"
      */
-    public private(set) var reportedScreenResolution: TypedDataSourceData<CGSize>
+    public private(set) var reportedScreenResolution: SourceProperty<CGSize>
 
     /**
      The native resolution of the screen
@@ -83,7 +64,7 @@ public final class Screen: AutomaticallyUpdatingDataSource, ManuallyUpdateableDa
 
      Formatted value: "\(width) x \(height)"
     */
-    public private(set) var nativeScreenResolution: TypedDataSourceData<CGSize>
+    public private(set) var nativeScreenResolution: SourceProperty<CGSize>
 
     /**
      The natural scale factor associated with the screen
@@ -92,7 +73,7 @@ public final class Screen: AutomaticallyUpdatingDataSource, ManuallyUpdateableDa
 
      Display name: Screen Scale (reported)
      */
-    public private(set) var reportedScreenScale: TypedDataSourceData<CGFloat>
+    public private(set) var reportedScreenScale: SourceProperty<CGFloat>
 
     /**
      The native scale factor for the physical screen
@@ -101,7 +82,7 @@ public final class Screen: AutomaticallyUpdatingDataSource, ManuallyUpdateableDa
  
      Display name: Screen Scale (native)
      */
-    public private(set) var nativeScreenScale: TypedDataSourceData<CGFloat>
+    public private(set) var nativeScreenScale: SourceProperty<CGFloat>
 
     /**
      The brightness level of the screen. The value of this property will be a number between
@@ -113,7 +94,7 @@ public final class Screen: AutomaticallyUpdatingDataSource, ManuallyUpdateableDa
  
      Unit: Percent
      */
-    public private(set) var brightness: TypedDataSourceData<CGFloat>
+    public private(set) var brightness: SourceProperty<CGFloat>
 
     /// The internal state, indicating if the screen is monitoring for changes
     private var state: State = .notMonitoring
@@ -125,11 +106,11 @@ public final class Screen: AutomaticallyUpdatingDataSource, ManuallyUpdateableDa
     */
     public required init(screen: ScreenBackingData = UIScreen.main) {
         self.screen = screen
-        reportedScreenResolution = TypedDataSourceData(displayName: "Screen Resolution (reported)", value: screen.bounds.size, unit: Point())
-        nativeScreenResolution = TypedDataSourceData(displayName: "Screen Resolution (native)", value: screen.nativeBounds.size, unit: Pixel())
-        reportedScreenScale = TypedDataSourceData(displayName: "Screen Scale (reported)", value: screen.scale)
-        nativeScreenScale = TypedDataSourceData(displayName: "Screen Scale (native)", value: screen.nativeScale)
-        brightness = TypedDataSourceData(displayName: "Brightness", value: screen.brightness, unit: Percent())
+        reportedScreenResolution = SourceProperty(displayName: "Screen Resolution (reported)", value: screen.bounds.size, unit: Point())
+        nativeScreenResolution = SourceProperty(displayName: "Screen Resolution (native)", value: screen.nativeBounds.size, unit: Pixel())
+        reportedScreenScale = SourceProperty(displayName: "Screen Scale (reported)", value: screen.scale)
+        nativeScreenScale = SourceProperty(displayName: "Screen Scale (native)", value: screen.nativeScale)
+        brightness = SourceProperty(displayName: "Brightness", value: screen.brightness, unit: Percent())
     }
 
     deinit {
@@ -137,23 +118,23 @@ public final class Screen: AutomaticallyUpdatingDataSource, ManuallyUpdateableDa
     }
 
     /**
-     Start automatically monitoring changes to the data source. This will start delegate methods being called
+     Start automatically monitoring changes to the source. This will start delegate methods being called
      when new data is available
      */
     public func startMonitoring() {
-        guard !isMonitoring else { return }
+        guard !isUpdating else { return }
 
         let brightnessChangeObeserver = NotificationCenter.default.addObserver(forName: .UIScreenBrightnessDidChange, object: screen, queue: .main) { [weak self] _ in
             guard let `self` = self else { return }
 
             self.brightness.updateData(value: self.screen.brightness)
-            self.notifyListenersDataUpdated()
+            self.notifyListenersPropertiesUpdated()
         }
 
         state = .monitoring(brightnessChangeObeserver: brightnessChangeObeserver)
 
-        updateData()
-        notifyListenersDataUpdated()
+        updateProperties()
+        notifyListenersPropertiesUpdated()
     }
 
     /**
@@ -168,13 +149,10 @@ public final class Screen: AutomaticallyUpdatingDataSource, ManuallyUpdateableDa
     }
 
     /**
-     Force the screen to update its data. Note that there is no guarantee that new data
+     Force the screen to update its properties. Note that there is no guarantee that new data
      will be available
-
-     - returns: The data
      */
-    @discardableResult
-    public func updateData() -> [DataSourceData] {
+    public func updateProperties() {
         let resolution = screen.bounds.size
         let nativeResolution = screen.nativeBounds.size
 
@@ -187,8 +165,6 @@ public final class Screen: AutomaticallyUpdatingDataSource, ManuallyUpdateableDa
         nativeScreenScale.updateData(value: screen.nativeScale)
 
         brightness.updateData(value: screen.brightness)
-
-        return data
     }
 
     /**
@@ -213,7 +189,7 @@ public final class Screen: AutomaticallyUpdatingDataSource, ManuallyUpdateableDa
 }
 
 /**
- The backing data for the `Screen` data source. `UIScreen` conforms to this without any changes
+ The backing data for the `Screen` source. `UIScreen` conforms to this without any changes
  */
 public protocol ScreenBackingData {
 

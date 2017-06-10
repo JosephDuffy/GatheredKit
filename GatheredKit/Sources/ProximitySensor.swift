@@ -12,7 +12,7 @@ import UIKit
  A sensor that detects if an object is close to the sensor. By default it will be backed by `UIDevice.current`, which
  will use the proximity sensor available on iPhones
  */
-public final class ProximitySensor: AutomaticallyUpdatingDataSource {
+public final class ProximitySensor: AutomaticallyUpdatingSource {
 
     private enum State {
         case notMonitoring
@@ -39,7 +39,7 @@ public final class ProximitySensor: AutomaticallyUpdatingDataSource {
         return isAvailable
     }
 
-    /// A user-friendly name for the data source
+    /// A user-friendly name for the source
     public static let displayName: String = "Proximity Sensor"
 
     /// A count of how many `Promixity` instances are monitoring for changes. This
@@ -48,7 +48,7 @@ public final class ProximitySensor: AutomaticallyUpdatingDataSource {
     private static var proximityMonitoringEnabledManager = ProximityMonitoringEnabledManager()
 
     /// A boolean indicating if the proximity sensor is monitoring for nearby objects
-    public var isMonitoring: Bool {
+    public var isUpdating: Bool {
         switch state {
         case .notMonitoring:
             return false
@@ -57,24 +57,13 @@ public final class ProximitySensor: AutomaticallyUpdatingDataSource {
         }
     }
 
-    /**
-     An array of the data about the promixity sensor. Data will be in the following order:
-     
-      - Object Detected
-     */
-    public var data: [DataSourceData] {
-        return [
-            objectDetected
-        ]
-    }
-
     /// If the `value` is `true` then the sensor has detected an object.
     /// Display Name: Object Detected
     /// Unit: Boolean; true = "Yes"; false = "No"
-    public private(set) var objectDetected: TypedDataSourceData<Optional<Bool>>
+    public private(set) var objectDetected: SourceProperty<Optional<Bool>>
 
     /// A delegate that will receive messages about the screen's data changing
-    public weak var delegate: DataSourceDelegate?
+    public weak var delegate: SourceDelegate?
 
     /// The `ProximityBackingData` backing this `ProximitySensor`
     public let backingData: ProximitySensorBackingData
@@ -87,9 +76,9 @@ public final class ProximitySensor: AutomaticallyUpdatingDataSource {
 
      - parameter backingData: The `ProximitySensorBackingData` to get data from. Defaults to `UIDevice.current`
      */
-    public required init(backedBy backingData: ProximitySensorBackingData = ProximitySensor.defaultBackingData) {
-        self.backingData = backingData
-        objectDetected = TypedDataSourceData(displayName: "Object Detected", value: nil, unit: Boolean(trueString: "Yes", falseString: "No"))
+    public required init(backedBy backingData: ProximitySensorBackingData?) {
+        self.backingData = backingData ?? ProximitySensor.defaultBackingData
+        objectDetected = SourceProperty(displayName: "Object Detected", value: nil, unit: Boolean(trueString: "Yes", falseString: "No"))
     }
 
     deinit {
@@ -100,7 +89,7 @@ public final class ProximitySensor: AutomaticallyUpdatingDataSource {
      Start automatically monitoring for changes to the proximity sensor
      */
     public func startMonitoring() {
-        guard !isMonitoring else { return }
+        guard !isUpdating else { return }
 
         guard ProximitySensor.proximityMonitoringEnabledManager.startObservingChanges(to: backingData) else { return }
 
@@ -109,7 +98,7 @@ public final class ProximitySensor: AutomaticallyUpdatingDataSource {
 
             self.objectDetected.updateData(value: self.backingData.proximityState)
 
-            self.notifyListenersDataUpdated()
+            self.notifyListenersPropertiesUpdated()
         }
 
         state = .monitoring(proximityStateChangeObeserver: proximityStateChangeObeserver)
@@ -117,7 +106,7 @@ public final class ProximitySensor: AutomaticallyUpdatingDataSource {
         // Get an initial value without this the value would be `nil` until the state changed
         objectDetected.updateData(value: self.backingData.proximityState)
 
-        notifyListenersDataUpdated()
+        notifyListenersPropertiesUpdated()
     }
 
     /**

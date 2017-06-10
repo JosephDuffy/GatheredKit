@@ -7,23 +7,23 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D91540A61EEC1E910052B2F2 /* Source+Subscribe.swift in Sources */ = {isa = PBXBuildFile; fileRef = D91540A51EEC1E910052B2F2 /* Source+Subscribe.swift */; };
 		D975D6B11E4A2EC500789F1B /* ScreenTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D975D6B01E4A2EC500789F1B /* ScreenTests.swift */; };
 		D975D6B31E4A2EC500789F1B /* GatheredKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D9D2F9821E44FF7600667237 /* GatheredKit.framework */; };
 		D975D6C21E4B72B700789F1B /* Nimble.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D975D6C01E4B72B700789F1B /* Nimble.framework */; };
 		D975D6C31E4B72B700789F1B /* Quick.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D975D6C11E4B72B700789F1B /* Quick.framework */; };
 		D9909A6F1E452746005F9C9E /* Units.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9909A6E1E452746005F9C9E /* Units.swift */; };
-		D9A132CD1E5CCEBA005A4603 /* Result.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9A132CC1E5CCEBA005A4603 /* Result.swift */; };
 		D9D2211F1E45FF1A005988E3 /* Screen.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9D2211E1E45FF1A005988E3 /* Screen.swift */; };
-		D9D2213F1E477523005988E3 /* DataSourceDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9D2213E1E477523005988E3 /* DataSourceDelegate.swift */; };
+		D9D2213F1E477523005988E3 /* SourceDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9D2213E1E477523005988E3 /* SourceDelegate.swift */; };
 		D9D221411E4E6A1B005988E3 /* ProximitySensor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9D221401E4E6A1B005988E3 /* ProximitySensor.swift */; };
-		D9D221451E4F8DE3005988E3 /* DeviceMotionDataSourceBase.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9D221441E4F8DE3005988E3 /* DeviceMotionDataSourceBase.swift */; };
+		D9D221451E4F8DE3005988E3 /* DeviceMotionSourceBase.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9D221441E4F8DE3005988E3 /* DeviceMotionSourceBase.swift */; };
 		D9D221481E4F8F07005988E3 /* SmoothMagnetometer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9D221471E4F8F07005988E3 /* SmoothMagnetometer.swift */; };
 		D9D2F9871E44FF7600667237 /* GatheredKit.h in Headers */ = {isa = PBXBuildFile; fileRef = D9D2F9851E44FF7600667237 /* GatheredKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		D9D2F98F1E45024500667237 /* DataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9D2F98E1E45024500667237 /* DataSource.swift */; };
-		D9D2F9911E4502BE00667237 /* DataSourceData.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9D2F9901E4502BE00667237 /* DataSourceData.swift */; };
-		D9D2F9931E45076B00667237 /* TimerBasedDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9D2F9921E45076B00667237 /* TimerBasedDataSource.swift */; };
+		D9D2F98F1E45024500667237 /* Source.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9D2F98E1E45024500667237 /* Source.swift */; };
+		D9D2F9911E4502BE00667237 /* SourceProperty.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9D2F9901E4502BE00667237 /* SourceProperty.swift */; };
+		D9D2F9931E45076B00667237 /* TimerBasedSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9D2F9921E45076B00667237 /* TimerBasedSource.swift */; };
 		D9D2F9961E450D1D00667237 /* Timer+Block.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9D2F9951E450D1D00667237 /* Timer+Block.swift */; };
-		D9D2F9991E45164800667237 /* DataSourceDataUnit.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9D2F9981E45164800667237 /* DataSourceDataUnit.swift */; };
+		D9D2F9991E45164800667237 /* SourcePropertyUnit.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9D2F9981E45164800667237 /* SourcePropertyUnit.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -37,26 +37,26 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		D91540A51EEC1E910052B2F2 /* Source+Subscribe.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Source+Subscribe.swift"; sourceTree = "<group>"; };
 		D975D6AE1E4A2EC500789F1B /* GatheredKitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GatheredKitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		D975D6B01E4A2EC500789F1B /* ScreenTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenTests.swift; sourceTree = "<group>"; };
 		D975D6B21E4A2EC500789F1B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D975D6C01E4B72B700789F1B /* Nimble.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Nimble.framework; path = Carthage/Build/iOS/Nimble.framework; sourceTree = SOURCE_ROOT; };
 		D975D6C11E4B72B700789F1B /* Quick.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Quick.framework; path = Carthage/Build/iOS/Quick.framework; sourceTree = SOURCE_ROOT; };
 		D9909A6E1E452746005F9C9E /* Units.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Units.swift; sourceTree = "<group>"; };
-		D9A132CC1E5CCEBA005A4603 /* Result.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Result.swift; sourceTree = "<group>"; };
 		D9D2211E1E45FF1A005988E3 /* Screen.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Screen.swift; sourceTree = "<group>"; };
-		D9D2213E1E477523005988E3 /* DataSourceDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataSourceDelegate.swift; sourceTree = "<group>"; };
+		D9D2213E1E477523005988E3 /* SourceDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SourceDelegate.swift; sourceTree = "<group>"; };
 		D9D221401E4E6A1B005988E3 /* ProximitySensor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProximitySensor.swift; sourceTree = "<group>"; };
-		D9D221441E4F8DE3005988E3 /* DeviceMotionDataSourceBase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeviceMotionDataSourceBase.swift; sourceTree = "<group>"; };
+		D9D221441E4F8DE3005988E3 /* DeviceMotionSourceBase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeviceMotionSourceBase.swift; sourceTree = "<group>"; };
 		D9D221471E4F8F07005988E3 /* SmoothMagnetometer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SmoothMagnetometer.swift; sourceTree = "<group>"; };
 		D9D2F9821E44FF7600667237 /* GatheredKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = GatheredKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D9D2F9851E44FF7600667237 /* GatheredKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GatheredKit.h; sourceTree = "<group>"; };
 		D9D2F9861E44FF7600667237 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		D9D2F98E1E45024500667237 /* DataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataSource.swift; sourceTree = "<group>"; };
-		D9D2F9901E4502BE00667237 /* DataSourceData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataSourceData.swift; sourceTree = "<group>"; };
-		D9D2F9921E45076B00667237 /* TimerBasedDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimerBasedDataSource.swift; sourceTree = "<group>"; };
+		D9D2F98E1E45024500667237 /* Source.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Source.swift; sourceTree = "<group>"; };
+		D9D2F9901E4502BE00667237 /* SourceProperty.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SourceProperty.swift; sourceTree = "<group>"; };
+		D9D2F9921E45076B00667237 /* TimerBasedSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimerBasedSource.swift; sourceTree = "<group>"; };
 		D9D2F9951E450D1D00667237 /* Timer+Block.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Timer+Block.swift"; sourceTree = "<group>"; };
-		D9D2F9981E45164800667237 /* DataSourceDataUnit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataSourceDataUnit.swift; sourceTree = "<group>"; };
+		D9D2F9981E45164800667237 /* SourcePropertyUnit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SourcePropertyUnit.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -118,7 +118,7 @@
 		D9D221461E4F8EE6005988E3 /* Device Motion */ = {
 			isa = PBXGroup;
 			children = (
-				D9D221441E4F8DE3005988E3 /* DeviceMotionDataSourceBase.swift */,
+				D9D221441E4F8DE3005988E3 /* DeviceMotionSourceBase.swift */,
 				D9D221471E4F8F07005988E3 /* SmoothMagnetometer.swift */,
 			);
 			path = "Device Motion";
@@ -146,7 +146,7 @@
 			isa = PBXGroup;
 			children = (
 				D9D2F98D1E45023B00667237 /* Core */,
-				D9D2F9971E4513F200667237 /* Data Sources */,
+				D9D2F9971E4513F200667237 /* Sources */,
 				D9D2F9941E450D0B00667237 /* Extensions */,
 				D9909A6D1E45273C005F9C9E /* Units */,
 				D9D2F9851E44FF7600667237 /* GatheredKit.h */,
@@ -158,11 +158,11 @@
 		D9D2F98D1E45023B00667237 /* Core */ = {
 			isa = PBXGroup;
 			children = (
-				D9D2F98E1E45024500667237 /* DataSource.swift */,
-				D9D2F9901E4502BE00667237 /* DataSourceData.swift */,
-				D9D2F9981E45164800667237 /* DataSourceDataUnit.swift */,
-				D9D2213E1E477523005988E3 /* DataSourceDelegate.swift */,
-				D9A132CC1E5CCEBA005A4603 /* Result.swift */,
+				D9D2F98E1E45024500667237 /* Source.swift */,
+				D91540A51EEC1E910052B2F2 /* Source+Subscribe.swift */,
+				D9D2F9901E4502BE00667237 /* SourceProperty.swift */,
+				D9D2F9981E45164800667237 /* SourcePropertyUnit.swift */,
+				D9D2213E1E477523005988E3 /* SourceDelegate.swift */,
 			);
 			path = Core;
 			sourceTree = "<group>";
@@ -175,15 +175,15 @@
 			path = Extensions;
 			sourceTree = "<group>";
 		};
-		D9D2F9971E4513F200667237 /* Data Sources */ = {
+		D9D2F9971E4513F200667237 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
 				D9D221461E4F8EE6005988E3 /* Device Motion */,
 				D9D221401E4E6A1B005988E3 /* ProximitySensor.swift */,
 				D9D2211E1E45FF1A005988E3 /* Screen.swift */,
-				D9D2F9921E45076B00667237 /* TimerBasedDataSource.swift */,
+				D9D2F9921E45076B00667237 /* TimerBasedSource.swift */,
 			);
-			path = "Data Sources";
+			path = Sources;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -225,7 +225,6 @@
 				D9D2F97D1E44FF7600667237 /* Sources */,
 				D9D2F97E1E44FF7600667237 /* Frameworks */,
 				D9D2F97F1E44FF7600667237 /* Headers */,
-				D9D2F9801E44FF7600667237 /* Resources */,
 			);
 			buildRules = (
 			);
@@ -286,13 +285,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		D9D2F9801E44FF7600667237 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -309,15 +301,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				D9D2211F1E45FF1A005988E3 /* Screen.swift in Sources */,
-				D9D2213F1E477523005988E3 /* DataSourceDelegate.swift in Sources */,
-				D9D2F9931E45076B00667237 /* TimerBasedDataSource.swift in Sources */,
+				D9D2213F1E477523005988E3 /* SourceDelegate.swift in Sources */,
+				D9D2F9931E45076B00667237 /* TimerBasedSource.swift in Sources */,
 				D9909A6F1E452746005F9C9E /* Units.swift in Sources */,
-				D9D2F9911E4502BE00667237 /* DataSourceData.swift in Sources */,
+				D91540A61EEC1E910052B2F2 /* Source+Subscribe.swift in Sources */,
+				D9D2F9911E4502BE00667237 /* SourceProperty.swift in Sources */,
 				D9D221411E4E6A1B005988E3 /* ProximitySensor.swift in Sources */,
-				D9A132CD1E5CCEBA005A4603 /* Result.swift in Sources */,
-				D9D221451E4F8DE3005988E3 /* DeviceMotionDataSourceBase.swift in Sources */,
-				D9D2F98F1E45024500667237 /* DataSource.swift in Sources */,
-				D9D2F9991E45164800667237 /* DataSourceDataUnit.swift in Sources */,
+				D9D221451E4F8DE3005988E3 /* DeviceMotionSourceBase.swift in Sources */,
+				D9D2F98F1E45024500667237 /* Source.swift in Sources */,
+				D9D2F9991E45164800667237 /* SourcePropertyUnit.swift in Sources */,
 				D9D2F9961E450D1D00667237 /* Timer+Block.swift in Sources */,
 				D9D221481E4F8F07005988E3 /* SmoothMagnetometer.swift in Sources */,
 			);
@@ -347,7 +339,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks $(PROJECT_DIR)/Carthage/Build/iOS";
 				PRODUCT_BUNDLE_IDENTIFIER = net.josephduffy.GatheredKitTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_SWIFT3_OBJC_INFERENCE = On;
+				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
 				SWIFT_VERSION = 4.0;
 			};
 			name = Debug;
@@ -365,7 +357,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks $(PROJECT_DIR)/Carthage/Build/iOS";
 				PRODUCT_BUNDLE_IDENTIFIER = net.josephduffy.GatheredKitTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_SWIFT3_OBJC_INFERENCE = On;
+				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
 				SWIFT_VERSION = 4.0;
 			};
 			name = Release;
@@ -498,7 +490,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_SWIFT3_OBJC_INFERENCE = On;
+				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
 				SWIFT_VERSION = 4.0;
 			};
 			name = Debug;
@@ -519,7 +511,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = net.josephduffy.GatheredKit;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
-				SWIFT_SWIFT3_OBJC_INFERENCE = On;
+				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
 				SWIFT_VERSION = 4.0;
 			};
 			name = Release;
