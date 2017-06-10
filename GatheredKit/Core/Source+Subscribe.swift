@@ -25,7 +25,7 @@ public extension Source {
      - returns: A closure that when called will unsubscribe the listener from changes
      */
     @discardableResult
-    public func subscribeToChanges(queue: OperationQueue? = .main, updateInterval: Int? = nil, listener: @escaping (Self, Unsubscriber) -> Void) -> Unsubscriber {
+    public func subscribeToChanges(queue: OperationQueue? = .main, updateInterval: TimeInterval? = nil, listener: @escaping (Self, Unsubscriber) -> Void) -> Unsubscriber {
         var observer = NotificationCenter.default.addObserver(forName: .sourcePropertiesUpdated, object: self, queue: queue) { [weak self] notification in
             guard let `self` = self else {
                 unsubscribe()
