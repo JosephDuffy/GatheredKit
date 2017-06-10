@@ -62,6 +62,17 @@ public final class ProximitySensor: AutomaticallyUpdatingSource {
     /// Unit: Boolean; true = "Yes"; false = "No"
     public private(set) var objectDetected: SourceProperty<Optional<Bool>>
 
+    /**
+     An array of the promixity sensor's properties, in the following order:
+
+     - Object Detected
+     */
+    public var properties: [AnySourceProperty] {
+        return [
+            objectDetected.any()
+        ]
+    }
+
     /// A delegate that will receive messages about the screen's data changing
     public weak var delegate: SourceDelegate?
 

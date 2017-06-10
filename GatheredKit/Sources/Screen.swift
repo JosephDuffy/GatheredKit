@@ -96,6 +96,25 @@ public final class Screen: AutomaticallyUpdatingSource, ManuallyUpdatableSource 
      */
     public private(set) var brightness: SourceProperty<CGFloat>
 
+    /**
+     An array of the screen's properties, in the following order:
+
+     - Screen Resolution (reported)
+     - Screen Resolution (native)
+     - Screen Resolution (reported)
+     - Screen Resolution (native)
+     - Brightness
+     */
+    public var properties: [AnySourceProperty] {
+        return [
+            reportedScreenResolution.any(),
+            nativeScreenResolution.any(),
+            reportedScreenScale.any(),
+            nativeScreenScale.any(),
+            brightness.any(),
+        ]
+    }
+
     /// The internal state, indicating if the screen is monitoring for changes
     private var state: State = .notMonitoring
 
