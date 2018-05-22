@@ -1,6 +1,152 @@
 {
   "warnings": [
-
+    {
+      "file": "/Users/JosephDuffy/Library/Mobile Documents/com~apple~CloudDocs/Files/Projects/Incubator/GatheredKit/Source/Extensions/Array+newestDataDate.swift",
+      "line": 5,
+      "symbol": "Array.newestDataDate()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/JosephDuffy/Library/Mobile Documents/com~apple~CloudDocs/Files/Projects/Incubator/GatheredKit/Source/Models/AnyEquatable.swift",
+      "line": 2,
+      "symbol": "AnyEquatable",
+      "symbol_kind": "source.lang.swift.decl.struct",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/JosephDuffy/Library/Mobile Documents/com~apple~CloudDocs/Files/Projects/Incubator/GatheredKit/Source/Models/AnyEquatable.swift",
+      "line": 11,
+      "symbol": "AnyEquatable.init(_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/JosephDuffy/Library/Mobile Documents/com~apple~CloudDocs/Files/Projects/Incubator/GatheredKit/Source/Models/AnySourceProperty.swift",
+      "line": 3,
+      "symbol": "AnySourceProperty",
+      "symbol_kind": "source.lang.swift.decl.struct",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/JosephDuffy/Library/Mobile Documents/com~apple~CloudDocs/Files/Projects/Incubator/GatheredKit/Source/Models/BaseSource.swift",
+      "line": 3,
+      "symbol": "BaseSource",
+      "symbol_kind": "source.lang.swift.decl.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/JosephDuffy/Library/Mobile Documents/com~apple~CloudDocs/Files/Projects/Incubator/GatheredKit/Source/Models/BaseSource.swift",
+      "line": 13,
+      "symbol": "BaseSource.addUpdateListener(_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/JosephDuffy/Library/Mobile Documents/com~apple~CloudDocs/Files/Projects/Incubator/GatheredKit/Source/Models/GenericSourceProperty.swift",
+      "line": 3,
+      "symbol": "GenericSourceProperty",
+      "symbol_kind": "source.lang.swift.decl.struct",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/JosephDuffy/Library/Mobile Documents/com~apple~CloudDocs/Files/Projects/Incubator/GatheredKit/Source/Models/GenericSourceProperty.swift",
+      "line": 5,
+      "symbol": "GenericSourceProperty.UpdateListener",
+      "symbol_kind": "source.lang.swift.decl.typealias",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/JosephDuffy/Library/Mobile Documents/com~apple~CloudDocs/Files/Projects/Incubator/GatheredKit/Source/Protocols/CustomisableUpdateIntervalSource.swift",
+      "line": 35,
+      "symbol": "CustomisableUpdateIntervalSource.startUpdating(every:updateListener:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/JosephDuffy/Library/Mobile Documents/com~apple~CloudDocs/Files/Projects/Incubator/GatheredKit/Source/Protocols/Source.swift",
+      "line": 7,
+      "symbol": "Source.UpdateListener",
+      "symbol_kind": "source.lang.swift.decl.typealias",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/JosephDuffy/Library/Mobile Documents/com~apple~CloudDocs/Files/Projects/Incubator/GatheredKit/Source/Protocols/Source.swift",
+      "line": 9,
+      "symbol": "Source.availability",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/JosephDuffy/Library/Mobile Documents/com~apple~CloudDocs/Files/Projects/Incubator/GatheredKit/Source/Protocols/Source.swift",
+      "line": 11,
+      "symbol": "Source.latestPropertyValues",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/JosephDuffy/Library/Mobile Documents/com~apple~CloudDocs/Files/Projects/Incubator/GatheredKit/Source/Protocols/Source.swift",
+      "line": 13,
+      "symbol": "Source.init()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/JosephDuffy/Library/Mobile Documents/com~apple~CloudDocs/Files/Projects/Incubator/GatheredKit/Source/Protocols/Source.swift",
+      "line": 15,
+      "symbol": "Source.addUpdateListener(_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/JosephDuffy/Library/Mobile Documents/com~apple~CloudDocs/Files/Projects/Incubator/GatheredKit/Source/Protocols/SourceAvailability.swift",
+      "line": 2,
+      "symbol": "SourceAvailability",
+      "symbol_kind": "source.lang.swift.decl.enum",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/JosephDuffy/Library/Mobile Documents/com~apple~CloudDocs/Files/Projects/Incubator/GatheredKit/Source/Protocols/SourceProperty.swift",
+      "line": 2,
+      "symbol": "SourceProperty",
+      "symbol_kind": "source.lang.swift.decl.protocol",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/JosephDuffy/Library/Mobile Documents/com~apple~CloudDocs/Files/Projects/Incubator/GatheredKit/Source/Protocols/SourceProperty.swift",
+      "line": 4,
+      "symbol": "SourceProperty.ValueType",
+      "symbol_kind": "source.lang.swift.decl.associatedtype",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/JosephDuffy/Library/Mobile Documents/com~apple~CloudDocs/Files/Projects/Incubator/GatheredKit/Source/Sources/Screen.swift",
+      "line": 14,
+      "symbol": "Screen.availability",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/JosephDuffy/Library/Mobile Documents/com~apple~CloudDocs/Files/Projects/Incubator/GatheredKit/Source/Sources/Screen.swift",
+      "line": 16,
+      "symbol": "Screen.displayName",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/JosephDuffy/Library/Mobile Documents/com~apple~CloudDocs/Files/Projects/Incubator/GatheredKit/Source/Sources/Screen.swift",
+      "line": 130,
+      "symbol": "Screen.init()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/JosephDuffy/Library/Mobile Documents/com~apple~CloudDocs/Files/Projects/Incubator/GatheredKit/Source/Sources/Screen.swift",
+      "line": 134,
+      "symbol": "Screen.init(screen:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    }
   ],
-  "source_directory": "/Users/JosephDuffy/Dropbox/Projects/Open_Source/GatheredKit"
+  "source_directory": "/Users/JosephDuffy/Library/Mobile Documents/com~apple~CloudDocs/Files/Projects/Incubator/GatheredKit"
 }
