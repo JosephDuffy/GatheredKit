@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>AutomaticallyUpdatingSource Protocol Reference</title>
+    <link rel="stylesheet" type="text/css" href="../css/jazzy.css" />
+    <link rel="stylesheet" type="text/css" href="../css/highlight.css" />
+    <meta charset='utf-8'>
+    <script src="../js/jquery.min.js" defer></script>
+    <script src="../js/jazzy.js" defer></script>
+    
+  </head>
+  <body>
+    <a name="//apple_ref/swift/Protocol/AutomaticallyUpdatingSource" class="dashAnchor"></a>
+    <a title="AutomaticallyUpdatingSource Protocol Reference"></a>
+    <header>
+      <div class="content-wrapper">
+        <p><a href="../index.html">GatheredKit Docs</a> (85% documented)</p>
+        <p class="header-right"><a href="https://github.com/josephduffy/GatheredKit"><img src="../img/gh.png"/>View on GitHub</a></p>
+      </div>
+    </header>
+    <div class="content-wrapper">
+      <p id="breadcrumbs">
+        <a href="../index.html">GatheredKit Reference</a>
+        <img id="carat" src="../img/carat.png" />
+        AutomaticallyUpdatingSource Protocol Reference
+      </p>
+    </div>
+    <div class="content-wrapper">
+      <nav class="sidebar">
+        <ul class="nav-groups">
+          <li class="nav-group-name">
+            <a href="../Classes.html">Classes</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Classes/BaseSource.html">BaseSource</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/Screen.html">Screen</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Enums.html">Enumerations</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Enums/SourceAvailability.html">SourceAvailability</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/SourcePropertyUnitError.html">SourcePropertyUnitError</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Extensions.html">Extensions</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Extensions/Array.html">Array</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Protocols.html">Protocols</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Protocols/AutomaticallyUpdatingSource.html">AutomaticallyUpdatingSource</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/CustomisableUpdateIntervalSource.html">CustomisableUpdateIntervalSource</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/ManuallyUpdatableSource.html">ManuallyUpdatableSource</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/NumberBasedSourcePropertyUnit.html">NumberBasedSourcePropertyUnit</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/Source.html">Source</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/SourceProperty.html">SourceProperty</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/SourcePropertyUnit.html">SourcePropertyUnit</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Structs.html">Structures</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Structs/AnyEquatable.html">AnyEquatable</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/AnySourceProperty.html">AnySourceProperty</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/BeatsPerMinute.html">BeatsPerMinute</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Boolean.html">Boolean</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Byte.html">Byte</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Decibel.html">Decibel</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Degree.html">Degree</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/GenericSourceProperty.html">GenericSourceProperty</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Kilopascal.html">Kilopascal</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Meter.html">Meter</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Microtesla.html">Microtesla</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Percent.html">Percent</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Pixel.html">Pixel</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Point.html">Point</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+      <article class="main-content">
+        <section>
+          <section class="section">
+            <h1>AutomaticallyUpdatingSource</h1>
+              <div class="declaration">
+                <div class="language">
+                  <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">protocol</span> <span class="kt">AutomaticallyUpdatingSource</span> <span class="p">:</span> <span class="kt"><a href="../Protocols/Source.html">Source</a></span></code></pre>
+
+                </div>
+              </div>
+            <p>A source that monitors its properties in real-time</p>
+
+          </section>
+          <section class="section task-group-section">
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:11GatheredKit27AutomaticallyUpdatingSourceP02isD0Sbvp"></a>
+                    <a name="//apple_ref/swift/Property/isUpdating" class="dashAnchor"></a>
+                    <a class="token" href="#/s:11GatheredKit27AutomaticallyUpdatingSourceP02isD0Sbvp">isUpdating</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>A boolean indicating if the source is currently performing automatic updated</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">isUpdating</span><span class="p">:</span> <span class="kt">Bool</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/JosephDuffy/GatheredKit/tree/master/Source/Protocols/AutomaticallyUpdatingSource.swift#L8">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:11GatheredKit27AutomaticallyUpdatingSourceP05startD0yyF"></a>
+                    <a name="//apple_ref/swift/Method/startUpdating()" class="dashAnchor"></a>
+                    <a class="token" href="#/s:11GatheredKit27AutomaticallyUpdatingSourceP05startD0yyF">startUpdating()</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Start monitoring for changes. Callback closures to be called when a property is updated</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">startUpdating</span><span class="p">()</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/JosephDuffy/GatheredKit/tree/master/Source/Protocols/AutomaticallyUpdatingSource.swift#L13">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:11GatheredKit27AutomaticallyUpdatingSourceP04stopD0yyF"></a>
+                    <a name="//apple_ref/swift/Method/stopUpdating()" class="dashAnchor"></a>
+                    <a class="token" href="#/s:11GatheredKit27AutomaticallyUpdatingSourceP04stopD0yyF">stopUpdating()</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Stop automatically updating</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">stopUpdating</span><span class="p">()</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/JosephDuffy/GatheredKit/tree/master/Source/Protocols/AutomaticallyUpdatingSource.swift#L18">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </section>
+        </section>
+        <section id="footer">
+          <p>&copy; 2018 <a class="link" href="https://josephduffy.co.uk" target="_blank" rel="external">Joseph Duffy</a>. All rights reserved. (Last updated: 2018-05-23)</p>
+          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.9.3</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+        </section>
+      </article>
+    </div>
+  </body>
+</div>
+</html>
