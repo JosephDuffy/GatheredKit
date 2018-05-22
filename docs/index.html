@@ -13,7 +13,7 @@
     <a title="GatheredKit  Reference"></a>
     <header>
       <div class="content-wrapper">
-        <p><a href="index.html">GatheredKit Docs</a> (100% documented)</p>
+        <p><a href="index.html">GatheredKit Docs</a> (85% documented)</p>
         <p class="header-right"><a href="https://github.com/josephduffy/GatheredKit"><img src="img/gh.png"/>View on GitHub</a></p>
       </div>
     </header>
@@ -31,27 +31,21 @@
             <a href="Classes.html">Classes</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
-                <a href="Classes/DeviceMotionDataSourceBase.html">DeviceMotionDataSourceBase</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="Classes/ProximitySensor.html">ProximitySensor</a>
+                <a href="Classes/BaseSource.html">BaseSource</a>
               </li>
               <li class="nav-group-task">
                 <a href="Classes/Screen.html">Screen</a>
               </li>
-              <li class="nav-group-task">
-                <a href="Classes/SmoothMagnetometer.html">SmoothMagnetometer</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="Classes/TimerBasedDataSource.html">TimerBasedDataSource</a>
-              </li>
             </ul>
           </li>
           <li class="nav-group-name">
-            <a href="Enums.html">Enums</a>
+            <a href="Enums.html">Enumerations</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
-                <a href="Enums/DataSourceDataUnitError.html">DataSourceDataUnitError</a>
+                <a href="Enums/SourceAvailability.html">SourceAvailability</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Enums/SourcePropertyUnitError.html">SourcePropertyUnitError</a>
               </li>
             </ul>
           </li>
@@ -59,7 +53,7 @@
             <a href="Extensions.html">Extensions</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
-                <a href="Extensions/Notification.html">Notification</a>
+                <a href="Extensions/Array.html">Array</a>
               </li>
             </ul>
           </li>
@@ -67,46 +61,37 @@
             <a href="Protocols.html">Protocols</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
-                <a href="Protocols/AutomaticallyUpdatingDataSource.html">AutomaticallyUpdatingDataSource</a>
+                <a href="Protocols/AutomaticallyUpdatingSource.html">AutomaticallyUpdatingSource</a>
               </li>
               <li class="nav-group-task">
-                <a href="Protocols/CustomisableUpdateIntervalDataSource.html">CustomisableUpdateIntervalDataSource</a>
+                <a href="Protocols/CustomisableUpdateIntervalSource.html">CustomisableUpdateIntervalSource</a>
               </li>
               <li class="nav-group-task">
-                <a href="Protocols/DataSource.html">DataSource</a>
+                <a href="Protocols/ManuallyUpdatableSource.html">ManuallyUpdatableSource</a>
               </li>
               <li class="nav-group-task">
-                <a href="Protocols/DataSourceData.html">DataSourceData</a>
+                <a href="Protocols/NumberBasedSourcePropertyUnit.html">NumberBasedSourcePropertyUnit</a>
               </li>
               <li class="nav-group-task">
-                <a href="Protocols/DataSourceDataUnit.html">DataSourceDataUnit</a>
+                <a href="Protocols/Source.html">Source</a>
               </li>
               <li class="nav-group-task">
-                <a href="Protocols/DataSourceDelegate.html">DataSourceDelegate</a>
+                <a href="Protocols/SourceProperty.html">SourceProperty</a>
               </li>
               <li class="nav-group-task">
-                <a href="Protocols/DataSourceErrorHandlingDelegate.html">DataSourceErrorHandlingDelegate</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="Protocols/ManuallyUpdateableDataSource.html">ManuallyUpdateableDataSource</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="Protocols/NumberBasedDataSourceDataUnit.html">NumberBasedDataSourceDataUnit</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="Protocols/ProximitySensorBackingData.html">ProximitySensorBackingData</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="Protocols/ScreenBackingData.html">ScreenBackingData</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="Protocols/TypedDataSourceDataProtocol.html">TypedDataSourceDataProtocol</a>
+                <a href="Protocols/SourcePropertyUnit.html">SourcePropertyUnit</a>
               </li>
             </ul>
           </li>
           <li class="nav-group-name">
-            <a href="Structs.html">Structs</a>
+            <a href="Structs.html">Structures</a>
             <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="Structs/AnyEquatable.html">AnyEquatable</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Structs/AnySourceProperty.html">AnySourceProperty</a>
+              </li>
               <li class="nav-group-task">
                 <a href="Structs/BeatsPerMinute.html">BeatsPerMinute</a>
               </li>
@@ -121,6 +106,9 @@
               </li>
               <li class="nav-group-task">
                 <a href="Structs/Degree.html">Degree</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Structs/GenericSourceProperty.html">GenericSourceProperty</a>
               </li>
               <li class="nav-group-task">
                 <a href="Structs/Kilopascal.html">Kilopascal</a>
@@ -140,9 +128,6 @@
               <li class="nav-group-task">
                 <a href="Structs/Point.html">Point</a>
               </li>
-              <li class="nav-group-task">
-                <a href="Structs/TypedDataSourceData.html">TypedDataSourceData</a>
-              </li>
             </ul>
           </li>
         </ul>
@@ -151,41 +136,102 @@
         <section>
           <section class="section">
             
-            <a href='#img-src-https-josephduffy-github-io-gatheredkit-img-banner-png-alt-gatheredkit' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h1 id='img-src-https-josephduffy-github-io-gatheredkit-img-banner-png-alt-gatheredkit'><img src="https://josephduffy.github.io/GatheredKit/img/banner.png" alt="GatheredKit"></h1>
-<a href='#a-href-https-josephduffy-github-io-gatheredkit-img-src-https-josephduffy-github-io-gatheredkit-badge-svg-alt-documentation-a-a-href-https-github-com-carthage-carthage-img-src-https-img-shields-io-badge-carthage-compatible-4bc51d-svg-style-flat-alt-carthage-compatible-a-a-href-https-github-com-josephduffy-gatheredkit-blob-master-license-img-src-https-img-shields-io-badge-license-mit-4bc51d-svg-style-flat-alt-mit-license-a' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h2 id='a-href-https-josephduffy-github-io-gatheredkit-img-src-https-josephduffy-github-io-gatheredkit-badge-svg-alt-documentation-a-a-href-https-github-com-carthage-carthage-img-src-https-img-shields-io-badge-carthage-compatible-4bc51d-svg-style-flat-alt-carthage-compatible-a-a-href-https-github-com-josephduffy-gatheredkit-blob-master-license-img-src-https-img-shields-io-badge-license-mit-4bc51d-svg-style-flat-alt-mit-license-a'><a href="https://josephduffy.github.io/GatheredKit/"><img src="https://josephduffy.github.io/GatheredKit/badge.svg" alt="Documentation"></a> <a href="https://github.com/Carthage/Carthage"><img src="https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat" alt="Carthage compatible"></a> <a href="https://github.com/josephduffy/GatheredKit/blob/master/LICENSE"><img src="https://img.shields.io/badge/License-MIT-4BC51D.svg?style=flat" alt="MIT License"></a></h2>
+            <h1 id='api' class='heading'>API</h1>
 
-<p>GatheredKit is a framework that provides a consistent and easy to use API for various data sources offered by iOS. It is based on the code used by my app, Gathered (<a href="https://itunes.apple.com/us/app/apple-store/id929726748?mt=8">App Store</a>), but improved for more general use.</p>
+<p>GatheredKit aims to provide an intuitive and consistent API without being complex. Updates to the properties of a source can be handled by passing in a closure and retaining an opaque object. When the opaque object is deallocated the closure will also be deallocated.</p>
+<h2 id='code-source-code' class='heading'><code><a href="Protocols/Source.html">Source</a></code></h2>
 
-<p>At its core, GatheredKit is a simple protocol:</p>
-<pre class="highlight swift"><code><span class="cm">/**
- An object that can provide data from a specific source on the device
- */</span>
-<span class="kd">public</span> <span class="kd">protocol</span> <span class="kt">DataSource</span><span class="p">:</span> <span class="kd">class</span> <span class="p">{</span>
+<p>The core of GatheredKit is the <code><a href="Protocols/Source.html">Source</a></code> protocol.</p>
+<pre class="highlight swift"><code><span class="kd">protocol</span> <span class="kt">Source</span><span class="p">:</span> <span class="kd">class</span> <span class="p">{</span>
 
-    <span class="c1">/// A boolean indicating if the data source is available on the current device</span>
-    <span class="kd">static</span> <span class="k">var</span> <span class="nv">isAvailable</span><span class="p">:</span> <span class="kt">Bool</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span>
+    <span class="kd">typealias</span> <span class="kt">UpdateListener</span> <span class="o">=</span> <span class="p">(</span><span class="n">_</span> <span class="nv">data</span><span class="p">:</span> <span class="p">[</span><span class="kt">AnySourceProperty</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kt">Void</span>
 
-    <span class="c1">/// A user-friendly name for the data source</span>
-    <span class="kd">static</span> <span class="k">var</span> <span class="nv">displayName</span><span class="p">:</span> <span class="kt">String</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span>
+    <span class="kd">static</span> <span class="k">var</span> <span class="nv">availability</span><span class="p">:</span> <span class="kt">SourceAvailability</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span>
 
-    <span class="c1">/// A delegate that will receive messages about the data source's data</span>
-    <span class="k">weak</span> <span class="k">var</span> <span class="nv">delegate</span><span class="p">:</span> <span class="kt">DataSourceDelegate</span><span class="p">?</span> <span class="p">{</span> <span class="k">get</span> <span class="k">set</span> <span class="p">}</span>
+    <span class="k">var</span> <span class="nv">latestPropertyValues</span><span class="p">:</span> <span class="p">[</span><span class="kt">AnySourceProperty</span><span class="p">]</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span>
 
-    <span class="c1">/// The latest data values. All implementations within GatheredKit have a consistent and</span>
-    <span class="c1">/// documented order to the data in this array, along with type-safe properties for each</span>
-    <span class="c1">/// of the pieces of data</span>
-    <span class="k">var</span> <span class="nv">data</span><span class="p">:</span> <span class="p">[</span><span class="kt">DataSourceData</span><span class="p">]</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span>
+    <span class="nf">init</span><span class="p">()</span>
+
+    <span class="kd">func</span> <span class="nf">addUpdateListener</span><span class="p">(</span><span class="n">_</span> <span class="nv">updateListener</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="kt">UpdateListener</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">AnyObject</span>
 
 <span class="p">}</span>
 </code></pre>
 
-<p>There are more protocols, but this is the base protocol that all others inherit from.</p>
+<p>No implementations <em>only</em> conform to <code><a href="Protocols/Source.html">Source</a></code>, but rather conform to one or more of the protocols that extend <code><a href="Protocols/Source.html">Source</a></code>, shown below.</p>
+<h2 id='code-automaticallyupdatingsource-code' class='heading'><code><a href="Protocols/AutomaticallyUpdatingSource.html">AutomaticallyUpdatingSource</a></code></h2>
 
-<p>Each protocol that inherits from <code>DataSource</code> declares its own methods for updating the data source&rsquo;s data. These protocols are defined in <a href="https://josephduffy.github.io/GatheredKit/Protocols/DataSource.html"><code>DataSource</code></a></p>
-<a href='#installation' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h2 id='installation'>Installation</h2>
+<p>An <code><a href="Protocols/AutomaticallyUpdatingSource.html">AutomaticallyUpdatingSource</a></code> is a <code><a href="Protocols/Source.html">Source</a></code> that provides data in real-time, such as the user&rsquo;s location and the proximity sensor.</p>
+<pre class="highlight swift"><code><span class="kd">protocol</span> <span class="kt">AutomaticallyUpdatingSource</span><span class="p">:</span> <span class="kt">Source</span> <span class="p">{</span>
+
+    <span class="c1">/// A boolean indicating if the source is currently performing automatic updates</span>
+    <span class="k">var</span> <span class="nv">isUpdating</span><span class="p">:</span> <span class="kt">Bool</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span>
+
+    <span class="cm">/**
+     Start monitoring for changes. This will start delegate methods to be called
+     and notifications to be posted
+     */</span>
+    <span class="kd">func</span> <span class="nf">startUpdating</span><span class="p">()</span>
+
+    <span class="cm">/**
+     Stop automatically updating
+     */</span>
+    <span class="kd">func</span> <span class="nf">stopUpdating</span><span class="p">()</span>
+
+<span class="p">}</span>
+</code></pre>
+
+<p>An extension is provided to start updating and add a listener in a single call:</p>
+<pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">startUpdating</span><span class="p">(</span><span class="n">every</span> <span class="nv">updateInterval</span><span class="p">:</span> <span class="kt">TimeInterval</span><span class="p">,</span> <span class="nv">updateListener</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="kt">UpdateListener</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">AnyObject</span>
+</code></pre>
+<h2 id='code-customisableupdateintervalsource-code' class='heading'><code><a href="Protocols/CustomisableUpdateIntervalSource.html">CustomisableUpdateIntervalSource</a></code></h2>
+
+<p>A <code><a href="Protocols/CustomisableUpdateIntervalSource.html">CustomisableUpdateIntervalSource</a></code> is a <code><a href="Protocols/Source.html">Source</a></code> that supports customising the update frequency, e.g. the gyroscope</p>
+<pre class="highlight swift"><code><span class="kd">protocol</span> <span class="kt">CustomisableUpdateIntervalSource</span><span class="p">:</span> <span class="kt">Source</span> <span class="p">{</span>
+
+    <span class="c1">/// The time interval between property updates. A value of `nil` indicates that</span>
+    <span class="c1">/// the source is not performing periodic updates</span>
+    <span class="k">var</span> <span class="nv">updateInterval</span><span class="p">:</span> <span class="kt">TimeInterval</span><span class="p">?</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span>
+
+    <span class="c1">/// A boolean indicating if the source is performing period updates every `updateInterval`</span>
+    <span class="k">var</span> <span class="nv">isUpdating</span><span class="p">:</span> <span class="kt">Bool</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span>
+
+    <span class="cm">/**
+     Start performing periodic updates, updating every `updateInterval` seconds
+
+     - parameter updateInterval: The interval between updates, measured in seconds
+     */</span>
+    <span class="kd">func</span> <span class="nf">startUpdating</span><span class="p">(</span><span class="n">every</span> <span class="nv">updateInterval</span><span class="p">:</span> <span class="kt">TimeInterval</span><span class="p">)</span>
+
+    <span class="cm">/**
+     Stop performing periodic updates
+     */</span>
+    <span class="kd">func</span> <span class="nf">stopUpdating</span><span class="p">()</span>
+
+<span class="p">}</span>
+</code></pre>
+
+<p>An extension is provided to start updating and add a listener in a single call:</p>
+<pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">startUpdating</span><span class="p">(</span><span class="n">_</span> <span class="nv">updateListener</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="kt">UpdateListener</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">AnyObject</span>
+</code></pre>
+<h2 id='code-manuallyupdatablesource-code' class='heading'><code><a href="Protocols/ManuallyUpdatableSource.html">ManuallyUpdatableSource</a></code></h2>
+
+<p>A <code><a href="Protocols/ManuallyUpdatableSource.html">ManuallyUpdatableSource</a></code> is a <code><a href="Protocols/Source.html">Source</a></code> that can only be manually updated. <code><a href="Protocols/ManuallyUpdatableSource.html">ManuallyUpdatableSource</a></code> extends <code><a href="Protocols/CustomisableUpdateIntervalSource.html">CustomisableUpdateIntervalSource</a></code>, meaning all <code><a href="Protocols/ManuallyUpdatableSource.html">ManuallyUpdatableSource</a></code>s at least support updating via polling.</p>
+<pre class="highlight swift"><code><span class="kd">protocol</span> <span class="kt">ManuallyUpdatableSource</span><span class="p">:</span> <span class="kt">CustomisableUpdateIntervalSource</span> <span class="p">{</span>
+
+    <span class="cm">/**
+     Force the source to update its properties. Note that there is no guarantee that new data
+     will be available
+
+     - returns: The property values after the update
+     */</span>
+    <span class="kd">func</span> <span class="nf">updateProperties</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="p">[</span><span class="kt">AnySourceProperty</span><span class="p">]</span>
+
+<span class="p">}</span>
+</code></pre>
+<h2 id='installation' class='heading'>Installation</h2>
 
 <p>GatheredKit can be installed using any of the below methods. Once installed, simply <code>import GatheredKit</code> to start using it.</p>
-<a href='#carthage' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h3 id='carthage'>Carthage</h3>
+<h2 id='carthage' class='heading'>Carthage</h2>
 
 <p>To install via Carthage add to following to your <code>Cartfile</code>:</p>
 <pre class="highlight plaintext"><code>github "JosephDuffy/GatheredKit"
@@ -196,20 +242,26 @@
 <p>If you plan to submit an app to Apple that uses GatheredKit, remember to add GatheredKit to your <a href="https://github.com/Carthage/Carthage#if-youre-building-for-ios-tvos-or-watchos">script build phase to work around an App Store Submission bug</a>:</p>
 <pre class="highlight plaintext"><code>$(SRCROOT)/Carthage/Build/iOS/GatheredKit.framework
 </code></pre>
-<a href='#tests' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h2 id='tests'>Tests</h2>
+
+<p>and</p>
+<pre class="highlight plaintext"><code>$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/GatheredKit.framework
+</code></pre>
+<h2 id='tests' class='heading'>Tests</h2>
 
 <p>Running the tests for GatheredKit requires <code>Quick</code> and <code>Nimble</code>, which can be installed using Carthage:</p>
 
 <p><code>carthage build --platform iOS --no-use-binaries</code></p>
-<a href='#license' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h2 id='license'>License</h2>
 
-<p>The project is released under the MIT license. View the <a href="https://github.com/josephduffy/GatheredKit/blob/master/LICENSE">LICENSE</a> file for the full license.</p>
+<p>Alternatively running <code>fastlane test</code> will install the dependencies and run the tests.</p>
+<h2 id='license' class='heading'>License</h2>
+
+<p>The project is released under the MIT license. View the <a href="./LICENSE">LICENSE</a> file for the full license.</p>
 
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2017 <a class="link" href="https://josephduffy.co.uk" target="_blank" rel="external">Joseph Duffy</a>. All rights reserved. (Last updated: 2017-02-22)</p>
-          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.7.4</a>, a <a class="link" href="http://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+          <p>&copy; 2018 <a class="link" href="https://josephduffy.co.uk" target="_blank" rel="external">Joseph Duffy</a>. All rights reserved. (Last updated: 2018-05-23)</p>
+          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.9.3</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </article>
     </div>

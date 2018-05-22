@@ -1,0 +1,3 @@
+scheme "GatheredKit"
+clean true
+code_coverage true
