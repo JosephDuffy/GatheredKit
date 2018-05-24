@@ -4,29 +4,22 @@ default_platform :ios
 
 platform :ios do
 
-  desc "Installs necessary dependencies and runs all tests"
+  desc "Runs tests"
   lane :test do
-    install_dependencies
     scan
   end
 
+  desc "Performs checks that pull requests are required to pass"
   lane :perform_pr_checks do
     test
-
-    generate_documentation
-    # This file uddates no-matter-what, leading to a false-negavive
-    sh("git", "checkout", "HEAD", "--", "../docs/docsets/GatheredKit.tgz")
-    changedDocumentation = sh("git", "ls-files", "-t", "-o", "-m", "../docs")
-
-    if changedDocumentation.length > 0
-      abort("The documentation has changed. Please run `bundle exec fastlane generate_documentation` and `git add docs/*`")
-    end
   end
 
+  desc "Installs dependencies via carthage"
   lane :install_dependencies do
     carthage(platform: "iOS", cache_builds: true)
   end
 
+  desc "Generates documentation using jazzy"
   lane :generate_documentation do
     jazzy
   end
