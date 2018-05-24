@@ -10,7 +10,9 @@ before_install:
   - brew update
   - brew outdated carthage || brew upgrade carthage
 
-script:
+install:
   - bundle exec fastlane install_dependencies
+
+script:
   - 'if [ "$TRAVIS_PULL_REQUEST" != "false" ]; then bundle exec fastlane perform_pr_checks; fi'
   - 'if [ "$TRAVIS_PULL_REQUEST" = "false" ]; then bundle exec fastlane test; fi'
