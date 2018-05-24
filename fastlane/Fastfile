@@ -4,12 +4,12 @@ default_platform :ios
 
 platform :ios do
 
-  desc "Installs necessary dependencies and runs all tests"
+  desc "Runs tests"
   lane :test do
-    install_dependencies
     scan
   end
 
+  desc "Performs checks that pull requests are required to pass"
   lane :perform_pr_checks do
     test
 
@@ -23,10 +23,12 @@ platform :ios do
     end
   end
 
+  desc "Installs dependencies via carthage"
   lane :install_dependencies do
     carthage(platform: "iOS", cache_builds: true)
   end
 
+  desc "Generates documentation using jazzy"
   lane :generate_documentation do
     jazzy
   end
