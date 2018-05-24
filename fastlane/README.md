@@ -20,22 +20,22 @@ or alternatively using `brew cask install fastlane`
 ```
 fastlane ios test
 ```
-Installs necessary dependencies and runs all tests
+Runs tests
 ### ios perform_pr_checks
 ```
 fastlane ios perform_pr_checks
 ```
-
+Performs checks that pull requests are required to pass
 ### ios install_dependencies
 ```
 fastlane ios install_dependencies
 ```
-
+Installs dependencies via carthage
 ### ios generate_documentation
 ```
 fastlane ios generate_documentation
 ```
-
+Generates documentation using jazzy
 
 ----
 
