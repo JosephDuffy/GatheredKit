@@ -15,5 +15,19 @@ install:
   - bundle exec fastlane install_dependencies
 
 script:
-  - 'if [ "$TRAVIS_PULL_REQUEST" != "false" ]; then bundle exec fastlane perform_pr_checks; fi'
-  - 'if [ "$TRAVIS_PULL_REQUEST" = "false" ]; then bundle exec fastlane test; fi'
+  - if [ "$TRAVIS_PULL_REQUEST" != "false" ]; then bundle exec fastlane perform_pr_checks; fi
+  - if [ "$TRAVIS_PULL_REQUEST" = "false" ]; then bundle exec fastlane test; fi
+
+before_deploy:
+  - carthage build --no-skip-current
+  - carthage archive GatheredKit
+
+deploy:
+  provider: releases
+  api_key:
+    secure: HMmhfZgKZ2EFep7UF9f5kjokoeaK8GF4DN67KqFBLXPft7AVK6/DfYxRCiv7zJz4U/yJAbkoJBs7XXMX9yPiwDyLXeJAT3+5RAXNJNJM+4oKCrJfkHwmrtI7pKvyprPQivjGK/8Weuvl4/B6hPUwIol22kY4GOGZYdJ/XcB50rpaOjRvObg3CeIwOzMNF+gkBsS2IbOB4TxgDR/Id2EKFfKOIFFve286xVtaM1hyveqRFVonyDw6M4LUCoe9oW2fmDBAc+pA5vTHBoz8NW9f9rtDafBJg6TPmgLFB6j0iPQLtxfWAeqzhnRLGqQeBegxAG8TIsPhzGcVRsnHGQ3ZcaNfChZ3TOft4MyZPZir2EHl/piFRiCZnNWfamRjDxRB8meEt+CL4tiYLLNlfMSPBRFe4l2KhXpsTBupzCmVgX+goIF5Jkgvw4FF22I85JE5PxvB0t5N9AnviEgZOusgtSsHUneBojniDzETpIPaebS0fQmXASKPDfR1l49SJq4htwbr99eO6KGAS35Kgwmm/rZkGVCfjVzTnM7o/TRgYjNbmemHbJ7LzbxHUbuz7KvW/TDL+jW2hRSkjDvD3qLoALKN8ZvR+0HzokNBoRe5rcQHHNAkQfv0u+XiFQROGJehaoJL1/RJW73XW6hU6mqNpBdQc/OD8cyWTGo2imq9ZQc=
+  file: GatheredKit.framework.zip
+  skip_cleanup: true
+  on:
+    tag: true
+    repo: JosephDuffy/GatheredKit
