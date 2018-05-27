@@ -12,7 +12,7 @@ platform :ios do
   desc "Performs checks that pull requests are required to pass"
   lane :perform_pr_checks do
     test
-    sh("bundle", "exec", "pod", "lib", "lint")
+    sh("pod", "spec", "lint", "../GatheredKit.podspec")
   end
 
   desc "Installs dependencies via carthage"
