@@ -223,6 +223,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  cocoapods (~> 1.5)
   fastlane
   jazzy (~> 0.9.3)
 

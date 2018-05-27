@@ -23,11 +23,22 @@ before_deploy:
   - carthage archive GatheredKit
 
 deploy:
-  provider: releases
-  api_key:
-    secure: HMmhfZgKZ2EFep7UF9f5kjokoeaK8GF4DN67KqFBLXPft7AVK6/DfYxRCiv7zJz4U/yJAbkoJBs7XXMX9yPiwDyLXeJAT3+5RAXNJNJM+4oKCrJfkHwmrtI7pKvyprPQivjGK/8Weuvl4/B6hPUwIol22kY4GOGZYdJ/XcB50rpaOjRvObg3CeIwOzMNF+gkBsS2IbOB4TxgDR/Id2EKFfKOIFFve286xVtaM1hyveqRFVonyDw6M4LUCoe9oW2fmDBAc+pA5vTHBoz8NW9f9rtDafBJg6TPmgLFB6j0iPQLtxfWAeqzhnRLGqQeBegxAG8TIsPhzGcVRsnHGQ3ZcaNfChZ3TOft4MyZPZir2EHl/piFRiCZnNWfamRjDxRB8meEt+CL4tiYLLNlfMSPBRFe4l2KhXpsTBupzCmVgX+goIF5Jkgvw4FF22I85JE5PxvB0t5N9AnviEgZOusgtSsHUneBojniDzETpIPaebS0fQmXASKPDfR1l49SJq4htwbr99eO6KGAS35Kgwmm/rZkGVCfjVzTnM7o/TRgYjNbmemHbJ7LzbxHUbuz7KvW/TDL+jW2hRSkjDvD3qLoALKN8ZvR+0HzokNBoRe5rcQHHNAkQfv0u+XiFQROGJehaoJL1/RJW73XW6hU6mqNpBdQc/OD8cyWTGo2imq9ZQc=
-  file: GatheredKit.framework.zip
-  skip_cleanup: true
-  on:
-    tag: true
-    repo: JosephDuffy/GatheredKit
+  - provider: releases
+    api_key:
+      secure: HMmhfZgKZ2EFep7UF9f5kjokoeaK8GF4DN67KqFBLXPft7AVK6/DfYxRCiv7zJz4U/yJAbkoJBs7XXMX9yPiwDyLXeJAT3+5RAXNJNJM+4oKCrJfkHwmrtI7pKvyprPQivjGK/8Weuvl4/B6hPUwIol22kY4GOGZYdJ/XcB50rpaOjRvObg3CeIwOzMNF+gkBsS2IbOB4TxgDR/Id2EKFfKOIFFve286xVtaM1hyveqRFVonyDw6M4LUCoe9oW2fmDBAc+pA5vTHBoz8NW9f9rtDafBJg6TPmgLFB6j0iPQLtxfWAeqzhnRLGqQeBegxAG8TIsPhzGcVRsnHGQ3ZcaNfChZ3TOft4MyZPZir2EHl/piFRiCZnNWfamRjDxRB8meEt+CL4tiYLLNlfMSPBRFe4l2KhXpsTBupzCmVgX+goIF5Jkgvw4FF22I85JE5PxvB0t5N9AnviEgZOusgtSsHUneBojniDzETpIPaebS0fQmXASKPDfR1l49SJq4htwbr99eO6KGAS35Kgwmm/rZkGVCfjVzTnM7o/TRgYjNbmemHbJ7LzbxHUbuz7KvW/TDL+jW2hRSkjDvD3qLoALKN8ZvR+0HzokNBoRe5rcQHHNAkQfv0u+XiFQROGJehaoJL1/RJW73XW6hU6mqNpBdQc/OD8cyWTGo2imq9ZQc=
+    file: GatheredKit.framework.zip
+    skip_cleanup: true
+    on:
+      tag: true
+      repo: JosephDuffy/GatheredKit
+  - provider: script
+    script: pod trunk push
+    skip_cleanup: true
+    on:
+      tag: true
+      repo: JosephDuffy/GatheredKit
+
+env:
+  global:
+    # CocoaPods
+    secure: wtXd2k+2WJeQH6MXdvwsaaXLIzIQ3ZjIwtCOt7YHouLxhKyAdjEgjHik7UPq3vnSJtEYfXNDT8P0zJL4AXHTTaekwrxUBzdoO0UOoEBOebMwcmCKd1W8903jw2LGBg1xRpasEEWPplS9/MGqDIe1bMPXKXrLZ6TjvWRKR4zQkMknXbuRmpu18tpd60pYX84rpk+umh0vSwmUFXLhySdo4D8bPdKDZD9CzPl6Gjk9O/GPGF3hqECZhkQLS2ZZePdkxfiG0TI6AFGx/HLmgwsrvpsge4bUC4ytEBZ9OeqtsDme5YcakqHY6+4vqxyOkq1oWMJTzPlE7g2+1ZltcLTpbznYDlw81E2gM/1MzX7qzFFe7uTuQ6CQDgjFTsekMo12yQWDvjsdk3W/iWraTguJjBCgQp+d0cfdwk3j8/6CQia8dhz2jAbpfLVEBhs8f3zzwQhbtaHkYhm/6585u6MfvpJie73BFUyL3wp9WDfVkv/PrmqY3ERstOKAXyoBMgmJR813ZGmg2RX5Ia0gNBlsotSsB03N2ZJGTDmVxaiugJniUK3AOvloO25rl4RIe090M89373ntcIjKQaZXE+4W1/umsIJN2jpD73WVfjK8VOs2yUKZtxD9XLqtGCLfOiRy0/xQDhUy77o4CVzK+fT2Mm2CJVPYdymep/pDpCV3wdo=
