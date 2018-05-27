@@ -1,6 +1,10 @@
 ![GatheredKit](https://josephduffy.github.io/GatheredKit/img/banner.png)
 
-[![Build Status](https://api.travis-ci.org/JosephDuffy/GatheredKit.svg)](https://travis-ci.org/JosephDuffy/GatheredKit) [![Documentation](./docs/badge.svg)](https://josephduffy.github.io/GatheredKit/) [![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage) [![MIT License](https://img.shields.io/badge/License-MIT-4BC51D.svg?style=flat)](./LICENSE)
+[![Build Status](https://api.travis-ci.org/JosephDuffy/GatheredKit.svg)](https://travis-ci.org/JosephDuffy/GatheredKit)
+[![Documentation](https://josephduffy.github.io/GatheredKit/badge.svg)](https://josephduffy.github.io/GatheredKit/)
+[![Carthage Compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
+[![CocoaPods Compatible](https://img.shields.io/cocoapods/v/GatheredKit.svg)](https://cocoapods.org/pods/GatheredKit)
+[![MIT License](https://img.shields.io/badge/License-MIT-4BC51D.svg?style=flat)](./LICENSE)
 --
 
 GatheredKit is an iOS framework that provides a consistent and easy to use API for various data sources offered by iOS.
@@ -156,9 +160,9 @@ To install via Carthage add to following to your `Cartfile`:
 github "JosephDuffy/GatheredKit"
 ```
 
-Run `carthage update GatheredKit --platform iOS` to build the framework and then drag the built framework file in to your Xcode project.
+Run `carthage update GatheredKit --platform iOS` to build the framework and then drag the built framework file in to your Xcode project. GatheredKit provides pre-compiled binaries, [which can cause some issues with symbols](https://github.com/Carthage/Carthage#dwarfs-symbol-problem). Use the `--no-use-binaries` flag if this is an issue.
 
-If you plan to submit an app to Apple that uses GatheredKit, remember to add GatheredKit to your [script build phase to work around an App Store Submission bug](https://github.com/Carthage/Carthage#if-youre-building-for-ios-tvos-or-watchos):
+Remember to [add GatheredKit to your Carthage build phase](https://github.com/Carthage/Carthage#if-youre-building-for-ios-tvos-or-watchos):
 
 ```
 $(SRCROOT)/Carthage/Build/iOS/GatheredKit.framework
@@ -170,6 +174,16 @@ and
 $(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/GatheredKit.framework
 ```
 
+### CocoaPods
+
+To install via [CocoaPods](https://cocoapods.org) add the following line to your Podfile:
+
+```ruby
+pod 'GatheredKit'
+```
+
+and then run `pod install`.
+
 ## Documentation
 
 Documentation for GatheredKit is provided in the source code. Browsable documentation is available at [https://josephduffy.github.io/GatheredKit/](https://josephduffy.github.io/GatheredKit/).
@@ -180,7 +194,7 @@ Running the tests for GatheredKit requires `Quick` and `Nimble`, which can be in
 
 `carthage build --platform iOS --no-use-binaries`
 
-Alternatively running `fastlane test` will install the dependencies and run the tests.
+Tests can be run via Xcode or `fastlane test`.
 
 ## License
 
