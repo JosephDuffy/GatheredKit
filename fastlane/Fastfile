@@ -12,6 +12,7 @@ platform :ios do
   desc "Performs checks that pull requests are required to pass"
   lane :perform_pr_checks do
     test
+    sh("bundle", "exec", "pod", "lib", "lint")
   end
 
   desc "Installs dependencies via carthage"
