@@ -1,15 +1,15 @@
 ![GatheredKit](https://josephduffy.github.io/GatheredKit/img/banner.png)
 
-[![Documentation](./docs/badge.svg)](https://josephduffy.github.io/GatheredKit/) [![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage) [![MIT License](https://img.shields.io/badge/License-MIT-4BC51D.svg?style=flat)](./LICENSE)
+[![Build Status](https://api.travis-ci.org/JosephDuffy/GatheredKit.svg)](https://travis-ci.org/JosephDuffy/GatheredKit) [![Documentation](./docs/badge.svg)](https://josephduffy.github.io/GatheredKit/) [![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage) [![MIT License](https://img.shields.io/badge/License-MIT-4BC51D.svg?style=flat)](./LICENSE)
 --
 
 GatheredKit is an iOS framework that provides a consistent and easy to use API for various data sources offered by iOS.
 
-The code originated from [my app, Gathered](https://itunes.apple.com/us/app/apple-store/id929726748?mt=8), hense the name and logo.
+The code originated from [Gathered](https://geo.itunes.apple.com/app/gathered/id929726748?mt=8), hense the name and logo.
 
 ## Available Sources
 
-Every source is a class backed by an equivelent `Foundation` or `UIKit` class, but with a simplified and consistent API to receive updates. Below is a list of sources that GatheredKit has to offer. Unticked boxes indicate sources that will be added in the future.
+Every source is a class backed by an equivelent Apple-provided class, but with a simplified and consistent API to receive updates. Below is a list of sources that GatheredKit has to offer. Unticked boxes indicate sources that will be added in the future.
 
  - [ ] WiFi
  - [ ] GPS
@@ -156,7 +156,7 @@ To install via Carthage add to following to your `Cartfile`:
 github "JosephDuffy/GatheredKit"
 ```
 
-Run `carthage update GatheredKit` to build the framework and then drag the built framework file in to your Xcode project.
+Run `carthage update GatheredKit --platform iOS` to build the framework and then drag the built framework file in to your Xcode project.
 
 If you plan to submit an app to Apple that uses GatheredKit, remember to add GatheredKit to your [script build phase to work around an App Store Submission bug](https://github.com/Carthage/Carthage#if-youre-building-for-ios-tvos-or-watchos):
 
