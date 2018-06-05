@@ -22,12 +22,8 @@ public struct Byte: SourcePropertyUnit {
      - throws: `SourcePropertyUnitError.unsupportedType` if the `value` parameter's type is not an `NSNumber`
      - returns: The formatted string
      */
-    public func formattedString(for value: Any) throws -> String {
-        guard let numberValue = value as? NSNumber else {
-            throw SourcePropertyUnitError.unsupportedType(type: type(of: value))
-        }
-
-        return ByteCountFormatter.string(fromByteCount: numberValue.int64Value, countStyle: countStyle)
+    public func formattedString(for value: Int64) -> String {
+        return ByteCountFormatter.string(fromByteCount: value, countStyle: countStyle)
     }
 
 }
