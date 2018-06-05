@@ -26,7 +26,7 @@ public struct Boolean: SourcePropertyUnit {
      - parameter value: The boolean to be formatted
      - returns: The formatted string
      */
-    public func formattedString(for value: Bool) throws -> String {
+    public func formattedString(for value: Bool) -> String {
         return value ? trueString : falseString
     }
 
@@ -37,7 +37,7 @@ public struct Boolean: SourcePropertyUnit {
      - parameter flaseString: A custom string to return when `value` is `false`
      - returns: The formatted string
      */
-    public func formattedString(for value: Bool, trueString: String, falseString: String) throws -> String {
+    public func formattedString(for value: Bool, trueString: String, falseString: String) -> String {
         return value ? trueString : falseString
     }
 

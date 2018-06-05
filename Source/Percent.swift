@@ -25,7 +25,7 @@ public struct Percent: NumberBasedSourcePropertyUnit {
      - throws: `SourcePropertyUnitError.unsupportedType` if the `value` cannot be cast to an `NSNumber`
      - returns: The formatted string
      */
-    public func formattedString(for value: NSNumber) throws -> String {
+    public func formattedString(for value: NSNumber) -> String {
         let formatter = NumberFormatter()
         formatter.numberStyle = .percent
         formatter.maximumFractionDigits = maximumFractionDigits
