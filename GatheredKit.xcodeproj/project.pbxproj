@@ -36,7 +36,6 @@
 		D9EF05CB20ACD35B00D3F194 /* Screen.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9EF05CA20ACD35B00D3F194 /* Screen.swift */; };
 		D9EF05D120ACD6B900D3F194 /* BaseSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9EF05D020ACD6B900D3F194 /* BaseSource.swift */; };
 		D9EF05D520ACD95400D3F194 /* SourceUpdateListenerWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9EF05D420ACD95400D3F194 /* SourceUpdateListenerWrapper.swift */; };
-		D9EF05D920ACE00500D3F194 /* AnyEquatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9EF05D820ACE00500D3F194 /* AnyEquatable.swift */; };
 		D9EF05E220AE2BA300D3F194 /* ScreenTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9EF05E020AE2B9700D3F194 /* ScreenTests.swift */; };
 		D9EF05E520AE2BBD00D3F194 /* MockScreenBackingData.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9EF05E420AE2BBD00D3F194 /* MockScreenBackingData.swift */; };
 		D9EF05F520AE2FE800D3F194 /* Nimble.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D9EF05F120AE2FE100D3F194 /* Nimble.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -103,7 +102,6 @@
 		D9EF05CA20ACD35B00D3F194 /* Screen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Screen.swift; sourceTree = "<group>"; };
 		D9EF05D020ACD6B900D3F194 /* BaseSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseSource.swift; sourceTree = "<group>"; };
 		D9EF05D420ACD95400D3F194 /* SourceUpdateListenerWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SourceUpdateListenerWrapper.swift; sourceTree = "<group>"; };
-		D9EF05D820ACE00500D3F194 /* AnyEquatable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnyEquatable.swift; sourceTree = "<group>"; };
 		D9EF05DB20AE2B4700D3F194 /* Nimble.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Nimble.framework; path = Carthage/Build/iOS/Nimble.framework; sourceTree = "<group>"; };
 		D9EF05DC20AE2B4700D3F194 /* Quick.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Quick.framework; path = Carthage/Build/iOS/Quick.framework; sourceTree = "<group>"; };
 		D9EF05E020AE2B9700D3F194 /* ScreenTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenTests.swift; sourceTree = "<group>"; };
@@ -234,7 +232,6 @@
 				D9CDB99220AE3C4A00316739 /* AnySourceProperty.swift */,
 				D9EF05D420ACD95400D3F194 /* SourceUpdateListenerWrapper.swift */,
 				D9EF05D020ACD6B900D3F194 /* BaseSource.swift */,
-				D9EF05D820ACE00500D3F194 /* AnyEquatable.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -386,7 +383,6 @@
 			files = (
 				D9EF05BB20ACD24A00D3F194 /* Decibel.swift in Sources */,
 				D9CDB99520AE3D2900316739 /* SourceProperty.swift in Sources */,
-				D9EF05D920ACE00500D3F194 /* AnyEquatable.swift in Sources */,
 				D9EF05A020ACC77D00D3F194 /* GenericSourceProperty.swift in Sources */,
 				D9CDB99320AE3C4A00316739 /* AnySourceProperty.swift in Sources */,
 				D9EF05AF20ACCF8B00D3F194 /* ManuallyUpdatableSource.swift in Sources */,

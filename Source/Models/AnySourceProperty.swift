@@ -2,13 +2,17 @@ import Foundation
 
 public struct AnySourceProperty: SourceProperty {
 
+    public static func ==(lhs: AnySourceProperty, rhs: AnySourceProperty) -> Bool {
+        return lhs.box == rhs.box
+    }
+
     /// A user-friendly name for the property
     public var displayName: String {
         return box.displayName
     }
 
     /// The value of the property
-    public var value: AnyEquatable {
+    public var value: Any {
         return box.value
     }
 
@@ -49,14 +53,13 @@ private class _AnySourcePropertyBase: SourceProperty {
         fatalError("Must overide")
     }
 
-
     /// A user-friendly name for the property
     var displayName: String {
         fatalError("Must overide")
     }
 
     /// The value of the property
-    var value: AnyEquatable {
+    var value: Any {
         fatalError("Must overide")
     }
 
@@ -86,14 +89,18 @@ private class _AnySourcePropertyBase: SourceProperty {
 
 private final class _AnySourcePropertyBox<Concrete: SourceProperty>: _AnySourcePropertyBase {
 
+    static func ==(lhs: _AnySourcePropertyBox<Concrete>, rhs: _AnySourcePropertyBox<Concrete>) -> Bool {
+        return lhs.concrete == rhs.concrete
+    }
+
     /// A user-friendly name for the property
     override var displayName: String {
         return concrete.displayName
     }
 
     /// The value of the property
-    override var value: AnyEquatable {
-        return AnyEquatable(concrete.value)
+    override var value: Any {
+        return concrete.value
     }
 
     /// A human-friendly formatted value
