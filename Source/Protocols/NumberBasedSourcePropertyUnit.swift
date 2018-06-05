@@ -37,7 +37,7 @@ public extension NumberBasedSourcePropertyUnit {
             throw SourcePropertyUnitError.unsupportedType(type: type(of: value))
         }
 
-        return try formattedString(for: valueAsNSNumber)
+        return formattedString(for: valueAsNSNumber, maximumFractionDigits: maximumFractionDigits)
     }
 
     /**
