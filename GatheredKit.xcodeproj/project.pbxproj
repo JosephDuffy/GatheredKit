@@ -17,7 +17,6 @@
 		D9EF059E20ACC63700D3F194 /* Source.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9EF059D20ACC63700D3F194 /* Source.swift */; };
 		D9EF05A020ACC77D00D3F194 /* GenericSourceProperty.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9EF059F20ACC77D00D3F194 /* GenericSourceProperty.swift */; };
 		D9EF05A520ACCE3800D3F194 /* SourcePropertyUnit.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9EF05A420ACCE3800D3F194 /* SourcePropertyUnit.swift */; };
-		D9EF05AB20ACCF4E00D3F194 /* AutomaticallyUpdatingSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9EF05AA20ACCF4E00D3F194 /* AutomaticallyUpdatingSource.swift */; };
 		D9EF05AD20ACCF7000D3F194 /* CustomisableUpdateIntervalSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9EF05AC20ACCF7000D3F194 /* CustomisableUpdateIntervalSource.swift */; };
 		D9EF05AF20ACCF8B00D3F194 /* ManuallyUpdatableSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9EF05AE20ACCF8B00D3F194 /* ManuallyUpdatableSource.swift */; };
 		D9EF05B120ACD02100D3F194 /* NumberBasedSourcePropertyUnit.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9EF05B020ACD02100D3F194 /* NumberBasedSourcePropertyUnit.swift */; };
@@ -83,7 +82,6 @@
 		D9EF059D20ACC63700D3F194 /* Source.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Source.swift; sourceTree = "<group>"; };
 		D9EF059F20ACC77D00D3F194 /* GenericSourceProperty.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenericSourceProperty.swift; sourceTree = "<group>"; };
 		D9EF05A420ACCE3800D3F194 /* SourcePropertyUnit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SourcePropertyUnit.swift; sourceTree = "<group>"; };
-		D9EF05AA20ACCF4E00D3F194 /* AutomaticallyUpdatingSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutomaticallyUpdatingSource.swift; sourceTree = "<group>"; };
 		D9EF05AC20ACCF7000D3F194 /* CustomisableUpdateIntervalSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomisableUpdateIntervalSource.swift; sourceTree = "<group>"; };
 		D9EF05AE20ACCF8B00D3F194 /* ManuallyUpdatableSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManuallyUpdatableSource.swift; sourceTree = "<group>"; };
 		D9EF05B020ACD02100D3F194 /* NumberBasedSourcePropertyUnit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumberBasedSourcePropertyUnit.swift; sourceTree = "<group>"; };
@@ -216,7 +214,6 @@
 			isa = PBXGroup;
 			children = (
 				D9EF059D20ACC63700D3F194 /* Source.swift */,
-				D9EF05AA20ACCF4E00D3F194 /* AutomaticallyUpdatingSource.swift */,
 				D9EF05AC20ACCF7000D3F194 /* CustomisableUpdateIntervalSource.swift */,
 				D9EF05AE20ACCF8B00D3F194 /* ManuallyUpdatableSource.swift */,
 				D9CDB99420AE3D2900316739 /* SourceProperty.swift */,
@@ -391,7 +388,6 @@
 				D928465A20C499790058245F /* Scale.swift in Sources */,
 				D9EF059E20ACC63700D3F194 /* Source.swift in Sources */,
 				D9EF05BF20ACD26600D3F194 /* Kilopascal.swift in Sources */,
-				D9EF05AB20ACCF4E00D3F194 /* AutomaticallyUpdatingSource.swift in Sources */,
 				D9EF05B920ACD23400D3F194 /* Boolean.swift in Sources */,
 				D9EF05B120ACD02100D3F194 /* NumberBasedSourcePropertyUnit.swift in Sources */,
 				D9EF05B520ACD20700D3F194 /* BeatsPerMinute.swift in Sources */,
