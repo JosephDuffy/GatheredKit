@@ -4,6 +4,8 @@
  */
 public protocol SourcePropertyUnit {
 
+    associatedtype ValueType
+
     /**
      Generates a human-friendly string for the given value.
 
@@ -17,6 +19,6 @@ public protocol SourcePropertyUnit {
 
      - returns: The formatted string
      */
-    func formattedString(for value: Any) throws -> String
+    func formattedString(for value: ValueType) throws -> String
 
 }
