@@ -1,7 +1,7 @@
 
 public protocol SourceProperty: Equatable {
 
-    associatedtype ValueType: Equatable
+    associatedtype ValueType
 
     /// A user-friendly name for the property
     var displayName: String { get }
