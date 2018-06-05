@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		D928465A20C499790058245F /* Scale.swift in Sources */ = {isa = PBXBuildFile; fileRef = D928465920C499790058245F /* Scale.swift */; };
+		D93D7A4320C728CE007C16D0 /* AnySourcePropertyUnit.swift in Sources */ = {isa = PBXBuildFile; fileRef = D93D7A4220C728CE007C16D0 /* AnySourcePropertyUnit.swift */; };
+		D93D7A4520C72D6A007C16D0 /* None.swift in Sources */ = {isa = PBXBuildFile; fileRef = D93D7A4420C72D6A007C16D0 /* None.swift */; };
 		D9CDB99320AE3C4A00316739 /* AnySourceProperty.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9CDB99220AE3C4A00316739 /* AnySourceProperty.swift */; };
 		D9CDB99520AE3D2900316739 /* SourceProperty.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9CDB99420AE3D2900316739 /* SourceProperty.swift */; };
 		D9D7529E20B4BE0600B16A06 /* SourceAvailability.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9D7529D20B4BE0600B16A06 /* SourceAvailability.swift */; };
@@ -70,6 +72,8 @@
 
 /* Begin PBXFileReference section */
 		D928465920C499790058245F /* Scale.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Scale.swift; sourceTree = "<group>"; };
+		D93D7A4220C728CE007C16D0 /* AnySourcePropertyUnit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnySourcePropertyUnit.swift; sourceTree = "<group>"; };
+		D93D7A4420C72D6A007C16D0 /* None.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = None.swift; sourceTree = "<group>"; };
 		D9CDB99220AE3C4A00316739 /* AnySourceProperty.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnySourceProperty.swift; sourceTree = "<group>"; };
 		D9CDB99420AE3D2900316739 /* SourceProperty.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SourceProperty.swift; sourceTree = "<group>"; };
 		D9D7529D20B4BE0600B16A06 /* SourceAvailability.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SourceAvailability.swift; sourceTree = "<group>"; };
@@ -175,8 +179,6 @@
 		D9EF05A320ACCDE100D3F194 /* Units */ = {
 			isa = PBXGroup;
 			children = (
-				D9EF05A420ACCE3800D3F194 /* SourcePropertyUnit.swift */,
-				D9EF05B020ACD02100D3F194 /* NumberBasedSourcePropertyUnit.swift */,
 				D9EF05B220ACD04F00D3F194 /* SourcePropertyUnitError.swift */,
 				D9EF05B420ACD20700D3F194 /* BeatsPerMinute.swift */,
 				D9EF05B620ACD22100D3F194 /* Byte.swift */,
@@ -186,6 +188,7 @@
 				D9EF05BE20ACD26600D3F194 /* Kilopascal.swift */,
 				D9EF05C020ACD27400D3F194 /* Microtesla.swift */,
 				D9EF05C220ACD2D400D3F194 /* Meter.swift */,
+				D93D7A4420C72D6A007C16D0 /* None.swift */,
 				D9EF05C620ACD2F200D3F194 /* Percent.swift */,
 				D9EF05C420ACD2E300D3F194 /* Pixel.swift */,
 				D9EF05C820ACD31400D3F194 /* Point.swift */,
@@ -213,6 +216,8 @@
 		D9EF05A820ACCEE600D3F194 /* Protocols */ = {
 			isa = PBXGroup;
 			children = (
+				D9EF05A420ACCE3800D3F194 /* SourcePropertyUnit.swift */,
+				D9EF05B020ACD02100D3F194 /* NumberBasedSourcePropertyUnit.swift */,
 				D9EF059D20ACC63700D3F194 /* Source.swift */,
 				D9EF05AC20ACCF7000D3F194 /* CustomisableUpdateIntervalSource.swift */,
 				D9EF05AE20ACCF8B00D3F194 /* ManuallyUpdatableSource.swift */,
@@ -227,6 +232,7 @@
 			children = (
 				D9EF059F20ACC77D00D3F194 /* GenericSourceProperty.swift */,
 				D9CDB99220AE3C4A00316739 /* AnySourceProperty.swift */,
+				D93D7A4220C728CE007C16D0 /* AnySourcePropertyUnit.swift */,
 				D9EF05D420ACD95400D3F194 /* SourceUpdateListenerWrapper.swift */,
 				D9EF05D020ACD6B900D3F194 /* BaseSource.swift */,
 			);
@@ -379,12 +385,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				D9EF05BB20ACD24A00D3F194 /* Decibel.swift in Sources */,
+				D93D7A4520C72D6A007C16D0 /* None.swift in Sources */,
 				D9CDB99520AE3D2900316739 /* SourceProperty.swift in Sources */,
 				D9EF05A020ACC77D00D3F194 /* GenericSourceProperty.swift in Sources */,
 				D9CDB99320AE3C4A00316739 /* AnySourceProperty.swift in Sources */,
 				D9EF05AF20ACCF8B00D3F194 /* ManuallyUpdatableSource.swift in Sources */,
 				D9EF05C520ACD2E300D3F194 /* Pixel.swift in Sources */,
 				D9EF05BD20ACD25800D3F194 /* Degree.swift in Sources */,
+				D93D7A4320C728CE007C16D0 /* AnySourcePropertyUnit.swift in Sources */,
 				D928465A20C499790058245F /* Scale.swift in Sources */,
 				D9EF059E20ACC63700D3F194 /* Source.swift in Sources */,
 				D9EF05BF20ACD26600D3F194 /* Kilopascal.swift in Sources */,

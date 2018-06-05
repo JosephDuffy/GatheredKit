@@ -1,10 +1,10 @@
 import Foundation
 
-public struct GenericSourceProperty<ValueType: Equatable & Codable>: SourceProperty {
+public struct GenericSourceProperty<ValueType: Equatable & Codable, UnitType: SourcePropertyUnit>: SourceProperty {
 
-    public typealias UpdateListener = (_ sourceProperty: GenericSourceProperty<ValueType>) -> Void
+    public typealias UpdateListener = (_ sourceProperty: GenericSourceProperty<ValueType, UnitType>) -> Void
 
-    public static func ==(lhs: GenericSourceProperty<ValueType>, rhs: GenericSourceProperty<ValueType>) -> Bool {
+    public static func ==(lhs: GenericSourceProperty<ValueType, UnitType>, rhs: GenericSourceProperty<ValueType, UnitType>) -> Bool {
         return
             lhs.displayName == rhs.displayName &&
                 lhs.value == rhs.value &&
@@ -24,7 +24,7 @@ public struct GenericSourceProperty<ValueType: Equatable & Codable>: SourcePrope
     public let formattedValue: String?
 
     /// The unit the value is measured in
-    public let unit: SourcePropertyUnit?
+    public let unit: UnitType
 
     /// The date that the value was created
     public let date: Date
@@ -33,7 +33,7 @@ public struct GenericSourceProperty<ValueType: Equatable & Codable>: SourcePrope
         displayName: String,
         value: ValueType,
         formattedValue: String? = nil,
-        unit: SourcePropertyUnit? = nil,
+        unit: UnitType,
         date: Date = Date()
     ) {
         self.displayName = displayName
