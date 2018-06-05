@@ -3,6 +3,8 @@ public protocol SourceProperty: Equatable {
 
     associatedtype ValueType
 
+    associatedtype UnitType: SourcePropertyUnit
+
     /// A user-friendly name for the property
     var displayName: String { get }
 
@@ -11,10 +13,10 @@ public protocol SourceProperty: Equatable {
 
     /// A human-friendly formatted value
     /// Note that this may differ from the result of `unit.formattedString(for:)`
-    var formattedValue: String?  { get }
+    var formattedValue: String? { get }
 
     /// The unit the value is measured in
-    var unit: SourcePropertyUnit?  { get }
+    var unit: UnitType { get }
 
     /// The date that the value was created
     var date: Date { get }

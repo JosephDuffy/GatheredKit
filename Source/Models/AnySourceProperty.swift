@@ -23,7 +23,7 @@ public struct AnySourceProperty: SourceProperty {
     }
 
     /// The unit the value is measured in
-    public var unit: SourcePropertyUnit?  {
+    public var unit: AnySourcePropertyUnit {
         return box.unit
     }
 
@@ -70,7 +70,7 @@ private class _AnySourcePropertyBase: SourceProperty {
     }
 
     /// The unit the value is measured in
-    var unit: SourcePropertyUnit?  {
+    var unit: AnySourcePropertyUnit {
         fatalError("Must overide")
     }
 
@@ -110,8 +110,8 @@ private final class _AnySourcePropertyBox<Concrete: SourceProperty>: _AnySourceP
     }
 
     /// The unit the value is measured in
-    override var unit: SourcePropertyUnit?  {
-        return concrete.unit
+    override var unit: AnySourcePropertyUnit  {
+        return AnySourcePropertyUnit(concrete.unit)
     }
 
     /// The date that the value was created

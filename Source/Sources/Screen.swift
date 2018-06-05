@@ -20,7 +20,7 @@ public final class Screen: BaseSource, Source {
         switch state {
         case .notMonitoring:
             return false
-        case .monitoring(_):
+        case .monitoring:
             return true
         }
     }
@@ -36,12 +36,14 @@ public final class Screen: BaseSource, Source {
 
      Formatted value: "\(width) x \(height) Points"
      */
-    public var reportedScreenResolution: GenericSourceProperty<CGSize> {
+    public var reportedScreenResolution: GenericSourceProperty<CGSize, Point> {
+        let unit = Point()
+
         return GenericSourceProperty(
             displayName: "Screen Resolution (reported)",
             value: screen.bounds.size,
-            formattedValue: formattedString(for: screen.bounds.size) + Point().pluralValueSuffix,
-            unit: Point()
+            formattedValue: formattedString(for: screen.bounds.size) + unit.pluralValueSuffix,
+            unit: unit
         )
     }
 
@@ -53,12 +55,14 @@ public final class Screen: BaseSource, Source {
      Unit: Pixel
      Formatted value: "\(width) x \(height) Pixels"
      */
-    public var nativeScreenResolution: GenericSourceProperty<CGSize> {
+    public var nativeScreenResolution: GenericSourceProperty<CGSize, Pixel> {
+        let unit = Pixel()
+
         return GenericSourceProperty(
             displayName: "Screen Resolution (native)",
             value: screen.nativeBounds.size,
-            formattedValue: formattedString(for: screen.nativeBounds.size) + Pixel().pluralValueSuffix,
-            unit: Pixel()
+            formattedValue: formattedString(for: screen.nativeBounds.size) + unit.pluralValueSuffix,
+            unit: unit
         )
     }
 
@@ -68,7 +72,7 @@ public final class Screen: BaseSource, Source {
      **Properties**
      Display name: Screen Scale (reported)
      */
-    public var reportedScreenScale: GenericSourceProperty<CGFloat> {
+    public var reportedScreenScale: GenericSourceProperty<CGFloat, Scale> {
         return GenericSourceProperty(
             displayName: "Screen Scale (reported)",
             value: screen.scale,
@@ -83,7 +87,7 @@ public final class Screen: BaseSource, Source {
 
      Display name: Screen Scale (native)
      */
-    public var nativeScreenScale: GenericSourceProperty<CGFloat> {
+    public var nativeScreenScale: GenericSourceProperty<CGFloat, Scale> {
         return GenericSourceProperty(
             displayName: "Screen Scale (native)",
             value: screen.nativeScale,
@@ -100,7 +104,7 @@ public final class Screen: BaseSource, Source {
 
      Unit: Percent
      */
-    public var brightness: GenericSourceProperty<CGFloat> {
+    public var brightness: GenericSourceProperty<CGFloat, Percent> {
         return GenericSourceProperty(
             displayName: "Brightness",
             value: screen.brightness,
