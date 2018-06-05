@@ -26,7 +26,7 @@ public final class Screen: BaseSource, Source {
     }
 
     /// The `ScreenBackingData` this `Screen` represents
-    internal let screen: ScreenBackingData
+    private let screen: ScreenBackingData
 
     /**
      The screen resolution reported by the system
@@ -34,7 +34,7 @@ public final class Screen: BaseSource, Source {
      Display name: Screen Resolution (reported)
      Unit: Point
 
-     Formatted value: "\(width) x \(height)"
+     Formatted value: "\(width) x \(height) Points"
      */
     public var reportedScreenResolution: GenericSourceProperty<CGSize> {
         return GenericSourceProperty(
@@ -51,7 +51,7 @@ public final class Screen: BaseSource, Source {
      **Properties**
      Display name: Screen Resolution (native)
      Unit: Pixel
-     Formatted value: "\(width) x \(height)"
+     Formatted value: "\(width) x \(height) Pixels"
      */
     public var nativeScreenResolution: GenericSourceProperty<CGSize> {
         return GenericSourceProperty(
