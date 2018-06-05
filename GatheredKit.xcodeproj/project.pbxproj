@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D928465A20C499790058245F /* Scale.swift in Sources */ = {isa = PBXBuildFile; fileRef = D928465920C499790058245F /* Scale.swift */; };
 		D9CDB99320AE3C4A00316739 /* AnySourceProperty.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9CDB99220AE3C4A00316739 /* AnySourceProperty.swift */; };
 		D9CDB99520AE3D2900316739 /* SourceProperty.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9CDB99420AE3D2900316739 /* SourceProperty.swift */; };
 		D9D7529E20B4BE0600B16A06 /* SourceAvailability.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9D7529D20B4BE0600B16A06 /* SourceAvailability.swift */; };
@@ -70,6 +71,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		D928465920C499790058245F /* Scale.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Scale.swift; sourceTree = "<group>"; };
 		D9CDB99220AE3C4A00316739 /* AnySourceProperty.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnySourceProperty.swift; sourceTree = "<group>"; };
 		D9CDB99420AE3D2900316739 /* SourceProperty.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SourceProperty.swift; sourceTree = "<group>"; };
 		D9D7529D20B4BE0600B16A06 /* SourceAvailability.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SourceAvailability.swift; sourceTree = "<group>"; };
@@ -191,6 +193,7 @@
 				D9EF05C620ACD2F200D3F194 /* Percent.swift */,
 				D9EF05C420ACD2E300D3F194 /* Pixel.swift */,
 				D9EF05C820ACD31400D3F194 /* Point.swift */,
+				D928465920C499790058245F /* Scale.swift */,
 			);
 			path = Units;
 			sourceTree = "<group>";
@@ -389,6 +392,7 @@
 				D9EF05AF20ACCF8B00D3F194 /* ManuallyUpdatableSource.swift in Sources */,
 				D9EF05C520ACD2E300D3F194 /* Pixel.swift in Sources */,
 				D9EF05BD20ACD25800D3F194 /* Degree.swift in Sources */,
+				D928465A20C499790058245F /* Scale.swift in Sources */,
 				D9EF059E20ACC63700D3F194 /* Source.swift in Sources */,
 				D9EF05BF20ACD26600D3F194 /* Kilopascal.swift in Sources */,
 				D9EF05AB20ACCF4E00D3F194 /* AutomaticallyUpdatingSource.swift in Sources */,

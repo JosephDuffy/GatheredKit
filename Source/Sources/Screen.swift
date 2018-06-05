@@ -40,7 +40,7 @@ public final class Screen: BaseSource, AutomaticallyUpdatingSource {
         return GenericSourceProperty(
             displayName: "Screen Resolution (reported)",
             value: screen.bounds.size,
-            formattedValue: formattedString(for: screen.bounds.size),
+            formattedValue: formattedString(for: screen.bounds.size) + Point().pluralValueSuffix,
             unit: Point()
         )
     }
@@ -57,7 +57,7 @@ public final class Screen: BaseSource, AutomaticallyUpdatingSource {
         return GenericSourceProperty(
             displayName: "Screen Resolution (native)",
             value: screen.nativeBounds.size,
-            formattedValue: formattedString(for: screen.nativeBounds.size),
+            formattedValue: formattedString(for: screen.nativeBounds.size) + Pixel().pluralValueSuffix,
             unit: Pixel()
         )
     }
@@ -71,7 +71,8 @@ public final class Screen: BaseSource, AutomaticallyUpdatingSource {
     public var reportedScreenScale: GenericSourceProperty<CGFloat> {
         return GenericSourceProperty(
             displayName: "Screen Scale (reported)",
-            value: screen.scale
+            value: screen.scale,
+            unit: Scale()
         )
     }
 
@@ -85,7 +86,8 @@ public final class Screen: BaseSource, AutomaticallyUpdatingSource {
     public var nativeScreenScale: GenericSourceProperty<CGFloat> {
         return GenericSourceProperty(
             displayName: "Screen Scale (native)",
-            value: screen.nativeScale
+            value: screen.nativeScale,
+            unit: Scale()
         )
     }
 
