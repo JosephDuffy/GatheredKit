@@ -15,57 +15,53 @@ public final class DeviceMotion: BaseSource, CustomisableUpdateIntervalSource {
 
     private var latestData: CMDeviceMotion?
 
-    public var attitude: GenericValue<CMAttitude, None>? {
-        guard let data = latestData else { return nil }
-        let date = Date(timeIntervalSince1970: data.timestamp)
-        return GenericValue(displayName: "Attitude", value: data.attitude, unit: None(), date: date)
+    private var latestDataDate: Date {
+        if let timestamp = latestData?.timestamp {
+            return Date(timeIntervalSince1970: timestamp)
+        } else {
+            return Date()
+        }
     }
 
-    public var rotationRate: GenericValue<CMRotationRate, None>? {
-        guard let data = latestData else { return nil }
-        let date = Date(timeIntervalSince1970: data.timestamp)
-        return GenericValue(displayName: "Rotation Rate", value: data.rotationRate, unit: None(), date: date)
+    public var attitude: GenericValue<CMAttitude?, None> {
+        return GenericValue(displayName: "Attitude", value: latestData?.attitude, unit: None(), date: latestDataDate)
     }
 
-    public var accelerationDueToGravity: GenericValue<CMAcceleration, None>? {
-        guard let data = latestData else { return nil }
-        let date = Date(timeIntervalSince1970: data.timestamp)
-        return GenericValue(displayName: "Gravitational Acceleration", value: data.gravity, unit: None(), date: date)
+    public var rotationRate: GenericValue<CMRotationRate?, None> {
+        return GenericValue(displayName: "Rotation Rate", value: latestData?.rotationRate, unit: None(), date: latestDataDate)
     }
 
-    public var userAcceleration: GenericValue<CMAcceleration, None>? {
-        guard let data = latestData else { return nil }
-        let date = Date(timeIntervalSince1970: data.timestamp)
-        return GenericValue(displayName: "User Acceleration", value: data.userAcceleration, unit: None(), date: date)
+    public var accelerationDueToGravity: GenericValue<CMAcceleration?, None> {
+        return GenericValue(displayName: "Gravitational Acceleration", value: latestData?.gravity, unit: None(), date: latestDataDate)
     }
 
-    public var magneticField: GenericValue<CMCalibratedMagneticField, None>? {
-        guard let data = latestData else { return nil }
-        let date = Date(timeIntervalSince1970: data.timestamp)
-        return GenericValue(displayName: "Magnetic Field", value: data.magneticField, unit: None(), date: date)
+    public var userAcceleration: GenericValue<CMAcceleration?, None> {
+        return GenericValue(displayName: "User Acceleration", value: latestData?.userAcceleration, unit: None(), date: latestDataDate)
+    }
+
+    public var magneticField: GenericValue<CMCalibratedMagneticField?, None> {
+        return GenericValue(displayName: "Magnetic Field", value: latestData?.magneticField, unit: None(), date: latestDataDate)
     }
 
     @available(iOS 11.0, *)
-    public var heading: GenericValue<Double, None>? {
-        guard let data = latestData else { return nil }
-        let date = Date(timeIntervalSince1970: data.timestamp)
-        return GenericValue(displayName: "Heading", value: data.heading, unit: None(), date: date)
+    public var heading: GenericValue<Double?, None> {
+        return GenericValue(displayName: "Heading", value: latestData?.heading, unit: None(), date: latestDataDate)
     }
 
     public var latestValues: [AnyValue] {
         var latestValues = [
-            attitude?.asAny(),
-            rotationRate?.asAny(),
-            accelerationDueToGravity?.asAny(),
-            userAcceleration?.asAny(),
-            magneticField?.asAny(),
+            attitude.asAny(),
+            rotationRate.asAny(),
+            accelerationDueToGravity.asAny(),
+            userAcceleration.asAny(),
+            magneticField.asAny(),
         ]
 
         if #available(iOS 11.0, *) {
-            latestValues.append(heading?.asAny())
+            latestValues.append(heading.asAny())
         }
 
-        return latestValues.compactMap { $0 }
+        return latestValues
     }
 
     public private(set) var updateInterval: TimeInterval?
