@@ -17,7 +17,13 @@ public class BaseSource {
     }
 
     internal func notifyUpdateListeners(latestPropertyValues: [AnyValue]) {
-        updateListeners.allObjects.forEach { $0.updateListener(latestPropertyValues) }
+        if Thread.isMainThread {
+            updateListeners.allObjects.forEach { $0.updateListener(latestPropertyValues) }
+        } else {
+            DispatchQueue.main.sync {
+                updateListeners.allObjects.forEach { $0.updateListener(latestPropertyValues) }
+            }
+        }
     }
 
 }
