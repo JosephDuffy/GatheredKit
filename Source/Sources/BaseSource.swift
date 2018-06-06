@@ -16,7 +16,7 @@ public class BaseSource {
         return observer
     }
 
-    internal func notifyUpdateListeners(latestPropertyValues: [AnySourceProperty]) {
+    internal func notifyUpdateListeners(latestPropertyValues: [AnyValue]) {
         updateListeners.allObjects.forEach { $0.updateListener(latestPropertyValues) }
     }
 
@@ -25,7 +25,7 @@ public class BaseSource {
 extension Source where Self: BaseSource {
 
     internal func notifyListenersPropertyValuesUpdated() {
-        notifyUpdateListeners(latestPropertyValues: latestPropertyValues)
+        notifyUpdateListeners(latestPropertyValues: latestValues)
     }
 
 }

@@ -2,7 +2,7 @@
 /**
  A struct that represents a percentage
  */
-public struct Percent: NumberBasedSourcePropertyUnit {
+public struct Percent: NumericUnit {
 
     /// The value for `maximumFractionDigits` that will be used with the empty initialiser
     public let maximumFractionDigits: Int = 2

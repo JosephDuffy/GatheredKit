@@ -1,8 +1,8 @@
 
 /**
- A unit of measurement for an instance of `SourceProperty`
+ A unit of measurement for an instance of `Value`
  */
-public protocol SourcePropertyUnit {
+public protocol Unit {
 
     associatedtype ValueType
 
