@@ -2,7 +2,7 @@
 /**
  An object that can provide data from a specific source on the device
  */
-public protocol Source: class {
+public protocol Source: class, ValueProvider {
 
     typealias UpdateListener = (_ data: [AnyValue]) -> Void
 
@@ -10,8 +10,6 @@ public protocol Source: class {
 
     /// A boolean indicating if the source is currently performing automatic updates
     var isUpdating: Bool { get }
-
-    var latestValues: [AnyValue] { get }
 
     init()
 
