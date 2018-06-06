@@ -1,16 +1,8 @@
 import Foundation
 
-public struct GenericValue<ValueType: Equatable, UnitType: Unit>: Value {
+public struct GenericValue<ValueType, UnitType: Unit>: Value {
 
     public typealias UpdateListener = (_ sourceProperty: GenericValue<ValueType, UnitType>) -> Void
-
-    public static func == (lhs: GenericValue<ValueType, UnitType>, rhs: GenericValue<ValueType, UnitType>) -> Bool {
-        return lhs.displayName == rhs.displayName &&
-            lhs.backingValue == rhs.backingValue &&
-            lhs.formattedValue == rhs.formattedValue &&
-            type(of: lhs.unit) == type(of: rhs.unit) &&
-            lhs.date == rhs.date
-    }
 
     /// A user-friendly name that represents the value, e.g. "Latitude", "Longitude"
     public let displayName: String
@@ -51,6 +43,14 @@ public struct GenericValue<ValueType: Equatable, UnitType: Unit>: Value {
      */
     public mutating func update(value: ValueType, formattedValue: String? = nil, date: Date = Date()) {
         self = GenericValue(displayName: displayName, value: value, formattedValue: formattedValue, unit: unit, date: date)
+    }
+
+}
+
+extension GenericValue: Equatable where ValueType: Equatable {
+
+    public static func == (lhs: GenericValue<ValueType, UnitType>, rhs: GenericValue<ValueType, UnitType>) -> Bool {
+        return lhs.backingValue == rhs.backingValue
     }
 
 }

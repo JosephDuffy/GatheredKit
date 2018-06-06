@@ -7,9 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D9168F4E20C8851E00100EEE /* ValueProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9168F4D20C8851E00100EEE /* ValueProvider.swift */; };
 		D928465A20C499790058245F /* Scale.swift in Sources */ = {isa = PBXBuildFile; fileRef = D928465920C499790058245F /* Scale.swift */; };
 		D93D7A4320C728CE007C16D0 /* AnyUnit.swift in Sources */ = {isa = PBXBuildFile; fileRef = D93D7A4220C728CE007C16D0 /* AnyUnit.swift */; };
 		D93D7A4520C72D6A007C16D0 /* None.swift in Sources */ = {isa = PBXBuildFile; fileRef = D93D7A4420C72D6A007C16D0 /* None.swift */; };
+		D950047420C85B590046AB47 /* GenericValue+CoreMotion.swift in Sources */ = {isa = PBXBuildFile; fileRef = D950047320C85B590046AB47 /* GenericValue+CoreMotion.swift */; };
+		D96A18E920C741E100CAE44F /* DeviceMotion.swift in Sources */ = {isa = PBXBuildFile; fileRef = D96A18E320C741E100CAE44F /* DeviceMotion.swift */; };
 		D9CDB99320AE3C4A00316739 /* AnyValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9CDB99220AE3C4A00316739 /* AnyValue.swift */; };
 		D9CDB99520AE3D2900316739 /* Value.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9CDB99420AE3D2900316739 /* Value.swift */; };
 		D9D7529E20B4BE0600B16A06 /* SourceAvailability.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9D7529D20B4BE0600B16A06 /* SourceAvailability.swift */; };
@@ -71,9 +74,12 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		D9168F4D20C8851E00100EEE /* ValueProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValueProvider.swift; sourceTree = "<group>"; };
 		D928465920C499790058245F /* Scale.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Scale.swift; sourceTree = "<group>"; };
 		D93D7A4220C728CE007C16D0 /* AnyUnit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnyUnit.swift; sourceTree = "<group>"; };
 		D93D7A4420C72D6A007C16D0 /* None.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = None.swift; sourceTree = "<group>"; };
+		D950047320C85B590046AB47 /* GenericValue+CoreMotion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GenericValue+CoreMotion.swift"; sourceTree = "<group>"; };
+		D96A18E320C741E100CAE44F /* DeviceMotion.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeviceMotion.swift; sourceTree = "<group>"; };
 		D9CDB99220AE3C4A00316739 /* AnyValue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnyValue.swift; sourceTree = "<group>"; };
 		D9CDB99420AE3D2900316739 /* Value.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Value.swift; sourceTree = "<group>"; };
 		D9D7529D20B4BE0600B16A06 /* SourceAvailability.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SourceAvailability.swift; sourceTree = "<group>"; };
@@ -139,8 +145,18 @@
 				D9CDB99420AE3D2900316739 /* Value.swift */,
 				D9CDB99220AE3C4A00316739 /* AnyValue.swift */,
 				D9EF059F20ACC77D00D3F194 /* GenericValue.swift */,
+				D9168F4D20C8851E00100EEE /* ValueProvider.swift */,
 			);
 			path = Values;
+			sourceTree = "<group>";
+		};
+		D96A18DF20C741D000CAE44F /* Device Motion */ = {
+			isa = PBXGroup;
+			children = (
+				D96A18E320C741E100CAE44F /* DeviceMotion.swift */,
+				D950047320C85B590046AB47 /* GenericValue+CoreMotion.swift */,
+			);
+			path = "Device Motion";
 			sourceTree = "<group>";
 		};
 		D9EF057720ACC59300D3F194 = {
@@ -218,6 +234,7 @@
 				D9EF05AE20ACCF8B00D3F194 /* ManuallyUpdatableSource.swift */,
 				D9EF05D020ACD6B900D3F194 /* BaseSource.swift */,
 				D9EF05D420ACD95400D3F194 /* SourceUpdateListenerWrapper.swift */,
+				D96A18DF20C741D000CAE44F /* Device Motion */,
 				D9EF05CA20ACD35B00D3F194 /* Screen.swift */,
 			);
 			path = Sources;
@@ -376,6 +393,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D96A18E920C741E100CAE44F /* DeviceMotion.swift in Sources */,
+				D950047420C85B590046AB47 /* GenericValue+CoreMotion.swift in Sources */,
 				D9EF05BB20ACD24A00D3F194 /* Decibel.swift in Sources */,
 				D93D7A4520C72D6A007C16D0 /* None.swift in Sources */,
 				D9CDB99520AE3D2900316739 /* Value.swift in Sources */,
@@ -402,6 +421,7 @@
 				D9EF059C20ACC5B800D3F194 /* Array+newestDataDate.swift in Sources */,
 				D9D7529E20B4BE0600B16A06 /* SourceAvailability.swift in Sources */,
 				D9EF05D520ACD95400D3F194 /* SourceUpdateListenerWrapper.swift in Sources */,
+				D9168F4E20C8851E00100EEE /* ValueProvider.swift in Sources */,
 				D9EF05C720ACD2F200D3F194 /* Percent.swift in Sources */,
 				D9EF05D120ACD6B900D3F194 /* BaseSource.swift in Sources */,
 			);
