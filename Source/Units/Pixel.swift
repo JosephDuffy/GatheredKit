@@ -2,7 +2,7 @@
 /**
  A struct that represents a screen's pixels
  */
-public struct Pixel: NumberBasedSourcePropertyUnit {
+public struct Pixel: NumericUnit {
 
     /// The value for `maximumFractionDigits` that will be used with the empty initialiser
     public let maximumFractionDigits: Int = 0

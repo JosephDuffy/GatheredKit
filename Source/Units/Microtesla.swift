@@ -2,7 +2,7 @@
 /**
  A struct that represents microteslas
  */
-public struct Microtesla: NumberBasedSourcePropertyUnit {
+public struct Microtesla: NumericUnit {
 
     /// The value for `maximumFractionDigits` that will be used with the empty initialiser
     public let maximumFractionDigits: Int = 2

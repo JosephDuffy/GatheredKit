@@ -3,7 +3,7 @@ import Foundation
 /**
  A unit of measurement that is usually associated to a number.
  */
-public protocol NumberBasedSourcePropertyUnit: SourcePropertyUnit {
+public protocol NumericUnit: Unit where ValueType: NSNumber {
 
     /// The value for `maximumFractionDigits` that will be used with the empty initialiser
     var maximumFractionDigits: Int { get }
@@ -22,7 +22,7 @@ public protocol NumberBasedSourcePropertyUnit: SourcePropertyUnit {
 
 }
 
-public extension NumberBasedSourcePropertyUnit {
+public extension NumericUnit {
 
     /**
      Generates a human-friendly string for the given value.
@@ -32,12 +32,8 @@ public extension NumberBasedSourcePropertyUnit {
      - throws: `SourcePropertyUnitError.unsupportedType` if the `value` cannot be cast to an `NSNumber`
      - returns: The formatted string
      */
-    public func formattedString(for value: Any) throws -> String {
-        guard let valueAsNSNumber = value as? NSNumber else {
-            throw SourcePropertyUnitError.unsupportedType(type: type(of: value))
-        }
-
-        return formattedString(for: valueAsNSNumber, maximumFractionDigits: maximumFractionDigits)
+    public func formattedString(for value: NSNumber) -> String {
+        return formattedString(for: value, maximumFractionDigits: maximumFractionDigits)
     }
 
     /**

@@ -2,7 +2,7 @@
 /**
  A struct that represents decibels
  */
-public struct Decibel: NumberBasedSourcePropertyUnit {
+public struct Decibel: NumericUnit {
 
     /// The value for `maximumFractionDigits` that will be used with the empty initialiser
     public let maximumFractionDigits: Int = 0

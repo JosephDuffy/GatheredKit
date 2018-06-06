@@ -36,10 +36,10 @@ public final class Screen: BaseSource, Source {
 
      Formatted value: "\(width) x \(height) Points"
      */
-    public var reportedScreenResolution: GenericSourceProperty<CGSize, Point> {
+    public var reportedScreenResolution: GenericValue<CGSize, Point> {
         let unit = Point()
 
-        return GenericSourceProperty(
+        return GenericValue(
             displayName: "Screen Resolution (reported)",
             value: screen.bounds.size,
             formattedValue: formattedString(for: screen.bounds.size) + unit.pluralValueSuffix,
@@ -55,10 +55,10 @@ public final class Screen: BaseSource, Source {
      Unit: Pixel
      Formatted value: "\(width) x \(height) Pixels"
      */
-    public var nativeScreenResolution: GenericSourceProperty<CGSize, Pixel> {
+    public var nativeScreenResolution: GenericValue<CGSize, Pixel> {
         let unit = Pixel()
 
-        return GenericSourceProperty(
+        return GenericValue(
             displayName: "Screen Resolution (native)",
             value: screen.nativeBounds.size,
             formattedValue: formattedString(for: screen.nativeBounds.size) + unit.pluralValueSuffix,
@@ -72,8 +72,8 @@ public final class Screen: BaseSource, Source {
      **Properties**
      Display name: Screen Scale (reported)
      */
-    public var reportedScreenScale: GenericSourceProperty<CGFloat, Scale> {
-        return GenericSourceProperty(
+    public var reportedScreenScale: GenericValue<CGFloat, Scale> {
+        return GenericValue(
             displayName: "Screen Scale (reported)",
             value: screen.scale,
             unit: Scale()
@@ -87,8 +87,8 @@ public final class Screen: BaseSource, Source {
 
      Display name: Screen Scale (native)
      */
-    public var nativeScreenScale: GenericSourceProperty<CGFloat, Scale> {
-        return GenericSourceProperty(
+    public var nativeScreenScale: GenericValue<CGFloat, Scale> {
+        return GenericValue(
             displayName: "Screen Scale (native)",
             value: screen.nativeScale,
             unit: Scale()
@@ -104,8 +104,8 @@ public final class Screen: BaseSource, Source {
 
      Unit: Percent
      */
-    public var brightness: GenericSourceProperty<CGFloat, Percent> {
-        return GenericSourceProperty(
+    public var brightness: GenericValue<CGFloat, Percent> {
+        return GenericValue(
             displayName: "Brightness",
             value: screen.brightness,
             unit: Percent()
@@ -120,13 +120,13 @@ public final class Screen: BaseSource, Source {
      - Screen Resolution (native)
      - Brightness
      */
-    public var latestPropertyValues: [AnySourceProperty] {
+    public var latestValues: [AnyValue] {
         return [
-            reportedScreenResolution.any(),
-            nativeScreenResolution.any(),
-            reportedScreenScale.any(),
-            nativeScreenScale.any(),
-            brightness.any(),
+            reportedScreenResolution.asAny(),
+            nativeScreenResolution.asAny(),
+            reportedScreenScale.asAny(),
+            nativeScreenScale.asAny(),
+            brightness.asAny(),
         ]
     }
 

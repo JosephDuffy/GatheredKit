@@ -2,7 +2,7 @@
 /**
  A struct that represents a screen's resolution measured in points
  */
-public struct Point: NumberBasedSourcePropertyUnit {
+public struct Point: NumericUnit {
 
     /// The value for `maximumFractionDigits` that will be used with the empty initialiser
     public let maximumFractionDigits: Int = 0
