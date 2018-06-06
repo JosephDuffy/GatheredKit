@@ -2,7 +2,7 @@
 /**
  A struct that represents computer bytes
  */
-public struct Byte: SourcePropertyUnit {
+public struct Byte: Unit {
 
     /// How the bytes should be styled
     public let countStyle: ByteCountFormatter.CountStyle

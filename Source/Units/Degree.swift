@@ -2,7 +2,7 @@
 /**
  A struct that represents degrees
  */
-public struct Degree: NumberBasedSourcePropertyUnit {
+public struct Degree: NumericUnit {
 
     /// The value for `maximumFractionDigits` that will be used with the empty initialiser
     public let maximumFractionDigits: Int = 0

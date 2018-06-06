@@ -21,23 +21,23 @@ final class ScreenTests: QuickSpec {
                 }
 
                 it("should set the `reportedScreenResolution` using the backing object's `bounds.size` property") {
-                    expect(screen.reportedScreenResolution.value).to(equal(mock.bounds.size))
+                    expect(screen.reportedScreenResolution.backingValue).to(equal(mock.bounds.size))
                 }
 
                 it("should set the `nativeScreenResolution` using the backing object's `nativeBounds` property") {
-                    expect(screen.nativeScreenResolution.value).to(equal(mock.nativeBounds.size))
+                    expect(screen.nativeScreenResolution.backingValue).to(equal(mock.nativeBounds.size))
                 }
 
                 it("should set the `reportedScreenScale` using the backing object's `scale` property") {
-                    expect(screen.reportedScreenResolution.value).to(equal(mock.bounds.size))
+                    expect(screen.reportedScreenResolution.backingValue).to(equal(mock.bounds.size))
                 }
 
                 it("should set the `nativeScreenScale` using the backing object's `nativeScale` property") {
-                    expect(screen.nativeScreenScale.value).to(equal(mock.nativeScale))
+                    expect(screen.nativeScreenScale.backingValue).to(equal(mock.nativeScale))
                 }
 
                 it("should set the `brightness` using the backing object's `brightness` property") {
-                    expect(screen.brightness.value).to(equal(mock.brightness))
+                    expect(screen.brightness.backingValue).to(equal(mock.brightness))
                 }
 
             }

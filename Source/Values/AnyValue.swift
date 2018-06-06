@@ -1,8 +1,8 @@
 import Foundation
 
-public struct AnySourceProperty: SourceProperty {
+public struct AnyValue: Value {
 
-    public static func ==(lhs: AnySourceProperty, rhs: AnySourceProperty) -> Bool {
+    public static func == (lhs: AnyValue, rhs: AnyValue) -> Bool {
         return lhs.box == rhs.box
     }
 
@@ -11,9 +11,9 @@ public struct AnySourceProperty: SourceProperty {
         return box.displayName
     }
 
-    /// The value of the property
-    public var value: Any {
-        return box.value
+    /// The value backing this `AnyValue`
+    public var backingValue: Any {
+        return box.backingValue
     }
 
     /// A human-friendly formatted value
@@ -23,7 +23,7 @@ public struct AnySourceProperty: SourceProperty {
     }
 
     /// The unit the value is measured in
-    public var unit: AnySourcePropertyUnit {
+    public var unit: AnyUnit {
         return box.unit
     }
 
@@ -32,24 +32,24 @@ public struct AnySourceProperty: SourceProperty {
         return box.date
     }
 
-    private let box: _AnySourcePropertyBase
+    private let box: _AnyValueBase
 
-    internal init<Concrete: SourceProperty>(_ concrete: Concrete) {
-        box = _AnySourcePropertyBox(concrete)
+    internal init<Concrete: Value>(_ concrete: Concrete) {
+        box = _AnyValueBox(concrete)
     }
 }
 
-extension SourceProperty {
+extension Value {
 
-    func any() -> AnySourceProperty {
-        return AnySourceProperty(self)
+    func asAny() -> AnyValue {
+        return AnyValue(self)
     }
 
 }
 
-private class _AnySourcePropertyBase: SourceProperty {
+private class _AnyValueBase: Value {
 
-    static func ==(lhs: _AnySourcePropertyBase, rhs: _AnySourcePropertyBase) -> Bool {
+    static func ==(lhs: _AnyValueBase, rhs: _AnyValueBase) -> Bool {
         fatalError("Must overide")
     }
 
@@ -59,7 +59,7 @@ private class _AnySourcePropertyBase: SourceProperty {
     }
 
     /// The value of the property
-    var value: Any {
+    var backingValue: Any {
         fatalError("Must overide")
     }
 
@@ -70,7 +70,7 @@ private class _AnySourcePropertyBase: SourceProperty {
     }
 
     /// The unit the value is measured in
-    var unit: AnySourcePropertyUnit {
+    var unit: AnyUnit {
         fatalError("Must overide")
     }
 
@@ -80,16 +80,16 @@ private class _AnySourcePropertyBase: SourceProperty {
     }
 
     init() {
-        guard type(of: self) != _AnySourcePropertyBase.self else {
-            fatalError("_AnySourcePropertyBase must be subclassed")
+        guard type(of: self) != _AnyValueBase.self else {
+            fatalError("_AnyValueBase must be subclassed")
         }
     }
 
 }
 
-private final class _AnySourcePropertyBox<Concrete: SourceProperty>: _AnySourcePropertyBase {
+private final class _AnyValueBox<Concrete: Value>: _AnyValueBase {
 
-    static func ==(lhs: _AnySourcePropertyBox<Concrete>, rhs: _AnySourcePropertyBox<Concrete>) -> Bool {
+    static func ==(lhs: _AnyValueBox<Concrete>, rhs: _AnyValueBox<Concrete>) -> Bool {
         return lhs.concrete == rhs.concrete
     }
 
@@ -99,8 +99,8 @@ private final class _AnySourcePropertyBox<Concrete: SourceProperty>: _AnySourceP
     }
 
     /// The value of the property
-    override var value: Any {
-        return concrete.value
+    override var backingValue: Any {
+        return concrete.backingValue
     }
 
     /// A human-friendly formatted value
@@ -110,8 +110,8 @@ private final class _AnySourcePropertyBox<Concrete: SourceProperty>: _AnySourceP
     }
 
     /// The unit the value is measured in
-    override var unit: AnySourcePropertyUnit  {
-        return AnySourcePropertyUnit(concrete.unit)
+    override var unit: AnyUnit  {
+        return AnyUnit(concrete.unit)
     }
 
     /// The date that the value was created

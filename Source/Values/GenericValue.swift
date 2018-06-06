@@ -1,23 +1,22 @@
 import Foundation
 
-public struct GenericSourceProperty<ValueType: Equatable & Codable, UnitType: SourcePropertyUnit>: SourceProperty {
+public struct GenericValue<ValueType: Equatable, UnitType: Unit>: Value {
 
-    public typealias UpdateListener = (_ sourceProperty: GenericSourceProperty<ValueType, UnitType>) -> Void
+    public typealias UpdateListener = (_ sourceProperty: GenericValue<ValueType, UnitType>) -> Void
 
-    public static func ==(lhs: GenericSourceProperty<ValueType, UnitType>, rhs: GenericSourceProperty<ValueType, UnitType>) -> Bool {
-        return
-            lhs.displayName == rhs.displayName &&
-                lhs.value == rhs.value &&
-                lhs.formattedValue == rhs.formattedValue &&
-                type(of: lhs.unit) == type(of: rhs.unit) &&
-                lhs.date == rhs.date
+    public static func == (lhs: GenericValue<ValueType, UnitType>, rhs: GenericValue<ValueType, UnitType>) -> Bool {
+        return lhs.displayName == rhs.displayName &&
+            lhs.backingValue == rhs.backingValue &&
+            lhs.formattedValue == rhs.formattedValue &&
+            type(of: lhs.unit) == type(of: rhs.unit) &&
+            lhs.date == rhs.date
     }
 
-    /// A user-friendly name for the property
+    /// A user-friendly name that represents the value, e.g. "Latitude", "Longitude"
     public let displayName: String
 
-    /// The value of the property
-    public let value: ValueType
+    /// The value powering this `GenericValue`
+    public let backingValue: ValueType
 
     /// A human-friendly formatted value
     /// Note that this may differ from the result of `unit.formattedString(for:)`
@@ -27,6 +26,7 @@ public struct GenericSourceProperty<ValueType: Equatable & Codable, UnitType: So
     public let unit: UnitType
 
     /// The date that the value was created
+    /// If a system-provided date is available it is used
     public let date: Date
 
     internal init(
@@ -37,7 +37,7 @@ public struct GenericSourceProperty<ValueType: Equatable & Codable, UnitType: So
         date: Date = Date()
     ) {
         self.displayName = displayName
-        self.value = value
+        self.backingValue = value
         self.formattedValue = formattedValue
         self.unit = unit
         self.date = date
@@ -50,7 +50,7 @@ public struct GenericSourceProperty<ValueType: Equatable & Codable, UnitType: So
      - parameter date: The date and time the `value` was recorded. Defaults to the current date and time
      */
     public mutating func update(value: ValueType, formattedValue: String? = nil, date: Date = Date()) {
-        self = GenericSourceProperty(displayName: displayName, value: value, formattedValue: formattedValue, unit: unit, date: date)
+        self = GenericValue(displayName: displayName, value: value, formattedValue: formattedValue, unit: unit, date: date)
     }
 
 }

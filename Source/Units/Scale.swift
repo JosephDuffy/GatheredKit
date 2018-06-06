@@ -2,7 +2,7 @@
 /**
  A struct that represents the scaling of something, i.e. a multiplier
  */
-public struct Scale: NumberBasedSourcePropertyUnit {
+public struct Scale: NumericUnit {
 
     /// The value for `maximumFractionDigits` that will be used with the empty initialiser
     public let maximumFractionDigits: Int = 0

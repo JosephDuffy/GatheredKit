@@ -2,7 +2,7 @@
 /**
  A special unit that respresents no unit.
  */
-public struct None: SourcePropertyUnit {
+public struct None: Unit {
 
     /**
      Generates a human-friendly string for the given boolean
@@ -10,7 +10,7 @@ public struct None: SourcePropertyUnit {
      - throws: `SourcePropertyUnitError.unsupportedType` if the `value` parameter's type is not a `Bool`
      - returns: The formatted string
      */
-    public func formattedString(for value: Any) throws -> String {
+    public func formattedString(for value: Any) -> String {
         return String(describing: value)
     }
 

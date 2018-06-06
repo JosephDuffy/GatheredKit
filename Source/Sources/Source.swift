@@ -4,14 +4,14 @@
  */
 public protocol Source: class {
 
-    typealias UpdateListener = (_ data: [AnySourceProperty]) -> Void
+    typealias UpdateListener = (_ data: [AnyValue]) -> Void
 
     static var availability: SourceAvailability { get }
 
     /// A boolean indicating if the source is currently performing automatic updates
     var isUpdating: Bool { get }
 
-    var latestPropertyValues: [AnySourceProperty] { get }
+    var latestValues: [AnyValue] { get }
 
     init()
 
