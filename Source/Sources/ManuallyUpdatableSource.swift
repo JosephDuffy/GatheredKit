@@ -10,6 +10,6 @@ public protocol ManuallyUpdatableSource: CustomisableUpdateIntervalSource {
 
      - returns: The property values after the update
      */
-    func updateProperties() -> [AnySourceProperty]
+    func updateProperties() -> [AnyValue]
 
 }

@@ -8,21 +8,21 @@
 
 /* Begin PBXBuildFile section */
 		D928465A20C499790058245F /* Scale.swift in Sources */ = {isa = PBXBuildFile; fileRef = D928465920C499790058245F /* Scale.swift */; };
-		D93D7A4320C728CE007C16D0 /* AnySourcePropertyUnit.swift in Sources */ = {isa = PBXBuildFile; fileRef = D93D7A4220C728CE007C16D0 /* AnySourcePropertyUnit.swift */; };
+		D93D7A4320C728CE007C16D0 /* AnyUnit.swift in Sources */ = {isa = PBXBuildFile; fileRef = D93D7A4220C728CE007C16D0 /* AnyUnit.swift */; };
 		D93D7A4520C72D6A007C16D0 /* None.swift in Sources */ = {isa = PBXBuildFile; fileRef = D93D7A4420C72D6A007C16D0 /* None.swift */; };
-		D9CDB99320AE3C4A00316739 /* AnySourceProperty.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9CDB99220AE3C4A00316739 /* AnySourceProperty.swift */; };
-		D9CDB99520AE3D2900316739 /* SourceProperty.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9CDB99420AE3D2900316739 /* SourceProperty.swift */; };
+		D9CDB99320AE3C4A00316739 /* AnyValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9CDB99220AE3C4A00316739 /* AnyValue.swift */; };
+		D9CDB99520AE3D2900316739 /* Value.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9CDB99420AE3D2900316739 /* Value.swift */; };
 		D9D7529E20B4BE0600B16A06 /* SourceAvailability.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9D7529D20B4BE0600B16A06 /* SourceAvailability.swift */; };
 		D9EF058B20ACC59300D3F194 /* GatheredKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D9EF058120ACC59300D3F194 /* GatheredKit.framework */; };
 		D9EF059220ACC59400D3F194 /* GatheredKit.h in Headers */ = {isa = PBXBuildFile; fileRef = D9EF058420ACC59300D3F194 /* GatheredKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D9EF059C20ACC5B800D3F194 /* Array+newestDataDate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9EF059B20ACC5B800D3F194 /* Array+newestDataDate.swift */; };
 		D9EF059E20ACC63700D3F194 /* Source.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9EF059D20ACC63700D3F194 /* Source.swift */; };
-		D9EF05A020ACC77D00D3F194 /* GenericSourceProperty.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9EF059F20ACC77D00D3F194 /* GenericSourceProperty.swift */; };
-		D9EF05A520ACCE3800D3F194 /* SourcePropertyUnit.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9EF05A420ACCE3800D3F194 /* SourcePropertyUnit.swift */; };
+		D9EF05A020ACC77D00D3F194 /* GenericValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9EF059F20ACC77D00D3F194 /* GenericValue.swift */; };
+		D9EF05A520ACCE3800D3F194 /* Unit.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9EF05A420ACCE3800D3F194 /* Unit.swift */; };
 		D9EF05AD20ACCF7000D3F194 /* CustomisableUpdateIntervalSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9EF05AC20ACCF7000D3F194 /* CustomisableUpdateIntervalSource.swift */; };
 		D9EF05AF20ACCF8B00D3F194 /* ManuallyUpdatableSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9EF05AE20ACCF8B00D3F194 /* ManuallyUpdatableSource.swift */; };
-		D9EF05B120ACD02100D3F194 /* NumberBasedSourcePropertyUnit.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9EF05B020ACD02100D3F194 /* NumberBasedSourcePropertyUnit.swift */; };
-		D9EF05B320ACD04F00D3F194 /* SourcePropertyUnitError.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9EF05B220ACD04F00D3F194 /* SourcePropertyUnitError.swift */; };
+		D9EF05B120ACD02100D3F194 /* NumericUnit.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9EF05B020ACD02100D3F194 /* NumericUnit.swift */; };
+		D9EF05B320ACD04F00D3F194 /* UnitError.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9EF05B220ACD04F00D3F194 /* UnitError.swift */; };
 		D9EF05B520ACD20700D3F194 /* BeatsPerMinute.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9EF05B420ACD20700D3F194 /* BeatsPerMinute.swift */; };
 		D9EF05B720ACD22100D3F194 /* Byte.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9EF05B620ACD22100D3F194 /* Byte.swift */; };
 		D9EF05B920ACD23400D3F194 /* Boolean.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9EF05B820ACD23400D3F194 /* Boolean.swift */; };
@@ -72,10 +72,10 @@
 
 /* Begin PBXFileReference section */
 		D928465920C499790058245F /* Scale.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Scale.swift; sourceTree = "<group>"; };
-		D93D7A4220C728CE007C16D0 /* AnySourcePropertyUnit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnySourcePropertyUnit.swift; sourceTree = "<group>"; };
+		D93D7A4220C728CE007C16D0 /* AnyUnit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnyUnit.swift; sourceTree = "<group>"; };
 		D93D7A4420C72D6A007C16D0 /* None.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = None.swift; sourceTree = "<group>"; };
-		D9CDB99220AE3C4A00316739 /* AnySourceProperty.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnySourceProperty.swift; sourceTree = "<group>"; };
-		D9CDB99420AE3D2900316739 /* SourceProperty.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SourceProperty.swift; sourceTree = "<group>"; };
+		D9CDB99220AE3C4A00316739 /* AnyValue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnyValue.swift; sourceTree = "<group>"; };
+		D9CDB99420AE3D2900316739 /* Value.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Value.swift; sourceTree = "<group>"; };
 		D9D7529D20B4BE0600B16A06 /* SourceAvailability.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SourceAvailability.swift; sourceTree = "<group>"; };
 		D9EF058120ACC59300D3F194 /* GatheredKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = GatheredKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D9EF058420ACC59300D3F194 /* GatheredKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GatheredKit.h; sourceTree = "<group>"; };
@@ -84,12 +84,12 @@
 		D9EF059120ACC59400D3F194 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D9EF059B20ACC5B800D3F194 /* Array+newestDataDate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+newestDataDate.swift"; sourceTree = "<group>"; };
 		D9EF059D20ACC63700D3F194 /* Source.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Source.swift; sourceTree = "<group>"; };
-		D9EF059F20ACC77D00D3F194 /* GenericSourceProperty.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenericSourceProperty.swift; sourceTree = "<group>"; };
-		D9EF05A420ACCE3800D3F194 /* SourcePropertyUnit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SourcePropertyUnit.swift; sourceTree = "<group>"; };
+		D9EF059F20ACC77D00D3F194 /* GenericValue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenericValue.swift; sourceTree = "<group>"; };
+		D9EF05A420ACCE3800D3F194 /* Unit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Unit.swift; sourceTree = "<group>"; };
 		D9EF05AC20ACCF7000D3F194 /* CustomisableUpdateIntervalSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomisableUpdateIntervalSource.swift; sourceTree = "<group>"; };
 		D9EF05AE20ACCF8B00D3F194 /* ManuallyUpdatableSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManuallyUpdatableSource.swift; sourceTree = "<group>"; };
-		D9EF05B020ACD02100D3F194 /* NumberBasedSourcePropertyUnit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumberBasedSourcePropertyUnit.swift; sourceTree = "<group>"; };
-		D9EF05B220ACD04F00D3F194 /* SourcePropertyUnitError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SourcePropertyUnitError.swift; sourceTree = "<group>"; };
+		D9EF05B020ACD02100D3F194 /* NumericUnit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumericUnit.swift; sourceTree = "<group>"; };
+		D9EF05B220ACD04F00D3F194 /* UnitError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnitError.swift; sourceTree = "<group>"; };
 		D9EF05B420ACD20700D3F194 /* BeatsPerMinute.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BeatsPerMinute.swift; sourceTree = "<group>"; };
 		D9EF05B620ACD22100D3F194 /* Byte.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Byte.swift; sourceTree = "<group>"; };
 		D9EF05B820ACD23400D3F194 /* Boolean.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Boolean.swift; sourceTree = "<group>"; };
@@ -133,6 +133,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		D950047220C85ADB0046AB47 /* Values */ = {
+			isa = PBXGroup;
+			children = (
+				D9CDB99420AE3D2900316739 /* Value.swift */,
+				D9CDB99220AE3C4A00316739 /* AnyValue.swift */,
+				D9EF059F20ACC77D00D3F194 /* GenericValue.swift */,
+			);
+			path = Values;
+			sourceTree = "<group>";
+		};
 		D9EF057720ACC59300D3F194 = {
 			isa = PBXGroup;
 			children = (
@@ -156,9 +166,8 @@
 			isa = PBXGroup;
 			children = (
 				D9EF05A620ACCEB800D3F194 /* Sources */,
+				D950047220C85ADB0046AB47 /* Values */,
 				D9EF05A320ACCDE100D3F194 /* Units */,
-				D9EF05A820ACCEE600D3F194 /* Protocols */,
-				D9EF05A920ACCEEE00D3F194 /* Models */,
 				D9EF05A720ACCEDE00D3F194 /* Extensions */,
 				D9EF058420ACC59300D3F194 /* GatheredKit.h */,
 				D9EF058520ACC59300D3F194 /* Info.plist */,
@@ -179,7 +188,10 @@
 		D9EF05A320ACCDE100D3F194 /* Units */ = {
 			isa = PBXGroup;
 			children = (
-				D9EF05B220ACD04F00D3F194 /* SourcePropertyUnitError.swift */,
+				D9EF05A420ACCE3800D3F194 /* Unit.swift */,
+				D9EF05B020ACD02100D3F194 /* NumericUnit.swift */,
+				D93D7A4220C728CE007C16D0 /* AnyUnit.swift */,
+				D9EF05B220ACD04F00D3F194 /* UnitError.swift */,
 				D9EF05B420ACD20700D3F194 /* BeatsPerMinute.swift */,
 				D9EF05B620ACD22100D3F194 /* Byte.swift */,
 				D9EF05B820ACD23400D3F194 /* Boolean.swift */,
@@ -200,6 +212,12 @@
 		D9EF05A620ACCEB800D3F194 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
+				D9EF059D20ACC63700D3F194 /* Source.swift */,
+				D9D7529D20B4BE0600B16A06 /* SourceAvailability.swift */,
+				D9EF05AC20ACCF7000D3F194 /* CustomisableUpdateIntervalSource.swift */,
+				D9EF05AE20ACCF8B00D3F194 /* ManuallyUpdatableSource.swift */,
+				D9EF05D020ACD6B900D3F194 /* BaseSource.swift */,
+				D9EF05D420ACD95400D3F194 /* SourceUpdateListenerWrapper.swift */,
 				D9EF05CA20ACD35B00D3F194 /* Screen.swift */,
 			);
 			path = Sources;
@@ -211,32 +229,6 @@
 				D9EF059B20ACC5B800D3F194 /* Array+newestDataDate.swift */,
 			);
 			path = Extensions;
-			sourceTree = "<group>";
-		};
-		D9EF05A820ACCEE600D3F194 /* Protocols */ = {
-			isa = PBXGroup;
-			children = (
-				D9EF05A420ACCE3800D3F194 /* SourcePropertyUnit.swift */,
-				D9EF05B020ACD02100D3F194 /* NumberBasedSourcePropertyUnit.swift */,
-				D9EF059D20ACC63700D3F194 /* Source.swift */,
-				D9EF05AC20ACCF7000D3F194 /* CustomisableUpdateIntervalSource.swift */,
-				D9EF05AE20ACCF8B00D3F194 /* ManuallyUpdatableSource.swift */,
-				D9CDB99420AE3D2900316739 /* SourceProperty.swift */,
-				D9D7529D20B4BE0600B16A06 /* SourceAvailability.swift */,
-			);
-			path = Protocols;
-			sourceTree = "<group>";
-		};
-		D9EF05A920ACCEEE00D3F194 /* Models */ = {
-			isa = PBXGroup;
-			children = (
-				D9EF059F20ACC77D00D3F194 /* GenericSourceProperty.swift */,
-				D9CDB99220AE3C4A00316739 /* AnySourceProperty.swift */,
-				D93D7A4220C728CE007C16D0 /* AnySourcePropertyUnit.swift */,
-				D9EF05D420ACD95400D3F194 /* SourceUpdateListenerWrapper.swift */,
-				D9EF05D020ACD6B900D3F194 /* BaseSource.swift */,
-			);
-			path = Models;
 			sourceTree = "<group>";
 		};
 		D9EF05DA20AE2B4700D3F194 /* Frameworks */ = {
@@ -386,24 +378,24 @@
 			files = (
 				D9EF05BB20ACD24A00D3F194 /* Decibel.swift in Sources */,
 				D93D7A4520C72D6A007C16D0 /* None.swift in Sources */,
-				D9CDB99520AE3D2900316739 /* SourceProperty.swift in Sources */,
-				D9EF05A020ACC77D00D3F194 /* GenericSourceProperty.swift in Sources */,
-				D9CDB99320AE3C4A00316739 /* AnySourceProperty.swift in Sources */,
+				D9CDB99520AE3D2900316739 /* Value.swift in Sources */,
+				D9EF05A020ACC77D00D3F194 /* GenericValue.swift in Sources */,
+				D9CDB99320AE3C4A00316739 /* AnyValue.swift in Sources */,
 				D9EF05AF20ACCF8B00D3F194 /* ManuallyUpdatableSource.swift in Sources */,
 				D9EF05C520ACD2E300D3F194 /* Pixel.swift in Sources */,
 				D9EF05BD20ACD25800D3F194 /* Degree.swift in Sources */,
-				D93D7A4320C728CE007C16D0 /* AnySourcePropertyUnit.swift in Sources */,
+				D93D7A4320C728CE007C16D0 /* AnyUnit.swift in Sources */,
 				D928465A20C499790058245F /* Scale.swift in Sources */,
 				D9EF059E20ACC63700D3F194 /* Source.swift in Sources */,
 				D9EF05BF20ACD26600D3F194 /* Kilopascal.swift in Sources */,
 				D9EF05B920ACD23400D3F194 /* Boolean.swift in Sources */,
-				D9EF05B120ACD02100D3F194 /* NumberBasedSourcePropertyUnit.swift in Sources */,
+				D9EF05B120ACD02100D3F194 /* NumericUnit.swift in Sources */,
 				D9EF05B520ACD20700D3F194 /* BeatsPerMinute.swift in Sources */,
 				D9EF05B720ACD22100D3F194 /* Byte.swift in Sources */,
 				D9EF05AD20ACCF7000D3F194 /* CustomisableUpdateIntervalSource.swift in Sources */,
-				D9EF05A520ACCE3800D3F194 /* SourcePropertyUnit.swift in Sources */,
+				D9EF05A520ACCE3800D3F194 /* Unit.swift in Sources */,
 				D9EF05CB20ACD35B00D3F194 /* Screen.swift in Sources */,
-				D9EF05B320ACD04F00D3F194 /* SourcePropertyUnitError.swift in Sources */,
+				D9EF05B320ACD04F00D3F194 /* UnitError.swift in Sources */,
 				D9EF05C320ACD2D400D3F194 /* Meter.swift in Sources */,
 				D9EF05C920ACD31400D3F194 /* Point.swift in Sources */,
 				D9EF05C120ACD27400D3F194 /* Microtesla.swift in Sources */,
