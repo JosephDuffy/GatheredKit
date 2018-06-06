@@ -2,10 +2,6 @@ import Foundation
 
 public struct AnyValue: Value {
 
-    public static func == (lhs: AnyValue, rhs: AnyValue) -> Bool {
-        return lhs.box == rhs.box
-    }
-
     /// A user-friendly name for the property
     public var displayName: String {
         return box.displayName
@@ -49,10 +45,6 @@ extension Value {
 
 private class _AnyValueBase: Value {
 
-    static func ==(lhs: _AnyValueBase, rhs: _AnyValueBase) -> Bool {
-        fatalError("Must overide")
-    }
-
     /// A user-friendly name for the property
     var displayName: String {
         fatalError("Must overide")
@@ -88,10 +80,6 @@ private class _AnyValueBase: Value {
 }
 
 private final class _AnyValueBox<Concrete: Value>: _AnyValueBase {
-
-    static func ==(lhs: _AnyValueBox<Concrete>, rhs: _AnyValueBox<Concrete>) -> Bool {
-        return lhs.concrete == rhs.concrete
-    }
 
     /// A user-friendly name for the property
     override var displayName: String {

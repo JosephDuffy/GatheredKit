@@ -1,5 +1,5 @@
 
-public protocol Value: Equatable {
+public protocol Value {
 
     associatedtype ValueType
 
