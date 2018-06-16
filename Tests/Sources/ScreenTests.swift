@@ -21,19 +21,19 @@ final class ScreenTests: QuickSpec {
                 }
 
                 it("should set the `reportedScreenResolution` using the backing object's `bounds.size` property") {
-                    expect(screen.reportedScreenResolution.backingValue).to(equal(mock.bounds.size))
+                    expect(screen.reportedResolution.backingValue).to(equal(mock.bounds.size))
                 }
 
                 it("should set the `nativeScreenResolution` using the backing object's `nativeBounds` property") {
-                    expect(screen.nativeScreenResolution.backingValue).to(equal(mock.nativeBounds.size))
+                    expect(screen.nativeResolution.backingValue).to(equal(mock.nativeBounds.size))
                 }
 
                 it("should set the `reportedScreenScale` using the backing object's `scale` property") {
-                    expect(screen.reportedScreenResolution.backingValue).to(equal(mock.bounds.size))
+                    expect(screen.reportedResolution.backingValue).to(equal(mock.bounds.size))
                 }
 
                 it("should set the `nativeScreenScale` using the backing object's `nativeScale` property") {
-                    expect(screen.nativeScreenScale.backingValue).to(equal(mock.nativeScale))
+                    expect(screen.nativeScale.backingValue).to(equal(mock.nativeScale))
                 }
 
                 it("should set the `brightness` using the backing object's `brightness` property") {
@@ -64,26 +64,14 @@ final class ScreenTests: QuickSpec {
                     expect(screen.isUpdating).to(beTrue())
                 }
 
-                context("called before a `UIScreenBrightnessDidChange` notification is fired from the backing object") {
-
-                    beforeEach {
-                        NotificationCenter.default.post(name: .UIScreenBrightnessDidChange, object: mock)
-                    }
-
-                    it("should notify listeners") {
-                        expect(listenerWasCalled).to(beTrue())
-                    }
+                it("should notify listeners when a `UIScreenBrightnessDidChange` notification is fired from the backing object") {
+                    NotificationCenter.default.post(name: .UIScreenBrightnessDidChange, object: mock)
+                    expect(listenerWasCalled).to(beTrue())
                 }
 
-                context("called before a `UIScreenBrightnessDidChange` notification is fired from an object other than the backing object") {
-
-                    beforeEach {
-                        NotificationCenter.default.post(name: .UIScreenBrightnessDidChange, object: UIScreen.main)
-                    }
-
-                    it("should notify listeners") {
-                        expect(listenerWasCalled).to(beFalse())
-                    }
+                it("should not notify listeners when a `UIScreenBrightnessDidChange` notification is fired from an object other than the backing object") {
+                    NotificationCenter.default.post(name: .UIScreenBrightnessDidChange, object: UIScreen.main)
+                    expect(listenerWasCalled).to(beFalse())
                 }
 
             }
