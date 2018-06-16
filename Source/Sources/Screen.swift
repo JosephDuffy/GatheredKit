@@ -120,7 +120,7 @@ public final class Screen: BaseSource, Source {
      - Screen Resolution (native)
      - Brightness
      */
-    public var latestValues: [AnyValue] {
+    public var allValues: [AnyValue] {
         return [
             reportedResolution.asAny(),
             nativeResolution.asAny(),

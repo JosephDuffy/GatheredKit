@@ -1,9 +1,9 @@
 import Foundation
 import CoreMotion
 
-public struct RotationRateValue: Value, ValueProvider {
+public struct RotationRateValue: Value, ValuesProvider {
 
-    public var latestValues: [AnyValue] {
+    public var allValues: [AnyValue] {
         return [
             x.asAny(),
             y.asAny(),

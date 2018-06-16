@@ -17,7 +17,7 @@ public final class Magnetometer: BaseSource, CustomisableUpdateIntervalSource {
 
     public private(set) var rawMagneticField: MagneticFieldValue
 
-    public var latestValues: [AnyValue] {
+    public var allValues: [AnyValue] {
         return [
             magneticField.asAny(),
             rawMagneticField.asAny(),

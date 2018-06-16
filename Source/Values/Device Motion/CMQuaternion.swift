@@ -1,9 +1,9 @@
 import Foundation
 import CoreMotion
 
-public struct QuaternionValue: Value, ValueProvider {
+public struct QuaternionValue: Value, ValuesProvider {
 
-    public var latestValues: [AnyValue] {
+    public var allValues: [AnyValue] {
         return [
             x.asAny(),
             y.asAny(),
