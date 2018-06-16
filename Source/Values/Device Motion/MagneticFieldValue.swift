@@ -1,9 +1,9 @@
 import Foundation
 import CoreMotion
 
-public struct MagneticFieldValue: Value, ValueProvider {
+public struct MagneticFieldValue: Value, ValuesProvider {
 
-    public var latestValues: [AnyValue] {
+    public var allValues: [AnyValue] {
         return [
             x.asAny(),
             y.asAny(),

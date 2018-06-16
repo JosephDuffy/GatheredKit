@@ -58,7 +58,7 @@ public final class DeviceAttitude: BaseSource, CustomisableUpdateIntervalSource 
 
     public var rotationMatrix: RotationMatrixValue
 
-    public var latestValues: [AnyValue] {
+    public var allValues: [AnyValue] {
         if #available(iOS 11.0, *) {
             return [
                 roll.asAny(),
