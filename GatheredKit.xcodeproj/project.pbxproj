@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		D9168F4E20C8851E00100EEE /* ValueProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9168F4D20C8851E00100EEE /* ValueProvider.swift */; };
+		D9168F4E20C8851E00100EEE /* ValuesProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9168F4D20C8851E00100EEE /* ValuesProvider.swift */; };
 		D928465A20C499790058245F /* Scale.swift in Sources */ = {isa = PBXBuildFile; fileRef = D928465920C499790058245F /* Scale.swift */; };
 		D930631420D58A34007A0CBD /* MagneticFieldValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = D930631320D58A34007A0CBD /* MagneticFieldValue.swift */; };
 		D930631620D58A54007A0CBD /* CalibratedMagneticFieldValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = D930631520D58A54007A0CBD /* CalibratedMagneticFieldValue.swift */; };
@@ -83,7 +83,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		D9168F4D20C8851E00100EEE /* ValueProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValueProvider.swift; sourceTree = "<group>"; };
+		D9168F4D20C8851E00100EEE /* ValuesProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValuesProvider.swift; sourceTree = "<group>"; };
 		D928465920C499790058245F /* Scale.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Scale.swift; sourceTree = "<group>"; };
 		D930631320D58A34007A0CBD /* MagneticFieldValue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MagneticFieldValue.swift; sourceTree = "<group>"; };
 		D930631520D58A54007A0CBD /* CalibratedMagneticFieldValue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalibratedMagneticFieldValue.swift; sourceTree = "<group>"; };
@@ -176,7 +176,7 @@
 				D9CDB99420AE3D2900316739 /* Value.swift */,
 				D9CDB99220AE3C4A00316739 /* AnyValue.swift */,
 				D9EF059F20ACC77D00D3F194 /* GenericValue.swift */,
-				D9168F4D20C8851E00100EEE /* ValueProvider.swift */,
+				D9168F4D20C8851E00100EEE /* ValuesProvider.swift */,
 				D930631220D58A26007A0CBD /* Device Motion */,
 			);
 			path = Values;
@@ -465,7 +465,7 @@
 				D930631820D58A85007A0CBD /* RotationRateValue.swift in Sources */,
 				D9D7529E20B4BE0600B16A06 /* SourceAvailability.swift in Sources */,
 				D9EF05D520ACD95400D3F194 /* SourceUpdateListenerWrapper.swift in Sources */,
-				D9168F4E20C8851E00100EEE /* ValueProvider.swift in Sources */,
+				D9168F4E20C8851E00100EEE /* ValuesProvider.swift in Sources */,
 				D9EF05C720ACD2F200D3F194 /* Percent.swift in Sources */,
 				D9EF05D120ACD6B900D3F194 /* BaseSource.swift in Sources */,
 			);

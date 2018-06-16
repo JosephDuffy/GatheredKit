@@ -17,7 +17,7 @@ public final class Gyroscope: BaseSource, CustomisableUpdateIntervalSource {
 
     public private(set) var rawRotationRate: RotationRateValue
 
-    public var latestValues: [AnyValue] {
+    public var allValues: [AnyValue] {
         return [
             rotationRate.asAny(),
             rawRotationRate.asAny(),
