@@ -3,9 +3,9 @@ import Foundation
 /**
  A unit of measurement that is usually associated to a number.
  */
-public protocol NumericUnit: Unit where ValueType: NSNumber {
+public protocol NumericUnit: Unit where ValueType == NSNumber {
 
-    /// The value for `maximumFractionDigits` that will be used with the empty initialiser
+    /// The maximum number of digits to allow after the decimal place
     var maximumFractionDigits: Int { get }
 
     /// The string that will be appended to the end of the string when

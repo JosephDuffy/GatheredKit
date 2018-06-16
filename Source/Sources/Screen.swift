@@ -36,12 +36,12 @@ public final class Screen: BaseSource, Source {
 
      Formatted value: "\(width) x \(height) Points"
      */
-    public var reportedScreenResolution: GenericValue<CGSize, Point> {
+    public var reportedResolution: GenericValue<CGSize, Point> {
         let unit = Point()
 
         return GenericValue(
-            displayName: "Screen Resolution (reported)",
-            value: screen.bounds.size,
+            name: "Resolution (reported)",
+            backingValue: screen.bounds.size,
             formattedValue: formattedString(for: screen.bounds.size) + unit.pluralValueSuffix,
             unit: unit
         )
@@ -55,12 +55,12 @@ public final class Screen: BaseSource, Source {
      Unit: Pixel
      Formatted value: "\(width) x \(height) Pixels"
      */
-    public var nativeScreenResolution: GenericValue<CGSize, Pixel> {
+    public var nativeResolution: GenericValue<CGSize, Pixel> {
         let unit = Pixel()
 
         return GenericValue(
-            displayName: "Screen Resolution (native)",
-            value: screen.nativeBounds.size,
+            name: "Resolution (native)",
+            backingValue: screen.nativeBounds.size,
             formattedValue: formattedString(for: screen.nativeBounds.size) + unit.pluralValueSuffix,
             unit: unit
         )
@@ -72,10 +72,10 @@ public final class Screen: BaseSource, Source {
      **Properties**
      Display name: Screen Scale (reported)
      */
-    public var reportedScreenScale: GenericValue<CGFloat, Scale> {
+    public var reportedScale: GenericValue<CGFloat, Scale> {
         return GenericValue(
-            displayName: "Screen Scale (reported)",
-            value: screen.scale,
+            name: "Scale (reported)",
+            backingValue: screen.scale,
             unit: Scale()
         )
     }
@@ -87,10 +87,10 @@ public final class Screen: BaseSource, Source {
 
      Display name: Screen Scale (native)
      */
-    public var nativeScreenScale: GenericValue<CGFloat, Scale> {
+    public var nativeScale: GenericValue<CGFloat, Scale> {
         return GenericValue(
-            displayName: "Screen Scale (native)",
-            value: screen.nativeScale,
+            name: "Scale (native)",
+            backingValue: screen.nativeScale,
             unit: Scale()
         )
     }
@@ -106,8 +106,8 @@ public final class Screen: BaseSource, Source {
      */
     public var brightness: GenericValue<CGFloat, Percent> {
         return GenericValue(
-            displayName: "Brightness",
-            value: screen.brightness,
+            name: "Brightness",
+            backingValue: screen.brightness,
             unit: Percent()
         )
     }
@@ -122,10 +122,10 @@ public final class Screen: BaseSource, Source {
      */
     public var latestValues: [AnyValue] {
         return [
-            reportedScreenResolution.asAny(),
-            nativeScreenResolution.asAny(),
-            reportedScreenScale.asAny(),
-            nativeScreenScale.asAny(),
+            reportedResolution.asAny(),
+            nativeResolution.asAny(),
+            reportedScale.asAny(),
+            nativeScale.asAny(),
             brightness.asAny(),
         ]
     }

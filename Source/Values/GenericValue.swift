@@ -5,7 +5,7 @@ public struct GenericValue<ValueType, UnitType: Unit>: Value {
     public typealias UpdateListener = (_ sourceProperty: GenericValue<ValueType, UnitType>) -> Void
 
     /// A user-friendly name that represents the value, e.g. "Latitude", "Longitude"
-    public let displayName: String
+    public let name: String
 
     /// The value powering this `GenericValue`
     public let backingValue: ValueType
@@ -22,14 +22,14 @@ public struct GenericValue<ValueType, UnitType: Unit>: Value {
     public let date: Date
 
     internal init(
-        displayName: String,
-        value: ValueType,
+        name: String,
+        backingValue:ValueType,
         formattedValue: String? = nil,
         unit: UnitType,
         date: Date = Date()
     ) {
-        self.displayName = displayName
-        self.backingValue = value
+        self.name = name
+        self.backingValue = backingValue
         self.formattedValue = formattedValue
         self.unit = unit
         self.date = date
@@ -37,12 +37,12 @@ public struct GenericValue<ValueType, UnitType: Unit>: Value {
 
     /**
      Updates the data backing this `SourceProperty`
-     - parameter value: The new value of the data
+     - parameter backingValue: The new value of the data
      - parameter formattedValue: The new human-friendly formatted value. Defaults to `nil`
      - parameter date: The date and time the `value` was recorded. Defaults to the current date and time
      */
-    public mutating func update(value: ValueType, formattedValue: String? = nil, date: Date = Date()) {
-        self = GenericValue(displayName: displayName, value: value, formattedValue: formattedValue, unit: unit, date: date)
+    public mutating func update(backingValue: ValueType, formattedValue: String? = nil, date: Date = Date()) {
+        self = GenericValue(name: name, backingValue: backingValue, formattedValue: formattedValue, unit: unit, date: date)
     }
 
 }

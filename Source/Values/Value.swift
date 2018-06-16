@@ -6,7 +6,7 @@ public protocol Value {
     associatedtype UnitType: Unit
 
     /// A user-friendly name that represents the value, e.g. "Latitude", "Longitude"
-    var displayName: String { get }
+    var name: String { get }
 
     /// The value powering this `Value`
     var backingValue: ValueType { get }
