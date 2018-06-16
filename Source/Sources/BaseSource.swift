@@ -31,7 +31,7 @@ public class BaseSource {
 extension Source where Self: BaseSource {
 
     internal func notifyListenersPropertyValuesUpdated() {
-        notifyUpdateListeners(latestPropertyValues: latestValues)
+        notifyUpdateListeners(latestPropertyValues: allValues)
     }
 
 }

@@ -21,7 +21,7 @@ public final class Accelerometer: BaseSource, CustomisableUpdateIntervalSource {
 
     public private(set) var rawAcceleration: AccelerationValue
 
-    public var latestValues: [AnyValue] {
+    public var allValues: [AnyValue] {
         return [
             totalAcceletation.asAny(),
             gravitationalAcceletation.asAny(),

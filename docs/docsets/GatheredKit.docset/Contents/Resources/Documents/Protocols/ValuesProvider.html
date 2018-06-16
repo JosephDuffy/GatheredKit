@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>ValuesProvider Protocol Reference</title>
+    <link rel="stylesheet" type="text/css" href="../css/jazzy.css" />
+    <link rel="stylesheet" type="text/css" href="../css/highlight.css" />
+    <meta charset='utf-8'>
+    <script src="../js/jquery.min.js" defer></script>
+    <script src="../js/jazzy.js" defer></script>
+    
+  </head>
+  <body>
+    <a name="//apple_ref/swift/Protocol/ValuesProvider" class="dashAnchor"></a>
+    <a title="ValuesProvider Protocol Reference"></a>
+    <header>
+      <div class="content-wrapper">
+        <p><a href="../index.html">GatheredKit Docs</a> (69% documented)</p>
+        <p class="header-right"><a href="https://github.com/josephduffy/GatheredKit"><img src="../img/gh.png"/>View on GitHub</a></p>
+      </div>
+    </header>
+    <div class="content-wrapper">
+      <p id="breadcrumbs">
+        <a href="../index.html">GatheredKit Reference</a>
+        <img id="carat" src="../img/carat.png" />
+        ValuesProvider Protocol Reference
+      </p>
+    </div>
+    <div class="content-wrapper">
+      <nav class="sidebar">
+        <ul class="nav-groups">
+          <li class="nav-group-name">
+            <a href="../Classes.html">Classes</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Classes/Accelerometer.html">Accelerometer</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/BaseSource.html">BaseSource</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/DeviceAttitude.html">DeviceAttitude</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/Gyroscope.html">Gyroscope</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/Magnetometer.html">Magnetometer</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/Screen.html">Screen</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Enums.html">Enumerations</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Enums/SourceAvailability.html">SourceAvailability</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/UnitError.html">UnitError</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Extensions.html">Extensions</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Extensions/Array.html">Array</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Protocols.html">Protocols</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Protocols/CustomisableUpdateIntervalSource.html">CustomisableUpdateIntervalSource</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/ManuallyUpdatableSource.html">ManuallyUpdatableSource</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/NumericUnit.html">NumericUnit</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/Source.html">Source</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/Unit.html">Unit</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/Value.html">Value</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/ValuesProvider.html">ValuesProvider</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Structs.html">Structures</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Structs/AccelerationValue.html">AccelerationValue</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/AnyUnit.html">AnyUnit</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/BeatsPerMinute.html">BeatsPerMinute</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Boolean.html">Boolean</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Byte.html">Byte</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/CalibratedMagneticFieldValue.html">CalibratedMagneticFieldValue</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Decibel.html">Decibel</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Degree.html">Degree</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/GenericValue.html">GenericValue</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Kilopascal.html">Kilopascal</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/MagneticFieldValue.html">MagneticFieldValue</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Meter.html">Meter</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Microtesla.html">Microtesla</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/None.html">None</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/NumericNone.html">NumericNone</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Percent.html">Percent</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Pixel.html">Pixel</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Point.html">Point</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/QuaternionValue.html">QuaternionValue</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/RotationMatrixValue.html">RotationMatrixValue</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/RotationRateValue.html">RotationRateValue</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Scale.html">Scale</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Typealiases.html">Type Aliases</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Typealiases.html#/s:11GatheredKit8AnyValuea">AnyValue</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+      <article class="main-content">
+        <section>
+          <section class="section">
+            <h1>ValuesProvider</h1>
+              <div class="declaration">
+                <div class="language">
+                  <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">protocol</span> <span class="kt">ValuesProvider</span></code></pre>
+
+                </div>
+              </div>
+            <p>An object that provides values</p>
+
+          </section>
+          <section class="section task-group-section">
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:11GatheredKit14ValuesProviderP03allC0SayAA12GenericValueVyypAA7AnyUnitVGGvp"></a>
+                    <a name="//apple_ref/swift/Property/allValues" class="dashAnchor"></a>
+                    <a class="token" href="#/s:11GatheredKit14ValuesProviderP03allC0SayAA12GenericValueVyypAA7AnyUnitVGGvp">allValues</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>An array of all the values provided by this object</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">allValues</span><span class="p">:</span> <span class="p">[</span><span class="kt"><a href="../Typealiases.html#/s:11GatheredKit8AnyValuea">AnyValue</a></span><span class="p">]</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/JosephDuffy/GatheredKit/tree/master/Source/Values/ValuesProvider.swift#L9">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </section>
+        </section>
+        <section id="footer">
+          <p>&copy; 2018 <a class="link" href="https://josephduffy.co.uk" target="_blank" rel="external">Joseph Duffy</a>. All rights reserved. (Last updated: 2018-06-16)</p>
+          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.9.3</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+        </section>
+      </article>
+    </div>
+  </body>
+</div>
+</html>
