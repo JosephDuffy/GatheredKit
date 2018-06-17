@@ -1,13 +1,15 @@
 import Foundation
 
-public class BaseSource {
+public class BaseSource: NSObject {
 
     private var updateListeners = NSHashTable<SourceUpdateListenerWrapper>.weakObjects()
 
-    internal init() {
+    override init() {
         guard type(of: self) != BaseSource.self else {
             fatalError("BaseSource must be subclassed")
         }
+
+        super.init()
     }
 
     public func addUpdateListener(_ updateListener: @escaping Source.UpdateListener) -> AnyObject {
