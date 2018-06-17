@@ -3,7 +3,7 @@ import CoreMotion
 
 public final class Magnetometer: BaseSource, CustomisableUpdateIntervalSource {
 
-    public static var defaultUpdateInterval: TimeInterval = 0.1
+    public static var defaultUpdateInterval: TimeInterval = 1
 
     public static var availability: SourceAvailability {
         return isAvailable ? .available : .unavailable

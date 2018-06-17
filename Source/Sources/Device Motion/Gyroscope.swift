@@ -3,7 +3,7 @@ import CoreMotion
 
 public final class Gyroscope: BaseSource, CustomisableUpdateIntervalSource {
 
-    public static var defaultUpdateInterval: TimeInterval = 0.1
+    public static var defaultUpdateInterval: TimeInterval = 1
 
     public static var availability: SourceAvailability {
         return isAvailable ? .available : .unavailable
