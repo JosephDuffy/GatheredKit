@@ -22,8 +22,8 @@ public class BaseSource: NSObject {
         if Thread.isMainThread {
             updateListeners.allObjects.forEach { $0.updateListener(latestPropertyValues) }
         } else {
-            DispatchQueue.main.sync {
-                updateListeners.allObjects.forEach { $0.updateListener(latestPropertyValues) }
+            DispatchQueue.main.async {
+                self.updateListeners.allObjects.forEach { $0.updateListener(latestPropertyValues) }
             }
         }
     }
