@@ -2,7 +2,7 @@
 /**
  A source that supports updating its properties at a given time interval
  */
-public protocol CustomisableUpdateIntervalSource: Source {
+public protocol CustomisableUpdateIntervalSource: ControllableSource {
 
     /// The default update interval that will be used when calling `startUpdating()`
     /// without specifying the update interval.
@@ -49,10 +49,11 @@ public extension CustomisableUpdateIntervalSource {
 
      - parameter updateInterval: The interval between updates, measured in seconds
      - parameter updateListener: The closure to call with updated values
+     - parameter queue: The queue to send updates on
      - returns: An opaque object. The lifecycle of the listener is tied to the object
      */
-    public func startUpdating(every updateInterval: TimeInterval, sendingUpdatesTo updateListener: @escaping UpdateListener) -> AnyObject {
-        let listenerToken = addUpdateListener(updateListener)
+    public func startUpdating(every updateInterval: TimeInterval, sendingUpdatesTo updateListener: @escaping UpdateListener, on queue: DispatchQueue) -> AnyObject {
+        let listenerToken = addUpdateListener(updateListener, queue: queue)
         startUpdating(every: updateInterval)
         return listenerToken
     }

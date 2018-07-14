@@ -1,10 +1,13 @@
 
-internal final class SourceUpdateListenerWrapper {
+public final class SourceUpdateListenerWrapper {
 
-    internal let updateListener: Source.UpdateListener
+    internal let updateListener: ControllableSource.UpdateListener
 
-    internal init(updateListener: @escaping Source.UpdateListener) {
+    internal let queue: DispatchQueue
+
+    internal init(updateListener: @escaping ControllableSource.UpdateListener, queue: DispatchQueue) {
         self.updateListener = updateListener
+        self.queue = queue
     }
 
 }
