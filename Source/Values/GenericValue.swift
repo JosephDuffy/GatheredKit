@@ -23,7 +23,7 @@ public struct GenericValue<ValueType, UnitType: Unit>: Value {
 
     internal init(
         name: String,
-        backingValue:ValueType,
+        backingValue: ValueType,
         formattedValue: String? = nil,
         unit: UnitType,
         date: Date = Date()
