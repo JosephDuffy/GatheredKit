@@ -48,11 +48,11 @@ public extension CustomisableUpdateIntervalSource {
      the object is deallocated the listener will be destroyed.
 
      - parameter updateInterval: The interval between updates, measured in seconds
+     - parameter queue: The dispatch queue the listener should be called from
      - parameter updateListener: The closure to call with updated values
-     - parameter queue: The queue to send updates on
      - returns: An opaque object. The lifecycle of the listener is tied to the object
      */
-    public func startUpdating(every updateInterval: TimeInterval, sendingUpdatesTo updateListener: @escaping UpdateListener, on queue: DispatchQueue) -> AnyObject {
+    public func startUpdating(every updateInterval: TimeInterval, sendingUpdatesOn queue: DispatchQueue, to updateListener: @escaping UpdateListener) -> AnyObject {
         let listenerToken = addUpdateListener(updateListener, queue: queue)
         startUpdating(every: updateInterval)
         return listenerToken

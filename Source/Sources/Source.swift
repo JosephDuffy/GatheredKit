@@ -26,6 +26,7 @@ public protocol Source: class, ValuesProvider {
      the object is deallocated the listener will be destroyed.
 
      - parameter updateListener: The closure to call with updated values
+     - parameter queue: The dispatch queue the listener should be called from
      - returns: An opaque object. The lifecycle of the listener is tied to the object
      */
     func addUpdateListener(_ updateListener: @escaping UpdateListener, queue: DispatchQueue) -> AnyObject
