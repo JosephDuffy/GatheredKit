@@ -30,7 +30,7 @@
 		D9EF058B20ACC59300D3F194 /* GatheredKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D9EF058120ACC59300D3F194 /* GatheredKit.framework */; };
 		D9EF059220ACC59400D3F194 /* GatheredKit.h in Headers */ = {isa = PBXBuildFile; fileRef = D9EF058420ACC59300D3F194 /* GatheredKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D9EF059C20ACC5B800D3F194 /* Array+newestDataDate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9EF059B20ACC5B800D3F194 /* Array+newestDataDate.swift */; };
-		D9EF059E20ACC63700D3F194 /* Source.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9EF059D20ACC63700D3F194 /* Source.swift */; };
+		D9EF059E20ACC63700D3F194 /* ControllableSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9EF059D20ACC63700D3F194 /* ControllableSource.swift */; };
 		D9EF05A020ACC77D00D3F194 /* GenericValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9EF059F20ACC77D00D3F194 /* GenericValue.swift */; };
 		D9EF05A520ACCE3800D3F194 /* Unit.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9EF05A420ACCE3800D3F194 /* Unit.swift */; };
 		D9EF05AD20ACCF7000D3F194 /* CustomisableUpdateIntervalSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9EF05AC20ACCF7000D3F194 /* CustomisableUpdateIntervalSource.swift */; };
@@ -57,6 +57,7 @@
 		D9EF05F620AE2FE800D3F194 /* Quick.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D9EF05F220AE2FE100D3F194 /* Quick.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		D9EF05F720AE2FEA00D3F194 /* Nimble.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D9EF05F120AE2FE100D3F194 /* Nimble.framework */; };
 		D9EF05F820AE2FEA00D3F194 /* Quick.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D9EF05F220AE2FE100D3F194 /* Quick.framework */; };
+		D9F6B05520F8F4A700831338 /* Source.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9F6B05420F8F4A700831338 /* Source.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -111,7 +112,7 @@
 		D9EF058A20ACC59300D3F194 /* GatheredKitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GatheredKitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		D9EF059120ACC59400D3F194 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D9EF059B20ACC5B800D3F194 /* Array+newestDataDate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+newestDataDate.swift"; sourceTree = "<group>"; };
-		D9EF059D20ACC63700D3F194 /* Source.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Source.swift; sourceTree = "<group>"; };
+		D9EF059D20ACC63700D3F194 /* ControllableSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ControllableSource.swift; sourceTree = "<group>"; };
 		D9EF059F20ACC77D00D3F194 /* GenericValue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenericValue.swift; sourceTree = "<group>"; };
 		D9EF05A420ACCE3800D3F194 /* Unit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Unit.swift; sourceTree = "<group>"; };
 		D9EF05AC20ACCF7000D3F194 /* CustomisableUpdateIntervalSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomisableUpdateIntervalSource.swift; sourceTree = "<group>"; };
@@ -138,6 +139,7 @@
 		D9EF05E420AE2BBD00D3F194 /* MockScreenBackingData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockScreenBackingData.swift; sourceTree = "<group>"; };
 		D9EF05F120AE2FE100D3F194 /* Nimble.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Nimble.framework; path = Carthage/Build/iOS/Nimble.framework; sourceTree = SOURCE_ROOT; };
 		D9EF05F220AE2FE100D3F194 /* Quick.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Quick.framework; path = Carthage/Build/iOS/Quick.framework; sourceTree = SOURCE_ROOT; };
+		D9F6B05420F8F4A700831338 /* Source.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Source.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -268,7 +270,7 @@
 		D9EF05A620ACCEB800D3F194 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
-				D9EF059D20ACC63700D3F194 /* Source.swift */,
+				D9EF059D20ACC63700D3F194 /* ControllableSource.swift */,
 				D9D7529D20B4BE0600B16A06 /* SourceAvailability.swift */,
 				D9EF05AC20ACCF7000D3F194 /* CustomisableUpdateIntervalSource.swift */,
 				D9EF05AE20ACCF8B00D3F194 /* ManuallyUpdatableSource.swift */,
@@ -277,6 +279,7 @@
 				D96A18DF20C741D000CAE44F /* Device Motion */,
 				D930631D20D5BDA7007A0CBD /* Compass.swift */,
 				D9EF05CA20ACD35B00D3F194 /* Screen.swift */,
+				D9F6B05420F8F4A700831338 /* Source.swift */,
 			);
 			path = Sources;
 			sourceTree = "<group>";
@@ -451,11 +454,12 @@
 				D928465A20C499790058245F /* Scale.swift in Sources */,
 				D9B84DE220CF0FB800380C42 /* Magnetometer.swift in Sources */,
 				D930631A20D58AC6007A0CBD /* CMQuaternion.swift in Sources */,
-				D9EF059E20ACC63700D3F194 /* Source.swift in Sources */,
+				D9EF059E20ACC63700D3F194 /* ControllableSource.swift in Sources */,
 				D930631420D58A34007A0CBD /* MagneticFieldValue.swift in Sources */,
 				D991E1F420CF2D45009C849F /* NumericNone.swift in Sources */,
 				D9EF05BF20ACD26600D3F194 /* Kilopascal.swift in Sources */,
 				D9EF05B920ACD23400D3F194 /* Boolean.swift in Sources */,
+				D9F6B05520F8F4A700831338 /* Source.swift in Sources */,
 				D9EF05B120ACD02100D3F194 /* NumericUnit.swift in Sources */,
 				D959ECC720D713C5000184E2 /* GeomagnetismValue.swift in Sources */,
 				D9EF05B520ACD20700D3F194 /* BeatsPerMinute.swift in Sources */,

@@ -1,7 +1,7 @@
 import Foundation
 import CoreLocation
 
-public final class Compass: BaseSource, Source {
+public final class Compass: BaseSource, ControllableSource {
 
     private enum State {
         case notMonitoring
