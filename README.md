@@ -27,7 +27,7 @@ Every source is a class backed by an equivelent Apple-provided class, but with a
  - [X] Accelerometer
  - [X] Device Attitude
  - [ ] Proximity
- - [ ] Battery
+ - [X] Battery
  - [ ] Bluetooth
  - [ ] Storage
  - [ ] Memory
