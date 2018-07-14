@@ -8,7 +8,7 @@ public final class Screen: BaseSource, ControllableSource {
 
     private enum State {
         case notMonitoring
-        case monitoring(brightnessChangeObeserver: NSObjectProtocol)
+        case monitoring(brightnessChangeObeserver: NSObjectProtocol, updatesQueue: OperationQueue)
     }
 
     public static var availability: SourceAvailability = .available
@@ -161,11 +161,21 @@ public final class Screen: BaseSource, ControllableSource {
     public func startUpdating() {
         guard !isUpdating else { return }
 
-        let brightnessChangeObeserver = NotificationCenter.default.addObserver(forName: .UIScreenBrightnessDidChange, object: screen, queue: .main) { [weak self] _ in
+        let updatesQueue = OperationQueue()
+        updatesQueue.name = "uk.co.josephduffy.GatheredKit Screen Updates"
+
+        #if swift(>=4.2)
+        let brightnessChangeObeserver = NotificationCenter.default.addObserver(forName: UIScreen.brightnessDidChangeNotification, object: screen, queue: updatesQueue) { [weak self] _ in
+            print("Brightness changed")
             self?.notifyListenersPropertyValuesUpdated()
         }
+        #else
+        let brightnessChangeObeserver = NotificationCenter.default.addObserver(forName: .UIScreenBrightnessDidChange, object: screen, queue: updatesQueue) { [weak self] _ in
+            self?.notifyListenersPropertyValuesUpdated()
+        }
+        #endif
 
-        state = .monitoring(brightnessChangeObeserver: brightnessChangeObeserver)
+        state = .monitoring(brightnessChangeObeserver: brightnessChangeObeserver, updatesQueue: updatesQueue)
     }
 
     /**
