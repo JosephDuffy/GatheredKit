@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D910EE8720FA412F007F495B /* Battery.swift in Sources */ = {isa = PBXBuildFile; fileRef = D910EE8620FA412E007F495B /* Battery.swift */; };
+		D910EE8920FA451C007F495B /* SwiftShims.swift in Sources */ = {isa = PBXBuildFile; fileRef = D910EE8820FA451C007F495B /* SwiftShims.swift */; };
 		D9168F4E20C8851E00100EEE /* ValuesProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9168F4D20C8851E00100EEE /* ValuesProvider.swift */; };
 		D928465A20C499790058245F /* Scale.swift in Sources */ = {isa = PBXBuildFile; fileRef = D928465920C499790058245F /* Scale.swift */; };
 		D930631420D58A34007A0CBD /* MagneticFieldValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = D930631320D58A34007A0CBD /* MagneticFieldValue.swift */; };
@@ -88,6 +90,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		D910EE8620FA412E007F495B /* Battery.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Battery.swift; sourceTree = "<group>"; };
+		D910EE8820FA451C007F495B /* SwiftShims.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftShims.swift; sourceTree = "<group>"; };
 		D9168F4D20C8851E00100EEE /* ValuesProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValuesProvider.swift; sourceTree = "<group>"; };
 		D928465920C499790058245F /* Scale.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Scale.swift; sourceTree = "<group>"; };
 		D930631320D58A34007A0CBD /* MagneticFieldValue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MagneticFieldValue.swift; sourceTree = "<group>"; };
@@ -275,6 +279,7 @@
 		D9EF05A620ACCEB800D3F194 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
+				D9F6B05420F8F4A700831338 /* Source.swift */,
 				D9EF059D20ACC63700D3F194 /* ControllableSource.swift */,
 				D9D7529D20B4BE0600B16A06 /* SourceAvailability.swift */,
 				D9EF05AC20ACCF7000D3F194 /* CustomisableUpdateIntervalSource.swift */,
@@ -284,8 +289,8 @@
 				D96A18DF20C741D000CAE44F /* Device Motion */,
 				D930631D20D5BDA7007A0CBD /* Compass.swift */,
 				D9EF05CA20ACD35B00D3F194 /* Screen.swift */,
+				D910EE8620FA412E007F495B /* Battery.swift */,
 				D96C62FF20F6AB0900BF06EF /* WiFi.swift */,
-				D9F6B05420F8F4A700831338 /* Source.swift */,
 			);
 			path = Sources;
 			sourceTree = "<group>";
@@ -294,6 +299,7 @@
 			isa = PBXGroup;
 			children = (
 				D9EF059B20ACC5B800D3F194 /* Array+newestDataDate.swift */,
+				D910EE8820FA451C007F495B /* SwiftShims.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -445,7 +451,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D910EE8720FA412F007F495B /* Battery.swift in Sources */,
 				D96A18E920C741E100CAE44F /* DeviceAttitude.swift in Sources */,
+				D910EE8920FA451C007F495B /* SwiftShims.swift in Sources */,
 				D950047420C85B590046AB47 /* AccelerationValue.swift in Sources */,
 				D9EF05BB20ACD24A00D3F194 /* Decibel.swift in Sources */,
 				D930631620D58A54007A0CBD /* CalibratedMagneticFieldValue.swift in Sources */,
