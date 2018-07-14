@@ -164,16 +164,9 @@ public final class Screen: BaseSource, ControllableSource {
         let updatesQueue = OperationQueue()
         updatesQueue.name = "uk.co.josephduffy.GatheredKit Screen Updates"
 
-        #if swift(>=4.2)
         let brightnessChangeObeserver = NotificationCenter.default.addObserver(forName: UIScreen.brightnessDidChangeNotification, object: screen, queue: updatesQueue) { [weak self] _ in
-            print("Brightness changed")
             self?.notifyListenersPropertyValuesUpdated()
         }
-        #else
-        let brightnessChangeObeserver = NotificationCenter.default.addObserver(forName: .UIScreenBrightnessDidChange, object: screen, queue: updatesQueue) { [weak self] _ in
-            self?.notifyListenersPropertyValuesUpdated()
-        }
-        #endif
 
         state = .monitoring(brightnessChangeObeserver: brightnessChangeObeserver, updatesQueue: updatesQueue)
     }
