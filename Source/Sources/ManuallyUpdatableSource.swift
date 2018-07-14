@@ -2,7 +2,7 @@
 /**
  A source that supports its properties being updated at any given time
  */
-public protocol ManuallyUpdatableSource: CustomisableUpdateIntervalSource {
+public protocol ManuallyUpdatableSource {
 
     /**
      Force the source to update its properties. Note that there is no guarantee that new data
