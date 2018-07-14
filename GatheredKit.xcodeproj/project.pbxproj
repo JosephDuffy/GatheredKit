@@ -20,7 +20,9 @@
 		D950047420C85B590046AB47 /* AccelerationValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = D950047320C85B590046AB47 /* AccelerationValue.swift */; };
 		D959ECC720D713C5000184E2 /* GeomagnetismValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = D959ECC620D713C5000184E2 /* GeomagnetismValue.swift */; };
 		D96A18E920C741E100CAE44F /* DeviceAttitude.swift in Sources */ = {isa = PBXBuildFile; fileRef = D96A18E320C741E100CAE44F /* DeviceAttitude.swift */; };
+		D96C630020F6AB0900BF06EF /* WiFi.swift in Sources */ = {isa = PBXBuildFile; fileRef = D96C62FF20F6AB0900BF06EF /* WiFi.swift */; };
 		D991E1F420CF2D45009C849F /* NumericNone.swift in Sources */ = {isa = PBXBuildFile; fileRef = D991E1F320CF2D45009C849F /* NumericNone.swift */; };
+		D9ADBCDC20F8DE4700BB0255 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D9ADBCDB20F8DE4700BB0255 /* SystemConfiguration.framework */; };
 		D9B84DE020CC83D900380C42 /* Gyroscope.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9B84DDF20CC83D900380C42 /* Gyroscope.swift */; };
 		D9B84DE220CF0FB800380C42 /* Magnetometer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9B84DE120CF0FB800380C42 /* Magnetometer.swift */; };
 		D9B84DE420CF14F000380C42 /* Accelerometer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9B84DE320CF14F000380C42 /* Accelerometer.swift */; };
@@ -99,7 +101,9 @@
 		D950047320C85B590046AB47 /* AccelerationValue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccelerationValue.swift; sourceTree = "<group>"; };
 		D959ECC620D713C5000184E2 /* GeomagnetismValue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeomagnetismValue.swift; sourceTree = "<group>"; };
 		D96A18E320C741E100CAE44F /* DeviceAttitude.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeviceAttitude.swift; sourceTree = "<group>"; };
+		D96C62FF20F6AB0900BF06EF /* WiFi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WiFi.swift; sourceTree = "<group>"; };
 		D991E1F320CF2D45009C849F /* NumericNone.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumericNone.swift; sourceTree = "<group>"; };
+		D9ADBCDB20F8DE4700BB0255 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		D9B84DDF20CC83D900380C42 /* Gyroscope.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Gyroscope.swift; sourceTree = "<group>"; };
 		D9B84DE120CF0FB800380C42 /* Magnetometer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Magnetometer.swift; sourceTree = "<group>"; };
 		D9B84DE320CF14F000380C42 /* Accelerometer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Accelerometer.swift; sourceTree = "<group>"; };
@@ -147,6 +151,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D9ADBCDC20F8DE4700BB0255 /* SystemConfiguration.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -279,6 +284,7 @@
 				D96A18DF20C741D000CAE44F /* Device Motion */,
 				D930631D20D5BDA7007A0CBD /* Compass.swift */,
 				D9EF05CA20ACD35B00D3F194 /* Screen.swift */,
+				D96C62FF20F6AB0900BF06EF /* WiFi.swift */,
 				D9F6B05420F8F4A700831338 /* Source.swift */,
 			);
 			path = Sources;
@@ -295,6 +301,7 @@
 		D9EF05DA20AE2B4700D3F194 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				D9ADBCDB20F8DE4700BB0255 /* SystemConfiguration.framework */,
 				D9EF05DB20AE2B4700D3F194 /* Nimble.framework */,
 				D9EF05DC20AE2B4700D3F194 /* Quick.framework */,
 			);
@@ -461,6 +468,7 @@
 				D9EF05B920ACD23400D3F194 /* Boolean.swift in Sources */,
 				D9F6B05520F8F4A700831338 /* Source.swift in Sources */,
 				D9EF05B120ACD02100D3F194 /* NumericUnit.swift in Sources */,
+				D96C630020F6AB0900BF06EF /* WiFi.swift in Sources */,
 				D959ECC720D713C5000184E2 /* GeomagnetismValue.swift in Sources */,
 				D9EF05B520ACD20700D3F194 /* BeatsPerMinute.swift in Sources */,
 				D9EF05B720ACD22100D3F194 /* Byte.swift in Sources */,
