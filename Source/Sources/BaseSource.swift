@@ -1,10 +1,10 @@
 import Foundation
 
-public class BaseSource: NSObject {
+open class BaseSource: NSObject {
 
     private var updateListeners = NSHashTable<SourceUpdateListenerWrapper>.weakObjects()
 
-    override init() {
+    public override init() {
         guard type(of: self) != BaseSource.self else {
             fatalError("BaseSource must be subclassed")
         }
@@ -12,27 +12,25 @@ public class BaseSource: NSObject {
         super.init()
     }
 
-    public func addUpdateListener(_ updateListener: @escaping Source.UpdateListener) -> AnyObject {
-        let observer = SourceUpdateListenerWrapper(updateListener: updateListener)
+    open func addUpdateListener(_ updateListener: @escaping ControllableSource.UpdateListener, queue: DispatchQueue) -> AnyObject {
+        let observer = SourceUpdateListenerWrapper(updateListener: updateListener, queue: queue)
         updateListeners.add(observer)
         return observer
     }
 
-    internal func notifyUpdateListeners(latestPropertyValues: [AnyValue]) {
-        if Thread.isMainThread {
-            updateListeners.allObjects.forEach { $0.updateListener(latestPropertyValues) }
-        } else {
-            DispatchQueue.main.async {
-                self.updateListeners.allObjects.forEach { $0.updateListener(latestPropertyValues) }
+    public final func notifyUpdateListeners(latestPropertyValues: [AnyValue]) {
+        updateListeners.allObjects.forEach { wrapper in
+            wrapper.queue.async {
+                wrapper.updateListener(latestPropertyValues)
             }
         }
     }
 
 }
 
-extension Source where Self: BaseSource {
+extension ControllableSource where Self: BaseSource {
 
-    internal func notifyListenersPropertyValuesUpdated() {
+    public func notifyListenersPropertyValuesUpdated() {
         notifyUpdateListeners(latestPropertyValues: allValues)
     }
 
