@@ -15,13 +15,13 @@ The code originated from [Gathered](https://geo.itunes.apple.com/app/gathered/id
 
 Every source is a class backed by an equivelent Apple-provided class, but with a simplified and consistent API to receive updates. Below is a list of sources that GatheredKit has to offer. Unticked boxes indicate sources that will be added in the future.
 
- - [ ] WiFi
  - [ ] GPS
+ - [X] Wi-Fi
  - [ ] Altimeter
  - [ ] Microphone
  - [ ] Cell Radio
  - [X] Screen
- - [ ] Compass
+ - [X] Compass
  - [X] Magnetometer
  - [X] Gyroscope
  - [X] Accelerometer
