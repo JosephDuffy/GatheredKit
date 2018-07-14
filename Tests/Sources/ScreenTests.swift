@@ -55,9 +55,9 @@ final class ScreenTests: QuickSpec {
                     mock = MockScreenBackingData()
                     screen = Screen(screen: mock)
                     listenerWasCalled = false
-                    updateListener = screen.startUpdating { _ in
+                    updateListener = screen.startUpdating(sendingUpdatesTo: { _ in
                         listenerWasCalled = true
-                    }
+                    })
                 }
 
                 it("should cause `isUpdating` to return `true`") {
@@ -65,13 +65,29 @@ final class ScreenTests: QuickSpec {
                 }
 
                 it("should notify listeners when a `UIScreenBrightnessDidChange` notification is fired from the backing object") {
+                    #if swift(>=4.2)
+                    NotificationCenter.default.post(name: UIScreen.brightnessDidChangeNotification, object: mock)
+                    #else
                     NotificationCenter.default.post(name: .UIScreenBrightnessDidChange, object: mock)
-                    expect(listenerWasCalled).to(beTrue())
+                    #endif
+
+                    expect(listenerWasCalled).toEventually(beTrue())
                 }
 
                 it("should not notify listeners when a `UIScreenBrightnessDidChange` notification is fired from an object other than the backing object") {
+                    #if swift(>=4.2)
+                    NotificationCenter.default.post(name: UIScreen.brightnessDidChangeNotification, object: UIScreen.main)
+                    #else
                     NotificationCenter.default.post(name: .UIScreenBrightnessDidChange, object: UIScreen.main)
-                    expect(listenerWasCalled).to(beFalse())
+                    #endif
+
+                    var wasCalledAfterHalfASecond: Bool?
+
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: {
+                        wasCalledAfterHalfASecond = listenerWasCalled
+                    })
+
+                    expect(wasCalledAfterHalfASecond).toEventually(beFalse(), timeout: 1, pollInterval: 0.1)
                 }
 
             }
