@@ -15,4 +15,6 @@ public struct BeatsPerMinute: NumericUnit {
     /// the value does not equal 1
     public let pluralValueSuffix = " BPM"
 
+    public init() {}
+
 }

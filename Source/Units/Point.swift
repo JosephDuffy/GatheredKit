@@ -15,4 +15,6 @@ public struct Point: NumericUnit {
     /// the value does not equal 1
     public let pluralValueSuffix = " Points"
 
+    public init() {}
+
 }

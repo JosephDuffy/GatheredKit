@@ -30,8 +30,8 @@ public final class Gyroscope: BaseSource, CustomisableUpdateIntervalSource {
 
     public override init() {
         let date = Date()
-        rotationRate = RotationRateValue(name: "Rotation Rate (Calibrated)", backingValue: nil, date: date)
-        rawRotationRate = RotationRateValue(name: "Rotation Rate (Raw)", backingValue: nil, date: date)
+        rotationRate = RotationRateValue(name: "Rotation Rate (Calibrated)", date: date)
+        rawRotationRate = RotationRateValue(name: "Rotation Rate (Raw)", date: date)
     }
 
     deinit {

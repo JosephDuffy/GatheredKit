@@ -3,7 +3,7 @@ import Foundation
 /**
  A unit of measurement that is usually associated to a number.
  */
-public protocol NumericUnit: Unit where ValueType == NSNumber {
+public protocol NumericUnit: ZeroConfigurationUnit where ValueType == NSNumber {
 
     /// The maximum number of digits to allow after the decimal place
     var maximumFractionDigits: Int { get }
@@ -15,10 +15,6 @@ public protocol NumericUnit: Unit where ValueType == NSNumber {
     /// The string that will be appended to the end of the string when
     /// the value does not equal 1
     var pluralValueSuffix: String { get }
-
-    func formattedString(for value: NSNumber, maximumFractionDigits: Int, singularValueSuffix: String, pluralValueSuffix: String) -> String
-
-    func formattedString(for value: NSNumber, usingFormatter formatter: NumberFormatter, singularValueSuffix: String, pluralValueSuffix: String) -> String
 
 }
 

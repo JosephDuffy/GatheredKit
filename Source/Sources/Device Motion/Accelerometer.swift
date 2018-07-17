@@ -36,10 +36,10 @@ public final class Accelerometer: BaseSource, CustomisableUpdateIntervalSource {
 
     public override init() {
         let date = Date()
-        totalAcceletation = AccelerationValue(name: "Gravitational Acceleration", backingValue: nil, date: date)
-        gravitationalAcceletation = AccelerationValue(name: "Gravitational Acceleration", backingValue: nil, date: date)
-        userAcceleration = AccelerationValue(name: "User Acceleration", backingValue: nil, date: date)
-        rawAcceleration = AccelerationValue(name: "Raw Acceleration", backingValue: nil, date: date)
+        totalAcceletation = AccelerationValue(name: "Gravitational Acceleration", date: date)
+        gravitationalAcceletation = AccelerationValue(name: "Gravitational Acceleration", date: date)
+        userAcceleration = AccelerationValue(name: "User Acceleration", date: date)
+        rawAcceleration = AccelerationValue(name: "Raw Acceleration", date: date)
     }
 
     deinit {

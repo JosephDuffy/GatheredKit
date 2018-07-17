@@ -15,6 +15,15 @@ public struct Percent: NumericUnit {
     /// the value does not equal 1
     public let pluralValueSuffix = "%"
 
+    private let formatter: NumberFormatter
+
+    public init() {
+        let formatter = NumberFormatter()
+        formatter.numberStyle = .percent
+        formatter.maximumFractionDigits = maximumFractionDigits
+        self.formatter = formatter
+    }
+
     /**
      Generates a human-friendly string for the given value.
 
@@ -26,11 +35,7 @@ public struct Percent: NumericUnit {
      - returns: The formatted string
      */
     public func formattedString(for value: NSNumber) -> String {
-        let formatter = NumberFormatter()
-        formatter.numberStyle = .percent
-        formatter.maximumFractionDigits = maximumFractionDigits
-
-        return self.formattedString(for: value, usingFormatter: formatter)
+        return formattedString(for: value, usingFormatter: formatter)
     }
 
 }
