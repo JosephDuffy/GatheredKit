@@ -13,6 +13,7 @@
 		D910EE9120FE9E76007F495B /* Altimeter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D910EE9020FE9E76007F495B /* Altimeter.swift */; };
 		D910EE9420FEA064007F495B /* Action.swift in Sources */ = {isa = PBXBuildFile; fileRef = D910EE9320FEA064007F495B /* Action.swift */; };
 		D910EE9620FEA070007F495B /* ActionProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = D910EE9520FEA070007F495B /* ActionProvider.swift */; };
+		D910EE9820FEA637007F495B /* Proximity.swift in Sources */ = {isa = PBXBuildFile; fileRef = D910EE9720FEA637007F495B /* Proximity.swift */; };
 		D9168F4E20C8851E00100EEE /* ValuesProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9168F4D20C8851E00100EEE /* ValuesProvider.swift */; };
 		D928465A20C499790058245F /* Scale.swift in Sources */ = {isa = PBXBuildFile; fileRef = D928465920C499790058245F /* Scale.swift */; };
 		D930631420D58A34007A0CBD /* MagneticFieldValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = D930631320D58A34007A0CBD /* MagneticFieldValue.swift */; };
@@ -100,6 +101,7 @@
 		D910EE9020FE9E76007F495B /* Altimeter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Altimeter.swift; sourceTree = "<group>"; };
 		D910EE9320FEA064007F495B /* Action.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Action.swift; sourceTree = "<group>"; };
 		D910EE9520FEA070007F495B /* ActionProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionProvider.swift; sourceTree = "<group>"; };
+		D910EE9720FEA637007F495B /* Proximity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Proximity.swift; sourceTree = "<group>"; };
 		D9168F4D20C8851E00100EEE /* ValuesProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValuesProvider.swift; sourceTree = "<group>"; };
 		D928465920C499790058245F /* Scale.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Scale.swift; sourceTree = "<group>"; };
 		D930631320D58A34007A0CBD /* MagneticFieldValue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MagneticFieldValue.swift; sourceTree = "<group>"; };
@@ -308,6 +310,7 @@
 				D96A18DF20C741D000CAE44F /* Device Motion */,
 				D930631D20D5BDA7007A0CBD /* Compass.swift */,
 				D9EF05CA20ACD35B00D3F194 /* Screen.swift */,
+				D910EE9720FEA637007F495B /* Proximity.swift */,
 				D910EE8620FA412E007F495B /* Battery.swift */,
 				D910EE9020FE9E76007F495B /* Altimeter.swift */,
 				D96C62FF20F6AB0900BF06EF /* WiFi.swift */,
@@ -492,6 +495,7 @@
 				D9B84DE220CF0FB800380C42 /* Magnetometer.swift in Sources */,
 				D930631A20D58AC6007A0CBD /* CMQuaternion.swift in Sources */,
 				D9EF059E20ACC63700D3F194 /* ControllableSource.swift in Sources */,
+				D910EE9820FEA637007F495B /* Proximity.swift in Sources */,
 				D930631420D58A34007A0CBD /* MagneticFieldValue.swift in Sources */,
 				D991E1F420CF2D45009C849F /* NumericNone.swift in Sources */,
 				D9EF05BF20ACD26600D3F194 /* Kilopascal.swift in Sources */,
