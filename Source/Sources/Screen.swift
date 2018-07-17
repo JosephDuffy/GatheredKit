@@ -11,6 +11,27 @@ public final class Screen: BaseSource, ControllableSource {
         case monitoring(brightnessChangeObeserver: NSObjectProtocol, updatesQueue: OperationQueue)
     }
 
+    /**
+     Generates and returns a human-friendly string that represents the given size. String will be in the format:
+
+     "\(width) x \(height)"
+
+     Numeric values (width and height) will be formatted using a `NumberFormatter`
+
+     - parameter size: The size to be formatted
+     - parameter unit: The unit the size is measured in, usually Point or Pixel
+
+     - returns: The formatted string
+     */
+    private static func formattedString<Unit: NumericUnit>(for size: CGSize, unit: Unit) -> String {
+        let widthString = numberFormatter.string(from: size.width as NSNumber) ?? "\(size.width)"
+        let heightString = numberFormatter.string(from: size.height as NSNumber) ?? "\(size.height)"
+
+        return "\(widthString) x \(heightString)" + unit.pluralValueSuffix
+    }
+
+    private static var numberFormatter = NumberFormatter()
+
     public static var availability: SourceAvailability = .available
 
     public static var displayName = "Screen"
@@ -29,88 +50,32 @@ public final class Screen: BaseSource, ControllableSource {
     private let screen: ScreenBackingData
 
     /**
-     The screen resolution reported by the system
-     **Properties**
-     Display name: Screen Resolution (reported)
-     Unit: Point
-
-     Formatted value: "\(width) x \(height) Points"
+     The reported resolution of the screen
      */
-    public var reportedResolution: GenericValue<CGSize, Point> {
-        let unit = Point()
-
-        return GenericValue(
-            name: "Resolution (reported)",
-            backingValue: screen.bounds.size,
-            formattedValue: formattedString(for: screen.bounds.size) + unit.pluralValueSuffix,
-            unit: unit
-        )
-    }
+    public let reportedResolution: GenericValue<CGSize, Point>
 
     /**
      The native resolution of the screen
-
-     **Properties**
-     Display name: Screen Resolution (native)
-     Unit: Pixel
-     Formatted value: "\(width) x \(height) Pixels"
      */
-    public var nativeResolution: GenericValue<CGSize, Pixel> {
-        let unit = Pixel()
-
-        return GenericValue(
-            name: "Resolution (native)",
-            backingValue: screen.nativeBounds.size,
-            formattedValue: formattedString(for: screen.nativeBounds.size) + unit.pluralValueSuffix,
-            unit: unit
-        )
-    }
+    public let nativeResolution: GenericValue<CGSize, Pixel>
 
     /**
-     The natural scale factor associated with the screen
-
-     **Properties**
-     Display name: Screen Scale (reported)
+     The reported scale factor of the screen
      */
-    public var reportedScale: GenericValue<CGFloat, Scale> {
-        return GenericValue(
-            name: "Scale (reported)",
-            backingValue: screen.scale,
-            unit: Scale()
-        )
-    }
+    public let reportedScale: GenericValue<CGFloat, Scale>
 
     /**
-     The native scale factor for the physical screen
-
-     **Properties**
-
-     Display name: Screen Scale (native)
+     The native scale factor of the screen
      */
-    public var nativeScale: GenericValue<CGFloat, Scale> {
-        return GenericValue(
-            name: "Scale (native)",
-            backingValue: screen.nativeScale,
-            unit: Scale()
-        )
-    }
+    public let nativeScale: GenericValue<CGFloat, Scale>
 
     /**
      The brightness level of the screen. The value of this property will be a number between
-     0.0 and 1.0, inclusive
-     **Properties**
+     0.0 and 1.0, inclusive.
 
-     Display name: Brightness
-
-     Unit: Percent
+     This value will update automatically when `startUpdating` is called
      */
-    public var brightness: GenericValue<CGFloat, Percent> {
-        return GenericValue(
-            name: "Brightness",
-            backingValue: screen.brightness,
-            unit: Percent()
-        )
-    }
+    public private(set) var brightness: GenericValue<CGFloat, Percent>
 
     /**
      An array of the screen's properties, in the following order:
@@ -148,6 +113,33 @@ public final class Screen: BaseSource, ControllableSource {
      */
     internal init(screen: ScreenBackingData) {
         self.screen = screen
+
+        reportedResolution = GenericValue(
+            name: "Resolution (reported)",
+            backingValue: screen.bounds.size,
+            formattedValue: Screen.formattedString(for: screen.bounds.size, unit: Point())
+        )
+
+        nativeResolution = GenericValue(
+            name: "Resolution (native)",
+            backingValue: screen.nativeBounds.size,
+            formattedValue: Screen.formattedString(for: screen.nativeBounds.size, unit: Pixel())
+        )
+
+        reportedScale = GenericValue(
+            name: "Scale (reported)",
+            backingValue: screen.scale
+        )
+
+        nativeScale = GenericValue(
+            name: "Scale (native)",
+            backingValue: screen.nativeScale
+        )
+
+        brightness = GenericValue(
+            name: "Brightness",
+            backingValue: screen.brightness
+        )
     }
 
     deinit {
@@ -165,7 +157,9 @@ public final class Screen: BaseSource, ControllableSource {
         updatesQueue.name = "uk.co.josephduffy.GatheredKit Screen Updates"
 
         let brightnessChangeObeserver = NotificationCenter.default.addObserver(forName: UIScreen.brightnessDidChangeNotification, object: screen, queue: updatesQueue) { [weak self] _ in
-            self?.notifyListenersPropertyValuesUpdated()
+            guard let `self` = self else { return }
+            self.brightness.update(backingValue: self.screen.brightness)
+            self.notifyListenersPropertyValuesUpdated()
         }
 
         state = .monitoring(brightnessChangeObeserver: brightnessChangeObeserver, updatesQueue: updatesQueue)
@@ -180,25 +174,6 @@ public final class Screen: BaseSource, ControllableSource {
         NotificationCenter.default.removeObserver(brightnessChangeObeserver)
 
         state = .notMonitoring
-    }
-
-    /**
-     Generates and returns a human-friendly string that represents the given size. String will be in the format:
-
-     "\(width) x \(height)"
-
-     Numeric values (width and height) will be formatted using a `NumberFormatter`
-
-     - parameter size: The size to be formatted
-
-     - returns: The formatted string
-     */
-    internal func formattedString(for size: CGSize) -> String {
-        let formatter = NumberFormatter()
-        let widthString = formatter.string(from: size.width as NSNumber) ?? "\(size.width)"
-        let heightString = formatter.string(from: size.height as NSNumber) ?? "\(size.height)"
-
-        return "\(widthString) x \(heightString)"
     }
 
 }

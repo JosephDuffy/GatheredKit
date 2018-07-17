@@ -77,7 +77,7 @@ public struct CalibratedMagneticFieldValue: Value, ValuesProvider {
 
     public let date: Date
 
-    public init(backingValue: CMCalibratedMagneticField?, date: Date) {
+    public init(backingValue: CMCalibratedMagneticField? = nil, date: Date) {
         self.backingValue = backingValue
         self.date = date
     }

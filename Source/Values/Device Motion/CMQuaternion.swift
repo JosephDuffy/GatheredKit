@@ -58,7 +58,7 @@ public struct QuaternionValue: Value, ValuesProvider {
 
     public let date: Date
 
-    public init(backingValue: CMQuaternion?, date: Date) {
+    public init(backingValue: CMQuaternion? = nil, date: Date) {
         self.backingValue = backingValue
         self.date = date
     }

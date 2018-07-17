@@ -48,7 +48,7 @@ public struct RotationRateValue: Value, ValuesProvider {
 
     public let date: Date
 
-    public init(name: String, backingValue: CMRotationRate?, date: Date) {
+    public init(name: String, backingValue: CMRotationRate? = nil, date: Date) {
         self.name = name
         self.backingValue = backingValue
         self.date = date

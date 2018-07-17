@@ -35,6 +35,20 @@ public struct GenericValue<ValueType, UnitType: Unit>: Value {
         self.date = date
     }
 
+    internal init<WrappedValueType>(
+        name: String,
+        backingValue: WrappedValueType? = nil,
+        formattedValue: String? = nil,
+        unit: UnitType,
+        date: Date = Date()
+    ) where ValueType == WrappedValueType? {
+        self.name = name
+        self.backingValue = backingValue
+        self.formattedValue = formattedValue
+        self.unit = unit
+        self.date = date
+    }
+
     /**
      Updates the data backing this `SourceProperty`
      - parameter backingValue: The new value of the data
@@ -43,6 +57,38 @@ public struct GenericValue<ValueType, UnitType: Unit>: Value {
      */
     public mutating func update(backingValue: ValueType, formattedValue: String? = nil, date: Date = Date()) {
         self = GenericValue(name: name, backingValue: backingValue, formattedValue: formattedValue, unit: unit, date: date)
+    }
+
+}
+
+extension GenericValue where UnitType: ZeroConfigurationUnit {
+
+    internal init(
+        name: String,
+        backingValue: ValueType,
+        formattedValue: String? = nil,
+        unit: UnitType = UnitType(),
+        date: Date = Date()
+    ) {
+        self.name = name
+        self.backingValue = backingValue
+        self.formattedValue = formattedValue
+        self.unit = unit
+        self.date = date
+    }
+
+    internal init<WrappedValueType>(
+        name: String,
+        backingValue: WrappedValueType? = nil,
+        formattedValue: String? = nil,
+        unit: UnitType = UnitType(),
+        date: Date = Date()
+    ) where ValueType == WrappedValueType? {
+        self.name = name
+        self.backingValue = backingValue
+        self.formattedValue = formattedValue
+        self.unit = unit
+        self.date = date
     }
 
 }
