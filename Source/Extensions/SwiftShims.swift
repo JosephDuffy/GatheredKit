@@ -10,6 +10,7 @@ extension UIScreen {
 extension UIDevice {
     static let batteryLevelDidChangeNotification: NSNotification.Name = .UIDeviceBatteryLevelDidChange
     static let batteryStateDidChangeNotification: NSNotification.Name = .UIDeviceBatteryStateDidChange
+    static let proximityStateDidChangeNotification: NSNotification.Name = .UIDeviceProximityStateDidChange
 }
 
 #endif
