@@ -26,7 +26,7 @@ Every source is a class backed by an equivelent Apple-provided class, but with a
  - [X] Gyroscope
  - [X] Accelerometer
  - [X] Device Attitude
- - [ ] Proximity
+ - [X] Proximity
  - [X] Battery
  - [ ] Bluetooth
  - [ ] Storage
