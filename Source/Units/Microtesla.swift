@@ -15,4 +15,6 @@ public struct Microtesla: NumericUnit {
     /// the value does not equal 1
     public let pluralValueSuffix = " µT"
 
+    public init() {}
+
 }

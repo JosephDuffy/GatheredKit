@@ -48,7 +48,7 @@ public struct MagneticFieldValue: Value, ValuesProvider {
 
     public let date: Date
 
-    public init(backingValue: CMMagneticField?, date: Date) {
+    public init(backingValue: CMMagneticField? = nil, date: Date) {
         self.backingValue = backingValue
         self.date = date
     }

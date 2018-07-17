@@ -15,4 +15,6 @@ public struct Decibel: NumericUnit {
     /// the value does not equal 1
     public let pluralValueSuffix = " dB"
 
+    public init() {}
+
 }

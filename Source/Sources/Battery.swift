@@ -26,9 +26,9 @@ public final class Battery: BaseSource, ControllableSource, ManuallyUpdatableSou
         }
     }
 
-    public var chargeLevel: GenericValue<Float?, Percent>
-    public var chargeState: GenericValue<UIDevice.BatteryState?, None>
-    public var isLowPowerModeEnabled: GenericValue<Bool?, Boolean>
+    public private(set) var chargeLevel: GenericValue<Float, Percent>
+    public private(set) var chargeState: GenericValue<UIDevice.BatteryState, None>
+    public private(set) var isLowPowerModeEnabled: GenericValue<Bool, Boolean>
 
     public var allValues: [AnyValue] {
         return [
@@ -51,17 +51,16 @@ public final class Battery: BaseSource, ControllableSource, ManuallyUpdatableSou
         
         chargeLevel = GenericValue(
             name: "Charge Level",
-            backingValue: nil,
-            unit: Percent()
+            backingValue: device.batteryLevel
         )
         chargeState = GenericValue(
             name: "Battery State",
-            backingValue: nil,
-            unit: None()
+            backingValue: device.batteryState,
+            formattedValue: device.batteryState.displayValue
         )
         isLowPowerModeEnabled = GenericValue(
             name: "Low Power Mode Enabled",
-            backingValue: nil,
+            backingValue: ProcessInfo.processInfo.isLowPowerModeEnabled,
             unit: Boolean(trueString: "Yes", falseString: "No")
         )
     }
@@ -90,7 +89,8 @@ public final class Battery: BaseSource, ControllableSource, ManuallyUpdatableSou
         notificationObservers.append(NotificationCenter.default.addObserver(forName: UIDevice.batteryStateDidChangeNotification, object: device, queue: updatesQueue) { [weak self] _ in
             guard let `self` = self else { return }
 
-            self.updateChargeState()
+            let device = self.device
+            self.chargeState.update(backingValue: device.batteryState, formattedValue: device.batteryState.displayValue)
             self.notifyListenersPropertyValuesUpdated()
         })
 
@@ -132,27 +132,27 @@ public final class Battery: BaseSource, ControllableSource, ManuallyUpdatableSou
         }
 
         chargeLevel.update(backingValue: device.batteryLevel)
-        updateChargeState()
+        chargeState.update(backingValue: device.batteryState, formattedValue: device.batteryState.displayValue)
         isLowPowerModeEnabled.update(backingValue: ProcessInfo.processInfo.isLowPowerModeEnabled)
 
         return allValues
     }
 
-    private func updateChargeState() {
-        let displayValue: String
+}
 
-        switch device.batteryState {
+private extension UIDevice.BatteryState {
+
+    var displayValue: String {
+        switch self {
         case .charging:
-            displayValue = "Charging"
+            return "Charging"
         case .full:
-            displayValue = "Full"
+            return "Full"
         case .unplugged:
-            displayValue = "Discharging"
+            return "Discharging"
         case .unknown:
-            displayValue = "Unknown"
+            return "Unknown"
         }
-
-        chargeState.update(backingValue: device.batteryState, formattedValue: displayValue)
     }
 
 }

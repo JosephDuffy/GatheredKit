@@ -15,4 +15,6 @@ public struct Degree: NumericUnit {
     /// the value does not equal 1
     public let pluralValueSuffix = "º"
 
+    public init() {}
+
 }

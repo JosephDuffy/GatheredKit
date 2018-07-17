@@ -15,6 +15,13 @@ public struct NumericNone: NumericUnit {
     public let pluralValueSuffix = ""
 
     /**
+     Creates a new `NumericNone` instance with the `maximumFractionDigits` property set to 2
+     */
+    public init() {
+        maximumFractionDigits = 2
+    }
+
+    /**
      - parameter maximumFractionDigits: The maximum number of digits to allow after the decimal place
      */
     public init(maximumFractionDigits: Int) {
