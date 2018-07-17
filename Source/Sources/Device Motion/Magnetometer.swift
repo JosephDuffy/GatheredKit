@@ -30,8 +30,8 @@ public final class Magnetometer: BaseSource, CustomisableUpdateIntervalSource {
 
     public override init() {
         let date = Date()
-        magneticField = CalibratedMagneticFieldValue(backingValue: nil, date: date)
-        rawMagneticField = MagneticFieldValue(backingValue: nil, date: date)
+        magneticField = CalibratedMagneticFieldValue(date: date)
+        rawMagneticField = MagneticFieldValue(date: date)
     }
 
     deinit {

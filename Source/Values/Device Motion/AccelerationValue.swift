@@ -48,7 +48,7 @@ public struct AccelerationValue: Value, ValuesProvider {
 
     public let date: Date
 
-    public init(name: String, backingValue: CMAcceleration?, date: Date) {
+    public init(name: String, backingValue: CMAcceleration? = nil, date: Date) {
         self.name = name
         self.backingValue = backingValue
         self.date = date

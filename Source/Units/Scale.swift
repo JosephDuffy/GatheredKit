@@ -15,4 +15,6 @@ public struct Scale: NumericUnit {
     /// the value does not equal 1
     public let pluralValueSuffix = "x"
 
+    public init() {}
+
 }

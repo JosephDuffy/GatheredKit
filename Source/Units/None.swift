@@ -2,7 +2,9 @@
 /**
  A special unit that respresents no unit.
  */
-public struct None: Unit {
+public struct None: ZeroConfigurationUnit {
+
+    public init() {}
 
     /**
      Generates a human-friendly string for the given boolean

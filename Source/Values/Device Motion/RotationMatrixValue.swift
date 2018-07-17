@@ -108,7 +108,7 @@ public struct RotationMatrixValue: Value, ValuesProvider {
 
     public let date: Date
 
-    public init(backingValue: CMRotationMatrix?, date: Date) {
+    public init(backingValue: CMRotationMatrix? = nil, date: Date) {
         self.backingValue = backingValue
         self.date = date
     }

@@ -85,8 +85,8 @@ public final class DeviceAttitude: BaseSource, CustomisableUpdateIntervalSource 
 
     public override init() {
         let date = Date()
-        quaternion = QuaternionValue(backingValue: nil, date: date)
-        rotationMatrix = RotationMatrixValue(backingValue: nil, date: date)
+        quaternion = QuaternionValue(date: date)
+        rotationMatrix = RotationMatrixValue(date: date)
     }
 
     deinit {
@@ -135,6 +135,7 @@ public final class DeviceAttitude: BaseSource, CustomisableUpdateIntervalSource 
 extension CMDeviceMotion {
 
     var date: Date {
+        // TODO: Check this is the correct reference date
         return Date(timeIntervalSince1970: timestamp)
     }
 

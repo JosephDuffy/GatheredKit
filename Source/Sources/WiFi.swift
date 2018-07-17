@@ -38,21 +38,9 @@ public final class WiFi: BaseSource, ControllableSource, ManuallyUpdatableSource
     private var state: State = .notMonitoring
 
     public override init() {
-        lanIP = GenericValue(
-            name: "LAN IP",
-            backingValue: nil,
-            unit: None()
-        )
-        ssid = GenericValue(
-            name: "SSID",
-            backingValue: nil,
-            unit: None()
-        )
-        bssid = GenericValue(
-            name: "BSSID",
-            backingValue: nil,
-            unit: None()
-        )
+        lanIP = GenericValue(name: "LAN IP")
+        ssid = GenericValue(name: "SSID")
+        bssid = GenericValue(name: "BSSID")
     }
 
     deinit {
