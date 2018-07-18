@@ -115,29 +115,29 @@ public final class Screen: BaseSource, ControllableSource {
         self.screen = screen
 
         reportedResolution = GenericValue(
-            name: "Resolution (reported)",
+            displayName: "Resolution (reported)",
             backingValue: screen.bounds.size,
             formattedValue: Screen.formattedString(for: screen.bounds.size, unit: Point())
         )
 
         nativeResolution = GenericValue(
-            name: "Resolution (native)",
+            displayName: "Resolution (native)",
             backingValue: screen.nativeBounds.size,
             formattedValue: Screen.formattedString(for: screen.nativeBounds.size, unit: Pixel())
         )
 
         reportedScale = GenericValue(
-            name: "Scale (reported)",
+            displayName: "Scale (reported)",
             backingValue: screen.scale
         )
 
         nativeScale = GenericValue(
-            name: "Scale (native)",
+            displayName: "Scale (native)",
             backingValue: screen.nativeScale
         )
 
         brightness = GenericValue(
-            name: "Brightness",
+            displayName: "Brightness",
             backingValue: screen.brightness
         )
     }

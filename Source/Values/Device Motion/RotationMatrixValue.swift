@@ -18,8 +18,8 @@ public struct RotationMatrixValue: Value, ValuesProvider {
     }
 
     public var m11: GenericValue<Double?, NumericNone> {
-        return GenericValue<Double?, NumericNone>(
-            name: "m11",
+        return GenericValue(
+            displayName: "m11",
             backingValue: backingValue?.m11,
             unit: NumericNone(maximumFractionDigits: 20),
             date: date
@@ -27,8 +27,8 @@ public struct RotationMatrixValue: Value, ValuesProvider {
     }
 
     public var m12: GenericValue<Double?, NumericNone> {
-        return GenericValue<Double?, NumericNone>(
-            name: "m12",
+        return GenericValue(
+            displayName: "m12",
             backingValue: backingValue?.m12,
             unit: NumericNone(maximumFractionDigits: 20),
             date: date
@@ -36,8 +36,8 @@ public struct RotationMatrixValue: Value, ValuesProvider {
     }
 
     public var m13: GenericValue<Double?, NumericNone> {
-        return GenericValue<Double?, NumericNone>(
-            name: "m13",
+        return GenericValue(
+            displayName: "m13",
             backingValue: backingValue?.m13,
             unit: NumericNone(maximumFractionDigits: 20),
             date: date
@@ -45,8 +45,8 @@ public struct RotationMatrixValue: Value, ValuesProvider {
     }
 
     public var m21: GenericValue<Double?, NumericNone> {
-        return GenericValue<Double?, NumericNone>(
-            name: "m21",
+        return GenericValue(
+            displayName: "m21",
             backingValue: backingValue?.m21,
             unit: NumericNone(maximumFractionDigits: 20),
             date: date
@@ -54,8 +54,8 @@ public struct RotationMatrixValue: Value, ValuesProvider {
     }
 
     public var m22: GenericValue<Double?, NumericNone> {
-        return GenericValue<Double?, NumericNone>(
-            name: "m22",
+        return GenericValue(
+            displayName: "m22",
             backingValue: backingValue?.m22,
             unit: NumericNone(maximumFractionDigits: 20),
             date: date
@@ -63,8 +63,8 @@ public struct RotationMatrixValue: Value, ValuesProvider {
     }
 
     public var m23: GenericValue<Double?, NumericNone> {
-        return GenericValue<Double?, NumericNone>(
-            name: "m23",
+        return GenericValue(
+            displayName: "m23",
             backingValue: backingValue?.m23,
             unit: NumericNone(maximumFractionDigits: 20),
             date: date
@@ -72,8 +72,8 @@ public struct RotationMatrixValue: Value, ValuesProvider {
     }
 
     public var m31: GenericValue<Double?, NumericNone> {
-        return GenericValue<Double?, NumericNone>(
-            name: "m31",
+        return GenericValue(
+            displayName: "m31",
             backingValue: backingValue?.m31,
             unit: NumericNone(maximumFractionDigits: 20),
             date: date
@@ -81,8 +81,8 @@ public struct RotationMatrixValue: Value, ValuesProvider {
     }
 
     public var m32: GenericValue<Double?, NumericNone> {
-        return GenericValue<Double?, NumericNone>(
-            name: "m32",
+        return GenericValue(
+            displayName: "m32",
             backingValue: backingValue?.m32,
             unit: NumericNone(maximumFractionDigits: 20),
             date: date
@@ -90,15 +90,15 @@ public struct RotationMatrixValue: Value, ValuesProvider {
     }
 
     public var m33: GenericValue<Double?, NumericNone> {
-        return GenericValue<Double?, NumericNone>(
-            name: "m32",
+        return GenericValue(
+            displayName: "m32",
             backingValue: backingValue?.m32,
             unit: NumericNone(maximumFractionDigits: 20),
             date: date
         )
     }
 
-    public let name = "Rotation Matrix"
+    public let displayName = "Rotation Matrix"
 
     public let unit = None()
 

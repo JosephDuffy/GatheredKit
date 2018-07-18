@@ -12,8 +12,8 @@ public struct AccelerationValue: Value, ValuesProvider {
     }
 
     public var x: GenericValue<Double?, NumericNone> {
-        return GenericValue<Double?, NumericNone>(
-            name: "X Axis",
+        return GenericValue(
+            displayName: "X Axis",
             backingValue: backingValue?.x,
             unit: NumericNone(maximumFractionDigits: 20),
             date: date
@@ -21,8 +21,8 @@ public struct AccelerationValue: Value, ValuesProvider {
     }
 
     public var y: GenericValue<Double?, NumericNone> {
-        return GenericValue<Double?, NumericNone>(
-            name: "Y Axis",
+        return GenericValue(
+            displayName: "Y Axis",
             backingValue: backingValue?.y,
             unit: NumericNone(maximumFractionDigits: 20),
             date: date
@@ -30,15 +30,15 @@ public struct AccelerationValue: Value, ValuesProvider {
     }
 
     public var z: GenericValue<Double?, NumericNone> {
-        return GenericValue<Double?, NumericNone>(
-            name: "Z Axis",
+        return GenericValue(
+            displayName: "Z Axis",
             backingValue: backingValue?.z,
             unit: NumericNone(maximumFractionDigits: 20),
             date: date
         )
     }
 
-    public let name: String
+    public let displayName: String
 
     public let unit = None()
 
@@ -49,7 +49,7 @@ public struct AccelerationValue: Value, ValuesProvider {
     public let date: Date
 
     public init(name: String, backingValue: CMAcceleration? = nil, date: Date) {
-        self.name = name
+        self.displayName = name
         self.backingValue = backingValue
         self.date = date
     }
@@ -62,7 +62,7 @@ public struct AccelerationValue: Value, ValuesProvider {
      - parameter date: The date and time the `value` was recorded. Defaults to the current date and time
      */
     public mutating func update(backingValue: ValueType, date: Date = Date()) {
-        self = AccelerationValue(name: name, backingValue: backingValue, date: date)
+        self = AccelerationValue(name: displayName, backingValue: backingValue, date: date)
     }
 
 }
