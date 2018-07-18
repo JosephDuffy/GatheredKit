@@ -50,16 +50,16 @@ public final class Battery: BaseSource, ControllableSource, ManuallyUpdatableSou
         self.device = device
         
         chargeLevel = GenericValue(
-            name: "Charge Level",
+            displayName: "Charge Level",
             backingValue: device.batteryLevel
         )
         chargeState = GenericValue(
-            name: "Battery State",
+            displayName: "Battery State",
             backingValue: device.batteryState,
             formattedValue: device.batteryState.displayValue
         )
         isLowPowerModeEnabled = GenericValue(
-            name: "Low Power Mode Enabled",
+            displayName: "Low Power Mode Enabled",
             backingValue: ProcessInfo.processInfo.isLowPowerModeEnabled,
             unit: Boolean(trueString: "Yes", falseString: "No")
         )

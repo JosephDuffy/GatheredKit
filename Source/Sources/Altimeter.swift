@@ -47,12 +47,8 @@ public final class Altimeter: BaseSource, ControllableSource, ActionProvider {
     private lazy var altimeter = CMAltimeter()
 
     public override init() {
-        relativeAltitude = GenericValue(
-            name: "Relative Altitude"
-        )
-        pressure = GenericValue(
-            name: "Pressure"
-        )
+        relativeAltitude = GenericValue(displayName: "Relative Altitude")
+        pressure = GenericValue(displayName: "Pressure")
     }
 
     deinit {

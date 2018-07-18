@@ -5,7 +5,7 @@ public struct GenericValue<ValueType, UnitType: Unit>: Value {
     public typealias UpdateListener = (_ sourceProperty: GenericValue<ValueType, UnitType>) -> Void
 
     /// A user-friendly name that represents the value, e.g. "Latitude", "Longitude"
-    public let name: String
+    public let displayName: String
 
     /// The value powering this `GenericValue`
     public let backingValue: ValueType
@@ -22,13 +22,13 @@ public struct GenericValue<ValueType, UnitType: Unit>: Value {
     public let date: Date
 
     internal init(
-        name: String,
+        displayName: String,
         backingValue: ValueType,
         formattedValue: String? = nil,
         unit: UnitType,
         date: Date = Date()
     ) {
-        self.name = name
+        self.displayName = displayName
         self.backingValue = backingValue
         self.formattedValue = formattedValue
         self.unit = unit
@@ -36,13 +36,13 @@ public struct GenericValue<ValueType, UnitType: Unit>: Value {
     }
 
     internal init<WrappedValueType>(
-        name: String,
+        displayName: String,
         backingValue: WrappedValueType? = nil,
         formattedValue: String? = nil,
         unit: UnitType,
         date: Date = Date()
     ) where ValueType == WrappedValueType? {
-        self.name = name
+        self.displayName = displayName
         self.backingValue = backingValue
         self.formattedValue = formattedValue
         self.unit = unit
@@ -56,7 +56,7 @@ public struct GenericValue<ValueType, UnitType: Unit>: Value {
      - parameter date: The date and time the `value` was recorded. Defaults to the current date and time
      */
     public mutating func update(backingValue: ValueType, formattedValue: String? = nil, date: Date = Date()) {
-        self = GenericValue(name: name, backingValue: backingValue, formattedValue: formattedValue, unit: unit, date: date)
+        self = GenericValue(displayName: displayName, backingValue: backingValue, formattedValue: formattedValue, unit: unit, date: date)
     }
 
 }
@@ -64,13 +64,13 @@ public struct GenericValue<ValueType, UnitType: Unit>: Value {
 extension GenericValue where UnitType: ZeroConfigurationUnit {
 
     internal init(
-        name: String,
+        displayName: String,
         backingValue: ValueType,
         formattedValue: String? = nil,
         unit: UnitType = UnitType(),
         date: Date = Date()
     ) {
-        self.name = name
+        self.displayName = displayName
         self.backingValue = backingValue
         self.formattedValue = formattedValue
         self.unit = unit
@@ -78,13 +78,13 @@ extension GenericValue where UnitType: ZeroConfigurationUnit {
     }
 
     internal init<WrappedValueType>(
-        name: String,
+        displayName: String,
         backingValue: WrappedValueType? = nil,
         formattedValue: String? = nil,
         unit: UnitType = UnitType(),
         date: Date = Date()
     ) where ValueType == WrappedValueType? {
-        self.name = name
+        self.displayName = displayName
         self.backingValue = backingValue
         self.formattedValue = formattedValue
         self.unit = unit
