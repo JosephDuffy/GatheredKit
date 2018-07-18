@@ -12,8 +12,8 @@ public struct MagneticFieldValue: Value, ValuesProvider {
     }
 
     public var x: GenericValue<Double?, NumericNone> {
-        return GenericValue<Double?, NumericNone>(
-            name: "X Axis",
+        return GenericValue(
+            displayName: "X Axis",
             backingValue: backingValue?.x,
             unit: NumericNone(maximumFractionDigits: 20),
             date: date
@@ -21,8 +21,8 @@ public struct MagneticFieldValue: Value, ValuesProvider {
     }
 
     public var y: GenericValue<Double?, NumericNone> {
-        return GenericValue<Double?, NumericNone>(
-            name: "Y Axis",
+        return GenericValue(
+            displayName: "Y Axis",
             backingValue: backingValue?.y,
             unit: NumericNone(maximumFractionDigits: 20),
             date: date
@@ -30,15 +30,15 @@ public struct MagneticFieldValue: Value, ValuesProvider {
     }
 
     public var z: GenericValue<Double?, NumericNone> {
-        return GenericValue<Double?, NumericNone>(
-            name: "Z Axis",
+        return GenericValue(
+            displayName: "Z Axis",
             backingValue: backingValue?.z,
             unit: NumericNone(maximumFractionDigits: 20),
             date: date
         )
     }
 
-    public let name = "Magnetic Field (Raw)"
+    public let displayName = "Magnetic Field (Raw)"
 
     public let unit = None()
 

@@ -14,6 +14,8 @@
 		D910EE9420FEA064007F495B /* Action.swift in Sources */ = {isa = PBXBuildFile; fileRef = D910EE9320FEA064007F495B /* Action.swift */; };
 		D910EE9620FEA070007F495B /* ActionProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = D910EE9520FEA070007F495B /* ActionProvider.swift */; };
 		D910EE9820FEA637007F495B /* Proximity.swift in Sources */ = {isa = PBXBuildFile; fileRef = D910EE9720FEA637007F495B /* Proximity.swift */; };
+		D910EE9A20FFDE22007F495B /* CellRadio.swift in Sources */ = {isa = PBXBuildFile; fileRef = D910EE9920FFDE22007F495B /* CellRadio.swift */; };
+		D910EE9C20FFE2E9007F495B /* CellRadioCarrierValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = D910EE9B20FFE2E9007F495B /* CellRadioCarrierValue.swift */; };
 		D9168F4E20C8851E00100EEE /* ValuesProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9168F4D20C8851E00100EEE /* ValuesProvider.swift */; };
 		D928465A20C499790058245F /* Scale.swift in Sources */ = {isa = PBXBuildFile; fileRef = D928465920C499790058245F /* Scale.swift */; };
 		D930631420D58A34007A0CBD /* MagneticFieldValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = D930631320D58A34007A0CBD /* MagneticFieldValue.swift */; };
@@ -102,6 +104,8 @@
 		D910EE9320FEA064007F495B /* Action.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Action.swift; sourceTree = "<group>"; };
 		D910EE9520FEA070007F495B /* ActionProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionProvider.swift; sourceTree = "<group>"; };
 		D910EE9720FEA637007F495B /* Proximity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Proximity.swift; sourceTree = "<group>"; };
+		D910EE9920FFDE22007F495B /* CellRadio.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellRadio.swift; sourceTree = "<group>"; };
+		D910EE9B20FFE2E9007F495B /* CellRadioCarrierValue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellRadioCarrierValue.swift; sourceTree = "<group>"; };
 		D9168F4D20C8851E00100EEE /* ValuesProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValuesProvider.swift; sourceTree = "<group>"; };
 		D928465920C499790058245F /* Scale.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Scale.swift; sourceTree = "<group>"; };
 		D930631320D58A34007A0CBD /* MagneticFieldValue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MagneticFieldValue.swift; sourceTree = "<group>"; };
@@ -213,6 +217,7 @@
 				D9168F4D20C8851E00100EEE /* ValuesProvider.swift */,
 				D930631220D58A26007A0CBD /* Device Motion */,
 				D959ECC620D713C5000184E2 /* GeomagnetismValue.swift */,
+				D910EE9B20FFE2E9007F495B /* CellRadioCarrierValue.swift */,
 			);
 			path = Values;
 			sourceTree = "<group>";
@@ -313,6 +318,7 @@
 				D910EE9720FEA637007F495B /* Proximity.swift */,
 				D910EE8620FA412E007F495B /* Battery.swift */,
 				D910EE9020FE9E76007F495B /* Altimeter.swift */,
+				D910EE9920FFDE22007F495B /* CellRadio.swift */,
 				D96C62FF20F6AB0900BF06EF /* WiFi.swift */,
 			);
 			path = Sources;
@@ -515,6 +521,7 @@
 				D930631E20D5BDA7007A0CBD /* Compass.swift in Sources */,
 				D9EF05C320ACD2D400D3F194 /* Meter.swift in Sources */,
 				D9EF05C920ACD31400D3F194 /* Point.swift in Sources */,
+				D910EE9C20FFE2E9007F495B /* CellRadioCarrierValue.swift in Sources */,
 				D930631C20D58E6E007A0CBD /* RotationMatrixValue.swift in Sources */,
 				D9EF05C120ACD27400D3F194 /* Microtesla.swift in Sources */,
 				D9EF059C20ACC5B800D3F194 /* Array+newestDataDate.swift in Sources */,
@@ -524,6 +531,7 @@
 				D910EE9620FEA070007F495B /* ActionProvider.swift in Sources */,
 				D9168F4E20C8851E00100EEE /* ValuesProvider.swift in Sources */,
 				D9EF05C720ACD2F200D3F194 /* Percent.swift in Sources */,
+				D910EE9A20FFDE22007F495B /* CellRadio.swift in Sources */,
 				D9EF05D120ACD6B900D3F194 /* BaseSource.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

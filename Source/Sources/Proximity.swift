@@ -50,7 +50,7 @@ public final class Proximity: BaseSource, ControllableSource {
 
     public override init() {
         isNearUser = GenericValue(
-            name: "Near User",
+            displayName: "Near User",
             unit: Boolean(trueString: "Yes", falseString: "No")
         )
     }

@@ -16,17 +16,17 @@ public final class DeviceAttitude: BaseSource, CustomisableUpdateIntervalSource 
     private var latestData: CMDeviceMotion?
 
     public var roll: GenericValue<Double?, NumericNone> {
-        return GenericValue<Double?, NumericNone>(
-            name: "Roll",
-            backingValue:latestData?.attitude.roll,
+        return GenericValue(
+            displayName: "Roll",
+            backingValue: latestData?.attitude.roll,
             unit: NumericNone(maximumFractionDigits: 20),
             date: latestData?.date ?? Date()
         )
     }
 
     public var pitch: GenericValue<Double?, NumericNone> {
-        return GenericValue<Double?, NumericNone>(
-            name: "Pitch",
+        return GenericValue(
+            displayName: "Pitch",
             backingValue: latestData?.attitude.pitch,
             unit: NumericNone(maximumFractionDigits: 20),
             date: latestData?.date ?? Date()
@@ -34,8 +34,8 @@ public final class DeviceAttitude: BaseSource, CustomisableUpdateIntervalSource 
     }
 
     public var yaw: GenericValue<Double?, NumericNone> {
-        return GenericValue<Double?, NumericNone>(
-            name: "Yaw",
+        return GenericValue(
+            displayName: "Yaw",
             backingValue: latestData?.attitude.yaw,
             unit: NumericNone(maximumFractionDigits: 20),
             date: latestData?.date ?? Date()
@@ -48,10 +48,9 @@ public final class DeviceAttitude: BaseSource, CustomisableUpdateIntervalSource 
     public var heading: GenericValue<Double?, None> {
         let formattedValue = (latestData?.heading ?? 0) < 0 ? "Unknown" : nil
         return GenericValue(
-            name: "Heading",
+            displayName: "Heading",
             backingValue: latestData?.heading,
             formattedValue: formattedValue,
-            unit: None(),
             date: latestData?.date ?? Date()
         )
     }

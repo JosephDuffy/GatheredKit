@@ -19,7 +19,7 @@ Every source is a class backed by an equivelent Apple-provided class, but with a
  - [X] Wi-Fi
  - [X] Altimeter
  - [ ] Microphone
- - [ ] Cell Radio
+ - [X] Cell Radio
  - [X] Screen
  - [X] Compass
  - [X] Magnetometer
