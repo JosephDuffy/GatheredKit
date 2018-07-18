@@ -13,8 +13,8 @@ public struct QuaternionValue: Value, ValuesProvider {
     }
 
     public var x: GenericValue<Double?, NumericNone> {
-        return GenericValue<Double?, NumericNone>(
-            name: "x",
+        return GenericValue(
+            displayName: "x",
             backingValue: backingValue?.x,
             unit: NumericNone(maximumFractionDigits: 20),
             date: date
@@ -22,8 +22,8 @@ public struct QuaternionValue: Value, ValuesProvider {
     }
 
     public var y: GenericValue<Double?, NumericNone> {
-        return GenericValue<Double?, NumericNone>(
-            name: "y",
+        return GenericValue(
+            displayName: "y",
             backingValue: backingValue?.y,
             unit: NumericNone(maximumFractionDigits: 20),
             date: date
@@ -31,8 +31,8 @@ public struct QuaternionValue: Value, ValuesProvider {
     }
 
     public var z: GenericValue<Double?, NumericNone> {
-        return GenericValue<Double?, NumericNone>(
-            name: "z",
+        return GenericValue(
+            displayName: "z",
             backingValue: backingValue?.z,
             unit: NumericNone(maximumFractionDigits: 20),
             date: date
@@ -40,15 +40,15 @@ public struct QuaternionValue: Value, ValuesProvider {
     }
 
     public var w: GenericValue<Double?, NumericNone> {
-        return GenericValue<Double?, NumericNone>(
-            name: "w",
+        return GenericValue(
+            displayName: "w",
             backingValue: backingValue?.w,
             unit: NumericNone(maximumFractionDigits: 20),
             date: date
         )
     }
 
-    public let name = "Quaterion"
+    public let displayName = "Quaterion"
 
     public let unit = None()
 

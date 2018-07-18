@@ -28,18 +28,17 @@ public struct CalibratedMagneticFieldValue: Value, ValuesProvider {
             formattedValue = nil
         }
 
-        return GenericValue<CMMagneticFieldCalibrationAccuracy?, None>(
-            name: "Accuracy",
+        return GenericValue(
+            displayName: "Accuracy",
             backingValue: backingValue?.accuracy,
             formattedValue: formattedValue,
-            unit: None(),
             date: date
         )
     }
 
     public var x: GenericValue<Double?, NumericNone> {
-        return GenericValue<Double?, NumericNone>(
-            name: "X Axis",
+        return GenericValue(
+            displayName: "X Axis",
             backingValue: backingValue?.field.x,
             formattedValue: self.formattedValue(for: backingValue?.field.x),
             unit: NumericNone(maximumFractionDigits: 20),
@@ -48,8 +47,8 @@ public struct CalibratedMagneticFieldValue: Value, ValuesProvider {
     }
 
     public var y: GenericValue<Double?, NumericNone> {
-        return GenericValue<Double?, NumericNone>(
-            name: "Y Axis",
+        return GenericValue(
+            displayName: "Y Axis",
             backingValue: backingValue?.field.y,
             formattedValue: self.formattedValue(for: backingValue?.field.y),
             unit: NumericNone(maximumFractionDigits: 20),
@@ -58,8 +57,8 @@ public struct CalibratedMagneticFieldValue: Value, ValuesProvider {
     }
 
     public var z: GenericValue<Double?, NumericNone> {
-        return GenericValue<Double?, NumericNone>(
-            name: "Z Axis",
+        return GenericValue(
+            displayName: "Z Axis",
             backingValue: backingValue?.field.z,
             formattedValue: self.formattedValue(for: backingValue?.field.z),
             unit: NumericNone(maximumFractionDigits: 20),
@@ -67,7 +66,7 @@ public struct CalibratedMagneticFieldValue: Value, ValuesProvider {
         )
     }
 
-    public let name = "Magnetic Field (Calibrated)"
+    public let displayName = "Magnetic Field (Calibrated)"
 
     public let unit = None()
 
