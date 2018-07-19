@@ -1,6 +1,6 @@
 import UIKit
 
-public final class Battery: BaseSource, ControllableSource, ManuallyUpdatableSource {
+public final class Battery: BaseSource, Controllable, ManuallyUpdatableValuesProvider {
 
     /// A dictionary mapping `UIDevice`s to the total number of `Battery` sources
     /// that are actively updating. This is used to not stop other `Battery` sources
@@ -71,7 +71,7 @@ public final class Battery: BaseSource, ControllableSource, ManuallyUpdatableSou
 
     public func startUpdating() {
         defer {
-            updateProperties()
+            updateValues()
         }
 
         var notificationObservers = [NSObjectProtocol]()
@@ -126,7 +126,7 @@ public final class Battery: BaseSource, ControllableSource, ManuallyUpdatableSou
     }
 
     @discardableResult
-    public func updateProperties() -> [AnyValue] {
+    public func updateValues() -> [AnyValue] {
         defer {
             notifyListenersPropertyValuesUpdated()
         }

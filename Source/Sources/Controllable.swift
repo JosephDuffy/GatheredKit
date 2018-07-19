@@ -3,7 +3,10 @@ import Foundation
 /**
  A source that be started and stopped
  */
-public protocol ControllableSource: Source {
+public protocol Controllable {
+
+    /// A closure that will be called with the latest values
+    typealias UpdateListener = (_ latestValues: [AnyValue]) -> Void
 
     /**
      Starts automatic updates. Closures added via `addUpdateListener(_:)` will be
@@ -16,9 +19,23 @@ public protocol ControllableSource: Source {
      */
     func stopUpdating()
 
+    /**
+     Adds a closure to the array of closures that will be called when any of the source's
+     values are updated. The closure will be called with all values, but not all the values
+     will neccessary be new.
+
+     The returned object must be retained; the lifecycle of the listener is tied to the object. If
+     the object is deallocated the listener will be destroyed.
+
+     - parameter updateListener: The closure to call with updated values
+     - parameter queue: The dispatch queue the listener should be called from
+     - returns: An opaque object. The lifecycle of the listener is tied to the object
+     */
+    func addUpdateListener(_ updateListener: @escaping UpdateListener, queue: DispatchQueue) -> AnyObject
+
 }
 
-public extension ControllableSource {
+public extension Controllable {
 
     /**
      Starts automatic updates and adds a closure to the array of closures that will be called when
