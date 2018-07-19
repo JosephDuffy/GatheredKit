@@ -33,6 +33,7 @@
 		D991E1F420CF2D45009C849F /* NumericNone.swift in Sources */ = {isa = PBXBuildFile; fileRef = D991E1F320CF2D45009C849F /* NumericNone.swift */; };
 		D999586B21010F3B00C577AC /* BasePollingSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = D999586A21010F3B00C577AC /* BasePollingSource.swift */; };
 		D999586D2101166B00C577AC /* Advertising.swift in Sources */ = {isa = PBXBuildFile; fileRef = D999586C2101166B00C577AC /* Advertising.swift */; };
+		D999586F21011EA700C577AC /* DeviceOrientation.swift in Sources */ = {isa = PBXBuildFile; fileRef = D999586E21011EA700C577AC /* DeviceOrientation.swift */; };
 		D9ADBCDC20F8DE4700BB0255 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D9ADBCDB20F8DE4700BB0255 /* SystemConfiguration.framework */; };
 		D9B84DE020CC83D900380C42 /* Gyroscope.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9B84DDF20CC83D900380C42 /* Gyroscope.swift */; };
 		D9B84DE220CF0FB800380C42 /* Magnetometer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9B84DE120CF0FB800380C42 /* Magnetometer.swift */; };
@@ -125,6 +126,7 @@
 		D991E1F320CF2D45009C849F /* NumericNone.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumericNone.swift; sourceTree = "<group>"; };
 		D999586A21010F3B00C577AC /* BasePollingSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasePollingSource.swift; sourceTree = "<group>"; };
 		D999586C2101166B00C577AC /* Advertising.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Advertising.swift; sourceTree = "<group>"; };
+		D999586E21011EA700C577AC /* DeviceOrientation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceOrientation.swift; sourceTree = "<group>"; };
 		D9ADBCDB20F8DE4700BB0255 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		D9B84DDF20CC83D900380C42 /* Gyroscope.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Gyroscope.swift; sourceTree = "<group>"; };
 		D9B84DE120CF0FB800380C42 /* Magnetometer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Magnetometer.swift; sourceTree = "<group>"; };
@@ -325,6 +327,7 @@
 				D910EE9020FE9E76007F495B /* Altimeter.swift */,
 				D999586C2101166B00C577AC /* Advertising.swift */,
 				D910EE9920FFDE22007F495B /* CellRadio.swift */,
+				D999586E21011EA700C577AC /* DeviceOrientation.swift */,
 				D96C62FF20F6AB0900BF06EF /* WiFi.swift */,
 			);
 			path = Sources;
@@ -538,6 +541,7 @@
 				D999586D2101166B00C577AC /* Advertising.swift in Sources */,
 				D910EE9620FEA070007F495B /* ActionProvider.swift in Sources */,
 				D9168F4E20C8851E00100EEE /* ValuesProvider.swift in Sources */,
+				D999586F21011EA700C577AC /* DeviceOrientation.swift in Sources */,
 				D9EF05C720ACD2F200D3F194 /* Percent.swift in Sources */,
 				D910EE9A20FFDE22007F495B /* CellRadio.swift in Sources */,
 				D9EF05D120ACD6B900D3F194 /* BaseSource.swift in Sources */,
