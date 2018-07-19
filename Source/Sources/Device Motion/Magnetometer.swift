@@ -1,7 +1,7 @@
 import Foundation
 import CoreMotion
 
-public final class Magnetometer: BaseSource, CustomisableUpdateIntervalSource {
+public final class Magnetometer: BaseSource, CustomisableUpdateIntervalControllable, ValuesProvider {
 
     public static var defaultUpdateInterval: TimeInterval = 1
 
