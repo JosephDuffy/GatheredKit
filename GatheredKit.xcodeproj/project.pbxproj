@@ -31,6 +31,8 @@
 		D96A18E920C741E100CAE44F /* DeviceAttitude.swift in Sources */ = {isa = PBXBuildFile; fileRef = D96A18E320C741E100CAE44F /* DeviceAttitude.swift */; };
 		D96C630020F6AB0900BF06EF /* WiFi.swift in Sources */ = {isa = PBXBuildFile; fileRef = D96C62FF20F6AB0900BF06EF /* WiFi.swift */; };
 		D991E1F420CF2D45009C849F /* NumericNone.swift in Sources */ = {isa = PBXBuildFile; fileRef = D991E1F320CF2D45009C849F /* NumericNone.swift */; };
+		D999586B21010F3B00C577AC /* BasePollingSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = D999586A21010F3B00C577AC /* BasePollingSource.swift */; };
+		D999586D2101166B00C577AC /* Advertising.swift in Sources */ = {isa = PBXBuildFile; fileRef = D999586C2101166B00C577AC /* Advertising.swift */; };
 		D9ADBCDC20F8DE4700BB0255 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D9ADBCDB20F8DE4700BB0255 /* SystemConfiguration.framework */; };
 		D9B84DE020CC83D900380C42 /* Gyroscope.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9B84DDF20CC83D900380C42 /* Gyroscope.swift */; };
 		D9B84DE220CF0FB800380C42 /* Magnetometer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9B84DE120CF0FB800380C42 /* Magnetometer.swift */; };
@@ -41,11 +43,11 @@
 		D9EF058B20ACC59300D3F194 /* GatheredKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D9EF058120ACC59300D3F194 /* GatheredKit.framework */; };
 		D9EF059220ACC59400D3F194 /* GatheredKit.h in Headers */ = {isa = PBXBuildFile; fileRef = D9EF058420ACC59300D3F194 /* GatheredKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D9EF059C20ACC5B800D3F194 /* Array+newestDataDate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9EF059B20ACC5B800D3F194 /* Array+newestDataDate.swift */; };
-		D9EF059E20ACC63700D3F194 /* ControllableSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9EF059D20ACC63700D3F194 /* ControllableSource.swift */; };
+		D9EF059E20ACC63700D3F194 /* Controllable.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9EF059D20ACC63700D3F194 /* Controllable.swift */; };
 		D9EF05A020ACC77D00D3F194 /* GenericValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9EF059F20ACC77D00D3F194 /* GenericValue.swift */; };
 		D9EF05A520ACCE3800D3F194 /* Unit.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9EF05A420ACCE3800D3F194 /* Unit.swift */; };
-		D9EF05AD20ACCF7000D3F194 /* CustomisableUpdateIntervalSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9EF05AC20ACCF7000D3F194 /* CustomisableUpdateIntervalSource.swift */; };
-		D9EF05AF20ACCF8B00D3F194 /* ManuallyUpdatableSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9EF05AE20ACCF8B00D3F194 /* ManuallyUpdatableSource.swift */; };
+		D9EF05AD20ACCF7000D3F194 /* CustomisableUpdateIntervalControllable.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9EF05AC20ACCF7000D3F194 /* CustomisableUpdateIntervalControllable.swift */; };
+		D9EF05AF20ACCF8B00D3F194 /* ManuallyUpdatableValuesProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9EF05AE20ACCF8B00D3F194 /* ManuallyUpdatableValuesProvider.swift */; };
 		D9EF05B120ACD02100D3F194 /* NumericUnit.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9EF05B020ACD02100D3F194 /* NumericUnit.swift */; };
 		D9EF05B320ACD04F00D3F194 /* UnitError.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9EF05B220ACD04F00D3F194 /* UnitError.swift */; };
 		D9EF05B520ACD20700D3F194 /* BeatsPerMinute.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9EF05B420ACD20700D3F194 /* BeatsPerMinute.swift */; };
@@ -121,6 +123,8 @@
 		D96A18E320C741E100CAE44F /* DeviceAttitude.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeviceAttitude.swift; sourceTree = "<group>"; };
 		D96C62FF20F6AB0900BF06EF /* WiFi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WiFi.swift; sourceTree = "<group>"; };
 		D991E1F320CF2D45009C849F /* NumericNone.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumericNone.swift; sourceTree = "<group>"; };
+		D999586A21010F3B00C577AC /* BasePollingSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasePollingSource.swift; sourceTree = "<group>"; };
+		D999586C2101166B00C577AC /* Advertising.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Advertising.swift; sourceTree = "<group>"; };
 		D9ADBCDB20F8DE4700BB0255 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		D9B84DDF20CC83D900380C42 /* Gyroscope.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Gyroscope.swift; sourceTree = "<group>"; };
 		D9B84DE120CF0FB800380C42 /* Magnetometer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Magnetometer.swift; sourceTree = "<group>"; };
@@ -134,11 +138,11 @@
 		D9EF058A20ACC59300D3F194 /* GatheredKitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GatheredKitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		D9EF059120ACC59400D3F194 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D9EF059B20ACC5B800D3F194 /* Array+newestDataDate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+newestDataDate.swift"; sourceTree = "<group>"; };
-		D9EF059D20ACC63700D3F194 /* ControllableSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ControllableSource.swift; sourceTree = "<group>"; };
+		D9EF059D20ACC63700D3F194 /* Controllable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Controllable.swift; sourceTree = "<group>"; };
 		D9EF059F20ACC77D00D3F194 /* GenericValue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenericValue.swift; sourceTree = "<group>"; };
 		D9EF05A420ACCE3800D3F194 /* Unit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Unit.swift; sourceTree = "<group>"; };
-		D9EF05AC20ACCF7000D3F194 /* CustomisableUpdateIntervalSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomisableUpdateIntervalSource.swift; sourceTree = "<group>"; };
-		D9EF05AE20ACCF8B00D3F194 /* ManuallyUpdatableSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManuallyUpdatableSource.swift; sourceTree = "<group>"; };
+		D9EF05AC20ACCF7000D3F194 /* CustomisableUpdateIntervalControllable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomisableUpdateIntervalControllable.swift; sourceTree = "<group>"; };
+		D9EF05AE20ACCF8B00D3F194 /* ManuallyUpdatableValuesProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManuallyUpdatableValuesProvider.swift; sourceTree = "<group>"; };
 		D9EF05B020ACD02100D3F194 /* NumericUnit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumericUnit.swift; sourceTree = "<group>"; };
 		D9EF05B220ACD04F00D3F194 /* UnitError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnitError.swift; sourceTree = "<group>"; };
 		D9EF05B420ACD20700D3F194 /* BeatsPerMinute.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BeatsPerMinute.swift; sourceTree = "<group>"; };
@@ -306,11 +310,12 @@
 			isa = PBXGroup;
 			children = (
 				D9F6B05420F8F4A700831338 /* Source.swift */,
-				D9EF059D20ACC63700D3F194 /* ControllableSource.swift */,
+				D9EF059D20ACC63700D3F194 /* Controllable.swift */,
 				D9D7529D20B4BE0600B16A06 /* SourceAvailability.swift */,
-				D9EF05AC20ACCF7000D3F194 /* CustomisableUpdateIntervalSource.swift */,
-				D9EF05AE20ACCF8B00D3F194 /* ManuallyUpdatableSource.swift */,
+				D9EF05AC20ACCF7000D3F194 /* CustomisableUpdateIntervalControllable.swift */,
+				D9EF05AE20ACCF8B00D3F194 /* ManuallyUpdatableValuesProvider.swift */,
 				D9EF05D020ACD6B900D3F194 /* BaseSource.swift */,
+				D999586A21010F3B00C577AC /* BasePollingSource.swift */,
 				D9EF05D420ACD95400D3F194 /* SourceUpdateListenerWrapper.swift */,
 				D96A18DF20C741D000CAE44F /* Device Motion */,
 				D930631D20D5BDA7007A0CBD /* Compass.swift */,
@@ -318,6 +323,7 @@
 				D910EE9720FEA637007F495B /* Proximity.swift */,
 				D910EE8620FA412E007F495B /* Battery.swift */,
 				D910EE9020FE9E76007F495B /* Altimeter.swift */,
+				D999586C2101166B00C577AC /* Advertising.swift */,
 				D910EE9920FFDE22007F495B /* CellRadio.swift */,
 				D96C62FF20F6AB0900BF06EF /* WiFi.swift */,
 			);
@@ -492,7 +498,7 @@
 				D9B84DE020CC83D900380C42 /* Gyroscope.swift in Sources */,
 				D9EF05A020ACC77D00D3F194 /* GenericValue.swift in Sources */,
 				D9CDB99320AE3C4A00316739 /* AnyValue.swift in Sources */,
-				D9EF05AF20ACCF8B00D3F194 /* ManuallyUpdatableSource.swift in Sources */,
+				D9EF05AF20ACCF8B00D3F194 /* ManuallyUpdatableValuesProvider.swift in Sources */,
 				D9EF05C520ACD2E300D3F194 /* Pixel.swift in Sources */,
 				D9EF05BD20ACD25800D3F194 /* Degree.swift in Sources */,
 				D9B84DE420CF14F000380C42 /* Accelerometer.swift in Sources */,
@@ -500,7 +506,7 @@
 				D928465A20C499790058245F /* Scale.swift in Sources */,
 				D9B84DE220CF0FB800380C42 /* Magnetometer.swift in Sources */,
 				D930631A20D58AC6007A0CBD /* CMQuaternion.swift in Sources */,
-				D9EF059E20ACC63700D3F194 /* ControllableSource.swift in Sources */,
+				D9EF059E20ACC63700D3F194 /* Controllable.swift in Sources */,
 				D910EE9820FEA637007F495B /* Proximity.swift in Sources */,
 				D930631420D58A34007A0CBD /* MagneticFieldValue.swift in Sources */,
 				D991E1F420CF2D45009C849F /* NumericNone.swift in Sources */,
@@ -511,9 +517,10 @@
 				D96C630020F6AB0900BF06EF /* WiFi.swift in Sources */,
 				D959ECC720D713C5000184E2 /* GeomagnetismValue.swift in Sources */,
 				D9EF05B520ACD20700D3F194 /* BeatsPerMinute.swift in Sources */,
+				D999586B21010F3B00C577AC /* BasePollingSource.swift in Sources */,
 				D9EF05B720ACD22100D3F194 /* Byte.swift in Sources */,
 				D910EE8F20FB9520007F495B /* ZeroConfigurationUnit.swift in Sources */,
-				D9EF05AD20ACCF7000D3F194 /* CustomisableUpdateIntervalSource.swift in Sources */,
+				D9EF05AD20ACCF7000D3F194 /* CustomisableUpdateIntervalControllable.swift in Sources */,
 				D910EE9120FE9E76007F495B /* Altimeter.swift in Sources */,
 				D9EF05A520ACCE3800D3F194 /* Unit.swift in Sources */,
 				D9EF05CB20ACD35B00D3F194 /* Screen.swift in Sources */,
@@ -528,6 +535,7 @@
 				D930631820D58A85007A0CBD /* RotationRateValue.swift in Sources */,
 				D9D7529E20B4BE0600B16A06 /* SourceAvailability.swift in Sources */,
 				D9EF05D520ACD95400D3F194 /* SourceUpdateListenerWrapper.swift in Sources */,
+				D999586D2101166B00C577AC /* Advertising.swift in Sources */,
 				D910EE9620FEA070007F495B /* ActionProvider.swift in Sources */,
 				D9168F4E20C8851E00100EEE /* ValuesProvider.swift in Sources */,
 				D9EF05C720ACD2F200D3F194 /* Percent.swift in Sources */,

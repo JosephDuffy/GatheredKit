@@ -1,7 +1,7 @@
 import Foundation
 import CoreMotion
 
-public final class Altimeter: BaseSource, ControllableSource, ActionProvider {
+public final class Altimeter: BaseSource, Controllable, ValuesProvider, ActionProvider {
 
     private enum State {
         case notMonitoring

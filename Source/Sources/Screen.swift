@@ -4,7 +4,7 @@ import UIKit
  A wrapper around `UIScreen`. Each property is read directly from `UIScreen`; every property is always the latest
  available value
  */
-public final class Screen: BaseSource, ControllableSource {
+public final class Screen: BaseSource, Controllable, ValuesProvider {
 
     private enum State {
         case notMonitoring

@@ -12,7 +12,7 @@ open class BaseSource: NSObject {
         super.init()
     }
 
-    open func addUpdateListener(_ updateListener: @escaping ControllableSource.UpdateListener, queue: DispatchQueue) -> AnyObject {
+    open func addUpdateListener(_ updateListener: @escaping Controllable.UpdateListener, queue: DispatchQueue) -> AnyObject {
         let observer = SourceUpdateListenerWrapper(updateListener: updateListener, queue: queue)
         updateListeners.add(observer)
         return observer
@@ -28,7 +28,7 @@ open class BaseSource: NSObject {
 
 }
 
-extension ControllableSource where Self: BaseSource {
+extension Controllable where Self: BaseSource, Self: ValuesProvider {
 
     public func notifyListenersPropertyValuesUpdated() {
         notifyUpdateListeners(latestPropertyValues: allValues)

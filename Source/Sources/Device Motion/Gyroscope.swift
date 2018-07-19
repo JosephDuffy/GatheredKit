@@ -1,7 +1,7 @@
 import Foundation
 import CoreMotion
 
-public final class Gyroscope: BaseSource, CustomisableUpdateIntervalSource {
+public final class Gyroscope: BaseSource, CustomisableUpdateIntervalControllable, ValuesProvider {
 
     public static var defaultUpdateInterval: TimeInterval = 1
 
