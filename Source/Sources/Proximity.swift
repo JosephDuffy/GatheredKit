@@ -1,6 +1,6 @@
 import UIKit
 
-public final class Proximity: BaseSource, ControllableSource {
+public final class Proximity: BaseSource, Controllable, ValuesProvider {
 
     /// A count of the total number of `Proximity` sources
     /// that are actively updating. This is used to not stop other `Proximity` sources

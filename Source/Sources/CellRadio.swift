@@ -1,7 +1,7 @@
 import Foundation
 import CoreTelephony
 
-public final class CellRadio: BaseSource, ControllableSource {
+public final class CellRadio: BaseSource, Controllable, ValuesProvider {
 
     private enum State {
         case notMonitoring

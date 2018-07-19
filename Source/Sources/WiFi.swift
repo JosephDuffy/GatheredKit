@@ -2,7 +2,7 @@ import Foundation
 import CoreFoundation
 import SystemConfiguration.CaptiveNetwork
 
-public final class WiFi: BaseSource, ControllableSource, ManuallyUpdatableSource {
+public final class WiFi: BaseSource, Controllable, ManuallyUpdatableValuesProvider {
 
     private enum State {
         case notMonitoring
@@ -49,7 +49,7 @@ public final class WiFi: BaseSource, ControllableSource, ManuallyUpdatableSource
 
     public func startUpdating() {
         defer {
-            updateProperties()
+            updateValues()
         }
 
         var zeroAddress = sockaddr()
@@ -70,7 +70,7 @@ public final class WiFi: BaseSource, ControllableSource, ManuallyUpdatableSource
                     guard let pointerToSelf = info else { return }
 
                     let `self` = Unmanaged<WiFi>.fromOpaque(pointerToSelf).takeUnretainedValue()
-                    self.updateProperties()
+                    self.updateValues()
                 },
                 &context
             )
@@ -97,7 +97,7 @@ public final class WiFi: BaseSource, ControllableSource, ManuallyUpdatableSource
     }
 
     @discardableResult
-    public func updateProperties() -> [AnyValue] {
+    public func updateValues() -> [AnyValue] {
         guard let interfaces = CNCopySupportedInterfaces() as? [CFString] else {
             print("Failed to cast interfaces to CFString array")
             return allValues
