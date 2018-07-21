@@ -32,7 +32,7 @@ Every source is a class backed by an equivelent Apple-provided class, but with a
  - [ ] Audio Output
  - [X] Device Orientation
  - [ ] Bluetooth
- - [ ] Storage
+ - [X] Storage
  - [ ] Memory
  - [ ] Device Metadata
  - [X] Battery
