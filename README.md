@@ -31,7 +31,7 @@ Every source is a class backed by an equivelent Apple-provided class, but with a
  - [X] Advertising
  - [ ] Audio Output
  - [X] Device Orientation
- - [ ] Bluetooth
+ - [X] Bluetooth
  - [X] Storage
  - [ ] Memory
  - [ ] Device Metadata
