@@ -47,17 +47,11 @@ public final class DeviceOrientation: BaseSource, Source, Controllable {
         ]
     }
 
-    private let device: UIDevice
+    private let device: UIDevice = .current
 
     private var state: State = .notMonitoring
 
-    public convenience override init() {
-        self.init(device: .current)
-    }
-
-    public init(device: UIDevice) {
-        self.device = device
-
+    public override init() {
         screenOrientation = GenericValue(displayName: "Screen Orientation")
         screenDirection = GenericValue(displayName: "Screen Direction")
     }
