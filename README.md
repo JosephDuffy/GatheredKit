@@ -35,6 +35,7 @@ Every source is a class backed by an equivelent Apple-provided class, but with a
  - [X] Storage
  - [ ] Memory
  - [X] Device Metadata
+ - [X] Operating System
  - [X] Battery
 
 # API
