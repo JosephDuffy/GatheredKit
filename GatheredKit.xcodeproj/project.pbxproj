@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		D910EE8720FA412F007F495B /* Battery.swift in Sources */ = {isa = PBXBuildFile; fileRef = D910EE8620FA412E007F495B /* Battery.swift */; };
 		D910EE8920FA451C007F495B /* SwiftShims.swift in Sources */ = {isa = PBXBuildFile; fileRef = D910EE8820FA451C007F495B /* SwiftShims.swift */; };
+		D910EE8D20FB6011007F495B /* DeviceMetadata.swift in Sources */ = {isa = PBXBuildFile; fileRef = D910EE8C20FB6011007F495B /* DeviceMetadata.swift */; };
 		D910EE8F20FB9520007F495B /* ZeroConfigurationUnit.swift in Sources */ = {isa = PBXBuildFile; fileRef = D910EE8E20FB9520007F495B /* ZeroConfigurationUnit.swift */; };
 		D910EE9120FE9E76007F495B /* Altimeter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D910EE9020FE9E76007F495B /* Altimeter.swift */; };
 		D910EE9420FEA064007F495B /* Action.swift in Sources */ = {isa = PBXBuildFile; fileRef = D910EE9320FEA064007F495B /* Action.swift */; };
@@ -107,6 +108,7 @@
 /* Begin PBXFileReference section */
 		D910EE8620FA412E007F495B /* Battery.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Battery.swift; sourceTree = "<group>"; };
 		D910EE8820FA451C007F495B /* SwiftShims.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftShims.swift; sourceTree = "<group>"; };
+		D910EE8C20FB6011007F495B /* DeviceMetadata.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceMetadata.swift; sourceTree = "<group>"; };
 		D910EE8E20FB9520007F495B /* ZeroConfigurationUnit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZeroConfigurationUnit.swift; sourceTree = "<group>"; };
 		D910EE9020FE9E76007F495B /* Altimeter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Altimeter.swift; sourceTree = "<group>"; };
 		D910EE9320FEA064007F495B /* Action.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Action.swift; sourceTree = "<group>"; };
@@ -343,6 +345,7 @@
 				D9995872210344C600C577AC /* Bluetooth.swift */,
 				D999586E21011EA700C577AC /* DeviceOrientation.swift */,
 				D99958702103403A00C577AC /* Storage.swift */,
+				D910EE8C20FB6011007F495B /* DeviceMetadata.swift */,
 				D96C62FF20F6AB0900BF06EF /* WiFi.swift */,
 			);
 			path = Sources;
@@ -527,6 +530,7 @@
 				D928465A20C499790058245F /* Scale.swift in Sources */,
 				D9B84DE220CF0FB800380C42 /* Magnetometer.swift in Sources */,
 				D930631A20D58AC6007A0CBD /* CMQuaternion.swift in Sources */,
+				D910EE8D20FB6011007F495B /* DeviceMetadata.swift in Sources */,
 				D9EF059E20ACC63700D3F194 /* Controllable.swift in Sources */,
 				D910EE9820FEA637007F495B /* Proximity.swift in Sources */,
 				D930631420D58A34007A0CBD /* MagneticFieldValue.swift in Sources */,

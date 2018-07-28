@@ -34,7 +34,7 @@ Every source is a class backed by an equivelent Apple-provided class, but with a
  - [X] Bluetooth
  - [X] Storage
  - [ ] Memory
- - [ ] Device Metadata
+ - [X] Device Metadata
  - [X] Battery
 
 # API
