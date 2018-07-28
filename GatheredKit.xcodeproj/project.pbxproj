@@ -299,6 +299,7 @@
 			isa = PBXGroup;
 			children = (
 				D9EF05A420ACCE3800D3F194 /* Unit.swift */,
+				D910EE8E20FB9520007F495B /* ZeroConfigurationUnit.swift */,
 				D9EF05B020ACD02100D3F194 /* NumericUnit.swift */,
 				D93D7A4220C728CE007C16D0 /* AnyUnit.swift */,
 				D9EF05B220ACD04F00D3F194 /* UnitError.swift */,
@@ -317,7 +318,6 @@
 				D9EF05C420ACD2E300D3F194 /* Pixel.swift */,
 				D9EF05C820ACD31400D3F194 /* Point.swift */,
 				D928465920C499790058245F /* Scale.swift */,
-				D910EE8E20FB9520007F495B /* ZeroConfigurationUnit.swift */,
 			);
 			path = Units;
 			sourceTree = "<group>";
