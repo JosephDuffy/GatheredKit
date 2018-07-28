@@ -52,9 +52,28 @@ open class BasePollingSource: BaseSource {
 
 }
 
-public extension CustomisableUpdateIntervalControllable where Self: BasePollingSource, Self: ManuallyUpdatableValuesProvider {
+extension Controllable where Self: BasePollingSource, Self: ManuallyUpdatableValuesProvider {
 
-    public func startUpdating(every updateInterval: TimeInterval) {
+    public func stopUpdating() {
+        state = .notMonitoring
+    }
+
+    internal func update(on queue: DispatchQueue, after delay: TimeInterval) {
+        queue.asyncAfter(deadline: .now() + delay) { [weak self, weak queue] in
+            guard let `self` = self else { return }
+            guard let queue = queue else { return }
+            guard queue == self.updatesQueue else { return }
+            guard (self as BasePollingSource).updateInterval == delay else { return }
+            guard (self as BasePollingSource).isUpdating else { return }
+
+            let latestPropertyValues = self.updateValues()
+            self.notifyUpdateListeners(latestPropertyValues: latestPropertyValues)
+
+            self.update(on: queue, after: delay)
+        }
+    }
+
+    internal func startUpdating(every updateInterval: TimeInterval) {
         let updatesQueue = DispatchQueue(label: "uk.co.josephduffy.GatheredKit \(type(of: self)) Updates")
 
         state = .monitoring(updatesQueue: updatesQueue, updateInterval: updateInterval)
@@ -66,19 +85,6 @@ public extension CustomisableUpdateIntervalControllable where Self: BasePollingS
         notifyUpdateListeners(latestPropertyValues: latestPropertyValues)
     }
 
-    private func update(on queue: DispatchQueue, after delay: TimeInterval) {
-        queue.asyncAfter(deadline: .now() + delay) { [weak self, weak queue] in
-            guard let `self` = self else { return }
-            guard let queue = queue else { return }
-            guard queue == self.updatesQueue else { return }
-            guard (self as BasePollingSource).updateInterval == delay else { return }
-            guard self.isUpdating else { return }
-
-            let latestPropertyValues = self.updateValues()
-            self.notifyUpdateListeners(latestPropertyValues: latestPropertyValues)
-
-            self.update(on: queue, after: delay)
-        }
-    }
-
 }
+
+public extension CustomisableUpdateIntervalControllable where Self: BasePollingSource, Self: ManuallyUpdatableValuesProvider {}
