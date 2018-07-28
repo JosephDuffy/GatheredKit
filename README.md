@@ -11,6 +11,15 @@ GatheredKit is an iOS framework that provides a consistent and easy to use API f
 
 The code originated from [Gathered](https://geo.itunes.apple.com/app/gathered/id929726748?mt=8), hense the name and logo.
 
+# Quick Links
+
+ - [Available Sources](#available-sources)
+ - [API](#api)
+ - [Installation](#installation)
+ - [Documentation](#documentation)
+ - [Running Tests](#running-tests)
+ - [License](#license)
+
 # Available Sources
 
 Every source is a class backed by an equivelent Apple-provided class, but with a simplified and consistent API to receive updates. Below is a list of sources that GatheredKit has to offer. Unticked boxes indicate sources that will be added in the future.
@@ -52,58 +61,25 @@ The core of GatheredKit is the `Source` protocol.
 /**
  An object that can provide data from a specific source on the device
  */
-public protocol Source : AnyObject, ValuesProvider {
-
-    /// A closure that will be called with the latest values
-    public typealias UpdateListener = (_ latestValues: [AnyValue]) -> Void
+public protocol Source: class, ValuesProvider {
 
     /// The availability of the source
-    public static var availability: SourceAvailability { get }
+    static var availability: SourceAvailability { get }
 
-    /// A boolean indicating if the source is currently performing automatic updates
-    public var isUpdating: Bool { get }
+    /// A user-friendly name that represents the source, e.g. "Location", "Device Attitude"
+    var displayName: String { get }
 
     /// Creates a new instance of the source
-    public init()
+    init()
 
-    /**
-     Adds a closure to the array of closures that will be called when any of the source's
-     values are updated. The closure will be called with all values, but not all the values
-     will neccessary be new.
-     The returned object must be retained; the lifecycle of the listener is tied to the object. If
-     the object is deallocated the listener will be destroyed.
-     - parameter updateListener: The closure to call with updated values
-     - returns: An opaque object. The lifecycle of the listener is tied to the object
-     */
-    public func addUpdateListener(_ updateListener: @escaping UpdateListener) -> AnyObject
-
-    /**
-     Starts automatic updates. Closures added via `addUpdateListener(_:)` will be
-     called when new values are available
-     */
-    public func startUpdating()
-
-    /**
-     Stops automatic updates
-     */
-    public func stopUpdating()
 }
+```
 
-public extension Source {
+This by itself doesn't provide much, but when combined with `ValuesProvider` it forms the base of all classes in GatheredKit.
 
-    /**
-     Starts automatic updates and adds a closure to the array of closures that will be called when
-     any of the source's values are updated. The closure will be called with all values, but
-     not all the values will neccessary be new.
-     The returned object must be retained; the lifecycle of the listener is tied to the object. If
-     the object is deallocated the listener will be destroyed.
-     - parameter updateListener: The closure to call with updated values
-     - returns: An opaque object. The lifecycle of the listener is tied to the object
-     */
-    public func startUpdating(sendingUpdatesTo updateListener: @escaping UpdateListener) -> AnyObject
-}
+## `ValuesProvider`
 
-
+```swift
 /**
  An object that provides values
  */
@@ -117,37 +93,113 @@ public protocol ValuesProvider {
 
 Implementations also have individual properties for each of their values, such as the `brightness` property of the `Screen` source.
 
-## `CustomisableUpdateIntervalSource`
+## `Controllable`
 
-A `CustomisableUpdateIntervalSource` is a `Source` that supports customising the update frequency, e.g. the gyroscope
+The `Controllable` protocol defines an object that can automatically update its values. These automatic changes can be started and stopped at any time.
+
+```swift
+/**
+ An object that be started and stopped
+ */
+public protocol Controllable {
+
+    /// A closure that will be called with the latest values
+    typealias UpdateListener = (_ latestValues: [AnyValue]) -> Void
+
+    /// A boolean indicating if the `Controllable` is currently performing automatic updates
+    var isUpdating: Bool { get }
+
+    /**
+     Starts automatic updates. Closures added via `addUpdateListener(_:)` will be
+     called when new values are available
+     */
+    func startUpdating()
+
+    /**
+     Stops automatic updates
+     */
+    func stopUpdating()
+
+    /**
+     Adds a closure to the array of closures that will be called when any of the source's
+     values are updated. The closure will be called with all values, but not all the values
+     will neccessary be new.
+
+     The returned object must be retained; the lifecycle of the listener is tied to the object. If
+     the object is deallocated the listener will be destroyed.
+
+     - parameter updateListener: The closure to call with updated values
+     - parameter queue: The dispatch queue the listener should be called from
+     - returns: An opaque object. The lifecycle of the listener is tied to the object
+     */
+    func addUpdateListener(_ updateListener: @escaping UpdateListener, queue: DispatchQueue) -> AnyObject
+
+}
+
+public extension Controllable {
+
+    /**
+     Starts automatic updates and adds a closure to the array of closures that will be called when
+     any of the source's values are updated. The closure will be called with all values, but
+     not all the values will neccessary be new.
+
+     The returned object must be retained; the lifecycle of the listener is tied to the object. If
+     the object is deallocated the listener will be destroyed.
+
+     - parameter queue: The dispatch queue the listener should be called from
+     - parameter updateListener: The closure to call with updated values
+     - returns: An opaque object. The lifecycle of the listener is tied to the object
+     */
+    func startUpdating(sendingUpdatesOn queue: DispatchQueue, to updateListener: @escaping UpdateListener) -> AnyObject
+
+    /**
+     Starts automatic updates and adds a closure to the array of closures that will be called when
+     any of the source's values are updated. The closure will be called on the main dispatch queue with
+     all values, but not all the values will neccessary be new.
+
+     The returned object must be retained; the lifecycle of the listener is tied to the object. If
+     the object is deallocated the listener will be destroyed.
+
+     - parameter updateListener: The closure to call with updated values
+     - returns: An opaque object. The lifecycle of the listener is tied to the object
+     */
+    func startUpdating(sendingUpdatesTo updateListener: @escaping UpdateListener) -> AnyObject
+
+}
+```
+
+## `CustomisableUpdateIntervalControllable`
+
+`CustomisableUpdateIntervalControllable` is a `Controllable` that has one or more values that must be polled for updates.
 
 ```swift
 /**
  A source that supports updating its properties at a given time interval
  */
-public protocol CustomisableUpdateIntervalSource : Source {
+public protocol CustomisableUpdateIntervalControllable: Controllable {
 
     /// The default update interval that will be used when calling `startUpdating()`
     /// without specifying the update interval.
     /// This value is unique per-source and does not persist between app runs
-    public static var defaultUpdateInterval: TimeInterval { get set }
+    static var defaultUpdateInterval: TimeInterval { get set }
 
     /// The time interval between property updates. A value of `nil` indicates that
     /// the source is not performing periodic updates
-    public var updateInterval: TimeInterval? { get }
+    var updateInterval: TimeInterval? { get }
 
     /**
      Start performing periodic updates, updating every `updateInterval` seconds
 
      - parameter updateInterval: The interval between updates, measured in seconds
-    */
-    public func startUpdating(every updateInterval: TimeInterval)
+     */
+    func startUpdating(every updateInterval: TimeInterval)
+
 }
 
-public extension CustomisableUpdateIntervalSource {
+public extension CustomisableUpdateIntervalControllable {
 
     /// A boolean indicating if the source is currently updating its properties every `updateInterval`
-    public var isUpdating: Bool { get }
+    public var isUpdating: Bool
 
     /**
      Starts performing period updated. The value of the static variable `defaultUpdateInterval` will
@@ -166,40 +218,43 @@ public extension CustomisableUpdateIntervalSource {
      the object is deallocated the listener will be destroyed.
 
      - parameter updateInterval: The interval between updates, measured in seconds
+     - parameter queue: The dispatch queue the listener should be called from
      - parameter updateListener: The closure to call with updated values
      - returns: An opaque object. The lifecycle of the listener is tied to the object
      */
-    public func startUpdating(every updateInterval: TimeInterval, sendingUpdatesTo updateListener: @escaping UpdateListener) -> AnyObject
-}
+    public func startUpdating(every updateInterval: TimeInterval, sendingUpdatesOn queue: DispatchQueue, to updateListener: @escaping UpdateListener) -> AnyObject
 
+}
 ```
 
-## `ManuallyUpdatableSource`
+## `ManuallyUpdatableValuesProvider`
 
-A `ManuallyUpdatableSource` is a `Source` that does not provide automatic updates, but must be polled for updates. Timer-based updates are provided to keep the API concistent, but the values update listeners receive may not always contain new values.
+A `ManuallyUpdatableValuesProvider` is a `ValuesProvider` that can be manually updated by calling the `updateValues` function.
 
-```swift
+```siwft
 /**
  A source that supports its properties being updated at any given time
  */
-public protocol ManuallyUpdatableSource: CustomisableUpdateIntervalSource {
+public protocol ManuallyUpdatableValuesProvider: ValuesProvider {
 
     /**
-     Force the source to update its properties. Note that there is no guarantee that new data
-     will be available
+     Force the values provider to update its values.
 
-     - returns: The property values after the update
+     Note that there is no guarantee that the returned values will be new, even
+     if the date has updated
+
+     - returns: The values after the update
      */
-    func updateProperties() -> [AnyValue]
+    func updateValues() -> [AnyValue]
 
 }
 ```
 
-## Installation
+# Installation
 
 GatheredKit can be installed using any of the below methods. Once installed, simply `import GatheredKit` to start using it.
 
-### Carthage
+## Carthage
 
 To install via Carthage add to following to your `Cartfile`:
 
@@ -221,7 +276,7 @@ and
 $(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/GatheredKit.framework
 ```
 
-### CocoaPods
+## CocoaPods
 
 To install via [CocoaPods](https://cocoapods.org) add the following line to your Podfile:
 
@@ -231,11 +286,11 @@ pod 'GatheredKit'
 
 and then run `pod install`.
 
-## Documentation
+# Documentation
 
 Documentation for GatheredKit is provided in the source code. Browsable documentation is available at [https://josephduffy.github.io/GatheredKit/](https://josephduffy.github.io/GatheredKit/).
 
-## Tests
+# Running Tests
 
 Running the tests for GatheredKit requires `Quick` and `Nimble`, which can be installed using Carthage:
 
@@ -243,6 +298,6 @@ Running the tests for GatheredKit requires `Quick` and `Nimble`, which can be in
 
 Tests can be run via Xcode or `fastlane test`.
 
-## License
+# License
 
 The project is released under the MIT license. View the [LICENSE](./LICENSE) file for the full license.
