@@ -8,6 +8,9 @@ public protocol Controllable {
     /// A closure that will be called with the latest values
     typealias UpdateListener = (_ latestValues: [AnyValue]) -> Void
 
+    /// A boolean indicating if the `Controllable` is currently performing automatic updates
+    var isUpdating: Bool { get }
+
     /**
      Starts automatic updates. Closures added via `addUpdateListener(_:)` will be
      called when new values are available
