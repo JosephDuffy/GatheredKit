@@ -134,6 +134,7 @@ public final class Battery: BaseSource, Controllable, ManuallyUpdatableValuesPro
 
 }
 
+#if swift(>=4.2)
 private extension UIDevice.BatteryState {
 
     var displayValue: String {
@@ -150,3 +151,21 @@ private extension UIDevice.BatteryState {
     }
 
 }
+#else
+private extension UIDeviceBatteryState {
+
+    var displayValue: String {
+        switch self {
+        case .charging:
+            return "Charging"
+        case .full:
+            return "Full"
+        case .unplugged:
+            return "Discharging"
+        case .unknown:
+            return "Unknown"
+        }
+    }
+
+}
+#endif
