@@ -54,17 +54,11 @@ public final class CellRadio: BaseSource, Controllable, ValuesProvider {
         ]
     }
 
-    private let device: UIDevice
+    private let device: UIDevice = .current
 
     private var state: State = .notMonitoring
 
-    public convenience override init() {
-        self.init(device: .current)
-    }
-
-    public init(device: UIDevice) {
-        self.device = device
-
+    public override init() {
         carrier = CarrierValue()
         radioAccessTechnology = GenericValue(displayName: "Radio Access Technology")
     }
