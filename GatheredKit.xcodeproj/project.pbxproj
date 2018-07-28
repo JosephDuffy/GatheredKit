@@ -22,6 +22,7 @@
 		D928733A210CB13B00F63A18 /* OperatingSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9287339210CB13B00F63A18 /* OperatingSystem.swift */; };
 		D928733C210CB58E00F63A18 /* Time.swift in Sources */ = {isa = PBXBuildFile; fileRef = D928733B210CB58E00F63A18 /* Time.swift */; };
 		D928733E210CBD2500F63A18 /* Cameras.swift in Sources */ = {isa = PBXBuildFile; fileRef = D928733D210CBD2500F63A18 /* Cameras.swift */; };
+		D9287340210CCB5800F63A18 /* CPU.swift in Sources */ = {isa = PBXBuildFile; fileRef = D928733F210CCB5800F63A18 /* CPU.swift */; };
 		D930631120D54E0A007A0CBD /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = D930631020D54E0A007A0CBD /* Location.swift */; };
 		D930631420D58A34007A0CBD /* MagneticFieldValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = D930631320D58A34007A0CBD /* MagneticFieldValue.swift */; };
 		D930631620D58A54007A0CBD /* CalibratedMagneticFieldValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = D930631520D58A54007A0CBD /* CalibratedMagneticFieldValue.swift */; };
@@ -124,6 +125,7 @@
 		D9287339210CB13B00F63A18 /* OperatingSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OperatingSystem.swift; sourceTree = "<group>"; };
 		D928733B210CB58E00F63A18 /* Time.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Time.swift; sourceTree = "<group>"; };
 		D928733D210CBD2500F63A18 /* Cameras.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cameras.swift; sourceTree = "<group>"; };
+		D928733F210CCB5800F63A18 /* CPU.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CPU.swift; sourceTree = "<group>"; };
 		D930631020D54E0A007A0CBD /* Location.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
 		D930631320D58A34007A0CBD /* MagneticFieldValue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MagneticFieldValue.swift; sourceTree = "<group>"; };
 		D930631520D58A54007A0CBD /* CalibratedMagneticFieldValue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalibratedMagneticFieldValue.swift; sourceTree = "<group>"; };
@@ -347,6 +349,7 @@
 				D910EE9720FEA637007F495B /* Proximity.swift */,
 				D910EE8620FA412E007F495B /* Battery.swift */,
 				D928733D210CBD2500F63A18 /* Cameras.swift */,
+				D928733F210CCB5800F63A18 /* CPU.swift */,
 				D910EE9020FE9E76007F495B /* Altimeter.swift */,
 				D999586C2101166B00C577AC /* Advertising.swift */,
 				D910EE9920FFDE22007F495B /* CellRadio.swift */,
@@ -530,6 +533,7 @@
 				D9B84DE020CC83D900380C42 /* Gyroscope.swift in Sources */,
 				D9EF05A020ACC77D00D3F194 /* GenericValue.swift in Sources */,
 				D9CDB99320AE3C4A00316739 /* AnyValue.swift in Sources */,
+				D9287340210CCB5800F63A18 /* CPU.swift in Sources */,
 				D9EF05AF20ACCF8B00D3F194 /* ManuallyUpdatableValuesProvider.swift in Sources */,
 				D9EF05C520ACD2E300D3F194 /* Pixel.swift in Sources */,
 				D9995873210344C600C577AC /* Bluetooth.swift in Sources */,
