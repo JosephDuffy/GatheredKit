@@ -1,7 +1,7 @@
 import Foundation
 
 /**
- A source that be started and stopped
+ An object that be started and stopped
  */
 public protocol Controllable {
 
