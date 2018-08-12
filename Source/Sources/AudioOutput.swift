@@ -84,6 +84,7 @@ public extension AudioOutput {
 private extension AVAudioSession.Port {
 
     var displayValue: String {
+        #if swift(>=4.2)
         switch self {
         case .HDMI:
             return "HDMI"
@@ -116,6 +117,40 @@ private extension AVAudioSession.Port {
         default:
             return rawValue
         }
+        #else
+        switch self {
+        case AVAudioSessionPortHDMI:
+            return "HDMI"
+        case AVAudioSessionPortAirPlay:
+            return "Air Play"
+        case AVAudioSessionPortBluetoothA2DP:
+            return "Bluetooth A2DP"
+        case AVAudioSessionPortBluetoothHFP:
+            return "Bluetooth Hands-Free"
+        case AVAudioSessionPortBluetoothLE:
+            return "Bluetooth Low Energy"
+        case AVAudioSessionPortBuiltInMic:
+            return "Built in Microphone"
+        case AVAudioSessionPortBuiltInReceiver:
+            return "Built in Receiver"
+        case AVAudioSessionPortBuiltInSpeaker:
+            return "Built in Speaker"
+        case AVAudioSessionPortCarAudio:
+            return "Car Audio"
+        case AVAudioSessionPortHeadphones:
+            return "Wired Headphones"
+        case AVAudioSessionPortHeadsetMic:
+            return "Headset Microphone"
+        case AVAudioSessionPortLineIn:
+            return "Line In"
+        case AVAudioSessionPortLineOut:
+            return "Line Out"
+        case AVAudioSessionPortUSBAudio:
+            return "USB Audio"
+        default:
+            return self
+        }
+        #endif
     }
 
 }
