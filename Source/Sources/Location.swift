@@ -17,7 +17,7 @@ public final class Location: BaseSource, Source, Controllable, ValuesProvider {
         case kilometer
         case threeKilometers
 
-        var asCLLocationAccuracy: CLLocationAccuracy {
+        fileprivate var asCLLocationAccuracy: CLLocationAccuracy {
             switch self {
             case .bestForNavigation:
                 return kCLLocationAccuracyBestForNavigation
@@ -34,7 +34,7 @@ public final class Location: BaseSource, Source, Controllable, ValuesProvider {
             }
         }
 
-        init?(accuracy: CLLocationAccuracy) {
+        fileprivate init?(accuracy: CLLocationAccuracy) {
             switch accuracy {
             case kCLLocationAccuracyBestForNavigation:
                 self = .bestForNavigation

@@ -16,7 +16,7 @@ public final class Bluetooth: BaseSource, Source, Controllable {
 
         case on = "On"
 
-        init(manager: CBCentralManager) {
+        fileprivate init(manager: CBCentralManager) {
             switch manager.state {
             case .unknown: self = .unknown
             case .resetting: self = .resetting
@@ -75,4 +75,3 @@ extension Bluetooth: CBCentralManagerDelegate {
         notifyListenersPropertyValuesUpdated()
     }
 }
-
