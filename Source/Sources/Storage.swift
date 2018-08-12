@@ -4,7 +4,7 @@ public final class Storage: BasePollingSource, Source, ManuallyUpdatableValuesPr
 
     public static let availability: SourceAvailability = .available
 
-    public let displayName = "Storage"
+    public static let name = "Storage"
 
     public private(set) var capacity: GenericValue<Int64?, Byte>
 
@@ -12,11 +12,11 @@ public final class Storage: BasePollingSource, Source, ManuallyUpdatableValuesPr
 
     public private(set) var free: GenericValue<Int64?, Byte>
 
-    public var allValues: [AnyValue] {
+    public var allValues: [Value] {
         return [
-            capacity.asAny(),
-            available.asAny(),
-            free.asAny(),
+            capacity,
+            available,
+            free,
         ]
     }
 
@@ -26,7 +26,7 @@ public final class Storage: BasePollingSource, Source, ManuallyUpdatableValuesPr
         free = GenericValue(displayName: "Free", unit: Byte(countStyle: .file))
     }
 
-    public func updateValues() -> [AnyValue] {
+    public func updateValues() -> [Value] {
         let paths = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)
 
         guard let path = paths.first else { return allValues }

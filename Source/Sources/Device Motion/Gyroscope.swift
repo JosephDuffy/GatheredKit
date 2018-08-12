@@ -1,13 +1,15 @@
 import Foundation
 import CoreMotion
 
-public final class Gyroscope: BaseSource, CustomisableUpdateIntervalControllable, ValuesProvider {
+public final class Gyroscope: BaseSource, Source, CustomisableUpdateIntervalControllable, ValuesProvider {
 
     public static var defaultUpdateInterval: TimeInterval = 1
 
     public static var availability: SourceAvailability {
         return isAvailable ? .available : .unavailable
     }
+
+    public static let name = "Gyroscope"
 
     public static var isAvailable: Bool {
         return CMMotionManager().isGyroAvailable
@@ -17,10 +19,10 @@ public final class Gyroscope: BaseSource, CustomisableUpdateIntervalControllable
 
     public private(set) var rawRotationRate: RotationRateValue
 
-    public var allValues: [AnyValue] {
+    public var allValues: [Value] {
         return [
-            rotationRate.asAny(),
-            rawRotationRate.asAny(),
+            rotationRate,
+            rawRotationRate,
         ]
     }
 

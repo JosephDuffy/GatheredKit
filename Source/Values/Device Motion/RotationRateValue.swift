@@ -1,13 +1,13 @@
 import Foundation
 import CoreMotion
 
-public struct RotationRateValue: Value, ValuesProvider {
+public struct RotationRateValue: TypedValue, ValuesProvider {
 
-    public var allValues: [AnyValue] {
+    public var allValues: [Value] {
         return [
-            x.asAny(),
-            y.asAny(),
-            z.asAny(),
+            x,
+            y,
+            z,
         ]
     }
 
@@ -39,8 +39,6 @@ public struct RotationRateValue: Value, ValuesProvider {
     }
 
     public let displayName: String
-
-    public let unit = None()
 
     public let formattedValue: String? = nil
 

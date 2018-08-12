@@ -1,7 +1,7 @@
 import Foundation
 import CoreMotion
 
-public final class Magnetometer: BaseSource, CustomisableUpdateIntervalControllable, ValuesProvider {
+public final class Magnetometer: BaseSource, Source, CustomisableUpdateIntervalControllable, ValuesProvider {
 
     public static var defaultUpdateInterval: TimeInterval = 1
 
@@ -13,14 +13,16 @@ public final class Magnetometer: BaseSource, CustomisableUpdateIntervalControlla
         return CMMotionManager().isMagnetometerAvailable
     }
 
+    public static let name = "Magnetometer"
+
     public private(set) var magneticField: CalibratedMagneticFieldValue
 
     public private(set) var rawMagneticField: MagneticFieldValue
 
-    public var allValues: [AnyValue] {
+    public var allValues: [Value] {
         return [
-            magneticField.asAny(),
-            rawMagneticField.asAny(),
+            magneticField,
+            rawMagneticField,
         ]
     }
 

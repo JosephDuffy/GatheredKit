@@ -1,13 +1,13 @@
 import Foundation
 import CoreMotion
 
-public struct MagneticFieldValue: Value, ValuesProvider {
+public struct MagneticFieldValue: TypedValue, ValuesProvider {
 
-    public var allValues: [AnyValue] {
+    public var allValues: [Value] {
         return [
-            x.asAny(),
-            y.asAny(),
-            z.asAny(),
+            x,
+            y,
+            z,
         ]
     }
 
@@ -39,8 +39,6 @@ public struct MagneticFieldValue: Value, ValuesProvider {
     }
 
     public let displayName = "Magnetic Field (Raw)"
-
-    public let unit = None()
 
     public let formattedValue: String? = nil
 

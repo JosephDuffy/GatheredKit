@@ -4,26 +4,26 @@ public final class CPU: BasePollingSource, Source, ManuallyUpdatableValuesProvid
 
     public static let availability: SourceAvailability = .available
 
-    public let displayName = "CPU"
+    public static let name = "CPU"
 
-    public let numberOfCores: GenericValue<Int, None>
-    public private(set) var activeCoreCount: GenericValue<Int, None>
+    public let numberOfCores: GenericUnitlessValue<Int>
+    public private(set) var activeCoreCount: GenericUnitlessValue<Int>
 
-    public var allValues: [AnyValue] {
+    public var allValues: [Value] {
         return [
-            numberOfCores.asAny(),
-            activeCoreCount.asAny(),
+            numberOfCores,
+            activeCoreCount,
         ]
     }
 
     private let processInfo: ProcessInfo = .processInfo
 
     public override init() {
-        numberOfCores = GenericValue(displayName: "Number of Cores", backingValue: processInfo.processorCount)
-        activeCoreCount = GenericValue(displayName: "Active Core Count", backingValue: processInfo.activeProcessorCount)
+        numberOfCores = GenericUnitlessValue(displayName: "Number of Cores", backingValue: processInfo.processorCount)
+        activeCoreCount = GenericUnitlessValue(displayName: "Active Core Count", backingValue: processInfo.activeProcessorCount)
     }
 
-    public func updateValues() -> [AnyValue] {
+    public func updateValues() -> [Value] {
         activeCoreCount.update(backingValue: processInfo.activeProcessorCount)
 
         return allValues

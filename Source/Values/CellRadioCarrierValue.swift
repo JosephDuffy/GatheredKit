@@ -2,20 +2,20 @@ import Foundation
 import CoreTelephony
 
 public extension CellRadio {
-    public struct CarrierValue: Value, ValuesProvider {
+    public struct CarrierValue: TypedValue, ValuesProvider {
 
-        public var allValues: [AnyValue] {
+        public var allValues: [Value] {
             return [
-                name.asAny(),
-                mobileCountryCode.asAny(),
-                mobileNetworkCode.asAny(),
-                isoCountryCode.asAny(),
-                allowsVOIP.asAny(),
+                name,
+                mobileCountryCode,
+                mobileNetworkCode,
+                isoCountryCode,
+                allowsVOIP,
             ]
         }
 
-        public var name: GenericValue<String?, None> {
-            return GenericValue(
+        public var name: GenericUnitlessValue<String?> {
+            return GenericUnitlessValue(
                 displayName: "Name",
                 backingValue: backingValue?.carrierName,
                 formattedValue: backingValue?.carrierName == nil ? "Unknown" : nil,
@@ -23,8 +23,8 @@ public extension CellRadio {
             )
         }
 
-        public var mobileCountryCode: GenericValue<String?, None> {
-            return GenericValue(
+        public var mobileCountryCode: GenericUnitlessValue<String?> {
+            return GenericUnitlessValue(
                 displayName: "Mobile Country Code",
                 backingValue: backingValue?.mobileCountryCode,
                 formattedValue: backingValue?.mobileCountryCode == nil ? "Unknown" : nil,
@@ -32,8 +32,8 @@ public extension CellRadio {
             )
         }
 
-        public var mobileNetworkCode: GenericValue<String?, None> {
-            return GenericValue(
+        public var mobileNetworkCode: GenericUnitlessValue<String?> {
+            return GenericUnitlessValue(
                 displayName: "Mobile Network Code",
                 backingValue: backingValue?.mobileNetworkCode,
                 formattedValue: backingValue?.mobileNetworkCode == nil ? "Unknown" : nil,
@@ -41,8 +41,8 @@ public extension CellRadio {
             )
         }
 
-        public var isoCountryCode: GenericValue<String?, None> {
-            return GenericValue(
+        public var isoCountryCode: GenericUnitlessValue<String?> {
+            return GenericUnitlessValue(
                 displayName: "ISO Country Code",
                 backingValue: backingValue?.isoCountryCode,
                 formattedValue: backingValue?.isoCountryCode == nil ? "Unknown" : nil,
@@ -58,10 +58,8 @@ public extension CellRadio {
                 date: date
             )
         }
-        
-        public let displayName = "Carrier"
 
-        public let unit = None()
+        public let displayName = "Carrier"
 
         public let formattedValue: String? = nil
 

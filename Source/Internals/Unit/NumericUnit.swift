@@ -24,8 +24,8 @@ public extension NumericUnit {
      Generates a human-friendly string for the given value.
      This will call `formattedString(for:usingFormatter:)` with a formatter configured using the value
      of `self.maximumFractionDigits`
-     - parameter value: The value to be formatted. Must be castable to `NSNumber`
-     - throws: `SourcePropertyUnitError.unsupportedType` if the `value` cannot be cast to an `NSNumber`
+     
+     - parameter value: The value to be formatted
      - returns: The formatted string
      */
     public func formattedString(for value: NSNumber) -> String {

@@ -4,17 +4,17 @@ public final class OperatingSystem: BasePollingSource, Source, Controllable, Man
 
     public static let availability: SourceAvailability = .available
 
-    public let displayName = "Operating System"
+    public static let name = "Operating System"
 
-    public let version: GenericValue<OperatingSystemVersion, None>
-    public let name: GenericValue<String, None>
+    public let version: GenericUnitlessValue<OperatingSystemVersion>
+    public let name: GenericUnitlessValue<String>
     public private(set) var uptime: GenericValue<TimeInterval, Time>
 
-    public var allValues: [AnyValue] {
+    public var allValues: [Value] {
         return [
-            version.asAny(),
-            name.asAny(),
-            uptime.asAny(),
+            version,
+            name,
+            uptime,
         ]
     }
 
@@ -22,22 +22,23 @@ public final class OperatingSystem: BasePollingSource, Source, Controllable, Man
     private let processInfo: ProcessInfo = .processInfo
 
     public override init() {
-        version = GenericValue(
+        version = GenericUnitlessValue(
             displayName: "Version",
             backingValue: processInfo.operatingSystemVersion,
             formattedValue: processInfo.operatingSystemVersionString
         )
-        name = GenericValue(displayName: "Name", backingValue: device.systemName)
+        name = GenericUnitlessValue(displayName: "Name", backingValue: device.systemName)
         uptime = GenericValue(displayName: "Uptime", backingValue: processInfo.systemUptime)
     }
 
-    public func updateValues() -> [AnyValue] {
+    public func updateValues() -> [Value] {
         uptime.update(backingValue: processInfo.systemUptime)
         return allValues
     }
 
     public func startUpdating() {
-        startUpdating(every: 1)
+        // TODO: Find a way to get this value every second, at the right time
+        startUpdating(every: 0.5)
     }
 
 }
