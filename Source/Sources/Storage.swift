@@ -4,7 +4,7 @@ public final class Storage: BasePollingSource, Source, ManuallyUpdatableValuesPr
 
     public static let availability: SourceAvailability = .available
 
-    public let displayName = "Storage"
+    public static let name = "Storage"
 
     public private(set) var capacity: GenericValue<Int64?, Byte>
 
@@ -12,27 +12,35 @@ public final class Storage: BasePollingSource, Source, ManuallyUpdatableValuesPr
 
     public private(set) var free: GenericValue<Int64?, Byte>
 
-    public var allValues: [AnyValue] {
-        return [
-            capacity.asAny(),
-            available.asAny(),
-            free.asAny(),
-        ]
+    public var allValues: [Value] {
+        return [capacity, available, free]
     }
 
     public override init() {
-        capacity = GenericValue(displayName: "Capacity", unit: Byte(countStyle: .file))
-        available = GenericValue(displayName: "Available", unit: Byte(countStyle: .file))
+        capacity = GenericValue(
+            displayName: "Capacity",
+            unit: Byte(countStyle: .file)
+        )
+        available = GenericValue(
+            displayName: "Available",
+            unit: Byte(countStyle: .file)
+        )
         free = GenericValue(displayName: "Free", unit: Byte(countStyle: .file))
     }
 
-    public func updateValues() -> [AnyValue] {
-        let paths = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)
+    public func updateValues() -> [Value] {
+        let paths = NSSearchPathForDirectoriesInDomains(
+            .documentDirectory,
+            .userDomainMask,
+            true
+        )
 
         guard let path = paths.first else { return allValues }
 
         do {
-            let dictionary = try FileManager.default.attributesOfFileSystem(forPath: path)
+            let dictionary = try FileManager.default.attributesOfFileSystem(
+                forPath: path
+            )
             let capacity = dictionary[FileAttributeKey.systemSize] as? NSNumber
             let free = dictionary[FileAttributeKey.systemFreeSize] as? NSNumber
 

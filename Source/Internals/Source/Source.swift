@@ -9,7 +9,7 @@ public protocol Source: class, ValuesProvider {
     static var availability: SourceAvailability { get }
 
     /// A user-friendly name that represents the source, e.g. "Location", "Device Attitude"
-    var displayName: String { get }
+    static var name: String { get }
 
     /// Creates a new instance of the source
     init()

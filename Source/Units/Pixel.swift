@@ -1,4 +1,3 @@
-
 /**
  A struct that represents a screen's pixels
  */
@@ -15,6 +14,6 @@ public struct Pixel: NumericUnit {
     /// the value does not equal 1
     public let pluralValueSuffix = " Pixels"
 
-    public init() {}
+    public init() { }
 
 }

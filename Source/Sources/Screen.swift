@@ -4,7 +4,7 @@ import UIKit
  A wrapper around `UIScreen`. Each property is read directly from `UIScreen`; every property is always the latest
  available value
  */
-public final class Screen: BaseSource, Controllable, ValuesProvider {
+public final class Screen: BaseSource, Source, Controllable, ValuesProvider {
 
     private enum State {
         case notMonitoring
@@ -34,7 +34,7 @@ public final class Screen: BaseSource, Controllable, ValuesProvider {
 
     public static var availability: SourceAvailability = .available
 
-    public static var displayName = "Screen"
+    public static var name = "Screen"
 
     /// A boolean indicating if the screen is monitoring for brightness changes
     public var isUpdating: Bool {
@@ -85,13 +85,13 @@ public final class Screen: BaseSource, Controllable, ValuesProvider {
      - Screen Resolution (native)
      - Brightness
      */
-    public var allValues: [AnyValue] {
+    public var allValues: [Value] {
         return [
-            reportedResolution.asAny(),
-            nativeResolution.asAny(),
-            reportedScale.asAny(),
-            nativeScale.asAny(),
-            brightness.asAny(),
+            reportedResolution,
+            nativeResolution,
+            reportedScale,
+            nativeScale,
+            brightness,
         ]
     }
 
@@ -171,7 +171,7 @@ public final class Screen: BaseSource, Controllable, ValuesProvider {
     public func stopUpdating() {
         guard case .monitoring(let brightnessChangeObeserver) = state else { return }
 
-        NotificationCenter.default.removeObserver(brightnessChangeObeserver)
+        NotificationCenter.default.removeObserver(brightnessChangeObeserver, name: UIScreen.brightnessDidChangeNotification, object: screen)
 
         state = .notMonitoring
     }

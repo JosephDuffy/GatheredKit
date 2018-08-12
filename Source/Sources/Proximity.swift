@@ -1,6 +1,6 @@
 import UIKit
 
-public final class Proximity: BaseSource, Controllable, ValuesProvider {
+public final class Proximity: BaseSource, Source, Controllable, ValuesProvider {
 
     /// A count of the total number of `Proximity` sources
     /// that are actively updating. This is used to not stop other `Proximity` sources
@@ -24,7 +24,7 @@ public final class Proximity: BaseSource, Controllable, ValuesProvider {
         return isAvailable ? .available : .unavailable
     }
 
-    public static var displayName = "Proximity"
+    public static var name = "Proximity"
 
     /// A boolean indicating if the screen is monitoring for brightness changes
     public var isUpdating: Bool {
@@ -38,9 +38,9 @@ public final class Proximity: BaseSource, Controllable, ValuesProvider {
 
     public private(set) var isNearUser: GenericValue<Bool?, Boolean>
 
-    public var allValues: [AnyValue] {
+    public var allValues: [Value] {
         return [
-            isNearUser.asAny(),
+            isNearUser,
         ]
     }
 
@@ -91,7 +91,7 @@ public final class Proximity: BaseSource, Controllable, ValuesProvider {
             device.isProximityMonitoringEnabled = false
         }
 
-        NotificationCenter.default.removeObserver(notificationObserver)
+        NotificationCenter.default.removeObserver(notificationObserver, name: UIDevice.proximityStateDidChangeNotification, object: device)
 
         state = .notMonitoring
     }

@@ -1,4 +1,3 @@
-
 /**
  A struct that represents a screen's resolution measured in points
  */
@@ -15,6 +14,6 @@ public struct Point: NumericUnit {
     /// the value does not equal 1
     public let pluralValueSuffix = " Points"
 
-    public init() {}
+    public init() { }
 
 }

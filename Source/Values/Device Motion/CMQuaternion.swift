@@ -1,15 +1,10 @@
 import Foundation
 import CoreMotion
 
-public struct QuaternionValue: Value, ValuesProvider {
+public struct QuaternionValue: TypedValue, ValuesProvider {
 
-    public var allValues: [AnyValue] {
-        return [
-            x.asAny(),
-            y.asAny(),
-            z.asAny(),
-            w.asAny(),
-        ]
+    public var allValues: [Value] {
+        return [x, y, z, w]
     }
 
     public var x: GenericValue<Double?, NumericNone> {
@@ -49,8 +44,6 @@ public struct QuaternionValue: Value, ValuesProvider {
     }
 
     public let displayName = "Quaterion"
-
-    public let unit = None()
 
     public let formattedValue: String? = nil
 

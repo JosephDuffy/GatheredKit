@@ -1,7 +1,7 @@
 import Foundation
 import CoreMotion
 
-public final class Magnetometer: BaseSource, CustomisableUpdateIntervalControllable, ValuesProvider {
+public final class Magnetometer: BaseSource, Source, CustomisableUpdateIntervalControllable, ValuesProvider {
 
     public static var defaultUpdateInterval: TimeInterval = 1
 
@@ -13,15 +13,14 @@ public final class Magnetometer: BaseSource, CustomisableUpdateIntervalControlla
         return CMMotionManager().isMagnetometerAvailable
     }
 
+    public static let name = "Magnetometer"
+
     public private(set) var magneticField: CalibratedMagneticFieldValue
 
     public private(set) var rawMagneticField: MagneticFieldValue
 
-    public var allValues: [AnyValue] {
-        return [
-            magneticField.asAny(),
-            rawMagneticField.asAny(),
-        ]
+    public var allValues: [Value] {
+        return [magneticField, rawMagneticField]
     }
 
     public private(set) var updateInterval: TimeInterval?
@@ -68,7 +67,10 @@ public final class Magnetometer: BaseSource, CustomisableUpdateIntervalControlla
                 date = Date()
             }
 
-            self.magneticField.update(backingValue: data?.magneticField, date: date)
+            self.magneticField.update(
+                backingValue: data?.magneticField,
+                date: date
+            )
             self.notifyListenersPropertyValuesUpdated()
         }
 
@@ -84,12 +86,21 @@ public final class Magnetometer: BaseSource, CustomisableUpdateIntervalControlla
                 date = Date()
             }
 
-            self.rawMagneticField.update(backingValue: data?.magneticField, date: date)
+            self.rawMagneticField.update(
+                backingValue: data?.magneticField,
+                date: date
+            )
             self.notifyListenersPropertyValuesUpdated()
         }
 
         let operationQueue = OperationQueue()
-        motionManager.startDeviceMotionUpdates(to: operationQueue, withHandler: calibratedHandler)
-        motionManager.startMagnetometerUpdates(to: operationQueue, withHandler: rawHandler)
+        motionManager.startDeviceMotionUpdates(
+            to: operationQueue,
+            withHandler: calibratedHandler
+        )
+        motionManager.startMagnetometerUpdates(
+            to: operationQueue,
+            withHandler: rawHandler
+        )
     }
 }
