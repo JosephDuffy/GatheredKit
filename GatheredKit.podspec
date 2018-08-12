@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name         = "GatheredKit"
-  s.version      = "0.0.1"
+  s.version      = "0.0.2"
   s.summary      = "A consistent and easy to use API for various iOS data sources"
 
   s.description  = <<-DESC
