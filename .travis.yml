@@ -15,7 +15,7 @@ install:
   - bundle exec fastlane install_dependencies
 
 script:
-  - if [ "$TRAVIS_PULL_REQUEST" != "false" ]; then git rebase develop && bundle exec fastlane perform_pr_checks; fi
+  - if [ "$TRAVIS_PULL_REQUEST" != "false" ]; then bundle exec fastlane perform_pr_checks; fi
   - if [ "$TRAVIS_PULL_REQUEST" = "false" ]; then bundle exec fastlane test; fi
 
 before_deploy:
@@ -25,7 +25,7 @@ before_deploy:
 deploy:
   - provider: releases
     api_key:
-      secure: HMmhfZgKZ2EFep7UF9f5kjokoeaK8GF4DN67KqFBLXPft7AVK6/DfYxRCiv7zJz4U/yJAbkoJBs7XXMX9yPiwDyLXeJAT3+5RAXNJNJM+4oKCrJfkHwmrtI7pKvyprPQivjGK/8Weuvl4/B6hPUwIol22kY4GOGZYdJ/XcB50rpaOjRvObg3CeIwOzMNF+gkBsS2IbOB4TxgDR/Id2EKFfKOIFFve286xVtaM1hyveqRFVonyDw6M4LUCoe9oW2fmDBAc+pA5vTHBoz8NW9f9rtDafBJg6TPmgLFB6j0iPQLtxfWAeqzhnRLGqQeBegxAG8TIsPhzGcVRsnHGQ3ZcaNfChZ3TOft4MyZPZir2EHl/piFRiCZnNWfamRjDxRB8meEt+CL4tiYLLNlfMSPBRFe4l2KhXpsTBupzCmVgX+goIF5Jkgvw4FF22I85JE5PxvB0t5N9AnviEgZOusgtSsHUneBojniDzETpIPaebS0fQmXASKPDfR1l49SJq4htwbr99eO6KGAS35Kgwmm/rZkGVCfjVzTnM7o/TRgYjNbmemHbJ7LzbxHUbuz7KvW/TDL+jW2hRSkjDvD3qLoALKN8ZvR+0HzokNBoRe5rcQHHNAkQfv0u+XiFQROGJehaoJL1/RJW73XW6hU6mqNpBdQc/OD8cyWTGo2imq9ZQc=
+      secure: bIwZ3lrjk+w8TDdYy93bntSx9vC2KQa11L70w8K9KTraOF7cpR7vge8zvV3ppsznpQfv10T2QplVN0nVQ/SWfbfl5Z0bErM+iLULfL9bc3wnlVMqL4BK4WAUVdC8lWpD/A+3o72/CkH59vvTvTk15OPz76Uw0Js+wLTfGUFXI/lfsfo/x94i6t4Ms571c4YacEMLhKuGs9/cjuhSB3dXX3RqYgGmuysLXpP1kzFs94aY1/EZtNDw+ieM4lYCgMKV7jad0RRBkJthlvwnawNFbo+0fcrVrByDIH9hZ9iSbNKnYYuijCp2VWsl3o1miG8ch+HlyI6eyIQUI52wO5h+1DOyjU6p+3IK21e84omeBLlrhxAGoRbw9cp8EbC4+dYgCuSXhqEKPECXMytuj2TOIWz7rZXRd5U0GbI4S9aRruqB6tx+yByGpC9YFfDlytNGyhDQllZOjyioppP5bHM4AoABGIuwTCwC9x1viDg9XtpO/zG1/mKjUhGXXZnI7gWn/PjDgW53exNZ1IXhGRCAMxKcUqVjksA1HxVDi89yjtZqSORBijjGwUvHLysXRhabSSqAb9bkOLM2MFNekp1nJVDEOmoYWC7sJD7SjaabxvmwGruA9K7pRSSg5ovVW+aaHZpa1JmCGLd/TcHEpFiWqWRTyz/EIGMHylnb7hkQD0M=
     file: GatheredKit.framework.zip
     skip_cleanup: true
     on:
