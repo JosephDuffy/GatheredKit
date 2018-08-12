@@ -18,7 +18,7 @@ open class BaseSource: NSObject {
         return observer
     }
 
-    public final func notifyUpdateListeners(latestPropertyValues: [AnyValue]) {
+    public final func notifyUpdateListeners(latestPropertyValues: [Value]) {
         updateListeners.allObjects.forEach { wrapper in
             wrapper.queue.async {
                 wrapper.updateListener(latestPropertyValues)

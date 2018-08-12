@@ -1,23 +1,23 @@
 import UIKit
 
-public final class DeviceMetadata: BaseSource, Controllable, ManuallyUpdatableValuesProvider {
+public final class DeviceMetadata: BaseSource, Source, Controllable, ManuallyUpdatableValuesProvider {
 
     public struct Model: ValuesProvider {
 
-        public let allValues: [AnyValue]
+        public let allValues: [Value]
 
         /// e.g. 'iPhone', 'Watch'
-        public let platform: GenericValue<String?, None>
+        public let platform: GenericUnitlessValue<String?>
 
         /// The "iPhoneY,X" style identifier
-        public let identifier: GenericValue<String, None>
+        public let identifier: GenericUnitlessValue<String>
 
         public init(platform: String, identifier: String) {
-            self.platform = GenericValue(displayName: "Platform", backingValue: platform)
-            self.identifier = GenericValue(displayName: "Identifier", backingValue: identifier)
+            self.platform = GenericUnitlessValue(displayName: "Platform", backingValue: platform)
+            self.identifier = GenericUnitlessValue(displayName: "Identifier", backingValue: identifier)
             allValues = [
-                self.platform.asAny(),
-                self.identifier.asAny(),
+                self.platform,
+                self.identifier,
             ]
         }
 
@@ -42,7 +42,7 @@ public final class DeviceMetadata: BaseSource, Controllable, ManuallyUpdatableVa
 
     public static var availability: SourceAvailability = .available
 
-    public static var displayName = "Device Metadata"
+    public static var name = "Device Metadata"
 
     /// A boolean indicating if the screen is monitoring for brightness changes
     public var isUpdating: Bool {
@@ -54,14 +54,14 @@ public final class DeviceMetadata: BaseSource, Controllable, ManuallyUpdatableVa
         }
     }
 
-    public var name: GenericValue<String, None>
-    public var model: GenericValue<Model?, None>
-    public var systemUptime: GenericValue<TimeInterval, None>
+    public var name: GenericUnitlessValue<String>
+    public var model: GenericUnitlessValue<Model?>
+    public var systemUptime: GenericUnitlessValue<TimeInterval>
 
-    public var allValues: [AnyValue] {
+    public var allValues: [Value] {
         return [
-            name.asAny(),
-            model.asAny(),
+            name,
+            model,
         ]
     }
 
@@ -70,9 +70,9 @@ public final class DeviceMetadata: BaseSource, Controllable, ManuallyUpdatableVa
     private var state: State = .notMonitoring
 
     public override init() {
-        name = GenericValue(displayName: "Name", backingValue: device.name)
-        model = GenericValue(displayName: "Model")
-        systemUptime = GenericValue(displayName: "System Uptime", backingValue: ProcessInfo.processInfo.systemUptime)
+        name = GenericUnitlessValue(displayName: "Name", backingValue: device.name)
+        model = GenericUnitlessValue(displayName: "Model")
+        systemUptime = GenericUnitlessValue(displayName: "System Uptime", backingValue: ProcessInfo.processInfo.systemUptime)
     }
 
     deinit {
@@ -104,7 +104,7 @@ public final class DeviceMetadata: BaseSource, Controllable, ManuallyUpdatableVa
     }
 
     @discardableResult
-    public func updateValues() -> [AnyValue] {
+    public func updateValues() -> [Value] {
         defer {
             notifyListenersPropertyValuesUpdated()
         }

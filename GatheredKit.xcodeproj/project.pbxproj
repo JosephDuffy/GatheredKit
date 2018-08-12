@@ -30,8 +30,6 @@
 		D930631A20D58AC6007A0CBD /* CMQuaternion.swift in Sources */ = {isa = PBXBuildFile; fileRef = D930631920D58AC6007A0CBD /* CMQuaternion.swift */; };
 		D930631C20D58E6E007A0CBD /* RotationMatrixValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = D930631B20D58E6E007A0CBD /* RotationMatrixValue.swift */; };
 		D930631E20D5BDA7007A0CBD /* Compass.swift in Sources */ = {isa = PBXBuildFile; fileRef = D930631D20D5BDA7007A0CBD /* Compass.swift */; };
-		D93D7A4320C728CE007C16D0 /* AnyUnit.swift in Sources */ = {isa = PBXBuildFile; fileRef = D93D7A4220C728CE007C16D0 /* AnyUnit.swift */; };
-		D93D7A4520C72D6A007C16D0 /* None.swift in Sources */ = {isa = PBXBuildFile; fileRef = D93D7A4420C72D6A007C16D0 /* None.swift */; };
 		D950047420C85B590046AB47 /* AccelerationValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = D950047320C85B590046AB47 /* AccelerationValue.swift */; };
 		D959ECC720D713C5000184E2 /* GeomagnetismValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = D959ECC620D713C5000184E2 /* GeomagnetismValue.swift */; };
 		D96A18E920C741E100CAE44F /* DeviceAttitude.swift in Sources */ = {isa = PBXBuildFile; fileRef = D96A18E320C741E100CAE44F /* DeviceAttitude.swift */; };
@@ -48,7 +46,6 @@
 		D9B84DE020CC83D900380C42 /* Gyroscope.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9B84DDF20CC83D900380C42 /* Gyroscope.swift */; };
 		D9B84DE220CF0FB800380C42 /* Magnetometer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9B84DE120CF0FB800380C42 /* Magnetometer.swift */; };
 		D9B84DE420CF14F000380C42 /* Accelerometer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9B84DE320CF14F000380C42 /* Accelerometer.swift */; };
-		D9CDB99320AE3C4A00316739 /* AnyValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9CDB99220AE3C4A00316739 /* AnyValue.swift */; };
 		D9CDB99520AE3D2900316739 /* Value.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9CDB99420AE3D2900316739 /* Value.swift */; };
 		D9D7529E20B4BE0600B16A06 /* SourceAvailability.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9D7529D20B4BE0600B16A06 /* SourceAvailability.swift */; };
 		D9EF058B20ACC59300D3F194 /* GatheredKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D9EF058120ACC59300D3F194 /* GatheredKit.framework */; };
@@ -82,6 +79,7 @@
 		D9EF05F720AE2FEA00D3F194 /* Nimble.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D9EF05F120AE2FE100D3F194 /* Nimble.framework */; };
 		D9EF05F820AE2FEA00D3F194 /* Quick.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D9EF05F220AE2FE100D3F194 /* Quick.framework */; };
 		D9F6B05520F8F4A700831338 /* Source.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9F6B05420F8F4A700831338 /* Source.swift */; };
+		D9F94D6A210CE63500493C1B /* GenericUnitlessValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9F94D69210CE63500493C1B /* GenericUnitlessValue.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -133,8 +131,6 @@
 		D930631920D58AC6007A0CBD /* CMQuaternion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CMQuaternion.swift; sourceTree = "<group>"; };
 		D930631B20D58E6E007A0CBD /* RotationMatrixValue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RotationMatrixValue.swift; sourceTree = "<group>"; };
 		D930631D20D5BDA7007A0CBD /* Compass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Compass.swift; sourceTree = "<group>"; };
-		D93D7A4220C728CE007C16D0 /* AnyUnit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnyUnit.swift; sourceTree = "<group>"; };
-		D93D7A4420C72D6A007C16D0 /* None.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = None.swift; sourceTree = "<group>"; };
 		D950047320C85B590046AB47 /* AccelerationValue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccelerationValue.swift; sourceTree = "<group>"; };
 		D959ECC620D713C5000184E2 /* GeomagnetismValue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeomagnetismValue.swift; sourceTree = "<group>"; };
 		D96A18E320C741E100CAE44F /* DeviceAttitude.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeviceAttitude.swift; sourceTree = "<group>"; };
@@ -151,7 +147,6 @@
 		D9B84DDF20CC83D900380C42 /* Gyroscope.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Gyroscope.swift; sourceTree = "<group>"; };
 		D9B84DE120CF0FB800380C42 /* Magnetometer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Magnetometer.swift; sourceTree = "<group>"; };
 		D9B84DE320CF14F000380C42 /* Accelerometer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Accelerometer.swift; sourceTree = "<group>"; };
-		D9CDB99220AE3C4A00316739 /* AnyValue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnyValue.swift; sourceTree = "<group>"; };
 		D9CDB99420AE3D2900316739 /* Value.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Value.swift; sourceTree = "<group>"; };
 		D9D7529D20B4BE0600B16A06 /* SourceAvailability.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SourceAvailability.swift; sourceTree = "<group>"; };
 		D9EF058120ACC59300D3F194 /* GatheredKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = GatheredKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -188,6 +183,7 @@
 		D9EF05F120AE2FE100D3F194 /* Nimble.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Nimble.framework; path = Carthage/Build/iOS/Nimble.framework; sourceTree = SOURCE_ROOT; };
 		D9EF05F220AE2FE100D3F194 /* Quick.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Quick.framework; path = Carthage/Build/iOS/Quick.framework; sourceTree = SOURCE_ROOT; };
 		D9F6B05420F8F4A700831338 /* Source.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Source.swift; sourceTree = "<group>"; };
+		D9F94D69210CE63500493C1B /* GenericUnitlessValue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenericUnitlessValue.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -212,13 +208,51 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		D910EE9220FEA058007F495B /* Actions */ = {
+		D904B506210CDC350062C965 /* Internals */ = {
+			isa = PBXGroup;
+			children = (
+				D910EE9220FEA058007F495B /* Action */,
+				D904B507210CDC480062C965 /* Source */,
+				D9F94D68210CDCA700493C1B /* Unit */,
+				D904B508210CDC6C0062C965 /* Value */,
+				D9EF05A720ACCEDE00D3F194 /* Extensions */,
+			);
+			path = Internals;
+			sourceTree = "<group>";
+		};
+		D904B507210CDC480062C965 /* Source */ = {
+			isa = PBXGroup;
+			children = (
+				D9F6B05420F8F4A700831338 /* Source.swift */,
+				D9EF059D20ACC63700D3F194 /* Controllable.swift */,
+				D9D7529D20B4BE0600B16A06 /* SourceAvailability.swift */,
+				D9EF05AC20ACCF7000D3F194 /* CustomisableUpdateIntervalControllable.swift */,
+				D9EF05AE20ACCF8B00D3F194 /* ManuallyUpdatableValuesProvider.swift */,
+				D9EF05D020ACD6B900D3F194 /* BaseSource.swift */,
+				D999586A21010F3B00C577AC /* BasePollingSource.swift */,
+				D9EF05D420ACD95400D3F194 /* SourceUpdateListenerWrapper.swift */,
+			);
+			path = Source;
+			sourceTree = "<group>";
+		};
+		D904B508210CDC6C0062C965 /* Value */ = {
+			isa = PBXGroup;
+			children = (
+				D9CDB99420AE3D2900316739 /* Value.swift */,
+				D9EF059F20ACC77D00D3F194 /* GenericValue.swift */,
+				D9F94D69210CE63500493C1B /* GenericUnitlessValue.swift */,
+				D9168F4D20C8851E00100EEE /* ValuesProvider.swift */,
+			);
+			path = Value;
+			sourceTree = "<group>";
+		};
+		D910EE9220FEA058007F495B /* Action */ = {
 			isa = PBXGroup;
 			children = (
 				D910EE9320FEA064007F495B /* Action.swift */,
 				D910EE9520FEA070007F495B /* ActionProvider.swift */,
 			);
-			path = Actions;
+			path = Action;
 			sourceTree = "<group>";
 		};
 		D930631220D58A26007A0CBD /* Device Motion */ = {
@@ -237,10 +271,6 @@
 		D950047220C85ADB0046AB47 /* Values */ = {
 			isa = PBXGroup;
 			children = (
-				D9CDB99420AE3D2900316739 /* Value.swift */,
-				D9CDB99220AE3C4A00316739 /* AnyValue.swift */,
-				D9EF059F20ACC77D00D3F194 /* GenericValue.swift */,
-				D9168F4D20C8851E00100EEE /* ValuesProvider.swift */,
 				D930631220D58A26007A0CBD /* Device Motion */,
 				D959ECC620D713C5000184E2 /* GeomagnetismValue.swift */,
 				D999587421035F0000C577AC /* CoordinateValue.swift */,
@@ -282,11 +312,10 @@
 		D9EF058320ACC59300D3F194 /* Source */ = {
 			isa = PBXGroup;
 			children = (
-				D910EE9220FEA058007F495B /* Actions */,
+				D904B506210CDC350062C965 /* Internals */,
 				D9EF05A620ACCEB800D3F194 /* Sources */,
-				D950047220C85ADB0046AB47 /* Values */,
 				D9EF05A320ACCDE100D3F194 /* Units */,
-				D9EF05A720ACCEDE00D3F194 /* Extensions */,
+				D950047220C85ADB0046AB47 /* Values */,
 				D9EF058420ACC59300D3F194 /* GatheredKit.h */,
 				D9EF058520ACC59300D3F194 /* Info.plist */,
 			);
@@ -306,11 +335,6 @@
 		D9EF05A320ACCDE100D3F194 /* Units */ = {
 			isa = PBXGroup;
 			children = (
-				D9EF05A420ACCE3800D3F194 /* Unit.swift */,
-				D910EE8E20FB9520007F495B /* ZeroConfigurationUnit.swift */,
-				D9EF05B020ACD02100D3F194 /* NumericUnit.swift */,
-				D93D7A4220C728CE007C16D0 /* AnyUnit.swift */,
-				D9EF05B220ACD04F00D3F194 /* UnitError.swift */,
 				D9EF05B420ACD20700D3F194 /* BeatsPerMinute.swift */,
 				D9EF05B620ACD22100D3F194 /* Byte.swift */,
 				D9EF05B820ACD23400D3F194 /* Boolean.swift */,
@@ -320,7 +344,6 @@
 				D9EF05C020ACD27400D3F194 /* Microtesla.swift */,
 				D9EF05C220ACD2D400D3F194 /* Meter.swift */,
 				D99958762103626C00C577AC /* MetersPerSecond.swift */,
-				D93D7A4420C72D6A007C16D0 /* None.swift */,
 				D991E1F320CF2D45009C849F /* NumericNone.swift */,
 				D9EF05C620ACD2F200D3F194 /* Percent.swift */,
 				D9EF05C420ACD2E300D3F194 /* Pixel.swift */,
@@ -334,14 +357,6 @@
 		D9EF05A620ACCEB800D3F194 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
-				D9F6B05420F8F4A700831338 /* Source.swift */,
-				D9EF059D20ACC63700D3F194 /* Controllable.swift */,
-				D9D7529D20B4BE0600B16A06 /* SourceAvailability.swift */,
-				D9EF05AC20ACCF7000D3F194 /* CustomisableUpdateIntervalControllable.swift */,
-				D9EF05AE20ACCF8B00D3F194 /* ManuallyUpdatableValuesProvider.swift */,
-				D9EF05D020ACD6B900D3F194 /* BaseSource.swift */,
-				D999586A21010F3B00C577AC /* BasePollingSource.swift */,
-				D9EF05D420ACD95400D3F194 /* SourceUpdateListenerWrapper.swift */,
 				D96A18DF20C741D000CAE44F /* Device Motion */,
 				D930631020D54E0A007A0CBD /* Location.swift */,
 				D930631D20D5BDA7007A0CBD /* Compass.swift */,
@@ -406,6 +421,17 @@
 				D9EF05F220AE2FE100D3F194 /* Quick.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		D9F94D68210CDCA700493C1B /* Unit */ = {
+			isa = PBXGroup;
+			children = (
+				D9EF05A420ACCE3800D3F194 /* Unit.swift */,
+				D910EE8E20FB9520007F495B /* ZeroConfigurationUnit.swift */,
+				D9EF05B020ACD02100D3F194 /* NumericUnit.swift */,
+				D9EF05B220ACD04F00D3F194 /* UnitError.swift */,
+			);
+			path = Unit;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -527,19 +553,16 @@
 				D9EF05BB20ACD24A00D3F194 /* Decibel.swift in Sources */,
 				D930631620D58A54007A0CBD /* CalibratedMagneticFieldValue.swift in Sources */,
 				D930631120D54E0A007A0CBD /* Location.swift in Sources */,
-				D93D7A4520C72D6A007C16D0 /* None.swift in Sources */,
 				D99958712103403A00C577AC /* Storage.swift in Sources */,
 				D9CDB99520AE3D2900316739 /* Value.swift in Sources */,
 				D9B84DE020CC83D900380C42 /* Gyroscope.swift in Sources */,
 				D9EF05A020ACC77D00D3F194 /* GenericValue.swift in Sources */,
-				D9CDB99320AE3C4A00316739 /* AnyValue.swift in Sources */,
 				D9287340210CCB5800F63A18 /* CPU.swift in Sources */,
 				D9EF05AF20ACCF8B00D3F194 /* ManuallyUpdatableValuesProvider.swift in Sources */,
 				D9EF05C520ACD2E300D3F194 /* Pixel.swift in Sources */,
 				D9995873210344C600C577AC /* Bluetooth.swift in Sources */,
 				D9EF05BD20ACD25800D3F194 /* Degree.swift in Sources */,
 				D9B84DE420CF14F000380C42 /* Accelerometer.swift in Sources */,
-				D93D7A4320C728CE007C16D0 /* AnyUnit.swift in Sources */,
 				D928465A20C499790058245F /* Scale.swift in Sources */,
 				D9B84DE220CF0FB800380C42 /* Magnetometer.swift in Sources */,
 				D930631A20D58AC6007A0CBD /* CMQuaternion.swift in Sources */,
@@ -578,6 +601,7 @@
 				D999586D2101166B00C577AC /* Advertising.swift in Sources */,
 				D928733C210CB58E00F63A18 /* Time.swift in Sources */,
 				D99958772103626D00C577AC /* MetersPerSecond.swift in Sources */,
+				D9F94D6A210CE63500493C1B /* GenericUnitlessValue.swift in Sources */,
 				D928733A210CB13B00F63A18 /* OperatingSystem.swift in Sources */,
 				D910EE9620FEA070007F495B /* ActionProvider.swift in Sources */,
 				D9168F4E20C8851E00100EEE /* ValuesProvider.swift in Sources */,

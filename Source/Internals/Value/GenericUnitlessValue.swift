@@ -1,21 +1,18 @@
 import Foundation
 
-public struct GenericValue<ValueType, UnitType: Unit>: Value {
+public struct GenericUnitlessValue<ValueType>: TypedValue {
 
-    public typealias UpdateListener = (_ sourceProperty: GenericValue<ValueType, UnitType>) -> Void
+    public typealias UpdateListener = (_ sourceProperty: GenericUnitlessValue<ValueType>) -> Void
 
     /// A user-friendly name that represents the value, e.g. "Latitude", "Longitude"
     public let displayName: String
 
-    /// The value powering this `GenericValue`
+    /// The value backing this `GenericUnitlessValue`
     public let backingValue: ValueType
 
     /// A human-friendly formatted value
     /// Note that this may differ from the result of `unit.formattedString(for:)`
     public let formattedValue: String?
-
-    /// The unit the value is measured in
-    public let unit: UnitType
 
     /// The date that the value was created
     /// If a system-provided date is available it is used
@@ -25,13 +22,11 @@ public struct GenericValue<ValueType, UnitType: Unit>: Value {
         displayName: String,
         backingValue: ValueType,
         formattedValue: String? = nil,
-        unit: UnitType,
         date: Date = Date()
     ) {
         self.displayName = displayName
         self.backingValue = backingValue
         self.formattedValue = formattedValue
-        self.unit = unit
         self.date = date
     }
 
@@ -39,13 +34,11 @@ public struct GenericValue<ValueType, UnitType: Unit>: Value {
         displayName: String,
         backingValue: WrappedValueType? = nil,
         formattedValue: String? = nil,
-        unit: UnitType,
         date: Date = Date()
     ) where ValueType == WrappedValueType? {
         self.displayName = displayName
         self.backingValue = backingValue
         self.formattedValue = formattedValue
-        self.unit = unit
         self.date = date
     }
 
@@ -56,47 +49,28 @@ public struct GenericValue<ValueType, UnitType: Unit>: Value {
      - parameter date: The date and time the `value` was recorded. Defaults to the current date and time
      */
     public mutating func update(backingValue: ValueType, formattedValue: String? = nil, date: Date = Date()) {
-        self = GenericValue(displayName: displayName, backingValue: backingValue, formattedValue: formattedValue, unit: unit, date: date)
+        self = GenericUnitlessValue(
+            displayName: displayName,
+            backingValue: backingValue,
+            formattedValue: formattedValue,
+            date: date
+        )
     }
 
 }
 
-extension GenericValue where UnitType: ZeroConfigurationUnit {
+extension GenericUnitlessValue: Equatable where ValueType: Equatable {
 
-    internal init(
-        displayName: String,
-        backingValue: ValueType,
-        formattedValue: String? = nil,
-        unit: UnitType = UnitType(),
-        date: Date = Date()
-    ) {
-        self.displayName = displayName
-        self.backingValue = backingValue
-        self.formattedValue = formattedValue
-        self.unit = unit
-        self.date = date
-    }
-
-    internal init<WrappedValueType>(
-        displayName: String,
-        backingValue: WrappedValueType? = nil,
-        formattedValue: String? = nil,
-        unit: UnitType = UnitType(),
-        date: Date = Date()
-    ) where ValueType == WrappedValueType? {
-        self.displayName = displayName
-        self.backingValue = backingValue
-        self.formattedValue = formattedValue
-        self.unit = unit
-        self.date = date
-    }
-
-}
-
-extension GenericValue: Equatable where ValueType: Equatable {
-
-    public static func == (lhs: GenericValue<ValueType, UnitType>, rhs: GenericValue<ValueType, UnitType>) -> Bool {
+    public static func == (lhs: GenericUnitlessValue<ValueType>, rhs: GenericUnitlessValue<ValueType>) -> Bool {
         return lhs.backingValue == rhs.backingValue
+    }
+
+}
+
+extension GenericUnitlessValue: ValuesProvider where ValueType: ValuesProvider {
+
+    public var allValues: [Value] {
+        return backingValue.allValues
     }
 
 }

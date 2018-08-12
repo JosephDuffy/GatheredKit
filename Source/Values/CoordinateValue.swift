@@ -1,12 +1,12 @@
 import Foundation
 import CoreLocation
 
-public struct CoordinateValue: Value, ValuesProvider {
+public struct CoordinateValue: TypedValue, ValuesProvider {
 
-    public var allValues: [AnyValue] {
+    public var allValues: [Value] {
         return [
-            latitude.asAny(),
-            longitude.asAny(),
+            latitude,
+            longitude,
         ]
     }
 
@@ -15,8 +15,6 @@ public struct CoordinateValue: Value, ValuesProvider {
     public let longitude: GenericValue<CLLocationDegrees?, NumericNone>
 
     public let displayName = "Coordinate"
-
-    public let unit = None()
 
     public let formattedValue: String? = nil
 

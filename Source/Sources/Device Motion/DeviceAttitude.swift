@@ -1,7 +1,7 @@
 import Foundation
 import CoreMotion
 
-public final class DeviceAttitude: BaseSource, CustomisableUpdateIntervalControllable, ValuesProvider {
+public final class DeviceAttitude: BaseSource, Source, CustomisableUpdateIntervalControllable, ValuesProvider {
 
     public static var defaultUpdateInterval: TimeInterval = 1
 
@@ -12,6 +12,8 @@ public final class DeviceAttitude: BaseSource, CustomisableUpdateIntervalControl
     public static var isAvailable: Bool {
         return CMMotionManager().isDeviceMotionAvailable
     }
+
+    public static let name = "Device Attitude"
 
     private var latestData: CMDeviceMotion?
 
@@ -45,9 +47,9 @@ public final class DeviceAttitude: BaseSource, CustomisableUpdateIntervalControl
     public var quaternion: QuaternionValue
 
     @available(iOS 11.0, *)
-    public var heading: GenericValue<Double?, None> {
+    public var heading: GenericUnitlessValue<Double?> {
         let formattedValue = (latestData?.heading ?? 0) < 0 ? "Unknown" : nil
-        return GenericValue(
+        return GenericUnitlessValue(
             displayName: "Heading",
             backingValue: latestData?.heading,
             formattedValue: formattedValue,
@@ -57,23 +59,23 @@ public final class DeviceAttitude: BaseSource, CustomisableUpdateIntervalControl
 
     public var rotationMatrix: RotationMatrixValue
 
-    public var allValues: [AnyValue] {
+    public var allValues: [Value] {
         if #available(iOS 11.0, *) {
             return [
-                roll.asAny(),
-                pitch.asAny(),
-                yaw.asAny(),
-                heading.asAny(),
-                quaternion.asAny(),
-                rotationMatrix.asAny(),
+                roll,
+                pitch,
+                yaw,
+                heading,
+                quaternion,
+                rotationMatrix,
             ]
         } else {
             return [
-                roll.asAny(),
-                pitch.asAny(),
-                yaw.asAny(),
-                quaternion.asAny(),
-                rotationMatrix.asAny(),
+                roll,
+                pitch,
+                yaw,
+                quaternion,
+                rotationMatrix,
             ]
         }
     }
