@@ -1,4 +1,3 @@
-
 /**
  A struct that represents a percentage
  */

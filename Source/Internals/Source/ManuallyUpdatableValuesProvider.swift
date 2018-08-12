@@ -1,4 +1,3 @@
-
 /**
  A source that supports its properties being updated at any given time
  */

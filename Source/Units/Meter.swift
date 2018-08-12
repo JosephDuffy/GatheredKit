@@ -1,4 +1,3 @@
-
 /**
  A struct that represents meters
  */
@@ -15,6 +14,6 @@ public struct Meter: NumericUnit {
     /// the value does not equal 1
     public let pluralValueSuffix = " Meters"
 
-    public init() {}
+    public init() { }
 
 }

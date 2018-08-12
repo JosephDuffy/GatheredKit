@@ -1,4 +1,3 @@
-
 public protocol Value {
 
     /// A user-friendly name that represents the value, e.g. "Latitude", "Longitude"

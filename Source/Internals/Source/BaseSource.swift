@@ -12,17 +12,21 @@ open class BaseSource: NSObject {
         super.init()
     }
 
-    open func addUpdateListener(_ updateListener: @escaping Controllable.UpdateListener, queue: DispatchQueue) -> AnyObject {
-        let observer = SourceUpdateListenerWrapper(updateListener: updateListener, queue: queue)
+    open func addUpdateListener(
+        _ updateListener: @escaping Controllable.UpdateListener,
+        queue: DispatchQueue
+    ) -> AnyObject {
+        let observer = SourceUpdateListenerWrapper(
+            updateListener: updateListener,
+            queue: queue
+        )
         updateListeners.add(observer)
         return observer
     }
 
     public final func notifyUpdateListeners(latestPropertyValues: [Value]) {
         updateListeners.allObjects.forEach { wrapper in
-            wrapper.queue.async {
-                wrapper.updateListener(latestPropertyValues)
-            }
+            wrapper.queue.async { wrapper.updateListener(latestPropertyValues) }
         }
     }
 

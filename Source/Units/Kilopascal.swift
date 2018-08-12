@@ -1,4 +1,3 @@
-
 /**
  A struct that represents kilopascals
  */
@@ -15,6 +14,6 @@ public struct Kilopascal: NumericUnit {
     /// the value does not equal 1
     public let pluralValueSuffix = " kPa"
 
-    public init() {}
+    public init() { }
 
 }

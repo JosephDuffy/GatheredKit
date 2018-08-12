@@ -48,7 +48,11 @@ public struct GenericUnitlessValue<ValueType>: TypedValue {
      - parameter formattedValue: The new human-friendly formatted value. Defaults to `nil`
      - parameter date: The date and time the `value` was recorded. Defaults to the current date and time
      */
-    public mutating func update(backingValue: ValueType, formattedValue: String? = nil, date: Date = Date()) {
+    public mutating func update(
+        backingValue: ValueType,
+        formattedValue: String? = nil,
+        date: Date = Date()
+    ) {
         self = GenericUnitlessValue(
             displayName: displayName,
             backingValue: backingValue,
@@ -61,7 +65,10 @@ public struct GenericUnitlessValue<ValueType>: TypedValue {
 
 extension GenericUnitlessValue: Equatable where ValueType: Equatable {
 
-    public static func == (lhs: GenericUnitlessValue<ValueType>, rhs: GenericUnitlessValue<ValueType>) -> Bool {
+    public static func == (
+        lhs: GenericUnitlessValue<ValueType>,
+        rhs: GenericUnitlessValue<ValueType>
+    ) -> Bool {
         return lhs.backingValue == rhs.backingValue
     }
 
