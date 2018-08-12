@@ -1,8 +1,7 @@
-
 /**
  A struct that represents computer bytes
  */
-public struct Byte: Unit {
+public struct Byte: TypedUnit {
 
     /// How the bytes should be styled
     public let countStyle: ByteCountFormatter.CountStyle
@@ -23,7 +22,10 @@ public struct Byte: Unit {
      - returns: The formatted string
      */
     public func formattedString(for value: Int64) -> String {
-        return ByteCountFormatter.string(fromByteCount: value, countStyle: countStyle)
+        return ByteCountFormatter.string(
+            fromByteCount: value,
+            countStyle: countStyle
+        )
     }
 
 }

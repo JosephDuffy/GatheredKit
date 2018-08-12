@@ -16,7 +16,7 @@ public final class Bluetooth: BaseSource, Source, Controllable {
 
         case on = "On"
 
-        init(manager: CBCentralManager) {
+        fileprivate init(manager: CBCentralManager) {
             switch manager.state {
             case .unknown: self = .unknown
             case .resetting: self = .resetting
@@ -34,17 +34,17 @@ public final class Bluetooth: BaseSource, Source, Controllable {
         return manager.state != .unsupported ? .available : .unavailable
     }
 
-    public let displayName = "Bluetooth"
+    public static let name = "Bluetooth"
 
     public var isUpdating: Bool {
         return manager.delegate != nil
     }
 
-    public private(set) var status: GenericValue<Status, None>
+    public private(set) var status: GenericUnitlessValue<Status>
 
-    public var allValues: [AnyValue] {
+    public var allValues: [Value] {
         return [
-            status.asAny(),
+            status,
         ]
     }
 
@@ -55,7 +55,7 @@ public final class Bluetooth: BaseSource, Source, Controllable {
         manager = CBCentralManager(delegate: nil, queue: queue, options: [CBCentralManagerOptionShowPowerAlertKey: false])
 
         let status = Status(manager: manager)
-        self.status = GenericValue(displayName: "Status", backingValue: status, formattedValue: status.rawValue)
+        self.status = GenericUnitlessValue(displayName: "Status", backingValue: status, formattedValue: status.rawValue)
     }
 
     public func startUpdating() {
@@ -75,4 +75,3 @@ extension Bluetooth: CBCentralManagerDelegate {
         notifyListenersPropertyValuesUpdated()
     }
 }
-

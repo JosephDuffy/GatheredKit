@@ -1,7 +1,7 @@
 import Foundation
 import CoreLocation
 
-public final class Compass: BaseSource, Controllable, ValuesProvider {
+public final class Compass: BaseSource, Source, Controllable, ValuesProvider {
 
     private enum State {
         case notMonitoring
@@ -12,7 +12,7 @@ public final class Compass: BaseSource, Controllable, ValuesProvider {
         return CLLocationManager.headingAvailable() ? .available : .unavailable
     }
 
-    public static var displayName = "Heading"
+    public static var name = "Heading"
 
     public var rawGeomagnetism = GeomagnetismValue()
 
@@ -21,9 +21,9 @@ public final class Compass: BaseSource, Controllable, ValuesProvider {
      device, in the following order:
      -
      */
-    public var allValues: [AnyValue] {
+    public var allValues: [Value] {
         return [
-            rawGeomagnetism.asAny()
+            rawGeomagnetism,
         ]
     }
 

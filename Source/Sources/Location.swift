@@ -1,7 +1,7 @@
 import Foundation
 import CoreLocation
 
-public final class Location: BaseSource, Controllable, ValuesProvider {
+public final class Location: BaseSource, Source, Controllable, ValuesProvider {
 
     private enum State {
         case notMonitoring
@@ -17,7 +17,7 @@ public final class Location: BaseSource, Controllable, ValuesProvider {
         case kilometer
         case threeKilometers
 
-        var asCLLocationAccuracy: CLLocationAccuracy {
+        fileprivate var asCLLocationAccuracy: CLLocationAccuracy {
             switch self {
             case .bestForNavigation:
                 return kCLLocationAccuracyBestForNavigation
@@ -34,7 +34,7 @@ public final class Location: BaseSource, Controllable, ValuesProvider {
             }
         }
 
-        init?(accuracy: CLLocationAccuracy) {
+        fileprivate init?(accuracy: CLLocationAccuracy) {
             switch accuracy {
             case kCLLocationAccuracyBestForNavigation:
                 self = .bestForNavigation
@@ -68,7 +68,7 @@ public final class Location: BaseSource, Controllable, ValuesProvider {
         }
     }
 
-    public static var displayName = "Location"
+    public static var name = "Location"
 
     public var coordinate: CoordinateValue
     public var speed: GenericValue<CLLocationSpeed?, MetersPerSecond>
@@ -77,7 +77,7 @@ public final class Location: BaseSource, Controllable, ValuesProvider {
     public var floor: GenericValue<CLFloor?, NumericNone>
     public var horizonalAccuracy: GenericValue<CLLocationAccuracy?, Meter>
     public var verticalAccuracy: GenericValue<CLLocationAccuracy?, Meter>
-    public var authorizationStatus: GenericValue<CLAuthorizationStatus?, None>
+    public var authorizationStatus: GenericUnitlessValue<CLAuthorizationStatus?>
 
     /**
      An array of all the values associated with the location of the
@@ -91,16 +91,16 @@ public final class Location: BaseSource, Controllable, ValuesProvider {
       - verticalAccuracy
       - authorisationStatus
      */
-    public var allValues: [AnyValue] {
+    public var allValues: [Value] {
         return [
-            coordinate.asAny(),
-            speed.asAny(),
-            course.asAny(),
-            altitude.asAny(),
-            floor.asAny(),
-            horizonalAccuracy.asAny(),
-            verticalAccuracy.asAny(),
-            authorizationStatus.asAny(),
+            coordinate,
+            speed,
+            course,
+            altitude,
+            floor,
+            horizonalAccuracy,
+            verticalAccuracy,
+            authorizationStatus,
         ]
     }
 
@@ -138,7 +138,7 @@ public final class Location: BaseSource, Controllable, ValuesProvider {
         floor = GenericValue(displayName: "Floor")
         horizonalAccuracy = GenericValue(displayName: "Horizontal Accuracy")
         verticalAccuracy = GenericValue(displayName: "Vertical Accuracy")
-        authorizationStatus = GenericValue(displayName: "Authorization Status")
+        authorizationStatus = GenericUnitlessValue(displayName: "Authorization Status")
     }
 
     deinit {

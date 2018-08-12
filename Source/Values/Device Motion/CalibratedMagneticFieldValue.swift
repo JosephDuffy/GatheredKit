@@ -1,18 +1,13 @@
 import Foundation
 import CoreMotion
 
-public struct CalibratedMagneticFieldValue: Value, ValuesProvider {
+public struct CalibratedMagneticFieldValue: TypedValue, ValuesProvider {
 
-    public var allValues: [AnyValue] {
-        return [
-            x.asAny(),
-            y.asAny(),
-            z.asAny(),
-            accuracy.asAny(),
-        ]
+    public var allValues: [Value] {
+        return [x, y, z, accuracy]
     }
 
-    public var accuracy: GenericValue<CMMagneticFieldCalibrationAccuracy?, None> {
+    public var accuracy: GenericUnitlessValue<CMMagneticFieldCalibrationAccuracy?> {
         let formattedValue: String?
 
         switch backingValue?.accuracy {
@@ -28,7 +23,7 @@ public struct CalibratedMagneticFieldValue: Value, ValuesProvider {
             formattedValue = nil
         }
 
-        return GenericValue(
+        return GenericUnitlessValue(
             displayName: "Accuracy",
             backingValue: backingValue?.accuracy,
             formattedValue: formattedValue,
@@ -68,8 +63,6 @@ public struct CalibratedMagneticFieldValue: Value, ValuesProvider {
 
     public let displayName = "Magnetic Field (Calibrated)"
 
-    public let unit = None()
-
     public let formattedValue: String? = nil
 
     public let backingValue: CMCalibratedMagneticField?
@@ -89,7 +82,10 @@ public struct CalibratedMagneticFieldValue: Value, ValuesProvider {
      - parameter date: The date and time the `value` was recorded. Defaults to the current date and time
      */
     public mutating func update(backingValue: ValueType, date: Date = Date()) {
-        self = CalibratedMagneticFieldValue(backingValue: backingValue, date: date)
+        self = CalibratedMagneticFieldValue(
+            backingValue: backingValue,
+            date: date
+        )
     }
 
     private func formattedValue(for value: Any?) -> String? {

@@ -1,14 +1,10 @@
 import Foundation
 import CoreLocation
 
-public struct GeomagnetismValue: Value, ValuesProvider {
+public struct GeomagnetismValue: TypedValue, TypedUnitProvider, ValuesProvider {
 
-    public var allValues: [AnyValue] {
-        return [
-            x.asAny(),
-            y.asAny(),
-            z.asAny(),
-        ]
+    public var allValues: [Value] {
+        return [x, y, z]
     }
 
     public var x: GenericValue<Double?, NumericNone> {
@@ -59,7 +55,10 @@ public struct GeomagnetismValue: Value, ValuesProvider {
      - parameter backingValue: The new value of the data
      */
     public mutating func update(backingValue: ValueType) {
-        self = GeomagnetismValue(backingValue: backingValue, date: backingValue?.timestamp ?? Date())
+        self = GeomagnetismValue(
+            backingValue: backingValue,
+            date: backingValue?.timestamp ?? Date()
+        )
     }
 
 }

@@ -1,14 +1,10 @@
 import Foundation
 import CoreMotion
 
-public struct AccelerationValue: Value, ValuesProvider {
+public struct AccelerationValue: TypedValue, ValuesProvider {
 
-    public var allValues: [AnyValue] {
-        return [
-            x.asAny(),
-            y.asAny(),
-            z.asAny(),
-        ]
+    public var allValues: [Value] {
+        return [x, y, z]
     }
 
     public var x: GenericValue<Double?, NumericNone> {
@@ -40,8 +36,6 @@ public struct AccelerationValue: Value, ValuesProvider {
 
     public let displayName: String
 
-    public let unit = None()
-
     public let formattedValue: String? = nil
 
     public let backingValue: CMAcceleration?
@@ -62,7 +56,11 @@ public struct AccelerationValue: Value, ValuesProvider {
      - parameter date: The date and time the `value` was recorded. Defaults to the current date and time
      */
     public mutating func update(backingValue: ValueType, date: Date = Date()) {
-        self = AccelerationValue(name: displayName, backingValue: backingValue, date: date)
+        self = AccelerationValue(
+            name: displayName,
+            backingValue: backingValue,
+            date: date
+        )
     }
 
 }
