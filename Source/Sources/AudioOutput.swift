@@ -131,7 +131,7 @@ private extension AVAudioSession.Port {
             return rawValue
         }
         #else
-        switch self {
+        switch self as String {
         case AVAudioSessionPortHDMI:
             return "HDMI"
         case AVAudioSessionPortAirPlay:
@@ -161,7 +161,7 @@ private extension AVAudioSession.Port {
         case AVAudioSessionPortUSBAudio:
             return "USB Audio"
         default:
-            return self
+            return self as String
         }
         #endif
     }
