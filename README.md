@@ -38,11 +38,11 @@ Every source is a class backed by an equivelent Apple-provided class, but with a
  - [X] Proximity
  - [X] Battery
  - [X] Advertising
- - [ ] Audio Output
+ - [X] Audio Output
  - [X] Device Orientation
  - [X] Bluetooth
  - [X] Storage
- - [ ] Memory
+ - [X] Memory
  - [X] Device Metadata
  - [X] Operating System
  - [X] CPU
@@ -67,7 +67,7 @@ public protocol Source: class, ValuesProvider {
     static var availability: SourceAvailability { get }
 
     /// A user-friendly name that represents the source, e.g. "Location", "Device Attitude"
-    var displayName: String { get }
+    static var name: String { get }
 
     /// Creates a new instance of the source
     init()
@@ -86,7 +86,7 @@ This by itself doesn't provide much, but when combined with `ValuesProvider` it 
 public protocol ValuesProvider {
 
     /// An array of all the values provided by this object
-    var allValues: [AnyValue] { get }
+    var allValues: [Value] { get }
 
 }
 ```
@@ -101,10 +101,10 @@ The `Controllable` protocol defines an object that can automatically update its 
 /**
  An object that be started and stopped
  */
-public protocol Controllable {
+public protocol Controllable: class {
 
     /// A closure that will be called with the latest values
-    typealias UpdateListener = (_ latestValues: [AnyValue]) -> Void
+    typealias UpdateListener = (_ latestValues: [Value]) -> Void
 
     /// A boolean indicating if the `Controllable` is currently performing automatic updates
     var isUpdating: Bool { get }
@@ -245,7 +245,7 @@ public protocol ManuallyUpdatableValuesProvider: ValuesProvider {
 
      - returns: The values after the update
      */
-    func updateValues() -> [AnyValue]
+    func updateValues() -> [Value]
 
 }
 ```
