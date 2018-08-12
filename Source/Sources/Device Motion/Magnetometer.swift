@@ -20,10 +20,7 @@ public final class Magnetometer: BaseSource, Source, CustomisableUpdateIntervalC
     public private(set) var rawMagneticField: MagneticFieldValue
 
     public var allValues: [Value] {
-        return [
-            magneticField,
-            rawMagneticField,
-        ]
+        return [magneticField, rawMagneticField]
     }
 
     public private(set) var updateInterval: TimeInterval?
@@ -70,7 +67,10 @@ public final class Magnetometer: BaseSource, Source, CustomisableUpdateIntervalC
                 date = Date()
             }
 
-            self.magneticField.update(backingValue: data?.magneticField, date: date)
+            self.magneticField.update(
+                backingValue: data?.magneticField,
+                date: date
+            )
             self.notifyListenersPropertyValuesUpdated()
         }
 
@@ -86,12 +86,21 @@ public final class Magnetometer: BaseSource, Source, CustomisableUpdateIntervalC
                 date = Date()
             }
 
-            self.rawMagneticField.update(backingValue: data?.magneticField, date: date)
+            self.rawMagneticField.update(
+                backingValue: data?.magneticField,
+                date: date
+            )
             self.notifyListenersPropertyValuesUpdated()
         }
 
         let operationQueue = OperationQueue()
-        motionManager.startDeviceMotionUpdates(to: operationQueue, withHandler: calibratedHandler)
-        motionManager.startMagnetometerUpdates(to: operationQueue, withHandler: rawHandler)
+        motionManager.startDeviceMotionUpdates(
+            to: operationQueue,
+            withHandler: calibratedHandler
+        )
+        motionManager.startMagnetometerUpdates(
+            to: operationQueue,
+            withHandler: rawHandler
+        )
     }
 }

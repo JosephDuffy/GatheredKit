@@ -12,10 +12,7 @@ public final class Advertising: BasePollingSource, Source, ManuallyUpdatableValu
     public private(set) var identifier: GenericUnitlessValue<UUID>
 
     public var allValues: [Value] {
-        return [
-            isTrackingEnabled,
-            identifier,
-        ]
+        return [isTrackingEnabled, identifier]
     }
 
     public override init() {
@@ -36,8 +33,13 @@ public final class Advertising: BasePollingSource, Source, ManuallyUpdatableValu
     public func updateValues() -> [Value] {
         let manager = ASIdentifierManager.shared()
 
-        isTrackingEnabled.update(backingValue: manager.isAdvertisingTrackingEnabled)
-        identifier.update(backingValue: manager.advertisingIdentifier, formattedValue: manager.formattedIdentifierValue)
+        isTrackingEnabled.update(
+            backingValue: manager.isAdvertisingTrackingEnabled
+        )
+        identifier.update(
+            backingValue: manager.advertisingIdentifier,
+            formattedValue: manager.formattedIdentifierValue
+        )
 
         return allValues
     }
