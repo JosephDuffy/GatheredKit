@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name         = "GatheredKit"
-  s.version      = "0.0.1"
+  s.version      = "0.0.2"
   s.summary      = "A consistent and easy to use API for various iOS data sources"
 
   s.description  = <<-DESC
@@ -16,7 +16,7 @@ Pod::Spec.new do |s|
   s.source       = { :git => "https://github.com/JosephDuffy/GatheredKit.git", :tag => "v#{s.version}" }
   s.source_files = "Source/**/*.{swift,h,m}"
 
-  s.frameworks = 'UIKit'
+  s.frameworks = "UIKit"
 
-  s.swift_version = '4.1'
+  s.swift_version = "4.1"
 end
