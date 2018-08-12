@@ -1,4 +1,5 @@
-import Foundation
+import UIKit
+import AVFoundation
 
 #if swift(>=4.2)
 #else
@@ -18,7 +19,7 @@ extension UIDevice {
 }
 
 extension AVAudioSession {
-    public typealias Port = AVAudioSessionPort
+    public typealias Port = String
 }
 
 #endif
