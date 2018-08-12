@@ -10,7 +10,8 @@ public struct Byte: TypedUnit {
     /**
      Create a new `Byte` instance
 
-     - parameter countStyle: How the bytes should be styled. It is recommended that the `files` or `memory` style is used
+     - parameter countStyle: How the bytes should be styled.
+                             It is recommended that the `files` or `memory` style is used
      */
     public init(countStyle: ByteCountFormatter.CountStyle) {
         self.countStyle = countStyle

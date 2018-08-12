@@ -1,0 +1,15 @@
+enabled_rules:
+  - explicit_acl
+
+disabled_rules:
+  - identifier_name
+  - empty_parentheses_with_trailing_closure
+  - todo
+
+trailing_comma:
+  mandatory_comma: true
+
+line_length: 80
+
+included:
+  - Source

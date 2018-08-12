@@ -66,7 +66,11 @@ public final class DeviceOrientation: BaseSource, Source, Controllable {
         let updatesQueue = OperationQueue()
         updatesQueue.name = "uk.co.josephduffy.GatheredKit Device Orientations Updates"
 
-        let notificationObserver = NotificationCenter.default.addObserver(forName: UIDevice.orientationDidChangeNotification, object: device, queue: updatesQueue) { [weak self] _ in
+        let notificationObserver = NotificationCenter.default.addObserver(
+            forName: UIDevice.orientationDidChangeNotification,
+            object: device,
+            queue: updatesQueue
+        ) { [weak self] _ in
             guard let `self` = self else { return }
 
             self.updateValues()
@@ -86,7 +90,11 @@ public final class DeviceOrientation: BaseSource, Source, Controllable {
     public func stopUpdating() {
         guard case .monitoring(let notificationObserver, _) = state else { return }
 
-        NotificationCenter.default.removeObserver(notificationObserver, name: UIDevice.orientationDidChangeNotification, object: device)
+        NotificationCenter.default.removeObserver(
+            notificationObserver,
+            name: UIDevice.orientationDidChangeNotification,
+            object: device
+        )
 
         if let totalMonitoringSources = DeviceOrientation.totalMonitoringSources[device] {
             if totalMonitoringSources == 1 {

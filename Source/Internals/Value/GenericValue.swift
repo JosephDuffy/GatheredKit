@@ -56,7 +56,13 @@ public struct GenericValue<ValueType, UnitType: Unit>: TypedValue, TypedUnitProv
      - parameter date: The date and time the `value` was recorded. Defaults to the current date and time
      */
     public mutating func update(backingValue: ValueType, formattedValue: String? = nil, date: Date = Date()) {
-        self = GenericValue(displayName: displayName, backingValue: backingValue, formattedValue: formattedValue, unit: unit, date: date)
+        self = GenericValue(
+            displayName: displayName,
+            backingValue: backingValue,
+            formattedValue: formattedValue,
+            unit: unit,
+            date: date
+        )
     }
 
 }

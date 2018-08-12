@@ -60,7 +60,11 @@ public struct RotationRateValue: TypedValue, ValuesProvider {
      - parameter date: The date and time the `value` was recorded. Defaults to the current date and time
      */
     public mutating func update(backingValue: ValueType, date: Date = Date()) {
-        self = RotationRateValue(name: displayName, backingValue: backingValue, date: date)
+        self = RotationRateValue(
+            name: displayName,
+            backingValue: backingValue,
+            date: date
+        )
     }
 
 }

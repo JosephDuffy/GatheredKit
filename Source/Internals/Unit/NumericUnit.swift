@@ -22,8 +22,8 @@ public extension NumericUnit {
 
     /**
      Generates a human-friendly string for the given value.
-     This will call `formattedString(for:usingFormatter:)` with a formatter configured using the value
-     of `self.maximumFractionDigits`
+     This will call `formattedString(for:usingFormatter:)` with a formatter
+     configured using the value of `self.maximumFractionDigits`
      
      - parameter value: The value to be formatted
      - returns: The formatted string
@@ -33,14 +33,18 @@ public extension NumericUnit {
     }
 
     /**
-     Uses the supplied formatter and value to create a human-friendly string. The suffix will be `singularValueSuffix`
-     if `value` is 1, or `pluralValueSuffix` otherwise
+     Uses the supplied formatter and value to create a human-friendly string.
+     The suffix will be `singularValueSuffix` if `value` is 1, or
+     `pluralValueSuffix` otherwise
 
      - parameter value: The value to be formatted
      - parameter formatter: The formatter to use to format the numeric value
      - returns: The formatted string
      */
-    public func formattedString(for value: NSNumber, maximumFractionDigits: Int) -> String {
+    public func formattedString(
+        for value: NSNumber,
+        maximumFractionDigits: Int
+    ) -> String {
         return formattedString(
             for: value,
             maximumFractionDigits: maximumFractionDigits,
@@ -50,14 +54,19 @@ public extension NumericUnit {
     }
 
     /**
-     Uses the supplied formatter and value to create a human-friendly string. The suffix will be `singularValueSuffix`
-     if `value` is 1, or `pluralValueSuffix` otherwise
+     Uses the supplied formatter and value to create a human-friendly string.
+     The suffix will be `singularValueSuffix` if `value` is 1, or
+     `pluralValueSuffix` otherwise
 
      - parameter value: The value to be formatted
      - parameter formatter: The formatter to use to format the numeric value
      - returns: The formatted string
      */
-    public func formattedString(for value: NSNumber, singularValueSuffix: String, pluralValueSuffix: String) -> String {
+    public func formattedString(
+        for value: NSNumber,
+        singularValueSuffix: String,
+        pluralValueSuffix: String
+        ) -> String {
         return formattedString(
             for: value,
             maximumFractionDigits: maximumFractionDigits,
@@ -67,14 +76,20 @@ public extension NumericUnit {
     }
 
     /**
-     Uses the supplied formatter and value to create a human-friendly string. The suffix will be `singularValueSuffix`
-     if `value` is 1, or `pluralValueSuffix` otherwise
+     Uses the supplied formatter and value to create a human-friendly string.
+     The suffix will be `singularValueSuffix` if `value` is 1, or
+     `pluralValueSuffix` otherwise
 
      - parameter value: The value to be formatted
      - parameter formatter: The formatter to use to format the numeric value
      - returns: The formatted string
      */
-    public func formattedString(for value: NSNumber, maximumFractionDigits: Int, singularValueSuffix: String, pluralValueSuffix: String) -> String {
+    public func formattedString(
+        for value: NSNumber,
+        maximumFractionDigits: Int,
+        singularValueSuffix: String,
+        pluralValueSuffix: String
+    ) -> String {
         let formatter = NumberFormatter()
         formatter.numberStyle = maximumFractionDigits > 0 ? .decimal : .none
         formatter.maximumFractionDigits = maximumFractionDigits
@@ -88,14 +103,18 @@ public extension NumericUnit {
     }
 
     /**
-     Uses the supplied formatter and value to create a human-friendly string. The suffix will be `singularValueSuffix`
-     if `value` is 1, or `pluralValueSuffix` otherwise
+     Uses the supplied formatter and value to create a human-friendly string.
+     The suffix will be `singularValueSuffix` if `value` is 1, or
+     `pluralValueSuffix` otherwise
 
      - parameter value: The value to be formatted
      - parameter formatter: The formatter to use to format the numeric value
      - returns: The formatted string
      */
-    public func formattedString(for value: NSNumber, usingFormatter formatter: NumberFormatter) -> String {
+    public func formattedString(
+        for value: NSNumber,
+        usingFormatter formatter: NumberFormatter
+    ) -> String {
         return formattedString(
             for: value,
             usingFormatter: formatter,
@@ -105,14 +124,20 @@ public extension NumericUnit {
     }
 
     /**
-     Uses the supplied formatter and value to create a human-friendly string. The suffix will be `singularValueSuffix`
-     if `value` is 1, or `pluralValueSuffix` otherwise
+     Uses the supplied formatter and value to create a human-friendly string.
+     The suffix will be `singularValueSuffix` if `value` is 1, or
+     `pluralValueSuffix` otherwise
 
      - parameter value: The value to be formatted
      - parameter formatter: The formatter to use to format the numeric value
      - returns: The formatted string
      */
-    public func formattedString(for value: NSNumber, usingFormatter formatter: NumberFormatter, singularValueSuffix: String, pluralValueSuffix: String) -> String {
+    public func formattedString(
+        for value: NSNumber,
+        usingFormatter formatter: NumberFormatter,
+        singularValueSuffix: String,
+        pluralValueSuffix: String
+        ) -> String {
         let defaultValue = String(describing: value)
 
         let formattedValue = formatter.string(from: value) ?? defaultValue

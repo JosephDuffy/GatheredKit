@@ -459,6 +459,7 @@
 			buildConfigurationList = D9EF059520ACC59400D3F194 /* Build configuration list for PBXNativeTarget "GatheredKit" */;
 			buildPhases = (
 				D9EF057C20ACC59300D3F194 /* Sources */,
+				D95016762119E2E9003542DC /* SwiftLint */,
 				D9EF057D20ACC59300D3F194 /* Frameworks */,
 				D9EF057E20ACC59300D3F194 /* Headers */,
 				D9EF057F20ACC59300D3F194 /* Resources */,
@@ -545,6 +546,27 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		D95016762119E2E9003542DC /* SwiftLint */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = SwiftLint;
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if command -v \"${SRCROOT}/Pods/SwiftLint/swiftlint\" >/dev/null 2>&1; then\n  \"${SRCROOT}/Pods/SwiftLint/swiftlint\"\nelse\n  echo \"warning: SwiftLint is not installed. Install by running pod install\"\nfi\n";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		D9EF057C20ACC59300D3F194 /* Sources */ = {

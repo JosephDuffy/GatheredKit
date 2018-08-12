@@ -56,7 +56,8 @@ public struct MagneticFieldValue: TypedValue, ValuesProvider {
      updates values provided
 
      - parameter backingValue: The new value of the data
-     - parameter date: The date and time the `value` was recorded. Defaults to the current date and time
+     - parameter date: The date and time the `value` was recorded. Defaults to
+                       the current date and time
      */
     public mutating func update(backingValue: ValueType, date: Date = Date()) {
         self = MagneticFieldValue(backingValue: backingValue, date: date)

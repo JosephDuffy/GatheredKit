@@ -22,7 +22,10 @@ public struct CoordinateValue: TypedValue, ValuesProvider {
 
     public let date: Date
 
-    public init(backingValue: CLLocationCoordinate2D? = nil, date: Date = Date()) {
+    public init(
+        backingValue: CLLocationCoordinate2D? = nil,
+        date: Date = Date()
+    ) {
         self.backingValue = backingValue
         self.date = date
         latitude = GenericValue(

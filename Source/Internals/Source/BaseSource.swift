@@ -12,7 +12,10 @@ open class BaseSource: NSObject {
         super.init()
     }
 
-    open func addUpdateListener(_ updateListener: @escaping Controllable.UpdateListener, queue: DispatchQueue) -> AnyObject {
+    open func addUpdateListener(
+        _ updateListener: @escaping Controllable.UpdateListener,
+        queue: DispatchQueue
+    ) -> AnyObject {
         let observer = SourceUpdateListenerWrapper(updateListener: updateListener, queue: queue)
         updateListeners.add(observer)
         return observer

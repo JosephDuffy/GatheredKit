@@ -87,4 +87,5 @@ extension Controllable where Self: BasePollingSource, Self: ManuallyUpdatableVal
 
 }
 
+// swiftlint:disable:next line_length
 public extension CustomisableUpdateIntervalControllable where Self: BasePollingSource, Self: ManuallyUpdatableValuesProvider {}

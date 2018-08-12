@@ -59,7 +59,10 @@ public struct GeomagnetismValue: TypedValue, TypedUnitProvider, ValuesProvider {
      - parameter backingValue: The new value of the data
      */
     public mutating func update(backingValue: ValueType) {
-        self = GeomagnetismValue(backingValue: backingValue, date: backingValue?.timestamp ?? Date())
+        self = GeomagnetismValue(
+            backingValue: backingValue,
+            date: backingValue?.timestamp ?? Date()
+        )
     }
 
 }

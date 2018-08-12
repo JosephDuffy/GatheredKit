@@ -30,7 +30,11 @@ public final class Bluetooth: BaseSource, Source, Controllable {
     }
 
     public static var availability: SourceAvailability {
-        let manager = CBCentralManager(delegate: nil, queue: nil, options: [CBCentralManagerOptionShowPowerAlertKey: false])
+        let manager = CBCentralManager(
+            delegate: nil,
+            queue: nil,
+            options: [CBCentralManagerOptionShowPowerAlertKey: false]
+        )
         return manager.state != .unsupported ? .available : .unavailable
     }
 
@@ -52,7 +56,11 @@ public final class Bluetooth: BaseSource, Source, Controllable {
 
     public override init() {
         let queue = DispatchQueue(label: "")
-        manager = CBCentralManager(delegate: nil, queue: queue, options: [CBCentralManagerOptionShowPowerAlertKey: false])
+        manager = CBCentralManager(
+            delegate: nil,
+            queue: queue,
+            options: [CBCentralManagerOptionShowPowerAlertKey: false]
+        )
 
         let status = Status(manager: manager)
         self.status = GenericUnitlessValue(displayName: "Status", backingValue: status, formattedValue: status.rawValue)

@@ -4,17 +4,21 @@
  */
 public struct Boolean: TypedUnit {
 
-    /// The string that will be returned from `formattedString(for:)` when the value is `true`
+    /// The string that will be returned from `formattedString(for:)` when the
+    /// value is `true`
     public let trueString: String
 
-    /// The string that will be returned from `formattedString(for:)` when the value is `false`
+    /// The string that will be returned from `formattedString(for:)` when the
+    /// value is `false`
     public let falseString: String
 
     /**
      Create a new `Boolean` instance
 
-     - parameter trueString: The string to return from `formattedString(for:)` when the value is `true`. Defaults to "true"
-     - parameter falseString: The string to return from `formattedString(for:)` when the value is `false`. Defaults to "false"
+     - parameter trueString: The string to return from `formattedString(for:)`
+                             when the value is `true`. Defaults to "true"
+     - parameter falseString: The string to return from `formattedString(for:)`
+                              when the value is `false`. Defaults to "false"
      */
     public init(trueString: String = "true", falseString: String = "false") {
         self.trueString = trueString

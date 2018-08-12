@@ -100,6 +100,7 @@ public final class CellRadio: BaseSource, Source, Controllable, ValuesProvider {
         state = .notMonitoring
     }
 
+    // swiftlint:disable:next cyclomatic_complexity
     private func update(radioAccessTechnology: String?) {
         let formattedValue: String?
 

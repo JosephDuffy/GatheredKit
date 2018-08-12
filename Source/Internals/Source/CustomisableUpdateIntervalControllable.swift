@@ -52,7 +52,11 @@ public extension CustomisableUpdateIntervalControllable {
      - parameter updateListener: The closure to call with updated values
      - returns: An opaque object. The lifecycle of the listener is tied to the object
      */
-    public func startUpdating(every updateInterval: TimeInterval, sendingUpdatesOn queue: DispatchQueue, to updateListener: @escaping UpdateListener) -> AnyObject {
+    public func startUpdating(
+        every updateInterval: TimeInterval,
+        sendingUpdatesOn queue: DispatchQueue,
+        to updateListener: @escaping UpdateListener
+    ) -> AnyObject {
         let listenerToken = addUpdateListener(updateListener, queue: queue)
         startUpdating(every: updateInterval)
         return listenerToken

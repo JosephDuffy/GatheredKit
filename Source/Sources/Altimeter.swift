@@ -38,7 +38,7 @@ public final class Altimeter: BaseSource, Source, Controllable, ValuesProvider, 
             Action(title: "Reset Altitude", isAvailable: isUpdating, perform: { [weak self] in
                 guard let `self` = self else { return }
                 self.resetRelativeAltitude()
-            })
+            }),
         ]
     }
 
