@@ -9,7 +9,15 @@ public final class Battery: BaseSource, Source, Controllable, ManuallyUpdatableV
 
     private enum State {
         case notMonitoring
-        case monitoring(notificationObservers: [NSObjectProtocol], updatesQueue: OperationQueue)
+        case monitoring(notificationObservers: NotificationObservers, updatesQueue: OperationQueue)
+
+        // swiftlint:disable:next nesting
+        struct NotificationObservers {
+            let batteryLevel: NSObjectProtocol
+            let batteryState: NSObjectProtocol
+            let lowPowerModeState: NSObjectProtocol
+        }
+
     }
 
     public static var availability: SourceAvailability = .available
@@ -68,42 +76,45 @@ public final class Battery: BaseSource, Source, Controllable, ManuallyUpdatableV
             updateValues()
         }
 
-        var notificationObservers = [NSObjectProtocol]()
-
         let updatesQueue = OperationQueue()
         updatesQueue.name = "uk.co.josephduffy.GatheredKit Battery Updates"
 
-        notificationObservers.append(NotificationCenter.default.addObserver(forName: UIDevice.batteryLevelDidChangeNotification, object: device, queue: updatesQueue) { [weak self] _ in
+        let batteryLevelObserver = NotificationCenter.default.addObserver(forName: UIDevice.batteryLevelDidChangeNotification, object: device, queue: updatesQueue) { [weak self] _ in
             guard let `self` = self else { return }
 
             self.chargeLevel.update(backingValue: self.device.batteryLevel)
             self.notifyListenersPropertyValuesUpdated()
-        })
+        }
 
-        notificationObservers.append(NotificationCenter.default.addObserver(forName: UIDevice.batteryStateDidChangeNotification, object: device, queue: updatesQueue) { [weak self] _ in
+        let batteryStateObserver = NotificationCenter.default.addObserver(forName: UIDevice.batteryStateDidChangeNotification, object: device, queue: updatesQueue) { [weak self] _ in
             guard let `self` = self else { return }
 
             let device = self.device
             self.chargeState.update(backingValue: device.batteryState, formattedValue: device.batteryState.displayValue)
             self.notifyListenersPropertyValuesUpdated()
-        })
+        }
 
-        notificationObservers.append(NotificationCenter.default.addObserver(forName: .NSProcessInfoPowerStateDidChange, object: nil, queue: updatesQueue) { [weak self] _ in
+        let lowPowerModeStateObserver = NotificationCenter.default.addObserver(forName: .NSProcessInfoPowerStateDidChange, object: nil, queue: updatesQueue) { [weak self] _ in
             guard let `self` = self else { return }
 
             self.isLowPowerModeEnabled.update(backingValue: ProcessInfo.processInfo.isLowPowerModeEnabled)
             self.notifyListenersPropertyValuesUpdated()
-        })
+        }
 
         Battery.totalMonitoringSources[device] = (Battery.totalMonitoringSources[device] ?? 0) + 1
 
         device.isBatteryMonitoringEnabled = true
 
+        let notificationObservers = State.NotificationObservers(batteryLevel: batteryLevelObserver, batteryState: batteryStateObserver, lowPowerModeState: lowPowerModeStateObserver)
         state = .monitoring(notificationObservers: notificationObservers, updatesQueue: updatesQueue)
     }
 
     public func stopUpdating() {
         guard case .monitoring(let notificationObservers, _) = state else { return }
+
+        NotificationCenter.default.removeObserver(notificationObservers.batteryLevel, name: UIDevice.batteryLevelDidChangeNotification, object: device)
+        NotificationCenter.default.removeObserver(notificationObservers.batteryState, name: UIDevice.batteryStateDidChangeNotification, object: device)
+        NotificationCenter.default.removeObserver(notificationObservers.lowPowerModeState, name: .NSProcessInfoPowerStateDidChange, object: nil)
 
         if let totalMonitoringSources = Battery.totalMonitoringSources[device] {
             if totalMonitoringSources == 1 {
@@ -113,8 +124,6 @@ public final class Battery: BaseSource, Source, Controllable, ManuallyUpdatableV
                 Battery.totalMonitoringSources[device] = totalMonitoringSources - 1
             }
         }
-
-        notificationObservers.forEach(NotificationCenter.default.removeObserver(_:))
 
         state = .notMonitoring
     }
