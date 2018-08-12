@@ -6,7 +6,6 @@ public struct Time: ZeroConfigurationUnit {
         let formatter = DateComponentsFormatter()
         formatter.allowedUnits = [.day, .hour, .minute, .second]
         formatter.unitsStyle = .abbreviated
-        formatter.maximumUnitCount = 1
         return formatter
     }()
 
