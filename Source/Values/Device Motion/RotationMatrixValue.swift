@@ -1,19 +1,19 @@
 import Foundation
 import CoreMotion
 
-public struct RotationMatrixValue: Value, ValuesProvider {
+public struct RotationMatrixValue: TypedValue, ValuesProvider {
 
-    public var allValues: [AnyValue] {
+    public var allValues: [Value] {
         return [
-            m11.asAny(),
-            m12.asAny(),
-            m13.asAny(),
-            m21.asAny(),
-            m22.asAny(),
-            m23.asAny(),
-            m31.asAny(),
-            m32.asAny(),
-            m33.asAny(),
+            m11,
+            m12,
+            m13,
+            m21,
+            m22,
+            m23,
+            m31,
+            m32,
+            m33,
         ]
     }
 
@@ -99,8 +99,6 @@ public struct RotationMatrixValue: Value, ValuesProvider {
     }
 
     public let displayName = "Rotation Matrix"
-
-    public let unit = None()
 
     public let formattedValue: String? = nil
 

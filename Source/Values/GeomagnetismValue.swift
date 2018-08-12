@@ -1,13 +1,13 @@
 import Foundation
 import CoreLocation
 
-public struct GeomagnetismValue: Value, ValuesProvider {
+public struct GeomagnetismValue: TypedValue, TypedUnitProvider, ValuesProvider {
 
-    public var allValues: [AnyValue] {
+    public var allValues: [Value] {
         return [
-            x.asAny(),
-            y.asAny(),
-            z.asAny(),
+            x,
+            y,
+            z,
         ]
     }
 

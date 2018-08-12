@@ -1,7 +1,7 @@
 import Foundation
 import CoreMotion
 
-public final class Accelerometer: BaseSource, CustomisableUpdateIntervalControllable, ValuesProvider {
+public final class Accelerometer: BaseSource, Source, CustomisableUpdateIntervalControllable, ValuesProvider {
 
     public static var defaultUpdateInterval: TimeInterval = 1
 
@@ -13,6 +13,8 @@ public final class Accelerometer: BaseSource, CustomisableUpdateIntervalControll
         return CMMotionManager().isAccelerometerAvailable
     }
 
+    public static let name = "Accelerometer"
+
     public private(set) var totalAcceletation: AccelerationValue
 
     public private(set) var gravitationalAcceletation: AccelerationValue
@@ -21,12 +23,12 @@ public final class Accelerometer: BaseSource, CustomisableUpdateIntervalControll
 
     public private(set) var rawAcceleration: AccelerationValue
 
-    public var allValues: [AnyValue] {
+    public var allValues: [Value] {
         return [
-            totalAcceletation.asAny(),
-            gravitationalAcceletation.asAny(),
-            userAcceleration.asAny(),
-            rawAcceleration.asAny(),
+            totalAcceletation,
+            gravitationalAcceletation,
+            userAcceleration,
+            rawAcceleration,
         ]
     }
 

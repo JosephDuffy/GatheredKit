@@ -2,7 +2,7 @@
 /**
  A struct that represents a value that can be either true or false
  */
-public struct Boolean: Unit {
+public struct Boolean: TypedUnit {
 
     /// The string that will be returned from `formattedString(for:)` when the value is `true`
     public let trueString: String

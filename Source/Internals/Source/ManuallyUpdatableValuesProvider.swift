@@ -12,6 +12,6 @@ public protocol ManuallyUpdatableValuesProvider: ValuesProvider {
 
      - returns: The values after the update
      */
-    func updateValues() -> [AnyValue]
+    func updateValues() -> [Value]
 
 }

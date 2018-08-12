@@ -1,6 +1,6 @@
 import UIKit
 
-public final class Battery: BaseSource, Controllable, ManuallyUpdatableValuesProvider {
+public final class Battery: BaseSource, Source, Controllable, ManuallyUpdatableValuesProvider {
 
     /// A dictionary mapping `UIDevice`s to the total number of `Battery` sources
     /// that are actively updating. This is used to not stop other `Battery` sources
@@ -14,7 +14,7 @@ public final class Battery: BaseSource, Controllable, ManuallyUpdatableValuesPro
 
     public static var availability: SourceAvailability = .available
 
-    public static var displayName = "Battery"
+    public static var name = "Battery"
 
     /// A boolean indicating if the screen is monitoring for brightness changes
     public var isUpdating: Bool {
@@ -27,14 +27,14 @@ public final class Battery: BaseSource, Controllable, ManuallyUpdatableValuesPro
     }
 
     public private(set) var chargeLevel: GenericValue<Float, Percent>
-    public private(set) var chargeState: GenericValue<UIDevice.BatteryState, None>
+    public private(set) var chargeState: GenericUnitlessValue<UIDevice.BatteryState>
     public private(set) var isLowPowerModeEnabled: GenericValue<Bool, Boolean>
 
-    public var allValues: [AnyValue] {
+    public var allValues: [Value] {
         return [
-            chargeLevel.asAny(),
-            chargeState.asAny(),
-            isLowPowerModeEnabled.asAny(),
+            chargeLevel,
+            chargeState,
+            isLowPowerModeEnabled,
         ]
     }
 
@@ -47,7 +47,7 @@ public final class Battery: BaseSource, Controllable, ManuallyUpdatableValuesPro
             displayName: "Charge Level",
             backingValue: device.batteryLevel
         )
-        chargeState = GenericValue(
+        chargeState = GenericUnitlessValue(
             displayName: "Battery State",
             backingValue: device.batteryState,
             formattedValue: device.batteryState.displayValue
@@ -120,7 +120,7 @@ public final class Battery: BaseSource, Controllable, ManuallyUpdatableValuesPro
     }
 
     @discardableResult
-    public func updateValues() -> [AnyValue] {
+    public func updateValues() -> [Value] {
         defer {
             notifyListenersPropertyValuesUpdated()
         }

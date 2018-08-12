@@ -1,7 +1,7 @@
 import Foundation
 import CoreTelephony
 
-public final class CellRadio: BaseSource, Controllable, ValuesProvider {
+public final class CellRadio: BaseSource, Source, Controllable, ValuesProvider {
 
     private enum State {
         case notMonitoring
@@ -32,7 +32,7 @@ public final class CellRadio: BaseSource, Controllable, ValuesProvider {
         return .unavailable
     }
 
-    public static var displayName = "Cell Radio"
+    public static var name = "Cell Radio"
 
     /// A boolean indicating if the screen is monitoring for brightness changes
     public var isUpdating: Bool {
@@ -45,12 +45,12 @@ public final class CellRadio: BaseSource, Controllable, ValuesProvider {
     }
 
     public private(set) var carrier: CarrierValue
-    public private(set) var radioAccessTechnology: GenericValue<String?, None>
+    public private(set) var radioAccessTechnology: GenericUnitlessValue<String?>
 
-    public var allValues: [AnyValue] {
+    public var allValues: [Value] {
         return [
-            carrier.asAny(),
-            radioAccessTechnology.asAny(),
+            carrier,
+            radioAccessTechnology,
         ]
     }
 
@@ -60,7 +60,7 @@ public final class CellRadio: BaseSource, Controllable, ValuesProvider {
 
     public override init() {
         carrier = CarrierValue()
-        radioAccessTechnology = GenericValue(displayName: "Radio Access Technology")
+        radioAccessTechnology = GenericUnitlessValue(displayName: "Radio Access Technology")
     }
 
     deinit {
@@ -95,7 +95,7 @@ public final class CellRadio: BaseSource, Controllable, ValuesProvider {
     public func stopUpdating() {
         guard case .monitoring(_, let notificationObserver, _) = state else { return }
 
-        NotificationCenter.default.removeObserver(notificationObserver)
+        NotificationCenter.default.removeObserver(notificationObserver, name: .CTRadioAccessTechnologyDidChange, object: device)
 
         state = .notMonitoring
     }

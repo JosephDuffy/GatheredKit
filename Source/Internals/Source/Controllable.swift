@@ -3,10 +3,10 @@ import Foundation
 /**
  An object that be started and stopped
  */
-public protocol Controllable {
+public protocol Controllable: class {
 
     /// A closure that will be called with the latest values
-    typealias UpdateListener = (_ latestValues: [AnyValue]) -> Void
+    typealias UpdateListener = (_ latestValues: [Value]) -> Void
 
     /// A boolean indicating if the `Controllable` is currently performing automatic updates
     var isUpdating: Bool { get }

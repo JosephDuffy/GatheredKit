@@ -1,18 +1,18 @@
 import Foundation
 import CoreMotion
 
-public struct CalibratedMagneticFieldValue: Value, ValuesProvider {
+public struct CalibratedMagneticFieldValue: TypedValue, ValuesProvider {
 
-    public var allValues: [AnyValue] {
+    public var allValues: [Value] {
         return [
-            x.asAny(),
-            y.asAny(),
-            z.asAny(),
-            accuracy.asAny(),
+            x,
+            y,
+            z,
+            accuracy,
         ]
     }
 
-    public var accuracy: GenericValue<CMMagneticFieldCalibrationAccuracy?, None> {
+    public var accuracy: GenericUnitlessValue<CMMagneticFieldCalibrationAccuracy?> {
         let formattedValue: String?
 
         switch backingValue?.accuracy {
@@ -28,7 +28,7 @@ public struct CalibratedMagneticFieldValue: Value, ValuesProvider {
             formattedValue = nil
         }
 
-        return GenericValue(
+        return GenericUnitlessValue(
             displayName: "Accuracy",
             backingValue: backingValue?.accuracy,
             formattedValue: formattedValue,
@@ -67,8 +67,6 @@ public struct CalibratedMagneticFieldValue: Value, ValuesProvider {
     }
 
     public let displayName = "Magnetic Field (Calibrated)"
-
-    public let unit = None()
 
     public let formattedValue: String? = nil
 
