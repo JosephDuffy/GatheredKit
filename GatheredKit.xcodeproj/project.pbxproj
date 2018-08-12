@@ -32,6 +32,7 @@
 		D930631E20D5BDA7007A0CBD /* Compass.swift in Sources */ = {isa = PBXBuildFile; fileRef = D930631D20D5BDA7007A0CBD /* Compass.swift */; };
 		D950047420C85B590046AB47 /* AccelerationValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = D950047320C85B590046AB47 /* AccelerationValue.swift */; };
 		D950166C2118BCB8003542DC /* Memory.swift in Sources */ = {isa = PBXBuildFile; fileRef = D950166B2118BCB7003542DC /* Memory.swift */; };
+		D950166E2118FA0C003542DC /* AudioOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = D950166D2118FA0B003542DC /* AudioOutput.swift */; };
 		D959ECC720D713C5000184E2 /* GeomagnetismValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = D959ECC620D713C5000184E2 /* GeomagnetismValue.swift */; };
 		D96A18E920C741E100CAE44F /* DeviceAttitude.swift in Sources */ = {isa = PBXBuildFile; fileRef = D96A18E320C741E100CAE44F /* DeviceAttitude.swift */; };
 		D96C630020F6AB0900BF06EF /* WiFi.swift in Sources */ = {isa = PBXBuildFile; fileRef = D96C62FF20F6AB0900BF06EF /* WiFi.swift */; };
@@ -134,6 +135,7 @@
 		D930631D20D5BDA7007A0CBD /* Compass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Compass.swift; sourceTree = "<group>"; };
 		D950047320C85B590046AB47 /* AccelerationValue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccelerationValue.swift; sourceTree = "<group>"; };
 		D950166B2118BCB7003542DC /* Memory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Memory.swift; sourceTree = "<group>"; };
+		D950166D2118FA0B003542DC /* AudioOutput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioOutput.swift; sourceTree = "<group>"; };
 		D959ECC620D713C5000184E2 /* GeomagnetismValue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeomagnetismValue.swift; sourceTree = "<group>"; };
 		D96A18E320C741E100CAE44F /* DeviceAttitude.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeviceAttitude.swift; sourceTree = "<group>"; };
 		D96C62FF20F6AB0900BF06EF /* WiFi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WiFi.swift; sourceTree = "<group>"; };
@@ -375,6 +377,7 @@
 				D999586E21011EA700C577AC /* DeviceOrientation.swift */,
 				D99958702103403A00C577AC /* Storage.swift */,
 				D950166B2118BCB7003542DC /* Memory.swift */,
+				D950166D2118FA0B003542DC /* AudioOutput.swift */,
 				D910EE8C20FB6011007F495B /* DeviceMetadata.swift */,
 				D96C62FF20F6AB0900BF06EF /* WiFi.swift */,
 			);
@@ -584,6 +587,7 @@
 				D9EF05B520ACD20700D3F194 /* BeatsPerMinute.swift in Sources */,
 				D999586B21010F3B00C577AC /* BasePollingSource.swift in Sources */,
 				D9EF05B720ACD22100D3F194 /* Byte.swift in Sources */,
+				D950166E2118FA0C003542DC /* AudioOutput.swift in Sources */,
 				D910EE8F20FB9520007F495B /* ZeroConfigurationUnit.swift in Sources */,
 				D999587521035F0000C577AC /* CoordinateValue.swift in Sources */,
 				D9EF05AD20ACCF7000D3F194 /* CustomisableUpdateIntervalControllable.swift in Sources */,
