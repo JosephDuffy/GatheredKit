@@ -21,23 +21,23 @@ final class ScreenTests: QuickSpec {
                 }
 
                 it("should set the `reportedScreenResolution` using the backing object's `bounds.size` property") {
-                    expect(screen.reportedScreenResolution.value).to(equal(mock.bounds.size))
+                    expect(screen.reportedResolution.backingValue).to(equal(mock.bounds.size))
                 }
 
                 it("should set the `nativeScreenResolution` using the backing object's `nativeBounds` property") {
-                    expect(screen.nativeScreenResolution.value).to(equal(mock.nativeBounds.size))
+                    expect(screen.nativeResolution.backingValue).to(equal(mock.nativeBounds.size))
                 }
 
                 it("should set the `reportedScreenScale` using the backing object's `scale` property") {
-                    expect(screen.reportedScreenResolution.value).to(equal(mock.bounds.size))
+                    expect(screen.reportedResolution.backingValue).to(equal(mock.bounds.size))
                 }
 
                 it("should set the `nativeScreenScale` using the backing object's `nativeScale` property") {
-                    expect(screen.nativeScreenScale.value).to(equal(mock.nativeScale))
+                    expect(screen.nativeScale.backingValue).to(equal(mock.nativeScale))
                 }
 
                 it("should set the `brightness` using the backing object's `brightness` property") {
-                    expect(screen.brightness.value).to(equal(mock.brightness))
+                    expect(screen.brightness.backingValue).to(equal(mock.brightness))
                 }
 
             }
@@ -55,35 +55,39 @@ final class ScreenTests: QuickSpec {
                     mock = MockScreenBackingData()
                     screen = Screen(screen: mock)
                     listenerWasCalled = false
-                    updateListener = screen.startUpdating { _ in
+                    updateListener = screen.startUpdating(sendingUpdatesTo: { _ in
                         listenerWasCalled = true
-                    }
+                    })
                 }
 
                 it("should cause `isUpdating` to return `true`") {
                     expect(screen.isUpdating).to(beTrue())
                 }
 
-                context("called before a `UIScreenBrightnessDidChange` notification is fired from the backing object") {
+                it("should notify listeners when a `UIScreenBrightnessDidChange` notification is fired from the backing object") {
+                    #if swift(>=4.2)
+                    NotificationCenter.default.post(name: UIScreen.brightnessDidChangeNotification, object: mock)
+                    #else
+                    NotificationCenter.default.post(name: .UIScreenBrightnessDidChange, object: mock)
+                    #endif
 
-                    beforeEach {
-                        NotificationCenter.default.post(name: .UIScreenBrightnessDidChange, object: mock)
-                    }
-
-                    it("should notify listeners") {
-                        expect(listenerWasCalled).to(beTrue())
-                    }
+                    expect(listenerWasCalled).toEventually(beTrue())
                 }
 
-                context("called before a `UIScreenBrightnessDidChange` notification is fired from an object other than the backing object") {
+                it("should not notify listeners when a `UIScreenBrightnessDidChange` notification is fired from an object other than the backing object") {
+                    #if swift(>=4.2)
+                    NotificationCenter.default.post(name: UIScreen.brightnessDidChangeNotification, object: UIScreen.main)
+                    #else
+                    NotificationCenter.default.post(name: .UIScreenBrightnessDidChange, object: UIScreen.main)
+                    #endif
 
-                    beforeEach {
-                        NotificationCenter.default.post(name: .UIScreenBrightnessDidChange, object: UIScreen.main)
-                    }
+                    var wasCalledAfterHalfASecond: Bool?
 
-                    it("should notify listeners") {
-                        expect(listenerWasCalled).to(beFalse())
-                    }
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: {
+                        wasCalledAfterHalfASecond = listenerWasCalled
+                    })
+
+                    expect(wasCalledAfterHalfASecond).toEventually(beFalse(), timeout: 1, pollInterval: 0.1)
                 }
 
             }
