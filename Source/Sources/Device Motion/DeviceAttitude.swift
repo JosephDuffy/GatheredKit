@@ -133,7 +133,7 @@ public final class DeviceAttitude: BaseSource, Source, CustomisableUpdateInterva
     }
 }
 
-extension CMDeviceMotion {
+private extension CMDeviceMotion {
 
     var date: Date {
         // TODO: Check this is the correct reference date
