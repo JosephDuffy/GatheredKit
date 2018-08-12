@@ -17,4 +17,8 @@ extension UIDevice {
     static let orientationDidChangeNotification: NSNotification.Name = .UIDeviceOrientationDidChange
 }
 
+extension AVAudioSession {
+    public typealias Port = AVAudioSessionPort
+}
+
 #endif
