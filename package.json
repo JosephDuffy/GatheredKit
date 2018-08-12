@@ -1,0 +1,13 @@
+{
+  "name": "gathered-kit",
+  "version": "1.0.0",
+  "main": "",
+  "repository": "https://github.com/JosephDuffy/GatheredKit.git",
+  "author": "Joseph Duffy",
+  "license": "MIT",
+  "private": true,
+  "devDependencies": {
+    "@prettier/plugin-swift": "github:prettier/plugin-swift",
+    "prettier": "^1.14.2"
+  }
+}

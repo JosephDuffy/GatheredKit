@@ -1,8 +1,11 @@
 import Foundation
 
-public struct GenericValue<ValueType, UnitType: Unit>: TypedValue, TypedUnitProvider {
+public struct GenericValue<ValueType, UnitType: Unit>:
+        TypedValue, TypedUnitProvider
+     {
 
-    public typealias UpdateListener = (_ sourceProperty: GenericValue<ValueType, UnitType>) -> Void
+    public typealias UpdateListener = (_ sourceProperty: GenericValue<ValueType,
+    UnitType>) -> Void
 
     /// A user-friendly name that represents the value, e.g. "Latitude", "Longitude"
     public let displayName: String
@@ -55,8 +58,18 @@ public struct GenericValue<ValueType, UnitType: Unit>: TypedValue, TypedUnitProv
      - parameter formattedValue: The new human-friendly formatted value. Defaults to `nil`
      - parameter date: The date and time the `value` was recorded. Defaults to the current date and time
      */
-    public mutating func update(backingValue: ValueType, formattedValue: String? = nil, date: Date = Date()) {
-        self = GenericValue(displayName: displayName, backingValue: backingValue, formattedValue: formattedValue, unit: unit, date: date)
+    public mutating func update(
+        backingValue: ValueType,
+        formattedValue: String? = nil,
+        date: Date = Date()
+    ) {
+        self = GenericValue(
+            displayName: displayName,
+            backingValue: backingValue,
+            formattedValue: formattedValue,
+            unit: unit,
+            date: date
+        )
     }
 
 }
@@ -95,7 +108,10 @@ extension GenericValue where UnitType: ZeroConfigurationUnit {
 
 extension GenericValue: Equatable where ValueType: Equatable {
 
-    public static func == (lhs: GenericValue<ValueType, UnitType>, rhs: GenericValue<ValueType, UnitType>) -> Bool {
+    public static func == (
+        lhs: GenericValue<ValueType, UnitType>,
+        rhs: GenericValue<ValueType, UnitType>
+    ) -> Bool {
         return lhs.backingValue == rhs.backingValue
     }
 

@@ -1,7 +1,12 @@
 import Foundation
 import CoreMotion
 
-public final class Magnetometer: BaseSource, Source, CustomisableUpdateIntervalControllable, ValuesProvider {
+public final class Magnetometer:
+        BaseSource,
+        Source,
+        CustomisableUpdateIntervalControllable,
+        ValuesProvider
+     {
 
     public static var defaultUpdateInterval: TimeInterval = 1
 
@@ -20,10 +25,7 @@ public final class Magnetometer: BaseSource, Source, CustomisableUpdateIntervalC
     public private(set) var rawMagneticField: MagneticFieldValue
 
     public var allValues: [Value] {
-        return [
-            magneticField,
-            rawMagneticField,
-        ]
+        return [magneticField, rawMagneticField]
     }
 
     public private(set) var updateInterval: TimeInterval?
@@ -58,7 +60,8 @@ public final class Magnetometer: BaseSource, Source, CustomisableUpdateIntervalC
         motionManager.deviceMotionUpdateInterval = updateInterval
         motionManager.magnetometerUpdateInterval = updateInterval
 
-        let calibratedHandler: CMDeviceMotionHandler = { [weak self] (_ data: CMDeviceMotion?, error: Error?) in
+        let calibratedHandler: CMDeviceMotionHandler = {
+                [weak self] (_ data: CMDeviceMotion?, error: Error?) in
             guard let `self` = self else { return }
             guard self.isUpdating else { return }
 
@@ -70,11 +73,15 @@ public final class Magnetometer: BaseSource, Source, CustomisableUpdateIntervalC
                 date = Date()
             }
 
-            self.magneticField.update(backingValue: data?.magneticField, date: date)
+            self.magneticField.update(
+                backingValue: data?.magneticField,
+                date: date
+            )
             self.notifyListenersPropertyValuesUpdated()
         }
 
-        let rawHandler: CMMagnetometerHandler = { [weak self] (_ data: CMMagnetometerData?, error: Error?) in
+        let rawHandler: CMMagnetometerHandler = {
+                [weak self] (_ data: CMMagnetometerData?, error: Error?) in
             guard let `self` = self else { return }
             guard self.isUpdating else { return }
 
@@ -86,12 +93,21 @@ public final class Magnetometer: BaseSource, Source, CustomisableUpdateIntervalC
                 date = Date()
             }
 
-            self.rawMagneticField.update(backingValue: data?.magneticField, date: date)
+            self.rawMagneticField.update(
+                backingValue: data?.magneticField,
+                date: date
+            )
             self.notifyListenersPropertyValuesUpdated()
         }
 
         let operationQueue = OperationQueue()
-        motionManager.startDeviceMotionUpdates(to: operationQueue, withHandler: calibratedHandler)
-        motionManager.startMagnetometerUpdates(to: operationQueue, withHandler: rawHandler)
+        motionManager.startDeviceMotionUpdates(
+            to: operationQueue,
+            withHandler: calibratedHandler
+        )
+        motionManager.startMagnetometerUpdates(
+            to: operationQueue,
+            withHandler: rawHandler
+        )
     }
 }

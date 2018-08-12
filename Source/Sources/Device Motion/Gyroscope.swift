@@ -1,7 +1,12 @@
 import Foundation
 import CoreMotion
 
-public final class Gyroscope: BaseSource, Source, CustomisableUpdateIntervalControllable, ValuesProvider {
+public final class Gyroscope:
+        BaseSource,
+        Source,
+        CustomisableUpdateIntervalControllable,
+        ValuesProvider
+     {
 
     public static var defaultUpdateInterval: TimeInterval = 1
 
@@ -20,10 +25,7 @@ public final class Gyroscope: BaseSource, Source, CustomisableUpdateIntervalCont
     public private(set) var rawRotationRate: RotationRateValue
 
     public var allValues: [Value] {
-        return [
-            rotationRate,
-            rawRotationRate,
-        ]
+        return [rotationRate, rawRotationRate]
     }
 
     public private(set) var updateInterval: TimeInterval?
@@ -32,8 +34,14 @@ public final class Gyroscope: BaseSource, Source, CustomisableUpdateIntervalCont
 
     public override init() {
         let date = Date()
-        rotationRate = RotationRateValue(name: "Rotation Rate (Calibrated)", date: date)
-        rawRotationRate = RotationRateValue(name: "Rotation Rate (Raw)", date: date)
+        rotationRate = RotationRateValue(
+            name: "Rotation Rate (Calibrated)",
+            date: date
+        )
+        rawRotationRate = RotationRateValue(
+            name: "Rotation Rate (Raw)",
+            date: date
+        )
     }
 
     deinit {
@@ -58,7 +66,8 @@ public final class Gyroscope: BaseSource, Source, CustomisableUpdateIntervalCont
         motionManager.deviceMotionUpdateInterval = updateInterval
         motionManager.gyroUpdateInterval = updateInterval
 
-        let calibratedHandler: CMDeviceMotionHandler = { [weak self] (_ data: CMDeviceMotion?, error: Error?) in
+        let calibratedHandler: CMDeviceMotionHandler = {
+                [weak self] (_ data: CMDeviceMotion?, error: Error?) in
             guard let `self` = self else { return }
             guard self.isUpdating else { return }
 
@@ -70,11 +79,15 @@ public final class Gyroscope: BaseSource, Source, CustomisableUpdateIntervalCont
                 date = Date()
             }
 
-            self.rawRotationRate.update(backingValue: data?.rotationRate, date: date)
+            self.rawRotationRate.update(
+                backingValue: data?.rotationRate,
+                date: date
+            )
             self.notifyListenersPropertyValuesUpdated()
         }
 
-        let rawHandler: CMGyroHandler = { [weak self] (_ data: CMGyroData?, error: Error?) in
+        let rawHandler: CMGyroHandler = {
+                [weak self] (_ data: CMGyroData?, error: Error?) in
             guard let `self` = self else { return }
             guard self.isUpdating else { return }
 
@@ -86,12 +99,21 @@ public final class Gyroscope: BaseSource, Source, CustomisableUpdateIntervalCont
                 date = Date()
             }
 
-            self.rotationRate.update(backingValue: data?.rotationRate, date: date)
+            self.rotationRate.update(
+                backingValue: data?.rotationRate,
+                date: date
+            )
             self.notifyListenersPropertyValuesUpdated()
         }
 
         let operationQueue = OperationQueue()
-        motionManager.startDeviceMotionUpdates(to: operationQueue, withHandler: calibratedHandler)
-        motionManager.startGyroUpdates(to: operationQueue, withHandler: rawHandler)
+        motionManager.startDeviceMotionUpdates(
+            to: operationQueue,
+            withHandler: calibratedHandler
+        )
+        motionManager.startGyroUpdates(
+            to: operationQueue,
+            withHandler: rawHandler
+        )
     }
 }

@@ -1,6 +1,8 @@
 import Foundation
 
-public final class CPU: BasePollingSource, Source, ManuallyUpdatableValuesProvider {
+public final class CPU:
+        BasePollingSource, Source, ManuallyUpdatableValuesProvider
+     {
 
     public static let availability: SourceAvailability = .available
 
@@ -10,17 +12,20 @@ public final class CPU: BasePollingSource, Source, ManuallyUpdatableValuesProvid
     public private(set) var activeCoreCount: GenericUnitlessValue<Int>
 
     public var allValues: [Value] {
-        return [
-            numberOfCores,
-            activeCoreCount,
-        ]
+        return [numberOfCores, activeCoreCount]
     }
 
     private let processInfo: ProcessInfo = .processInfo
 
     public override init() {
-        numberOfCores = GenericUnitlessValue(displayName: "Number of Cores", backingValue: processInfo.processorCount)
-        activeCoreCount = GenericUnitlessValue(displayName: "Active Core Count", backingValue: processInfo.activeProcessorCount)
+        numberOfCores = GenericUnitlessValue(
+            displayName: "Number of Cores",
+            backingValue: processInfo.processorCount
+        )
+        activeCoreCount = GenericUnitlessValue(
+            displayName: "Active Core Count",
+            backingValue: processInfo.activeProcessorCount
+        )
     }
 
     public func updateValues() -> [Value] {

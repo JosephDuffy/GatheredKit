@@ -1,7 +1,12 @@
 import Foundation
 import CoreMotion
 
-public final class DeviceAttitude: BaseSource, Source, CustomisableUpdateIntervalControllable, ValuesProvider {
+public final class DeviceAttitude:
+        BaseSource,
+        Source,
+        CustomisableUpdateIntervalControllable,
+        ValuesProvider
+     {
 
     public static var defaultUpdateInterval: TimeInterval = 1
 
@@ -47,7 +52,7 @@ public final class DeviceAttitude: BaseSource, Source, CustomisableUpdateInterva
     public var quaternion: QuaternionValue
 
     @available(iOS 11.0, *)
-    public var heading: GenericUnitlessValue<Double?> {
+    public  var heading: GenericUnitlessValue<Double?> {
         let formattedValue = (latestData?.heading ?? 0) < 0 ? "Unknown" : nil
         return GenericUnitlessValue(
             displayName: "Heading",
@@ -61,22 +66,9 @@ public final class DeviceAttitude: BaseSource, Source, CustomisableUpdateInterva
 
     public var allValues: [Value] {
         if #available(iOS 11.0, *) {
-            return [
-                roll,
-                pitch,
-                yaw,
-                heading,
-                quaternion,
-                rotationMatrix,
-            ]
+            return [roll, pitch, yaw, heading, quaternion, rotationMatrix]
         } else {
-            return [
-                roll,
-                pitch,
-                yaw,
-                quaternion,
-                rotationMatrix,
-            ]
+            return [roll, pitch, yaw, quaternion, rotationMatrix]
         }
     }
 
@@ -104,7 +96,10 @@ public final class DeviceAttitude: BaseSource, Source, CustomisableUpdateInterva
         startUpdating(every: updateInterval, referenceFrame: nil)
     }
 
-    public func startUpdating(every updateInterval: TimeInterval, referenceFrame: CMAttitudeReferenceFrame?) {
+    public func startUpdating(
+        every updateInterval: TimeInterval,
+        referenceFrame: CMAttitudeReferenceFrame?
+    ) {
         if isUpdating {
             stopUpdating()
         }
@@ -114,21 +109,35 @@ public final class DeviceAttitude: BaseSource, Source, CustomisableUpdateInterva
         self.motionManager = motionManager
         motionManager.deviceMotionUpdateInterval = updateInterval
 
-        let handler: CMDeviceMotionHandler = { [weak self] (_ data: CMDeviceMotion?, error: Error?) in
+        let handler: CMDeviceMotionHandler = {
+                [weak self] (_ data: CMDeviceMotion?, error: Error?) in
             guard let `self` = self else { return }
             guard self.isUpdating else { return }
             guard let data = data else { return }
 
             self.latestData = data
-            self.quaternion.update(backingValue: data.attitude.quaternion, date: data.date)
-            self.rotationMatrix.update(backingValue: data.attitude.rotationMatrix, date: data.date)
+            self.quaternion.update(
+                backingValue: data.attitude.quaternion,
+                date: data.date
+            )
+            self.rotationMatrix.update(
+                backingValue: data.attitude.rotationMatrix,
+                date: data.date
+            )
             self.notifyListenersPropertyValuesUpdated()
         }
 
         if let referenceFrame = referenceFrame {
-            motionManager.startDeviceMotionUpdates(using: referenceFrame, to: OperationQueue(), withHandler: handler)
+            motionManager.startDeviceMotionUpdates(
+                using: referenceFrame,
+                to: OperationQueue(),
+                withHandler: handler
+            )
         } else {
-            motionManager.startDeviceMotionUpdates(to: OperationQueue(), withHandler: handler)
+            motionManager.startDeviceMotionUpdates(
+                to: OperationQueue(),
+                withHandler: handler
+            )
         }
     }
 }

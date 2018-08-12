@@ -1,6 +1,8 @@
 import AVFoundation
 
-public final class AudioOutput: BasePollingSource, Source, ManuallyUpdatableValuesProvider {
+public final class AudioOutput:
+        BasePollingSource, Source, ManuallyUpdatableValuesProvider
+     {
 
     public static let availability: SourceAvailability = .available
 
@@ -10,14 +12,20 @@ public final class AudioOutput: BasePollingSource, Source, ManuallyUpdatableValu
     public private(set) var ports: [Port]
 
     public var allValues: [Value] {
-        let ports = zip(self.ports, self.ports.indices).map { GenericUnitlessValue(displayName: "Port \($1 + 1)", backingValue: $0) }
-        return ports + [
-            volume,
-        ]
+        let ports = zip(self.ports, self.ports.indices).map {
+            GenericUnitlessValue(
+                displayName: "Port \($1 + 1)",
+                backingValue: $0
+            )
+        }
+        return ports + [volume]
     }
 
     public override init() {
-        volume = GenericValue(displayName: "Volume", backingValue: AVAudioSession.sharedInstance().outputVolume)
+        volume = GenericValue(
+            displayName: "Volume",
+            backingValue: AVAudioSession.sharedInstance().outputVolume
+        )
         ports = []
 
         super.init()
@@ -26,11 +34,13 @@ public final class AudioOutput: BasePollingSource, Source, ManuallyUpdatableValu
     }
 
     @discardableResult
-    public func updateValues() -> [Value] {
+    public  func updateValues() -> [Value] {
         let audioSession = AVAudioSession.sharedInstance()
         volume.update(backingValue: audioSession.outputVolume)
 
-        ports = audioSession.currentRoute.outputs.map(Port.init(portDescription:))
+        ports = audioSession.currentRoute.outputs.map(
+            Port.init(portDescription:)
+        )
 
         return allValues
     }
@@ -44,8 +54,13 @@ public extension AudioOutput {
         public let name: GenericUnitlessValue<String>
 
         @available(iOS 10.0, *)
-        public var hasHardwareVoiceCallProcessing: GenericValue<Bool, Boolean> {
-            return GenericValue(displayName: "Has Hardware Voice Call Processing", backingValue: _hasHardwareVoiceCallProcessing, unit: Boolean(trueString: "Yes", falseString: "No"))
+        public  var hasHardwareVoiceCallProcessing: GenericValue<Bool,
+        Boolean> {
+            return GenericValue(
+                displayName: "Has Hardware Voice Call Processing",
+                backingValue: _hasHardwareVoiceCallProcessing,
+                unit: Boolean(trueString: "Yes", falseString: "No")
+            )
         }
 
         private let _hasHardwareVoiceCallProcessing: Bool
@@ -54,20 +69,17 @@ public extension AudioOutput {
 
         public var allValues: [Value] {
             if #available(iOS 10.0, *) {
-                return [
-                    name,
-                    hasHardwareVoiceCallProcessing,
-                    type,
-                ]
+                return [name, hasHardwareVoiceCallProcessing, type]
             } else {
-                return [
-                    type,
-                ]
+                return [type]
             }
         }
 
         fileprivate init(portDescription: AVAudioSessionPortDescription) {
-            name = GenericUnitlessValue(displayName: "Name", backingValue: portDescription.portName)
+            name = GenericUnitlessValue(
+                displayName: "Name",
+                backingValue: portDescription.portName
+            )
 
             if #available(iOS 10.0, *) {
                 _hasHardwareVoiceCallProcessing = portDescription.hasHardwareVoiceCallProcessing
@@ -75,7 +87,11 @@ public extension AudioOutput {
                 _hasHardwareVoiceCallProcessing = false
             }
 
-            type = GenericUnitlessValue(displayName: "Type", backingValue: portDescription.portType, formattedValue: portDescription.portType.displayValue)
+            type = GenericUnitlessValue(
+                displayName: "Type",
+                backingValue: portDescription.portType,
+                formattedValue: portDescription.portType.displayValue
+            )
         }
     }
 

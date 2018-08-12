@@ -35,3 +35,4 @@ fastlane/test_output
 
 Carthage/Checkouts
 Carthage/Build
+node_modules

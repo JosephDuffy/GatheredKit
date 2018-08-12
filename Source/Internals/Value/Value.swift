@@ -1,4 +1,3 @@
-
 public protocol Value {
 
     /// A user-friendly name that represents the value, e.g. "Latitude", "Longitude"
@@ -36,7 +35,7 @@ public protocol TypedUnitProvider: UnitProvider {
 
     associatedtype UnitType: Unit
 
-    /// The unit the value is measured in
+        /// The unit the value is measured in
     var unit: UnitType { get }
 }
 

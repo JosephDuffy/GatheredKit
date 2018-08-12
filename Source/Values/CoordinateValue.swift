@@ -4,10 +4,7 @@ import CoreLocation
 public struct CoordinateValue: TypedValue, ValuesProvider {
 
     public var allValues: [Value] {
-        return [
-            latitude,
-            longitude,
-        ]
+        return [latitude, longitude]
     }
 
     public let latitude: GenericValue<CLLocationDegrees?, NumericNone>
@@ -22,7 +19,10 @@ public struct CoordinateValue: TypedValue, ValuesProvider {
 
     public let date: Date
 
-    public init(backingValue: CLLocationCoordinate2D? = nil, date: Date = Date()) {
+    public init(
+        backingValue: CLLocationCoordinate2D? = nil,
+        date: Date = Date()
+    ) {
         self.backingValue = backingValue
         self.date = date
         latitude = GenericValue(

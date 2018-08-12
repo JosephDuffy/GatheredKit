@@ -1,7 +1,12 @@
 import Foundation
 import CoreMotion
 
-public final class Accelerometer: BaseSource, Source, CustomisableUpdateIntervalControllable, ValuesProvider {
+public final class Accelerometer:
+        BaseSource,
+        Source,
+        CustomisableUpdateIntervalControllable,
+        ValuesProvider
+     {
 
     public static var defaultUpdateInterval: TimeInterval = 1
 
@@ -28,7 +33,7 @@ public final class Accelerometer: BaseSource, Source, CustomisableUpdateInterval
             totalAcceletation,
             gravitationalAcceletation,
             userAcceleration,
-            rawAcceleration,
+            rawAcceleration
         ]
     }
 
@@ -38,10 +43,22 @@ public final class Accelerometer: BaseSource, Source, CustomisableUpdateInterval
 
     public override init() {
         let date = Date()
-        totalAcceletation = AccelerationValue(name: "Gravitational Acceleration", date: date)
-        gravitationalAcceletation = AccelerationValue(name: "Gravitational Acceleration", date: date)
-        userAcceleration = AccelerationValue(name: "User Acceleration", date: date)
-        rawAcceleration = AccelerationValue(name: "Raw Acceleration", date: date)
+        totalAcceletation = AccelerationValue(
+            name: "Gravitational Acceleration",
+            date: date
+        )
+        gravitationalAcceletation = AccelerationValue(
+            name: "Gravitational Acceleration",
+            date: date
+        )
+        userAcceleration = AccelerationValue(
+            name: "User Acceleration",
+            date: date
+        )
+        rawAcceleration = AccelerationValue(
+            name: "Raw Acceleration",
+            date: date
+        )
     }
 
     deinit {
@@ -66,7 +83,8 @@ public final class Accelerometer: BaseSource, Source, CustomisableUpdateInterval
         motionManager.deviceMotionUpdateInterval = updateInterval
         motionManager.accelerometerUpdateInterval = updateInterval
 
-        let deviceMotionHandler: CMDeviceMotionHandler = { [weak self] (_ data: CMDeviceMotion?, error: Error?) in
+        let deviceMotionHandler: CMDeviceMotionHandler = {
+                [weak self] (_ data: CMDeviceMotion?, error: Error?) in
             guard let `self` = self else { return }
             guard self.isUpdating else { return }
 
@@ -80,19 +98,29 @@ public final class Accelerometer: BaseSource, Source, CustomisableUpdateInterval
 
             let total: CMAcceleration?
 
-            if let gravity = data?.gravity, let userAcceleration = data?.userAcceleration {
+            if
+                let gravity = data?.gravity,
+                let userAcceleration = data?.userAcceleration
+             {
                 total = gravity + userAcceleration
             } else {
                 total = nil
             }
 
             self.totalAcceletation.update(backingValue: total, date: date)
-            self.gravitationalAcceletation.update(backingValue: data?.gravity, date: date)
-            self.userAcceleration.update(backingValue: data?.userAcceleration, date: date)
+            self.gravitationalAcceletation.update(
+                backingValue: data?.gravity,
+                date: date
+            )
+            self.userAcceleration.update(
+                backingValue: data?.userAcceleration,
+                date: date
+            )
             self.notifyListenersPropertyValuesUpdated()
         }
 
-        let rawHandler: CMAccelerometerHandler = { [weak self] (_ data: CMAccelerometerData?, error: Error?) in
+        let rawHandler: CMAccelerometerHandler = {
+                [weak self] (_ data: CMAccelerometerData?, error: Error?) in
             guard let `self` = self else { return }
             guard self.isUpdating else { return }
 
@@ -104,20 +132,33 @@ public final class Accelerometer: BaseSource, Source, CustomisableUpdateInterval
                 date = Date()
             }
 
-            self.rawAcceleration.update(backingValue: data?.acceleration, date: date)
+            self.rawAcceleration.update(
+                backingValue: data?.acceleration,
+                date: date
+            )
             self.notifyListenersPropertyValuesUpdated()
         }
 
         let operationQueue = OperationQueue()
-        motionManager.startDeviceMotionUpdates(to: operationQueue, withHandler: deviceMotionHandler)
-        motionManager.startAccelerometerUpdates(to: operationQueue, withHandler: rawHandler)
+        motionManager.startDeviceMotionUpdates(
+            to: operationQueue,
+            withHandler: deviceMotionHandler
+        )
+        motionManager.startAccelerometerUpdates(
+            to: operationQueue,
+            withHandler: rawHandler
+        )
     }
 }
 
 private extension CMAcceleration {
 
     static func + (lhs: CMAcceleration, rhs: CMAcceleration) -> CMAcceleration {
-        return CMAcceleration(x: lhs.x + rhs.x, y: lhs.y + rhs.y, z: lhs.z + rhs.z)
+        return CMAcceleration(
+            x: lhs.x + rhs.x,
+            y: lhs.y + rhs.y,
+            z: lhs.z + rhs.z
+        )
     }
 
 }

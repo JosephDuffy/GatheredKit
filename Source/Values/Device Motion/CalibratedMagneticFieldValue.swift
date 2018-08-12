@@ -4,12 +4,7 @@ import CoreMotion
 public struct CalibratedMagneticFieldValue: TypedValue, ValuesProvider {
 
     public var allValues: [Value] {
-        return [
-            x,
-            y,
-            z,
-            accuracy,
-        ]
+        return [x, y, z, accuracy]
     }
 
     public var accuracy: GenericUnitlessValue<CMMagneticFieldCalibrationAccuracy?> {
@@ -87,7 +82,10 @@ public struct CalibratedMagneticFieldValue: TypedValue, ValuesProvider {
      - parameter date: The date and time the `value` was recorded. Defaults to the current date and time
      */
     public mutating func update(backingValue: ValueType, date: Date = Date()) {
-        self = CalibratedMagneticFieldValue(backingValue: backingValue, date: date)
+        self = CalibratedMagneticFieldValue(
+            backingValue: backingValue,
+            date: date
+        )
     }
 
     private func formattedValue(for value: Any?) -> String? {

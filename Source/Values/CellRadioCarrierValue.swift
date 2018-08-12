@@ -10,7 +10,7 @@ public extension CellRadio {
                 mobileCountryCode,
                 mobileNetworkCode,
                 isoCountryCode,
-                allowsVOIP,
+                allowsVOIP
             ]
         }
 
@@ -18,7 +18,9 @@ public extension CellRadio {
             return GenericUnitlessValue(
                 displayName: "Name",
                 backingValue: backingValue?.carrierName,
-                formattedValue: backingValue?.carrierName == nil ? "Unknown" : nil,
+                formattedValue: backingValue?.carrierName == nil
+                    ? "Unknown"
+                    : nil,
                 date: date
             )
         }
@@ -27,7 +29,9 @@ public extension CellRadio {
             return GenericUnitlessValue(
                 displayName: "Mobile Country Code",
                 backingValue: backingValue?.mobileCountryCode,
-                formattedValue: backingValue?.mobileCountryCode == nil ? "Unknown" : nil,
+                formattedValue: backingValue?.mobileCountryCode == nil
+                    ? "Unknown"
+                    : nil,
                 date: date
             )
         }
@@ -36,7 +40,9 @@ public extension CellRadio {
             return GenericUnitlessValue(
                 displayName: "Mobile Network Code",
                 backingValue: backingValue?.mobileNetworkCode,
-                formattedValue: backingValue?.mobileNetworkCode == nil ? "Unknown" : nil,
+                formattedValue: backingValue?.mobileNetworkCode == nil
+                    ? "Unknown"
+                    : nil,
                 date: date
             )
         }
@@ -45,7 +51,9 @@ public extension CellRadio {
             return GenericUnitlessValue(
                 displayName: "ISO Country Code",
                 backingValue: backingValue?.isoCountryCode,
-                formattedValue: backingValue?.isoCountryCode == nil ? "Unknown" : nil,
+                formattedValue: backingValue?.isoCountryCode == nil
+                    ? "Unknown"
+                    : nil,
                 date: date
             )
         }

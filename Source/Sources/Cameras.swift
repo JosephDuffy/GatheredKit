@@ -11,10 +11,7 @@ public final class Cameras: Source, ValuesProvider {
     public let back: GenericUnitlessValue<Camera?>
 
     public var allValues: [Value] {
-        return [
-            front,
-            back,
-        ]
+        return [front, back]
     }
 
     public init() {
@@ -71,20 +68,24 @@ public extension Cameras {
             highestStillImageResolution = GenericUnitlessValue(
                 displayName: "Highest Still Image Resolution",
                 backingValue: metadata.highestStillImageResolution,
-                formattedValue: metadata.highestStillImageResolution?.formattedString ?? "Unknown"
+                formattedValue: metadata.highestStillImageResolution?.formattedString
+                    ?? "Unknown"
             )
 
             supportsHDRVideo = GenericValue(
                 displayName: "Supports HDR Video",
                 backingValue: metadata.supportsHDRVideo,
-                formattedValue: metadata.supportsHDRVideo == nil ? nil : "Unknown",
+                formattedValue: metadata.supportsHDRVideo == nil
+                    ? nil
+                    : "Unknown",
                 unit: Boolean(trueString: "Yes", falseString: "No")
             )
 
             highestVideoResolution = GenericUnitlessValue(
                 displayName: "Highest Video Resolution",
                 backingValue: metadata.highestVideoResolution,
-                formattedValue: metadata.highestVideoResolution?.formattedString ?? "Unknown"
+                formattedValue: metadata.highestVideoResolution?.formattedString
+                    ?? "Unknown"
             )
 
             let formattedMaximumFramerate: String
@@ -106,7 +107,7 @@ public extension Cameras {
                 highestStillImageResolution,
                 supportsHDRVideo,
                 highestVideoResolution,
-                maximumFramerate,
+                maximumFramerate
             ]
         }
     }
@@ -128,29 +129,29 @@ private extension Cameras.Camera {
             var maximumFramerate: Float64?
 
             for format in formats {
-                if
-                    highestStillImageResolution == nil ||
-                    format.highResolutionStillImageDimensions.totalPixels >
-                        highestStillImageResolution?.totalPixels ?? 0
-                {
+                if highestStillImageResolution == nil
+                        || format.highResolutionStillImageDimensions.totalPixels
+                        > highestStillImageResolution?.totalPixels
+                        ?? 0 {
                     highestStillImageResolution = format.highResolutionStillImageDimensions
                 }
 
-                let videoResolution = CMVideoFormatDescriptionGetDimensions(format.formatDescription)
+                let videoResolution = CMVideoFormatDescriptionGetDimensions(
+                    format.formatDescription
+                )
 
-                if
-                    highestVideoResolution == nil ||
-                    videoResolution.totalPixels >
-                        highestVideoResolution?.totalPixels ?? 0
-                {
+                if highestVideoResolution == nil
+                        || videoResolution.totalPixels
+                        > highestVideoResolution?.totalPixels
+                        ?? 0 {
                     highestVideoResolution = videoResolution
                 }
 
                 for frameRateRange in format.videoSupportedFrameRateRanges {
-                    if
-                        maximumFramerate == nil ||
-                        frameRateRange.maxFrameRate > maximumFramerate ?? 0
-                    {
+                    if maximumFramerate == nil
+                            || frameRateRange.maxFrameRate
+                            > maximumFramerate
+                            ?? 0 {
                         maximumFramerate = frameRateRange.maxFrameRate
                     }
                 }
@@ -194,30 +195,33 @@ private extension AVCaptureDevice {
     }
 
     @available(iOS 10.0, *)
-    private static func defaultDevice(position: AVCaptureDevice.Position) -> AVCaptureDevice? {
+    private static  func defaultDevice(
+        position: AVCaptureDevice.Position
+    ) -> AVCaptureDevice? {
         let deviceTypes: [AVCaptureDevice.DeviceType]
         if #available(iOS 11.1, *) {
             deviceTypes = [
                 .builtInWideAngleCamera,
                 .builtInTelephotoCamera,
                 .builtInDualCamera,
-                .builtInTrueDepthCamera,
+                .builtInTrueDepthCamera
             ]
         } else if #available(iOS 10.2, *) {
             deviceTypes = [
                 .builtInWideAngleCamera,
                 .builtInTelephotoCamera,
-                .builtInDualCamera,
+                .builtInDualCamera
             ]
         } else {
-            deviceTypes = [
-                .builtInWideAngleCamera,
-                .builtInTelephotoCamera,
-            ]
+            deviceTypes = [.builtInWideAngleCamera, .builtInTelephotoCamera]
         }
 
         for deviceType in deviceTypes {
-            if let device = AVCaptureDevice.default(deviceType, for: nil, position: position) {
+            if let device = AVCaptureDevice.default(
+                    deviceType,
+                    for: nil,
+                    position: position
+                ) {
                 return device
             }
         }

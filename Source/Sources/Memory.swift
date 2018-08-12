@@ -1,6 +1,8 @@
 import Foundation
 
-public final class Memory: BasePollingSource, Source, ManuallyUpdatableValuesProvider {
+public final class Memory:
+        BasePollingSource, Source, ManuallyUpdatableValuesProvider
+     {
 
     public static let availability: SourceAvailability = .available
 
@@ -15,25 +17,39 @@ public final class Memory: BasePollingSource, Source, ManuallyUpdatableValuesPro
     public private(set) var purgeable: GenericValue<UInt32?, Byte>
 
     public var allValues: [Value] {
-        return [
-            total,
-            free,
-            used,
-            active,
-            inactive,
-            wired,
-            purgeable,
-        ]
+        return [total, free, used, active, inactive, wired, purgeable]
     }
 
     public override init() {
-        total = GenericValue(displayName: "Total", backingValue: ProcessInfo.processInfo.physicalMemory, unit: Byte(countStyle: .memory))
-        free = GenericValue(displayName: "Free", unit: Byte(countStyle: .memory))
-        used = GenericValue(displayName: "Used", unit: Byte(countStyle: .memory))
-        active = GenericValue(displayName: "Active", unit: Byte(countStyle: .memory))
-        inactive = GenericValue(displayName: "Inactive", unit: Byte(countStyle: .memory))
-        wired = GenericValue(displayName: "Wired", unit: Byte(countStyle: .memory))
-        purgeable = GenericValue(displayName: "Purgeable", unit: Byte(countStyle: .memory))
+        total = GenericValue(
+            displayName: "Total",
+            backingValue: ProcessInfo.processInfo.physicalMemory,
+            unit: Byte(countStyle: .memory)
+        )
+        free = GenericValue(
+            displayName: "Free",
+            unit: Byte(countStyle: .memory)
+        )
+        used = GenericValue(
+            displayName: "Used",
+            unit: Byte(countStyle: .memory)
+        )
+        active = GenericValue(
+            displayName: "Active",
+            unit: Byte(countStyle: .memory)
+        )
+        inactive = GenericValue(
+            displayName: "Inactive",
+            unit: Byte(countStyle: .memory)
+        )
+        wired = GenericValue(
+            displayName: "Wired",
+            unit: Byte(countStyle: .memory)
+        )
+        purgeable = GenericValue(
+            displayName: "Purgeable",
+            unit: Byte(countStyle: .memory)
+        )
 
         super.init()
 
@@ -41,14 +57,19 @@ public final class Memory: BasePollingSource, Source, ManuallyUpdatableValuesPro
     }
 
     @discardableResult
-    public func updateValues() -> [Value] {
+    public  func updateValues() -> [Value] {
         total.update(backingValue: ProcessInfo.processInfo.physicalMemory)
 
         if let stats = vmStatistics() {
             let pageSize = UInt32(vm_page_size)
 
             free.update(backingValue: pageSize * stats.free_count)
-            used.update(backingValue: pageSize * (stats.active_count + stats.inactive_count + stats.wire_count))
+            used.update(
+                backingValue: pageSize
+                    * (stats.active_count
+                        + stats.inactive_count
+                        + stats.wire_count)
+            )
             active.update(backingValue: pageSize * stats.active_count)
             inactive.update(backingValue: pageSize * stats.inactive_count)
             wired.update(backingValue: pageSize * stats.wire_count)
@@ -66,7 +87,10 @@ public final class Memory: BasePollingSource, Source, ManuallyUpdatableValuesPro
     }
 
     private func vmStatistics() -> vm_statistics64? {
-        var size = mach_msg_type_number_t(MemoryLayout<vm_statistics_data_t>.stride / MemoryLayout<integer_t>.stride)
+        var size = mach_msg_type_number_t(
+            MemoryLayout<vm_statistics_data_t>.stride
+                / MemoryLayout<integer_t>.stride
+        )
         var hostInfo = vm_statistics64()
 
         let result = withUnsafeMutablePointer(to: &hostInfo) {

@@ -9,10 +9,11 @@ public struct Time: ZeroConfigurationUnit {
         return formatter
     }()
 
-    public init() {}
+    public init() { }
 
     public func formattedString(for value: TimeInterval) -> String {
-        return formatter.string(from: value) ?? (value == 1 ? "1 Second" : "\(value) Seconds")
+        return formatter.string(from: value)
+            ?? (value == 1 ? "1 Second" : "\(value) Seconds")
     }
 
 }
