@@ -4,11 +4,7 @@ import CoreMotion
 public struct MagneticFieldValue: TypedValue, ValuesProvider {
 
     public var allValues: [Value] {
-        return [
-            x,
-            y,
-            z,
-        ]
+        return [x, y, z]
     }
 
     public var x: GenericValue<Double?, NumericNone> {

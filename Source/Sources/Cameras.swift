@@ -11,10 +11,7 @@ public final class Cameras: Source, ValuesProvider {
     public let back: GenericUnitlessValue<Camera?>
 
     public var allValues: [Value] {
-        return [
-            front,
-            back,
-        ]
+        return [front, back]
     }
 
     public init() {
@@ -106,7 +103,7 @@ public extension Cameras {
                 highestStillImageResolution,
                 supportsHDRVideo,
                 highestVideoResolution,
-                maximumFramerate,
+                maximumFramerate
             ]
         }
     }

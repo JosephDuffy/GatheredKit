@@ -29,7 +29,10 @@ public extension NumericUnit {
      - returns: The formatted string
      */
     public func formattedString(for value: NSNumber) -> String {
-        return formattedString(for: value, maximumFractionDigits: maximumFractionDigits)
+        return formattedString(
+            for: value,
+            maximumFractionDigits: maximumFractionDigits
+        )
     }
 
     /**
@@ -40,7 +43,10 @@ public extension NumericUnit {
      - parameter formatter: The formatter to use to format the numeric value
      - returns: The formatted string
      */
-    public func formattedString(for value: NSNumber, maximumFractionDigits: Int) -> String {
+    public func formattedString(
+        for value: NSNumber,
+        maximumFractionDigits: Int
+    ) -> String {
         return formattedString(
             for: value,
             maximumFractionDigits: maximumFractionDigits,
@@ -57,7 +63,11 @@ public extension NumericUnit {
      - parameter formatter: The formatter to use to format the numeric value
      - returns: The formatted string
      */
-    public func formattedString(for value: NSNumber, singularValueSuffix: String, pluralValueSuffix: String) -> String {
+    public func formattedString(
+        for value: NSNumber,
+        singularValueSuffix: String,
+        pluralValueSuffix: String
+    ) -> String {
         return formattedString(
             for: value,
             maximumFractionDigits: maximumFractionDigits,
@@ -74,7 +84,12 @@ public extension NumericUnit {
      - parameter formatter: The formatter to use to format the numeric value
      - returns: The formatted string
      */
-    public func formattedString(for value: NSNumber, maximumFractionDigits: Int, singularValueSuffix: String, pluralValueSuffix: String) -> String {
+    public func formattedString(
+        for value: NSNumber,
+        maximumFractionDigits: Int,
+        singularValueSuffix: String,
+        pluralValueSuffix: String
+    ) -> String {
         let formatter = NumberFormatter()
         formatter.numberStyle = maximumFractionDigits > 0 ? .decimal : .none
         formatter.maximumFractionDigits = maximumFractionDigits
@@ -95,7 +110,10 @@ public extension NumericUnit {
      - parameter formatter: The formatter to use to format the numeric value
      - returns: The formatted string
      */
-    public func formattedString(for value: NSNumber, usingFormatter formatter: NumberFormatter) -> String {
+    public func formattedString(
+        for value: NSNumber,
+        usingFormatter formatter: NumberFormatter
+    ) -> String {
         return formattedString(
             for: value,
             usingFormatter: formatter,
@@ -112,7 +130,12 @@ public extension NumericUnit {
      - parameter formatter: The formatter to use to format the numeric value
      - returns: The formatted string
      */
-    public func formattedString(for value: NSNumber, usingFormatter formatter: NumberFormatter, singularValueSuffix: String, pluralValueSuffix: String) -> String {
+    public func formattedString(
+        for value: NSNumber,
+        usingFormatter formatter: NumberFormatter,
+        singularValueSuffix: String,
+        pluralValueSuffix: String
+    ) -> String {
         let defaultValue = String(describing: value)
 
         let formattedValue = formatter.string(from: value) ?? defaultValue

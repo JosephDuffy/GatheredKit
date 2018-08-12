@@ -1,4 +1,3 @@
-
 /**
  A struct that represents a value that can be either true or false
  */
@@ -37,7 +36,11 @@ public struct Boolean: TypedUnit {
      - parameter flaseString: A custom string to return when `value` is `false`
      - returns: The formatted string
      */
-    public func formattedString(for value: Bool, trueString: String, falseString: String) -> String {
+    public func formattedString(
+        for value: Bool,
+        trueString: String,
+        falseString: String
+    ) -> String {
         return value ? trueString : falseString
     }
 

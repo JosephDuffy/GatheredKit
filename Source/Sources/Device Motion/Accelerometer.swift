@@ -28,7 +28,7 @@ public final class Accelerometer: BaseSource, Source, CustomisableUpdateInterval
             totalAcceletation,
             gravitationalAcceletation,
             userAcceleration,
-            rawAcceleration,
+            rawAcceleration
         ]
     }
 
@@ -38,10 +38,22 @@ public final class Accelerometer: BaseSource, Source, CustomisableUpdateInterval
 
     public override init() {
         let date = Date()
-        totalAcceletation = AccelerationValue(name: "Gravitational Acceleration", date: date)
-        gravitationalAcceletation = AccelerationValue(name: "Gravitational Acceleration", date: date)
-        userAcceleration = AccelerationValue(name: "User Acceleration", date: date)
-        rawAcceleration = AccelerationValue(name: "Raw Acceleration", date: date)
+        totalAcceletation = AccelerationValue(
+            name: "Gravitational Acceleration",
+            date: date
+        )
+        gravitationalAcceletation = AccelerationValue(
+            name: "Gravitational Acceleration",
+            date: date
+        )
+        userAcceleration = AccelerationValue(
+            name: "User Acceleration",
+            date: date
+        )
+        rawAcceleration = AccelerationValue(
+            name: "Raw Acceleration",
+            date: date
+        )
     }
 
     deinit {
@@ -80,15 +92,24 @@ public final class Accelerometer: BaseSource, Source, CustomisableUpdateInterval
 
             let total: CMAcceleration?
 
-            if let gravity = data?.gravity, let userAcceleration = data?.userAcceleration {
+            if
+                let gravity = data?.gravity,
+                let userAcceleration = data?.userAcceleration
+             {
                 total = gravity + userAcceleration
             } else {
                 total = nil
             }
 
             self.totalAcceletation.update(backingValue: total, date: date)
-            self.gravitationalAcceletation.update(backingValue: data?.gravity, date: date)
-            self.userAcceleration.update(backingValue: data?.userAcceleration, date: date)
+            self.gravitationalAcceletation.update(
+                backingValue: data?.gravity,
+                date: date
+            )
+            self.userAcceleration.update(
+                backingValue: data?.userAcceleration,
+                date: date
+            )
             self.notifyListenersPropertyValuesUpdated()
         }
 
@@ -104,20 +125,33 @@ public final class Accelerometer: BaseSource, Source, CustomisableUpdateInterval
                 date = Date()
             }
 
-            self.rawAcceleration.update(backingValue: data?.acceleration, date: date)
+            self.rawAcceleration.update(
+                backingValue: data?.acceleration,
+                date: date
+            )
             self.notifyListenersPropertyValuesUpdated()
         }
 
         let operationQueue = OperationQueue()
-        motionManager.startDeviceMotionUpdates(to: operationQueue, withHandler: deviceMotionHandler)
-        motionManager.startAccelerometerUpdates(to: operationQueue, withHandler: rawHandler)
+        motionManager.startDeviceMotionUpdates(
+            to: operationQueue,
+            withHandler: deviceMotionHandler
+        )
+        motionManager.startAccelerometerUpdates(
+            to: operationQueue,
+            withHandler: rawHandler
+        )
     }
 }
 
 private extension CMAcceleration {
 
     static func + (lhs: CMAcceleration, rhs: CMAcceleration) -> CMAcceleration {
-        return CMAcceleration(x: lhs.x + rhs.x, y: lhs.y + rhs.y, z: lhs.z + rhs.z)
+        return CMAcceleration(
+            x: lhs.x + rhs.x,
+            y: lhs.y + rhs.y,
+            z: lhs.z + rhs.z
+        )
     }
 
 }

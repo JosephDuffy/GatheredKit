@@ -4,17 +4,7 @@ import CoreMotion
 public struct RotationMatrixValue: TypedValue, ValuesProvider {
 
     public var allValues: [Value] {
-        return [
-            m11,
-            m12,
-            m13,
-            m21,
-            m22,
-            m23,
-            m31,
-            m32,
-            m33,
-        ]
+        return [m11, m12, m13, m21, m22, m23, m31, m32, m33]
     }
 
     public var m11: GenericValue<Double?, NumericNone> {
@@ -118,7 +108,10 @@ public struct RotationMatrixValue: TypedValue, ValuesProvider {
      - parameter backingValue: The new value of the data
      - parameter date: The date and time the `value` was recorded. Defaults to the current date and time
      */
-    public mutating func update(backingValue: CMRotationMatrix, date: Date = Date()) {
+    public mutating func update(
+        backingValue: CMRotationMatrix,
+        date: Date = Date()
+    ) {
         self = RotationMatrixValue(backingValue: backingValue, date: date)
     }
 

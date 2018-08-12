@@ -4,12 +4,7 @@ import CoreMotion
 public struct QuaternionValue: TypedValue, ValuesProvider {
 
     public var allValues: [Value] {
-        return [
-            x,
-            y,
-            z,
-            w,
-        ]
+        return [x, y, z, w]
     }
 
     public var x: GenericValue<Double?, NumericNone> {
