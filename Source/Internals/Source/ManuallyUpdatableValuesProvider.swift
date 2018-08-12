@@ -1,4 +1,3 @@
-
 /**
  A source that supports its properties being updated at any given time
  */
@@ -12,6 +11,6 @@ public protocol ManuallyUpdatableValuesProvider: ValuesProvider {
 
      - returns: The values after the update
      */
-    func updateValues() -> [AnyValue]
+    func updateValues() -> [Value]
 
 }

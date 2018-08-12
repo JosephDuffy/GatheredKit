@@ -1,4 +1,3 @@
-
 /**
  A struct that represents the scaling of something, i.e. a multiplier
  */
@@ -15,6 +14,6 @@ public struct Scale: NumericUnit {
     /// the value does not equal 1
     public let pluralValueSuffix = "x"
 
-    public init() {}
+    public init() { }
 
 }

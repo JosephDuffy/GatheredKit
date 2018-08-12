@@ -26,7 +26,7 @@ public final class DeviceOrientation: BaseSource, Source, Controllable {
 
     public static let availability: SourceAvailability = .available
 
-    public let displayName = "Device Orientation"
+    public static let name = "Device Orientation"
 
     public var isUpdating: Bool {
         switch state {
@@ -37,13 +37,13 @@ public final class DeviceOrientation: BaseSource, Source, Controllable {
         }
     }
 
-    public private(set) var screenOrientation: GenericValue<ScreenOrientation?, None>
-    public private(set) var screenDirection: GenericValue<ScreenDirection?, None>
+    public private(set) var screenOrientation: GenericUnitlessValue<ScreenOrientation?>
+    public private(set) var screenDirection: GenericUnitlessValue<ScreenDirection?>
 
-    public var allValues: [AnyValue] {
+    public var allValues: [Value] {
         return [
-            screenOrientation.asAny(),
-            screenDirection.asAny(),
+            screenOrientation,
+            screenDirection,
         ]
     }
 
@@ -52,8 +52,8 @@ public final class DeviceOrientation: BaseSource, Source, Controllable {
     private var state: State = .notMonitoring
 
     public override init() {
-        screenOrientation = GenericValue(displayName: "Screen Orientation")
-        screenDirection = GenericValue(displayName: "Screen Direction")
+        screenOrientation = GenericUnitlessValue(displayName: "Screen Orientation")
+        screenDirection = GenericUnitlessValue(displayName: "Screen Direction")
     }
 
     deinit {

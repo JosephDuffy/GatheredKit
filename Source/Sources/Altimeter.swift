@@ -1,7 +1,7 @@
 import Foundation
 import CoreMotion
 
-public final class Altimeter: BaseSource, Controllable, ValuesProvider, ActionProvider {
+public final class Altimeter: BaseSource, Source, Controllable, ValuesProvider, ActionProvider {
 
     private enum State {
         case notMonitoring
@@ -12,7 +12,7 @@ public final class Altimeter: BaseSource, Controllable, ValuesProvider, ActionPr
         return CMAltimeter.isRelativeAltitudeAvailable() ? .available : .unavailable
     }
 
-    public static var displayName = "Altimeter"
+    public static var name = "Altimeter"
 
     public var isUpdating: Bool {
         switch state {
@@ -26,10 +26,10 @@ public final class Altimeter: BaseSource, Controllable, ValuesProvider, ActionPr
     public private(set) var relativeAltitude: GenericValue<NSNumber?, Meter>
     public private(set) var pressure: GenericValue<NSNumber?, Kilopascal>
 
-    public var allValues: [AnyValue] {
+    public var allValues: [Value] {
         return [
-            relativeAltitude.asAny(),
-            pressure.asAny(),
+            relativeAltitude,
+            pressure,
         ]
     }
 

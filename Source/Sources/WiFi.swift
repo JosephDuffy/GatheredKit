@@ -2,7 +2,7 @@ import Foundation
 import CoreFoundation
 import SystemConfiguration.CaptiveNetwork
 
-public final class WiFi: BaseSource, Controllable, ManuallyUpdatableValuesProvider {
+public final class WiFi: BaseSource, Source, Controllable, ManuallyUpdatableValuesProvider {
 
     private enum State {
         case notMonitoring
@@ -11,7 +11,7 @@ public final class WiFi: BaseSource, Controllable, ManuallyUpdatableValuesProvid
 
     public static var availability: SourceAvailability = .available
 
-    public static var displayName = "Wi-Fi"
+    public static var name = "Wi-Fi"
 
     /// A boolean indicating if the screen is monitoring for brightness changes
     public var isUpdating: Bool {
@@ -23,24 +23,24 @@ public final class WiFi: BaseSource, Controllable, ManuallyUpdatableValuesProvid
         }
     }
 
-    public var lanIP: GenericValue<String?, None>
-    public var ssid: GenericValue<String?, None>
-    public var bssid: GenericValue<String?, None>
+    public var lanIP: GenericUnitlessValue<String?>
+    public var ssid: GenericUnitlessValue<String?>
+    public var bssid: GenericUnitlessValue<String?>
 
-    public var allValues: [AnyValue] {
+    public var allValues: [Value] {
         return [
-            lanIP.asAny(),
-            ssid.asAny(),
-            bssid.asAny(),
+            lanIP,
+            ssid,
+            bssid,
         ]
     }
 
     private var state: State = .notMonitoring
 
     public override init() {
-        lanIP = GenericValue(displayName: "LAN IP")
-        ssid = GenericValue(displayName: "SSID")
-        bssid = GenericValue(displayName: "BSSID")
+        lanIP = GenericUnitlessValue(displayName: "LAN IP")
+        ssid = GenericUnitlessValue(displayName: "SSID")
+        bssid = GenericUnitlessValue(displayName: "BSSID")
     }
 
     deinit {
@@ -97,7 +97,7 @@ public final class WiFi: BaseSource, Controllable, ManuallyUpdatableValuesProvid
     }
 
     @discardableResult
-    public func updateValues() -> [AnyValue] {
+    public func updateValues() -> [Value] {
         guard let interfaces = CNCopySupportedInterfaces() as? [CFString] else {
             print("Failed to cast interfaces to CFString array")
             return allValues
