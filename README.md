@@ -231,7 +231,7 @@ public extension CustomisableUpdateIntervalControllable {
 
 A `ManuallyUpdatableValuesProvider` is a `ValuesProvider` that can be manually updated by calling the `updateValues` function.
 
-```siwft
+```swift
 /**
  A source that supports its properties being updated at any given time
  */
@@ -294,7 +294,9 @@ Documentation for GatheredKit is provided in the source code. Browsable document
 
 Running the tests for GatheredKit requires `Quick` and `Nimble`, which can be installed using Carthage:
 
-`carthage build --platform iOS --no-use-binaries`
+```console
+carthage build --platform iOS --no-use-binaries
+```
 
 Tests can be run via Xcode or `fastlane test`.
 
