@@ -39,6 +39,9 @@ deploy:
     on:
       repo: JosephDuffy/GatheredKit
 
+after_deploy:
+  - git push origin --tags
+
 env:
   global:
     # CocoaPods
