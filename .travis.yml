@@ -32,13 +32,11 @@ deploy:
     file: GatheredKit.framework.zip
     skip_cleanup: true
     on:
-      tags: true
       repo: JosephDuffy/GatheredKit
   - provider: script
     script: pod trunk push
     skip_cleanup: true
     on:
-      tags: true
       repo: JosephDuffy/GatheredKit
 
 env:
