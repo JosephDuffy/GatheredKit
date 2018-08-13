@@ -1,5 +1,5 @@
+os: osx
 language: swift
-osx_image: xcode9.3
 
 cache:
   bundler: true
@@ -7,7 +7,6 @@ cache:
     - Carthage
 
 before_install:
-  - brew update
   - brew outdated carthage || brew upgrade carthage
 
 install:
@@ -33,13 +32,11 @@ deploy:
     file: GatheredKit.framework.zip
     skip_cleanup: true
     on:
-      tags: true
       repo: JosephDuffy/GatheredKit
   - provider: script
     script: pod trunk push
     skip_cleanup: true
     on:
-      tags: true
       repo: JosephDuffy/GatheredKit
 
 env:
