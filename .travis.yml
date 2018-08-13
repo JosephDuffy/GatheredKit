@@ -7,6 +7,7 @@ cache:
     - Carthage
 
 before_install:
+  - brew update
   - brew outdated carthage || brew upgrade carthage
 
 install:
@@ -26,7 +27,7 @@ before_deploy:
 deploy:
   - provider: releases
     api_key:
-      secure: afKyBHFezn853gDksozT18t183hwRXUj78Kg8VfjMtBF5sHOAulAM11vcUP8q2KAzkivjsAZoGWGunJZDPoMSWiWDJZVaXEu2KerqixAgxbIJobtHg2c9iAfJhCIsmAubL8yrJhare2ALtHSxcT2W8ji6QnBlSlOXeqKDhdkstXvD2m8ahqXeuJHNDffMABaaZefr7OjPA8yTU7dQ3pK1047f5AXLan+921CQSgylq3qU416JU9TbDGVJ9IGuk2KaHIzAUJgxZVzjvy8KRDydhoH6FLISRX5aUjpr5pukqqx5c1dg8q1oaSiPoSgo2Nw8qzP8GckA4p/vepZlDrEdcKtBHqWB+hXSqlz/XgntYQYaUpm7QRRXMf2prHgo28mNhctPlsTXByBetDkls3jIMSyl26mXRABftTzB9RYA/iq00+1ugVyOx/PBgSIMLC3Qc9qHVVXsiRMJE1iiPzNDDQzw+5Ym+H/0gdYM0rKEbTTXqFKXDjXer/QM2SWeLsyBMOImAKiabFaDzCwhq8qM5lc2oK4iIew/3CqCmFJ6t8ZGU+VBiEQmeF8mfkBtiAFx/Z57H1AI4tyz9p9Qy7irwPfYV2MlYCBMhXNXLRJlXe2kPAHCL4HpKwSQlmo8NG8+NGPjtWy4UuX5HwYKLNAKhpZu6Zc4+TFFoR9M9bL+Gg=
+      secure: GxXxOohlCmDDyfBJc2EspvXBAVCum5gSeLoWbbXJboiZsuQdW5TO0kBmf7kjgqzpPlZT7M50imlguQb03XekpSG/B1dqfv0g8MR6bephcfHjzJf6hhBemDmHXxidZdFULv7RDdJ3Uo+cLfnLYYrI90gRAemPUbgQCxfrmQyBzavn81mp2e3j/ZHgttyQ+hqKVFNIJ6Bgdsm8/nD2wXUGskN8/SoJJCa/PdmF3Eb0F6lhpd/iWY6CERk2fuzd4ZKCCJuv4ceF/Tp9skPZ607446AB7Ey8dkxvpsoNGSn4mpGddFLalWAX0+fCoCCT8cUrPf/5skTCRolV+qjH7t8sJ4TIZ2bdUzySrURSQnHQvCjBMiukpFPe4d4KdMhM2eeqQbAMOh9lAVH1LT+4V6+meJSicWeLRMZ/zApV/BDnBJ8If2qwWAuIPb7rnuGhwKJo74bZPqqeVvl+fPYhz3b2bH6TSR53a9TeeWZcXBLG16RMh0xeKrvXb/63EW17GSSiHRPCLuMGEENbumIUEPY4S49n3CKmhupwVoRJcjoJhVyz2xxw02fUGYbc52YbogUjXmSfbWI5+vICaQbntaQtuxNMtI0ut5pWtsB8+280C829ZfaZSyhILwfLHOL5yD10kj+qtiM2n2iyKjvkq9MTnFyx0otvUTu4bWacmHJ2sqw=
     file: GatheredKit.framework.zip
     skip_cleanup: true
     on:
