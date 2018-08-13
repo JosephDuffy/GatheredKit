@@ -21,6 +21,10 @@ script:
 before_deploy:
   - carthage build --no-skip-current
   - carthage archive GatheredKit
+  # Based on https://docs.travis-ci.com/user/deployment/releases/ to automatically tag, but modified to use the merger's credentials
+  - git config --local user.name "$(git log -1 --pretty=format:'%an')"
+  - git config --local user.email "$(git log -1 --pretty=format:'%ae')"
+  - git tag "v$(defaults read "$(pwd)/Source/Info.plist" CFBundleShortVersionString)"
 
 deploy:
   - provider: releases
@@ -29,13 +33,13 @@ deploy:
     file: GatheredKit.framework.zip
     skip_cleanup: true
     on:
-      tag: true
+      tags: true
       repo: JosephDuffy/GatheredKit
   - provider: script
     script: pod trunk push
     skip_cleanup: true
     on:
-      tag: true
+      tags: true
       repo: JosephDuffy/GatheredKit
 
 env:
