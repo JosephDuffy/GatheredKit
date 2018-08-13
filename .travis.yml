@@ -14,8 +14,7 @@ install:
   - bundle exec fastlane install_dependencies
 
 script:
-  - if [ "$TRAVIS_PULL_REQUEST" != "false" ]; then bundle exec fastlane perform_pr_checks; fi
-  - if [ "$TRAVIS_PULL_REQUEST" = "false" ]; then bundle exec fastlane test; fi
+  - if [ "$TRAVIS_PULL_REQUEST" = "true" ]; then bundle exec fastlane perform_pr_checks; fi
 
 before_deploy:
   - carthage build --no-skip-current
