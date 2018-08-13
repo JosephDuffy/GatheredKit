@@ -17,12 +17,11 @@ script:
   - if [ "$TRAVIS_PULL_REQUEST" = "true" ]; then bundle exec fastlane perform_pr_checks; fi
 
 before_deploy:
-  - carthage build --no-skip-current
-  - carthage archive GatheredKit
+  - carthage build --platform iOS --archive
   # Based on https://docs.travis-ci.com/user/deployment/releases/ to automatically tag, but modified to use the merger's credentials
   - git config --local user.name "$(git log -1 --pretty=format:'%an')"
   - git config --local user.email "$(git log -1 --pretty=format:'%ae')"
-  - git tag "v$(defaults read "$(pwd)/Source/Info.plist" CFBundleShortVersionString)"
+  - git tag "v$(defaults read "$(pwd)/Source/Info.plist" CFBundleShortVersionString)" || true
 
 deploy:
   - provider: releases
@@ -37,9 +36,6 @@ deploy:
     skip_cleanup: true
     on:
       repo: JosephDuffy/GatheredKit
-
-after_deploy:
-  - git push origin --tags
 
 env:
   global:
