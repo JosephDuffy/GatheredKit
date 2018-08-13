@@ -294,7 +294,7 @@ Documentation for GatheredKit is provided in the source code. Browsable document
 
 Running the tests for GatheredKit requires `Quick` and `Nimble`, which can be installed using Carthage:
 
-```console
+```bash
 carthage build --platform iOS --no-use-binaries
 ```
 
