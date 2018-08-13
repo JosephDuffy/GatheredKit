@@ -1,6 +1,6 @@
 ![GatheredKit](https://josephduffy.github.io/GatheredKit/img/banner.png)
 
-[![Build Status](https://api.travis-ci.com/JosephDuffy/GatheredKit.svg)](https://travis-ci./JosephDuffy/GatheredKit)
+[![Build Status](https://api.travis-ci.com/JosephDuffy/GatheredKit.svg)](https://travis-ci.com/JosephDuffy/GatheredKit)
 [![Documentation](https://josephduffy.github.io/GatheredKit/badge.svg)](https://josephduffy.github.io/GatheredKit/)
 [![Carthage Compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
 [![CocoaPods Compatible](https://img.shields.io/cocoapods/v/GatheredKit.svg)](https://cocoapods.org/pods/GatheredKit)
