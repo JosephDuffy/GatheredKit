@@ -1,5 +1,4 @@
 import UIKit
-import AVFoundation
 
 #if swift(>=4.2)
 #else
@@ -16,10 +15,6 @@ extension UIDevice {
     static let batteryStateDidChangeNotification: NSNotification.Name = .UIDeviceBatteryStateDidChange
     static let proximityStateDidChangeNotification: NSNotification.Name = .UIDeviceProximityStateDidChange
     static let orientationDidChangeNotification: NSNotification.Name = .UIDeviceOrientationDidChange
-}
-
-extension AVAudioSession {
-    public typealias Port = String
 }
 
 #endif
