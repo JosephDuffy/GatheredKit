@@ -103,50 +103,6 @@ public extension AudioOutput {
 
 }
 
-private extension AVAudioSession.Port {
-
-    var displayValue: String {
-        switch self {
-        case .HDMI:
-            return "HDMI"
-        case .airPlay:
-            return "Air Play"
-        case .bluetoothA2DP:
-            return "Bluetooth A2DP"
-        case .bluetoothHFP:
-            return "Bluetooth Hands-Free"
-        case .bluetoothLE:
-            return "Bluetooth Low Energy"
-        case .builtInMic:
-            return "Built in Microphone"
-        case .builtInReceiver:
-            return "Built in Receiver"
-        case .builtInSpeaker:
-            return "Built in Speaker"
-        case .carAudio:
-            return "Car Audio"
-        case .headphones:
-            return "Wired Headphones"
-        case .headsetMic:
-            return "Headset Microphone"
-        case .lineIn:
-            return "Line In"
-        case .lineOut:
-            return "Line Out"
-        case .usbAudio:
-            return "USB Audio"
-        #if swift(>=4.2)
-        default:
-            return rawValue
-        #else
-        case .unknown(let string):
-            return string
-        #endif
-        }
-    }
-
-}
-
 
 #if swift(>=4.2)
 #else
@@ -208,3 +164,47 @@ extension AVAudioSession {
     }
 }
 #endif
+
+private extension AVAudioSession.Port {
+
+    var displayValue: String {
+        switch self {
+        case .HDMI:
+            return "HDMI"
+        case .airPlay:
+            return "Air Play"
+        case .bluetoothA2DP:
+            return "Bluetooth A2DP"
+        case .bluetoothHFP:
+            return "Bluetooth Hands-Free"
+        case .bluetoothLE:
+            return "Bluetooth Low Energy"
+        case .builtInMic:
+            return "Built in Microphone"
+        case .builtInReceiver:
+            return "Built in Receiver"
+        case .builtInSpeaker:
+            return "Built in Speaker"
+        case .carAudio:
+            return "Car Audio"
+        case .headphones:
+            return "Wired Headphones"
+        case .headsetMic:
+            return "Headset Microphone"
+        case .lineIn:
+            return "Line In"
+        case .lineOut:
+            return "Line Out"
+        case .usbAudio:
+            return "USB Audio"
+            #if swift(>=4.2)
+            default:
+            return rawValue
+            #else
+        case .unknown(let string):
+            return string
+            #endif
+        }
+    }
+
+}
