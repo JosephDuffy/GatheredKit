@@ -12,6 +12,9 @@ platform :ios do
   desc "Performs checks that pull requests are required to pass"
   lane :perform_pr_checks do
     test
+    # Uses `pod lib lint` over `pod spec lint` because otherwise the repo will
+    # be pulled, which will fail because the tag might not have been pushed yet
+    sh("bundle", "exec", "pod", "lib", "lint")
   end
 
   desc "Installs dependencies via carthage"
