@@ -17,5 +17,5 @@ Pod::Spec.new do |s|
 
   s.ios.deployment_target = "9.0"
   s.frameworks = "SystemConfiguration"
-  s.swift_version = "4.2"
+  s.swift_version = "4.1"
 end
