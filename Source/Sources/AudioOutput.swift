@@ -84,20 +84,90 @@ public extension AudioOutput {
                 _hasHardwareVoiceCallProcessing = false
             }
 
+            #if swift(>=4.2)
             type = GenericUnitlessValue(
                 displayName: "Type",
                 backingValue: portDescription.portType,
                 formattedValue: portDescription.portType.displayValue
             )
+            #else
+            let portType = AVAudioSession.Port(string: portDescription.portType)
+            type = GenericUnitlessValue(
+                displayName: "Type",
+                backingValue: portType,
+                formattedValue: portType.displayValue
+            )
+            #endif
         }
     }
 
 }
 
+
+#if swift(>=4.2)
+#else
+extension AVAudioSession {
+
+    public enum Port {
+
+        case HDMI
+        case airPlay
+        case bluetoothA2DP
+        case bluetoothHFP
+        case bluetoothLE
+        case builtInMic
+        case builtInReceiver
+        case builtInSpeaker
+        case carAudio
+        case headphones
+        case headsetMic
+        case lineIn
+        case lineOut
+        case usbAudio
+        case unknown(String)
+
+        init(string: String) {
+            switch string {
+            case AVAudioSessionPortHDMI:
+                self = .HDMI
+            case AVAudioSessionPortAirPlay:
+                self = .airPlay
+            case AVAudioSessionPortBluetoothA2DP:
+                self = .bluetoothA2DP
+            case AVAudioSessionPortBluetoothHFP:
+                self = .bluetoothHFP
+            case AVAudioSessionPortBluetoothLE:
+                self = .bluetoothLE
+            case AVAudioSessionPortBuiltInMic:
+                self = .builtInMic
+            case AVAudioSessionPortBuiltInReceiver:
+                self = .builtInReceiver
+            case AVAudioSessionPortBuiltInSpeaker:
+                self = .builtInSpeaker
+            case AVAudioSessionPortCarAudio:
+                self = .carAudio
+            case AVAudioSessionPortHeadphones:
+                self = .headphones
+            case AVAudioSessionPortHeadsetMic:
+                self = .headsetMic
+            case AVAudioSessionPortLineIn:
+                self = .lineIn
+            case AVAudioSessionPortLineOut:
+                self = .lineOut
+            case AVAudioSessionPortUSBAudio:
+                self = .usbAudio
+            default:
+                self = .unknown(string)
+            }
+        }
+
+    }
+}
+#endif
+
 private extension AVAudioSession.Port {
 
     var displayValue: String {
-        #if swift(>=4.2)
         switch self {
         case .HDMI:
             return "HDMI"
@@ -127,43 +197,14 @@ private extension AVAudioSession.Port {
             return "Line Out"
         case .usbAudio:
             return "USB Audio"
-        default:
+            #if swift(>=4.2)
+            default:
             return rawValue
+            #else
+        case .unknown(let string):
+            return string
+            #endif
         }
-        #else
-        switch self as String {
-        case AVAudioSessionPortHDMI:
-            return "HDMI"
-        case AVAudioSessionPortAirPlay:
-            return "Air Play"
-        case AVAudioSessionPortBluetoothA2DP:
-            return "Bluetooth A2DP"
-        case AVAudioSessionPortBluetoothHFP:
-            return "Bluetooth Hands-Free"
-        case AVAudioSessionPortBluetoothLE:
-            return "Bluetooth Low Energy"
-        case AVAudioSessionPortBuiltInMic:
-            return "Built in Microphone"
-        case AVAudioSessionPortBuiltInReceiver:
-            return "Built in Receiver"
-        case AVAudioSessionPortBuiltInSpeaker:
-            return "Built in Speaker"
-        case AVAudioSessionPortCarAudio:
-            return "Car Audio"
-        case AVAudioSessionPortHeadphones:
-            return "Wired Headphones"
-        case AVAudioSessionPortHeadsetMic:
-            return "Headset Microphone"
-        case AVAudioSessionPortLineIn:
-            return "Line In"
-        case AVAudioSessionPortLineOut:
-            return "Line Out"
-        case AVAudioSessionPortUSBAudio:
-            return "USB Audio"
-        default:
-            return self as String
-        }
-        #endif
     }
 
 }
