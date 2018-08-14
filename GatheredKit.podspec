@@ -11,12 +11,11 @@ Pod::Spec.new do |s|
   s.license      = { :type => "MIT", :file => "LICENSE" }
 
   s.author       = "Joseph Duffy"
-  s.ios.deployment_target = "9.0"
 
   s.source       = { :git => "https://github.com/JosephDuffy/GatheredKit.git", :tag => "v#{s.version}" }
   s.source_files = "Source/**/*.{swift,h,m}"
 
-  s.frameworks = 'UIKit'
-
-  s.swift_version = '4.1'
+  s.ios.deployment_target = "9.0"
+  s.frameworks = "SystemConfiguration"
+  s.swift_version = "4.2"
 end
