@@ -1,4 +1,5 @@
 ![GatheredKit](https://josephduffy.github.io/GatheredKit/img/banner.png)
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2FJosephDuffy%2FGatheredKit.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2FJosephDuffy%2FGatheredKit?ref=badge_shield)
 
 [![Build Status](https://api.travis-ci.org/JosephDuffy/GatheredKit.svg)](https://travis-ci.org/JosephDuffy/GatheredKit)
 [![Documentation](https://josephduffy.github.io/GatheredKit/badge.svg)](https://josephduffy.github.io/GatheredKit/)
@@ -19,6 +20,9 @@ The code originated from [Gathered](https://geo.itunes.apple.com/app/gathered/id
  - [Documentation](#documentation)
  - [Running Tests](#running-tests)
  - [License](#license)
+
+
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2FJosephDuffy%2FGatheredKit.svg?type=large)](https://app.fossa.io/projects/git%2Bgithub.com%2FJosephDuffy%2FGatheredKit?ref=badge_large)
 
 # Available Sources
 
