@@ -7,6 +7,8 @@ cache:
     - Carthage
 
 before_install:
+  - npm install -g danger
+  - brew outdated danger/tap/danger-swift || brew install danger/tap/danger-swift
   - brew outdated carthage || brew upgrade carthage
 
 install:
@@ -14,7 +16,7 @@ install:
   - bundle exec fastlane install_dependencies
 
 script:
-  - if [ "$TRAVIS_PULL_REQUEST" != "false" ]; then bundle exec fastlane perform_pr_checks; fi
+  - if [ "$TRAVIS_PULL_REQUEST" != "false" ]; then bundle exec fastlane perform_pr_checks; danger process danger-swift; fi
   - if [ "$TRAVIS_PULL_REQUEST" = "false" ]; then bundle exec fastlane test; fi
 
 before_deploy:
