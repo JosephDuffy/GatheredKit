@@ -1,46 +1,109 @@
 import Foundation
 import AVFoundation
 
-public final class Cameras: Source, ValuesProvider {
+public final class Cameras: BaseSource, Source, Controllable, ValuesProvider {
+
+    private enum State {
+        case notMonitoring
+        case monitoring(notificationObservers: NotificationObservers, updatesQueue: OperationQueue)
+
+        // swiftlint:disable:next nesting
+        struct NotificationObservers {
+            let deviceConnected: NSObjectProtocol
+            let deviceDisconnected: NSObjectProtocol
+        }
+    }
 
     public static let availability: SourceAvailability = .available
 
     public static let name = "Cameras"
 
-    public let front: GenericUnitlessValue<Camera?>
-    public let back: GenericUnitlessValue<Camera?>
+    public private(set) var cameras: [Camera]
 
-    public var allValues: [Value] {
-        return [front, back]
+    public var front: Camera? {
+        guard let frontId = AVCaptureDevice.frontCaptureDevice()?.uniqueID else { return nil }
+        return cameras.first(where: { $0.uniqueID == frontId })
     }
 
-    public init() {
-        if let frontCaptureDevice = AVCaptureDevice.frontCaptureDevice() {
-            let camera = Camera(captureDevice: frontCaptureDevice)
-            front = GenericUnitlessValue(
-                displayName: frontCaptureDevice.localizedName,
-                backingValue: camera
-            )
-        } else {
-            front = GenericUnitlessValue(displayName: "Front Camera")
+    public var back: Camera? {
+        guard let backId = AVCaptureDevice.backCaptureDevice()?.uniqueID else { return nil }
+        return cameras.first(where: { $0.uniqueID == backId })
+    }
+
+    private var state: State = .notMonitoring
+
+    public var isUpdating: Bool {
+        switch state {
+        case .notMonitoring:
+            return false
+        case .monitoring:
+            return true
+        }
+    }
+
+    public var allValues: [Value] {
+        return cameras
+    }
+
+    public override init() {
+        cameras = AVCaptureDevice.devices().map(Camera.init(captureDevice:))
+    }
+
+    public func startUpdating() {
+        guard !isUpdating else { return }
+
+        let updatesQueue = OperationQueue()
+        updatesQueue.name = "uk.co.josephduffy.GatheredKit Cameras Updates"
+        let deviceConnectedListener = NotificationCenter.default.addObserver(
+            forName: .AVCaptureDeviceWasConnected,
+            object: nil,
+            queue: updatesQueue
+        ) { [unowned self] notification in
+            guard let device = notification.object as? AVCaptureDevice else { return }
+            self.cameras.append(Camera(captureDevice: device))
+            self.notifyListenersPropertyValuesUpdated()
         }
 
-        if let backCaptureDevice = AVCaptureDevice.backCaptureDevice() {
-            let camera = Camera(captureDevice: backCaptureDevice)
-            back = GenericUnitlessValue(
-                displayName: backCaptureDevice.localizedName,
-                backingValue: camera
-            )
-        } else {
-            back = GenericUnitlessValue(displayName: "Back Camera")
+        let deviceDisconnectedListener = NotificationCenter.default.addObserver(
+            forName: .AVCaptureDeviceWasDisconnected,
+            object: nil,
+            queue: updatesQueue
+        ) { [unowned self] notification in
+            guard let device = notification.object as? AVCaptureDevice else { return }
+            self.cameras.removeAll(where: { $0.uniqueID == device.uniqueID })
         }
+
+        state = .monitoring(
+            notificationObservers: Cameras.State.NotificationObservers(
+                deviceConnected: deviceConnectedListener,
+                deviceDisconnected: deviceDisconnectedListener
+            ),
+            updatesQueue: updatesQueue
+        )
+    }
+
+    public func stopUpdating() {
+        guard case .monitoring(let observers, _) = state else { return }
+
+        NotificationCenter.default.removeObserver(
+            observers.deviceConnected,
+            name: .AVCaptureDeviceWasConnected,
+            object: nil
+        )
+        NotificationCenter.default.removeObserver(
+            observers.deviceDisconnected,
+            name: .AVCaptureDeviceWasDisconnected,
+            object: nil
+        )
+
+        state = .notMonitoring
     }
 
 }
 
 public extension Cameras {
 
-    struct Camera: ValuesProvider {
+    struct Camera: TypedValue, ValuesProvider {
 
         public let uniqueID: GenericUnitlessValue<String>
         public let modelID: GenericUnitlessValue<String>
@@ -53,7 +116,18 @@ public extension Cameras {
 
         public let allValues: [Value]
 
+        public let backingValue: AVCaptureDevice
+
+        public let displayName: String
+
+        public let formattedValue: String? = nil
+
+        public let date = Date()
+
         public init(captureDevice: AVCaptureDevice) {
+            backingValue = captureDevice
+            displayName = captureDevice.localizedName
+            
             uniqueID = GenericUnitlessValue(
                 displayName: "Unique ID",
                 backingValue: captureDevice.uniqueID

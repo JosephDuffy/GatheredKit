@@ -5,9 +5,6 @@ import Foundation
  */
 public protocol Controllable: class {
 
-    /// A closure that will be called with the latest values
-    typealias UpdateListener = (_ latestValues: [Value]) -> Void
-
     /// A boolean indicating if the `Controllable` is currently performing automatic updates
     var isUpdating: Bool { get }
 
@@ -22,26 +19,9 @@ public protocol Controllable: class {
      */
     func stopUpdating()
 
-    /**
-     Adds a closure to the array of closures that will be called when any of the source's
-     values are updated. The closure will be called with all values, but not all the values
-     will neccessary be new.
-
-     The returned object must be retained; the lifecycle of the listener is tied to the object. If
-     the object is deallocated the listener will be destroyed.
-
-     - parameter updateListener: The closure to call with updated values
-     - parameter queue: The dispatch queue the listener should be called from
-     - returns: An opaque object. The lifecycle of the listener is tied to the object
-     */
-    func addUpdateListener(
-        _ updateListener: @escaping UpdateListener,
-        queue: DispatchQueue
-    ) -> AnyObject
-
 }
 
-public extension Controllable {
+public extension Controllable where Self: Source {
 
     /**
      Starts automatic updates and adds a closure to the array of closures that will be called when

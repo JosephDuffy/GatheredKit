@@ -61,4 +61,12 @@ public extension TypedValue where ValueType: Equatable {
         return lhs.backingValue == rhs.backingValue
     }
 
+    static func == (lhs: Self, rhs: ValueType) -> Bool {
+        return lhs.backingValue == rhs
+    }
+
+    static func == (lhs: ValueType, rhs: Self) -> Bool {
+        return lhs == rhs.backingValue
+    }
+
 }
