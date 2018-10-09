@@ -12,7 +12,7 @@ func checkSwiftVersions() {
         }
 
         do {
-            let regex = try NSRegularExpression(pattern: "SWIFT_VERSION = (*);", options: [])
+            let regex = try NSRegularExpression(pattern: "SWIFT_VERSION = (.*);", options: [])
             let matches = regex.matches(in: content, options: [], range: NSRange(location: 0, length: content.count))
             swiftVersions += matches.flatMap { match in
                 return (0..<match.numberOfRanges).map { rangeIndex in
