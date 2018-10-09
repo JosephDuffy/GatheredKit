@@ -7,7 +7,6 @@ cache:
     - Carthage
 
 before_install:
-  - brew update
   - brew outdated carthage || brew upgrade carthage
 
 install:
