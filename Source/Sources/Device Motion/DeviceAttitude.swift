@@ -1,7 +1,7 @@
 import Foundation
 import CoreMotion
 
-public final class DeviceAttitude: BaseSource, Source, CustomisableUpdateIntervalControllable, ValuesProvider {
+public final class DeviceAttitude: BaseSource, Source, CustomisableUpdateIntervalSource, ValuesProvider {
 
     public static var defaultUpdateInterval: TimeInterval = 1
 
