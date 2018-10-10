@@ -21,7 +21,7 @@ script:
   - if [ "$TRAVIS_PULL_REQUEST" = "false" ]; then bundle exec fastlane test; fi
 
 before_deploy:
-  - carthage build --platform iOS --archive
+  - carthage build --archive --cache-builds --platform iOS
 
 deploy:
   - provider: releases
