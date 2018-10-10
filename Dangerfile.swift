@@ -24,8 +24,8 @@ func checkSwiftVersions() {
             let regex = try NSRegularExpression(pattern: "SWIFT_VERSION = (.*);", options: [])
             let matches = regex.matches(in: content, options: [], range: NSRange(location: 0, length: content.count))
             matches.forEach { match in
-                guard match.numberOfRanges > 0 else { return }
-                let range = match.range(at: 0)
+                guard match.numberOfRanges > 1 else { return }
+                let range = match.range(at: 1)
                 let startIndex = content.index(content.startIndex, offsetBy: range.location)
                 let indexPastEnd = content.index(content.startIndex, offsetBy: range.location + range.length)
                 let version = String(content[startIndex..<indexPastEnd])
@@ -40,7 +40,7 @@ func checkSwiftVersions() {
 
     let swiftVersionPath = ".swift-version"
     if let data = FileManager.default.contents(atPath: swiftVersionPath) {
-        guard let content = String(data: data, encoding: .utf8) else {
+        guard let content = String(data: data, encoding: .utf8)?.trimmingCharacters(in: .whitespacesAndNewlines) else {
             warn("Could not decode data at " + swiftVersionPath + " as UTF8")
             return
         }
