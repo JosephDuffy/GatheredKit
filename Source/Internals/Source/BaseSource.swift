@@ -13,7 +13,7 @@ open class BaseSource: NSObject {
     }
 
     open func addUpdateListener(
-        _ updateListener: @escaping Controllable.UpdateListener,
+        _ updateListener: @escaping Source.UpdateListener,
         queue: DispatchQueue
     ) -> AnyObject {
         let observer = SourceUpdateListenerWrapper(
@@ -32,7 +32,7 @@ open class BaseSource: NSObject {
 
 }
 
-extension Controllable where Self: BaseSource, Self: ValuesProvider {
+extension Source where Self: BaseSource, Self: ValuesProvider {
 
     public func notifyListenersPropertyValuesUpdated() {
         notifyUpdateListeners(latestPropertyValues: allValues)
