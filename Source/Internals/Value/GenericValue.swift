@@ -104,17 +104,6 @@ extension GenericValue where UnitType: ZeroConfigurationUnit {
 
 }
 
-extension GenericValue: Equatable where ValueType: Equatable {
-
-    public static func == (
-        lhs: GenericValue<ValueType, UnitType>,
-        rhs: GenericValue<ValueType, UnitType>
-    ) -> Bool {
-        return lhs.backingValue == rhs.backingValue
-    }
-
-}
-
 extension GenericValue: ValuesProvider where ValueType: ValuesProvider {
 
     public var allValues: [Value] {
