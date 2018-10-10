@@ -11,7 +11,7 @@ before_install:
   - brew outdated carthage || brew upgrade carthage
 
 install:
-  - bundle install
+  - bundle install --deployment
   - bundle exec fastlane install_dependencies
 
 script:
