@@ -63,17 +63,6 @@ public struct GenericUnitlessValue<ValueType>: TypedValue {
 
 }
 
-extension GenericUnitlessValue: Equatable where ValueType: Equatable {
-
-    public static func == (
-        lhs: GenericUnitlessValue<ValueType>,
-        rhs: GenericUnitlessValue<ValueType>
-    ) -> Bool {
-        return lhs.backingValue == rhs.backingValue
-    }
-
-}
-
 extension GenericUnitlessValue: ValuesProvider where ValueType: ValuesProvider {
 
     public var allValues: [Value] {
