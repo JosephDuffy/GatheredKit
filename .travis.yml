@@ -8,7 +8,7 @@ cache:
 
 before_install:
   - npm install -g danger
-  - brew outdated danger/tap/danger-swift || brew install danger/tap/danger-swift
+  - brew install danger/tap/danger-swift
   - brew outdated carthage || brew upgrade carthage
 
 install:
