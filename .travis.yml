@@ -1,4 +1,5 @@
 os: osx
+osx_image: xcode10
 language: swift
 
 cache:
@@ -19,10 +20,6 @@ script:
 
 before_deploy:
   - carthage build --platform iOS --archive
-  # Based on https://docs.travis-ci.com/user/deployment/releases/ to automatically tag, but modified to use the merger's credentials
-  - git config --local user.name "$(git log -1 --pretty=format:'%an')"
-  - git config --local user.email "$(git log -1 --pretty=format:'%ae')"
-  - git tag "v$(defaults read "$(pwd)/Source/Info.plist" CFBundleShortVersionString)" || true
 
 deploy:
   - provider: releases
@@ -32,13 +29,13 @@ deploy:
     skip_cleanup: true
     on:
       repo: JosephDuffy/GatheredKit
-      branch: master
+      tags: true
   - provider: script
     script: pod trunk push
     skip_cleanup: true
     on:
       repo: JosephDuffy/GatheredKit
-      branch: master
+      tags: true
 
 env:
   global:

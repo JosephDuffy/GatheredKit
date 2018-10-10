@@ -87,4 +87,4 @@ extension Controllable where Self: BasePollingSource, Self: ManuallyUpdatableVal
 
 }
 
-public extension CustomisableUpdateIntervalControllable where Self: BasePollingSource, Self: ManuallyUpdatableValuesProvider {}
+public extension CustomisableUpdateIntervalSource where Self: BasePollingSource, Self: ManuallyUpdatableValuesProvider {}
