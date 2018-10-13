@@ -54,6 +54,8 @@ func checkSwiftVersions() {
         warn("Found no swift versions")
     } else if uniqueVersions.count > 1 {
         fail("Found mismatch swift versions: \(uniqueVersions)")
+    } else {
+        message("All Swift versions are in-sync")
     }
 }
 
