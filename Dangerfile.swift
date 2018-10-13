@@ -1,5 +1,20 @@
 import Foundation
+
+#if canImport(Danger)
 import Danger
+#else
+func message(_ message: String) {
+    print("Message:", message)
+}
+
+func warn(_ message: String) {
+    print("WARN:", message)
+}
+
+func fail(_ message: String) {
+    print("FAIL:", message)
+}
+#endif
 
 struct VersionFile {
     enum Interpreter {
