@@ -6,6 +6,7 @@ cache:
   bundler: true
   directories:
     - Carthage
+    - $HOME/Library/Caches/Homebrew
 
 before_install:
   - brew install danger/tap/danger-swift
