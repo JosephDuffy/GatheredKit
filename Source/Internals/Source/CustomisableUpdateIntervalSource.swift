@@ -1,7 +1,7 @@
 /**
  A source that supports updating its properties at a given time interval
  */
-public protocol CustomisableUpdateIntervalSource: Source {
+public protocol CustomisableUpdateIntervalSource: Source, Controllable {
 
     /// The default update interval that will be used when calling `startUpdating()`
     /// without specifying the update interval.
