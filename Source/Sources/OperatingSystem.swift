@@ -1,6 +1,6 @@
 import Foundation
 
-public final class OperatingSystem: BasePollingSource, CustomisableUpdateIntervalControllable, ManuallyUpdatableValuesProvider {
+public final class OperatingSystem: BasePollingSource, Source, CustomisableUpdateIntervalControllable, ManuallyUpdatableValuesProvider {
 
     public static var defaultUpdateInterval: TimeInterval = 0.5
 
