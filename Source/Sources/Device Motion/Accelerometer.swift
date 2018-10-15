@@ -1,7 +1,7 @@
 import Foundation
 import CoreMotion
 
-public final class Accelerometer: BaseSource, Source, CustomisableUpdateIntervalSource, ValuesProvider {
+public final class Accelerometer: BaseSource, CustomisableUpdateIntervalSource, ValuesProvider {
 
     public static var defaultUpdateInterval: TimeInterval = 1
 

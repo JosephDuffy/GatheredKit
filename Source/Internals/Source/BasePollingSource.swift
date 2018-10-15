@@ -4,7 +4,7 @@ import Foundation
  A base class that can be used to create sources that can only be polled for updates.
 
  To benefit from `BasePollingSource` your subclass must implement `ManuallyUpdatableValuesProvider`. This
- will add `CustomisableUpdateIntervalControllable` conformance via an extension.
+ will add `CustomisableUpdateIntervalSource` conformance via an extension.
  */
 open class BasePollingSource: BaseSource {
 
