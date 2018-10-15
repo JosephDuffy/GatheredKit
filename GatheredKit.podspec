@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name         = "GatheredKit"
-  s.version      = "0.1"
+  s.version      = "0.1.1"
   s.summary      = <<-SUMM
                    A consistent and easy to use API for various iOS data
                    sources
