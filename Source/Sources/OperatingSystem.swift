@@ -1,6 +1,8 @@
 import Foundation
 
-public final class OperatingSystem: BasePollingSource, Source, Controllable, ManuallyUpdatableValuesProvider {
+public final class OperatingSystem: BasePollingSource, CustomisableUpdateIntervalControllable, ManuallyUpdatableValuesProvider {
+
+    public static var defaultUpdateInterval: TimeInterval = 0.5
 
     public static let availability: SourceAvailability = .available
 
