@@ -100,6 +100,7 @@ public extension Cameras {
 
         public let uniqueID: GenericUnitlessValue<String>
         public let modelID: GenericUnitlessValue<String>
+        public let position: GenericUnitlessValue<AVCaptureDevice.Position>
         // TODO: Add unit
         public let highestStillImageResolution: GenericUnitlessValue<CMVideoDimensions?>
         public let supportsHDRVideo: GenericValue<Bool?, Boolean>
@@ -128,6 +129,11 @@ public extension Cameras {
             modelID = GenericUnitlessValue(
                 displayName: "Model ID",
                 backingValue: captureDevice.modelID
+            )
+            position = GenericUnitlessValue(
+                displayName: "Position",
+                backingValue: captureDevice.position,
+                formattedValue: captureDevice.position.displayValue
             )
 
             let metadata = FormatsMetadata(formats: captureDevice.formats)
@@ -280,6 +286,21 @@ private extension CMVideoDimensions {
 
     var formattedString: String {
         return "\(width) x \(height)"
+    }
+
+}
+
+private extension AVCaptureDevice.Position {
+
+    var displayValue: String {
+        switch self {
+        case .front:
+            return "Front"
+        case .back:
+            return "Back"
+        case .unspecified:
+            return "Unspecified"
+        }
     }
 
 }
