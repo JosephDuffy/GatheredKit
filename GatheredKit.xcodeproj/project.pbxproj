@@ -56,7 +56,7 @@
 		D9EF059E20ACC63700D3F194 /* Controllable.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9EF059D20ACC63700D3F194 /* Controllable.swift */; };
 		D9EF05A020ACC77D00D3F194 /* GenericValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9EF059F20ACC77D00D3F194 /* GenericValue.swift */; };
 		D9EF05A520ACCE3800D3F194 /* Unit.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9EF05A420ACCE3800D3F194 /* Unit.swift */; };
-		D9EF05AD20ACCF7000D3F194 /* CustomisableUpdateIntervalSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9EF05AC20ACCF7000D3F194 /* CustomisableUpdateIntervalSource.swift */; };
+		D9EF05AD20ACCF7000D3F194 /* CustomisableUpdateIntervalControllable.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9EF05AC20ACCF7000D3F194 /* CustomisableUpdateIntervalControllable.swift */; };
 		D9EF05AF20ACCF8B00D3F194 /* ManuallyUpdatableValuesProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9EF05AE20ACCF8B00D3F194 /* ManuallyUpdatableValuesProvider.swift */; };
 		D9EF05B120ACD02100D3F194 /* NumericUnit.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9EF05B020ACD02100D3F194 /* NumericUnit.swift */; };
 		D9EF05B320ACD04F00D3F194 /* UnitError.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9EF05B220ACD04F00D3F194 /* UnitError.swift */; };
@@ -162,7 +162,7 @@
 		D9EF059D20ACC63700D3F194 /* Controllable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Controllable.swift; sourceTree = "<group>"; };
 		D9EF059F20ACC77D00D3F194 /* GenericValue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenericValue.swift; sourceTree = "<group>"; };
 		D9EF05A420ACCE3800D3F194 /* Unit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Unit.swift; sourceTree = "<group>"; };
-		D9EF05AC20ACCF7000D3F194 /* CustomisableUpdateIntervalSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomisableUpdateIntervalSource.swift; sourceTree = "<group>"; };
+		D9EF05AC20ACCF7000D3F194 /* CustomisableUpdateIntervalControllable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomisableUpdateIntervalControllable.swift; sourceTree = "<group>"; };
 		D9EF05AE20ACCF8B00D3F194 /* ManuallyUpdatableValuesProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManuallyUpdatableValuesProvider.swift; sourceTree = "<group>"; };
 		D9EF05B020ACD02100D3F194 /* NumericUnit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumericUnit.swift; sourceTree = "<group>"; };
 		D9EF05B220ACD04F00D3F194 /* UnitError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnitError.swift; sourceTree = "<group>"; };
@@ -230,7 +230,7 @@
 				D9F6B05420F8F4A700831338 /* Source.swift */,
 				D9EF059D20ACC63700D3F194 /* Controllable.swift */,
 				D9D7529D20B4BE0600B16A06 /* SourceAvailability.swift */,
-				D9EF05AC20ACCF7000D3F194 /* CustomisableUpdateIntervalSource.swift */,
+				D9EF05AC20ACCF7000D3F194 /* CustomisableUpdateIntervalControllable.swift */,
 				D9EF05AE20ACCF8B00D3F194 /* ManuallyUpdatableValuesProvider.swift */,
 				D9EF05D020ACD6B900D3F194 /* BaseSource.swift */,
 				D999586A21010F3B00C577AC /* BasePollingSource.swift */,
@@ -590,7 +590,7 @@
 				D950166E2118FA0C003542DC /* AudioOutput.swift in Sources */,
 				D910EE8F20FB9520007F495B /* ZeroConfigurationUnit.swift in Sources */,
 				D999587521035F0000C577AC /* CoordinateValue.swift in Sources */,
-				D9EF05AD20ACCF7000D3F194 /* CustomisableUpdateIntervalSource.swift in Sources */,
+				D9EF05AD20ACCF7000D3F194 /* CustomisableUpdateIntervalControllable.swift in Sources */,
 				D910EE9120FE9E76007F495B /* Altimeter.swift in Sources */,
 				D9EF05A520ACCE3800D3F194 /* Unit.swift in Sources */,
 				D9EF05CB20ACD35B00D3F194 /* Screen.swift in Sources */,
