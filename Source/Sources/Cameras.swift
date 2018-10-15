@@ -20,16 +20,6 @@ public final class Cameras: BaseSource, Source, Controllable, ValuesProvider {
 
     public private(set) var cameras: [Camera]
 
-    public var front: Camera? {
-        guard let frontId = AVCaptureDevice.frontCaptureDevice()?.uniqueID else { return nil }
-        return cameras.first(where: { $0.uniqueID == frontId })
-    }
-
-    public var back: Camera? {
-        guard let backId = AVCaptureDevice.backCaptureDevice()?.uniqueID else { return nil }
-        return cameras.first(where: { $0.uniqueID == backId })
-    }
-
     private var state: State = .notMonitoring
 
     public var isUpdating: Bool {
@@ -46,7 +36,10 @@ public final class Cameras: BaseSource, Source, Controllable, ValuesProvider {
     }
 
     public override init() {
-        cameras = AVCaptureDevice.devices().map(Camera.init(captureDevice:))
+        let allDevices = AVCaptureDevice.devices(position: .front)
+            + AVCaptureDevice.devices(position: .back)
+            + AVCaptureDevice.devices(position: .unspecified)
+        cameras = allDevices.map(Camera.init(captureDevice:))
     }
 
     public func startUpdating() {
@@ -246,54 +239,35 @@ private extension Cameras.Camera {
 
 private extension AVCaptureDevice {
 
-    static func frontCaptureDevice() -> AVCaptureDevice? {
+    static func devices(position: AVCaptureDevice.Position) -> [AVCaptureDevice] {
         if #available(iOS 10.0, *) {
-            return defaultDevice(position: .front)
-        } else {
-            let devices = AVCaptureDevice.devices()
-            return devices.first { $0.position == .front }
-        }
-    }
-
-    static func backCaptureDevice() -> AVCaptureDevice? {
-        if #available(iOS 10.0, *) {
-            return defaultDevice(position: .back)
-        } else {
-            let devices = AVCaptureDevice.devices()
-            return devices.first { $0.position == .back }
-        }
-    }
-
-    @available(iOS 10.0, *)
-    private static func defaultDevice(position: AVCaptureDevice.Position) -> AVCaptureDevice? {
-        let deviceTypes: [AVCaptureDevice.DeviceType]
-        if #available(iOS 11.1, *) {
-            deviceTypes = [
-                .builtInWideAngleCamera,
-                .builtInTelephotoCamera,
-                .builtInDualCamera,
-                .builtInTrueDepthCamera,
-            ]
-        } else if #available(iOS 10.2, *) {
-            deviceTypes = [
-                .builtInWideAngleCamera,
-                .builtInTelephotoCamera,
-                .builtInDualCamera,
-            ]
-        } else {
-            deviceTypes = [
-                .builtInWideAngleCamera,
-                .builtInTelephotoCamera,
-            ]
-        }
-
-        for deviceType in deviceTypes {
-            if let device = AVCaptureDevice.default(deviceType, for: nil, position: position) {
-                return device
+            let deviceTypes: [AVCaptureDevice.DeviceType]
+            if #available(iOS 11.1, *) {
+                deviceTypes = [
+                    .builtInWideAngleCamera,
+                    .builtInTelephotoCamera,
+                    .builtInDualCamera,
+                    .builtInTrueDepthCamera,
+                ]
+            } else if #available(iOS 10.2, *) {
+                deviceTypes = [
+                    .builtInWideAngleCamera,
+                    .builtInTelephotoCamera,
+                    .builtInDualCamera,
+                ]
+            } else {
+                deviceTypes = [
+                    .builtInWideAngleCamera,
+                    .builtInTelephotoCamera,
+                ]
             }
-        }
 
-        return nil
+            let discoverySession = AVCaptureDevice.DiscoverySession(deviceTypes: deviceTypes, mediaType: .video, position: position)
+            return discoverySession.devices
+        } else {
+            let devices = AVCaptureDevice.devices()
+            return devices.filter { $0.position == position }
+        }
     }
 
 }
