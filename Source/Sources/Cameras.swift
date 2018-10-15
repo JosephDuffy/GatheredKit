@@ -147,7 +147,7 @@ public extension Cameras {
             supportsHDRVideo = GenericValue(
                 displayName: "Supports HDR Video",
                 backingValue: metadata.supportsHDRVideo,
-                formattedValue: metadata.supportsHDRVideo == nil ? nil : "Unknown",
+                formattedValue: metadata.supportsHDRVideo == nil ? "Unknown" : nil,
                 unit: Boolean(trueString: "Yes", falseString: "No")
             )
 
