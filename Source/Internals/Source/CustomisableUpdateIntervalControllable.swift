@@ -1,7 +1,7 @@
 /**
  A source that supports updating its properties at a given time interval
  */
-public protocol CustomisableUpdateIntervalSource: Source, Controllable {
+public protocol CustomisableUpdateIntervalControllable: Controllable {
 
     /// The default update interval that will be used when calling `startUpdating()`
     /// without specifying the update interval.
@@ -21,7 +21,7 @@ public protocol CustomisableUpdateIntervalSource: Source, Controllable {
 
 }
 
-public extension CustomisableUpdateIntervalSource {
+public extension CustomisableUpdateIntervalControllable {
 
     /// A boolean indicating if the source is currently updating its properties every `updateInterval`
     public var isUpdating: Bool {
@@ -35,6 +35,10 @@ public extension CustomisableUpdateIntervalSource {
     public func startUpdating() {
         startUpdating(every: type(of: self).defaultUpdateInterval)
     }
+
+}
+
+public extension CustomisableUpdateIntervalControllable where Self: Source {
 
     /**
      Start performing periodic updates, updating every `updateInterval` seconds.

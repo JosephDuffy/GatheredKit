@@ -52,13 +52,25 @@ open class BasePollingSource: BaseSource {
 
 }
 
-extension Controllable where Self: BasePollingSource, Self: ManuallyUpdatableValuesProvider {
+extension CustomisableUpdateIntervalControllable where Self: BasePollingSource, Self: ManuallyUpdatableValuesProvider {
 
     public func stopUpdating() {
         state = .notMonitoring
     }
 
-    internal func update(on queue: DispatchQueue, after delay: TimeInterval) {
+    public func startUpdating(every updateInterval: TimeInterval) {
+        let updatesQueue = DispatchQueue(label: "uk.co.josephduffy.GatheredKit \(type(of: self)) Updates")
+
+        state = .monitoring(updatesQueue: updatesQueue, updateInterval: updateInterval)
+
+        let latestPropertyValues = updateValues()
+
+        update(on: updatesQueue, after: updateInterval)
+
+        notifyUpdateListeners(latestPropertyValues: latestPropertyValues)
+    }
+
+    private func update(on queue: DispatchQueue, after delay: TimeInterval) {
         queue.asyncAfter(deadline: .now() + delay) { [weak self, weak queue] in
             guard let `self` = self else { return }
             guard let queue = queue else { return }
@@ -73,18 +85,6 @@ extension Controllable where Self: BasePollingSource, Self: ManuallyUpdatableVal
         }
     }
 
-    internal func startUpdating(every updateInterval: TimeInterval) {
-        let updatesQueue = DispatchQueue(label: "uk.co.josephduffy.GatheredKit \(type(of: self)) Updates")
-
-        state = .monitoring(updatesQueue: updatesQueue, updateInterval: updateInterval)
-
-        let latestPropertyValues = updateValues()
-
-        update(on: updatesQueue, after: updateInterval)
-
-        notifyUpdateListeners(latestPropertyValues: latestPropertyValues)
-    }
-
 }
 
-public extension CustomisableUpdateIntervalSource where Self: BasePollingSource, Self: ManuallyUpdatableValuesProvider {}
+public extension CustomisableUpdateIntervalControllable where Self: BasePollingSource, Self: ManuallyUpdatableValuesProvider {}
