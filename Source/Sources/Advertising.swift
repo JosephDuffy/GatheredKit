@@ -1,7 +1,9 @@
 import Foundation
 import AdSupport
 
-public final class Advertising: BasePollingSource, Source, ManuallyUpdatableValuesProvider {
+public final class Advertising: BasePollingSource, Source, CustomisableUpdateIntervalControllable, ManuallyUpdatableValuesProvider {
+
+    public static var defaultUpdateInterval: TimeInterval = 1
 
     public static let availability: SourceAvailability = .available
 
