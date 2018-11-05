@@ -70,3 +70,5 @@ extension GenericUnitlessValue: ValuesProvider where ValueType: ValuesProvider {
     }
 
 }
+
+extension GenericUnitlessValue: Codable where ValueType: Codable { }

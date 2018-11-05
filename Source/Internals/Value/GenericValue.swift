@@ -111,3 +111,5 @@ extension GenericValue: ValuesProvider where ValueType: ValuesProvider {
     }
 
 }
+
+extension GenericValue: Codable where ValueType: Codable, UnitType: Codable { }
