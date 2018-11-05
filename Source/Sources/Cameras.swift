@@ -269,7 +269,8 @@ private extension AVCaptureDevice {
             }
 
             let discoverySession = AVCaptureDevice.DiscoverySession(deviceTypes: deviceTypes, mediaType: .video, position: position)
-            return discoverySession.devices
+            // When using `unspecified` for the position this will include devices with `front` and `back` positions, too
+            return discoverySession.devices.filter { $0.position == position }
         } else {
             let devices = AVCaptureDevice.devices()
             return devices.filter { $0.position == position }
