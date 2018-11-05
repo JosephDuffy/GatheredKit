@@ -259,9 +259,9 @@ private extension CLAuthorizationStatus {
     var formattedValue: String {
         switch self {
         case .authorizedAlways:
-            return "Authorized Always"
+            return "Always"
         case .authorizedWhenInUse:
-            return "Authorized When In Use"
+            return "When In Use"
         case .denied:
             return "Denied"
         case .notDetermined:
