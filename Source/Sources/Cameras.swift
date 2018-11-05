@@ -20,16 +20,6 @@ public final class Cameras: BaseSource, Source, Controllable, ValuesProvider {
 
     public private(set) var cameras: [Camera]
 
-    public var front: Camera? {
-        guard let frontId = AVCaptureDevice.frontCaptureDevice()?.uniqueID else { return nil }
-        return cameras.first(where: { $0.uniqueID == frontId })
-    }
-
-    public var back: Camera? {
-        guard let backId = AVCaptureDevice.backCaptureDevice()?.uniqueID else { return nil }
-        return cameras.first(where: { $0.uniqueID == backId })
-    }
-
     private var state: State = .notMonitoring
 
     public var isUpdating: Bool {
@@ -46,7 +36,10 @@ public final class Cameras: BaseSource, Source, Controllable, ValuesProvider {
     }
 
     public override init() {
-        cameras = AVCaptureDevice.devices().map(Camera.init(captureDevice:))
+        let allDevices = AVCaptureDevice.devices(position: .front)
+            + AVCaptureDevice.devices(position: .back)
+            + AVCaptureDevice.devices(position: .unspecified)
+        cameras = allDevices.map(Camera.init(captureDevice:))
     }
 
     public func startUpdating() {
@@ -107,6 +100,7 @@ public extension Cameras {
 
         public let uniqueID: GenericUnitlessValue<String>
         public let modelID: GenericUnitlessValue<String>
+        public let position: GenericUnitlessValue<AVCaptureDevice.Position>
         // TODO: Add unit
         public let highestStillImageResolution: GenericUnitlessValue<CMVideoDimensions?>
         public let supportsHDRVideo: GenericValue<Bool?, Boolean>
@@ -136,6 +130,11 @@ public extension Cameras {
                 displayName: "Model ID",
                 backingValue: captureDevice.modelID
             )
+            position = GenericUnitlessValue(
+                displayName: "Position",
+                backingValue: captureDevice.position,
+                formattedValue: captureDevice.position.displayValue
+            )
 
             let metadata = FormatsMetadata(formats: captureDevice.formats)
 
@@ -148,7 +147,7 @@ public extension Cameras {
             supportsHDRVideo = GenericValue(
                 displayName: "Supports HDR Video",
                 backingValue: metadata.supportsHDRVideo,
-                formattedValue: metadata.supportsHDRVideo == nil ? nil : "Unknown",
+                formattedValue: metadata.supportsHDRVideo == nil ? "Unknown" : nil,
                 unit: Boolean(trueString: "Yes", falseString: "No")
             )
 
@@ -246,54 +245,36 @@ private extension Cameras.Camera {
 
 private extension AVCaptureDevice {
 
-    static func frontCaptureDevice() -> AVCaptureDevice? {
+    static func devices(position: AVCaptureDevice.Position) -> [AVCaptureDevice] {
         if #available(iOS 10.0, *) {
-            return defaultDevice(position: .front)
-        } else {
-            let devices = AVCaptureDevice.devices()
-            return devices.first { $0.position == .front }
-        }
-    }
-
-    static func backCaptureDevice() -> AVCaptureDevice? {
-        if #available(iOS 10.0, *) {
-            return defaultDevice(position: .back)
-        } else {
-            let devices = AVCaptureDevice.devices()
-            return devices.first { $0.position == .back }
-        }
-    }
-
-    @available(iOS 10.0, *)
-    private static func defaultDevice(position: AVCaptureDevice.Position) -> AVCaptureDevice? {
-        let deviceTypes: [AVCaptureDevice.DeviceType]
-        if #available(iOS 11.1, *) {
-            deviceTypes = [
-                .builtInWideAngleCamera,
-                .builtInTelephotoCamera,
-                .builtInDualCamera,
-                .builtInTrueDepthCamera,
-            ]
-        } else if #available(iOS 10.2, *) {
-            deviceTypes = [
-                .builtInWideAngleCamera,
-                .builtInTelephotoCamera,
-                .builtInDualCamera,
-            ]
-        } else {
-            deviceTypes = [
-                .builtInWideAngleCamera,
-                .builtInTelephotoCamera,
-            ]
-        }
-
-        for deviceType in deviceTypes {
-            if let device = AVCaptureDevice.default(deviceType, for: nil, position: position) {
-                return device
+            let deviceTypes: [AVCaptureDevice.DeviceType]
+            if #available(iOS 11.1, *) {
+                deviceTypes = [
+                    .builtInWideAngleCamera,
+                    .builtInTelephotoCamera,
+                    .builtInDualCamera,
+                    .builtInTrueDepthCamera,
+                ]
+            } else if #available(iOS 10.2, *) {
+                deviceTypes = [
+                    .builtInWideAngleCamera,
+                    .builtInTelephotoCamera,
+                    .builtInDualCamera,
+                ]
+            } else {
+                deviceTypes = [
+                    .builtInWideAngleCamera,
+                    .builtInTelephotoCamera,
+                ]
             }
-        }
 
-        return nil
+            let discoverySession = AVCaptureDevice.DiscoverySession(deviceTypes: deviceTypes, mediaType: .video, position: position)
+            // When using `unspecified` for the position this will include devices with `front` and `back` positions, too
+            return discoverySession.devices.filter { $0.position == position }
+        } else {
+            let devices = AVCaptureDevice.devices()
+            return devices.filter { $0.position == position }
+        }
     }
 
 }
@@ -306,6 +287,21 @@ private extension CMVideoDimensions {
 
     var formattedString: String {
         return "\(width) x \(height)"
+    }
+
+}
+
+private extension AVCaptureDevice.Position {
+
+    var displayValue: String {
+        switch self {
+        case .front:
+            return "Front"
+        case .back:
+            return "Back"
+        case .unspecified:
+            return "Unspecified"
+        }
     }
 
 }
