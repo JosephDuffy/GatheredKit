@@ -28,6 +28,7 @@ deploy:
       secure: nQcTlWICYlK8eUo8SLi+OHs3H+THhkTpKdT0pemDdo1CMXJruvB96Ok6yJ5qfUp3A5bigqR9Cxe2XEgwkutK7Zmq+q+XwPh3bWyn8A6UkeDpeCLiwae0pNdQ5Dbfb6qoNF4zujburaJ29wfpbKY+iQ+DDOMhfQi05nMrcbAjReI+r0wBvpLJc2tY0XBnSloapHJbuiU/2Xy2EHc0ZS/weQNioXfKWhRx4LDhXVhpa5q9UH/Z/wSJLD5/L+MofHiVBcj6uFg9Rv42FyiBpPFEO9tjFHtE00cQJmQl21Tn7Y67OhUSzAJ9gvMkXbqOwFQE/K3iKpVDL2uiIMCNDIphR1FIeim7b3V390/1RBkdXaU9UfF9mNu/6HMgHKmfkSwg55kTm7GeROVd6aF/yVf28I+XXhz9Z/w5vq8o+gzQz9XWFDMr9Dla6IF1RpnAtL/qzIYtktX51aK7lKlypk83D4HRT7doQ6+5Qww/pEoeX06GjkxspThpSppvsNbzJ1cTUFwyWD5Mq8if3F47848oSK2E2etJAQsxdLshz6syLqvTK3Y42C5fyUyz+B7D4mXaMnUNuU97rzlnsSzogxlgAvPhn+8OlIBN7ngMPzzho211gmY7eBnnyIFgWxblrmoX6aCOQdakSHN1pFIj4WQYFTQmWgIKrJPkYa7w0tx9hLI=
     file: GatheredKit.framework.zip
     skip_cleanup: true
+    prerelease: true
     on:
       repo: JosephDuffy/GatheredKit
       tags: true
