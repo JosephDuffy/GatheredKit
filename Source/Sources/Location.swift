@@ -1,83 +1,33 @@
 import Foundation
 import CoreLocation
 
-public final class Location: BaseSource, Source, Controllable, ValuesProvider {
+// TODO: Wrap delegate to remove need for inheritance from `NSObject`
+public final class Location: NSObject, Source, Controllable, ValuesProvider, UpdateConsumersProvider {
+
+    internal static var LocationManagerType: LocationManager.Type = CLLocationManager.self
 
     private enum State {
         case notMonitoring
-        case askingForPermissions(locationManager: CLLocationManager)
-        case monitoring(locationManager: CLLocationManager)
-    }
-
-    public enum Accuracy {
-        case bestForNavigation
-        case best
-        case tenMeters
-        case hundredMeters
-        case kilometer
-        case threeKilometers
-
-        fileprivate var asCLLocationAccuracy: CLLocationAccuracy {
-            switch self {
-            case .bestForNavigation:
-                return kCLLocationAccuracyBestForNavigation
-            case .best:
-                return kCLLocationAccuracyBest
-            case .tenMeters:
-                return kCLLocationAccuracyNearestTenMeters
-            case .hundredMeters:
-                return kCLLocationAccuracyHundredMeters
-            case .kilometer:
-                return kCLLocationAccuracyKilometer
-            case .threeKilometers:
-                return kCLLocationAccuracyThreeKilometers
-            }
-        }
-
-        fileprivate init?(accuracy: CLLocationAccuracy) {
-            switch accuracy {
-            case kCLLocationAccuracyBestForNavigation:
-                self = .bestForNavigation
-            case kCLLocationAccuracyBest:
-                self = .best
-            case kCLLocationAccuracyNearestTenMeters:
-                self = .tenMeters
-            case kCLLocationAccuracyHundredMeters:
-                self = .hundredMeters
-            case kCLLocationAccuracyKilometer:
-                self = .kilometer
-            case kCLLocationAccuracyThreeKilometers:
-                self = .threeKilometers
-            default:
-                return nil
-            }
-        }
-
+        case askingForPermissions(locationManager: LocationManager)
+        case monitoring(locationManager: LocationManager)
     }
 
     public static var availability: SourceAvailability {
-        switch CLLocationManager.authorizationStatus() {
-        case .authorizedAlways, .authorizedWhenInUse:
-            return .available
-        case .denied:
-            return .permissionDenied
-        case .restricted:
-            return .permissionDenied
-        case .notDetermined:
-            return .requiresPermissionsPrompt
-        }
+        return SourceAvailability(authorizationStatus: LocationManagerType.authorizationStatus())
     }
 
     public static var name = "Location"
 
-    public var coordinate: CoordinateValue
-    public var speed: GenericValue<CLLocationSpeed?, MetersPerSecond>
-    public var course: GenericValue<CLLocationDirection?, Degree>
-    public var altitude: GenericValue<CLLocationDistance?, Meter>
-    public var floor: GenericValue<CLFloor?, NumericNone>
-    public var horizonalAccuracy: GenericValue<CLLocationAccuracy?, Meter>
-    public var verticalAccuracy: GenericValue<CLLocationAccuracy?, Meter>
-    public var authorizationStatus: GenericUnitlessValue<CLAuthorizationStatus?>
+    public private(set) var coordinate = OptionalCoordinateValue(displayName: "Coordinate")
+    public private(set) var speed: OptionalSpeedValue = .metersPerSecond(displayName: "Speed")
+    public private(set) var course: OptionalAngleValue = .degrees(displayName: "Course")
+    public private(set) var altitude: OptionalLengthValue = .meters(displayName: "Altitude")
+    public private(set) var floor = Value<CLFloor?, NumberFormatter>(displayName: "Floor", formatter: NumberFormatter())
+    public private(set) var horizonalAccuracy: OptionalLengthValue = .meters(displayName: "Horizontal Accuracy")
+    public private(set) var verticalAccuracy: OptionalLengthValue = .meters(displayName: "Vertical Accuracy")
+    public var authorizationStatus: LocationAuthorizationValue {
+        return LocationAuthorizationValue(displayName: "Authorization Status", backingValue: Location.LocationManagerType.authorizationStatus())
+    }
 
     /**
      An array of all the values associated with the location of the
@@ -91,7 +41,7 @@ public final class Location: BaseSource, Source, Controllable, ValuesProvider {
       - verticalAccuracy
       - authorisationStatus
      */
-    public var allValues: [Value] {
+    public var allValues: [AnyValue] {
         return [
             coordinate,
             speed,
@@ -105,14 +55,16 @@ public final class Location: BaseSource, Source, Controllable, ValuesProvider {
     }
 
     public var isUpdating: Bool {
-        if case .notMonitoring = state {
+        if case .monitoring = state {
             return true
         } else {
             return false
         }
     }
+    
+    public var updateConsumers: [UpdatesConsumer] = []
 
-    private var locationManager: CLLocationManager? {
+    private var locationManager: LocationManager? {
         if case .monitoring(let locationManager) = state {
             return locationManager
         } else {
@@ -129,17 +81,8 @@ public final class Location: BaseSource, Source, Controllable, ValuesProvider {
     }
 
     private var state: State = .notMonitoring
-
-    public override init() {
-        coordinate = CoordinateValue()
-        speed = GenericValue(displayName: "Speed (estimated)")
-        course = GenericValue(displayName: "Course")
-        altitude = GenericValue(displayName: "Altitude")
-        floor = GenericValue(displayName: "Floor")
-        horizonalAccuracy = GenericValue(displayName: "Horizontal Accuracy")
-        verticalAccuracy = GenericValue(displayName: "Vertical Accuracy")
-        authorizationStatus = GenericUnitlessValue(displayName: "Authorization Status")
-    }
+    
+    public override init() {}
 
     deinit {
         stopUpdating()
@@ -150,16 +93,14 @@ public final class Location: BaseSource, Source, Controllable, ValuesProvider {
     }
 
     public func startUpdating(allowBackgroundUpdates: Bool = false, desiredAccuracy accuracy: Accuracy = .best) {
-        let locationManager = CLLocationManager()
+        let locationManager = Location.LocationManagerType.init()
         locationManager.delegate = self
         locationManager.desiredAccuracy = accuracy.asCLLocationAccuracy
         locationManager.allowsBackgroundLocationUpdates = allowBackgroundUpdates
 
         self.locationManager?.stopUpdatingLocation()
 
-        let authorizationStatus = CLLocationManager.authorizationStatus()
-        updateAuthorizationStatusValues(authorizationStatus)
-
+        let authorizationStatus = Location.LocationManagerType.authorizationStatus()
         switch authorizationStatus {
         case .authorizedAlways:
             state = .monitoring(locationManager: locationManager)
@@ -183,20 +124,9 @@ public final class Location: BaseSource, Source, Controllable, ValuesProvider {
                 locationManager.requestWhenInUseAuthorization()
             }
         case .denied, .restricted:
-            /**
-             This can be called when following happens:
-             - User enabled data source
-             - Permissions alert is displayed
-             - This will cause the data source to stop being monitored
-             - User denies access
-             - Data source begins being monitored again
-
-             Even though this _may_ be called in other situations,
-             updating the data isn't a big operation anwyay
-             */
             updateLocationValues(nil)
             state = .notMonitoring
-            notifyListenersPropertyValuesUpdated()
+            notifyUpdateConsumersOfLatestValues()
         }
     }
 
@@ -209,22 +139,18 @@ public final class Location: BaseSource, Source, Controllable, ValuesProvider {
 
     private func updateValues() {
         updateLocationValues(locationManager?.location)
-        updateAuthorizationStatusValues(CLLocationManager.authorizationStatus())
 
-        notifyListenersPropertyValuesUpdated()
-    }
-
-    private func updateAuthorizationStatusValues(_ status: CLAuthorizationStatus) {
-        authorizationStatus.update(backingValue: status, formattedValue: status.formattedValue)
+        notifyUpdateConsumersOfLatestValues()
     }
 
     private func updateLocationValues(_ location: CLLocation? = nil) {
-        coordinate.update(backingValue: location?.coordinate, date: location?.timestamp ?? Date())
-        speed.update(backingValue: location?.speed, date: location?.timestamp ?? Date())
-        altitude.update(backingValue: location?.altitude, date: location?.timestamp ?? Date())
-        floor.update(backingValue: location?.floor, date: location?.timestamp ?? Date())
-        horizonalAccuracy.update(backingValue: location?.horizontalAccuracy, date: location?.timestamp ?? Date())
-        verticalAccuracy.update(backingValue: location?.verticalAccuracy, date: location?.timestamp ?? Date())
+        let timestamp = location?.timestamp ?? Date()
+        coordinate.update(backingValue: location?.coordinate, date: timestamp)
+        speed.update(value: location?.speed, unit: .metersPerSecond, date: timestamp)
+        altitude.update(value: location?.altitude, unit: .meters, date: timestamp)
+        floor.update(backingValue: location?.floor, date: timestamp)
+        horizonalAccuracy.update(value: location?.horizontalAccuracy, unit: .meters, date: timestamp)
+        verticalAccuracy.update(value: location?.verticalAccuracy, unit: .meters, date: timestamp)
     }
 
 }
@@ -241,7 +167,7 @@ extension Location: CLLocationManagerDelegate {
                 desiredAccuracy: Location.Accuracy(accuracy: manager.desiredAccuracy) ?? .best
             )
         } else if isUpdating {
-            notifyListenersPropertyValuesUpdated()
+            notifyUpdateConsumersOfLatestValues()
         }
     }
 
@@ -249,26 +175,89 @@ extension Location: CLLocationManagerDelegate {
         guard let location = locations.last else { return }
 
         updateLocationValues(location)
-        notifyListenersPropertyValuesUpdated()
+        notifyUpdateConsumersOfLatestValues()
     }
 
 }
 
-private extension CLAuthorizationStatus {
+extension Location {
 
-    var formattedValue: String {
-        switch self {
-        case .authorizedAlways:
-            return "Always"
-        case .authorizedWhenInUse:
-            return "When In Use"
+    public enum Accuracy {
+        case bestForNavigation
+        case best
+        case tenMeters
+        case hundredMeters
+        case kilometer
+        case threeKilometers
+
+        public var asCLLocationAccuracy: CLLocationAccuracy {
+            switch self {
+            case .bestForNavigation:
+                return kCLLocationAccuracyBestForNavigation
+            case .best:
+                return kCLLocationAccuracyBest
+            case .tenMeters:
+                return kCLLocationAccuracyNearestTenMeters
+            case .hundredMeters:
+                return kCLLocationAccuracyHundredMeters
+            case .kilometer:
+                return kCLLocationAccuracyKilometer
+            case .threeKilometers:
+                return kCLLocationAccuracyThreeKilometers
+            }
+        }
+
+        public init?(accuracy: CLLocationAccuracy) {
+            switch accuracy {
+            case kCLLocationAccuracyBestForNavigation:
+                self = .bestForNavigation
+            case kCLLocationAccuracyBest:
+                self = .best
+            case kCLLocationAccuracyNearestTenMeters:
+                self = .tenMeters
+            case kCLLocationAccuracyHundredMeters:
+                self = .hundredMeters
+            case kCLLocationAccuracyKilometer:
+                self = .kilometer
+            case kCLLocationAccuracyThreeKilometers:
+                self = .threeKilometers
+            default:
+                return nil
+            }
+        }
+
+    }
+
+}
+
+extension SourceAvailability {
+
+    public init(authorizationStatus: CLAuthorizationStatus) {
+        switch authorizationStatus {
+        case .authorizedAlways, .authorizedWhenInUse:
+            self = .available
         case .denied:
-            return "Denied"
-        case .notDetermined:
-            return "Not Determined"
+            self = .permissionDenied
         case .restricted:
-            return "Restricted"
+            self = .restricted
+        case .notDetermined:
+            self = .requiresPermissionsPrompt
         }
     }
 
 }
+
+internal protocol LocationManager: class {
+    static func authorizationStatus() -> CLAuthorizationStatus
+    var location: CLLocation? { get }
+    var delegate: CLLocationManagerDelegate? { get set }
+    var desiredAccuracy: CLLocationAccuracy { get set }
+    var allowsBackgroundLocationUpdates: Bool { get set }
+    init()
+    func requestAlwaysAuthorization()
+    func requestWhenInUseAuthorization()
+    func startUpdatingLocation()
+    func stopUpdatingLocation()
+}
+
+extension CLLocationManager: LocationManager {}

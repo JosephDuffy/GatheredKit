@@ -7,81 +7,54 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		D910EE8720FA412F007F495B /* Battery.swift in Sources */ = {isa = PBXBuildFile; fileRef = D910EE8620FA412E007F495B /* Battery.swift */; };
+		D9070D852252B129000A2A6C /* MockUpdateConsumer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9070D832252B0AB000A2A6C /* MockUpdateConsumer.swift */; };
+		D9070D872252C050000A2A6C /* MockNotificationCenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9070D862252C050000A2A6C /* MockNotificationCenter.swift */; };
+		D9070D892252C91F000A2A6C /* UpdateConsumersProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9070D882252C91F000A2A6C /* UpdateConsumersProvider.swift */; };
+		D9070D8C2252C96C000A2A6C /* ClosureUpdatesConsumer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9070D8B2252C96C000A2A6C /* ClosureUpdatesConsumer.swift */; };
+		D9070D8E2252C9A2000A2A6C /* NotificationsUpdatesConsumer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9070D8D2252C9A2000A2A6C /* NotificationsUpdatesConsumer.swift */; };
 		D910EE8920FA451C007F495B /* SwiftShims.swift in Sources */ = {isa = PBXBuildFile; fileRef = D910EE8820FA451C007F495B /* SwiftShims.swift */; };
-		D910EE8D20FB6011007F495B /* DeviceMetadata.swift in Sources */ = {isa = PBXBuildFile; fileRef = D910EE8C20FB6011007F495B /* DeviceMetadata.swift */; };
-		D910EE8F20FB9520007F495B /* ZeroConfigurationUnit.swift in Sources */ = {isa = PBXBuildFile; fileRef = D910EE8E20FB9520007F495B /* ZeroConfigurationUnit.swift */; };
-		D910EE9120FE9E76007F495B /* Altimeter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D910EE9020FE9E76007F495B /* Altimeter.swift */; };
 		D910EE9420FEA064007F495B /* Action.swift in Sources */ = {isa = PBXBuildFile; fileRef = D910EE9320FEA064007F495B /* Action.swift */; };
 		D910EE9620FEA070007F495B /* ActionProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = D910EE9520FEA070007F495B /* ActionProvider.swift */; };
-		D910EE9820FEA637007F495B /* Proximity.swift in Sources */ = {isa = PBXBuildFile; fileRef = D910EE9720FEA637007F495B /* Proximity.swift */; };
-		D910EE9A20FFDE22007F495B /* CellRadio.swift in Sources */ = {isa = PBXBuildFile; fileRef = D910EE9920FFDE22007F495B /* CellRadio.swift */; };
-		D910EE9C20FFE2E9007F495B /* CellRadioCarrierValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = D910EE9B20FFE2E9007F495B /* CellRadioCarrierValue.swift */; };
+		D9126CD421F38F05002C37EF /* CoordinateValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = D999587421035F0000C577AC /* CoordinateValue.swift */; };
+		D9126CD921F3A1AD002C37EF /* LengthValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9126CD821F3A1AD002C37EF /* LengthValue.swift */; };
+		D9126CDC21F3AC53002C37EF /* CoordinateFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9126CDB21F3AC53002C37EF /* CoordinateFormatter.swift */; };
+		D9126CDE21F3AD06002C37EF /* RotationRateFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9126CDD21F3AD06002C37EF /* RotationRateFormatter.swift */; };
+		D9126CE221F3AF73002C37EF /* FrequencyValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9126CE121F3AF73002C37EF /* FrequencyValue.swift */; };
+		D9126CE521F3B630002C37EF /* Value+Measurement.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9126CE421F3B630002C37EF /* Value+Measurement.swift */; };
+		D9126CE721F3B68B002C37EF /* AngleValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9126CE621F3B68B002C37EF /* AngleValue.swift */; };
+		D9126CE921F3B6AA002C37EF /* SpeedValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9126CE821F3B6AA002C37EF /* SpeedValue.swift */; };
+		D9154EA921FFC2B200C1E99B /* LocationAuthorizationValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9154EA821FFC2B200C1E99B /* LocationAuthorizationValue.swift */; };
+		D9154EAC21FFC2FB00C1E99B /* LocationAuthorizationFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9154EAB21FFC2FB00C1E99B /* LocationAuthorizationFormatter.swift */; };
+		D9154EAF21FFC87C00C1E99B /* MockLocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9154EAE21FFC87C00C1E99B /* MockLocationManager.swift */; };
+		D9154EB121FFC91500C1E99B /* LocationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9154EB021FFC8D300C1E99B /* LocationTests.swift */; };
 		D9168F4E20C8851E00100EEE /* ValuesProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9168F4D20C8851E00100EEE /* ValuesProvider.swift */; };
-		D928465A20C499790058245F /* Scale.swift in Sources */ = {isa = PBXBuildFile; fileRef = D928465920C499790058245F /* Scale.swift */; };
-		D928733A210CB13B00F63A18 /* OperatingSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9287339210CB13B00F63A18 /* OperatingSystem.swift */; };
-		D928733C210CB58E00F63A18 /* Time.swift in Sources */ = {isa = PBXBuildFile; fileRef = D928733B210CB58E00F63A18 /* Time.swift */; };
-		D928733E210CBD2500F63A18 /* Cameras.swift in Sources */ = {isa = PBXBuildFile; fileRef = D928733D210CBD2500F63A18 /* Cameras.swift */; };
-		D9287340210CCB5800F63A18 /* CPU.swift in Sources */ = {isa = PBXBuildFile; fileRef = D928733F210CCB5800F63A18 /* CPU.swift */; };
+		D91C4B1422500C8C009E234F /* PercentValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = D91C4B1322500C8C009E234F /* PercentValue.swift */; };
+		D91C4B1622500CC1009E234F /* PercentFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D91C4B1522500CC1009E234F /* PercentFormatter.swift */; };
+		D91C4B1822500E87009E234F /* ScaleValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = D91C4B1722500E87009E234F /* ScaleValue.swift */; };
+		D91C4B1A22500ED3009E234F /* ScaleFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D91C4B1922500ED3009E234F /* ScaleFormatter.swift */; };
+		D91C4B1B22500FDF009E234F /* ScreenTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9EF05E020AE2B9700D3F194 /* ScreenTests.swift */; };
+		D91C4B1C22501005009E234F /* MockScreenBackingData.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9EF05E420AE2BBD00D3F194 /* MockScreenBackingData.swift */; };
+		D9286C2B224E79E000A69AF3 /* Screen.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9EF05CA20ACD35B00D3F194 /* Screen.swift */; };
+		D9286C2D224E7A1500A69AF3 /* SizeFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9286C2C224E7A1500A69AF3 /* SizeFormatter.swift */; };
+		D9286C2F224E7C6B00A69AF3 /* SizeValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9286C2E224E7C6B00A69AF3 /* SizeValue.swift */; };
 		D930631120D54E0A007A0CBD /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = D930631020D54E0A007A0CBD /* Location.swift */; };
-		D930631420D58A34007A0CBD /* MagneticFieldValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = D930631320D58A34007A0CBD /* MagneticFieldValue.swift */; };
-		D930631620D58A54007A0CBD /* CalibratedMagneticFieldValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = D930631520D58A54007A0CBD /* CalibratedMagneticFieldValue.swift */; };
 		D930631820D58A85007A0CBD /* RotationRateValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = D930631720D58A85007A0CBD /* RotationRateValue.swift */; };
-		D930631A20D58AC6007A0CBD /* CMQuaternion.swift in Sources */ = {isa = PBXBuildFile; fileRef = D930631920D58AC6007A0CBD /* CMQuaternion.swift */; };
-		D930631C20D58E6E007A0CBD /* RotationMatrixValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = D930631B20D58E6E007A0CBD /* RotationMatrixValue.swift */; };
-		D930631E20D5BDA7007A0CBD /* Compass.swift in Sources */ = {isa = PBXBuildFile; fileRef = D930631D20D5BDA7007A0CBD /* Compass.swift */; };
-		D950047420C85B590046AB47 /* AccelerationValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = D950047320C85B590046AB47 /* AccelerationValue.swift */; };
-		D950166C2118BCB8003542DC /* Memory.swift in Sources */ = {isa = PBXBuildFile; fileRef = D950166B2118BCB7003542DC /* Memory.swift */; };
-		D950166E2118FA0C003542DC /* AudioOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = D950166D2118FA0B003542DC /* AudioOutput.swift */; };
-		D959ECC720D713C5000184E2 /* GeomagnetismValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = D959ECC620D713C5000184E2 /* GeomagnetismValue.swift */; };
-		D96A18E920C741E100CAE44F /* DeviceAttitude.swift in Sources */ = {isa = PBXBuildFile; fileRef = D96A18E320C741E100CAE44F /* DeviceAttitude.swift */; };
-		D96C630020F6AB0900BF06EF /* WiFi.swift in Sources */ = {isa = PBXBuildFile; fileRef = D96C62FF20F6AB0900BF06EF /* WiFi.swift */; };
-		D991E1F420CF2D45009C849F /* NumericNone.swift in Sources */ = {isa = PBXBuildFile; fileRef = D991E1F320CF2D45009C849F /* NumericNone.swift */; };
 		D999586B21010F3B00C577AC /* BasePollingSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = D999586A21010F3B00C577AC /* BasePollingSource.swift */; };
-		D999586D2101166B00C577AC /* Advertising.swift in Sources */ = {isa = PBXBuildFile; fileRef = D999586C2101166B00C577AC /* Advertising.swift */; };
-		D999586F21011EA700C577AC /* DeviceOrientation.swift in Sources */ = {isa = PBXBuildFile; fileRef = D999586E21011EA700C577AC /* DeviceOrientation.swift */; };
-		D99958712103403A00C577AC /* Storage.swift in Sources */ = {isa = PBXBuildFile; fileRef = D99958702103403A00C577AC /* Storage.swift */; };
-		D9995873210344C600C577AC /* Bluetooth.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9995872210344C600C577AC /* Bluetooth.swift */; };
-		D999587521035F0000C577AC /* CoordinateValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = D999587421035F0000C577AC /* CoordinateValue.swift */; };
-		D99958772103626D00C577AC /* MetersPerSecond.swift in Sources */ = {isa = PBXBuildFile; fileRef = D99958762103626C00C577AC /* MetersPerSecond.swift */; };
 		D9ADBCDC20F8DE4700BB0255 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D9ADBCDB20F8DE4700BB0255 /* SystemConfiguration.framework */; };
-		D9B84DE020CC83D900380C42 /* Gyroscope.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9B84DDF20CC83D900380C42 /* Gyroscope.swift */; };
-		D9B84DE220CF0FB800380C42 /* Magnetometer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9B84DE120CF0FB800380C42 /* Magnetometer.swift */; };
-		D9B84DE420CF14F000380C42 /* Accelerometer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9B84DE320CF14F000380C42 /* Accelerometer.swift */; };
-		D9CDB99520AE3D2900316739 /* Value.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9CDB99420AE3D2900316739 /* Value.swift */; };
 		D9D7529E20B4BE0600B16A06 /* SourceAvailability.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9D7529D20B4BE0600B16A06 /* SourceAvailability.swift */; };
+		D9EB5D5C21FB5A8300163BF6 /* MeasurementValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9EB5D5B21FB5A8300163BF6 /* MeasurementValue.swift */; };
 		D9EF058B20ACC59300D3F194 /* GatheredKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D9EF058120ACC59300D3F194 /* GatheredKit.framework */; };
 		D9EF059220ACC59400D3F194 /* GatheredKit.h in Headers */ = {isa = PBXBuildFile; fileRef = D9EF058420ACC59300D3F194 /* GatheredKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		D9EF059C20ACC5B800D3F194 /* Array+newestDataDate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9EF059B20ACC5B800D3F194 /* Array+newestDataDate.swift */; };
 		D9EF059E20ACC63700D3F194 /* Controllable.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9EF059D20ACC63700D3F194 /* Controllable.swift */; };
-		D9EF05A020ACC77D00D3F194 /* GenericValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9EF059F20ACC77D00D3F194 /* GenericValue.swift */; };
-		D9EF05A520ACCE3800D3F194 /* Unit.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9EF05A420ACCE3800D3F194 /* Unit.swift */; };
+		D9EF05A020ACC77D00D3F194 /* Value.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9EF059F20ACC77D00D3F194 /* Value.swift */; };
 		D9EF05AD20ACCF7000D3F194 /* CustomisableUpdateIntervalControllable.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9EF05AC20ACCF7000D3F194 /* CustomisableUpdateIntervalControllable.swift */; };
 		D9EF05AF20ACCF8B00D3F194 /* ManuallyUpdatableValuesProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9EF05AE20ACCF8B00D3F194 /* ManuallyUpdatableValuesProvider.swift */; };
-		D9EF05B120ACD02100D3F194 /* NumericUnit.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9EF05B020ACD02100D3F194 /* NumericUnit.swift */; };
-		D9EF05B320ACD04F00D3F194 /* UnitError.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9EF05B220ACD04F00D3F194 /* UnitError.swift */; };
-		D9EF05B520ACD20700D3F194 /* BeatsPerMinute.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9EF05B420ACD20700D3F194 /* BeatsPerMinute.swift */; };
-		D9EF05B720ACD22100D3F194 /* Byte.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9EF05B620ACD22100D3F194 /* Byte.swift */; };
-		D9EF05B920ACD23400D3F194 /* Boolean.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9EF05B820ACD23400D3F194 /* Boolean.swift */; };
-		D9EF05BB20ACD24A00D3F194 /* Decibel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9EF05BA20ACD24A00D3F194 /* Decibel.swift */; };
-		D9EF05BD20ACD25800D3F194 /* Degree.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9EF05BC20ACD25800D3F194 /* Degree.swift */; };
-		D9EF05BF20ACD26600D3F194 /* Kilopascal.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9EF05BE20ACD26600D3F194 /* Kilopascal.swift */; };
-		D9EF05C120ACD27400D3F194 /* Microtesla.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9EF05C020ACD27400D3F194 /* Microtesla.swift */; };
-		D9EF05C320ACD2D400D3F194 /* Meter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9EF05C220ACD2D400D3F194 /* Meter.swift */; };
-		D9EF05C520ACD2E300D3F194 /* Pixel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9EF05C420ACD2E300D3F194 /* Pixel.swift */; };
-		D9EF05C720ACD2F200D3F194 /* Percent.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9EF05C620ACD2F200D3F194 /* Percent.swift */; };
-		D9EF05C920ACD31400D3F194 /* Point.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9EF05C820ACD31400D3F194 /* Point.swift */; };
-		D9EF05CB20ACD35B00D3F194 /* Screen.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9EF05CA20ACD35B00D3F194 /* Screen.swift */; };
-		D9EF05D120ACD6B900D3F194 /* BaseSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9EF05D020ACD6B900D3F194 /* BaseSource.swift */; };
-		D9EF05D520ACD95400D3F194 /* SourceUpdateListenerWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9EF05D420ACD95400D3F194 /* SourceUpdateListenerWrapper.swift */; };
-		D9EF05E220AE2BA300D3F194 /* ScreenTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9EF05E020AE2B9700D3F194 /* ScreenTests.swift */; };
-		D9EF05E520AE2BBD00D3F194 /* MockScreenBackingData.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9EF05E420AE2BBD00D3F194 /* MockScreenBackingData.swift */; };
+		D9EF05D120ACD6B900D3F194 /* UpdatesConsumer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9EF05D020ACD6B900D3F194 /* UpdatesConsumer.swift */; };
 		D9EF05F520AE2FE800D3F194 /* Nimble.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D9EF05F120AE2FE100D3F194 /* Nimble.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		D9EF05F620AE2FE800D3F194 /* Quick.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D9EF05F220AE2FE100D3F194 /* Quick.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		D9EF05F720AE2FEA00D3F194 /* Nimble.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D9EF05F120AE2FE100D3F194 /* Nimble.framework */; };
 		D9EF05F820AE2FEA00D3F194 /* Quick.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D9EF05F220AE2FE100D3F194 /* Quick.framework */; };
 		D9F6B05520F8F4A700831338 /* Source.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9F6B05420F8F4A700831338 /* Source.swift */; };
-		D9F94D6A210CE63500493C1B /* GenericUnitlessValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9F94D69210CE63500493C1B /* GenericUnitlessValue.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -110,18 +83,39 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		D9070D832252B0AB000A2A6C /* MockUpdateConsumer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockUpdateConsumer.swift; sourceTree = "<group>"; };
+		D9070D862252C050000A2A6C /* MockNotificationCenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockNotificationCenter.swift; sourceTree = "<group>"; };
+		D9070D882252C91F000A2A6C /* UpdateConsumersProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateConsumersProvider.swift; sourceTree = "<group>"; };
+		D9070D8B2252C96C000A2A6C /* ClosureUpdatesConsumer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClosureUpdatesConsumer.swift; sourceTree = "<group>"; };
+		D9070D8D2252C9A2000A2A6C /* NotificationsUpdatesConsumer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsUpdatesConsumer.swift; sourceTree = "<group>"; };
 		D910EE8620FA412E007F495B /* Battery.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Battery.swift; sourceTree = "<group>"; };
 		D910EE8820FA451C007F495B /* SwiftShims.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftShims.swift; sourceTree = "<group>"; };
 		D910EE8C20FB6011007F495B /* DeviceMetadata.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceMetadata.swift; sourceTree = "<group>"; };
-		D910EE8E20FB9520007F495B /* ZeroConfigurationUnit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZeroConfigurationUnit.swift; sourceTree = "<group>"; };
 		D910EE9020FE9E76007F495B /* Altimeter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Altimeter.swift; sourceTree = "<group>"; };
 		D910EE9320FEA064007F495B /* Action.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Action.swift; sourceTree = "<group>"; };
 		D910EE9520FEA070007F495B /* ActionProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionProvider.swift; sourceTree = "<group>"; };
 		D910EE9720FEA637007F495B /* Proximity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Proximity.swift; sourceTree = "<group>"; };
 		D910EE9920FFDE22007F495B /* CellRadio.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellRadio.swift; sourceTree = "<group>"; };
 		D910EE9B20FFE2E9007F495B /* CellRadioCarrierValue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellRadioCarrierValue.swift; sourceTree = "<group>"; };
+		D9126CD821F3A1AD002C37EF /* LengthValue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LengthValue.swift; sourceTree = "<group>"; };
+		D9126CDB21F3AC53002C37EF /* CoordinateFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoordinateFormatter.swift; sourceTree = "<group>"; };
+		D9126CDD21F3AD06002C37EF /* RotationRateFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RotationRateFormatter.swift; sourceTree = "<group>"; };
+		D9126CE121F3AF73002C37EF /* FrequencyValue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FrequencyValue.swift; sourceTree = "<group>"; };
+		D9126CE421F3B630002C37EF /* Value+Measurement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Value+Measurement.swift"; sourceTree = "<group>"; };
+		D9126CE621F3B68B002C37EF /* AngleValue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AngleValue.swift; sourceTree = "<group>"; };
+		D9126CE821F3B6AA002C37EF /* SpeedValue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeedValue.swift; sourceTree = "<group>"; };
+		D9154EA821FFC2B200C1E99B /* LocationAuthorizationValue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationAuthorizationValue.swift; sourceTree = "<group>"; };
+		D9154EAB21FFC2FB00C1E99B /* LocationAuthorizationFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationAuthorizationFormatter.swift; sourceTree = "<group>"; };
+		D9154EAE21FFC87C00C1E99B /* MockLocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockLocationManager.swift; sourceTree = "<group>"; };
+		D9154EB021FFC8D300C1E99B /* LocationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationTests.swift; sourceTree = "<group>"; };
 		D9168F4D20C8851E00100EEE /* ValuesProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValuesProvider.swift; sourceTree = "<group>"; };
+		D91C4B1322500C8C009E234F /* PercentValue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PercentValue.swift; sourceTree = "<group>"; };
+		D91C4B1522500CC1009E234F /* PercentFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PercentFormatter.swift; sourceTree = "<group>"; };
+		D91C4B1722500E87009E234F /* ScaleValue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScaleValue.swift; sourceTree = "<group>"; };
+		D91C4B1922500ED3009E234F /* ScaleFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScaleFormatter.swift; sourceTree = "<group>"; };
 		D928465920C499790058245F /* Scale.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Scale.swift; sourceTree = "<group>"; };
+		D9286C2C224E7A1500A69AF3 /* SizeFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SizeFormatter.swift; sourceTree = "<group>"; };
+		D9286C2E224E7C6B00A69AF3 /* SizeValue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SizeValue.swift; sourceTree = "<group>"; };
 		D9287339210CB13B00F63A18 /* OperatingSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OperatingSystem.swift; sourceTree = "<group>"; };
 		D928733B210CB58E00F63A18 /* Time.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Time.swift; sourceTree = "<group>"; };
 		D928733D210CBD2500F63A18 /* Cameras.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cameras.swift; sourceTree = "<group>"; };
@@ -151,17 +145,17 @@
 		D9B84DDF20CC83D900380C42 /* Gyroscope.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Gyroscope.swift; sourceTree = "<group>"; };
 		D9B84DE120CF0FB800380C42 /* Magnetometer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Magnetometer.swift; sourceTree = "<group>"; };
 		D9B84DE320CF14F000380C42 /* Accelerometer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Accelerometer.swift; sourceTree = "<group>"; };
-		D9CDB99420AE3D2900316739 /* Value.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Value.swift; sourceTree = "<group>"; };
+		D9CDB99420AE3D2900316739 /* AnyValue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnyValue.swift; sourceTree = "<group>"; };
 		D9D7529D20B4BE0600B16A06 /* SourceAvailability.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SourceAvailability.swift; sourceTree = "<group>"; };
+		D9EB5D5B21FB5A8300163BF6 /* MeasurementValue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeasurementValue.swift; sourceTree = "<group>"; };
 		D9EF058120ACC59300D3F194 /* GatheredKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = GatheredKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D9EF058420ACC59300D3F194 /* GatheredKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GatheredKit.h; sourceTree = "<group>"; };
 		D9EF058520ACC59300D3F194 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D9EF058A20ACC59300D3F194 /* GatheredKitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GatheredKitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		D9EF059120ACC59400D3F194 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		D9EF059B20ACC5B800D3F194 /* Array+newestDataDate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+newestDataDate.swift"; sourceTree = "<group>"; };
 		D9EF059D20ACC63700D3F194 /* Controllable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Controllable.swift; sourceTree = "<group>"; };
-		D9EF059F20ACC77D00D3F194 /* GenericValue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenericValue.swift; sourceTree = "<group>"; };
-		D9EF05A420ACCE3800D3F194 /* Unit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Unit.swift; sourceTree = "<group>"; };
+		D9EF059F20ACC77D00D3F194 /* Value.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Value.swift; sourceTree = "<group>"; };
+		D9EF05A420ACCE3800D3F194 /* AnyUnit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnyUnit.swift; sourceTree = "<group>"; };
 		D9EF05AC20ACCF7000D3F194 /* CustomisableUpdateIntervalControllable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomisableUpdateIntervalControllable.swift; sourceTree = "<group>"; };
 		D9EF05AE20ACCF8B00D3F194 /* ManuallyUpdatableValuesProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManuallyUpdatableValuesProvider.swift; sourceTree = "<group>"; };
 		D9EF05B020ACD02100D3F194 /* NumericUnit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumericUnit.swift; sourceTree = "<group>"; };
@@ -178,8 +172,7 @@
 		D9EF05C620ACD2F200D3F194 /* Percent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Percent.swift; sourceTree = "<group>"; };
 		D9EF05C820ACD31400D3F194 /* Point.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Point.swift; sourceTree = "<group>"; };
 		D9EF05CA20ACD35B00D3F194 /* Screen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Screen.swift; sourceTree = "<group>"; };
-		D9EF05D020ACD6B900D3F194 /* BaseSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseSource.swift; sourceTree = "<group>"; };
-		D9EF05D420ACD95400D3F194 /* SourceUpdateListenerWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SourceUpdateListenerWrapper.swift; sourceTree = "<group>"; };
+		D9EF05D020ACD6B900D3F194 /* UpdatesConsumer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdatesConsumer.swift; sourceTree = "<group>"; };
 		D9EF05DB20AE2B4700D3F194 /* Nimble.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Nimble.framework; path = Carthage/Build/iOS/Nimble.framework; sourceTree = "<group>"; };
 		D9EF05DC20AE2B4700D3F194 /* Quick.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Quick.framework; path = Carthage/Build/iOS/Quick.framework; sourceTree = "<group>"; };
 		D9EF05E020AE2B9700D3F194 /* ScreenTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenTests.swift; sourceTree = "<group>"; };
@@ -215,8 +208,6 @@
 		D904B506210CDC350062C965 /* Internals */ = {
 			isa = PBXGroup;
 			children = (
-				D910EE9220FEA058007F495B /* Action */,
-				D904B507210CDC480062C965 /* Source */,
 				D9F94D68210CDCA700493C1B /* Unit */,
 				D904B508210CDC6C0062C965 /* Value */,
 				D9EF05A720ACCEDE00D3F194 /* Extensions */,
@@ -232,9 +223,7 @@
 				D9D7529D20B4BE0600B16A06 /* SourceAvailability.swift */,
 				D9EF05AC20ACCF7000D3F194 /* CustomisableUpdateIntervalControllable.swift */,
 				D9EF05AE20ACCF8B00D3F194 /* ManuallyUpdatableValuesProvider.swift */,
-				D9EF05D020ACD6B900D3F194 /* BaseSource.swift */,
 				D999586A21010F3B00C577AC /* BasePollingSource.swift */,
-				D9EF05D420ACD95400D3F194 /* SourceUpdateListenerWrapper.swift */,
 			);
 			path = Source;
 			sourceTree = "<group>";
@@ -242,12 +231,19 @@
 		D904B508210CDC6C0062C965 /* Value */ = {
 			isa = PBXGroup;
 			children = (
-				D9CDB99420AE3D2900316739 /* Value.swift */,
-				D9EF059F20ACC77D00D3F194 /* GenericValue.swift */,
+				D9CDB99420AE3D2900316739 /* AnyValue.swift */,
 				D9F94D69210CE63500493C1B /* GenericUnitlessValue.swift */,
-				D9168F4D20C8851E00100EEE /* ValuesProvider.swift */,
 			);
 			path = Value;
+			sourceTree = "<group>";
+		};
+		D9070D8A2252C95A000A2A6C /* Updates Consumers */ = {
+			isa = PBXGroup;
+			children = (
+				D9070D8B2252C96C000A2A6C /* ClosureUpdatesConsumer.swift */,
+				D9070D8D2252C9A2000A2A6C /* NotificationsUpdatesConsumer.swift */,
+			);
+			path = "Updates Consumers";
 			sourceTree = "<group>";
 		};
 		D910EE9220FEA058007F495B /* Action */ = {
@@ -259,12 +255,63 @@
 			path = Action;
 			sourceTree = "<group>";
 		};
+		D9126CD521F3A12A002C37EF /* Legacy */ = {
+			isa = PBXGroup;
+			children = (
+				D9EF05B420ACD20700D3F194 /* BeatsPerMinute.swift */,
+				D9EF05B620ACD22100D3F194 /* Byte.swift */,
+				D9EF05B820ACD23400D3F194 /* Boolean.swift */,
+				D9EF05BA20ACD24A00D3F194 /* Decibel.swift */,
+				D9EF05BC20ACD25800D3F194 /* Degree.swift */,
+				D9EF05BE20ACD26600D3F194 /* Kilopascal.swift */,
+				D9EF05C020ACD27400D3F194 /* Microtesla.swift */,
+				D9EF05C220ACD2D400D3F194 /* Meter.swift */,
+				D99958762103626C00C577AC /* MetersPerSecond.swift */,
+				D991E1F320CF2D45009C849F /* NumericNone.swift */,
+				D9EF05C620ACD2F200D3F194 /* Percent.swift */,
+				D9EF05C420ACD2E300D3F194 /* Pixel.swift */,
+				D9EF05C820ACD31400D3F194 /* Point.swift */,
+				D928465920C499790058245F /* Scale.swift */,
+				D928733B210CB58E00F63A18 /* Time.swift */,
+			);
+			path = Legacy;
+			sourceTree = "<group>";
+		};
+		D9126CD721F3A159002C37EF /* Legacy */ = {
+			isa = PBXGroup;
+			children = (
+				D930631220D58A26007A0CBD /* Device Motion */,
+				D959ECC620D713C5000184E2 /* GeomagnetismValue.swift */,
+				D910EE9B20FFE2E9007F495B /* CellRadioCarrierValue.swift */,
+			);
+			path = Legacy;
+			sourceTree = "<group>";
+		};
+		D9126CDA21F3AC3E002C37EF /* Formatters */ = {
+			isa = PBXGroup;
+			children = (
+				D9126CDD21F3AD06002C37EF /* RotationRateFormatter.swift */,
+			);
+			path = Formatters;
+			sourceTree = "<group>";
+		};
+		D9154EAA21FFC2E600C1E99B /* Formatters */ = {
+			isa = PBXGroup;
+			children = (
+				D9126CDB21F3AC53002C37EF /* CoordinateFormatter.swift */,
+				D9154EAB21FFC2FB00C1E99B /* LocationAuthorizationFormatter.swift */,
+				D91C4B1522500CC1009E234F /* PercentFormatter.swift */,
+				D91C4B1922500ED3009E234F /* ScaleFormatter.swift */,
+				D9286C2C224E7A1500A69AF3 /* SizeFormatter.swift */,
+			);
+			path = Formatters;
+			sourceTree = "<group>";
+		};
 		D930631220D58A26007A0CBD /* Device Motion */ = {
 			isa = PBXGroup;
 			children = (
 				D930631320D58A34007A0CBD /* MagneticFieldValue.swift */,
 				D930631520D58A54007A0CBD /* CalibratedMagneticFieldValue.swift */,
-				D930631720D58A85007A0CBD /* RotationRateValue.swift */,
 				D930631920D58AC6007A0CBD /* CMQuaternion.swift */,
 				D930631B20D58E6E007A0CBD /* RotationMatrixValue.swift */,
 				D950047320C85B590046AB47 /* AccelerationValue.swift */,
@@ -275,10 +322,7 @@
 		D950047220C85ADB0046AB47 /* Values */ = {
 			isa = PBXGroup;
 			children = (
-				D930631220D58A26007A0CBD /* Device Motion */,
-				D959ECC620D713C5000184E2 /* GeomagnetismValue.swift */,
-				D999587421035F0000C577AC /* CoordinateValue.swift */,
-				D910EE9B20FFE2E9007F495B /* CellRadioCarrierValue.swift */,
+				D9126CD721F3A159002C37EF /* Legacy */,
 			);
 			path = Values;
 			sourceTree = "<group>";
@@ -292,6 +336,74 @@
 				D96A18E320C741E100CAE44F /* DeviceAttitude.swift */,
 			);
 			path = "Device Motion";
+			sourceTree = "<group>";
+		};
+		D979913F21F8F50500247DD9 /* Legacy */ = {
+			isa = PBXGroup;
+			children = (
+				D904B506210CDC350062C965 /* Internals */,
+				D9EF05A620ACCEB800D3F194 /* Sources */,
+				D9EF05A320ACCDE100D3F194 /* Units */,
+				D950047220C85ADB0046AB47 /* Values */,
+				D9126CDA21F3AC3E002C37EF /* Formatters */,
+			);
+			path = Legacy;
+			sourceTree = "<group>";
+		};
+		D979914021F8F51200247DD9 /* Internals */ = {
+			isa = PBXGroup;
+			children = (
+				D979914121F8F55500247DD9 /* Value */,
+				D904B507210CDC480062C965 /* Source */,
+				D9F649F421F8EAEF005C216F /* Updates */,
+				D910EE9220FEA058007F495B /* Action */,
+			);
+			path = Internals;
+			sourceTree = "<group>";
+		};
+		D979914121F8F55500247DD9 /* Value */ = {
+			isa = PBXGroup;
+			children = (
+				D9EF059F20ACC77D00D3F194 /* Value.swift */,
+				D9168F4D20C8851E00100EEE /* ValuesProvider.swift */,
+			);
+			path = Value;
+			sourceTree = "<group>";
+		};
+		D979914221F8F5B300247DD9 /* Sources */ = {
+			isa = PBXGroup;
+			children = (
+				D930631020D54E0A007A0CBD /* Location.swift */,
+				D9EF05CA20ACD35B00D3F194 /* Screen.swift */,
+			);
+			path = Sources;
+			sourceTree = "<group>";
+		};
+		D979914421F8F5F300247DD9 /* Values */ = {
+			isa = PBXGroup;
+			children = (
+				D979914521F8F69700247DD9 /* Measurements */,
+				D999587421035F0000C577AC /* CoordinateValue.swift */,
+				D9154EA821FFC2B200C1E99B /* LocationAuthorizationValue.swift */,
+				D930631720D58A85007A0CBD /* RotationRateValue.swift */,
+				D91C4B1322500C8C009E234F /* PercentValue.swift */,
+				D91C4B1722500E87009E234F /* ScaleValue.swift */,
+				D9286C2E224E7C6B00A69AF3 /* SizeValue.swift */,
+			);
+			path = Values;
+			sourceTree = "<group>";
+		};
+		D979914521F8F69700247DD9 /* Measurements */ = {
+			isa = PBXGroup;
+			children = (
+				D9126CE421F3B630002C37EF /* Value+Measurement.swift */,
+				D9EB5D5B21FB5A8300163BF6 /* MeasurementValue.swift */,
+				D9126CE821F3B6AA002C37EF /* SpeedValue.swift */,
+				D9126CE621F3B68B002C37EF /* AngleValue.swift */,
+				D9126CD821F3A1AD002C37EF /* LengthValue.swift */,
+				D9126CE121F3AF73002C37EF /* FrequencyValue.swift */,
+			);
+			path = Measurements;
 			sourceTree = "<group>";
 		};
 		D9EF057720ACC59300D3F194 = {
@@ -316,10 +428,12 @@
 		D9EF058320ACC59300D3F194 /* Source */ = {
 			isa = PBXGroup;
 			children = (
-				D904B506210CDC350062C965 /* Internals */,
-				D9EF05A620ACCEB800D3F194 /* Sources */,
-				D9EF05A320ACCDE100D3F194 /* Units */,
-				D950047220C85ADB0046AB47 /* Values */,
+				D979914421F8F5F300247DD9 /* Values */,
+				D979914221F8F5B300247DD9 /* Sources */,
+				D9154EAA21FFC2E600C1E99B /* Formatters */,
+				D9070D8A2252C95A000A2A6C /* Updates Consumers */,
+				D979914021F8F51200247DD9 /* Internals */,
+				D979913F21F8F50500247DD9 /* Legacy */,
 				D9EF058420ACC59300D3F194 /* GatheredKit.h */,
 				D9EF058520ACC59300D3F194 /* Info.plist */,
 			);
@@ -339,21 +453,7 @@
 		D9EF05A320ACCDE100D3F194 /* Units */ = {
 			isa = PBXGroup;
 			children = (
-				D9EF05B420ACD20700D3F194 /* BeatsPerMinute.swift */,
-				D9EF05B620ACD22100D3F194 /* Byte.swift */,
-				D9EF05B820ACD23400D3F194 /* Boolean.swift */,
-				D9EF05BA20ACD24A00D3F194 /* Decibel.swift */,
-				D9EF05BC20ACD25800D3F194 /* Degree.swift */,
-				D9EF05BE20ACD26600D3F194 /* Kilopascal.swift */,
-				D9EF05C020ACD27400D3F194 /* Microtesla.swift */,
-				D9EF05C220ACD2D400D3F194 /* Meter.swift */,
-				D99958762103626C00C577AC /* MetersPerSecond.swift */,
-				D991E1F320CF2D45009C849F /* NumericNone.swift */,
-				D9EF05C620ACD2F200D3F194 /* Percent.swift */,
-				D9EF05C420ACD2E300D3F194 /* Pixel.swift */,
-				D9EF05C820ACD31400D3F194 /* Point.swift */,
-				D928465920C499790058245F /* Scale.swift */,
-				D928733B210CB58E00F63A18 /* Time.swift */,
+				D9126CD521F3A12A002C37EF /* Legacy */,
 			);
 			path = Units;
 			sourceTree = "<group>";
@@ -362,9 +462,7 @@
 			isa = PBXGroup;
 			children = (
 				D96A18DF20C741D000CAE44F /* Device Motion */,
-				D930631020D54E0A007A0CBD /* Location.swift */,
 				D930631D20D5BDA7007A0CBD /* Compass.swift */,
-				D9EF05CA20ACD35B00D3F194 /* Screen.swift */,
 				D910EE9720FEA637007F495B /* Proximity.swift */,
 				D910EE8620FA412E007F495B /* Battery.swift */,
 				D928733D210CBD2500F63A18 /* Cameras.swift */,
@@ -387,7 +485,6 @@
 		D9EF05A720ACCEDE00D3F194 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
-				D9EF059B20ACC5B800D3F194 /* Array+newestDataDate.swift */,
 				D910EE8820FA451C007F495B /* SwiftShims.swift */,
 			);
 			path = Extensions;
@@ -407,6 +504,7 @@
 			isa = PBXGroup;
 			children = (
 				D9EF05E320AE2BB100D3F194 /* Mocks */,
+				D9154EB021FFC8D300C1E99B /* LocationTests.swift */,
 				D9EF05E020AE2B9700D3F194 /* ScreenTests.swift */,
 			);
 			path = Sources;
@@ -415,7 +513,10 @@
 		D9EF05E320AE2BB100D3F194 /* Mocks */ = {
 			isa = PBXGroup;
 			children = (
+				D9154EAE21FFC87C00C1E99B /* MockLocationManager.swift */,
 				D9EF05E420AE2BBD00D3F194 /* MockScreenBackingData.swift */,
+				D9070D832252B0AB000A2A6C /* MockUpdateConsumer.swift */,
+				D9070D862252C050000A2A6C /* MockNotificationCenter.swift */,
 			);
 			path = Mocks;
 			sourceTree = "<group>";
@@ -429,11 +530,19 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		D9F649F421F8EAEF005C216F /* Updates */ = {
+			isa = PBXGroup;
+			children = (
+				D9EF05D020ACD6B900D3F194 /* UpdatesConsumer.swift */,
+				D9070D882252C91F000A2A6C /* UpdateConsumersProvider.swift */,
+			);
+			path = Updates;
+			sourceTree = "<group>";
+		};
 		D9F94D68210CDCA700493C1B /* Unit */ = {
 			isa = PBXGroup;
 			children = (
-				D9EF05A420ACCE3800D3F194 /* Unit.swift */,
-				D910EE8E20FB9520007F495B /* ZeroConfigurationUnit.swift */,
+				D9EF05A420ACCE3800D3F194 /* AnyUnit.swift */,
 				D9EF05B020ACD02100D3F194 /* NumericUnit.swift */,
 				D9EF05B220ACD04F00D3F194 /* UnitError.swift */,
 			);
@@ -507,7 +616,7 @@
 					};
 					D9EF058920ACC59300D3F194 = {
 						CreatedOnToolsVersion = 9.3.1;
-						LastSwiftMigration = 1000;
+						LastSwiftMigration = 1010;
 					};
 				};
 			};
@@ -551,72 +660,41 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D910EE8720FA412F007F495B /* Battery.swift in Sources */,
+				D9126CE721F3B68B002C37EF /* AngleValue.swift in Sources */,
 				D910EE9420FEA064007F495B /* Action.swift in Sources */,
-				D96A18E920C741E100CAE44F /* DeviceAttitude.swift in Sources */,
+				D9126CD921F3A1AD002C37EF /* LengthValue.swift in Sources */,
+				D91C4B1A22500ED3009E234F /* ScaleFormatter.swift in Sources */,
 				D910EE8920FA451C007F495B /* SwiftShims.swift in Sources */,
-				D950047420C85B590046AB47 /* AccelerationValue.swift in Sources */,
-				D9EF05BB20ACD24A00D3F194 /* Decibel.swift in Sources */,
-				D930631620D58A54007A0CBD /* CalibratedMagneticFieldValue.swift in Sources */,
 				D930631120D54E0A007A0CBD /* Location.swift in Sources */,
-				D99958712103403A00C577AC /* Storage.swift in Sources */,
-				D9CDB99520AE3D2900316739 /* Value.swift in Sources */,
-				D9B84DE020CC83D900380C42 /* Gyroscope.swift in Sources */,
-				D9EF05A020ACC77D00D3F194 /* GenericValue.swift in Sources */,
-				D9287340210CCB5800F63A18 /* CPU.swift in Sources */,
+				D91C4B1422500C8C009E234F /* PercentValue.swift in Sources */,
+				D9154EAC21FFC2FB00C1E99B /* LocationAuthorizationFormatter.swift in Sources */,
+				D91C4B1822500E87009E234F /* ScaleValue.swift in Sources */,
+				D9070D8E2252C9A2000A2A6C /* NotificationsUpdatesConsumer.swift in Sources */,
+				D9126CD421F38F05002C37EF /* CoordinateValue.swift in Sources */,
+				D9286C2B224E79E000A69AF3 /* Screen.swift in Sources */,
+				D9286C2D224E7A1500A69AF3 /* SizeFormatter.swift in Sources */,
+				D9EF05A020ACC77D00D3F194 /* Value.swift in Sources */,
 				D9EF05AF20ACCF8B00D3F194 /* ManuallyUpdatableValuesProvider.swift in Sources */,
-				D9EF05C520ACD2E300D3F194 /* Pixel.swift in Sources */,
-				D9995873210344C600C577AC /* Bluetooth.swift in Sources */,
-				D9EF05BD20ACD25800D3F194 /* Degree.swift in Sources */,
-				D9B84DE420CF14F000380C42 /* Accelerometer.swift in Sources */,
-				D928465A20C499790058245F /* Scale.swift in Sources */,
-				D9B84DE220CF0FB800380C42 /* Magnetometer.swift in Sources */,
-				D930631A20D58AC6007A0CBD /* CMQuaternion.swift in Sources */,
-				D928733E210CBD2500F63A18 /* Cameras.swift in Sources */,
-				D910EE8D20FB6011007F495B /* DeviceMetadata.swift in Sources */,
 				D9EF059E20ACC63700D3F194 /* Controllable.swift in Sources */,
-				D910EE9820FEA637007F495B /* Proximity.swift in Sources */,
-				D930631420D58A34007A0CBD /* MagneticFieldValue.swift in Sources */,
-				D991E1F420CF2D45009C849F /* NumericNone.swift in Sources */,
-				D9EF05BF20ACD26600D3F194 /* Kilopascal.swift in Sources */,
-				D9EF05B920ACD23400D3F194 /* Boolean.swift in Sources */,
+				D9126CDC21F3AC53002C37EF /* CoordinateFormatter.swift in Sources */,
+				D9EB5D5C21FB5A8300163BF6 /* MeasurementValue.swift in Sources */,
+				D9154EA921FFC2B200C1E99B /* LocationAuthorizationValue.swift in Sources */,
+				D9070D8C2252C96C000A2A6C /* ClosureUpdatesConsumer.swift in Sources */,
 				D9F6B05520F8F4A700831338 /* Source.swift in Sources */,
-				D9EF05B120ACD02100D3F194 /* NumericUnit.swift in Sources */,
-				D96C630020F6AB0900BF06EF /* WiFi.swift in Sources */,
-				D959ECC720D713C5000184E2 /* GeomagnetismValue.swift in Sources */,
-				D9EF05B520ACD20700D3F194 /* BeatsPerMinute.swift in Sources */,
+				D9126CE521F3B630002C37EF /* Value+Measurement.swift in Sources */,
+				D9126CE221F3AF73002C37EF /* FrequencyValue.swift in Sources */,
 				D999586B21010F3B00C577AC /* BasePollingSource.swift in Sources */,
-				D9EF05B720ACD22100D3F194 /* Byte.swift in Sources */,
-				D950166E2118FA0C003542DC /* AudioOutput.swift in Sources */,
-				D910EE8F20FB9520007F495B /* ZeroConfigurationUnit.swift in Sources */,
-				D999587521035F0000C577AC /* CoordinateValue.swift in Sources */,
 				D9EF05AD20ACCF7000D3F194 /* CustomisableUpdateIntervalControllable.swift in Sources */,
-				D910EE9120FE9E76007F495B /* Altimeter.swift in Sources */,
-				D9EF05A520ACCE3800D3F194 /* Unit.swift in Sources */,
-				D9EF05CB20ACD35B00D3F194 /* Screen.swift in Sources */,
-				D9EF05B320ACD04F00D3F194 /* UnitError.swift in Sources */,
-				D930631E20D5BDA7007A0CBD /* Compass.swift in Sources */,
-				D9EF05C320ACD2D400D3F194 /* Meter.swift in Sources */,
-				D9EF05C920ACD31400D3F194 /* Point.swift in Sources */,
-				D910EE9C20FFE2E9007F495B /* CellRadioCarrierValue.swift in Sources */,
-				D930631C20D58E6E007A0CBD /* RotationMatrixValue.swift in Sources */,
-				D9EF05C120ACD27400D3F194 /* Microtesla.swift in Sources */,
-				D9EF059C20ACC5B800D3F194 /* Array+newestDataDate.swift in Sources */,
+				D9070D892252C91F000A2A6C /* UpdateConsumersProvider.swift in Sources */,
 				D930631820D58A85007A0CBD /* RotationRateValue.swift in Sources */,
 				D9D7529E20B4BE0600B16A06 /* SourceAvailability.swift in Sources */,
-				D9EF05D520ACD95400D3F194 /* SourceUpdateListenerWrapper.swift in Sources */,
-				D999586D2101166B00C577AC /* Advertising.swift in Sources */,
-				D928733C210CB58E00F63A18 /* Time.swift in Sources */,
-				D99958772103626D00C577AC /* MetersPerSecond.swift in Sources */,
-				D9F94D6A210CE63500493C1B /* GenericUnitlessValue.swift in Sources */,
-				D928733A210CB13B00F63A18 /* OperatingSystem.swift in Sources */,
-				D950166C2118BCB8003542DC /* Memory.swift in Sources */,
 				D910EE9620FEA070007F495B /* ActionProvider.swift in Sources */,
 				D9168F4E20C8851E00100EEE /* ValuesProvider.swift in Sources */,
-				D999586F21011EA700C577AC /* DeviceOrientation.swift in Sources */,
-				D9EF05C720ACD2F200D3F194 /* Percent.swift in Sources */,
-				D910EE9A20FFDE22007F495B /* CellRadio.swift in Sources */,
-				D9EF05D120ACD6B900D3F194 /* BaseSource.swift in Sources */,
+				D9126CDE21F3AD06002C37EF /* RotationRateFormatter.swift in Sources */,
+				D9EF05D120ACD6B900D3F194 /* UpdatesConsumer.swift in Sources */,
+				D91C4B1622500CC1009E234F /* PercentFormatter.swift in Sources */,
+				D9286C2F224E7C6B00A69AF3 /* SizeValue.swift in Sources */,
+				D9126CE921F3B6AA002C37EF /* SpeedValue.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -624,8 +702,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D9EF05E520AE2BBD00D3F194 /* MockScreenBackingData.swift in Sources */,
-				D9EF05E220AE2BA300D3F194 /* ScreenTests.swift in Sources */,
+				D9154EB121FFC91500C1E99B /* LocationTests.swift in Sources */,
+				D9070D872252C050000A2A6C /* MockNotificationCenter.swift in Sources */,
+				D91C4B1C22501005009E234F /* MockScreenBackingData.swift in Sources */,
+				D91C4B1B22500FDF009E234F /* ScreenTests.swift in Sources */,
+				D9070D852252B129000A2A6C /* MockUpdateConsumer.swift in Sources */,
+				D9154EAF21FFC87C00C1E99B /* MockLocationManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -692,7 +774,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -750,7 +832,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				SWIFT_COMPILATION_MODE = wholemodule;
@@ -819,6 +901,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = UHD73N826Y;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -833,6 +916,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = uk.co.josephduffy.GatheredKitTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -841,6 +926,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = UHD73N826Y;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -855,6 +941,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = uk.co.josephduffy.GatheredKitTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;

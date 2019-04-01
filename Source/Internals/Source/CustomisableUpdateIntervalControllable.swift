@@ -38,7 +38,7 @@ public extension CustomisableUpdateIntervalControllable {
 
 }
 
-public extension CustomisableUpdateIntervalControllable where Self: Source {
+public extension CustomisableUpdateIntervalControllable where Self: Source & UpdateConsumersProvider {
 
     /**
      Start performing periodic updates, updating every `updateInterval` seconds.
@@ -51,14 +51,14 @@ public extension CustomisableUpdateIntervalControllable where Self: Source {
      the object is deallocated the listener will be destroyed.
 
      - parameter updateInterval: The interval between updates, measured in seconds
-     - parameter queue: The dispatch queue the listener should be called from
+     - parameter queue: The dispatch queue the listener should be called from. Defaults to `main`
      - parameter updateListener: The closure to call with updated values
      - returns: An opaque object. The lifecycle of the listener is tied to the object
      */
     public func startUpdating(
         every updateInterval: TimeInterval,
-        sendingUpdatesOn queue: DispatchQueue,
-        to updateListener: @escaping Source.UpdateListener
+        sendingUpdatesOn queue: OperationQueue = .main,
+        to updateListener: @escaping ClosureUpdatesConsumer.UpdatesClosure
     ) -> AnyObject {
         let listenerToken = addUpdateListener(updateListener, queue: queue)
         startUpdating(every: updateInterval)

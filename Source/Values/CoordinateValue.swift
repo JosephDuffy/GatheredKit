@@ -1,52 +1,43 @@
 import Foundation
 import CoreLocation
 
-public struct CoordinateValue: TypedValue, ValuesProvider {
+public typealias CoordinateValue = Value<CLLocationCoordinate2D, CoordinateFormatter>
+public typealias OptionalCoordinateValue = Value<CLLocationCoordinate2D?, CoordinateFormatter>
 
-    public var allValues: [Value] {
-        return [latitude, longitude]
+extension Value where ValueType == CLLocationCoordinate2D {
+
+    public var allValues: [AnyValue] {
+        return [
+            latitude,
+            longitude,
+        ]
     }
 
-    public let latitude: GenericValue<CLLocationDegrees?, NumericNone>
-
-    public let longitude: GenericValue<CLLocationDegrees?, NumericNone>
-
-    public let displayName = "Coordinate"
-
-    public let formattedValue: String? = nil
-
-    public let backingValue: CLLocationCoordinate2D?
-
-    public let date: Date
-
-    public init(
-        backingValue: CLLocationCoordinate2D? = nil,
-        date: Date = Date()
-    ) {
-        self.backingValue = backingValue
-        self.date = date
-        latitude = GenericValue(
-            displayName: "Latitude",
-            backingValue: backingValue?.latitude,
-            unit: NumericNone(maximumFractionDigits: 20),
-            date: date
-        )
-        longitude = GenericValue(
-            displayName: "Longitude",
-            backingValue: backingValue?.longitude,
-            unit: NumericNone(maximumFractionDigits: 20),
-            date: date
-        )
+    var latitude: AngleValue {
+        return .degrees(displayName: "Latitude", value: backingValue.latitude, date: date)
     }
 
-    /**
-     Updates `self` to be a new `CoordinateValue` instance with the
-     backing value provided
+    var longitude: AngleValue {
+        return .degrees(displayName: "Longitude", value: backingValue.longitude, date: date)
+    }
 
-     - parameter backingValue: The new backing value
-     */
-    public mutating func update(backingValue: ValueType, date: Date = Date()) {
-        self = CoordinateValue(backingValue: backingValue, date: date)
+}
+
+extension Value where ValueType == CLLocationCoordinate2D? {
+
+    public var allValues: [AnyValue] {
+        return [
+            latitude,
+            longitude,
+        ]
+    }
+
+    var latitude: OptionalAngleValue {
+        return .degrees(displayName: "Latitude", value: backingValue?.latitude, date: date)
+    }
+
+    var longitude: OptionalAngleValue {
+        return .degrees(displayName: "Longitude", value: backingValue?.longitude, date: date)
     }
 
 }

@@ -6,7 +6,15 @@ import Foundation
  To benefit from `BasePollingSource` your subclass must implement `ManuallyUpdatableValuesProvider`. This
  will add `CustomisableUpdateIntervalSource` conformance via an extension.
  */
-open class BasePollingSource: BaseSource {
+open class BasePollingSource: Source, UpdateConsumersProvider {
+    
+    open class var availability: SourceAvailability {
+        return .available
+    }
+    
+    open class var name: String {
+        return ""
+    }
 
     fileprivate enum State {
         case notMonitoring
@@ -41,13 +49,13 @@ open class BasePollingSource: BaseSource {
             return true
         }
     }
+    
+    public var updateConsumers: [UpdatesConsumer] = []
 
-    public override init() {
+    public required init() {
         guard type(of: self) != BasePollingSource.self else {
             fatalError("BasePollingSource must be subclassed")
         }
-
-        super.init()
     }
 
 }
@@ -60,14 +68,11 @@ extension CustomisableUpdateIntervalControllable where Self: BasePollingSource, 
 
     public func startUpdating(every updateInterval: TimeInterval) {
         let updatesQueue = DispatchQueue(label: "uk.co.josephduffy.GatheredKit \(type(of: self)) Updates")
-
         state = .monitoring(updatesQueue: updatesQueue, updateInterval: updateInterval)
 
         let latestPropertyValues = updateValues()
-
         update(on: updatesQueue, after: updateInterval)
-
-        notifyUpdateListeners(latestPropertyValues: latestPropertyValues)
+        notifyUpdateConsumers(of: latestPropertyValues)
     }
 
     private func update(on queue: DispatchQueue, after delay: TimeInterval) {
@@ -79,8 +84,7 @@ extension CustomisableUpdateIntervalControllable where Self: BasePollingSource, 
             guard (self as BasePollingSource).isUpdating else { return }
 
             let latestPropertyValues = self.updateValues()
-            self.notifyUpdateListeners(latestPropertyValues: latestPropertyValues)
-
+            self.notifyUpdateConsumers(of: latestPropertyValues)
             self.update(on: queue, after: delay)
         }
     }

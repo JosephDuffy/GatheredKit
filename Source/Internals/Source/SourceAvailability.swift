@@ -1,4 +1,3 @@
-
 public enum SourceAvailability {
 
     /// The source is available for use
@@ -9,6 +8,9 @@ public enum SourceAvailability {
     /// The user will be prompted for permissions when the `startUpdating`
     /// function is called.
     case requiresPermissionsPrompt
+
+    /// The user has denied permission to access the source
+    case restricted
 
     /// The user has denied permission to access the source
     case permissionDenied

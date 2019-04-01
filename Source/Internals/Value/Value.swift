@@ -1,72 +1,90 @@
-public protocol Value {
+import Foundation
 
-    /// A user-friendly name that represents the value, e.g. "Latitude", "Longitude"
+public protocol AnyValue {
     var displayName: String { get }
-
-    /// The value powering this `Value`
-    var untypedBackingValue: Any { get }
-
-    /// A human-friendly formatted value
-    /// Note that this may differ from the result of `unit.formattedString(for:)`
-    var formattedValue: String? { get }
-
-    /// The date that the value was created
-    /// If a system-provided date is available it is used
+    var backingValueAsAny: Any? { get }
     var date: Date { get }
-
+    var anyFormatter: Foundation.Formatter { get }
+    var formattedValue: String? { get }
 }
 
-public protocol TypedValue: Value {
+public struct Value<ValueType, Formatter: Foundation.Formatter>: AnyValue {
 
-    associatedtype ValueType
-
-    /// The value powering this `Value`
-    var backingValue: ValueType { get }
-
-}
-
-public protocol UnitProvider {
-
-    var untypedUnit: Unit { get }
-
-}
-
-public protocol TypedUnitProvider: UnitProvider {
-
-    associatedtype UnitType: Unit
-
-    /// The unit the value is measured in
-    var unit: UnitType { get }
-}
-
-extension TypedUnitProvider {
-
-    public var untypedUnit: Unit {
-        return unit
+    public struct Snapshot {
+        public let value: ValueType
+        public let date: Date
     }
 
-}
+    public var anyFormatter: Foundation.Formatter {
+        return formatter
+    }
 
-public extension TypedValue {
+    public let displayName: String
 
-    var untypedBackingValue: Any {
+    public var snapshot: Snapshot
+
+    public var backingValue: ValueType {
+        get {
+            return snapshot.value
+        }
+        set {
+            snapshot = Snapshot(value: newValue, date: Date())
+            formattedValue = nil
+        }
+    }
+
+    public var date: Date {
+        return snapshot.date
+    }
+
+    public let formatter: Formatter
+
+    // TODO: Update to return formatter.value
+    public fileprivate(set) var formattedValue: String?
+
+    public var backingValueAsAny: Any? {
         return backingValue
     }
 
-}
-
-public extension TypedValue where ValueType: Equatable {
-
-    static func == (lhs: Self, rhs: Self) -> Bool {
-        return lhs.backingValue == rhs.backingValue
+    public init(
+        displayName: String,
+        backingValue: ValueType,
+        formatter: Formatter = Formatter(),
+        formattedValue: String? = nil,
+        date: Date = Date()
+    ) {
+        self.displayName = displayName
+        self.snapshot = Snapshot(value: backingValue, date: date)
+        self.formatter = formatter
+        self.formattedValue = formattedValue
     }
 
-    static func == (lhs: Self, rhs: ValueType) -> Bool {
-        return lhs.backingValue == rhs
+    public init<WrappedValueType>(
+        displayName: String,
+        backingValue: WrappedValueType? = nil,
+        formatter: Formatter = Formatter(),
+        formattedValue: String? = nil,
+        date: Date = Date()
+    ) where ValueType == WrappedValueType? {
+        self.displayName = displayName
+        self.snapshot = Snapshot(value: backingValue, date: date)
+        self.formatter = formatter
+        self.formattedValue = formattedValue
     }
 
-    static func == (lhs: ValueType, rhs: Self) -> Bool {
-        return lhs == rhs.backingValue
+    /**
+     Updates the data backing this `SourceProperty`
+     - parameter backingValue: The new value of the data
+     - parameter formattedValue: The new human-friendly formatted value. Defaults to `nil`
+     - parameter date: The date and time the `value` was recorded. Defaults to the current date and time
+     */
+    public mutating func update(
+        backingValue: ValueType,
+        formattedValue: String? = nil,
+        date: Date = Date()
+    ) {
+        snapshot = Snapshot(value: backingValue, date: date)
+        self.formattedValue = formattedValue
     }
 
 }

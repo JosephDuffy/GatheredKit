@@ -4,30 +4,11 @@ import UIKit
  A wrapper around `UIScreen`. Each property is read directly from `UIScreen`; every property is always the latest
  available value
  */
-public final class Screen: BaseSource, Source, Controllable, ValuesProvider {
-
+public final class Screen: Source, Controllable, ValuesProvider, UpdateConsumersProvider {
+    
     private enum State {
         case notMonitoring
         case monitoring(brightnessChangeObeserver: NSObjectProtocol, updatesQueue: OperationQueue)
-    }
-
-    /**
-     Generates and returns a human-friendly string that represents the given size. String will be in the format:
-
-     "\(width) x \(height)"
-
-     Numeric values (width and height) will be formatted using a `NumberFormatter`
-
-     - parameter size: The size to be formatted
-     - parameter unit: The unit the size is measured in, usually Point or Pixel
-
-     - returns: The formatted string
-     */
-    private static func formattedString<Unit: NumericUnit>(for size: CGSize, unit: Unit) -> String {
-        let widthString = numberFormatter.string(from: size.width as NSNumber) ?? "\(size.width)"
-        let heightString = numberFormatter.string(from: size.height as NSNumber) ?? "\(size.height)"
-
-        return "\(widthString) x \(heightString)" + unit.pluralValueSuffix
     }
 
     private static var numberFormatter = NumberFormatter()
@@ -45,6 +26,8 @@ public final class Screen: BaseSource, Source, Controllable, ValuesProvider {
             return true
         }
     }
+    
+    public var updateConsumers: [UpdatesConsumer] = []
 
     /// The `ScreenBackingData` this `Screen` represents
     private let screen: ScreenBackingData
@@ -52,22 +35,22 @@ public final class Screen: BaseSource, Source, Controllable, ValuesProvider {
     /**
      The reported resolution of the screen
      */
-    public let reportedResolution: GenericValue<CGSize, Point>
+    public let reportedResolution: SizeValue
 
     /**
      The native resolution of the screen
      */
-    public let nativeResolution: GenericValue<CGSize, Pixel>
+    public let nativeResolution: SizeValue
 
     /**
      The reported scale factor of the screen
      */
-    public let reportedScale: GenericValue<CGFloat, Scale>
+    public let reportedScale: ScaleValue
 
     /**
      The native scale factor of the screen
      */
-    public let nativeScale: GenericValue<CGFloat, Scale>
+    public let nativeScale: ScaleValue
 
     /**
      The brightness level of the screen. The value of this property will be a number between
@@ -75,7 +58,9 @@ public final class Screen: BaseSource, Source, Controllable, ValuesProvider {
 
      This value will update automatically when `startUpdating` is called
      */
-    public private(set) var brightness: GenericValue<CGFloat, Percent>
+    public var brightness: PercentValue {
+        return PercentValue(displayName: "Brightness", backingValue: screen.brightness.native)
+    }
 
     /**
      An array of the screen's properties, in the following order:
@@ -85,7 +70,7 @@ public final class Screen: BaseSource, Source, Controllable, ValuesProvider {
      - Screen Resolution (native)
      - Brightness
      */
-    public var allValues: [Value] {
+    public var allValues: [AnyValue] {
         return [
             reportedResolution,
             nativeResolution,
@@ -97,8 +82,10 @@ public final class Screen: BaseSource, Source, Controllable, ValuesProvider {
 
     /// The internal state, indicating if the screen is monitoring for changes
     private var state: State = .notMonitoring
+    
+    private let notificationCenter: NotificationCenter
 
-    public override convenience init() {
+    public convenience init() {
         self.init(screen: UIScreen.main as ScreenBackingData)
     }
 
@@ -111,34 +98,30 @@ public final class Screen: BaseSource, Source, Controllable, ValuesProvider {
 
      - parameter screen: The `UIScreen` to get data from
      */
-    internal init(screen: ScreenBackingData) {
+    internal init(screen: ScreenBackingData, notificationCenter: NotificationCenter = .default) {
         self.screen = screen
+        self.notificationCenter = notificationCenter
 
-        reportedResolution = GenericValue(
+        reportedResolution = Value(
             displayName: "Resolution (reported)",
-            backingValue: screen.bounds.size,
-            formattedValue: Screen.formattedString(for: screen.bounds.size, unit: Point())
+            backingValue: screen.bounds.size
         )
+        reportedResolution.formatter.suffix = " Points"
 
-        nativeResolution = GenericValue(
+        nativeResolution = Value(
             displayName: "Resolution (native)",
-            backingValue: screen.nativeBounds.size,
-            formattedValue: Screen.formattedString(for: screen.nativeBounds.size, unit: Pixel())
+            backingValue: screen.nativeBounds.size
         )
+        nativeResolution.formatter.suffix = " Pixels"
 
-        reportedScale = GenericValue(
+        reportedScale = Value(
             displayName: "Scale (reported)",
-            backingValue: screen.scale
+            backingValue: screen.scale.native
         )
 
-        nativeScale = GenericValue(
+        nativeScale = Value(
             displayName: "Scale (native)",
-            backingValue: screen.nativeScale
-        )
-
-        brightness = GenericValue(
-            displayName: "Brightness",
-            backingValue: screen.brightness
+            backingValue: screen.nativeScale.native
         )
     }
 
@@ -156,10 +139,9 @@ public final class Screen: BaseSource, Source, Controllable, ValuesProvider {
         let updatesQueue = OperationQueue()
         updatesQueue.name = "uk.co.josephduffy.GatheredKit Screen Updates"
 
-        let brightnessChangeObeserver = NotificationCenter.default.addObserver(forName: UIScreen.brightnessDidChangeNotification, object: screen, queue: updatesQueue) { [weak self] _ in
+        let brightnessChangeObeserver = notificationCenter.addObserver(forName: UIScreen.brightnessDidChangeNotification, object: screen, queue: updatesQueue) { [weak self] _ in
             guard let `self` = self else { return }
-            self.brightness.update(backingValue: self.screen.brightness)
-            self.notifyListenersPropertyValuesUpdated()
+            self.notifyUpdateConsumersOfLatestValues()
         }
 
         state = .monitoring(brightnessChangeObeserver: brightnessChangeObeserver, updatesQueue: updatesQueue)
@@ -171,7 +153,13 @@ public final class Screen: BaseSource, Source, Controllable, ValuesProvider {
     public func stopUpdating() {
         guard case .monitoring(let brightnessChangeObeserver) = state else { return }
 
-        NotificationCenter.default.removeObserver(brightnessChangeObeserver, name: UIScreen.brightnessDidChangeNotification, object: screen)
+        NotificationCenter
+            .default
+            .removeObserver(
+                brightnessChangeObeserver,
+                name: UIScreen.brightnessDidChangeNotification,
+                object: screen
+            )
 
         state = .notMonitoring
     }

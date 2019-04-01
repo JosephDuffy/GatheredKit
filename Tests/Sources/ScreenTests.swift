@@ -9,9 +9,7 @@ final class ScreenTests: QuickSpec {
 
     override func spec() {
         describe("Screen") {
-
-            context("initialised with mocked screen backing object") {
-
+            context("init") {
                 var mock: MockScreenBackingData!
                 var screen: Screen!
 
@@ -33,61 +31,83 @@ final class ScreenTests: QuickSpec {
                 }
 
                 it("should set the `nativeScreenScale` using the backing object's `nativeScale` property") {
-                    expect(screen.nativeScale.backingValue).to(equal(mock.nativeScale))
+                    expect(screen.nativeScale.backingValue).to(equal(mock.nativeScale.native))
                 }
 
                 it("should set the `brightness` using the backing object's `brightness` property") {
-                    expect(screen.brightness.backingValue).to(equal(mock.brightness))
+                    expect(screen.brightness.backingValue).to(equal(mock.brightness.native))
                 }
 
             }
 
-            context(".startUpdating()") {
-
-                var mock: MockScreenBackingData!
+            context("after `startUpdating` has been called") {
+                var mockBackingData: MockScreenBackingData!
                 var screen: Screen!
-                var listenerWasCalled: Bool!
-                var updateListener: AnyObject!
-                // Silence Xcode warning
-                _ = updateListener
+                var notificationCenter: MockNotificationCenter!
+                var updateConsumer: MockUpdateConsumer!
 
                 beforeEach {
-                    mock = MockScreenBackingData()
-                    screen = Screen(screen: mock)
-                    listenerWasCalled = false
-                    updateListener = screen.startUpdating(sendingUpdatesTo: { _ in
-                        listenerWasCalled = true
-                    })
+                    mockBackingData = MockScreenBackingData()
+                    notificationCenter = MockNotificationCenter()
+                    screen = Screen(screen: mockBackingData, notificationCenter: notificationCenter)
+                    updateConsumer = MockUpdateConsumer()
+                    screen.add(updatesConsumer: updateConsumer)
+                    screen.startUpdating()
                 }
-
-                it("should cause `isUpdating` to return `true`") {
-                    expect(screen.isUpdating).to(beTrue())
+                
+                it("should add an observer to the notification center once") {
+                    expect(notificationCenter.addObserverLatestParmetersCallCount).to(equal(1))
                 }
-
-                it("should notify listeners when a `UIScreenBrightnessDidChange` notification is fired from the backing object") {
-                    #if swift(>=4.2)
-                    NotificationCenter.default.post(name: UIScreen.brightnessDidChangeNotification, object: mock)
-                    #else
-                    NotificationCenter.default.post(name: .UIScreenBrightnessDidChange, object: mock)
-                    #endif
-
-                    expect(listenerWasCalled).toEventually(beTrue())
+                
+                it("should add an observer for the UIScreenBrightnessDidChange notification") {
+                    expect(notificationCenter.latestName!).to(equal(UIScreen.brightnessDidChangeNotification))
                 }
+                
+                it("should add an observer for the backing screen") {
+                    expect(notificationCenter.latestObject!).to(be(mockBackingData))
+                }
+                
+                context("twice") {
+                    beforeEach {
+                        screen.startUpdating()
+                    }
 
-                it("should not notify listeners when a `UIScreenBrightnessDidChange` notification is fired from an object other than the backing object") {
-                    #if swift(>=4.2)
-                    NotificationCenter.default.post(name: UIScreen.brightnessDidChangeNotification, object: UIScreen.main)
-                    #else
-                    NotificationCenter.default.post(name: .UIScreenBrightnessDidChange, object: UIScreen.main)
-                    #endif
+                    it("should add an observer to the notification center once") {
+                        expect(notificationCenter.addObserverLatestParmetersCallCount).to(equal(1))
+                    }
+                }
+                
+                context("the `isUpdating` property") {
+                    it("should be `true`") {
+                        expect(screen.isUpdating).to(beTrue())
+                    }
+                }
+                
+                context("when a `UIScreen.brightnessDidChangeNotification` notification is fired from the backing object") {
+                    beforeEach {
+                        mockBackingData.brightness = 0.53
+                        notificationCenter.post(name: UIScreen.brightnessDidChangeNotification, object: mockBackingData)
+                    }
+                    
+                    it("should notify update consumers synchronously") {
+                        expect(updateConsumer.hasBeenCalled).to(beTrue())
+                    }
+                    
+                    it("should pass the new value to the update listener") {
+                        expect(updateConsumer.latestValues ?? []).to(containElementSatisfying({ value in
+                            guard let value = value as? PercentValue else { return false }
+                            guard value.displayName == screen.brightness.displayName else { return false }
+                            return value.backingValue == mockBackingData.brightness.native
+                        }))
+                    }
+                }
+                
+                context("when a `UIScreen.brightnessDidChangeNotification` notification is fired from an object that isn't the backing object") {
+                    it("should not notify update consumers") {
+                        notificationCenter.post(name: UIScreen.brightnessDidChangeNotification, object: UIScreen.main)
 
-                    var wasCalledAfterHalfASecond: Bool?
-
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: {
-                        wasCalledAfterHalfASecond = listenerWasCalled
-                    })
-
-                    expect(wasCalledAfterHalfASecond).toEventually(beFalse(), timeout: 1, pollInterval: 0.1)
+                        expect(updateConsumer.hasBeenCalled).to(beFalse())
+                    }
                 }
 
             }

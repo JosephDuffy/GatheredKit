@@ -1,5 +1,3 @@
-import Foundation
-
 public struct Action {
 
     public let title: String
