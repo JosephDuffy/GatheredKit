@@ -64,6 +64,7 @@ public final class Magnetometer: Source, CustomisableUpdateIntervalControllable,
         let motionManager = CMMotionManager()
         motionManager.deviceMotionUpdateInterval = updateInterval
         motionManager.magnetometerUpdateInterval = updateInterval
+        motionManager.showsDeviceMovementDisplay = true
         let updatesQueue = OperationQueue(name: "uk.co.josephduffy.GatheredKit Magnetometer Updates")
         
         defer {
