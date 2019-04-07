@@ -1,8 +1,10 @@
 import Foundation
 
-open class UnitMagneticField: Dimension {
+public final class UnitMagneticField: Dimension {
     
-    public static let baseUnit = tesla
+    public override class func baseUnit() -> UnitMagneticField {
+        return tesla
+    }
  
     public static let tesla = UnitMagneticField(symbol: "T", converter: UnitConverterLinear(coefficient: 1))
     
