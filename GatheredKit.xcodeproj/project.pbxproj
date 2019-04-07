@@ -48,6 +48,8 @@
 		D912415C225A97A200846D05 /* OptionalMeasurementValueTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D912415B225A97A200846D05 /* OptionalMeasurementValueTests.swift */; };
 		D912415F225AA25100846D05 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = D9124161225AA25100846D05 /* Localizable.strings */; };
 		D9124163225AA37100846D05 /* String+localized.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9124162225AA37100846D05 /* String+localized.swift */; };
+		D9124165225AB01F00846D05 /* MagneticFieldCalibrationAccuracyFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9124164225AB01F00846D05 /* MagneticFieldCalibrationAccuracyFormatter.swift */; };
+		D9124167225AB07400846D05 /* LocationAuthorizationValue copy.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9124166225AB07400846D05 /* LocationAuthorizationValue copy.swift */; };
 		D9126CDC21F3AC53002C37EF /* CoordinateFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9126CDB21F3AC53002C37EF /* CoordinateFormatter.swift */; };
 		D9154EAC21FFC2FB00C1E99B /* LocationAuthorizationFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9154EAB21FFC2FB00C1E99B /* LocationAuthorizationFormatter.swift */; };
 		D9154EAF21FFC87C00C1E99B /* MockLocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9154EAE21FFC87C00C1E99B /* MockLocationManager.swift */; };
@@ -132,6 +134,8 @@
 		D912415B225A97A200846D05 /* OptionalMeasurementValueTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionalMeasurementValueTests.swift; sourceTree = "<group>"; };
 		D9124160225AA25100846D05 /* en-GB */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "en-GB"; path = "en-GB.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		D9124162225AA37100846D05 /* String+localized.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+localized.swift"; sourceTree = "<group>"; };
+		D9124164225AB01F00846D05 /* MagneticFieldCalibrationAccuracyFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MagneticFieldCalibrationAccuracyFormatter.swift; sourceTree = "<group>"; };
+		D9124166225AB07400846D05 /* LocationAuthorizationValue copy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LocationAuthorizationValue copy.swift"; sourceTree = "<group>"; };
 		D9126CD821F3A1AD002C37EF /* LengthValue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LengthValue.swift; sourceTree = "<group>"; };
 		D9126CDB21F3AC53002C37EF /* CoordinateFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoordinateFormatter.swift; sourceTree = "<group>"; };
 		D9126CDD21F3AD06002C37EF /* RotationRateFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RotationRateFormatter.swift; sourceTree = "<group>"; };
@@ -349,6 +353,7 @@
 			children = (
 				D9126CDB21F3AC53002C37EF /* CoordinateFormatter.swift */,
 				D9154EAB21FFC2FB00C1E99B /* LocationAuthorizationFormatter.swift */,
+				D9124164225AB01F00846D05 /* MagneticFieldCalibrationAccuracyFormatter.swift */,
 				D91C4B1522500CC1009E234F /* PercentFormatter.swift */,
 				D91C4B1922500ED3009E234F /* ScaleFormatter.swift */,
 				D9286C2C224E7A1500A69AF3 /* SizeFormatter.swift */,
@@ -462,6 +467,7 @@
 				D979914521F8F69700247DD9 /* Measurements */,
 				D999587421035F0000C577AC /* CoordinateValue.swift */,
 				D9154EA821FFC2B200C1E99B /* LocationAuthorizationValue.swift */,
+				D9124166225AB07400846D05 /* LocationAuthorizationValue copy.swift */,
 				D9386AF62255167F00B081AB /* NumericValues.swift */,
 				D91C4B1322500C8C009E234F /* PercentValue.swift */,
 				D91C4B1722500E87009E234F /* ScaleValue.swift */,
@@ -750,6 +756,7 @@
 				D9386AF5225515AA00B081AB /* QuaternionFormatter.swift in Sources */,
 				D9124141225A4EAB00846D05 /* Heading.swift in Sources */,
 				D912413A225A4C3200846D05 /* SizeValue.swift in Sources */,
+				D9124165225AB01F00846D05 /* MagneticFieldCalibrationAccuracyFormatter.swift in Sources */,
 				D912414A225A52F300846D05 /* CMMagneticFieldFormatter.swift in Sources */,
 				D91C4B1A22500ED3009E234F /* ScaleFormatter.swift in Sources */,
 				D9124148225A524900846D05 /* CMMagneticFieldValue.swift in Sources */,
@@ -785,6 +792,7 @@
 				D9168F4E20C8851E00100EEE /* ValuesProvider.swift in Sources */,
 				D912412F225A4A0400846D05 /* AngleValue.swift in Sources */,
 				D9124138225A4C3200846D05 /* PercentValue.swift in Sources */,
+				D9124167225AB07400846D05 /* LocationAuthorizationValue copy.swift in Sources */,
 				D9124132225A4B5E00846D05 /* CoordinateValue.swift in Sources */,
 				D9124163225AA37100846D05 /* String+localized.swift in Sources */,
 				D9124130225A4A0800846D05 /* LengthValue.swift in Sources */,

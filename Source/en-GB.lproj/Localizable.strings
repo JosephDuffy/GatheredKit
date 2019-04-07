@@ -11,4 +11,5 @@
 "value.cmmagneticfield.value.z.name" = "Z Axis";
 
 // CMCalibratedMagneticFieldValue
+"value.cmcalibratedmagneticfield.value.accuracy.name" = "Accuracy";
 "value.cmcalibratedmagneticfield.value.field.name" = "Field";
