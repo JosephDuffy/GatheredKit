@@ -76,12 +76,20 @@ public class OptionalMeasurementValue<Unit: Foundation.Unit>: OptionalValue<Meas
         formattedValue: String? = nil,
         date: Date = Date()
     ) {
-        let measurement: Measurement<Unit>?
         if let value = value {
-            measurement = Measurement<Unit>(value: value, unit: unit)
+            update(value: value, unit: unit, formattedValue: formattedValue, date: date)
         } else {
-            measurement = nil
+            update(backingValue: nil, formattedValue: formattedValue, date: date)
         }
+    }
+    
+    public func update(
+        value: Double,
+        unit: Unit,
+        formattedValue: String? = nil,
+        date: Date = Date()
+    ) {
+        let measurement = Measurement<Unit>(value: value, unit: unit)
         self.update(backingValue: measurement, formattedValue: formattedValue, date: date)
     }
     

@@ -45,6 +45,7 @@
 		D9124155225A727400846D05 /* OptionalValueTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9124154225A727400846D05 /* OptionalValueTests.swift */; };
 		D9124157225A741A00846D05 /* castToOptional.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9124156225A741A00846D05 /* castToOptional.swift */; };
 		D9124159225A752900846D05 /* ValueTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9124158225A752900846D05 /* ValueTests.swift */; };
+		D912415C225A97A200846D05 /* OptionalMeasurementValueTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D912415B225A97A200846D05 /* OptionalMeasurementValueTests.swift */; };
 		D9126CDC21F3AC53002C37EF /* CoordinateFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9126CDB21F3AC53002C37EF /* CoordinateFormatter.swift */; };
 		D9154EAC21FFC2FB00C1E99B /* LocationAuthorizationFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9154EAB21FFC2FB00C1E99B /* LocationAuthorizationFormatter.swift */; };
 		D9154EAF21FFC87C00C1E99B /* MockLocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9154EAE21FFC87C00C1E99B /* MockLocationManager.swift */; };
@@ -126,6 +127,7 @@
 		D9124154225A727400846D05 /* OptionalValueTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionalValueTests.swift; sourceTree = "<group>"; };
 		D9124156225A741A00846D05 /* castToOptional.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = castToOptional.swift; sourceTree = "<group>"; };
 		D9124158225A752900846D05 /* ValueTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValueTests.swift; sourceTree = "<group>"; };
+		D912415B225A97A200846D05 /* OptionalMeasurementValueTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionalMeasurementValueTests.swift; sourceTree = "<group>"; };
 		D9126CD821F3A1AD002C37EF /* LengthValue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LengthValue.swift; sourceTree = "<group>"; };
 		D9126CDB21F3AC53002C37EF /* CoordinateFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoordinateFormatter.swift; sourceTree = "<group>"; };
 		D9126CDD21F3AD06002C37EF /* RotationRateFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RotationRateFormatter.swift; sourceTree = "<group>"; };
@@ -577,6 +579,7 @@
 				D9154EB021FFC8D300C1E99B /* LocationTests.swift */,
 				D9124152225A612200846D05 /* UnitMagneticFieldTests.swift */,
 				D9124154225A727400846D05 /* OptionalValueTests.swift */,
+				D912415B225A97A200846D05 /* OptionalMeasurementValueTests.swift */,
 				D9124158225A752900846D05 /* ValueTests.swift */,
 				D9EF05E020AE2B9700D3F194 /* ScreenTests.swift */,
 			);
@@ -797,6 +800,7 @@
 				D9124159225A752900846D05 /* ValueTests.swift in Sources */,
 				D91C4B1B22500FDF009E234F /* ScreenTests.swift in Sources */,
 				D9124153225A612200846D05 /* UnitMagneticFieldTests.swift in Sources */,
+				D912415C225A97A200846D05 /* OptionalMeasurementValueTests.swift in Sources */,
 				D9070D852252B129000A2A6C /* MockUpdateConsumer.swift in Sources */,
 				D9154EAF21FFC87C00C1E99B /* MockLocationManager.swift in Sources */,
 			);
