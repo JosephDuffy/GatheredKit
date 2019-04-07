@@ -7,7 +7,7 @@ import Foundation
  will add `CustomisableUpdateIntervalSource` conformance via an extension.
  */
 open class BasePollingSource: Source, UpdateConsumersProvider {
-    
+
     open class var availability: SourceAvailability {
         return .available
     }
@@ -51,6 +51,8 @@ open class BasePollingSource: Source, UpdateConsumersProvider {
     }
     
     public var updateConsumers: [UpdatesConsumer] = []
+    
+    public var allValues: [AnyValue] = []
 
     public required init() {
         guard type(of: self) != BasePollingSource.self else {

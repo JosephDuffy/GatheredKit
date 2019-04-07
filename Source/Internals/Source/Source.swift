@@ -1,7 +1,7 @@
 /**
  An object that can provide data from a specific source on the device
  */
-public protocol Source: class {
+public protocol Source: class, ValuesProvider {
 
     /// A closure that will be called with the latest values
     typealias UpdateListener = (_ latestValues: [AnyValue]) -> Void
