@@ -18,7 +18,7 @@ public final class Magnetometer: Source, CustomisableUpdateIntervalControllable,
         return CMMotionManager().isMagnetometerAvailable
     }
 
-    public static let name = "source.magnetometer.name"
+    public static let name = "source.magnetometer.name".localized
 
     public let magneticField: OptionalCMCalibratedMagneticFieldValue
 
@@ -46,8 +46,8 @@ public final class Magnetometer: Source, CustomisableUpdateIntervalControllable,
     }
 
     public init() {
-        magneticField = OptionalCMCalibratedMagneticFieldValue(displayName: "source.magnetometer.value.calibrated_magnetic_field.name")
-        rawMagneticField = OptionalCMMagneticFieldValue(displayName: "source.magnetometer.value.raw_magnetic_field.name")
+        magneticField = OptionalCMCalibratedMagneticFieldValue(displayName: "source.magnetometer.value.calibrated_magnetic_field.name".localized)
+        rawMagneticField = OptionalCMMagneticFieldValue(displayName: "source.magnetometer.value.raw_magnetic_field.name".localized)
         state = .notMonitoring
         updateConsumers = []
     }

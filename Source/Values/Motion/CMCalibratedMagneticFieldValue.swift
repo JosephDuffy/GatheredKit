@@ -8,21 +8,21 @@ public final class CMCalibratedMagneticFieldValue: Value<CMCalibratedMagneticFie
     }
     
     public var field: CMMagneticFieldValue {
-        return CMMagneticFieldValue(displayName: "Field", backingValue: backingValue.field)
+        return CMMagneticFieldValue(displayName: "value.cmcalibratedmagneticfield.value.field.name".localized, backingValue: backingValue.field)
     }
     
     // TODO: Add accuracy
     
 }
 
-public final class OptionalCMCalibratedMagneticFieldValue: OptionalValue<CMCalibratedMagneticField, CMMagneticFieldFormatter> {
+public final class OptionalCMCalibratedMagneticFieldValue: OptionalValue<CMCalibratedMagneticField, CMMagneticFieldFormatter>, ValuesProvider {
     
     public var allValues: [AnyValue] {
         return [field/*, accuracy*/]
     }
     
     public var field: OptionalCMMagneticFieldValue {
-        return OptionalCMMagneticFieldValue(displayName: "Field", backingValue: backingValue?.field)
+        return OptionalCMMagneticFieldValue(displayName: "value.cmcalibratedmagneticfield.value.field.name".localized, backingValue: backingValue?.field)
     }
 
     // TODO: Add accuracy

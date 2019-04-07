@@ -8,15 +8,15 @@ public final class CMMagneticFieldValue: Value<CMMagneticField, CMMagneticFieldF
     }
     
     public var x: MagneticFieldValue {
-        return .microTesla(displayName: "X Axis", value: backingValue.x, date: date)
+        return .microTesla(displayName: "value.cmmagneticfield.value.x.name".localized, value: backingValue.x, date: date)
     }
     
     public var y: MagneticFieldValue {
-        return .microTesla(displayName: "Y Axis", value: backingValue.y, date: date)
+        return .microTesla(displayName: "value.cmmagneticfield.value.y.name".localized, value: backingValue.y, date: date)
     }
     
     public var z: MagneticFieldValue {
-        return .microTesla(displayName: "Z Axis", value: backingValue.z, date: date)
+        return .microTesla(displayName: "value.cmmagneticfield.value.z.name".localized, value: backingValue.z, date: date)
     }
     
 }
@@ -28,15 +28,15 @@ public final class OptionalCMMagneticFieldValue: OptionalValue<CMMagneticField, 
     }
     
     public var x: OptionalMagneticFieldValue {
-        return .microTesla(displayName: "X Axis", value: backingValue?.x, date: date)
+        return .microTesla(displayName: "value.cmmagneticfield.value.x.name".localized, value: backingValue?.x, date: date)
     }
     
     public var y: OptionalMagneticFieldValue {
-        return .microTesla(displayName: "Y Axis", value: backingValue?.y, date: date)
+        return .microTesla(displayName: "value.cmmagneticfield.value.y.name".localized, value: backingValue?.y, date: date)
     }
     
     public var z: OptionalMagneticFieldValue {
-        return .microTesla(displayName: "Z Axis", value: backingValue?.z, date: date)
+        return .microTesla(displayName: "value.cmmagneticfield.value.z.name".localized, value: backingValue?.z, date: date)
     }
     
 }
