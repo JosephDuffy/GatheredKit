@@ -1,6 +1,6 @@
 public final class ClosureUpdatesConsumer: UpdatesConsumer {
     
-    public typealias UpdatesClosure = ([AnyValue], Source) -> Void
+    public typealias UpdatesClosure = ([AnyValue], AnyObject) -> Void
     
     private let closure: UpdatesClosure
     
@@ -8,8 +8,8 @@ public final class ClosureUpdatesConsumer: UpdatesConsumer {
         self.closure = closure
     }
     
-    public func comsume(values: [AnyValue], from source: Source) {
-        closure(values, source)
+    public func comsume(values: [AnyValue], sender: AnyObject) {
+        closure(values, sender)
     }
     
 }

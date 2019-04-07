@@ -1,11 +1,11 @@
 import Foundation
 
-public typealias AngleValue = Value<Measurement<UnitAngle>, MeasurementFormatter>
-public typealias OptionalAngleValue = Value<Measurement<UnitAngle>?, MeasurementFormatter>
+public final class AngleValue: MeasurementValue<UnitAngle> { }
+public final class OptionalAngleValue: OptionalMeasurementValue<UnitAngle> { }
 
-public extension AnyValue {
+extension AnyValue {
 
-    static func angle(
+    public static func angle(
         displayName: String,
         value: Double,
         unit: UnitAngle,
@@ -13,10 +13,10 @@ public extension AnyValue {
         formattedValue: String? = nil,
         date: Date = Date()
     ) -> AngleValue {
-        return measurement(displayName: displayName, value: value, unit: unit, formatter: formatter, formattedValue: formattedValue, date: date)
+        return AngleValue(displayName: displayName, value: value, unit: unit, formatter: formatter, formattedValue: formattedValue, date: date)
     }
 
-    static func angle(
+    public static func angle(
         displayName: String,
         value: Double? = nil,
         unit: UnitAngle,
@@ -24,27 +24,27 @@ public extension AnyValue {
         formattedValue: String? = nil,
         date: Date = Date()
     ) -> OptionalAngleValue {
-        return measurement(displayName: displayName, value: value, unit: unit, formatter: formatter, formattedValue: formattedValue, date: date)
+        return OptionalAngleValue(displayName: displayName, value: value, unit: unit, formatter: formatter, formattedValue: formattedValue, date: date)
     }
 
-    static func degrees(
+    public static func degrees(
         displayName: String,
         value: Double,
         formatter: MeasurementFormatter = MeasurementFormatter(),
         formattedValue: String? = nil,
         date: Date = Date()
     ) -> AngleValue {
-        return angle(displayName: displayName, value: value, unit: .degrees, formatter: formatter, formattedValue: formattedValue, date: date)
+        return AngleValue(displayName: displayName, value: value, unit: .degrees, formatter: formatter, formattedValue: formattedValue, date: date)
     }
 
-    static func degrees(
+    public static func degrees(
         displayName: String,
         value: Double? = nil,
         formatter: MeasurementFormatter = MeasurementFormatter(),
         formattedValue: String? = nil,
         date: Date = Date()
     ) -> OptionalAngleValue {
-        return angle(displayName: displayName, value: value, unit: .degrees, formatter: formatter, formattedValue: formattedValue, date: date)
+        return OptionalAngleValue(displayName: displayName, value: value, unit: .degrees, formatter: formatter, formattedValue: formattedValue, date: date)
     }
 
 }

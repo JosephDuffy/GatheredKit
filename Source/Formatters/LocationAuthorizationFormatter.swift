@@ -15,6 +15,8 @@ public final class LocationAuthorizationFormatter: Formatter {
             return "Not Determined"
         case .restricted:
             return "Restricted"
+        @unknown default:
+            return "Unknown"
         }
     }
 

@@ -12,10 +12,10 @@ public final class NotificationsUpdatesConsumer: UpdatesConsumer {
         self.notificationCenter = notificationCenter
     }
     
-    public func comsume(values: [AnyValue], from source: Source) {
+    public func comsume(values: [AnyValue], sender: AnyObject) {
         notificationCenter.post(
             name: notificationName,
-            object: source,
+            object: sender,
             userInfo: [
                 NotificationsUpdatesConsumer.valuesUserInfoKey: values,
             ]

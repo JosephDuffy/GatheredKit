@@ -1,5 +1,6 @@
 import Foundation
 
+// TODO: Rename to `AnyProperty`
 public protocol AnyValue {
     var displayName: String { get }
     var backingValueAsAny: Any? { get }
@@ -8,7 +9,21 @@ public protocol AnyValue {
     var formattedValue: String? { get }
 }
 
-public struct Value<ValueType, Formatter: Foundation.Formatter>: AnyValue {
+open class OptionalValue<ValueType, Formatter: Foundation.Formatter>: Value<ValueType?, Formatter> {
+    
+    public required init(
+        displayName: String,
+        backingValue: ValueType? = nil,
+        formatter: Formatter = Formatter(),
+        formattedValue: String? = nil,
+        date: Date = Date()
+    ) {
+        super.init(displayName: displayName, backingValue: backingValue, formatter: formatter, formattedValue: formattedValue, date: date)
+    }
+    
+}
+
+open class Value<ValueType, Formatter: Foundation.Formatter>: AnyValue, UpdateConsumersProvider {
 
     public struct Snapshot {
         public let value: ValueType
@@ -21,7 +36,11 @@ public struct Value<ValueType, Formatter: Foundation.Formatter>: AnyValue {
 
     public let displayName: String
 
-    public var snapshot: Snapshot
+    public var snapshot: Snapshot {
+        didSet {
+            updateConsumers.forEach({ $0.comsume(values: [self], sender: self)})
+        }
+    }
 
     public var backingValue: ValueType {
         get {
@@ -46,7 +65,9 @@ public struct Value<ValueType, Formatter: Foundation.Formatter>: AnyValue {
         return backingValue
     }
 
-    public init(
+    public var updateConsumers: [UpdatesConsumer] = []
+
+    public required init(
         displayName: String,
         backingValue: ValueType,
         formatter: Formatter = Formatter(),
@@ -59,26 +80,13 @@ public struct Value<ValueType, Formatter: Foundation.Formatter>: AnyValue {
         self.formattedValue = formattedValue
     }
 
-    public init<WrappedValueType>(
-        displayName: String,
-        backingValue: WrappedValueType? = nil,
-        formatter: Formatter = Formatter(),
-        formattedValue: String? = nil,
-        date: Date = Date()
-    ) where ValueType == WrappedValueType? {
-        self.displayName = displayName
-        self.snapshot = Snapshot(value: backingValue, date: date)
-        self.formatter = formatter
-        self.formattedValue = formattedValue
-    }
-
     /**
      Updates the data backing this `SourceProperty`
      - parameter backingValue: The new value of the data
      - parameter formattedValue: The new human-friendly formatted value. Defaults to `nil`
      - parameter date: The date and time the `value` was recorded. Defaults to the current date and time
      */
-    public mutating func update(
+    public func update(
         backingValue: ValueType,
         formattedValue: String? = nil,
         date: Date = Date()

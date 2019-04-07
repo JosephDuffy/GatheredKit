@@ -1,3 +1,4 @@
 import Foundation
 
-public typealias ScaleValue = Value<Double, ScaleFormatter>
+public final class ScaleValue: Value<Double, ScaleFormatter> { }
+public final class OptionalScaleValue: OptionalValue<Double, ScaleFormatter> { }

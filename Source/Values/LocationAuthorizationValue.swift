@@ -1,4 +1,4 @@
 import CoreLocation
 
-public typealias LocationAuthorizationValue = Value<CLAuthorizationStatus, LocationAuthorizationFormatter>
-public typealias OptionalLocationAuthorizationValue = Value<CLAuthorizationStatus?, LocationAuthorizationFormatter>
+public final class LocationAuthorizationValue: Value<CLAuthorizationStatus, LocationAuthorizationFormatter> { }
+public final class OptionalLocationAuthorizationValue: OptionalValue<CLAuthorizationStatus?, LocationAuthorizationFormatter> { }

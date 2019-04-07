@@ -1,7 +1,7 @@
 import Foundation
 
-public typealias FrequencyValue = Value<Measurement<UnitFrequency>, MeasurementFormatter>
-public typealias OptionalFrequencyValue = Value<Measurement<UnitFrequency>?, MeasurementFormatter>
+public final class FrequencyValue: MeasurementValue<UnitFrequency> { }
+public final class OptionalFrequencyValue: OptionalMeasurementValue<UnitFrequency> { }
 
 extension UnitFrequency {
 
@@ -21,7 +21,7 @@ extension AnyValue {
         formattedValue: String? = nil,
         date: Date = Date()
     ) -> FrequencyValue {
-        return measurement(displayName: displayName, value: value, unit: unit, formatter: formatter, formattedValue: formattedValue, date: date)
+        return FrequencyValue(displayName: displayName, value: value, unit: unit, formatter: formatter, formattedValue: formattedValue, date: date)
     }
 
     static func frequency(
@@ -32,7 +32,7 @@ extension AnyValue {
         formattedValue: String? = nil,
         date: Date = Date()
     ) -> OptionalFrequencyValue {
-        return measurement(displayName: displayName, value: value, unit: unit, formatter: formatter, formattedValue: formattedValue, date: date)
+        return OptionalFrequencyValue(displayName: displayName, value: value, unit: unit, formatter: formatter, formattedValue: formattedValue, date: date)
     }
 
     static func radiansPerSecond(
@@ -42,7 +42,7 @@ extension AnyValue {
         formattedValue: String? = nil,
         date: Date = Date()
     ) -> FrequencyValue {
-        return frequency(displayName: displayName, value: value, unit: .radiansPerSecond, formatter: formatter, formattedValue: formattedValue, date: date)
+        return FrequencyValue(displayName: displayName, value: value, unit: .radiansPerSecond, formatter: formatter, formattedValue: formattedValue, date: date)
     }
 
     static func radiansPerSecond(
@@ -52,7 +52,7 @@ extension AnyValue {
         formattedValue: String? = nil,
         date: Date = Date()
     ) -> OptionalFrequencyValue {
-        return frequency(displayName: displayName, value: value, unit: .radiansPerSecond, formatter: formatter, formattedValue: formattedValue, date: date)
+        return OptionalFrequencyValue(displayName: displayName, value: value, unit: .radiansPerSecond, formatter: formatter, formattedValue: formattedValue, date: date)
     }
 
 }

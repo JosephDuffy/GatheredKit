@@ -21,7 +21,7 @@ public protocol CustomisableUpdateIntervalControllable: Controllable {
 
 }
 
-public extension CustomisableUpdateIntervalControllable {
+extension CustomisableUpdateIntervalControllable {
 
     /// A boolean indicating if the source is currently updating its properties every `updateInterval`
     public var isUpdating: Bool {
@@ -38,7 +38,7 @@ public extension CustomisableUpdateIntervalControllable {
 
 }
 
-public extension CustomisableUpdateIntervalControllable where Self: Source & UpdateConsumersProvider {
+extension CustomisableUpdateIntervalControllable where Self: Source & UpdateConsumersProvider {
 
     /**
      Start performing periodic updates, updating every `updateInterval` seconds.

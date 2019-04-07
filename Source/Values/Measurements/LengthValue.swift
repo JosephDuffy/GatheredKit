@@ -1,7 +1,7 @@
 import Foundation
 
-public typealias LengthValue = Value<Measurement<UnitLength>, MeasurementFormatter>
-public typealias OptionalLengthValue = Value<Measurement<UnitLength>?, MeasurementFormatter>
+public final class LengthValue: MeasurementValue<UnitLength> { }
+public final class OptionalLengthValue: OptionalMeasurementValue<UnitLength> { }
 
 public extension AnyValue {
 
@@ -13,7 +13,7 @@ public extension AnyValue {
         formattedValue: String? = nil,
         date: Date = Date()
     ) -> LengthValue {
-        return measurement(displayName: displayName, value: value, unit: unit, formatter: formatter, formattedValue: formattedValue, date: date)
+        return LengthValue(displayName: displayName, value: value, unit: unit, formatter: formatter, formattedValue: formattedValue, date: date)
     }
 
     static func length(
@@ -24,7 +24,7 @@ public extension AnyValue {
         formattedValue: String? = nil,
         date: Date = Date()
     ) -> OptionalLengthValue {
-        return measurement(displayName: displayName, value: value, unit: unit, formatter: formatter, formattedValue: formattedValue, date: date)
+        return OptionalLengthValue(displayName: displayName, value: value, unit: unit, formatter: formatter, formattedValue: formattedValue, date: date)
     }
 
     static func meters(
@@ -34,7 +34,7 @@ public extension AnyValue {
         formattedValue: String? = nil,
         date: Date = Date()
     ) -> LengthValue {
-        return length(displayName: displayName, value: value, unit: .meters, formatter: formatter, formattedValue: formattedValue, date: date)
+        return LengthValue(displayName: displayName, value: value, unit: .meters, formatter: formatter, formattedValue: formattedValue, date: date)
     }
 
     static func meters(
@@ -44,7 +44,7 @@ public extension AnyValue {
         formattedValue: String? = nil,
         date: Date = Date()
     ) -> OptionalLengthValue {
-        return length(displayName: displayName, value: value, unit: .meters, formatter: formatter, formattedValue: formattedValue, date: date)
+        return OptionalLengthValue(displayName: displayName, value: value, unit: .meters, formatter: formatter, formattedValue: formattedValue, date: date)
     }
 
 }

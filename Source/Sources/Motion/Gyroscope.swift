@@ -1,7 +1,12 @@
 import Foundation
 import CoreMotion
 
-public final class Magnetometer: BaseSource, Source, CustomisableUpdateIntervalControllable, ValuesProvider {
+public final class Gyroscope: Source, CustomisableUpdateIntervalControllable, ValuesProvider, UpdateConsumersProvider {
+    
+    private enum State {
+        case notMonitoring
+        case monitoring(motionManager: CMMotionManager, updatesQueue: OperationQueue)
+    }
 
     public static var defaultUpdateInterval: TimeInterval = 1
 
@@ -9,18 +14,18 @@ public final class Magnetometer: BaseSource, Source, CustomisableUpdateIntervalC
         return isAvailable ? .available : .unavailable
     }
 
+    public static let name = "Gyroscope"
+
     public static var isAvailable: Bool {
-        return CMMotionManager().isMagnetometerAvailable
+        return CMMotionManager().isGyroAvailable
     }
 
-    public static let name = "Magnetometer"
+    public private(set) var rotationRate: OptionalRotationRateValue
 
-    public private(set) var magneticField: CalibratedMagneticFieldValue
-
-    public private(set) var rawMagneticField: MagneticFieldValue
+    public private(set) var rawRotationRate: OptionalRotationRateValue
 
     public var allValues: [AnyValue] {
-        return [magneticField, rawMagneticField]
+        return [rotationRate, rawRotationRate]
     }
 
     public private(set) var updateInterval: TimeInterval?
@@ -29,8 +34,12 @@ public final class Magnetometer: BaseSource, Source, CustomisableUpdateIntervalC
 
     public override init() {
         let date = Date()
-        magneticField = CalibratedMagneticFieldValue(date: date)
-        rawMagneticField = MagneticFieldValue(date: date)
+        rotationRate = OptionalRotationRateValue(
+            name: "Rotation Rate (Calibrated)"
+        )
+        rawRotationRate = OptionalRotationRateValue(
+            name: "Rotation Rate (Raw)"
+        )
     }
 
     deinit {
@@ -39,12 +48,14 @@ public final class Magnetometer: BaseSource, Source, CustomisableUpdateIntervalC
 
     public func stopUpdating() {
         motionManager?.stopDeviceMotionUpdates()
-        motionManager?.stopMagnetometerUpdates()
+        motionManager?.stopGyroUpdates()
         motionManager = nil
         updateInterval = nil
     }
 
     public func startUpdating(every updateInterval: TimeInterval) {
+//        super.start
+        
         if isUpdating {
             stopUpdating()
         }
@@ -53,7 +64,7 @@ public final class Magnetometer: BaseSource, Source, CustomisableUpdateIntervalC
         let motionManager = CMMotionManager()
         self.motionManager = motionManager
         motionManager.deviceMotionUpdateInterval = updateInterval
-        motionManager.magnetometerUpdateInterval = updateInterval
+        motionManager.gyroUpdateInterval = updateInterval
 
         let calibratedHandler: CMDeviceMotionHandler = { [weak self] (_ data: CMDeviceMotion?, error: Error?) in
             guard let `self` = self else { return }
@@ -67,14 +78,15 @@ public final class Magnetometer: BaseSource, Source, CustomisableUpdateIntervalC
                 date = Date()
             }
 
-            self.magneticField.update(
-                backingValue: data?.magneticField,
+            self.rawRotationRate.update(
+                value: data?.rotationRate,
+                unit: UnitFrequency.radiansPerSecond,
                 date: date
             )
             self.notifyListenersPropertyValuesUpdated()
         }
 
-        let rawHandler: CMMagnetometerHandler = { [weak self] (_ data: CMMagnetometerData?, error: Error?) in
+        let rawHandler: CMGyroHandler = { [weak self] (_ data: CMGyroData?, error: Error?) in
             guard let `self` = self else { return }
             guard self.isUpdating else { return }
 
@@ -86,8 +98,9 @@ public final class Magnetometer: BaseSource, Source, CustomisableUpdateIntervalC
                 date = Date()
             }
 
-            self.rawMagneticField.update(
-                backingValue: data?.magneticField,
+            self.rotationRate.update(
+                value: data?.rotationRate,
+                unit: UnitFrequency.radiansPerSecond,
                 date: date
             )
             self.notifyListenersPropertyValuesUpdated()
@@ -98,7 +111,7 @@ public final class Magnetometer: BaseSource, Source, CustomisableUpdateIntervalC
             to: operationQueue,
             withHandler: calibratedHandler
         )
-        motionManager.startMagnetometerUpdates(
+        motionManager.startGyroUpdates(
             to: operationQueue,
             withHandler: rawHandler
         )

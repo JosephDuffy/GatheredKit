@@ -102,24 +102,24 @@ public final class Screen: Source, Controllable, ValuesProvider, UpdateConsumers
         self.screen = screen
         self.notificationCenter = notificationCenter
 
-        reportedResolution = Value(
+        reportedResolution = SizeValue(
             displayName: "Resolution (reported)",
             backingValue: screen.bounds.size
         )
         reportedResolution.formatter.suffix = " Points"
 
-        nativeResolution = Value(
+        nativeResolution = SizeValue(
             displayName: "Resolution (native)",
             backingValue: screen.nativeBounds.size
         )
         nativeResolution.formatter.suffix = " Pixels"
 
-        reportedScale = Value(
+        reportedScale = ScaleValue(
             displayName: "Scale (reported)",
             backingValue: screen.scale.native
         )
 
-        nativeScale = Value(
+        nativeScale = ScaleValue(
             displayName: "Scale (native)",
             backingValue: screen.nativeScale.native
         )

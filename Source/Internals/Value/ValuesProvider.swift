@@ -1,5 +1,3 @@
-import Foundation
-
 /**
  An object that provides values
  */

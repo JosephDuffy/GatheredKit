@@ -1,5 +1,6 @@
 import Foundation
 import CoreLocation
+import CoreGraphics
 
 public final class SizeFormatter: Formatter {
     

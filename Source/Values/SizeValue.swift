@@ -1,3 +1,4 @@
 import Foundation
 
-public typealias SizeValue = Value<CGSize, SizeFormatter>
+public final class SizeValue: Value<CGSize, SizeFormatter> { }
+public final class OptionalSizeValue: OptionalValue<CGSize, SizeFormatter> { }

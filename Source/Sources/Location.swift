@@ -13,16 +13,17 @@ public final class Location: NSObject, Source, Controllable, ValuesProvider, Upd
     }
 
     public static var availability: SourceAvailability {
-        return SourceAvailability(authorizationStatus: LocationManagerType.authorizationStatus())
+        let authorizationState = LocationManagerType.authorizationStatus()
+        return SourceAvailability(authorizationStatus: authorizationState) ?? .unavailable
     }
 
     public static var name = "Location"
 
-    public private(set) var coordinate = OptionalCoordinateValue(displayName: "Coordinate")
+    public let coordinate: OptionalCoordinateValue
     public private(set) var speed: OptionalSpeedValue = .metersPerSecond(displayName: "Speed")
     public private(set) var course: OptionalAngleValue = .degrees(displayName: "Course")
     public private(set) var altitude: OptionalLengthValue = .meters(displayName: "Altitude")
-    public private(set) var floor = Value<CLFloor?, NumberFormatter>(displayName: "Floor", formatter: NumberFormatter())
+    public private(set) var floor = OptionalValue<CLFloor, NumberFormatter>(displayName: "Floor", formatter: NumberFormatter())
     public private(set) var horizonalAccuracy: OptionalLengthValue = .meters(displayName: "Horizontal Accuracy")
     public private(set) var verticalAccuracy: OptionalLengthValue = .meters(displayName: "Vertical Accuracy")
     public var authorizationStatus: LocationAuthorizationValue {
@@ -82,7 +83,9 @@ public final class Location: NSObject, Source, Controllable, ValuesProvider, Upd
 
     private var state: State = .notMonitoring
     
-    public override init() {}
+    public override init() {
+        coordinate = .init(displayName: "Coordinate")
+    }
 
     deinit {
         stopUpdating()
@@ -127,6 +130,8 @@ public final class Location: NSObject, Source, Controllable, ValuesProvider, Upd
             updateLocationValues(nil)
             state = .notMonitoring
             notifyUpdateConsumersOfLatestValues()
+        @unknown default:
+            stopUpdating()
         }
     }
 
@@ -232,7 +237,7 @@ extension Location {
 
 extension SourceAvailability {
 
-    public init(authorizationStatus: CLAuthorizationStatus) {
+    public init?(authorizationStatus: CLAuthorizationStatus) {
         switch authorizationStatus {
         case .authorizedAlways, .authorizedWhenInUse:
             self = .available
@@ -242,6 +247,8 @@ extension SourceAvailability {
             self = .restricted
         case .notDetermined:
             self = .requiresPermissionsPrompt
+        @unknown default:
+            return nil
         }
     }
 

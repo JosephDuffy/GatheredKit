@@ -1,7 +1,7 @@
 import Foundation
 import CoreMotion
 
-extension Value where ValueType == CMRotationRate {
+public final class RationRateValue: Value<CMRotationRate, RotationRateFormatter> {
 
     public var allValues: [AnyValue] {
         return [x, y, z]
@@ -21,7 +21,7 @@ extension Value where ValueType == CMRotationRate {
 
 }
 
-extension Value where ValueType == CMRotationRate? {
+public final class OptionalRationRateValue: OptionalValue<CMRotationRate, RotationRateFormatter> {
 
     public var allValues: [AnyValue] {
         return [x, y, z]

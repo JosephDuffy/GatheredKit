@@ -1,10 +1,7 @@
 import Foundation
 import CoreLocation
 
-public typealias CoordinateValue = Value<CLLocationCoordinate2D, CoordinateFormatter>
-public typealias OptionalCoordinateValue = Value<CLLocationCoordinate2D?, CoordinateFormatter>
-
-extension Value where ValueType == CLLocationCoordinate2D {
+public final class CoordinateValue: Value<CLLocationCoordinate2D, CoordinateFormatter>, ValuesProvider {
 
     public var allValues: [AnyValue] {
         return [
@@ -23,21 +20,21 @@ extension Value where ValueType == CLLocationCoordinate2D {
 
 }
 
-extension Value where ValueType == CLLocationCoordinate2D? {
-
+public final class OptionalCoordinateValue: OptionalValue<CLLocationCoordinate2D, CoordinateFormatter>, ValuesProvider {
+    
     public var allValues: [AnyValue] {
         return [
             latitude,
             longitude,
         ]
     }
-
+    
     var latitude: OptionalAngleValue {
         return .degrees(displayName: "Latitude", value: backingValue?.latitude, date: date)
     }
-
+    
     var longitude: OptionalAngleValue {
         return .degrees(displayName: "Longitude", value: backingValue?.longitude, date: date)
     }
-
+    
 }

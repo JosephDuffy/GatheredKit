@@ -28,12 +28,12 @@ extension UpdateConsumersProvider where Self: Source {
     }
     
     internal func notifyUpdateConsumers(of newValues: [AnyValue]) {
-        updateConsumers.forEach { $0.comsume(values: newValues, from: self) }
+        updateConsumers.forEach { $0.comsume(values: newValues, sender: self) }
     }
 }
 
 extension UpdateConsumersProvider where Self: Source & ValuesProvider {
     internal func notifyUpdateConsumersOfLatestValues() {
-        updateConsumers.forEach { $0.comsume(values: allValues, from: self) }
+        updateConsumers.forEach { $0.comsume(values: allValues, sender: self) }
     }
 }
