@@ -1,4 +1,5 @@
 import Foundation
+import CoreGraphics
 
-public final class ScaleValue: Value<Double, ScaleFormatter> { }
-public final class OptionalScaleValue: OptionalValue<Double, ScaleFormatter> { }
+public final class ScaleValue: Value<CGFloat.NativeType, ScaleFormatter> { }
+public final class OptionalScaleValue: OptionalValue<CGFloat.NativeType, ScaleFormatter> { }
