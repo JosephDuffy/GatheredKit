@@ -35,6 +35,7 @@ open class Value<ValueType, Formatter: Foundation.Formatter>: AnyValue, UpdateCo
     public struct Snapshot {
         public let value: ValueType
         public let date: Date
+        public let formattedValue: String?
     }
 
     public var anyFormatter: Foundation.Formatter {
@@ -54,8 +55,7 @@ open class Value<ValueType, Formatter: Foundation.Formatter>: AnyValue, UpdateCo
             return snapshot.value
         }
         set {
-            snapshot = Snapshot(value: newValue, date: Date())
-            formattedValue = nil
+            snapshot = Snapshot(value: newValue, date: Date(), formattedValue: nil)
         }
     }
 
@@ -65,8 +65,9 @@ open class Value<ValueType, Formatter: Foundation.Formatter>: AnyValue, UpdateCo
 
     public let formatter: Formatter
 
-    // TODO: Update to return formatter.value
-    public fileprivate(set) var formattedValue: String?
+    public var formattedValue: String? {
+        return snapshot.formattedValue ?? formatter.string(for: backingValue)
+    }
 
     public var backingValueAsAny: Any? {
         return backingValue
@@ -82,13 +83,13 @@ open class Value<ValueType, Formatter: Foundation.Formatter>: AnyValue, UpdateCo
         date: Date = Date()
     ) {
         self.displayName = displayName
-        self.snapshot = Snapshot(value: backingValue, date: date)
+        self.snapshot = Snapshot(value: backingValue, date: date, formattedValue: formattedValue)
         self.formatter = formatter
-        self.formattedValue = formattedValue
     }
 
     /**
      Updates the data backing this `SourceProperty`
+
      - parameter backingValue: The new value of the data
      - parameter formattedValue: The new human-friendly formatted value. Defaults to `nil`
      - parameter date: The date and time the `value` was recorded. Defaults to the current date and time
@@ -98,8 +99,7 @@ open class Value<ValueType, Formatter: Foundation.Formatter>: AnyValue, UpdateCo
         formattedValue: String? = nil,
         date: Date = Date()
     ) {
-        snapshot = Snapshot(value: backingValue, date: date)
-        self.formattedValue = formattedValue
+        snapshot = Snapshot(value: backingValue, date: date, formattedValue: formattedValue)
     }
 
 }
