@@ -9,8 +9,7 @@
 /* Begin PBXBuildFile section */
 		D9070D852252B129000A2A6C /* MockUpdateConsumer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9070D832252B0AB000A2A6C /* MockUpdateConsumer.swift */; };
 		D9070D872252C050000A2A6C /* MockNotificationCenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9070D862252C050000A2A6C /* MockNotificationCenter.swift */; };
-		D9070D892252C91F000A2A6C /* UpdateConsumersProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9070D882252C91F000A2A6C /* UpdateConsumersProvider.swift */; };
-		D9070D8C2252C96C000A2A6C /* ClosureUpdatesConsumer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9070D8B2252C96C000A2A6C /* ClosureUpdatesConsumer.swift */; };
+		D9070D8C2252C96C000A2A6C /* ClosureConsumer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9070D8B2252C96C000A2A6C /* ClosureConsumer.swift */; };
 		D9070D8E2252C9A2000A2A6C /* NotificationsUpdatesConsumer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9070D8D2252C9A2000A2A6C /* NotificationsUpdatesConsumer.swift */; };
 		D910EE8920FA451C007F495B /* SwiftShims.swift in Sources */ = {isa = PBXBuildFile; fileRef = D910EE8820FA451C007F495B /* SwiftShims.swift */; };
 		D910EE9420FEA064007F495B /* Action.swift in Sources */ = {isa = PBXBuildFile; fileRef = D910EE9320FEA064007F495B /* Action.swift */; };
@@ -24,20 +23,16 @@
 		D9124131225A4A0C00846D05 /* FrequencyValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9126CE121F3AF73002C37EF /* FrequencyValue.swift */; };
 		D9124132225A4B5E00846D05 /* CoordinateValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = D999587421035F0000C577AC /* CoordinateValue.swift */; };
 		D9124134225A4B9400846D05 /* LocationAuthorizationValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9154EA821FFC2B200C1E99B /* LocationAuthorizationValue.swift */; };
-		D9124135225A4B9A00846D05 /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = D930631020D54E0A007A0CBD /* Location.swift */; };
-		D9124136225A4C1500846D05 /* Screen.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9EF05CA20ACD35B00D3F194 /* Screen.swift */; };
 		D9124137225A4C3200846D05 /* RotationRateValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = D930631720D58A85007A0CBD /* RotationRateValue.swift */; };
 		D9124138225A4C3200846D05 /* PercentValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = D91C4B1322500C8C009E234F /* PercentValue.swift */; };
 		D9124139225A4C3200846D05 /* ScaleValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = D91C4B1722500E87009E234F /* ScaleValue.swift */; };
 		D912413A225A4C3200846D05 /* SizeValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9286C2E224E7C6B00A69AF3 /* SizeValue.swift */; };
 		D912413E225A4D3000846D05 /* RotationRateFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D912413D225A4D3000846D05 /* RotationRateFormatter.swift */; };
 		D9124140225A4E6F00846D05 /* DeviceAttitude.swift in Sources */ = {isa = PBXBuildFile; fileRef = D96A18E320C741E100CAE44F /* DeviceAttitude.swift */; };
-		D9124141225A4EAB00846D05 /* Heading.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9386AFA225522F200B081AB /* Heading.swift */; };
 		D9124144225A4FED00846D05 /* UnitMagneticField.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9124143225A4FED00846D05 /* UnitMagneticField.swift */; };
 		D9124146225A520300846D05 /* MagneticFieldValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9124145225A520300846D05 /* MagneticFieldValue.swift */; };
 		D9124148225A524900846D05 /* CMMagneticFieldValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9124147225A524900846D05 /* CMMagneticFieldValue.swift */; };
 		D912414A225A52F300846D05 /* CMMagneticFieldFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9124149225A52F300846D05 /* CMMagneticFieldFormatter.swift */; };
-		D912414B225A542100846D05 /* Magnetometer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9B84DE120CF0FB800380C42 /* Magnetometer.swift */; };
 		D912414D225A557000846D05 /* CMCalibratedMagneticFieldValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = D912414C225A557000846D05 /* CMCalibratedMagneticFieldValue.swift */; };
 		D912414F225A57C100846D05 /* CMLogItem+date.swift in Sources */ = {isa = PBXBuildFile; fileRef = D912414E225A57C100846D05 /* CMLogItem+date.swift */; };
 		D9124151225A587D00846D05 /* CoreMotionSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9124150225A587D00846D05 /* CoreMotionSource.swift */; };
@@ -52,19 +47,26 @@
 		D9124167225AB07400846D05 /* MagneticFieldCalibrationAccuracyValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9124166225AB07400846D05 /* MagneticFieldCalibrationAccuracyValue.swift */; };
 		D9126CDC21F3AC53002C37EF /* CoordinateFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9126CDB21F3AC53002C37EF /* CoordinateFormatter.swift */; };
 		D9154EAC21FFC2FB00C1E99B /* LocationAuthorizationFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9154EAB21FFC2FB00C1E99B /* LocationAuthorizationFormatter.swift */; };
-		D9154EAF21FFC87C00C1E99B /* MockLocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9154EAE21FFC87C00C1E99B /* MockLocationManager.swift */; };
-		D9154EB121FFC91500C1E99B /* LocationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9154EB021FFC8D300C1E99B /* LocationTests.swift */; };
+		D9164979227242E3001138DE /* OptionalValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9164978227242E3001138DE /* OptionalValue.swift */; };
+		D916497B22725788001138DE /* Producer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D916497A22725788001138DE /* Producer.swift */; };
+		D916497E227257CB001138DE /* AnyProducer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D916497D227257CB001138DE /* AnyProducer.swift */; };
+		D916498022725817001138DE /* Consumer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D916497F22725817001138DE /* Consumer.swift */; };
+		D91649822272582F001138DE /* WeakConsumerWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = D91649812272582F001138DE /* WeakConsumerWrapper.swift */; };
+		D916498422725847001138DE /* ConsumersProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = D916498322725847001138DE /* ConsumersProvider.swift */; };
+		D91649862272586E001138DE /* AnyValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = D91649852272586E001138DE /* AnyValue.swift */; };
 		D9168F4E20C8851E00100EEE /* ValuesProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9168F4D20C8851E00100EEE /* ValuesProvider.swift */; };
 		D91C4B1622500CC1009E234F /* PercentFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D91C4B1522500CC1009E234F /* PercentFormatter.swift */; };
 		D91C4B1A22500ED3009E234F /* ScaleFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D91C4B1922500ED3009E234F /* ScaleFormatter.swift */; };
-		D91C4B1B22500FDF009E234F /* ScreenTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9EF05E020AE2B9700D3F194 /* ScreenTests.swift */; };
-		D91C4B1C22501005009E234F /* MockScreenBackingData.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9EF05E420AE2BBD00D3F194 /* MockScreenBackingData.swift */; };
 		D9286C2D224E7A1500A69AF3 /* SizeFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9286C2C224E7A1500A69AF3 /* SizeFormatter.swift */; };
 		D9386AF5225515AA00B081AB /* QuaternionFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9386AF4225515AA00B081AB /* QuaternionFormatter.swift */; };
 		D9386B3822560BC300B081AB /* OperationQueue+convenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9386B3722560BC300B081AB /* OperationQueue+convenience.swift */; };
-		D999586B21010F3B00C577AC /* BasePollingSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = D999586A21010F3B00C577AC /* BasePollingSource.swift */; };
+		D9582C2D226FAC4C004327A4 /* ScreenTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9EF05E020AE2B9700D3F194 /* ScreenTests.swift */; };
+		D9582C2E226FAC51004327A4 /* Screen.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9EF05CA20ACD35B00D3F194 /* Screen.swift */; };
+		D9582C2F226FAC92004327A4 /* MockScreenBackingData.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9EF05E420AE2BBD00D3F194 /* MockScreenBackingData.swift */; };
 		D9ADBCDC20F8DE4700BB0255 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D9ADBCDB20F8DE4700BB0255 /* SystemConfiguration.framework */; };
 		D9C7D749227357770096DE89 /* Gyroscope.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9B84DDF20CC83D900380C42 /* Gyroscope.swift */; };
+		D9C7D74B2274A7890096DE89 /* Magnetometer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9B84DE120CF0FB800380C42 /* Magnetometer.swift */; };
+		D9C7D74C2274A7A80096DE89 /* Heading.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9386AFA225522F200B081AB /* Heading.swift */; };
 		D9D7529E20B4BE0600B16A06 /* SourceAvailability.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9D7529D20B4BE0600B16A06 /* SourceAvailability.swift */; };
 		D9EF058B20ACC59300D3F194 /* GatheredKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D9EF058120ACC59300D3F194 /* GatheredKit.framework */; };
 		D9EF059220ACC59400D3F194 /* GatheredKit.h in Headers */ = {isa = PBXBuildFile; fileRef = D9EF058420ACC59300D3F194 /* GatheredKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -72,7 +74,7 @@
 		D9EF05A020ACC77D00D3F194 /* Value.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9EF059F20ACC77D00D3F194 /* Value.swift */; };
 		D9EF05AD20ACCF7000D3F194 /* CustomisableUpdateIntervalControllable.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9EF05AC20ACCF7000D3F194 /* CustomisableUpdateIntervalControllable.swift */; };
 		D9EF05AF20ACCF8B00D3F194 /* ManuallyUpdatableValuesProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9EF05AE20ACCF8B00D3F194 /* ManuallyUpdatableValuesProvider.swift */; };
-		D9EF05D120ACD6B900D3F194 /* UpdatesConsumer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9EF05D020ACD6B900D3F194 /* UpdatesConsumer.swift */; };
+		D9EF05D120ACD6B900D3F194 /* AnyConsumer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9EF05D020ACD6B900D3F194 /* AnyConsumer.swift */; };
 		D9EF05F520AE2FE800D3F194 /* Nimble.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D9EF05F120AE2FE100D3F194 /* Nimble.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		D9EF05F620AE2FE800D3F194 /* Quick.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D9EF05F220AE2FE100D3F194 /* Quick.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		D9EF05F720AE2FEA00D3F194 /* Nimble.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D9EF05F120AE2FE100D3F194 /* Nimble.framework */; };
@@ -108,8 +110,7 @@
 /* Begin PBXFileReference section */
 		D9070D832252B0AB000A2A6C /* MockUpdateConsumer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockUpdateConsumer.swift; sourceTree = "<group>"; };
 		D9070D862252C050000A2A6C /* MockNotificationCenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockNotificationCenter.swift; sourceTree = "<group>"; };
-		D9070D882252C91F000A2A6C /* UpdateConsumersProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateConsumersProvider.swift; sourceTree = "<group>"; };
-		D9070D8B2252C96C000A2A6C /* ClosureUpdatesConsumer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClosureUpdatesConsumer.swift; sourceTree = "<group>"; };
+		D9070D8B2252C96C000A2A6C /* ClosureConsumer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClosureConsumer.swift; sourceTree = "<group>"; };
 		D9070D8D2252C9A2000A2A6C /* NotificationsUpdatesConsumer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsUpdatesConsumer.swift; sourceTree = "<group>"; };
 		D910EE8620FA412E007F495B /* Battery.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Battery.swift; sourceTree = "<group>"; };
 		D910EE8820FA451C007F495B /* SwiftShims.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftShims.swift; sourceTree = "<group>"; };
@@ -147,6 +148,13 @@
 		D9154EAB21FFC2FB00C1E99B /* LocationAuthorizationFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationAuthorizationFormatter.swift; sourceTree = "<group>"; };
 		D9154EAE21FFC87C00C1E99B /* MockLocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockLocationManager.swift; sourceTree = "<group>"; };
 		D9154EB021FFC8D300C1E99B /* LocationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationTests.swift; sourceTree = "<group>"; };
+		D9164978227242E3001138DE /* OptionalValue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionalValue.swift; sourceTree = "<group>"; };
+		D916497A22725788001138DE /* Producer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Producer.swift; sourceTree = "<group>"; };
+		D916497D227257CB001138DE /* AnyProducer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnyProducer.swift; sourceTree = "<group>"; };
+		D916497F22725817001138DE /* Consumer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Consumer.swift; sourceTree = "<group>"; };
+		D91649812272582F001138DE /* WeakConsumerWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeakConsumerWrapper.swift; sourceTree = "<group>"; };
+		D916498322725847001138DE /* ConsumersProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConsumersProvider.swift; sourceTree = "<group>"; };
+		D91649852272586E001138DE /* AnyValue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnyValue.swift; sourceTree = "<group>"; };
 		D9168F4D20C8851E00100EEE /* ValuesProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValuesProvider.swift; sourceTree = "<group>"; };
 		D91C4B1322500C8C009E234F /* PercentValue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PercentValue.swift; sourceTree = "<group>"; };
 		D91C4B1522500CC1009E234F /* PercentFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PercentFormatter.swift; sourceTree = "<group>"; };
@@ -216,7 +224,7 @@
 		D9EF05C620ACD2F200D3F194 /* Percent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Percent.swift; sourceTree = "<group>"; };
 		D9EF05C820ACD31400D3F194 /* Point.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Point.swift; sourceTree = "<group>"; };
 		D9EF05CA20ACD35B00D3F194 /* Screen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Screen.swift; sourceTree = "<group>"; };
-		D9EF05D020ACD6B900D3F194 /* UpdatesConsumer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdatesConsumer.swift; sourceTree = "<group>"; };
+		D9EF05D020ACD6B900D3F194 /* AnyConsumer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnyConsumer.swift; sourceTree = "<group>"; };
 		D9EF05DB20AE2B4700D3F194 /* Nimble.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Nimble.framework; path = Carthage/Build/iOS/Nimble.framework; sourceTree = "<group>"; };
 		D9EF05DC20AE2B4700D3F194 /* Quick.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Quick.framework; path = Carthage/Build/iOS/Quick.framework; sourceTree = "<group>"; };
 		D9EF05E020AE2B9700D3F194 /* ScreenTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenTests.swift; sourceTree = "<group>"; };
@@ -281,13 +289,13 @@
 			path = Value;
 			sourceTree = "<group>";
 		};
-		D9070D8A2252C95A000A2A6C /* Updates Consumers */ = {
+		D9070D8A2252C95A000A2A6C /* Consumers */ = {
 			isa = PBXGroup;
 			children = (
-				D9070D8B2252C96C000A2A6C /* ClosureUpdatesConsumer.swift */,
+				D9070D8B2252C96C000A2A6C /* ClosureConsumer.swift */,
 				D9070D8D2252C9A2000A2A6C /* NotificationsUpdatesConsumer.swift */,
 			);
-			path = "Updates Consumers";
+			path = Consumers;
 			sourceTree = "<group>";
 		};
 		D910EE9220FEA058007F495B /* Action */ = {
@@ -363,6 +371,15 @@
 			path = Formatters;
 			sourceTree = "<group>";
 		};
+		D916497C2272578F001138DE /* Producer */ = {
+			isa = PBXGroup;
+			children = (
+				D916497D227257CB001138DE /* AnyProducer.swift */,
+				D916497A22725788001138DE /* Producer.swift */,
+			);
+			path = Producer;
+			sourceTree = "<group>";
+		};
 		D930631220D58A26007A0CBD /* Device Motion */ = {
 			isa = PBXGroup;
 			children = (
@@ -408,10 +425,10 @@
 			isa = PBXGroup;
 			children = (
 				D9124150225A587D00846D05 /* CoreMotionSource.swift */,
+				D96A18E320C741E100CAE44F /* DeviceAttitude.swift */,
 				D9B84DDF20CC83D900380C42 /* Gyroscope.swift */,
 				D9B84DE120CF0FB800380C42 /* Magnetometer.swift */,
 				D9386AFA225522F200B081AB /* Heading.swift */,
-				D96A18E320C741E100CAE44F /* DeviceAttitude.swift */,
 				D912414E225A57C100846D05 /* CMLogItem+date.swift */,
 			);
 			path = Motion;
@@ -435,7 +452,8 @@
 				D9386B3622560BA100B081AB /* Extensions */,
 				D979914121F8F55500247DD9 /* Value */,
 				D904B507210CDC480062C965 /* Source */,
-				D9F649F421F8EAEF005C216F /* Updates */,
+				D916497C2272578F001138DE /* Producer */,
+				D9F649F421F8EAEF005C216F /* Consumer */,
 				D910EE9220FEA058007F495B /* Action */,
 			);
 			path = Internals;
@@ -444,7 +462,9 @@
 		D979914121F8F55500247DD9 /* Value */ = {
 			isa = PBXGroup;
 			children = (
+				D91649852272586E001138DE /* AnyValue.swift */,
 				D9EF059F20ACC77D00D3F194 /* Value.swift */,
+				D9164978227242E3001138DE /* OptionalValue.swift */,
 				D9168F4D20C8851E00100EEE /* ValuesProvider.swift */,
 			);
 			path = Value;
@@ -515,7 +535,7 @@
 				D979914421F8F5F300247DD9 /* Values */,
 				D979914221F8F5B300247DD9 /* Sources */,
 				D9154EAA21FFC2E600C1E99B /* Formatters */,
-				D9070D8A2252C95A000A2A6C /* Updates Consumers */,
+				D9070D8A2252C95A000A2A6C /* Consumers */,
 				D979914021F8F51200247DD9 /* Internals */,
 				D979913F21F8F50500247DD9 /* Legacy */,
 				D9EF058420ACC59300D3F194 /* GatheredKit.h */,
@@ -619,13 +639,15 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		D9F649F421F8EAEF005C216F /* Updates */ = {
+		D9F649F421F8EAEF005C216F /* Consumer */ = {
 			isa = PBXGroup;
 			children = (
-				D9EF05D020ACD6B900D3F194 /* UpdatesConsumer.swift */,
-				D9070D882252C91F000A2A6C /* UpdateConsumersProvider.swift */,
+				D9EF05D020ACD6B900D3F194 /* AnyConsumer.swift */,
+				D916497F22725817001138DE /* Consumer.swift */,
+				D91649812272582F001138DE /* WeakConsumerWrapper.swift */,
+				D916498322725847001138DE /* ConsumersProvider.swift */,
 			);
-			path = Updates;
+			path = Consumer;
 			sourceTree = "<group>";
 		};
 		D9F94D68210CDCA700493C1B /* Unit */ = {
@@ -752,11 +774,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D9124136225A4C1500846D05 /* Screen.swift in Sources */,
+				D9C7D74C2274A7A80096DE89 /* Heading.swift in Sources */,
+				D91649862272586E001138DE /* AnyValue.swift in Sources */,
 				D912412C225A473300846D05 /* NumericValues.swift in Sources */,
+				D916498022725817001138DE /* Consumer.swift in Sources */,
 				D910EE9420FEA064007F495B /* Action.swift in Sources */,
 				D9386AF5225515AA00B081AB /* QuaternionFormatter.swift in Sources */,
-				D9124141225A4EAB00846D05 /* Heading.swift in Sources */,
 				D912413A225A4C3200846D05 /* SizeValue.swift in Sources */,
 				D9124165225AB01F00846D05 /* MagneticFieldCalibrationAccuracyFormatter.swift in Sources */,
 				D912414A225A52F300846D05 /* CMMagneticFieldFormatter.swift in Sources */,
@@ -765,41 +788,44 @@
 				D910EE8920FA451C007F495B /* SwiftShims.swift in Sources */,
 				D9154EAC21FFC2FB00C1E99B /* LocationAuthorizationFormatter.swift in Sources */,
 				D9124146225A520300846D05 /* MagneticFieldValue.swift in Sources */,
+				D9C7D74B2274A7890096DE89 /* Magnetometer.swift in Sources */,
 				D9070D8E2252C9A2000A2A6C /* NotificationsUpdatesConsumer.swift in Sources */,
 				D9286C2D224E7A1500A69AF3 /* SizeFormatter.swift in Sources */,
 				D9124140225A4E6F00846D05 /* DeviceAttitude.swift in Sources */,
 				D9EF05A020ACC77D00D3F194 /* Value.swift in Sources */,
 				D9EF05AF20ACCF8B00D3F194 /* ManuallyUpdatableValuesProvider.swift in Sources */,
 				D9EF059E20ACC63700D3F194 /* Controllable.swift in Sources */,
+				D916497B22725788001138DE /* Producer.swift in Sources */,
 				D9124134225A4B9400846D05 /* LocationAuthorizationValue.swift in Sources */,
 				D9126CDC21F3AC53002C37EF /* CoordinateFormatter.swift in Sources */,
 				D912412D225A49DB00846D05 /* MeasurementValue.swift in Sources */,
 				D912412B225A46DD00846D05 /* QuaternionValue.swift in Sources */,
-				D9070D8C2252C96C000A2A6C /* ClosureUpdatesConsumer.swift in Sources */,
+				D9070D8C2252C96C000A2A6C /* ClosureConsumer.swift in Sources */,
 				D9124157225A741A00846D05 /* castToOptional.swift in Sources */,
+				D9582C2E226FAC51004327A4 /* Screen.swift in Sources */,
 				D9F6B05520F8F4A700831338 /* Source.swift in Sources */,
 				D912414F225A57C100846D05 /* CMLogItem+date.swift in Sources */,
 				D912414D225A557000846D05 /* CMCalibratedMagneticFieldValue.swift in Sources */,
 				D9124151225A587D00846D05 /* CoreMotionSource.swift in Sources */,
+				D9164979227242E3001138DE /* OptionalValue.swift in Sources */,
 				D9386B3822560BC300B081AB /* OperationQueue+convenience.swift in Sources */,
-				D999586B21010F3B00C577AC /* BasePollingSource.swift in Sources */,
 				D9EF05AD20ACCF7000D3F194 /* CustomisableUpdateIntervalControllable.swift in Sources */,
-				D9070D892252C91F000A2A6C /* UpdateConsumersProvider.swift in Sources */,
-				D9124135225A4B9A00846D05 /* Location.swift in Sources */,
 				D9124131225A4A0C00846D05 /* FrequencyValue.swift in Sources */,
-				D912414B225A542100846D05 /* Magnetometer.swift in Sources */,
 				D9D7529E20B4BE0600B16A06 /* SourceAvailability.swift in Sources */,
 				D9C7D749227357770096DE89 /* Gyroscope.swift in Sources */,
 				D910EE9620FEA070007F495B /* ActionProvider.swift in Sources */,
 				D9124137225A4C3200846D05 /* RotationRateValue.swift in Sources */,
+				D916497E227257CB001138DE /* AnyProducer.swift in Sources */,
+				D91649822272582F001138DE /* WeakConsumerWrapper.swift in Sources */,
 				D9168F4E20C8851E00100EEE /* ValuesProvider.swift in Sources */,
 				D912412F225A4A0400846D05 /* AngleValue.swift in Sources */,
 				D9124138225A4C3200846D05 /* PercentValue.swift in Sources */,
 				D9124167225AB07400846D05 /* MagneticFieldCalibrationAccuracyValue.swift in Sources */,
+				D916498422725847001138DE /* ConsumersProvider.swift in Sources */,
 				D9124132225A4B5E00846D05 /* CoordinateValue.swift in Sources */,
 				D9124163225AA37100846D05 /* String+localized.swift in Sources */,
 				D9124130225A4A0800846D05 /* LengthValue.swift in Sources */,
-				D9EF05D120ACD6B900D3F194 /* UpdatesConsumer.swift in Sources */,
+				D9EF05D120ACD6B900D3F194 /* AnyConsumer.swift in Sources */,
 				D912412E225A4A0200846D05 /* SpeedValue.swift in Sources */,
 				D912413E225A4D3000846D05 /* RotationRateFormatter.swift in Sources */,
 				D9124139225A4C3200846D05 /* ScaleValue.swift in Sources */,
@@ -812,16 +838,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D9154EB121FFC91500C1E99B /* LocationTests.swift in Sources */,
+				D9582C2D226FAC4C004327A4 /* ScreenTests.swift in Sources */,
+				D9582C2F226FAC92004327A4 /* MockScreenBackingData.swift in Sources */,
 				D9070D872252C050000A2A6C /* MockNotificationCenter.swift in Sources */,
 				D9124155225A727400846D05 /* OptionalValueTests.swift in Sources */,
-				D91C4B1C22501005009E234F /* MockScreenBackingData.swift in Sources */,
 				D9124159225A752900846D05 /* ValueTests.swift in Sources */,
-				D91C4B1B22500FDF009E234F /* ScreenTests.swift in Sources */,
 				D9124153225A612200846D05 /* UnitMagneticFieldTests.swift in Sources */,
 				D912415C225A97A200846D05 /* OptionalMeasurementValueTests.swift in Sources */,
 				D9070D852252B129000A2A6C /* MockUpdateConsumer.swift in Sources */,
-				D9154EAF21FFC87C00C1E99B /* MockLocationManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

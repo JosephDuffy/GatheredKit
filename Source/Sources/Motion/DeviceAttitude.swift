@@ -75,7 +75,7 @@ public final class DeviceAttitude: CoreMotionSource, Source, ValuesProvider {
         every updateInterval: TimeInterval,
         referenceFrame: CMAttitudeReferenceFrame?
     ) {
-        super.startUpdating(every: updateInterval) { motionManager, updatesQueue in
+        super.startUpdating(every: updateInterval, motionManagerConfigurator: { motionManager, updatesQueue in
             let handler: CMDeviceMotionHandler = { [weak self] data, error in
                 guard let self = self else { return }
                 guard self.isUpdating else { return }
@@ -105,7 +105,7 @@ public final class DeviceAttitude: CoreMotionSource, Source, ValuesProvider {
                     withHandler: handler
                 )
             }
-        }
+        })
     }
     
     public override func stopUpdating() {

@@ -1,7 +1,9 @@
 import Foundation
 import CoreMotion
 
-open class CoreMotionSource: CustomisableUpdateIntervalControllable, UpdateConsumersProvider {
+open class CoreMotionSource: CustomisableUpdateIntervalControllable, Producer {
+    
+    public typealias ProducedValue = [AnyValue]
     
     public static var defaultUpdateInterval: TimeInterval = 1
 
@@ -9,12 +11,12 @@ open class CoreMotionSource: CustomisableUpdateIntervalControllable, UpdateConsu
         case notMonitoring
         case monitoring(motionManager: CMMotionManager, updatesQueue: OperationQueue)
     }
-    
-    public var updateConsumers: [UpdatesConsumer]
 
     public var updateInterval: TimeInterval? {
         return motionManager?.deviceMotionUpdateInterval
     }
+
+    internal var consumers: [AnyConsumer] = []
 
     private var state: State
     
@@ -32,7 +34,6 @@ open class CoreMotionSource: CustomisableUpdateIntervalControllable, UpdateConsu
     }
 
     public init() {
-        updateConsumers = []
         state = .notMonitoring
     }
 
@@ -63,3 +64,5 @@ open class CoreMotionSource: CustomisableUpdateIntervalControllable, UpdateConsu
     }
 
 }
+
+extension CoreMotionSource: ConsumersProvider { }

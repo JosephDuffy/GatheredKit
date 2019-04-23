@@ -4,7 +4,9 @@ import UIKit
  A wrapper around `UIScreen`. Each property is read directly from `UIScreen`; every property is always the latest
  available value
  */
-public final class Screen: Source, Controllable, ValuesProvider, UpdateConsumersProvider {
+public final class Screen: Source, Controllable, Producer, ValuesProvider {
+    
+    public typealias ProducedValue = [AnyValue]
     
     private enum State {
         case notMonitoring
@@ -27,8 +29,6 @@ public final class Screen: Source, Controllable, ValuesProvider, UpdateConsumers
         }
     }
     
-    public var updateConsumers: [UpdatesConsumer] = []
-
     /// The `ScreenBackingData` this `Screen` represents
     private let screen: ScreenBackingData
 
@@ -79,6 +79,8 @@ public final class Screen: Source, Controllable, ValuesProvider, UpdateConsumers
             brightness,
         ]
     }
+    
+    internal var consumers: [AnyConsumer] = []
 
     /// The internal state, indicating if the screen is monitoring for changes
     private var state: State = .notMonitoring
@@ -165,6 +167,8 @@ public final class Screen: Source, Controllable, ValuesProvider, UpdateConsumers
     }
 
 }
+
+extension Screen: ConsumersProvider { }
 
 /**
  The backing data for the `Screen` source. `UIScreen` conforms to this without any changes

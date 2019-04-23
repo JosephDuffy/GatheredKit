@@ -44,14 +44,19 @@ final class ScreenTests: QuickSpec {
                 var mockBackingData: MockScreenBackingData!
                 var screen: Screen!
                 var notificationCenter: MockNotificationCenter!
-                var updateConsumer: MockUpdateConsumer!
+                var hasUpdateConsumerBeenDeallocated: Bool!
+                var updateConsumer: MockValuesConsumer<[AnyValue], Screen>!
 
                 beforeEach {
                     mockBackingData = MockScreenBackingData()
                     notificationCenter = MockNotificationCenter()
                     screen = Screen(screen: mockBackingData, notificationCenter: notificationCenter)
-                    updateConsumer = MockUpdateConsumer()
-                    screen.add(updatesConsumer: updateConsumer)
+                    updateConsumer = MockValuesConsumer()
+                    hasUpdateConsumerBeenDeallocated = false
+                    updateConsumer.deinitHandler = {
+                        hasUpdateConsumerBeenDeallocated = true
+                    }
+                    screen.add(consumer: updateConsumer!)
                     screen.startUpdating()
                 }
                 
@@ -83,6 +88,16 @@ final class ScreenTests: QuickSpec {
                     }
                 }
                 
+                context("and the passed consumer is no longer being held on to") {
+                    beforeEach {
+                        updateConsumer = nil
+                    }
+                    
+                    it("should deallocate the consumer") {
+                        expect(hasUpdateConsumerBeenDeallocated).to(beTrue())
+                    }
+                }
+                
                 context("when a `UIScreen.brightnessDidChangeNotification` notification is fired from the backing object") {
                     beforeEach {
                         mockBackingData.brightness = 0.53
@@ -94,7 +109,7 @@ final class ScreenTests: QuickSpec {
                     }
                     
                     it("should pass the new value to the update listener") {
-                        expect(updateConsumer.latestValues ?? []).to(containElementSatisfying({ value in
+                        expect(updateConsumer.latestValues).to(containElementSatisfying({ value in
                             guard let value = value as? PercentValue else { return false }
                             guard value.displayName == screen.brightness.displayName else { return false }
                             return value.backingValue == mockBackingData.brightness.native

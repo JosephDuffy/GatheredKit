@@ -31,7 +31,7 @@ public final class Gyroscope: CoreMotionSource, Source, ValuesProvider {
     }
 
     public override func startUpdating(every updateInterval: TimeInterval) {
-        super.startUpdating(every: updateInterval) { motionManager, updatesQueue in
+        super.startUpdating(every: updateInterval, motionManagerConfigurator: { motionManager, updatesQueue in
             let calibratedHandler: CMDeviceMotionHandler = { [weak self] (_ data: CMDeviceMotion?, error: Error?) in
                 guard let self = self else { return }
                 guard self.isUpdating else { return }
@@ -68,7 +68,7 @@ public final class Gyroscope: CoreMotionSource, Source, ValuesProvider {
                 to: updatesQueue,
                 withHandler: rawHandler
             )
-        }
+        })
     }
     
     public override func stopUpdating() {

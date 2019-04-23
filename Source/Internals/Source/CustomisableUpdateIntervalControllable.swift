@@ -38,7 +38,7 @@ extension CustomisableUpdateIntervalControllable {
 
 }
 
-extension CustomisableUpdateIntervalControllable where Self: Source & UpdateConsumersProvider {
+extension CustomisableUpdateIntervalControllable where Self: Producer {
 
     /**
      Start performing periodic updates, updating every `updateInterval` seconds.
@@ -58,11 +58,11 @@ extension CustomisableUpdateIntervalControllable where Self: Source & UpdateCons
     public func startUpdating(
         every updateInterval: TimeInterval,
         sendingUpdatesOn queue: OperationQueue = .main,
-        to updateListener: @escaping ClosureUpdatesConsumer.UpdatesClosure
-    ) -> AnyObject {
-        let listenerToken = addUpdateListener(updateListener, queue: queue)
+        to updateListener: @escaping ClosureConsumer<ProducedValue, Self>.UpdatesClosure
+    ) -> ClosureConsumer<ProducedValue, Self> {
+        let consumer = consumeUpdates(sendingUpdatesOn: queue, to: updateListener)
         startUpdating(every: updateInterval)
-        return listenerToken
+        return consumer
     }
 
 }
