@@ -18,6 +18,10 @@ open class CoreMotionSource: CustomisableUpdateIntervalControllable, UpdateConsu
 
     private var state: State
     
+    // TODO: Make private and add functions to start/stop certain types of motion. Also
+    // makes this static and cached across instances, as-per the docs. Store closure on
+    // this object to allow for removal of update handler without having to call
+    // `stopDeviceMotionUpdates` etc. until the last handler has been removed
     public var motionManager: CMMotionManager? {
         switch state {
         case .monitoring(let motionManager, _):
