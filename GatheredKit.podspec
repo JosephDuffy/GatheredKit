@@ -16,6 +16,7 @@ Pod::Spec.new do |s|
     :tag => "v#{s.version}"
   }
   s.source_files = "Source/**/*.{swift,h,m}"
-  s.platform      = :ios, '9.0'
+  s.exclude_files = "Source/Legacy"
+  s.platform      = :ios, '10.0'
   s.frameworks    = "SystemConfiguration"
 end

@@ -1,14 +1,7 @@
 import Foundation
 import CoreMotion
 
-public final class Gyroscope: Source, CustomisableUpdateIntervalControllable, ValuesProvider, UpdateConsumersProvider {
-    
-    private enum State {
-        case notMonitoring
-        case monitoring(motionManager: CMMotionManager, updatesQueue: OperationQueue)
-    }
-
-    public static var defaultUpdateInterval: TimeInterval = 1
+public final class Gyroscope: CoreMotionSource, Source, ValuesProvider {
 
     public static var availability: SourceAvailability {
         return isAvailable ? .available : .unavailable
@@ -20,100 +13,68 @@ public final class Gyroscope: Source, CustomisableUpdateIntervalControllable, Va
         return CMMotionManager().isGyroAvailable
     }
 
-    public private(set) var rotationRate: OptionalRotationRateValue
+    public let rotationRate: OptionalRotationRateValue
 
-    public private(set) var rawRotationRate: OptionalRotationRateValue
+    public let rawRotationRate: OptionalRotationRateValue
 
     public var allValues: [AnyValue] {
         return [rotationRate, rawRotationRate]
     }
 
-    public private(set) var updateInterval: TimeInterval?
-
-    private var motionManager: CMMotionManager?
-
     public override init() {
-        let date = Date()
         rotationRate = OptionalRotationRateValue(
-            name: "Rotation Rate (Calibrated)"
+            displayName: "Rotation Rate (Calibrated)"
         )
         rawRotationRate = OptionalRotationRateValue(
-            name: "Rotation Rate (Raw)"
+            displayName: "Rotation Rate (Raw)"
         )
     }
 
-    deinit {
-        stopUpdating()
+    public override func startUpdating(every updateInterval: TimeInterval) {
+        super.startUpdating(every: updateInterval) { motionManager, updatesQueue in
+            let calibratedHandler: CMDeviceMotionHandler = { [weak self] (_ data: CMDeviceMotion?, error: Error?) in
+                guard let self = self else { return }
+                guard self.isUpdating else { return }
+                guard let data = data else { return }
+                
+                self.rawRotationRate.update(
+                    backingValue: data.rotationRate,
+                    date: data.date
+                )
+                self.notifyUpdateConsumersOfLatestValues()
+            }
+            
+            let rawHandler: CMGyroHandler = { [weak self] (_ data: CMGyroData?, error: Error?) in
+                guard let self = self else { return }
+                guard self.isUpdating else { return }
+                guard let data = data else { return }
+                
+                self.rotationRate.update(
+                    backingValue: data.rotationRate,
+                    date: data.date
+                )
+                self.notifyUpdateConsumersOfLatestValues()
+            }
+            
+            motionManager.deviceMotionUpdateInterval = updateInterval
+            motionManager.gyroUpdateInterval = updateInterval
+            motionManager.showsDeviceMovementDisplay = true
+            
+            motionManager.startDeviceMotionUpdates(
+                to: updatesQueue,
+                withHandler: calibratedHandler
+            )
+            motionManager.startGyroUpdates(
+                to: updatesQueue,
+                withHandler: rawHandler
+            )
+        }
     }
-
-    public func stopUpdating() {
+    
+    public override func stopUpdating() {
         motionManager?.stopDeviceMotionUpdates()
         motionManager?.stopGyroUpdates()
-        motionManager = nil
-        updateInterval = nil
+        super.stopUpdating()
     }
 
-    public func startUpdating(every updateInterval: TimeInterval) {
-//        super.start
-        
-        if isUpdating {
-            stopUpdating()
-        }
-
-        self.updateInterval = updateInterval
-        let motionManager = CMMotionManager()
-        self.motionManager = motionManager
-        motionManager.deviceMotionUpdateInterval = updateInterval
-        motionManager.gyroUpdateInterval = updateInterval
-
-        let calibratedHandler: CMDeviceMotionHandler = { [weak self] (_ data: CMDeviceMotion?, error: Error?) in
-            guard let `self` = self else { return }
-            guard self.isUpdating else { return }
-
-            let date: Date
-
-            if let timestamp = data?.timestamp {
-                date = Date(timeIntervalSince1970: timestamp)
-            } else {
-                date = Date()
-            }
-
-            self.rawRotationRate.update(
-                value: data?.rotationRate,
-                unit: UnitFrequency.radiansPerSecond,
-                date: date
-            )
-            self.notifyListenersPropertyValuesUpdated()
-        }
-
-        let rawHandler: CMGyroHandler = { [weak self] (_ data: CMGyroData?, error: Error?) in
-            guard let `self` = self else { return }
-            guard self.isUpdating else { return }
-
-            let date: Date
-
-            if let timestamp = data?.timestamp {
-                date = Date(timeIntervalSince1970: timestamp)
-            } else {
-                date = Date()
-            }
-
-            self.rotationRate.update(
-                value: data?.rotationRate,
-                unit: UnitFrequency.radiansPerSecond,
-                date: date
-            )
-            self.notifyListenersPropertyValuesUpdated()
-        }
-
-        let operationQueue = OperationQueue()
-        motionManager.startDeviceMotionUpdates(
-            to: operationQueue,
-            withHandler: calibratedHandler
-        )
-        motionManager.startGyroUpdates(
-            to: operationQueue,
-            withHandler: rawHandler
-        )
-    }
 }

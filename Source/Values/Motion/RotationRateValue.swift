@@ -1,7 +1,7 @@
 import Foundation
 import CoreMotion
 
-public final class RationRateValue: Value<CMRotationRate, RotationRateFormatter> {
+public final class RotationRateValue: Value<CMRotationRate, RotationRateFormatter> {
 
     public var allValues: [AnyValue] {
         return [x, y, z]
@@ -21,7 +21,7 @@ public final class RationRateValue: Value<CMRotationRate, RotationRateFormatter>
 
 }
 
-public final class OptionalRationRateValue: OptionalValue<CMRotationRate, RotationRateFormatter> {
+public final class OptionalRotationRateValue: OptionalValue<CMRotationRate, RotationRateFormatter> {
 
     public var allValues: [AnyValue] {
         return [x, y, z]

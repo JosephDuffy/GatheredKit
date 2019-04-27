@@ -44,17 +44,15 @@ public final class DeviceAttitude: CoreMotionSource, Source, ValuesProvider {
         return ReferenceFrame.allCases.filter({ frames.isSuperset(of: $0.asCMAttitudeReferenceFrame )})
     }
 
-    private var latestData: CMDeviceMotion?
+    public let roll: OptionalDoubleValue
 
-    public var roll: OptionalDoubleValue
+    public let pitch: OptionalDoubleValue
 
-    public var pitch: OptionalDoubleValue
+    public let yaw: OptionalDoubleValue
 
-    public var yaw: OptionalDoubleValue
+    public let quaternion: OptionalQuaternionValue
 
-    public var quaternion: OptionalQuaternionValue
-
-//    public var rotationMatrix: RotationMatrixValue
+//    public let rotationMatrix: RotationMatrixValue
 
     public var allValues: [AnyValue] {
         return [roll, pitch, yaw, quaternion]//, rotationMatrix]
@@ -91,6 +89,9 @@ public final class DeviceAttitude: CoreMotionSource, Source, ValuesProvider {
                 self.quaternion.update(backingValue: attitude.quaternion, date: date)
                 self.notifyUpdateConsumersOfLatestValues()
             }
+            
+            motionManager.deviceMotionUpdateInterval = updateInterval
+            motionManager.showsDeviceMovementDisplay = true
             
             if let referenceFrame = referenceFrame {
                 motionManager.startDeviceMotionUpdates(
