@@ -10,10 +10,6 @@ open class Property<Value, Formatter: Foundation.Formatter>: AnyProperty, Produc
         public let formattedValue: String?
     }
 
-    public var anyFormatter: Foundation.Formatter {
-        return formatter
-    }
-
     public var snapshot: Snapshot {
         didSet {
             consumers.forEach { $0.consume(snapshot, self) }
@@ -43,10 +39,6 @@ open class Property<Value, Formatter: Foundation.Formatter>: AnyProperty, Produc
         return snapshot.formattedValue ?? formatter.string(for: value)
     }
 
-    public var valueAsAny: Any? {
-        return value
-    }
-
     public required init(
         displayName: String,
         value: Value,
@@ -74,4 +66,27 @@ open class Property<Value, Formatter: Foundation.Formatter>: AnyProperty, Produc
         snapshot = Snapshot(value: value, date: date, formattedValue: formattedValue)
     }
 
+}
+
+extension Property: ValueProvider {
+    
+    internal var valueAsAny: Any? {
+        switch snapshot.value as Any {
+        case Optional<Any>.some:
+            return Optional(snapshot.value)
+        case Optional<Any>.none:
+            return nil
+        default:
+            return Optional(snapshot.value)
+        }
+    }
+    
+}
+
+extension Property: FormatterProvider {
+
+    var formatterAsFoundationFormatter: Foundation.Formatter {
+        return formatter
+    }
+    
 }
