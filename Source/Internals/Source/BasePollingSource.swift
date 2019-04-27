@@ -6,8 +6,10 @@ import Foundation
  To benefit from `BasePollingSource` your subclass must implement `ManuallyUpdatableValuesProvider`. This
  will add `CustomisableUpdateIntervalSource` conformance via an extension.
  */
-open class BasePollingSource: Source, UpdateConsumersProvider {
-
+open class BasePollingSource: Source, Producer {
+    
+    public typealias ProducedValue = [AnyValue]
+    
     open class var availability: SourceAvailability {
         return .available
     }
@@ -50,9 +52,9 @@ open class BasePollingSource: Source, UpdateConsumersProvider {
         }
     }
     
-    public var updateConsumers: [UpdatesConsumer] = []
-    
     public var allValues: [AnyValue] = []
+    
+    internal var consumers: [AnyConsumer] = []
 
     public required init() {
         guard type(of: self) != BasePollingSource.self else {
@@ -61,6 +63,8 @@ open class BasePollingSource: Source, UpdateConsumersProvider {
     }
 
 }
+
+extension BasePollingSource: ConsumersProvider { }
 
 extension CustomisableUpdateIntervalControllable where Self: BasePollingSource, Self: ManuallyUpdatableValuesProvider {
 
@@ -73,8 +77,8 @@ extension CustomisableUpdateIntervalControllable where Self: BasePollingSource, 
         state = .monitoring(updatesQueue: updatesQueue, updateInterval: updateInterval)
 
         let latestPropertyValues = updateValues()
+        self.notifyUpdateConsumers(of: latestPropertyValues)
         update(on: updatesQueue, after: updateInterval)
-        notifyUpdateConsumers(of: latestPropertyValues)
     }
 
     private func update(on queue: DispatchQueue, after delay: TimeInterval) {

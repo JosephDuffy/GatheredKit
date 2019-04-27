@@ -68,6 +68,7 @@
 		D9C7D74B2274A7890096DE89 /* Magnetometer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9B84DE120CF0FB800380C42 /* Magnetometer.swift */; };
 		D9C7D74C2274A7A80096DE89 /* Heading.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9386AFA225522F200B081AB /* Heading.swift */; };
 		D9C7D74D2274B04E0096DE89 /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = D930631020D54E0A007A0CBD /* Location.swift */; };
+		D9C7D74E2274E1550096DE89 /* BasePollingSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = D999586A21010F3B00C577AC /* BasePollingSource.swift */; };
 		D9D7529E20B4BE0600B16A06 /* SourceAvailability.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9D7529D20B4BE0600B16A06 /* SourceAvailability.swift */; };
 		D9EF058B20ACC59300D3F194 /* GatheredKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D9EF058120ACC59300D3F194 /* GatheredKit.framework */; };
 		D9EF059220ACC59400D3F194 /* GatheredKit.h in Headers */ = {isa = PBXBuildFile; fileRef = D9EF058420ACC59300D3F194 /* GatheredKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -828,6 +829,7 @@
 				D9124163225AA37100846D05 /* String+localized.swift in Sources */,
 				D9124130225A4A0800846D05 /* LengthValue.swift in Sources */,
 				D9EF05D120ACD6B900D3F194 /* AnyConsumer.swift in Sources */,
+				D9C7D74E2274E1550096DE89 /* BasePollingSource.swift in Sources */,
 				D912412E225A4A0200846D05 /* SpeedValue.swift in Sources */,
 				D912413E225A4D3000846D05 /* RotationRateFormatter.swift in Sources */,
 				D9124139225A4C3200846D05 /* ScaleValue.swift in Sources */,
