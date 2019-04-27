@@ -1,9 +1,9 @@
 import Foundation
 import CoreLocation
 
-public final class CoordinateValue: Value<CLLocationCoordinate2D, CoordinateFormatter>, ValuesProvider {
+public final class CoordinateValue: Property<CLLocationCoordinate2D, CoordinateFormatter>, PropertiesProvider {
 
-    public var allValues: [AnyValue] {
+    public var allProperties: [AnyProperty] {
         return [
             latitude,
             longitude,
@@ -11,18 +11,18 @@ public final class CoordinateValue: Value<CLLocationCoordinate2D, CoordinateForm
     }
 
     var latitude: AngleValue {
-        return .degrees(displayName: "Latitude", value: backingValue.latitude, date: date)
+        return .degrees(displayName: "Latitude", value: value.latitude, date: date)
     }
 
     var longitude: AngleValue {
-        return .degrees(displayName: "Longitude", value: backingValue.longitude, date: date)
+        return .degrees(displayName: "Longitude", value: value.longitude, date: date)
     }
 
 }
 
-public final class OptionalCoordinateValue: OptionalValue<CLLocationCoordinate2D, CoordinateFormatter>, ValuesProvider {
+public final class OptionalCoordinateValue: OptionalProperty<CLLocationCoordinate2D, CoordinateFormatter>, PropertiesProvider {
     
-    public var allValues: [AnyValue] {
+    public var allProperties: [AnyProperty] {
         return [
             latitude,
             longitude,
@@ -30,11 +30,11 @@ public final class OptionalCoordinateValue: OptionalValue<CLLocationCoordinate2D
     }
     
     var latitude: OptionalAngleValue {
-        return .degrees(displayName: "Latitude", value: backingValue?.latitude, date: date)
+        return .degrees(displayName: "Latitude", value: value?.latitude, date: date)
     }
     
     var longitude: OptionalAngleValue {
-        return .degrees(displayName: "Longitude", value: backingValue?.longitude, date: date)
+        return .degrees(displayName: "Longitude", value: value?.longitude, date: date)
     }
     
 }

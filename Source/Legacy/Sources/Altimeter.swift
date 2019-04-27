@@ -1,7 +1,7 @@
 import Foundation
 import CoreMotion
 
-public final class Altimeter: BaseSource, Source, Controllable, ValuesProvider, ActionProvider {
+public final class Altimeter: BaseSource, Source, Controllable, PropertiesProvider, ActionProvider {
 
     private enum State {
         case notMonitoring
@@ -23,10 +23,10 @@ public final class Altimeter: BaseSource, Source, Controllable, ValuesProvider, 
         }
     }
 
-    public private(set) var relativeAltitude: GenericValue<NSNumber?, Meter>
-    public private(set) var pressure: GenericValue<NSNumber?, Kilopascal>
+    public private(set) var relativeAltitude: GenericProperty<NSNumber?, Meter>
+    public private(set) var pressure: GenericProperty<NSNumber?, Kilopascal>
 
-    public var allValues: [AnyValue] {
+    public var allProperties: [AnyProperty] {
         return [
             relativeAltitude,
             pressure,
@@ -84,8 +84,8 @@ public final class Altimeter: BaseSource, Source, Controllable, ValuesProvider, 
             print("Error with altimeter data \(error)")
             stopUpdating()
         } else if let data = data {
-            relativeAltitude.update(backingValue: data.relativeAltitude)
-            pressure.update(backingValue: data.pressure)
+            relativeAltitude.update(value: data.relativeAltitude)
+            pressure.update(value: data.pressure)
 
             notifyListenersPropertyValuesUpdated()
         }

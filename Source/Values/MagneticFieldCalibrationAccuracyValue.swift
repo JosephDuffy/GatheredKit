@@ -1,4 +1,4 @@
 import CoreMotion
 
-public final class MagneticFieldCalibrationAccuracyValue: Value<CMMagneticFieldCalibrationAccuracy, MagneticFieldCalibrationAccuracyFormatter> { }
-public final class OptionalMagneticFieldCalibrationAccuracyValue: OptionalValue<CMMagneticFieldCalibrationAccuracy?, MagneticFieldCalibrationAccuracyFormatter> { }
+public final class MagneticFieldCalibrationAccuracyValue: Property<CMMagneticFieldCalibrationAccuracy, MagneticFieldCalibrationAccuracyFormatter> { }
+public final class OptionalMagneticFieldCalibrationAccuracyValue: OptionalProperty<CMMagneticFieldCalibrationAccuracy?, MagneticFieldCalibrationAccuracyFormatter> { }

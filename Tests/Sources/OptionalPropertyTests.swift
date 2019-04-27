@@ -5,95 +5,95 @@ import Nimble
 @testable
 import GatheredKit
 
-final class OptionalValueTests: QuickSpec {
+final class OptionalPropertyTests: QuickSpec {
 
     override func spec() {
-        describe("OptionalValue") {
-            var value: OptionalValue<String, Formatter>!
+        describe("OptionalProperty") {
+            var value: OptionalProperty<String, Formatter>!
             
             beforeEach {
-                value = OptionalValue(displayName: "Test Value")
+                value = OptionalProperty(displayName: "Test Value")
             }
             
             context("with a nil value") {
-                context("backingValueAsAny") {
+                context("valueAsAny") {
                     it("should be nil") {
-                        expect(value.backingValueAsAny == nil).to(beTrue())
+                        expect(value.valueAsAny == nil).to(beTrue())
                     }
 
                     it("should not be castable to String") {
-                        expect(value.backingValueAsAny as? String).to(beNil())
+                        expect(value.valueAsAny as? String).to(beNil())
                     }
                     
                     it("should be a String?") {
-                        expect(value.backingValueAsAny is String?).to(beTrue())
+                        expect(value.valueAsAny is String?).to(beTrue())
                     }
                 }
             }
             
             context("with a non-nil value") {
                 beforeEach {
-                    value.update(backingValue: "test")
+                    value.update(value: "test")
                 }
                 
-                context("backingValueAsAny") {
+                context("valueAsAny") {
                     it("should not be nil") {
-                        expect(value.backingValueAsAny).toNot(beNil())
+                        expect(value.valueAsAny).toNot(beNil())
                     }
                     
                     it("should be castable to String") {
-                        expect(value.backingValueAsAny as? String).toNot(beNil())
+                        expect(value.valueAsAny as? String).toNot(beNil())
                     }
                     
                     it("should be a String?") {
-                        expect(value.backingValueAsAny is String?).to(beTrue())
+                        expect(value.valueAsAny is String?).to(beTrue())
                     }
                 }
             }
             
-            context("when cast to an AnyValue") {
-                var anyValue: AnyValue!
+            context("when cast to an AnyProperty") {
+                var anyValue: AnyProperty!
                 
                 beforeEach {
-                    anyValue = value as AnyValue
+                    anyValue = value as AnyProperty
                 }
                 
                 context("with a nil value") {
-                    context("backingValueAsAny") {
+                    context("valueAsAny") {
                         it("should be nil") {
-                            expect(anyValue.backingValueAsAny == nil).to(beTrue())
+                            expect(anyValue.valueAsAny == nil).to(beTrue())
                         }
                         
                         it("should not be castable to String") {
-                            expect(anyValue.backingValueAsAny as? String).to(beNil())
+                            expect(anyValue.valueAsAny as? String).to(beNil())
                         }
                         
                         it("should be a String?") {
-                            expect(anyValue.backingValueAsAny is String?).to(beTrue())
+                            expect(anyValue.valueAsAny is String?).to(beTrue())
                         }
                     }
                 }
                 
                 context("with the value 'test'") {
                     beforeEach {
-                        value.update(backingValue: "test")
+                        value.update(value: "test")
                     }
                     
-                    context("backingValueAsAny") {
+                    context("valueAsAny") {
                         it("should not be nil") {
-                            expect(anyValue.backingValueAsAny).toNot(beNil())
+                            expect(anyValue.valueAsAny).toNot(beNil())
                         }
                         
                         it("should equal 'test'") {
-                            expect((anyValue.backingValueAsAny as! String)).to(equal("test"))
+                            expect((anyValue.valueAsAny as! String)).to(equal("test"))
                         }
                         
                         it("should be castable to String") {
-                            expect(anyValue.backingValueAsAny as? String).toNot(beNil())
+                            expect(anyValue.valueAsAny as? String).toNot(beNil())
                         }
                         
                         it("should be a String?") {
-                            expect(anyValue.backingValueAsAny is String?).to(beTrue())
+                            expect(anyValue.valueAsAny is String?).to(beTrue())
                         }
                     }
                 }

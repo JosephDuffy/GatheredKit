@@ -1,7 +1,7 @@
 import Foundation
 import CoreLocation
 
-public final class Compass: BaseSource, Source, Controllable, ValuesProvider {
+public final class Compass: BaseSource, Source, Controllable, PropertiesProvider {
 
     private enum State {
         case notMonitoring
@@ -17,11 +17,11 @@ public final class Compass: BaseSource, Source, Controllable, ValuesProvider {
     public var rawGeomagnetism = GeomagnetismValue()
 
     /**
-     An array of all the values associated with the location of the
+     An array of all the properties associated with the location of the
      device, in the following order:
      -
      */
-    public var allValues: [AnyValue] {
+    public var allProperties: [AnyProperty] {
         return [
             rawGeomagnetism,
         ]
@@ -80,7 +80,7 @@ public final class Compass: BaseSource, Source, Controllable, ValuesProvider {
     }
 
     private func updateHeadingValues(_ location: CLHeading? = nil) {
-        rawGeomagnetism.update(backingValue: location)
+        rawGeomagnetism.update(value: location)
     }
 
 }

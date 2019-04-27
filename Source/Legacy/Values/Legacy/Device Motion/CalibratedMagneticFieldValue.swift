@@ -1,16 +1,16 @@
 import Foundation
 import CoreMotion
 
-public struct CalibratedMagneticFieldValue: Value, ValuesProvider {
+public struct CalibratedMagneticFieldValue: Value, PropertiesProvider {
 
-    public var allValues: [AnyValue] {
+    public var allProperties: [AnyProperty] {
         return [x, y, z, accuracy]
     }
 
-    public var accuracy: GenericUnitlessValue<CMMagneticFieldCalibrationAccuracy?> {
+    public var accuracy: GenericUnitlessProperty<CMMagneticFieldCalibrationAccuracy?> {
         let formattedValue: String?
 
-        switch backingValue?.accuracy {
+        switch value?.accuracy {
         case .uncalibrated?:
             formattedValue = "Uncalibrated"
         case .low?:
@@ -25,37 +25,37 @@ public struct CalibratedMagneticFieldValue: Value, ValuesProvider {
 
         return GenericUnitlessValue(
             displayName: "Accuracy",
-            backingValue: backingValue?.accuracy,
+            value: value?.accuracy,
             formattedValue: formattedValue,
             date: date
         )
     }
 
-    public var x: GenericValue<Double?, NumericNone> {
+    public var x: GenericProperty<Double?, NumericNone> {
         return GenericValue(
             displayName: "X Axis",
-            backingValue: backingValue?.field.x,
-            formattedValue: self.formattedValue(for: backingValue?.field.x),
+            value: value?.field.x,
+            formattedValue: self.formattedValue(for: value?.field.x),
             unit: NumericNone(maximumFractionDigits: 20),
             date: date
         )
     }
 
-    public var y: GenericValue<Double?, NumericNone> {
+    public var y: GenericProperty<Double?, NumericNone> {
         return GenericValue(
             displayName: "Y Axis",
-            backingValue: backingValue?.field.y,
-            formattedValue: self.formattedValue(for: backingValue?.field.y),
+            value: value?.field.y,
+            formattedValue: self.formattedValue(for: value?.field.y),
             unit: NumericNone(maximumFractionDigits: 20),
             date: date
         )
     }
 
-    public var z: GenericValue<Double?, NumericNone> {
+    public var z: GenericProperty<Double?, NumericNone> {
         return GenericValue(
             displayName: "Z Axis",
-            backingValue: backingValue?.field.z,
-            formattedValue: self.formattedValue(for: backingValue?.field.z),
+            value: value?.field.z,
+            formattedValue: self.formattedValue(for: value?.field.z),
             unit: NumericNone(maximumFractionDigits: 20),
             date: date
         )
@@ -65,25 +65,25 @@ public struct CalibratedMagneticFieldValue: Value, ValuesProvider {
 
     public let formattedValue: String? = nil
 
-    public let backingValue: CMCalibratedMagneticField?
+    public let value: CMCalibratedMagneticField?
 
     public let date: Date
 
-    public init(backingValue: CMCalibratedMagneticField? = nil, date: Date) {
-        self.backingValue = backingValue
+    public init(value: CMCalibratedMagneticField? = nil, date: Date) {
+        self.value = value
         self.date = date
     }
 
     /**
      Updates `self` to be a new `CalibratedMagneticFieldValue` instance with the
-     updates values provided
+     updates properties provided
 
-     - parameter backingValue: The new value of the data
+     - parameter value: The new value of the data
      - parameter date: The date and time the `value` was recorded. Defaults to the current date and time
      */
-    public mutating func update(backingValue: ValueType, date: Date = Date()) {
+    public mutating func update(value: ValueType, date: Date = Date()) {
         self = CalibratedMagneticFieldValue(
-            backingValue: backingValue,
+            value: value,
             date: date
         )
     }
@@ -92,7 +92,7 @@ public struct CalibratedMagneticFieldValue: Value, ValuesProvider {
         if value == nil {
             return "nil"
         } else {
-            switch backingValue?.accuracy {
+            switch value?.accuracy {
             case .uncalibrated?:
                 return "Unknown"
             case nil:

@@ -1,9 +1,9 @@
 import Foundation
 
-public final class AngleValue: MeasurementValue<UnitAngle> { }
-public final class OptionalAngleValue: OptionalMeasurementValue<UnitAngle> { }
+public final class AngleValue: MeasurementProperty<UnitAngle> { }
+public final class OptionalAngleValue: OptionalMeasurementProperty<UnitAngle> { }
 
-extension AnyValue {
+extension AnyProperty {
 
     public static func angle(
         displayName: String,

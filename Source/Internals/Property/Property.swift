@@ -1,11 +1,11 @@
 import Foundation
 
-open class Value<ValueType, Formatter: Foundation.Formatter>: AnyValue, Producer {
+open class Property<Value, Formatter: Foundation.Formatter>: AnyProperty, Producer {
     
     public typealias ProducedValue = Snapshot
     
     public struct Snapshot {
-        public let value: ValueType
+        public let value: Value
         public let date: Date
         public let formattedValue: String?
     }
@@ -22,7 +22,7 @@ open class Value<ValueType, Formatter: Foundation.Formatter>: AnyValue, Producer
     
     public let displayName: String
 
-    public var backingValue: ValueType {
+    public var value: Value {
         get {
             return snapshot.value
         }
@@ -40,38 +40,38 @@ open class Value<ValueType, Formatter: Foundation.Formatter>: AnyValue, Producer
     private var consumers: [AnyConsumer] = []
 
     public var formattedValue: String? {
-        return snapshot.formattedValue ?? formatter.string(for: backingValue)
+        return snapshot.formattedValue ?? formatter.string(for: value)
     }
 
-    public var backingValueAsAny: Any? {
-        return backingValue
+    public var valueAsAny: Any? {
+        return value
     }
 
     public required init(
         displayName: String,
-        backingValue: ValueType,
+        value: Value,
         formatter: Formatter = Formatter(),
         formattedValue: String? = nil,
         date: Date = Date()
     ) {
         self.displayName = displayName
-        self.snapshot = Snapshot(value: backingValue, date: date, formattedValue: formattedValue)
+        self.snapshot = Snapshot(value: value, date: date, formattedValue: formattedValue)
         self.formatter = formatter
     }
 
     /**
      Updates the data backing this `SourceProperty`
 
-     - parameter backingValue: The new value of the data
+     - parameter value: The new value of the data
      - parameter formattedValue: The new human-friendly formatted value. Defaults to `nil`
      - parameter date: The date and time the `value` was recorded. Defaults to the current date and time
      */
     public func update(
-        backingValue: ValueType,
+        value: Value,
         formattedValue: String? = nil,
         date: Date = Date()
     ) {
-        snapshot = Snapshot(value: backingValue, date: date, formattedValue: formattedValue)
+        snapshot = Snapshot(value: value, date: date, formattedValue: formattedValue)
     }
 
 }

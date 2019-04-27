@@ -1,7 +1,7 @@
 import Foundation
 import CoreMotion
 
-public final class DeviceAttitude: CoreMotionSource, Source, ValuesProvider {
+public final class DeviceAttitude: CoreMotionSource, Source, PropertiesProvider {
     
     public enum ReferenceFrame: CaseIterable {
         
@@ -54,7 +54,7 @@ public final class DeviceAttitude: CoreMotionSource, Source, ValuesProvider {
 
 //    public let rotationMatrix: RotationMatrixValue
 
-    public var allValues: [AnyValue] {
+    public var allProperties: [AnyProperty] {
         return [roll, pitch, yaw, quaternion]//, rotationMatrix]
     }
 
@@ -83,10 +83,10 @@ public final class DeviceAttitude: CoreMotionSource, Source, ValuesProvider {
                 let attitude = data.attitude
                 let date = data.date
                 
-                self.roll.update(backingValue: attitude.roll, date: date)
-                self.pitch.update(backingValue: attitude.pitch, date: date)
-                self.yaw.update(backingValue: attitude.yaw, date: date)
-                self.quaternion.update(backingValue: attitude.quaternion, date: date)
+                self.roll.update(value: attitude.roll, date: date)
+                self.pitch.update(value: attitude.pitch, date: date)
+                self.yaw.update(value: attitude.yaw, date: date)
+                self.quaternion.update(value: attitude.quaternion, date: date)
                 self.notifyUpdateConsumersOfLatestValues()
             }
             

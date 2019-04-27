@@ -1,7 +1,7 @@
 import Foundation
 import CoreMotion
 
-public final class Accelerometer: CoreMotionSource, Source, ValuesProvider {
+public final class Accelerometer: CoreMotionSource, Source, PropertiesProvider {
 
     public static var availability: SourceAvailability {
         return isAvailable ? .available : .unavailable
@@ -21,7 +21,7 @@ public final class Accelerometer: CoreMotionSource, Source, ValuesProvider {
 
     public let rawAcceleration: AccelerationValue
 
-    public var allValues: [AnyValue] {
+    public var allProperties: [AnyProperty] {
         return [
             totalAcceletation,
             gravitationalAcceletation,
@@ -64,15 +64,15 @@ public final class Accelerometer: CoreMotionSource, Source, ValuesProvider {
                 }
                 
                 self.totalAcceletation.update(
-                    backingValue: data.rotationRate,
+                    value: data.rotationRate,
                     date: data.date
                 )
                 self.gravitationalAcceletation.update(
-                    backingValue: data?.gravity,
+                    value: data?.gravity,
                     date: date
                 )
                 self.userAcceleration.update(
-                    backingValue: data?.userAcceleration,
+                    value: data?.userAcceleration,
                     date: date
                 )
                 
@@ -84,7 +84,7 @@ public final class Accelerometer: CoreMotionSource, Source, ValuesProvider {
                 guard self.isUpdating else { return }
                 
                 self.rawAcceleration.update(
-                    backingValue: data?.acceleration,
+                    value: data?.acceleration,
                     date: data?.date ?? Date()
                 )
                 

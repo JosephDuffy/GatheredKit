@@ -1,27 +1,27 @@
 import Foundation
 
-public final class Memory: BasePollingSource, Source, ManuallyUpdatableValuesProvider {
+public final class Memory: BasePollingSource, Source, ManuallyUpdatablePropertiesProvider {
 
     public static let availability: SourceAvailability = .available
 
     public static let name = "Memory"
 
-    public private(set) var total: GenericValue<UInt64, Byte>
-    public private(set) var free: GenericValue<UInt32?, Byte>
-    public private(set) var used: GenericValue<UInt32?, Byte>
-    public private(set) var active: GenericValue<UInt32?, Byte>
-    public private(set) var inactive: GenericValue<UInt32?, Byte>
-    public private(set) var wired: GenericValue<UInt32?, Byte>
-    public private(set) var purgeable: GenericValue<UInt32?, Byte>
+    public private(set) var total: GenericProperty<UInt64, Byte>
+    public private(set) var free: GenericProperty<UInt32?, Byte>
+    public private(set) var used: GenericProperty<UInt32?, Byte>
+    public private(set) var active: GenericProperty<UInt32?, Byte>
+    public private(set) var inactive: GenericProperty<UInt32?, Byte>
+    public private(set) var wired: GenericProperty<UInt32?, Byte>
+    public private(set) var purgeable: GenericProperty<UInt32?, Byte>
 
-    public var allValues: [AnyValue] {
+    public var allProperties: [AnyProperty] {
         return [total, free, used, active, inactive, wired, purgeable]
     }
 
     public override init() {
         total = GenericValue(
             displayName: "Total",
-            backingValue: ProcessInfo.processInfo.physicalMemory,
+            value: ProcessInfo.processInfo.physicalMemory,
             unit: Byte(countStyle: .memory)
         )
         free = GenericValue(
@@ -55,28 +55,28 @@ public final class Memory: BasePollingSource, Source, ManuallyUpdatableValuesPro
     }
 
     @discardableResult
-    public func updateValues() -> [AnyValue] {
-        total.update(backingValue: ProcessInfo.processInfo.physicalMemory)
+    public func updateValues() -> [AnyProperty] {
+        total.update(value: ProcessInfo.processInfo.physicalMemory)
 
         if let stats = vmStatistics() {
             let pageSize = UInt32(vm_page_size)
 
-            free.update(backingValue: pageSize * stats.free_count)
-            used.update(backingValue: pageSize * (stats.active_count + stats.inactive_count + stats.wire_count))
-            active.update(backingValue: pageSize * stats.active_count)
-            inactive.update(backingValue: pageSize * stats.inactive_count)
-            wired.update(backingValue: pageSize * stats.wire_count)
-            purgeable.update(backingValue: pageSize * stats.purgeable_count)
+            free.update(value: pageSize * stats.free_count)
+            used.update(value: pageSize * (stats.active_count + stats.inactive_count + stats.wire_count))
+            active.update(value: pageSize * stats.active_count)
+            inactive.update(value: pageSize * stats.inactive_count)
+            wired.update(value: pageSize * stats.wire_count)
+            purgeable.update(value: pageSize * stats.purgeable_count)
         } else {
-            free.update(backingValue: nil)
-            used.update(backingValue: nil)
-            active.update(backingValue: nil)
-            inactive.update(backingValue: nil)
-            wired.update(backingValue: nil)
-            purgeable.update(backingValue: nil)
+            free.update(value: nil)
+            used.update(value: nil)
+            active.update(value: nil)
+            inactive.update(value: nil)
+            wired.update(value: nil)
+            purgeable.update(value: nil)
         }
 
-        return allValues
+        return allProperties
     }
 
     private func vmStatistics() -> vm_statistics64? {

@@ -1,7 +1,7 @@
 import Foundation
 import CoreMotion
 
-public final class Gyroscope: CoreMotionSource, Source, ValuesProvider {
+public final class Gyroscope: CoreMotionSource, Source, PropertiesProvider {
 
     public static var availability: SourceAvailability {
         return isAvailable ? .available : .unavailable
@@ -17,7 +17,7 @@ public final class Gyroscope: CoreMotionSource, Source, ValuesProvider {
 
     public let rawRotationRate: OptionalRotationRateValue
 
-    public var allValues: [AnyValue] {
+    public var allProperties: [AnyProperty] {
         return [rotationRate, rawRotationRate]
     }
 
@@ -38,7 +38,7 @@ public final class Gyroscope: CoreMotionSource, Source, ValuesProvider {
                 guard let data = data else { return }
                 
                 self.rawRotationRate.update(
-                    backingValue: data.rotationRate,
+                    value: data.rotationRate,
                     date: data.date
                 )
                 self.notifyUpdateConsumersOfLatestValues()
@@ -50,7 +50,7 @@ public final class Gyroscope: CoreMotionSource, Source, ValuesProvider {
                 guard let data = data else { return }
                 
                 self.rotationRate.update(
-                    backingValue: data.rotationRate,
+                    value: data.rotationRate,
                     date: data.date
                 )
                 self.notifyUpdateConsumersOfLatestValues()

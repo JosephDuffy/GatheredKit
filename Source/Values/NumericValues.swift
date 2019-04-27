@@ -1,6 +1,6 @@
 import Foundation
 
-public final class DoubleValue: Value<Double, NumberFormatter> { }
-public final class OptionalDoubleValue: OptionalValue<Double, NumberFormatter> { }
-public final class FloatValue: Value<Float, NumberFormatter> { }
-public final class OptionalFloatValue: OptionalValue<Float, NumberFormatter> { }
+public final class DoubleValue: Property<Double, NumberFormatter> { }
+public final class OptionalDoubleValue: OptionalProperty<Double, NumberFormatter> { }
+public final class FloatValue: Property<Float, NumberFormatter> { }
+public final class OptionalFloatValue: OptionalProperty<Float, NumberFormatter> { }

@@ -1,6 +1,6 @@
 import UIKit
 
-public final class Battery: BaseSource, Source, Controllable, ManuallyUpdatableValuesProvider {
+public final class Battery: BaseSource, Source, Controllable, ManuallyUpdatablePropertiesProvider {
 
     /// A dictionary mapping `UIDevice`s to the total number of `Battery` sources
     /// that are actively updating. This is used to not stop other `Battery` sources
@@ -34,11 +34,11 @@ public final class Battery: BaseSource, Source, Controllable, ManuallyUpdatableV
         }
     }
 
-    public private(set) var chargeLevel: GenericValue<Float, Percent>
-    public private(set) var chargeState: GenericUnitlessValue<UIDevice.BatteryState>
-    public private(set) var isLowPowerModeEnabled: GenericValue<Bool, Boolean>
+    public private(set) var chargeLevel: GenericProperty<Float, Percent>
+    public private(set) var chargeState: GenericUnitlessProperty<UIDevice.BatteryState>
+    public private(set) var isLowPowerModeEnabled: GenericProperty<Bool, Boolean>
 
-    public var allValues: [AnyValue] {
+    public var allProperties: [AnyProperty] {
         return [
             chargeLevel,
             chargeState,
@@ -53,16 +53,16 @@ public final class Battery: BaseSource, Source, Controllable, ManuallyUpdatableV
     public override init() {
         chargeLevel = GenericValue(
             displayName: "Charge Level",
-            backingValue: device.batteryLevel
+            value: device.batteryLevel
         )
         chargeState = GenericUnitlessValue(
             displayName: "Battery State",
-            backingValue: device.batteryState,
+            value: device.batteryState,
             formattedValue: device.batteryState.displayValue
         )
         isLowPowerModeEnabled = GenericValue(
             displayName: "Low Power Mode Enabled",
-            backingValue: ProcessInfo.processInfo.isLowPowerModeEnabled,
+            value: ProcessInfo.processInfo.isLowPowerModeEnabled,
             unit: Boolean(trueString: "Yes", falseString: "No")
         )
     }
@@ -82,7 +82,7 @@ public final class Battery: BaseSource, Source, Controllable, ManuallyUpdatableV
         let batteryLevelObserver = NotificationCenter.default.addObserver(forName: UIDevice.batteryLevelDidChangeNotification, object: device, queue: updatesQueue) { [weak self] _ in
             guard let `self` = self else { return }
 
-            self.chargeLevel.update(backingValue: self.device.batteryLevel)
+            self.chargeLevel.update(value: self.device.batteryLevel)
             self.notifyListenersPropertyValuesUpdated()
         }
 
@@ -90,14 +90,14 @@ public final class Battery: BaseSource, Source, Controllable, ManuallyUpdatableV
             guard let `self` = self else { return }
 
             let device = self.device
-            self.chargeState.update(backingValue: device.batteryState, formattedValue: device.batteryState.displayValue)
+            self.chargeState.update(value: device.batteryState, formattedValue: device.batteryState.displayValue)
             self.notifyListenersPropertyValuesUpdated()
         }
 
         let lowPowerModeStateObserver = NotificationCenter.default.addObserver(forName: .NSProcessInfoPowerStateDidChange, object: nil, queue: updatesQueue) { [weak self] _ in
             guard let `self` = self else { return }
 
-            self.isLowPowerModeEnabled.update(backingValue: ProcessInfo.processInfo.isLowPowerModeEnabled)
+            self.isLowPowerModeEnabled.update(value: ProcessInfo.processInfo.isLowPowerModeEnabled)
             self.notifyListenersPropertyValuesUpdated()
         }
 
@@ -129,16 +129,16 @@ public final class Battery: BaseSource, Source, Controllable, ManuallyUpdatableV
     }
 
     @discardableResult
-    public func updateValues() -> [AnyValue] {
+    public func updateValues() -> [AnyProperty] {
         defer {
             notifyListenersPropertyValuesUpdated()
         }
 
-        chargeLevel.update(backingValue: device.batteryLevel)
-        chargeState.update(backingValue: device.batteryState, formattedValue: device.batteryState.displayValue)
-        isLowPowerModeEnabled.update(backingValue: ProcessInfo.processInfo.isLowPowerModeEnabled)
+        chargeLevel.update(value: device.batteryLevel)
+        chargeState.update(value: device.batteryState, formattedValue: device.batteryState.displayValue)
+        isLowPowerModeEnabled.update(value: ProcessInfo.processInfo.isLowPowerModeEnabled)
 
-        return allValues
+        return allProperties
     }
 
 }

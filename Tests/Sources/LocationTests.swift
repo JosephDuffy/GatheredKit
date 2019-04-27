@@ -27,25 +27,25 @@ final class LocationTests: QuickSpec {
                     expect(locationManager).to(beNil())
                 }
                 it("should not have an altitude value") {
-                    expect(location.altitude.backingValue).to(beNil())
+                    expect(location.altitude.value).to(beNil())
                 }
                 it("should not have a coordinate value") {
-                    expect(location.coordinate.backingValue).to(beNil())
+                    expect(location.coordinate.value).to(beNil())
                 }
                 it("should not have a course value") {
-                    expect(location.course.backingValue).to(beNil())
+                    expect(location.course.value).to(beNil())
                 }
                 it("should not have a floor value") {
-                    expect(location.floor.backingValue).to(beNil())
+                    expect(location.floor.value).to(beNil())
                 }
                 it("should not have a horizonalAccuracy value") {
-                    expect(location.horizonalAccuracy.backingValue).to(beNil())
+                    expect(location.horizonalAccuracy.value).to(beNil())
                 }
                 it("should not have a speed value") {
-                    expect(location.speed.backingValue).to(beNil())
+                    expect(location.speed.value).to(beNil())
                 }
                 it("should not have a verticalAccuracy value") {
-                    expect(location.verticalAccuracy.backingValue).to(beNil())
+                    expect(location.verticalAccuracy.value).to(beNil())
                 }
                 it("should not be updating") {
                     expect(location.isUpdating).to(beFalse())

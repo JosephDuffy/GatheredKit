@@ -1,6 +1,6 @@
 import Foundation
 
-public final class CPU: BasePollingSource, Source, CustomisableUpdateIntervalControllable, ManuallyUpdatableValuesProvider {
+public final class CPU: BasePollingSource, Source, CustomisableUpdateIntervalControllable, ManuallyUpdatablePropertiesProvider {
 
     public static var defaultUpdateInterval: TimeInterval = 1
 
@@ -8,10 +8,10 @@ public final class CPU: BasePollingSource, Source, CustomisableUpdateIntervalCon
 
     public static let name = "CPU"
 
-    public let numberOfCores: GenericUnitlessValue<Int>
-    public private(set) var activeCoreCount: GenericUnitlessValue<Int>
+    public let numberOfCores: GenericUnitlessProperty<Int>
+    public private(set) var activeCoreCount: GenericUnitlessProperty<Int>
 
-    public var allValues: [AnyValue] {
+    public var allProperties: [AnyProperty] {
         return [numberOfCores, activeCoreCount]
     }
 
@@ -20,18 +20,18 @@ public final class CPU: BasePollingSource, Source, CustomisableUpdateIntervalCon
     public override init() {
         numberOfCores = GenericUnitlessValue(
             displayName: "Number of Cores",
-            backingValue: processInfo.processorCount
+            value: processInfo.processorCount
         )
         activeCoreCount = GenericUnitlessValue(
             displayName: "Active Core Count",
-            backingValue: processInfo.activeProcessorCount
+            value: processInfo.activeProcessorCount
         )
     }
 
-    public func updateValues() -> [AnyValue] {
-        activeCoreCount.update(backingValue: processInfo.activeProcessorCount)
+    public func updateValues() -> [AnyProperty] {
+        activeCoreCount.update(value: processInfo.activeProcessorCount)
 
-        return allValues
+        return allProperties
     }
 
     private func hostCPULoadInfo() -> host_cpu_load_info? {

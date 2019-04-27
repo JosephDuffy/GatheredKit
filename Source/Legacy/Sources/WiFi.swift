@@ -2,7 +2,7 @@ import Foundation
 import CoreFoundation
 import SystemConfiguration.CaptiveNetwork
 
-public final class WiFi: BaseSource, Source, Controllable, ManuallyUpdatableValuesProvider {
+public final class WiFi: BaseSource, Source, Controllable, ManuallyUpdatablePropertiesProvider {
 
     private enum State {
         case notMonitoring
@@ -23,11 +23,11 @@ public final class WiFi: BaseSource, Source, Controllable, ManuallyUpdatableValu
         }
     }
 
-    public var lanIP: GenericUnitlessValue<String?>
-    public var ssid: GenericUnitlessValue<String?>
-    public var bssid: GenericUnitlessValue<String?>
+    public var lanIP: GenericUnitlessProperty<String?>
+    public var ssid: GenericUnitlessProperty<String?>
+    public var bssid: GenericUnitlessProperty<String?>
 
-    public var allValues: [AnyValue] {
+    public var allProperties: [AnyProperty] {
         return [
             lanIP,
             ssid,
@@ -97,10 +97,10 @@ public final class WiFi: BaseSource, Source, Controllable, ManuallyUpdatableValu
     }
 
     @discardableResult
-    public func updateValues() -> [AnyValue] {
+    public func updateValues() -> [AnyProperty] {
         guard let interfaces = CNCopySupportedInterfaces() as? [CFString] else {
             print("Failed to cast interfaces to CFString array")
-            return allValues
+            return allProperties
         }
 
         defer {
@@ -109,32 +109,32 @@ public final class WiFi: BaseSource, Source, Controllable, ManuallyUpdatableValu
 
         if let interface = interfaces.last {
             let lanIP = getWiFiAddress(interfaceName: interface as String)
-            self.lanIP.update(backingValue: lanIP)
+            self.lanIP.update(value: lanIP)
 
             if let interfaceData = CNCopyCurrentNetworkInfo(interface) as? [CFString: Any] {
                 if let ssidString = interfaceData[kCNNetworkInfoKeySSID] as? String {
-                    ssid.update(backingValue: ssidString)
+                    ssid.update(value: ssidString)
                 }
                 if let bssidString = interfaceData[kCNNetworkInfoKeyBSSID] as? String {
                     let displayValue = bssidString.split(separator: ":").map { $0.uppercased() }.map { $0.count == 1 ? "0" + $0 : $0 }.joined(separator: ":")
-                    bssid.update(backingValue: bssidString, formattedValue: displayValue)
+                    bssid.update(value: bssidString, formattedValue: displayValue)
                 }
             } else if lanIP != nil, #available(iOS 12.0, *) {
                 print("Failed to get interface data for \(interface). Have you added the 'Access WiFi Information' entitlement?")
-                ssid.update(backingValue: nil, formattedValue: "Unknown")
-                bssid.update(backingValue: nil, formattedValue: "Unknown")
+                ssid.update(value: nil, formattedValue: "Unknown")
+                bssid.update(value: nil, formattedValue: "Unknown")
             } else if lanIP == nil {
-                self.lanIP.update(backingValue: nil, formattedValue: "Not Connected")
-                ssid.update(backingValue: nil, formattedValue: "Not Connected")
-                bssid.update(backingValue: nil, formattedValue: "Not Connected")
+                self.lanIP.update(value: nil, formattedValue: "Not Connected")
+                ssid.update(value: nil, formattedValue: "Not Connected")
+                bssid.update(value: nil, formattedValue: "Not Connected")
             }
         } else {
-            lanIP.update(backingValue: nil, formattedValue: "Not Connected")
-            ssid.update(backingValue: nil, formattedValue: "Not Connected")
-            bssid.update(backingValue: nil, formattedValue: "Not Connected")
+            lanIP.update(value: nil, formattedValue: "Not Connected")
+            ssid.update(value: nil, formattedValue: "Not Connected")
+            bssid.update(value: nil, formattedValue: "Not Connected")
         }
 
-        return allValues
+        return allProperties
     }
 
     // From https://stackoverflow.com/a/30754194/657676

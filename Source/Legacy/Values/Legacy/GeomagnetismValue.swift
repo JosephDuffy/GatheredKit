@@ -1,34 +1,34 @@
 import Foundation
 import CoreLocation
 
-public struct GeomagnetismValue: Value, UnitProvider, ValuesProvider {
+public struct GeomagnetismValue: Value, UnitProvider, PropertiesProvider {
 
-    public var allValues: [AnyValue] {
+    public var allProperties: [AnyProperty] {
         return [x, y, z]
     }
 
-    public var x: GenericValue<Double?, NumericNone> {
+    public var x: GenericProperty<Double?, NumericNone> {
         return GenericValue(
             displayName: "X Axis",
-            backingValue: backingValue?.x,
+            value: value?.x,
             unit: NumericNone(maximumFractionDigits: 20),
             date: date
         )
     }
 
-    public var y: GenericValue<Double?, NumericNone> {
+    public var y: GenericProperty<Double?, NumericNone> {
         return GenericValue(
             displayName: "Y Axis",
-            backingValue: backingValue?.y,
+            value: value?.y,
             unit: NumericNone(maximumFractionDigits: 20),
             date: date
         )
     }
 
-    public var z: GenericValue<Double?, NumericNone> {
+    public var z: GenericProperty<Double?, NumericNone> {
         return GenericValue(
             displayName: "Z Axis",
-            backingValue: backingValue?.z,
+            value: value?.z,
             unit: NumericNone(maximumFractionDigits: 20),
             date: date
         )
@@ -39,25 +39,25 @@ public struct GeomagnetismValue: Value, UnitProvider, ValuesProvider {
 
     public let formattedValue: String? = nil
 
-    public let backingValue: CLHeading?
+    public let value: CLHeading?
 
     public let date: Date
 
-    public init(backingValue: CLHeading? = nil, date: Date = Date()) {
-        self.backingValue = backingValue
+    public init(value: CLHeading? = nil, date: Date = Date()) {
+        self.value = value
         self.date = date
     }
 
     /**
      Updates `self` to be a new `GeomagnetismValue` instance with the
-     updates values provided
+     updates properties provided
 
-     - parameter backingValue: The new value of the data
+     - parameter value: The new value of the data
      */
-    public mutating func update(backingValue: ValueType) {
+    public mutating func update(value: ValueType) {
         self = GeomagnetismValue(
-            backingValue: backingValue,
-            date: backingValue?.timestamp ?? Date()
+            value: value,
+            date: value?.timestamp ?? Date()
         )
     }
 

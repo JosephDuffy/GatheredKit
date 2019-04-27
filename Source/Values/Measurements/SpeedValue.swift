@@ -1,9 +1,9 @@
 import Foundation
 
-public final class SpeedValue: MeasurementValue<UnitSpeed> { }
-public final class OptionalSpeedValue: OptionalMeasurementValue<UnitSpeed> { }
+public final class SpeedValue: MeasurementProperty<UnitSpeed> { }
+public final class OptionalSpeedValue: OptionalMeasurementProperty<UnitSpeed> { }
 
-extension AnyValue {
+extension AnyProperty {
     
     static func speed(
         displayName: String,

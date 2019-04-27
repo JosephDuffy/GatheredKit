@@ -1,7 +1,7 @@
 import Foundation
 import CoreTelephony
 
-public final class CellRadio: BaseSource, Source, Controllable, ValuesProvider {
+public final class CellRadio: BaseSource, Source, Controllable, PropertiesProvider {
 
     private enum State {
         case notMonitoring
@@ -45,9 +45,9 @@ public final class CellRadio: BaseSource, Source, Controllable, ValuesProvider {
     }
 
     public private(set) var carrier: CarrierValue
-    public private(set) var radioAccessTechnology: GenericUnitlessValue<String?>
+    public private(set) var radioAccessTechnology: GenericUnitlessProperty<String?>
 
-    public var allValues: [AnyValue] {
+    public var allProperties: [AnyProperty] {
         return [
             carrier,
             radioAccessTechnology,
@@ -72,7 +72,7 @@ public final class CellRadio: BaseSource, Source, Controllable, ValuesProvider {
 
         telephonyInfo.subscriberCellularProviderDidUpdateNotifier = { [weak self] carrier in
             guard let `self` = self else { return }
-            self.carrier.update(backingValue: carrier)
+            self.carrier.update(value: carrier)
             self.notifyListenersPropertyValuesUpdated()
         }
 
@@ -130,7 +130,7 @@ public final class CellRadio: BaseSource, Source, Controllable, ValuesProvider {
             formattedValue = nil
         }
 
-        self.radioAccessTechnology.update(backingValue: radioAccessTechnology, formattedValue: formattedValue)
+        self.radioAccessTechnology.update(value: radioAccessTechnology, formattedValue: formattedValue)
     }
 
 }

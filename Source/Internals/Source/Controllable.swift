@@ -10,7 +10,7 @@ public protocol Controllable: class {
 
     /**
      Starts automatic updates. Closures added via `addUpdateListener(_:)` will be
-     called when new values are available
+     called when new properties are available
      */
     func startUpdating()
 
@@ -25,15 +25,15 @@ public extension Controllable where Self: Producer {
 
     /**
      Starts automatic updates and adds a closure to the array of closures that will be called when
-     any of the source's values are updated. The closure will be called with all values, but
-     not all the values will neccessary be new.
+     any of the producer's properties are updated. The closure will be called with all properties, but
+     not all the properties will neccessary have new values.
 
      The returned object must be retained; the lifecycle of the listener is tied to the object. If
-     the object is deallocated the listener will be destroyed.
+     the object is deallocated the listener will be destroyed and no longer called.
 
      - parameter queue: The dispatch queue the listener should be called from. Defaults to `main`
-     - parameter updateListener: The closure to call with updated values
-     - returns: An opaque object. The lifecycle of the listener is tied to the object
+     - parameter updateListener: The closure to call with the updated properties
+     - returns: The create consuner. The lifecycle of the listener is tied to the object
      */
     func startUpdating(
         sendingUpdatesOn queue: OperationQueue = .main,

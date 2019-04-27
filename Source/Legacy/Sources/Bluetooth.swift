@@ -40,9 +40,9 @@ public final class Bluetooth: BaseSource, Source, Controllable {
         return manager.delegate != nil
     }
 
-    public private(set) var status: GenericUnitlessValue<Status>
+    public private(set) var status: GenericUnitlessProperty<Status>
 
-    public var allValues: [AnyValue] {
+    public var allProperties: [AnyProperty] {
         return [
             status,
         ]
@@ -55,7 +55,7 @@ public final class Bluetooth: BaseSource, Source, Controllable {
         manager = CBCentralManager(delegate: nil, queue: queue, options: [CBCentralManagerOptionShowPowerAlertKey: false])
 
         let status = Status(manager: manager)
-        self.status = GenericUnitlessValue(displayName: "Status", backingValue: status, formattedValue: status.rawValue)
+        self.status = GenericUnitlessValue(displayName: "Status", value: status, formattedValue: status.rawValue)
     }
 
     public func startUpdating() {
@@ -71,7 +71,7 @@ public final class Bluetooth: BaseSource, Source, Controllable {
 extension Bluetooth: CBCentralManagerDelegate {
     public func centralManagerDidUpdateState(_ central: CBCentralManager) {
         let status = Status(manager: manager)
-        self.status.update(backingValue: status, formattedValue: status.rawValue)
+        self.status.update(value: status, formattedValue: status.rawValue)
         notifyListenersPropertyValuesUpdated()
     }
 }

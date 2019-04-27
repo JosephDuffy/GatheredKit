@@ -37,10 +37,10 @@ public final class DeviceOrientation: BaseSource, Source, Controllable {
         }
     }
 
-    public private(set) var screenOrientation: GenericUnitlessValue<ScreenOrientation?>
-    public private(set) var screenDirection: GenericUnitlessValue<ScreenDirection?>
+    public private(set) var screenOrientation: GenericUnitlessProperty<ScreenOrientation?>
+    public private(set) var screenDirection: GenericUnitlessProperty<ScreenDirection?>
 
-    public var allValues: [AnyValue] {
+    public var allProperties: [AnyProperty] {
         return [
             screenOrientation,
             screenDirection,
@@ -103,20 +103,20 @@ public final class DeviceOrientation: BaseSource, Source, Controllable {
     private func updateValues() {
         switch device.orientation {
         case .faceUp:
-            screenDirection.update(backingValue: .up, formattedValue: "Up")
+            screenDirection.update(value: .up, formattedValue: "Up")
         case .faceDown:
-            screenDirection.update(backingValue: .down, formattedValue: "Down")
+            screenDirection.update(value: .down, formattedValue: "Down")
         case .portrait:
-            screenOrientation.update(backingValue: .portrait, formattedValue: "Portrait")
+            screenOrientation.update(value: .portrait, formattedValue: "Portrait")
         case .landscapeRight:
-            screenOrientation.update(backingValue: .landscapeRight, formattedValue: "Landscape Right")
+            screenOrientation.update(value: .landscapeRight, formattedValue: "Landscape Right")
         case .portraitUpsideDown:
-            screenOrientation.update(backingValue: .portraitUpsideDown, formattedValue: "Portrait Upside Down")
+            screenOrientation.update(value: .portraitUpsideDown, formattedValue: "Portrait Upside Down")
         case .landscapeLeft:
-            screenOrientation.update(backingValue: .landscapeLeft, formattedValue: "Landscape Left")
+            screenOrientation.update(value: .landscapeLeft, formattedValue: "Landscape Left")
         case .unknown:
-            screenOrientation.update(backingValue: nil, formattedValue: "Unknown")
-            screenDirection.update(backingValue: nil, formattedValue: "Unknown")
+            screenOrientation.update(value: nil, formattedValue: "Unknown")
+            screenDirection.update(value: nil, formattedValue: "Unknown")
         }
     }
 }

@@ -1,7 +1,7 @@
 import Foundation
 
-public final class FrequencyValue: MeasurementValue<UnitFrequency> { }
-public final class OptionalFrequencyValue: OptionalMeasurementValue<UnitFrequency> { }
+public final class FrequencyValue: MeasurementProperty<UnitFrequency> { }
+public final class OptionalFrequencyValue: OptionalMeasurementProperty<UnitFrequency> { }
 
 extension UnitFrequency {
 
@@ -11,7 +11,7 @@ extension UnitFrequency {
 
 }
 
-extension AnyValue {
+extension AnyProperty {
 
     static func frequency(
         displayName: String,

@@ -1,6 +1,6 @@
 import UIKit
 
-public final class Proximity: BaseSource, Source, Controllable, ValuesProvider {
+public final class Proximity: BaseSource, Source, Controllable, PropertiesProvider {
 
     /// A count of the total number of `Proximity` sources
     /// that are actively updating. This is used to not stop other `Proximity` sources
@@ -36,9 +36,9 @@ public final class Proximity: BaseSource, Source, Controllable, ValuesProvider {
         }
     }
 
-    public private(set) var isNearUser: GenericValue<Bool?, Boolean>
+    public private(set) var isNearUser: GenericProperty<Bool?, Boolean>
 
-    public var allValues: [AnyValue] {
+    public var allProperties: [AnyProperty] {
         return [
             isNearUser,
         ]
@@ -70,7 +70,7 @@ public final class Proximity: BaseSource, Source, Controllable, ValuesProvider {
         let notificationObserver = NotificationCenter.default.addObserver(forName: UIDevice.proximityStateDidChangeNotification, object: device, queue: updatesQueue) { [weak self] _ in
             guard let `self` = self else { return }
 
-            self.isNearUser.update(backingValue: self.device.proximityState)
+            self.isNearUser.update(value: self.device.proximityState)
             self.notifyListenersPropertyValuesUpdated()
         }
 
@@ -78,7 +78,7 @@ public final class Proximity: BaseSource, Source, Controllable, ValuesProvider {
 
         state = .monitoring(notificationObserver: notificationObserver, updatesQueue: updatesQueue)
 
-        isNearUser.update(backingValue: device.proximityState)
+        isNearUser.update(value: device.proximityState)
         notifyListenersPropertyValuesUpdated()
     }
 

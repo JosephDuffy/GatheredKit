@@ -1,21 +1,21 @@
 import UIKit
 
-public final class DeviceMetadata: BaseSource, Source, Controllable, ManuallyUpdatableValuesProvider {
+public final class DeviceMetadata: BaseSource, Source, Controllable, ManuallyUpdatablePropertiesProvider {
 
-    public struct Model: ValuesProvider {
+    public struct Model: PropertiesProvider {
 
-        public let allValues: [AnyValue]
+        public let allProperties: [AnyProperty]
 
         /// e.g. 'iPhone', 'Watch'
-        public let platform: GenericUnitlessValue<String?>
+        public let platform: GenericUnitlessProperty<String?>
 
         /// The "iPhoneY,X" style identifier
-        public let identifier: GenericUnitlessValue<String>
+        public let identifier: GenericUnitlessProperty<String>
 
         public init(platform: String, identifier: String) {
-            self.platform = GenericUnitlessValue(displayName: "Platform", backingValue: platform)
-            self.identifier = GenericUnitlessValue(displayName: "Identifier", backingValue: identifier)
-            allValues = [
+            self.platform = GenericUnitlessValue(displayName: "Platform", value: platform)
+            self.identifier = GenericUnitlessValue(displayName: "Identifier", value: identifier)
+            allProperties = [
                 self.platform,
                 self.identifier,
             ]
@@ -54,11 +54,11 @@ public final class DeviceMetadata: BaseSource, Source, Controllable, ManuallyUpd
         }
     }
 
-    public var name: GenericUnitlessValue<String>
-    public var model: GenericUnitlessValue<Model?>
-    public var systemUptime: GenericUnitlessValue<TimeInterval>
+    public var name: GenericUnitlessProperty<String>
+    public var model: GenericUnitlessProperty<Model?>
+    public var systemUptime: GenericUnitlessProperty<TimeInterval>
 
-    public var allValues: [AnyValue] {
+    public var allProperties: [AnyProperty] {
         return [
             name,
             model,
@@ -70,9 +70,9 @@ public final class DeviceMetadata: BaseSource, Source, Controllable, ManuallyUpd
     private var state: State = .notMonitoring
 
     public override init() {
-        name = GenericUnitlessValue(displayName: "Name", backingValue: device.name)
+        name = GenericUnitlessValue(displayName: "Name", value: device.name)
         model = GenericUnitlessValue(displayName: "Model")
-        systemUptime = GenericUnitlessValue(displayName: "System Uptime", backingValue: ProcessInfo.processInfo.systemUptime)
+        systemUptime = GenericUnitlessValue(displayName: "System Uptime", value: ProcessInfo.processInfo.systemUptime)
     }
 
     deinit {
@@ -86,13 +86,13 @@ public final class DeviceMetadata: BaseSource, Source, Controllable, ManuallyUpd
 
         let nameObservation = device.observe(\.name, options: [.new]) { [weak self] device, change in
             guard let `self` = self else { return }
-            self.name.update(backingValue: device.name)
+            self.name.update(value: device.name)
             self.notifyListenersPropertyValuesUpdated()
         }
 
         let systemUptimeObservation = ProcessInfo.processInfo.observe(\.systemUptime, options: [.new]) { [weak self] processInfo, change in
             guard let `self` = self else { return }
-            self.systemUptime.update(backingValue: processInfo.systemUptime)
+            self.systemUptime.update(value: processInfo.systemUptime)
             self.notifyListenersPropertyValuesUpdated()
         }
 
@@ -104,17 +104,17 @@ public final class DeviceMetadata: BaseSource, Source, Controllable, ManuallyUpd
     }
 
     @discardableResult
-    public func updateValues() -> [AnyValue] {
+    public func updateValues() -> [AnyProperty] {
         defer {
             notifyListenersPropertyValuesUpdated()
         }
 
-        name.update(backingValue: device.name)
+        name.update(value: device.name)
 
         let model = Model(device: device)
-        self.model.update(backingValue: model)
+        self.model.update(value: model)
 
-        return allValues
+        return allProperties
     }
 
 }

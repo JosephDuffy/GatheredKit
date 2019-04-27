@@ -37,9 +37,9 @@
 		D912414F225A57C100846D05 /* CMLogItem+date.swift in Sources */ = {isa = PBXBuildFile; fileRef = D912414E225A57C100846D05 /* CMLogItem+date.swift */; };
 		D9124151225A587D00846D05 /* CoreMotionSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9124150225A587D00846D05 /* CoreMotionSource.swift */; };
 		D9124153225A612200846D05 /* UnitMagneticFieldTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9124152225A612200846D05 /* UnitMagneticFieldTests.swift */; };
-		D9124155225A727400846D05 /* OptionalValueTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9124154225A727400846D05 /* OptionalValueTests.swift */; };
+		D9124155225A727400846D05 /* OptionalPropertyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9124154225A727400846D05 /* OptionalPropertyTests.swift */; };
 		D9124157225A741A00846D05 /* castToOptional.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9124156225A741A00846D05 /* castToOptional.swift */; };
-		D9124159225A752900846D05 /* ValueTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9124158225A752900846D05 /* ValueTests.swift */; };
+		D9124159225A752900846D05 /* PropertyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9124158225A752900846D05 /* PropertyTests.swift */; };
 		D912415C225A97A200846D05 /* OptionalMeasurementValueTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D912415B225A97A200846D05 /* OptionalMeasurementValueTests.swift */; };
 		D912415F225AA25100846D05 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = D9124161225AA25100846D05 /* Localizable.strings */; };
 		D9124163225AA37100846D05 /* String+localized.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9124162225AA37100846D05 /* String+localized.swift */; };
@@ -47,13 +47,13 @@
 		D9124167225AB07400846D05 /* MagneticFieldCalibrationAccuracyValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9124166225AB07400846D05 /* MagneticFieldCalibrationAccuracyValue.swift */; };
 		D9126CDC21F3AC53002C37EF /* CoordinateFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9126CDB21F3AC53002C37EF /* CoordinateFormatter.swift */; };
 		D9154EAC21FFC2FB00C1E99B /* LocationAuthorizationFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9154EAB21FFC2FB00C1E99B /* LocationAuthorizationFormatter.swift */; };
-		D9164979227242E3001138DE /* OptionalValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9164978227242E3001138DE /* OptionalValue.swift */; };
+		D9164979227242E3001138DE /* OptionalProperty.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9164978227242E3001138DE /* OptionalProperty.swift */; };
 		D916497B22725788001138DE /* Producer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D916497A22725788001138DE /* Producer.swift */; };
 		D916497E227257CB001138DE /* AnyProducer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D916497D227257CB001138DE /* AnyProducer.swift */; };
 		D916498022725817001138DE /* Consumer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D916497F22725817001138DE /* Consumer.swift */; };
 		D91649822272582F001138DE /* WeakConsumerWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = D91649812272582F001138DE /* WeakConsumerWrapper.swift */; };
 		D916498422725847001138DE /* ConsumersProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = D916498322725847001138DE /* ConsumersProvider.swift */; };
-		D91649862272586E001138DE /* AnyValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = D91649852272586E001138DE /* AnyValue.swift */; };
+		D91649862272586E001138DE /* AnyProperty.swift in Sources */ = {isa = PBXBuildFile; fileRef = D91649852272586E001138DE /* AnyProperty.swift */; };
 		D9168F4E20C8851E00100EEE /* ValuesProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9168F4D20C8851E00100EEE /* ValuesProvider.swift */; };
 		D91C4B1622500CC1009E234F /* PercentFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D91C4B1522500CC1009E234F /* PercentFormatter.swift */; };
 		D91C4B1A22500ED3009E234F /* ScaleFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D91C4B1922500ED3009E234F /* ScaleFormatter.swift */; };
@@ -73,7 +73,7 @@
 		D9EF058B20ACC59300D3F194 /* GatheredKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D9EF058120ACC59300D3F194 /* GatheredKit.framework */; };
 		D9EF059220ACC59400D3F194 /* GatheredKit.h in Headers */ = {isa = PBXBuildFile; fileRef = D9EF058420ACC59300D3F194 /* GatheredKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D9EF059E20ACC63700D3F194 /* Controllable.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9EF059D20ACC63700D3F194 /* Controllable.swift */; };
-		D9EF05A020ACC77D00D3F194 /* Value.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9EF059F20ACC77D00D3F194 /* Value.swift */; };
+		D9EF05A020ACC77D00D3F194 /* Property.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9EF059F20ACC77D00D3F194 /* Property.swift */; };
 		D9EF05AD20ACCF7000D3F194 /* CustomisableUpdateIntervalControllable.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9EF05AC20ACCF7000D3F194 /* CustomisableUpdateIntervalControllable.swift */; };
 		D9EF05AF20ACCF8B00D3F194 /* ManuallyUpdatableValuesProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9EF05AE20ACCF8B00D3F194 /* ManuallyUpdatableValuesProvider.swift */; };
 		D9EF05D120ACD6B900D3F194 /* AnyConsumer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9EF05D020ACD6B900D3F194 /* AnyConsumer.swift */; };
@@ -132,9 +132,9 @@
 		D912414E225A57C100846D05 /* CMLogItem+date.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CMLogItem+date.swift"; sourceTree = "<group>"; };
 		D9124150225A587D00846D05 /* CoreMotionSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreMotionSource.swift; sourceTree = "<group>"; };
 		D9124152225A612200846D05 /* UnitMagneticFieldTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnitMagneticFieldTests.swift; sourceTree = "<group>"; };
-		D9124154225A727400846D05 /* OptionalValueTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionalValueTests.swift; sourceTree = "<group>"; };
+		D9124154225A727400846D05 /* OptionalPropertyTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionalPropertyTests.swift; sourceTree = "<group>"; };
 		D9124156225A741A00846D05 /* castToOptional.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = castToOptional.swift; sourceTree = "<group>"; };
-		D9124158225A752900846D05 /* ValueTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValueTests.swift; sourceTree = "<group>"; };
+		D9124158225A752900846D05 /* PropertyTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PropertyTests.swift; sourceTree = "<group>"; };
 		D912415B225A97A200846D05 /* OptionalMeasurementValueTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionalMeasurementValueTests.swift; sourceTree = "<group>"; };
 		D9124160225AA25100846D05 /* en-GB */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "en-GB"; path = "en-GB.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		D9124162225AA37100846D05 /* String+localized.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+localized.swift"; sourceTree = "<group>"; };
@@ -150,13 +150,13 @@
 		D9154EAB21FFC2FB00C1E99B /* LocationAuthorizationFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationAuthorizationFormatter.swift; sourceTree = "<group>"; };
 		D9154EAE21FFC87C00C1E99B /* MockLocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockLocationManager.swift; sourceTree = "<group>"; };
 		D9154EB021FFC8D300C1E99B /* LocationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationTests.swift; sourceTree = "<group>"; };
-		D9164978227242E3001138DE /* OptionalValue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionalValue.swift; sourceTree = "<group>"; };
+		D9164978227242E3001138DE /* OptionalProperty.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionalProperty.swift; sourceTree = "<group>"; };
 		D916497A22725788001138DE /* Producer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Producer.swift; sourceTree = "<group>"; };
 		D916497D227257CB001138DE /* AnyProducer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnyProducer.swift; sourceTree = "<group>"; };
 		D916497F22725817001138DE /* Consumer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Consumer.swift; sourceTree = "<group>"; };
 		D91649812272582F001138DE /* WeakConsumerWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeakConsumerWrapper.swift; sourceTree = "<group>"; };
 		D916498322725847001138DE /* ConsumersProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConsumersProvider.swift; sourceTree = "<group>"; };
-		D91649852272586E001138DE /* AnyValue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnyValue.swift; sourceTree = "<group>"; };
+		D91649852272586E001138DE /* AnyProperty.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnyProperty.swift; sourceTree = "<group>"; };
 		D9168F4D20C8851E00100EEE /* ValuesProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValuesProvider.swift; sourceTree = "<group>"; };
 		D91C4B1322500C8C009E234F /* PercentValue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PercentValue.swift; sourceTree = "<group>"; };
 		D91C4B1522500CC1009E234F /* PercentFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PercentFormatter.swift; sourceTree = "<group>"; };
@@ -199,7 +199,6 @@
 		D9B84DDF20CC83D900380C42 /* Gyroscope.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Gyroscope.swift; sourceTree = "<group>"; };
 		D9B84DE120CF0FB800380C42 /* Magnetometer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Magnetometer.swift; sourceTree = "<group>"; };
 		D9B84DE320CF14F000380C42 /* Accelerometer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Accelerometer.swift; sourceTree = "<group>"; };
-		D9CDB99420AE3D2900316739 /* AnyValue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnyValue.swift; sourceTree = "<group>"; };
 		D9D7529D20B4BE0600B16A06 /* SourceAvailability.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SourceAvailability.swift; sourceTree = "<group>"; };
 		D9EB5D5B21FB5A8300163BF6 /* MeasurementValue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeasurementValue.swift; sourceTree = "<group>"; };
 		D9EF058120ACC59300D3F194 /* GatheredKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = GatheredKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -208,7 +207,7 @@
 		D9EF058A20ACC59300D3F194 /* GatheredKitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GatheredKitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		D9EF059120ACC59400D3F194 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D9EF059D20ACC63700D3F194 /* Controllable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Controllable.swift; sourceTree = "<group>"; };
-		D9EF059F20ACC77D00D3F194 /* Value.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Value.swift; sourceTree = "<group>"; };
+		D9EF059F20ACC77D00D3F194 /* Property.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Property.swift; sourceTree = "<group>"; };
 		D9EF05A420ACCE3800D3F194 /* AnyUnit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnyUnit.swift; sourceTree = "<group>"; };
 		D9EF05AC20ACCF7000D3F194 /* CustomisableUpdateIntervalControllable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomisableUpdateIntervalControllable.swift; sourceTree = "<group>"; };
 		D9EF05AE20ACCF8B00D3F194 /* ManuallyUpdatableValuesProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManuallyUpdatableValuesProvider.swift; sourceTree = "<group>"; };
@@ -234,7 +233,6 @@
 		D9EF05F120AE2FE100D3F194 /* Nimble.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Nimble.framework; path = Carthage/Build/iOS/Nimble.framework; sourceTree = SOURCE_ROOT; };
 		D9EF05F220AE2FE100D3F194 /* Quick.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Quick.framework; path = Carthage/Build/iOS/Quick.framework; sourceTree = SOURCE_ROOT; };
 		D9F6B05420F8F4A700831338 /* Source.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Source.swift; sourceTree = "<group>"; };
-		D9F94D69210CE63500493C1B /* GenericUnitlessValue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenericUnitlessValue.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -263,7 +261,6 @@
 			isa = PBXGroup;
 			children = (
 				D9F94D68210CDCA700493C1B /* Unit */,
-				D904B508210CDC6C0062C965 /* Value */,
 				D9EF05A720ACCEDE00D3F194 /* Extensions */,
 			);
 			path = Internals;
@@ -280,15 +277,6 @@
 				D999586A21010F3B00C577AC /* BasePollingSource.swift */,
 			);
 			path = Source;
-			sourceTree = "<group>";
-		};
-		D904B508210CDC6C0062C965 /* Value */ = {
-			isa = PBXGroup;
-			children = (
-				D9CDB99420AE3D2900316739 /* AnyValue.swift */,
-				D9F94D69210CE63500493C1B /* GenericUnitlessValue.swift */,
-			);
-			path = Value;
 			sourceTree = "<group>";
 		};
 		D9070D8A2252C95A000A2A6C /* Consumers */ = {
@@ -452,7 +440,7 @@
 			isa = PBXGroup;
 			children = (
 				D9386B3622560BA100B081AB /* Extensions */,
-				D979914121F8F55500247DD9 /* Value */,
+				D979914121F8F55500247DD9 /* Property */,
 				D904B507210CDC480062C965 /* Source */,
 				D916497C2272578F001138DE /* Producer */,
 				D9F649F421F8EAEF005C216F /* Consumer */,
@@ -461,15 +449,15 @@
 			path = Internals;
 			sourceTree = "<group>";
 		};
-		D979914121F8F55500247DD9 /* Value */ = {
+		D979914121F8F55500247DD9 /* Property */ = {
 			isa = PBXGroup;
 			children = (
-				D91649852272586E001138DE /* AnyValue.swift */,
-				D9EF059F20ACC77D00D3F194 /* Value.swift */,
-				D9164978227242E3001138DE /* OptionalValue.swift */,
+				D91649852272586E001138DE /* AnyProperty.swift */,
+				D9EF059F20ACC77D00D3F194 /* Property.swift */,
+				D9164978227242E3001138DE /* OptionalProperty.swift */,
 				D9168F4D20C8851E00100EEE /* ValuesProvider.swift */,
 			);
-			path = Value;
+			path = Property;
 			sourceTree = "<group>";
 		};
 		D979914221F8F5B300247DD9 /* Sources */ = {
@@ -613,9 +601,9 @@
 				D9EF05E320AE2BB100D3F194 /* Mocks */,
 				D9154EB021FFC8D300C1E99B /* LocationTests.swift */,
 				D9124152225A612200846D05 /* UnitMagneticFieldTests.swift */,
-				D9124154225A727400846D05 /* OptionalValueTests.swift */,
+				D9124158225A752900846D05 /* PropertyTests.swift */,
+				D9124154225A727400846D05 /* OptionalPropertyTests.swift */,
 				D912415B225A97A200846D05 /* OptionalMeasurementValueTests.swift */,
-				D9124158225A752900846D05 /* ValueTests.swift */,
 				D9EF05E020AE2B9700D3F194 /* ScreenTests.swift */,
 			);
 			path = Sources;
@@ -777,7 +765,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D9C7D74C2274A7A80096DE89 /* Heading.swift in Sources */,
-				D91649862272586E001138DE /* AnyValue.swift in Sources */,
+				D91649862272586E001138DE /* AnyProperty.swift in Sources */,
 				D912412C225A473300846D05 /* NumericValues.swift in Sources */,
 				D916498022725817001138DE /* Consumer.swift in Sources */,
 				D910EE9420FEA064007F495B /* Action.swift in Sources */,
@@ -795,7 +783,7 @@
 				D9070D8E2252C9A2000A2A6C /* NotificationsUpdatesConsumer.swift in Sources */,
 				D9286C2D224E7A1500A69AF3 /* SizeFormatter.swift in Sources */,
 				D9124140225A4E6F00846D05 /* DeviceAttitude.swift in Sources */,
-				D9EF05A020ACC77D00D3F194 /* Value.swift in Sources */,
+				D9EF05A020ACC77D00D3F194 /* Property.swift in Sources */,
 				D9EF05AF20ACCF8B00D3F194 /* ManuallyUpdatableValuesProvider.swift in Sources */,
 				D9EF059E20ACC63700D3F194 /* Controllable.swift in Sources */,
 				D916497B22725788001138DE /* Producer.swift in Sources */,
@@ -810,7 +798,7 @@
 				D912414F225A57C100846D05 /* CMLogItem+date.swift in Sources */,
 				D912414D225A557000846D05 /* CMCalibratedMagneticFieldValue.swift in Sources */,
 				D9124151225A587D00846D05 /* CoreMotionSource.swift in Sources */,
-				D9164979227242E3001138DE /* OptionalValue.swift in Sources */,
+				D9164979227242E3001138DE /* OptionalProperty.swift in Sources */,
 				D9386B3822560BC300B081AB /* OperationQueue+convenience.swift in Sources */,
 				D9EF05AD20ACCF7000D3F194 /* CustomisableUpdateIntervalControllable.swift in Sources */,
 				D9124131225A4A0C00846D05 /* FrequencyValue.swift in Sources */,
@@ -845,8 +833,8 @@
 				D9582C2D226FAC4C004327A4 /* ScreenTests.swift in Sources */,
 				D9582C2F226FAC92004327A4 /* MockScreenBackingData.swift in Sources */,
 				D9070D872252C050000A2A6C /* MockNotificationCenter.swift in Sources */,
-				D9124155225A727400846D05 /* OptionalValueTests.swift in Sources */,
-				D9124159225A752900846D05 /* ValueTests.swift in Sources */,
+				D9124155225A727400846D05 /* OptionalPropertyTests.swift in Sources */,
+				D9124159225A752900846D05 /* PropertyTests.swift in Sources */,
 				D9124153225A612200846D05 /* UnitMagneticFieldTests.swift in Sources */,
 				D912415C225A97A200846D05 /* OptionalMeasurementValueTests.swift in Sources */,
 				D9070D852252B129000A2A6C /* MockUpdateConsumer.swift in Sources */,

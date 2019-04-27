@@ -3,7 +3,7 @@ import Foundation
 /**
  An object that can provide data from a specific source on the device
  */
-public protocol Source: ValuesProvider {
+public protocol Source: PropertiesProvider {
 
     /// The availability of the source
     static var availability: SourceAvailability { get }

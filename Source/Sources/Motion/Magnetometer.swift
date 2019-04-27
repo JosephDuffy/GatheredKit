@@ -1,7 +1,7 @@
 import Foundation
 import CoreMotion
 
-public final class Magnetometer: CoreMotionSource, Source, ValuesProvider {
+public final class Magnetometer: CoreMotionSource, Source, PropertiesProvider {
 
     public static var availability: SourceAvailability {
         return isAvailable ? .available : .unavailable
@@ -17,7 +17,7 @@ public final class Magnetometer: CoreMotionSource, Source, ValuesProvider {
 
     public let rawMagneticField: OptionalCMMagneticFieldValue
 
-    public var allValues: [AnyValue] {
+    public var allProperties: [AnyProperty] {
         return [magneticField, rawMagneticField]
     }
 
@@ -34,7 +34,7 @@ public final class Magnetometer: CoreMotionSource, Source, ValuesProvider {
                 guard let data = data else { return }
                 
                 self.magneticField.update(
-                    backingValue: data.magneticField,
+                    value: data.magneticField,
                     date: data.date
                 )
                 
@@ -47,7 +47,7 @@ public final class Magnetometer: CoreMotionSource, Source, ValuesProvider {
                 guard let data = data else { return }
                 
                 self.rawMagneticField.update(
-                    backingValue: data.magneticField,
+                    value: data.magneticField,
                     date: data.date
                 )
                 

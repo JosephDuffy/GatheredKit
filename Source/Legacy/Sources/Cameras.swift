@@ -1,9 +1,9 @@
 import Foundation
 import AVFoundation
 
-public final class Cameras: BaseSource, Source, Controllable, ValuesProvider {
+public final class Cameras: BaseSource, Source, Controllable, PropertiesProvider {
 
-    public typealias Camera = Value<AVCaptureDevice, UnitNone>
+    public typealias Camera = Property<AVCaptureDevice, UnitNone>
 
     private enum State {
         case notMonitoring
@@ -32,7 +32,7 @@ public final class Cameras: BaseSource, Source, Controllable, ValuesProvider {
         }
     }
 
-    public var allValues: [AnyValue] {
+    public var allProperties: [AnyProperty] {
         return cameras
     }
 
@@ -96,31 +96,31 @@ public final class Cameras: BaseSource, Source, Controllable, ValuesProvider {
 }
 
 public extension Value where ValueType == AVCaptureDevice {
-    public var uniqueID: Value<String> {
+    public var uniqueID: Property<String> {
         return Value(
             displayName: "Unique ID",
-            backingValue: backingValue.uniqueID
+            value: value.uniqueID
         )
     }
 }
 
 ////public extension Cameras {
 ////
-////    struct Camera: Value, ValuesProvider {
+////    struct Camera: Value, PropertiesProvider {
 ////
-////        public let uniqueID: GenericUnitlessValue<String>
-////        public let modelID: GenericUnitlessValue<String>
-////        public let position: GenericUnitlessValue<AVCaptureDevice.Position>
+////        public let uniqueID: GenericUnitlessProperty<String>
+////        public let modelID: GenericUnitlessProperty<String>
+////        public let position: GenericUnitlessProperty<AVCaptureDevice.Position>
 ////        // TODO: Add unit
-////        public let highestStillImageResolution: GenericUnitlessValue<CMVideoDimensions?>
-////        public let supportsHDRVideo: GenericValue<Bool?, Boolean>
+////        public let highestStillImageResolution: GenericUnitlessProperty<CMVideoDimensions?>
+////        public let supportsHDRVideo: GenericProperty<Bool?, Boolean>
 ////        // TODO: Add unit
-////        public let highestVideoResolution: GenericUnitlessValue<CMVideoDimensions?>
-////        public let maximumFramerate: GenericUnitlessValue<Float64?>
+////        public let highestVideoResolution: GenericUnitlessProperty<CMVideoDimensions?>
+////        public let maximumFramerate: GenericUnitlessProperty<Float64?>
 ////
-////        public let allValues: [AnyValue]
+////        public let allProperties: [AnyProperty]
 ////
-////        public let backingValue: AVCaptureDevice
+////        public let value: AVCaptureDevice
 ////
 ////        public let displayName: String
 ////
@@ -129,20 +129,20 @@ public extension Value where ValueType == AVCaptureDevice {
 ////        public let date = Date()
 ////
 ////        public init(captureDevice: AVCaptureDevice) {
-////            backingValue = captureDevice
+////            value = captureDevice
 ////            displayName = captureDevice.localizedName
 ////
 ////            uniqueID = GenericUnitlessValue(
 ////                displayName: "Unique ID",
-////                backingValue: captureDevice.uniqueID
+////                value: captureDevice.uniqueID
 ////            )
 ////            modelID = GenericUnitlessValue(
 ////                displayName: "Model ID",
-////                backingValue: captureDevice.modelID
+////                value: captureDevice.modelID
 ////            )
 ////            position = GenericUnitlessValue(
 ////                displayName: "Position",
-////                backingValue: captureDevice.position,
+////                value: captureDevice.position,
 ////                formattedValue: captureDevice.position.displayValue
 ////            )
 ////
@@ -150,20 +150,20 @@ public extension Value where ValueType == AVCaptureDevice {
 ////
 ////            highestStillImageResolution = GenericUnitlessValue(
 ////                displayName: "Highest Still Image Resolution",
-////                backingValue: metadata.highestStillImageResolution,
+////                value: metadata.highestStillImageResolution,
 ////                formattedValue: metadata.highestStillImageResolution?.formattedString ?? "Unknown"
 ////            )
 ////
 ////            supportsHDRVideo = GenericValue(
 ////                displayName: "Supports HDR Video",
-////                backingValue: metadata.supportsHDRVideo,
+////                value: metadata.supportsHDRVideo,
 ////                formattedValue: metadata.supportsHDRVideo == nil ? "Unknown" : nil,
 ////                unit: Boolean(trueString: "Yes", falseString: "No")
 ////            )
 ////
 ////            highestVideoResolution = GenericUnitlessValue(
 ////                displayName: "Highest Video Resolution",
-////                backingValue: metadata.highestVideoResolution,
+////                value: metadata.highestVideoResolution,
 ////                formattedValue: metadata.highestVideoResolution?.formattedString ?? "Unknown"
 ////            )
 ////
@@ -176,11 +176,11 @@ public extension Value where ValueType == AVCaptureDevice {
 ////
 ////            maximumFramerate = GenericUnitlessValue(
 ////                displayName: "Maximum Framerate",
-////                backingValue: metadata.maximumFramerate,
+////                value: metadata.maximumFramerate,
 ////                formattedValue: formattedMaximumFramerate
 ////            )
 ////
-////            allValues = [
+////            allProperties = [
 ////                uniqueID,
 ////                modelID,
 ////                highestStillImageResolution,

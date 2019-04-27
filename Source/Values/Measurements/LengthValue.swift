@@ -1,9 +1,9 @@
 import Foundation
 
-public final class LengthValue: MeasurementValue<UnitLength> { }
-public final class OptionalLengthValue: OptionalMeasurementValue<UnitLength> { }
+public final class LengthValue: MeasurementProperty<UnitLength> { }
+public final class OptionalLengthValue: OptionalMeasurementProperty<UnitLength> { }
 
-public extension AnyValue {
+public extension AnyProperty {
 
     static func length(
         displayName: String,

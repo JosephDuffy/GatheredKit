@@ -1,16 +1,16 @@
 /**
  A source that supports its properties being updated at any given time
  */
-public protocol ManuallyUpdatableValuesProvider: ValuesProvider {
+public protocol ManuallyUpdatablePropertiesProvider: PropertiesProvider {
 
     /**
-     Force the values provider to update its values.
+     Force the properties provider to update its properties.
 
-     Note that there is no guarantee that the returned values will be new, even
+     Note that there is no guarantee that the returned properties will be new, even
      if the date has updated
 
-     - returns: The values after the update
+     - returns: The properties after the update
      */
-    func updateValues() -> [AnyValue]
+    func updateValues() -> [AnyProperty]
 
 }

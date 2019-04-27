@@ -2,9 +2,9 @@ import Foundation
 import CoreLocation
 
 // TODO: Wrap delegate to remove need for inheritance from `NSObject`
-public final class Location: NSObject, Source, Controllable, Producer, ValuesProvider {
+public final class Location: NSObject, Source, Controllable, Producer, PropertiesProvider {
 
-    public typealias ProducedValue = [AnyValue]
+    public typealias ProducedValue = [AnyProperty]
 
     internal static var LocationManagerType: LocationManager.Type = CLLocationManager.self
 
@@ -25,13 +25,13 @@ public final class Location: NSObject, Source, Controllable, Producer, ValuesPro
     public let speed: OptionalSpeedValue = .metersPerSecond(displayName: "Speed")
     public let course: OptionalAngleValue = .degrees(displayName: "Course")
     public let altitude: OptionalLengthValue = .meters(displayName: "Altitude")
-    public let floor = OptionalValue<CLFloor, NumberFormatter>(displayName: "Floor", formatter: NumberFormatter())
+    public let floor = OptionalProperty<CLFloor, NumberFormatter>(displayName: "Floor", formatter: NumberFormatter())
     public let horizonalAccuracy: OptionalLengthValue = .meters(displayName: "Horizontal Accuracy")
     public let verticalAccuracy: OptionalLengthValue = .meters(displayName: "Vertical Accuracy")
-    public let authorizationStatus = LocationAuthorizationValue(displayName: "Authorization Status", backingValue: Location.LocationManagerType.authorizationStatus())
+    public let authorizationStatus = LocationAuthorizationValue(displayName: "Authorization Status", value: Location.LocationManagerType.authorizationStatus())
 
     /**
-     An array of all the values associated with the location of the
+     An array of all the properties associated with the location of the
      device, in the following order:
       - coordinate
       - speed
@@ -42,7 +42,7 @@ public final class Location: NSObject, Source, Controllable, Producer, ValuesPro
       - verticalAccuracy
       - authorisationStatus
      */
-    public var allValues: [AnyValue] {
+    public var allProperties: [AnyProperty] {
         return [
             coordinate,
             speed,
@@ -109,7 +109,7 @@ public final class Location: NSObject, Source, Controllable, Producer, ValuesPro
         locationManager.allowsBackgroundLocationUpdates = allowBackgroundUpdates
 
         let authorizationStatus = Location.LocationManagerType.authorizationStatus()
-        self.authorizationStatus.update(backingValue: authorizationStatus)
+        self.authorizationStatus.update(value: authorizationStatus)
         
         defer {
             notifyUpdateConsumersOfLatestValues()
@@ -161,10 +161,10 @@ public final class Location: NSObject, Source, Controllable, Producer, ValuesPro
 
     private func updateLocationValues(_ location: CLLocation? = nil) {
         let timestamp = location?.timestamp ?? Date()
-        coordinate.update(backingValue: location?.coordinate, date: timestamp)
+        coordinate.update(value: location?.coordinate, date: timestamp)
         speed.update(value: location?.speed, unit: .metersPerSecond, date: timestamp)
         altitude.update(value: location?.altitude, unit: .meters, date: timestamp)
-        floor.update(backingValue: location?.floor, date: timestamp)
+        floor.update(value: location?.floor, date: timestamp)
         horizonalAccuracy.update(value: location?.horizontalAccuracy, unit: .meters, date: timestamp)
         verticalAccuracy.update(value: location?.verticalAccuracy, unit: .meters, date: timestamp)
     }
@@ -176,7 +176,7 @@ extension Location: CLLocationManagerDelegate {
     public func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
         guard status != .notDetermined else { return }
         
-        authorizationStatus.update(backingValue: status)
+        authorizationStatus.update(value: status)
 
         if Location.availability == .available, isAskingForLocationPermissions {
             // The user has just granted location permissions

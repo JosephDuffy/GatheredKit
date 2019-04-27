@@ -3,13 +3,13 @@ internal protocol ConsumersProvider: class {
 }
 
 extension ConsumersProvider  {
-    internal func notifyUpdateConsumers(of values: [Any]) {
-        consumers.forEach { $0.consume(values, self) }
+    internal func notifyUpdateConsumers(of properties: [Any]) {
+        consumers.forEach { $0.consume(properties, self) }
     }
 }
 
-extension ValuesProvider where Self: ConsumersProvider  {
+extension PropertiesProvider where Self: ConsumersProvider  {
     internal func notifyUpdateConsumersOfLatestValues() {
-        notifyUpdateConsumers(of: allValues)
+        notifyUpdateConsumers(of: allProperties)
     }
 }

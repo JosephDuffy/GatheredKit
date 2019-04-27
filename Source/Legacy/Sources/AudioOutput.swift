@@ -1,19 +1,19 @@
 import AVFoundation
 
-public final class AudioOutput: BasePollingSource, Source, ManuallyUpdatableValuesProvider {
+public final class AudioOutput: BasePollingSource, Source, ManuallyUpdatablePropertiesProvider {
 
     public static let availability: SourceAvailability = .available
 
     public static let name = "Audio Output"
 
-    public private(set) var volume: GenericValue<Float, Percent>
+    public private(set) var volume: GenericProperty<Float, Percent>
     public private(set) var ports: [Port]
 
-    public var allValues: [AnyValue] {
+    public var allProperties: [AnyProperty] {
         let ports = zip(self.ports, self.ports.indices).map {
             GenericUnitlessValue(
                 displayName: "Port \($1 + 1)",
-                backingValue: $0
+                value: $0
             )
         }
         return ports + [volume]
@@ -22,7 +22,7 @@ public final class AudioOutput: BasePollingSource, Source, ManuallyUpdatableValu
     public override init() {
         volume = GenericValue(
             displayName: "Volume",
-            backingValue: AVAudioSession.sharedInstance().outputVolume
+            value: AVAudioSession.sharedInstance().outputVolume
         )
         ports = []
 
@@ -32,39 +32,39 @@ public final class AudioOutput: BasePollingSource, Source, ManuallyUpdatableValu
     }
 
     @discardableResult
-    public func updateValues() -> [AnyValue] {
+    public func updateValues() -> [AnyProperty] {
         let audioSession = AVAudioSession.sharedInstance()
-        volume.update(backingValue: audioSession.outputVolume)
+        volume.update(value: audioSession.outputVolume)
 
         ports = audioSession.currentRoute.outputs.map(
             Port.init(portDescription:)
         )
 
-        return allValues
+        return allProperties
     }
 
 }
 
 public extension AudioOutput {
 
-    public struct Port: ValuesProvider {
+    public struct Port: PropertiesProvider {
 
-        public let name: GenericUnitlessValue<String>
+        public let name: GenericUnitlessProperty<String>
 
         @available(iOS 10.0, *)
-        public var hasHardwareVoiceCallProcessing: GenericValue<Bool, Boolean> {
+        public var hasHardwareVoiceCallProcessing: GenericProperty<Bool, Boolean> {
             return GenericValue(
                 displayName: "Has Hardware Voice Call Processing",
-                backingValue: _hasHardwareVoiceCallProcessing,
+                value: _hasHardwareVoiceCallProcessing,
                 unit: Boolean(trueString: "Yes", falseString: "No")
             )
         }
 
         private let _hasHardwareVoiceCallProcessing: Bool
 
-        public let type: GenericUnitlessValue<AVAudioSession.Port>
+        public let type: GenericUnitlessProperty<AVAudioSession.Port>
 
-        public var allValues: [AnyValue] {
+        public var allProperties: [AnyProperty] {
             if #available(iOS 10.0, *) {
                 return [name, hasHardwareVoiceCallProcessing, type]
             } else {
@@ -75,7 +75,7 @@ public extension AudioOutput {
         fileprivate init(portDescription: AVAudioSessionPortDescription) {
             name = GenericUnitlessValue(
                 displayName: "Name",
-                backingValue: portDescription.portName
+                value: portDescription.portName
             )
 
             if #available(iOS 10.0, *) {
@@ -87,14 +87,14 @@ public extension AudioOutput {
             #if swift(>=4.2)
             type = GenericUnitlessValue(
                 displayName: "Type",
-                backingValue: portDescription.portType,
+                value: portDescription.portType,
                 formattedValue: portDescription.portType.displayValue
             )
             #else
             let portType = AVAudioSession.Port(string: portDescription.portType)
             type = GenericUnitlessValue(
                 displayName: "Type",
-                backingValue: portType,
+                value: portType,
                 formattedValue: portType.displayValue
             )
             #endif

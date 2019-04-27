@@ -1,42 +1,42 @@
 import Foundation
 import CoreMotion
 
-public final class CMMagneticFieldValue: Value<CMMagneticField, CMMagneticFieldFormatter>, ValuesProvider {
+public final class CMMagneticFieldValue: Property<CMMagneticField, CMMagneticFieldFormatter>, PropertiesProvider {
     
-    public var allValues: [AnyValue] {
+    public var allProperties: [AnyProperty] {
         return [x, y, z]
     }
     
     public var x: MagneticFieldValue {
-        return .microTesla(displayName: "value.cmmagneticfield.value.x.name".localized, value: backingValue.x, date: date)
+        return .microTesla(displayName: "value.cmmagneticfield.value.x.name".localized, value: value.x, date: date)
     }
     
     public var y: MagneticFieldValue {
-        return .microTesla(displayName: "value.cmmagneticfield.value.y.name".localized, value: backingValue.y, date: date)
+        return .microTesla(displayName: "value.cmmagneticfield.value.y.name".localized, value: value.y, date: date)
     }
     
     public var z: MagneticFieldValue {
-        return .microTesla(displayName: "value.cmmagneticfield.value.z.name".localized, value: backingValue.z, date: date)
+        return .microTesla(displayName: "value.cmmagneticfield.value.z.name".localized, value: value.z, date: date)
     }
     
 }
 
-public final class OptionalCMMagneticFieldValue: OptionalValue<CMMagneticField, CMMagneticFieldFormatter>, ValuesProvider {
+public final class OptionalCMMagneticFieldValue: OptionalProperty<CMMagneticField, CMMagneticFieldFormatter>, PropertiesProvider {
     
-    public var allValues: [AnyValue] {
+    public var allProperties: [AnyProperty] {
         return [x, y, z]
     }
     
     public var x: OptionalMagneticFieldValue {
-        return .microTesla(displayName: "value.cmmagneticfield.value.x.name".localized, value: backingValue?.x, date: date)
+        return .microTesla(displayName: "value.cmmagneticfield.value.x.name".localized, value: value?.x, date: date)
     }
     
     public var y: OptionalMagneticFieldValue {
-        return .microTesla(displayName: "value.cmmagneticfield.value.y.name".localized, value: backingValue?.y, date: date)
+        return .microTesla(displayName: "value.cmmagneticfield.value.y.name".localized, value: value?.y, date: date)
     }
     
     public var z: OptionalMagneticFieldValue {
-        return .microTesla(displayName: "value.cmmagneticfield.value.z.name".localized, value: backingValue?.z, date: date)
+        return .microTesla(displayName: "value.cmmagneticfield.value.z.name".localized, value: value?.z, date: date)
     }
     
 }

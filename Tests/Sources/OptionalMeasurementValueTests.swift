@@ -9,7 +9,7 @@ final class OptionalMeasurementValueTests: QuickSpec {
 
     override func spec() {
         describe("OptionalMeasurementValue") {
-            var value: OptionalMeasurementValue<UnitFrequency>!
+            var value: OptionalMeasurementProperty<UnitFrequency>!
             
             beforeEach {
                 value = .radiansPerSecond(displayName: "test")

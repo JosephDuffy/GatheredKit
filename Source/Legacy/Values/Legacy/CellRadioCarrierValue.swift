@@ -2,9 +2,9 @@ import Foundation
 import CoreTelephony
 
 public extension CellRadio {
-    public struct CarrierValue: Value, ValuesProvider {
+    public struct CarrierValue: Value, PropertiesProvider {
 
-        public var allValues: [AnyValue] {
+        public var allProperties: [AnyProperty] {
             return [
                 name,
                 mobileCountryCode,
@@ -14,54 +14,54 @@ public extension CellRadio {
             ]
         }
 
-        public var name: GenericUnitlessValue<String?> {
+        public var name: GenericUnitlessProperty<String?> {
             return GenericUnitlessValue(
                 displayName: "Name",
-                backingValue: backingValue?.carrierName,
-                formattedValue: backingValue?.carrierName == nil
+                value: value?.carrierName,
+                formattedValue: value?.carrierName == nil
                     ? "Unknown"
                     : nil,
                 date: date
             )
         }
 
-        public var mobileCountryCode: GenericUnitlessValue<String?> {
+        public var mobileCountryCode: GenericUnitlessProperty<String?> {
             return GenericUnitlessValue(
                 displayName: "Mobile Country Code",
-                backingValue: backingValue?.mobileCountryCode,
-                formattedValue: backingValue?.mobileCountryCode == nil
+                value: value?.mobileCountryCode,
+                formattedValue: value?.mobileCountryCode == nil
                     ? "Unknown"
                     : nil,
                 date: date
             )
         }
 
-        public var mobileNetworkCode: GenericUnitlessValue<String?> {
+        public var mobileNetworkCode: GenericUnitlessProperty<String?> {
             return GenericUnitlessValue(
                 displayName: "Mobile Network Code",
-                backingValue: backingValue?.mobileNetworkCode,
-                formattedValue: backingValue?.mobileNetworkCode == nil
+                value: value?.mobileNetworkCode,
+                formattedValue: value?.mobileNetworkCode == nil
                     ? "Unknown"
                     : nil,
                 date: date
             )
         }
 
-        public var isoCountryCode: GenericUnitlessValue<String?> {
+        public var isoCountryCode: GenericUnitlessProperty<String?> {
             return GenericUnitlessValue(
                 displayName: "ISO Country Code",
-                backingValue: backingValue?.isoCountryCode,
-                formattedValue: backingValue?.isoCountryCode == nil
+                value: value?.isoCountryCode,
+                formattedValue: value?.isoCountryCode == nil
                     ? "Unknown"
                     : nil,
                 date: date
             )
         }
 
-        public var allowsVOIP: GenericValue<Bool?, Boolean> {
+        public var allowsVOIP: GenericProperty<Bool?, Boolean> {
             return GenericValue(
                 displayName: "Allows VOIP",
-                backingValue: backingValue?.allowsVOIP,
+                value: value?.allowsVOIP,
                 unit: Boolean(trueString: "Yes", falseString: "No"),
                 date: date
             )
@@ -71,23 +71,23 @@ public extension CellRadio {
 
         public let formattedValue: String? = nil
 
-        public let backingValue: CTCarrier?
+        public let value: CTCarrier?
 
         public let date: Date
 
-        public init(backingValue: CTCarrier? = nil, date: Date = Date()) {
-            self.backingValue = backingValue
+        public init(value: CTCarrier? = nil, date: Date = Date()) {
+            self.value = value
             self.date = date
         }
 
         /**
          Updates `self` to be a new `CellCarrierValue` instance with the
-         updates values provided
+         updates properties provided
 
-         - parameter backingValue: The new value
+         - parameter value: The new value
          */
-        public mutating func update(backingValue: CTCarrier) {
-            self = CarrierValue(backingValue: backingValue, date: Date())
+        public mutating func update(value: CTCarrier) {
+            self = CarrierValue(value: value, date: Date())
         }
 
     }

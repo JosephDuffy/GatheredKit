@@ -3,7 +3,7 @@ import CoreMotion
 
 open class CoreMotionSource: CustomisableUpdateIntervalControllable, Producer {
     
-    public typealias ProducedValue = [AnyValue]
+    public typealias ProducedValue = [AnyProperty]
     
     public static var defaultUpdateInterval: TimeInterval = 1
 

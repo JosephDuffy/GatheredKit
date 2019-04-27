@@ -3,12 +3,12 @@ import Foundation
 /**
  A base class that can be used to create sources that can only be polled for updates.
 
- To benefit from `BasePollingSource` your subclass must implement `ManuallyUpdatableValuesProvider`. This
+ To benefit from `BasePollingSource` your subclass must implement `ManuallyUpdatablePropertiesProvider`. This
  will add `CustomisableUpdateIntervalSource` conformance via an extension.
  */
 open class BasePollingSource: Source, Producer {
     
-    public typealias ProducedValue = [AnyValue]
+    public typealias ProducedValue = [AnyProperty]
     
     open class var availability: SourceAvailability {
         return .available
@@ -52,7 +52,7 @@ open class BasePollingSource: Source, Producer {
         }
     }
     
-    public var allValues: [AnyValue] = []
+    public var allProperties: [AnyProperty] = []
     
     internal var consumers: [AnyConsumer] = []
 
@@ -66,7 +66,7 @@ open class BasePollingSource: Source, Producer {
 
 extension BasePollingSource: ConsumersProvider { }
 
-extension CustomisableUpdateIntervalControllable where Self: BasePollingSource, Self: ManuallyUpdatableValuesProvider {
+extension CustomisableUpdateIntervalControllable where Self: BasePollingSource, Self: ManuallyUpdatablePropertiesProvider {
 
     public func stopUpdating() {
         state = .notMonitoring
@@ -97,4 +97,4 @@ extension CustomisableUpdateIntervalControllable where Self: BasePollingSource, 
 
 }
 
-public extension CustomisableUpdateIntervalControllable where Self: BasePollingSource, Self: ManuallyUpdatableValuesProvider {}
+public extension CustomisableUpdateIntervalControllable where Self: BasePollingSource, Self: ManuallyUpdatablePropertiesProvider {}

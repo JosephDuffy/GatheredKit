@@ -1,6 +1,6 @@
 import Foundation
 
-public final class Storage: BasePollingSource, Source, CustomisableUpdateIntervalControllable, ManuallyUpdatableValuesProvider {
+public final class Storage: BasePollingSource, Source, CustomisableUpdateIntervalControllable, ManuallyUpdatablePropertiesProvider {
 
     public static var defaultUpdateInterval: TimeInterval = 1
 
@@ -8,13 +8,13 @@ public final class Storage: BasePollingSource, Source, CustomisableUpdateInterva
 
     public static let name = "Storage"
 
-    public private(set) var capacity: GenericValue<Int64?, Byte>
+    public private(set) var capacity: GenericProperty<Int64?, Byte>
 
-    public private(set) var available: GenericValue<Int64?, Byte>
+    public private(set) var available: GenericProperty<Int64?, Byte>
 
-    public private(set) var free: GenericValue<Int64?, Byte>
+    public private(set) var free: GenericProperty<Int64?, Byte>
 
-    public var allValues: [AnyValue] {
+    public var allProperties: [AnyProperty] {
         return [capacity, available, free]
     }
 
@@ -30,14 +30,14 @@ public final class Storage: BasePollingSource, Source, CustomisableUpdateInterva
         free = GenericValue(displayName: "Free", unit: Byte(countStyle: .file))
     }
 
-    public func updateValues() -> [AnyValue] {
+    public func updateValues() -> [AnyProperty] {
         let paths = NSSearchPathForDirectoriesInDomains(
             .documentDirectory,
             .userDomainMask,
             true
         )
 
-        guard let path = paths.first else { return allValues }
+        guard let path = paths.first else { return allProperties }
 
         do {
             let dictionary = try FileManager.default.attributesOfFileSystem(
@@ -47,23 +47,23 @@ public final class Storage: BasePollingSource, Source, CustomisableUpdateInterva
             let free = dictionary[FileAttributeKey.systemFreeSize] as? NSNumber
 
             if capacity != nil {
-                self.capacity.update(backingValue: capacity?.int64Value)
+                self.capacity.update(value: capacity?.int64Value)
             }
 
             if free != nil {
-                self.free.update(backingValue: free?.int64Value)
+                self.free.update(value: free?.int64Value)
             }
 
             if let capacity = capacity, let free = free {
                 let available = capacity.int64Value - free.int64Value
-                self.available.update(backingValue: available)
+                self.available.update(value: available)
             }
 
         } catch {
             print("Error getting Storage data", error)
         }
 
-        return allValues
+        return allProperties
     }
 
 }

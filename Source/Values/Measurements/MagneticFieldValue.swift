@@ -1,9 +1,9 @@
 import Foundation
 
-public final class MagneticFieldValue: MeasurementValue<UnitMagneticField> { }
-public final class OptionalMagneticFieldValue: OptionalMeasurementValue<UnitMagneticField> { }
+public final class MagneticFieldValue: MeasurementProperty<UnitMagneticField> { }
+public final class OptionalMagneticFieldValue: OptionalMeasurementProperty<UnitMagneticField> { }
 
-extension AnyValue {
+extension AnyProperty {
     
     static func magneticField(
         displayName: String,

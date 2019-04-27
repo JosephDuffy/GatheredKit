@@ -1,6 +1,6 @@
 import Foundation
 
-public final class OperatingSystem: BasePollingSource, Source, CustomisableUpdateIntervalControllable, ManuallyUpdatableValuesProvider {
+public final class OperatingSystem: BasePollingSource, Source, CustomisableUpdateIntervalControllable, ManuallyUpdatablePropertiesProvider {
 
     public static var defaultUpdateInterval: TimeInterval = 0.5
 
@@ -8,14 +8,14 @@ public final class OperatingSystem: BasePollingSource, Source, CustomisableUpdat
 
     public static let name = "Operating System"
 
-    public let version: GenericUnitlessValue<OperatingSystemVersion>
-    public let build: GenericUnitlessValue<String?>
-    public let name: GenericUnitlessValue<String>
-    public private(set) var uptime: GenericValue<TimeInterval, Time>
+    public let version: GenericUnitlessProperty<OperatingSystemVersion>
+    public let build: GenericUnitlessProperty<String?>
+    public let name: GenericUnitlessProperty<String>
+    public private(set) var uptime: GenericProperty<TimeInterval, Time>
 
     private var observer: NSObjectProtocol?
 
-    public var allValues: [AnyValue] {
+    public var allProperties: [AnyProperty] {
         return [
             version,
             build,
@@ -30,25 +30,25 @@ public final class OperatingSystem: BasePollingSource, Source, CustomisableUpdat
     public override init() {
         version = GenericUnitlessValue(
             displayName: "Version",
-            backingValue: processInfo.operatingSystemVersion,
+            value: processInfo.operatingSystemVersion,
             formattedValue: processInfo.operatingSystemVersionString
         )
-        name = GenericUnitlessValue(displayName: "Name", backingValue: device.systemName)
-        uptime = GenericValue(displayName: "Uptime", backingValue: processInfo.systemUptime)
+        name = GenericUnitlessValue(displayName: "Name", value: device.systemName)
+        uptime = GenericValue(displayName: "Uptime", value: processInfo.systemUptime)
 
         let buildValue = try? SysctlHelper.string(for: [CTL_KERN, KERN_OSVERSION])
         let buildFormattedValue = buildValue == nil ? "Unknown" : nil
 
         build = GenericUnitlessValue(
             displayName: "Build",
-            backingValue: buildValue,
+            value: buildValue,
             formattedValue: buildFormattedValue
         )
     }
 
-    public func updateValues() -> [AnyValue] {
-        uptime.update(backingValue: processInfo.systemUptime)
-        return allValues
+    public func updateValues() -> [AnyProperty] {
+        uptime.update(value: processInfo.systemUptime)
+        return allProperties
     }
 
     public func startUpdating() {

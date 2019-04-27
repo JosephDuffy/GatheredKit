@@ -1,6 +1,10 @@
 import Foundation
 
-public class MeasurementValue<Unit: Foundation.Unit>: Value<Measurement<Unit>, MeasurementFormatter> {
+public class MeasurementProperty<Unit: Foundation.Unit>: Property<Measurement<Unit>, MeasurementFormatter> {
+    
+    public var measurement: Measurement<Unit> {
+        return value
+    }
         
     public convenience init(
         displayName: String,
@@ -11,7 +15,7 @@ public class MeasurementValue<Unit: Foundation.Unit>: Value<Measurement<Unit>, M
         date: Date = Date()
     ) {
         let measurement = Measurement(value: value, unit: unit)
-        self.init(displayName: displayName, backingValue: measurement, formatter: formatter, formattedValue: formattedValue, date: date)
+        self.init(displayName: displayName, value: measurement, formatter: formatter, formattedValue: formattedValue, date: date)
     }
     
     public func update(
@@ -20,8 +24,8 @@ public class MeasurementValue<Unit: Foundation.Unit>: Value<Measurement<Unit>, M
         formattedValue: String? = nil,
         date: Date = Date()
     ) {
-        let measurement = Measurement(value: value, unit: self.backingValue.unit)
-        self.update(backingValue: measurement, formattedValue: formattedValue, date: date)
+        let measurement = Measurement(value: value, unit: self.value.unit)
+        self.update(value: measurement, formattedValue: formattedValue, date: date)
     }
     
     public func update(
@@ -29,7 +33,7 @@ public class MeasurementValue<Unit: Foundation.Unit>: Value<Measurement<Unit>, M
         formattedValue: String? = nil,
         date: Date = Date()
     ) {
-        self.update(value: value, unit: backingValue.unit, formattedValue: formattedValue, date: date)
+        self.update(value: value, unit: measurement.unit, formattedValue: formattedValue, date: date)
     }
     
     public func update(
@@ -46,12 +50,12 @@ public class MeasurementValue<Unit: Foundation.Unit>: Value<Measurement<Unit>, M
         formattedValue: String? = nil,
         date: Date = Date()
     ) {
-        self.update(value: Double(value), unit: backingValue.unit, formattedValue: formattedValue, date: date)
+        self.update(value: Double(value), unit: measurement.unit, formattedValue: formattedValue, date: date)
     }
     
 }
 
-public class OptionalMeasurementValue<Unit: Foundation.Unit>: OptionalValue<Measurement<Unit>, MeasurementFormatter> {
+public class OptionalMeasurementProperty<Unit: Foundation.Unit>: OptionalProperty<Measurement<Unit>, MeasurementFormatter> {
     
     public convenience init(
         displayName: String,
@@ -67,7 +71,7 @@ public class OptionalMeasurementValue<Unit: Foundation.Unit>: OptionalValue<Meas
         } else {
             measurement = nil
         }
-        self.init(displayName: displayName, backingValue: measurement, formatter: formatter, formattedValue: formattedValue, date: date)
+        self.init(displayName: displayName, value: measurement, formatter: formatter, formattedValue: formattedValue, date: date)
     }
     
     public func update(
@@ -79,7 +83,7 @@ public class OptionalMeasurementValue<Unit: Foundation.Unit>: OptionalValue<Meas
         if let value = value {
             update(value: value, unit: unit, formattedValue: formattedValue, date: date)
         } else {
-            update(backingValue: nil, formattedValue: formattedValue, date: date)
+            update(value: nil, formattedValue: formattedValue, date: date)
         }
     }
     
@@ -90,7 +94,7 @@ public class OptionalMeasurementValue<Unit: Foundation.Unit>: OptionalValue<Meas
         date: Date = Date()
     ) {
         let measurement = Measurement<Unit>(value: value, unit: unit)
-        self.update(backingValue: measurement, formattedValue: formattedValue, date: date)
+        self.update(value: measurement, formattedValue: formattedValue, date: date)
     }
     
     public func update(
@@ -104,7 +108,7 @@ public class OptionalMeasurementValue<Unit: Foundation.Unit>: OptionalValue<Meas
     
 }
 
-public extension AnyValue {
+public extension AnyProperty {
 
     static func measurement<Unit: Foundation.Unit>(
         displayName: String,
@@ -113,11 +117,11 @@ public extension AnyValue {
         formatter: MeasurementFormatter = MeasurementFormatter(),
         formattedValue: String? = nil,
         date: Date = Date()
-    ) -> MeasurementValue<Unit> {
-        let backingValue = Measurement(value: value, unit: unit)
-        return MeasurementValue<Unit>(
+    ) -> MeasurementProperty<Unit> {
+        let measurement = Measurement(value: value, unit: unit)
+        return MeasurementProperty<Unit>(
             displayName: displayName,
-            backingValue: backingValue,
+            value: measurement,
             formatter: formatter,
             formattedValue: formattedValue,
             date: date
@@ -131,16 +135,16 @@ public extension AnyValue {
         formatter: MeasurementFormatter = MeasurementFormatter(),
         formattedValue: String? = nil,
         date: Date = Date()
-    ) -> OptionalMeasurementValue<Unit> {
-        let backingValue: Measurement<Unit>?
+    ) -> OptionalMeasurementProperty<Unit> {
+        let measurement: Measurement<Unit>?
         if let value = value {
-            backingValue = Measurement(value: value, unit: unit)
+            measurement = Measurement(value: value, unit: unit)
         } else {
-            backingValue = nil
+            measurement = nil
         }
-        return OptionalMeasurementValue<Unit>(
+        return OptionalMeasurementProperty<Unit>(
             displayName: displayName,
-            backingValue: backingValue,
+            value: measurement,
             formatter: formatter,
             formattedValue: formattedValue,
             date: date

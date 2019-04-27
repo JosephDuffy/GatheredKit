@@ -4,9 +4,9 @@ import UIKit
  A wrapper around `UIScreen`. Each property is read directly from `UIScreen`; every property is always the latest
  available value
  */
-public final class Screen: Source, Controllable, Producer, ValuesProvider {
+public final class Screen: Source, Controllable, Producer, PropertiesProvider {
     
-    public typealias ProducedValue = [AnyValue]
+    public typealias ProducedValue = [AnyProperty]
     
     private enum State {
         case notMonitoring
@@ -59,7 +59,7 @@ public final class Screen: Source, Controllable, Producer, ValuesProvider {
      This value will update automatically when `startUpdating` is called
      */
     public var brightness: PercentValue {
-        return PercentValue(displayName: "Brightness", backingValue: screen.brightness.native)
+        return PercentValue(displayName: "Brightness", value: screen.brightness.native)
     }
 
     /**
@@ -70,7 +70,7 @@ public final class Screen: Source, Controllable, Producer, ValuesProvider {
      - Screen Resolution (native)
      - Brightness
      */
-    public var allValues: [AnyValue] {
+    public var allProperties: [AnyProperty] {
         return [
             reportedResolution,
             nativeResolution,
@@ -106,24 +106,24 @@ public final class Screen: Source, Controllable, Producer, ValuesProvider {
 
         reportedResolution = SizeValue(
             displayName: "Resolution (reported)",
-            backingValue: screen.bounds.size
+            value: screen.bounds.size
         )
         reportedResolution.formatter.suffix = " Points"
 
         nativeResolution = SizeValue(
             displayName: "Resolution (native)",
-            backingValue: screen.nativeBounds.size
+            value: screen.nativeBounds.size
         )
         nativeResolution.formatter.suffix = " Pixels"
 
         reportedScale = ScaleValue(
             displayName: "Scale (reported)",
-            backingValue: screen.scale.native
+            value: screen.scale.native
         )
 
         nativeScale = ScaleValue(
             displayName: "Scale (native)",
-            backingValue: screen.nativeScale.native
+            value: screen.nativeScale.native
         )
     }
 

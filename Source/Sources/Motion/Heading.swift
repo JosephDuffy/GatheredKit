@@ -2,7 +2,7 @@ import Foundation
 import CoreMotion
 
 @available(iOS 11.0, *)
-public final class Heading: CoreMotionSource, Source, ValuesProvider {
+public final class Heading: CoreMotionSource, Source, PropertiesProvider {
     
     public enum ReferenceFrame: CaseIterable {
 
@@ -41,12 +41,12 @@ public final class Heading: CoreMotionSource, Source, ValuesProvider {
 
     public let heading: OptionalDoubleValue
 
-    public var allValues: [AnyValue] {
+    public var allProperties: [AnyProperty] {
         return [heading]
     }
 
     public override init() {
-        heading = OptionalDoubleValue(displayName: "source.heading.values.heading.display-name")
+        heading = OptionalDoubleValue(displayName: "source.heading.properties.heading.display-name")
     }
 
     public func startUpdating(
@@ -60,7 +60,7 @@ public final class Heading: CoreMotionSource, Source, ValuesProvider {
                 guard let data = data else { return }
                 
                 self.heading.update(
-                    backingValue: data.heading,
+                    value: data.heading,
                     formattedValue: data.heading < 0 ? "source.heading.value.heading.unknown-value" : nil,
                     date: data.date
                 )

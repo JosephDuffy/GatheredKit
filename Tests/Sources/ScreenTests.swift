@@ -19,23 +19,23 @@ final class ScreenTests: QuickSpec {
                 }
 
                 it("should set the `reportedScreenResolution` using the backing object's `bounds.size` property") {
-                    expect(screen.reportedResolution.backingValue).to(equal(mock.bounds.size))
+                    expect(screen.reportedResolution.value).to(equal(mock.bounds.size))
                 }
 
                 it("should set the `nativeScreenResolution` using the backing object's `nativeBounds` property") {
-                    expect(screen.nativeResolution.backingValue).to(equal(mock.nativeBounds.size))
+                    expect(screen.nativeResolution.value).to(equal(mock.nativeBounds.size))
                 }
 
                 it("should set the `reportedScreenScale` using the backing object's `scale` property") {
-                    expect(screen.reportedResolution.backingValue).to(equal(mock.bounds.size))
+                    expect(screen.reportedResolution.value).to(equal(mock.bounds.size))
                 }
 
                 it("should set the `nativeScreenScale` using the backing object's `nativeScale` property") {
-                    expect(screen.nativeScale.backingValue).to(equal(mock.nativeScale.native))
+                    expect(screen.nativeScale.value).to(equal(mock.nativeScale.native))
                 }
 
                 it("should set the `brightness` using the backing object's `brightness` property") {
-                    expect(screen.brightness.backingValue).to(equal(mock.brightness.native))
+                    expect(screen.brightness.value).to(equal(mock.brightness.native))
                 }
 
             }
@@ -45,7 +45,7 @@ final class ScreenTests: QuickSpec {
                 var screen: Screen!
                 var notificationCenter: MockNotificationCenter!
                 var hasUpdateConsumerBeenDeallocated: Bool!
-                var updateConsumer: MockValuesConsumer<[AnyValue], Screen>!
+                var updateConsumer: MockValuesConsumer<[AnyProperty], Screen>!
 
                 beforeEach {
                     mockBackingData = MockScreenBackingData()
@@ -112,7 +112,7 @@ final class ScreenTests: QuickSpec {
                         expect(updateConsumer.latestValues).to(containElementSatisfying({ value in
                             guard let value = value as? PercentValue else { return false }
                             guard value.displayName == screen.brightness.displayName else { return false }
-                            return value.backingValue == mockBackingData.brightness.native
+                            return value.value == mockBackingData.brightness.native
                         }))
                     }
                 }

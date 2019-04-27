@@ -1,43 +1,43 @@
 import Foundation
 import CoreMotion
 
-public struct QuaternionValue: Value, ValuesProvider {
+public struct QuaternionValue: Value, PropertiesProvider {
 
-    public var allValues: [AnyValue] {
+    public var allProperties: [AnyProperty] {
         return [x, y, z, w]
     }
 
-    public var x: GenericValue<Double?, NumericNone> {
+    public var x: GenericProperty<Double?, NumericNone> {
         return GenericValue(
             displayName: "x",
-            backingValue: backingValue?.x,
+            value: value?.x,
             unit: NumericNone(maximumFractionDigits: 20),
             date: date
         )
     }
 
-    public var y: GenericValue<Double?, NumericNone> {
+    public var y: GenericProperty<Double?, NumericNone> {
         return GenericValue(
             displayName: "y",
-            backingValue: backingValue?.y,
+            value: value?.y,
             unit: NumericNone(maximumFractionDigits: 20),
             date: date
         )
     }
 
-    public var z: GenericValue<Double?, NumericNone> {
+    public var z: GenericProperty<Double?, NumericNone> {
         return GenericValue(
             displayName: "z",
-            backingValue: backingValue?.z,
+            value: value?.z,
             unit: NumericNone(maximumFractionDigits: 20),
             date: date
         )
     }
 
-    public var w: GenericValue<Double?, NumericNone> {
+    public var w: GenericProperty<Double?, NumericNone> {
         return GenericValue(
             displayName: "w",
-            backingValue: backingValue?.w,
+            value: value?.w,
             unit: NumericNone(maximumFractionDigits: 20),
             date: date
         )
@@ -47,24 +47,24 @@ public struct QuaternionValue: Value, ValuesProvider {
 
     public let formattedValue: String? = nil
 
-    public let backingValue: CMQuaternion?
+    public let value: CMQuaternion?
 
     public let date: Date
 
-    public init(backingValue: CMQuaternion? = nil, date: Date) {
-        self.backingValue = backingValue
+    public init(value: CMQuaternion? = nil, date: Date) {
+        self.value = value
         self.date = date
     }
 
     /**
      Updates `self` to be a new `RotationRateValue` instance with the
-     updates values provided
+     updates properties provided
 
-     - parameter backingValue: The new value of the data
+     - parameter value: The new value of the data
      - parameter date: The date and time the `value` was recorded. Defaults to the current date and time
      */
-    public mutating func update(backingValue: ValueType, date: Date = Date()) {
-        self = QuaternionValue(backingValue: backingValue, date: date)
+    public mutating func update(value: ValueType, date: Date = Date()) {
+        self = QuaternionValue(value: value, date: date)
     }
 
 }
