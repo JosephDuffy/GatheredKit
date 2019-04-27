@@ -2,7 +2,9 @@ import Foundation
 import CoreLocation
 
 // TODO: Wrap delegate to remove need for inheritance from `NSObject`
-public final class Location: NSObject, Source, Controllable, ValuesProvider, UpdateConsumersProvider {
+public final class Location: NSObject, Source, Controllable, Producer, ValuesProvider {
+
+    public typealias ProducedValue = [AnyValue]
 
     internal static var LocationManagerType: LocationManager.Type = CLLocationManager.self
 
@@ -20,15 +22,13 @@ public final class Location: NSObject, Source, Controllable, ValuesProvider, Upd
     public static var name = "Location"
 
     public let coordinate: OptionalCoordinateValue
-    public private(set) var speed: OptionalSpeedValue = .metersPerSecond(displayName: "Speed")
-    public private(set) var course: OptionalAngleValue = .degrees(displayName: "Course")
-    public private(set) var altitude: OptionalLengthValue = .meters(displayName: "Altitude")
-    public private(set) var floor = OptionalValue<CLFloor, NumberFormatter>(displayName: "Floor", formatter: NumberFormatter())
-    public private(set) var horizonalAccuracy: OptionalLengthValue = .meters(displayName: "Horizontal Accuracy")
-    public private(set) var verticalAccuracy: OptionalLengthValue = .meters(displayName: "Vertical Accuracy")
-    public var authorizationStatus: LocationAuthorizationValue {
-        return LocationAuthorizationValue(displayName: "Authorization Status", backingValue: Location.LocationManagerType.authorizationStatus())
-    }
+    public let speed: OptionalSpeedValue = .metersPerSecond(displayName: "Speed")
+    public let course: OptionalAngleValue = .degrees(displayName: "Course")
+    public let altitude: OptionalLengthValue = .meters(displayName: "Altitude")
+    public let floor = OptionalValue<CLFloor, NumberFormatter>(displayName: "Floor", formatter: NumberFormatter())
+    public let horizonalAccuracy: OptionalLengthValue = .meters(displayName: "Horizontal Accuracy")
+    public let verticalAccuracy: OptionalLengthValue = .meters(displayName: "Vertical Accuracy")
+    public let authorizationStatus = LocationAuthorizationValue(displayName: "Authorization Status", backingValue: Location.LocationManagerType.authorizationStatus())
 
     /**
      An array of all the values associated with the location of the
@@ -63,7 +63,7 @@ public final class Location: NSObject, Source, Controllable, ValuesProvider, Upd
         }
     }
     
-    public var updateConsumers: [UpdatesConsumer] = []
+    internal var consumers: [AnyConsumer] = []
 
     private var locationManager: LocationManager? {
         if case .monitoring(let locationManager) = state {
@@ -96,14 +96,25 @@ public final class Location: NSObject, Source, Controllable, ValuesProvider, Upd
     }
 
     public func startUpdating(allowBackgroundUpdates: Bool = false, desiredAccuracy accuracy: Accuracy = .best) {
-        let locationManager = Location.LocationManagerType.init()
-        locationManager.delegate = self
+        let locationManager: LocationManager = {
+            if let locationManager = self.locationManager {
+                return locationManager
+            } else {
+                let locationManager = Location.LocationManagerType.init()
+                locationManager.delegate = self
+                return locationManager
+            }
+        }()
         locationManager.desiredAccuracy = accuracy.asCLLocationAccuracy
         locationManager.allowsBackgroundLocationUpdates = allowBackgroundUpdates
 
-        self.locationManager?.stopUpdatingLocation()
-
         let authorizationStatus = Location.LocationManagerType.authorizationStatus()
+        self.authorizationStatus.update(backingValue: authorizationStatus)
+        
+        defer {
+            notifyUpdateConsumersOfLatestValues()
+        }
+        
         switch authorizationStatus {
         case .authorizedAlways:
             state = .monitoring(locationManager: locationManager)
@@ -131,7 +142,7 @@ public final class Location: NSObject, Source, Controllable, ValuesProvider, Upd
             state = .notMonitoring
             notifyUpdateConsumersOfLatestValues()
         @unknown default:
-            stopUpdating()
+            break
         }
     }
 
@@ -164,6 +175,8 @@ extension Location: CLLocationManagerDelegate {
 
     public func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
         guard status != .notDetermined else { return }
+        
+        authorizationStatus.update(backingValue: status)
 
         if Location.availability == .available, isAskingForLocationPermissions {
             // The user has just granted location permissions
@@ -184,6 +197,8 @@ extension Location: CLLocationManagerDelegate {
     }
 
 }
+
+extension Location: ConsumersProvider { }
 
 extension Location {
 

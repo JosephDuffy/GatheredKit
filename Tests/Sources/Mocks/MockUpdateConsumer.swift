@@ -1,20 +1,21 @@
 import GatheredKit
 
-internal final class MockUpdateConsumer: UpdatesConsumer {
+internal final class MockValuesConsumer<ConsumedValue, ConsumedSender>: Consumer {
     
-    internal private(set) var latestParameters: (values: [AnyValue], sender: AnyObject)?
-    internal var latestValues: [AnyValue]? {
-        return latestParameters?.values
-    }
-    internal var latestSource: AnyObject? {
-        return latestParameters?.sender
-    }
+    internal private(set) var latestValues: ConsumedValue?
+    
+    internal var deinitHandler: (() -> Void)?
+    
     internal var hasBeenCalled: Bool {
-        return latestParameters != nil
+        return latestValues != nil
     }
     
-    func comsume(values: [AnyValue], sender: AnyObject) {
-        latestParameters = (values, sender)
+    deinit {
+        deinitHandler?()
+    }
+    
+    internal func consume(value: ConsumedValue, sender: ConsumedSender) {
+        latestValues = value
     }
     
 }

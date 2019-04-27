@@ -1,37 +1,9 @@
 import Foundation
 
-// TODO: Rename to `AnyProperty`
-public protocol AnyValue {
-    var displayName: String { get }
-    var backingValueAsAny: Any? { get }
-    var date: Date { get }
-    var anyFormatter: Foundation.Formatter { get }
-    var formattedValue: String? { get }
-}
-
-open class OptionalValue<ValueType, Formatter: Foundation.Formatter>: Value<ValueType?, Formatter> {
+open class Value<ValueType, Formatter: Foundation.Formatter>: AnyValue, Producer {
     
-    public override var backingValueAsAny: Any? {
-        // This override is required to give the compiler more information, allowing
-        // code such as `assert(OptionalValue(..., backingValue: nil).backingValueAsAny == nil)`
-        // to pass
-        return backingValue
-    }
+    public typealias ProducedValue = Snapshot
     
-    public required init(
-        displayName: String,
-        backingValue: ValueType? = nil,
-        formatter: Formatter = Formatter(),
-        formattedValue: String? = nil,
-        date: Date = Date()
-    ) {
-        super.init(displayName: displayName, backingValue: backingValue, formatter: formatter, formattedValue: formattedValue, date: date)
-    }
-    
-}
-
-open class Value<ValueType, Formatter: Foundation.Formatter>: AnyValue, UpdateConsumersProvider {
-
     public struct Snapshot {
         public let value: ValueType
         public let date: Date
@@ -42,13 +14,13 @@ open class Value<ValueType, Formatter: Foundation.Formatter>: AnyValue, UpdateCo
         return formatter
     }
 
-    public let displayName: String
-
     public var snapshot: Snapshot {
         didSet {
-            updateConsumers.forEach({ $0.comsume(values: [self], sender: self)})
+            consumers.forEach { $0.consume(snapshot, self) }
         }
     }
+    
+    public let displayName: String
 
     public var backingValue: ValueType {
         get {
@@ -64,6 +36,8 @@ open class Value<ValueType, Formatter: Foundation.Formatter>: AnyValue, UpdateCo
     }
 
     public let formatter: Formatter
+    
+    private var consumers: [AnyConsumer] = []
 
     public var formattedValue: String? {
         return snapshot.formattedValue ?? formatter.string(for: backingValue)
@@ -72,8 +46,6 @@ open class Value<ValueType, Formatter: Foundation.Formatter>: AnyValue, UpdateCo
     public var backingValueAsAny: Any? {
         return backingValue
     }
-
-    public var updateConsumers: [UpdatesConsumer] = []
 
     public required init(
         displayName: String,

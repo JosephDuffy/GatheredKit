@@ -1,8 +1,10 @@
 import Foundation
 
-public final class NotificationsUpdatesConsumer: UpdatesConsumer {
+public final class NotificationConsumer<ConsumedValue, ConsumedSender>: Consumer {
     
-    static let valuesUserInfoKey = "values"
+    public static var valueUserInfoKey: String {
+        return "value"
+    }
     
     private let notificationName: Notification.Name
     private let notificationCenter: NotificationCenter
@@ -12,12 +14,12 @@ public final class NotificationsUpdatesConsumer: UpdatesConsumer {
         self.notificationCenter = notificationCenter
     }
     
-    public func comsume(values: [AnyValue], sender: AnyObject) {
+    public func consume(value: ConsumedValue, sender: ConsumedSender) {
         notificationCenter.post(
             name: notificationName,
             object: sender,
             userInfo: [
-                NotificationsUpdatesConsumer.valuesUserInfoKey: values,
+                NotificationConsumer<ConsumedValue, ConsumedSender>.valueUserInfoKey: value,
             ]
         )
     }

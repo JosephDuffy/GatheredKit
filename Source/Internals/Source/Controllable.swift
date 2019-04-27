@@ -21,7 +21,7 @@ public protocol Controllable: class {
 
 }
 
-public extension Controllable where Self: Source & UpdateConsumersProvider {
+public extension Controllable where Self: Producer {
 
     /**
      Starts automatic updates and adds a closure to the array of closures that will be called when
@@ -37,11 +37,11 @@ public extension Controllable where Self: Source & UpdateConsumersProvider {
      */
     func startUpdating(
         sendingUpdatesOn queue: OperationQueue = .main,
-        to updateListener: @escaping ClosureUpdatesConsumer.UpdatesClosure
-    ) -> AnyObject {
-        let listenerToken = addUpdateListener(updateListener, queue: queue)
+        to updateListener: @escaping ClosureConsumer<ProducedValue, Self>.UpdatesClosure
+    ) -> ClosureConsumer<ProducedValue, Self> {
+        let consumer = consumeUpdates(sendingUpdatesOn: queue, to: updateListener)
         startUpdating()
-        return listenerToken
+        return consumer
     }
 
 }
