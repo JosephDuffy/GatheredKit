@@ -67,6 +67,7 @@
 		D9C7D749227357770096DE89 /* Gyroscope.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9B84DDF20CC83D900380C42 /* Gyroscope.swift */; };
 		D9C7D74B2274A7890096DE89 /* Magnetometer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9B84DE120CF0FB800380C42 /* Magnetometer.swift */; };
 		D9C7D74C2274A7A80096DE89 /* Heading.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9386AFA225522F200B081AB /* Heading.swift */; };
+		D9C7D74D2274B04E0096DE89 /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = D930631020D54E0A007A0CBD /* Location.swift */; };
 		D9D7529E20B4BE0600B16A06 /* SourceAvailability.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9D7529D20B4BE0600B16A06 /* SourceAvailability.swift */; };
 		D9EF058B20ACC59300D3F194 /* GatheredKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D9EF058120ACC59300D3F194 /* GatheredKit.framework */; };
 		D9EF059220ACC59400D3F194 /* GatheredKit.h in Headers */ = {isa = PBXBuildFile; fileRef = D9EF058420ACC59300D3F194 /* GatheredKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -780,6 +781,7 @@
 				D916498022725817001138DE /* Consumer.swift in Sources */,
 				D910EE9420FEA064007F495B /* Action.swift in Sources */,
 				D9386AF5225515AA00B081AB /* QuaternionFormatter.swift in Sources */,
+				D9C7D74D2274B04E0096DE89 /* Location.swift in Sources */,
 				D912413A225A4C3200846D05 /* SizeValue.swift in Sources */,
 				D9124165225AB01F00846D05 /* MagneticFieldCalibrationAccuracyFormatter.swift in Sources */,
 				D912414A225A52F300846D05 /* CMMagneticFieldFormatter.swift in Sources */,
