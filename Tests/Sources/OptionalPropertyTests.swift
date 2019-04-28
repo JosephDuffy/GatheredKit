@@ -1,8 +1,6 @@
 import UIKit
 import Quick
 import Nimble
-
-@testable
 import GatheredKit
 
 final class OptionalPropertyTests: QuickSpec {
@@ -15,42 +13,6 @@ final class OptionalPropertyTests: QuickSpec {
                 value = OptionalProperty(displayName: "Test Value")
             }
             
-            context("with a nil value") {
-                context("valueAsAny") {
-                    it("should be nil") {
-                        expect(value.valueAsAny == nil).to(beTrue())
-                    }
-
-                    it("should not be castable to String") {
-                        expect(value.valueAsAny as? String).to(beNil())
-                    }
-                    
-                    it("should be a String?") {
-                        expect(value.valueAsAny is String?).to(beTrue())
-                    }
-                }
-            }
-            
-            context("with a non-nil value") {
-                beforeEach {
-                    value.update(value: "test")
-                }
-                
-                context("valueAsAny") {
-                    it("should not be nil") {
-                        expect(value.valueAsAny).toNot(beNil())
-                    }
-                    
-                    it("should be castable to String") {
-                        expect(value.valueAsAny as? String).toNot(beNil())
-                    }
-                    
-                    it("should be a String?") {
-                        expect(value.valueAsAny is String?).to(beTrue())
-                    }
-                }
-            }
-            
             context("when cast to an AnyProperty") {
                 var anyValue: AnyProperty!
                 
@@ -59,6 +21,10 @@ final class OptionalPropertyTests: QuickSpec {
                 }
                 
                 context("with a nil value") {
+                    beforeEach {
+                        value.value = nil
+                    }
+
                     context("value") {
                         it("should be nil") {
                             expect(anyValue.value).to(beNil())
@@ -68,8 +34,8 @@ final class OptionalPropertyTests: QuickSpec {
                             expect(anyValue.value == nil).to(beTrue())
                         }
                         
-                        it("should not be castable to String") {
-                            expect(anyValue.value as? String).to(beNil())
+                        it("should not be a String") {
+                            expect(anyValue.value is String).to(beFalse())
                         }
                         
                         it("should be a String?") {
@@ -92,8 +58,8 @@ final class OptionalPropertyTests: QuickSpec {
                             expect(anyValue.value != nil).to(beTrue())
                         }
                         
-                        it("should equal 'test'") {
-                            expect((anyValue.value as! String)).to(equal("test"))
+                        it("should be a String") {
+                            expect(anyValue.value is String).to(beTrue())
                         }
                         
                         it("should be castable to String") {
@@ -102,6 +68,10 @@ final class OptionalPropertyTests: QuickSpec {
                         
                         it("should be a String?") {
                             expect(anyValue.value is String?).to(beTrue())
+                        }
+                        
+                        it("should equal 'test'") {
+                            expect((anyValue.value as! String)).to(equal("test"))
                         }
                     }
                 }
