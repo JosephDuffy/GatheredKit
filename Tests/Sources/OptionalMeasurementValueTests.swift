@@ -1,36 +1,42 @@
 import UIKit
 import Quick
 import Nimble
-
-@testable
 import GatheredKit
 
-final class OptionalMeasurementValueTests: QuickSpec {
+final class OptionalMeasurementPropertyTests: QuickSpec {
 
     override func spec() {
-        describe("OptionalMeasurementValue") {
-            var value: OptionalMeasurementProperty<UnitFrequency>!
-            
-            beforeEach {
-                value = .radiansPerSecond(displayName: "test")
-            }
+        describe("OptionalMeasurementProperty") {
+            var property: OptionalMeasurementProperty<UnitFrequency>!
             
             context("with a nil value") {
+                beforeEach {
+                    property = OptionalMeasurementProperty(displayName: "Test", value: nil)
+                }
+                
                 context("formattedValue") {
                     it("should be nil") {
-                        expect(value.formattedValue).to(beNil())
+                        expect(property.formattedValue).to(beNil())
                     }
                 }
             }
             
             context("with a non-nil value") {
                 beforeEach {
-                    value.update(value: 5, unit: .radiansPerSecond)
+                    property = OptionalMeasurementProperty(displayName: "Test", value: 5)
                 }
                 
-                context("formattedValue") {
-                    it("should not be nil") {
-                        expect(value.formattedValue).toNot(beNil())
+                context("value.formatter.string(for:)") {
+                    context("called with the value") {
+                        var formatterString: String?
+                        
+                        beforeEach {
+                            formatterString = property.formatter.string(for: property.value)
+                        }
+                        
+                        it("should not return nil") {
+                            expect(formatterString).toNot(beNil())
+                        }
                     }
                 }
             }

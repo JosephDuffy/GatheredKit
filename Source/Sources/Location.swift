@@ -160,13 +160,33 @@ public final class Location: NSObject, Source, Controllable, Producer, Propertie
     }
 
     private func updateLocationValues(_ location: CLLocation? = nil) {
-        let timestamp = location?.timestamp ?? Date()
-        coordinate.update(value: location?.coordinate, date: timestamp)
-        speed.update(value: location?.speed, unit: .metersPerSecond, date: timestamp)
-        altitude.update(value: location?.altitude, unit: .meters, date: timestamp)
-        floor.update(value: location?.floor, date: timestamp)
-        horizonalAccuracy.update(value: location?.horizontalAccuracy, unit: .meters, date: timestamp)
-        verticalAccuracy.update(value: location?.verticalAccuracy, unit: .meters, date: timestamp)
+        if let location = location {
+            let timestamp = location.timestamp
+            coordinate.update(value: location.coordinate, date: timestamp)
+
+            if location.course < 0 {
+                course.update(value: nil, formattedValue: "Unknown", date: timestamp)
+            } else {
+                course.update(value: location.speed, date: timestamp)
+            }
+
+            if location.speed < 0 {
+                speed.update(value: nil, formattedValue: "Unknown", date: timestamp)
+            } else {
+                speed.update(value: location.speed, date: timestamp)
+            }
+            altitude.update(value: location.altitude, date: timestamp)
+            floor.update(value: location.floor, date: timestamp)
+            horizonalAccuracy.update(value: location.horizontalAccuracy, date: timestamp)
+            verticalAccuracy.update(value: location.verticalAccuracy, date: timestamp)
+        } else {
+            coordinate.update(value: nil)
+            speed.update(value: nil)
+            altitude.update(value: nil)
+            floor.update(value: nil)
+            horizonalAccuracy.update(value: nil)
+            verticalAccuracy.update(value: nil)
+        }
     }
 
 }

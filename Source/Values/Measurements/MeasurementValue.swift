@@ -5,6 +5,10 @@ public class MeasurementProperty<Unit: Foundation.Unit>: Property<Measurement<Un
     public var measurement: Measurement<Unit> {
         return value
     }
+    
+    public var unit: Unit {
+        return value.unit
+    }
         
     public convenience init(
         displayName: String,
@@ -20,90 +24,52 @@ public class MeasurementProperty<Unit: Foundation.Unit>: Property<Measurement<Un
     
     public func update(
         value: Double,
-        unit: Unit,
         formattedValue: String? = nil,
         date: Date = Date()
     ) {
-        let measurement = Measurement(value: value, unit: self.value.unit)
+        let measurement = Measurement(value: value, unit: self.measurement.unit)
         self.update(value: measurement, formattedValue: formattedValue, date: date)
-    }
-    
-    public func update(
-        value: Double,
-        formattedValue: String? = nil,
-        date: Date = Date()
-    ) {
-        self.update(value: value, unit: measurement.unit, formattedValue: formattedValue, date: date)
-    }
-    
-    public func update(
-        value: Float,
-        unit: Unit,
-        formattedValue: String? = nil,
-        date: Date = Date()
-    )  {
-        self.update(value: Double(value), unit: unit, formattedValue: formattedValue, date: date)
-    }
-    
-    public func update(
-        value: Float,
-        formattedValue: String? = nil,
-        date: Date = Date()
-    ) {
-        self.update(value: Double(value), unit: measurement.unit, formattedValue: formattedValue, date: date)
     }
     
 }
 
-public class OptionalMeasurementProperty<Unit: Foundation.Unit>: OptionalProperty<Measurement<Unit>, MeasurementFormatter> {
+public class OptionalMeasurementProperty<Unit: Foundation.Dimension>: OptionalProperty<Measurement<Unit>, MeasurementFormatter> {
     
-    public convenience init(
+    public var measurement: Measurement<Unit>? {
+        return value
+    }
+    
+    public let unit: Unit
+    
+    public required init(
         displayName: String,
         value: Double?,
-        unit: Unit,
+        unit: Unit = .baseUnit(),
         formatter: MeasurementFormatter = MeasurementFormatter(),
         formattedValue: String? = nil,
         date: Date = Date()
     ) {
+        self.unit = unit
         let measurement: Measurement<Unit>?
         if let value = value {
             measurement = Measurement<Unit>(value: value, unit: unit)
         } else {
             measurement = nil
         }
-        self.init(displayName: displayName, value: measurement, formatter: formatter, formattedValue: formattedValue, date: date)
+        super.init(displayName: displayName, value: measurement, formatter: formatter, formattedValue: formattedValue, date: date)
     }
     
-    public func update(
-        value: Double?,
-        unit: Unit,
-        formattedValue: String? = nil,
-        date: Date = Date()
-    ) {
-        if let value = value {
-            update(value: value, unit: unit, formattedValue: formattedValue, date: date)
-        } else {
-            update(value: nil, formattedValue: formattedValue, date: date)
-        }
+    public required init(displayName: String, value measurement: Measurement<Unit>? = nil, formatter: MeasurementFormatter = MeasurementFormatter(), formattedValue: String? = nil, date: Date = Date()) {
+        unit = measurement?.unit ?? .baseUnit()
+        super.init(displayName: displayName, value: measurement, formatter: formatter, formattedValue: formattedValue, date: date)
     }
     
     public func update(
         value: Double,
-        unit: Unit,
         formattedValue: String? = nil,
         date: Date = Date()
     ) {
-        let measurement = Measurement<Unit>(value: value, unit: unit)
-        self.update(value: measurement, formattedValue: formattedValue, date: date)
-    }
-    
-    public func update(
-        value: Float?,
-        unit: Unit,
-        formattedValue: String? = nil,
-        date: Date = Date()
-    ) {
-        self.update(value: value.map { Double($0) }, unit: unit, formattedValue: formattedValue, date: date)
+        update(value: Measurement(value: value, unit: unit), formattedValue: formattedValue, date: date)
     }
     
 }
