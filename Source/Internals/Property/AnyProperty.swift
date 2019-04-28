@@ -9,7 +9,7 @@ internal protocol FormatterProvider {
 }
 
 extension AnyProperty {    
-    var formatter: Formatter {
+    public var formatter: Formatter {
         guard let self = self as? FormatterProvider else {
             assertionFailure("The `value` property on `AnyProperty` relies on self conforming to `FormatterProvider`")
             return Formatter()
