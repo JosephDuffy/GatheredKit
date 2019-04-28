@@ -69,6 +69,7 @@
 		D9C7D74C2274A7A80096DE89 /* Heading.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9386AFA225522F200B081AB /* Heading.swift */; };
 		D9C7D74D2274B04E0096DE89 /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = D930631020D54E0A007A0CBD /* Location.swift */; };
 		D9C7D74E2274E1550096DE89 /* BasePollingSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = D999586A21010F3B00C577AC /* BasePollingSource.swift */; };
+		D9C7D75222751DD90096DE89 /* Snapshot.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9C7D75122751DD90096DE89 /* Snapshot.swift */; };
 		D9D7529E20B4BE0600B16A06 /* SourceAvailability.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9D7529D20B4BE0600B16A06 /* SourceAvailability.swift */; };
 		D9EF058B20ACC59300D3F194 /* GatheredKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D9EF058120ACC59300D3F194 /* GatheredKit.framework */; };
 		D9EF059220ACC59400D3F194 /* GatheredKit.h in Headers */ = {isa = PBXBuildFile; fileRef = D9EF058420ACC59300D3F194 /* GatheredKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -199,6 +200,7 @@
 		D9B84DDF20CC83D900380C42 /* Gyroscope.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Gyroscope.swift; sourceTree = "<group>"; };
 		D9B84DE120CF0FB800380C42 /* Magnetometer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Magnetometer.swift; sourceTree = "<group>"; };
 		D9B84DE320CF14F000380C42 /* Accelerometer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Accelerometer.swift; sourceTree = "<group>"; };
+		D9C7D75122751DD90096DE89 /* Snapshot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Snapshot.swift; sourceTree = "<group>"; };
 		D9D7529D20B4BE0600B16A06 /* SourceAvailability.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SourceAvailability.swift; sourceTree = "<group>"; };
 		D9EB5D5B21FB5A8300163BF6 /* MeasurementValue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeasurementValue.swift; sourceTree = "<group>"; };
 		D9EF058120ACC59300D3F194 /* GatheredKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = GatheredKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -453,6 +455,7 @@
 			isa = PBXGroup;
 			children = (
 				D91649852272586E001138DE /* AnyProperty.swift */,
+				D9C7D75122751DD90096DE89 /* Snapshot.swift */,
 				D9EF059F20ACC77D00D3F194 /* Property.swift */,
 				D9164978227242E3001138DE /* OptionalProperty.swift */,
 				D9168F4D20C8851E00100EEE /* ValuesProvider.swift */,
@@ -773,6 +776,7 @@
 				D9C7D74D2274B04E0096DE89 /* Location.swift in Sources */,
 				D912413A225A4C3200846D05 /* SizeValue.swift in Sources */,
 				D9124165225AB01F00846D05 /* MagneticFieldCalibrationAccuracyFormatter.swift in Sources */,
+				D9C7D75222751DD90096DE89 /* Snapshot.swift in Sources */,
 				D912414A225A52F300846D05 /* CMMagneticFieldFormatter.swift in Sources */,
 				D91C4B1A22500ED3009E234F /* ScaleFormatter.swift in Sources */,
 				D9124148225A524900846D05 /* CMMagneticFieldValue.swift in Sources */,

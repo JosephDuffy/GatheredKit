@@ -4,7 +4,7 @@ open class Property<Value, Formatter: Foundation.Formatter>: AnyProperty, Produc
     
     public typealias ProducedValue = Snapshot
     
-    public struct Snapshot {
+    public struct Snapshot: GatheredKit.Snapshot {
         public let value: Value
         public let date: Date
         public let formattedValue: String?
@@ -71,13 +71,21 @@ open class Property<Value, Formatter: Foundation.Formatter>: AnyProperty, Produc
 extension Property: ValueProvider {
     
     internal var valueAsAny: Any? {
-        switch snapshot.value as Any {
+        return snapshot.valueAsAny
+    }
+    
+}
+
+extension Property.Snapshot: ValueProvider {
+    
+    internal var valueAsAny: Any? {
+        switch value as Any {
         case Optional<Any>.some:
-            return Optional(snapshot.value)
+            return Optional(value)
         case Optional<Any>.none:
             return nil
         default:
-            return Optional(snapshot.value)
+            return Optional(value)
         }
     }
     

@@ -83,9 +83,13 @@ final class OptionalPropertyTests: QuickSpec {
                         value.update(value: "test")
                     }
                     
-                    context("valueAsAny") {
+                    context("value") {
                         it("should not be nil") {
                             expect(anyValue.value).toNot(beNil())
+                        }
+                        
+                        it("should not equal nil") {
+                            expect(anyValue.value != nil).to(beTrue())
                         }
                         
                         it("should equal 'test'") {
