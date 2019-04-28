@@ -70,8 +70,32 @@ final class OptionalPropertyTests: QuickSpec {
                             expect(anyValue.value is String?).to(beTrue())
                         }
                         
-                        it("should equal 'test'") {
+                        it(#"should equal "test"#) {
                             expect((anyValue.value as! String)).to(equal("test"))
+                        }
+                        
+                        context("after being unwrapped") {
+                            var unwrapped: Any = ""
+                            
+                            beforeEach {
+                                if let value = anyValue.value {
+                                    unwrapped = value
+                                } else {
+                                    expect(false).to(beTrue())
+                                }
+                            }
+                            
+                            context("a string describing the unwrapped value") {
+                                var stringDescribingUnwrapped = ""
+                                
+                                beforeEach {
+                                    stringDescribingUnwrapped = String(describing: unwrapped)
+                                }
+                                
+                                it(#"should equal "test"#) {
+                                    expect(stringDescribingUnwrapped).to(equal("test"))
+                                }
+                            }
                         }
                     }
                 }

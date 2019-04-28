@@ -39,7 +39,6 @@
 		D9124153225A612200846D05 /* UnitMagneticFieldTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9124152225A612200846D05 /* UnitMagneticFieldTests.swift */; };
 		D9124155225A727400846D05 /* OptionalPropertyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9124154225A727400846D05 /* OptionalPropertyTests.swift */; };
 		D9124157225A741A00846D05 /* castToOptional.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9124156225A741A00846D05 /* castToOptional.swift */; };
-		D9124159225A752900846D05 /* PropertyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9124158225A752900846D05 /* PropertyTests.swift */; };
 		D912415C225A97A200846D05 /* OptionalMeasurementValueTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D912415B225A97A200846D05 /* OptionalMeasurementValueTests.swift */; };
 		D912415F225AA25100846D05 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = D9124161225AA25100846D05 /* Localizable.strings */; };
 		D9124163225AA37100846D05 /* String+localized.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9124162225AA37100846D05 /* String+localized.swift */; };
@@ -135,7 +134,6 @@
 		D9124152225A612200846D05 /* UnitMagneticFieldTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnitMagneticFieldTests.swift; sourceTree = "<group>"; };
 		D9124154225A727400846D05 /* OptionalPropertyTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionalPropertyTests.swift; sourceTree = "<group>"; };
 		D9124156225A741A00846D05 /* castToOptional.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = castToOptional.swift; sourceTree = "<group>"; };
-		D9124158225A752900846D05 /* PropertyTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PropertyTests.swift; sourceTree = "<group>"; };
 		D912415B225A97A200846D05 /* OptionalMeasurementValueTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionalMeasurementValueTests.swift; sourceTree = "<group>"; };
 		D9124160225AA25100846D05 /* en-GB */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "en-GB"; path = "en-GB.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		D9124162225AA37100846D05 /* String+localized.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+localized.swift"; sourceTree = "<group>"; };
@@ -604,7 +602,6 @@
 				D9EF05E320AE2BB100D3F194 /* Mocks */,
 				D9154EB021FFC8D300C1E99B /* LocationTests.swift */,
 				D9124152225A612200846D05 /* UnitMagneticFieldTests.swift */,
-				D9124158225A752900846D05 /* PropertyTests.swift */,
 				D9124154225A727400846D05 /* OptionalPropertyTests.swift */,
 				D912415B225A97A200846D05 /* OptionalMeasurementValueTests.swift */,
 				D9EF05E020AE2B9700D3F194 /* ScreenTests.swift */,
@@ -838,7 +835,6 @@
 				D9582C2F226FAC92004327A4 /* MockScreenBackingData.swift in Sources */,
 				D9070D872252C050000A2A6C /* MockNotificationCenter.swift in Sources */,
 				D9124155225A727400846D05 /* OptionalPropertyTests.swift in Sources */,
-				D9124159225A752900846D05 /* PropertyTests.swift in Sources */,
 				D9124153225A612200846D05 /* UnitMagneticFieldTests.swift in Sources */,
 				D912415C225A97A200846D05 /* OptionalMeasurementValueTests.swift in Sources */,
 				D9070D852252B129000A2A6C /* MockUpdateConsumer.swift in Sources */,

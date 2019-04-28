@@ -80,12 +80,12 @@ extension Property.Snapshot: ValueProvider {
     
     internal var valueAsAny: Any? {
         switch value as Any {
-        case Optional<Any>.some:
-            return Optional(value)
+        case Optional<Any>.some(let unwrapped):
+            return unwrapped
         case Optional<Any>.none:
             return nil
         default:
-            return Optional(value)
+            return value
         }
     }
     
