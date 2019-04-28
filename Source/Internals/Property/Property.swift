@@ -36,7 +36,7 @@ open class Property<Value, Formatter: Foundation.Formatter>: AnyProperty, Produc
     private var consumers: [AnyConsumer] = []
 
     public var formattedValue: String? {
-        return snapshot.formattedValue ?? formatter.string(for: value)
+        return snapshot.formattedValue
     }
 
     public required init(
