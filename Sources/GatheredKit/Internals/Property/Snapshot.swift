@@ -1,3 +1,5 @@
+import Foundation
+
 public protocol Snapshot {
     var date: Date { get }
     var formattedValue: String? { get }

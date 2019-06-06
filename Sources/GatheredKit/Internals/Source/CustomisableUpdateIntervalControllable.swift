@@ -1,3 +1,5 @@
+import Foundation
+
 /**
  A source that supports updating its properties at a given time interval
  */

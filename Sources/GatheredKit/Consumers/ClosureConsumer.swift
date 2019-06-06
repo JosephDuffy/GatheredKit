@@ -1,3 +1,5 @@
+import Foundation
+
 public final class ClosureConsumer<ConsumedValue, ConsumedSender>: Consumer {
     
     public typealias UpdatesClosure = (_ value: ConsumedValue, _ sender: ConsumedSender) -> Void
