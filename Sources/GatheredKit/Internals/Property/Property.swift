@@ -1,6 +1,6 @@
 import Foundation
 
-open class Property<Value, Formatter: Foundation.Formatter>: AnyProperty, Producer {
+open class Property<Value, Formatter: Foundation.Formatter>: AnyProperty, Producer, ConsumersProvider {
     
     public typealias ProducedValue = Snapshot
     
@@ -33,7 +33,7 @@ open class Property<Value, Formatter: Foundation.Formatter>: AnyProperty, Produc
 
     public let formatter: Formatter
     
-    private var consumers: [AnyConsumer] = []
+    internal var consumers: [AnyConsumer] = []
 
     public var formattedValue: String? {
         return snapshot.formattedValue
