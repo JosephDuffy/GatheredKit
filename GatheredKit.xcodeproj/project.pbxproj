@@ -11,7 +11,6 @@
 		D9070D872252C050000A2A6C /* MockNotificationCenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9070D862252C050000A2A6C /* MockNotificationCenter.swift */; };
 		D9070D8C2252C96C000A2A6C /* ClosureConsumer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9070D8B2252C96C000A2A6C /* ClosureConsumer.swift */; };
 		D9070D8E2252C9A2000A2A6C /* NotificationsUpdatesConsumer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9070D8D2252C9A2000A2A6C /* NotificationsUpdatesConsumer.swift */; };
-		D910EE8920FA451C007F495B /* SwiftShims.swift in Sources */ = {isa = PBXBuildFile; fileRef = D910EE8820FA451C007F495B /* SwiftShims.swift */; };
 		D910EE9420FEA064007F495B /* Action.swift in Sources */ = {isa = PBXBuildFile; fileRef = D910EE9320FEA064007F495B /* Action.swift */; };
 		D910EE9620FEA070007F495B /* ActionProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = D910EE9520FEA070007F495B /* ActionProvider.swift */; };
 		D912412B225A46DD00846D05 /* QuaternionValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9386AF22255158700B081AB /* QuaternionValue.swift */; };
@@ -40,7 +39,6 @@
 		D9124155225A727400846D05 /* OptionalPropertyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9124154225A727400846D05 /* OptionalPropertyTests.swift */; };
 		D9124157225A741A00846D05 /* castToOptional.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9124156225A741A00846D05 /* castToOptional.swift */; };
 		D912415C225A97A200846D05 /* OptionalMeasurementValueTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D912415B225A97A200846D05 /* OptionalMeasurementValueTests.swift */; };
-		D912415F225AA25100846D05 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = D9124161225AA25100846D05 /* Localizable.strings */; };
 		D9124163225AA37100846D05 /* String+localized.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9124162225AA37100846D05 /* String+localized.swift */; };
 		D9124165225AB01F00846D05 /* MagneticFieldCalibrationAccuracyFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9124164225AB01F00846D05 /* MagneticFieldCalibrationAccuracyFormatter.swift */; };
 		D9124167225AB07400846D05 /* MagneticFieldCalibrationAccuracyValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9124166225AB07400846D05 /* MagneticFieldCalibrationAccuracyValue.swift */; };
@@ -62,6 +60,7 @@
 		D9582C2D226FAC4C004327A4 /* ScreenTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9EF05E020AE2B9700D3F194 /* ScreenTests.swift */; };
 		D9582C2E226FAC51004327A4 /* Screen.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9EF05CA20ACD35B00D3F194 /* Screen.swift */; };
 		D9582C2F226FAC92004327A4 /* MockScreenBackingData.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9EF05E420AE2BBD00D3F194 /* MockScreenBackingData.swift */; };
+		D98091CD22EE4FBC007FFB15 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = D98091CC22EE4FBC007FFB15 /* Localizable.strings */; };
 		D9ADBCDC20F8DE4700BB0255 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D9ADBCDB20F8DE4700BB0255 /* SystemConfiguration.framework */; };
 		D9C7D749227357770096DE89 /* Gyroscope.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9B84DDF20CC83D900380C42 /* Gyroscope.swift */; };
 		D9C7D74B2274A7890096DE89 /* Magnetometer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9B84DE120CF0FB800380C42 /* Magnetometer.swift */; };
@@ -77,10 +76,6 @@
 		D9EF05AD20ACCF7000D3F194 /* CustomisableUpdateIntervalControllable.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9EF05AC20ACCF7000D3F194 /* CustomisableUpdateIntervalControllable.swift */; };
 		D9EF05AF20ACCF8B00D3F194 /* ManuallyUpdatableValuesProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9EF05AE20ACCF8B00D3F194 /* ManuallyUpdatableValuesProvider.swift */; };
 		D9EF05D120ACD6B900D3F194 /* AnyConsumer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9EF05D020ACD6B900D3F194 /* AnyConsumer.swift */; };
-		D9EF05F520AE2FE800D3F194 /* Nimble.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D9EF05F120AE2FE100D3F194 /* Nimble.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		D9EF05F620AE2FE800D3F194 /* Quick.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D9EF05F220AE2FE100D3F194 /* Quick.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		D9EF05F720AE2FEA00D3F194 /* Nimble.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D9EF05F120AE2FE100D3F194 /* Nimble.framework */; };
-		D9EF05F820AE2FEA00D3F194 /* Quick.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D9EF05F220AE2FE100D3F194 /* Quick.framework */; };
 		D9F6B05520F8F4A700831338 /* Source.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9F6B05420F8F4A700831338 /* Source.swift */; };
 /* End PBXBuildFile section */
 
@@ -101,8 +96,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				D9EF05F520AE2FE800D3F194 /* Nimble.framework in Embed Frameworks */,
-				D9EF05F620AE2FE800D3F194 /* Quick.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -114,15 +107,8 @@
 		D9070D862252C050000A2A6C /* MockNotificationCenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockNotificationCenter.swift; sourceTree = "<group>"; };
 		D9070D8B2252C96C000A2A6C /* ClosureConsumer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClosureConsumer.swift; sourceTree = "<group>"; };
 		D9070D8D2252C9A2000A2A6C /* NotificationsUpdatesConsumer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsUpdatesConsumer.swift; sourceTree = "<group>"; };
-		D910EE8620FA412E007F495B /* Battery.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Battery.swift; sourceTree = "<group>"; };
-		D910EE8820FA451C007F495B /* SwiftShims.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftShims.swift; sourceTree = "<group>"; };
-		D910EE8C20FB6011007F495B /* DeviceMetadata.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceMetadata.swift; sourceTree = "<group>"; };
-		D910EE9020FE9E76007F495B /* Altimeter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Altimeter.swift; sourceTree = "<group>"; };
 		D910EE9320FEA064007F495B /* Action.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Action.swift; sourceTree = "<group>"; };
 		D910EE9520FEA070007F495B /* ActionProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionProvider.swift; sourceTree = "<group>"; };
-		D910EE9720FEA637007F495B /* Proximity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Proximity.swift; sourceTree = "<group>"; };
-		D910EE9920FFDE22007F495B /* CellRadio.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellRadio.swift; sourceTree = "<group>"; };
-		D910EE9B20FFE2E9007F495B /* CellRadioCarrierValue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellRadioCarrierValue.swift; sourceTree = "<group>"; };
 		D912413D225A4D3000846D05 /* RotationRateFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RotationRateFormatter.swift; sourceTree = "<group>"; };
 		D9124143225A4FED00846D05 /* UnitMagneticField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnitMagneticField.swift; sourceTree = "<group>"; };
 		D9124145225A520300846D05 /* MagneticFieldValue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MagneticFieldValue.swift; sourceTree = "<group>"; };
@@ -135,13 +121,11 @@
 		D9124154225A727400846D05 /* OptionalPropertyTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionalPropertyTests.swift; sourceTree = "<group>"; };
 		D9124156225A741A00846D05 /* castToOptional.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = castToOptional.swift; sourceTree = "<group>"; };
 		D912415B225A97A200846D05 /* OptionalMeasurementValueTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionalMeasurementValueTests.swift; sourceTree = "<group>"; };
-		D9124160225AA25100846D05 /* en-GB */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "en-GB"; path = "en-GB.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		D9124162225AA37100846D05 /* String+localized.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+localized.swift"; sourceTree = "<group>"; };
 		D9124164225AB01F00846D05 /* MagneticFieldCalibrationAccuracyFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MagneticFieldCalibrationAccuracyFormatter.swift; sourceTree = "<group>"; };
 		D9124166225AB07400846D05 /* MagneticFieldCalibrationAccuracyValue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MagneticFieldCalibrationAccuracyValue.swift; sourceTree = "<group>"; };
 		D9126CD821F3A1AD002C37EF /* LengthValue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LengthValue.swift; sourceTree = "<group>"; };
 		D9126CDB21F3AC53002C37EF /* CoordinateFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoordinateFormatter.swift; sourceTree = "<group>"; };
-		D9126CDD21F3AD06002C37EF /* RotationRateFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RotationRateFormatter.swift; sourceTree = "<group>"; };
 		D9126CE121F3AF73002C37EF /* FrequencyValue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FrequencyValue.swift; sourceTree = "<group>"; };
 		D9126CE621F3B68B002C37EF /* AngleValue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AngleValue.swift; sourceTree = "<group>"; };
 		D9126CE821F3B6AA002C37EF /* SpeedValue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeedValue.swift; sourceTree = "<group>"; };
@@ -161,43 +145,22 @@
 		D91C4B1522500CC1009E234F /* PercentFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PercentFormatter.swift; sourceTree = "<group>"; };
 		D91C4B1722500E87009E234F /* ScaleValue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScaleValue.swift; sourceTree = "<group>"; };
 		D91C4B1922500ED3009E234F /* ScaleFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScaleFormatter.swift; sourceTree = "<group>"; };
-		D928465920C499790058245F /* Scale.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Scale.swift; sourceTree = "<group>"; };
 		D9286C2C224E7A1500A69AF3 /* SizeFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SizeFormatter.swift; sourceTree = "<group>"; };
 		D9286C2E224E7C6B00A69AF3 /* SizeValue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SizeValue.swift; sourceTree = "<group>"; };
-		D9287339210CB13B00F63A18 /* OperatingSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OperatingSystem.swift; sourceTree = "<group>"; };
-		D928733B210CB58E00F63A18 /* Time.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Time.swift; sourceTree = "<group>"; };
-		D928733D210CBD2500F63A18 /* Cameras.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cameras.swift; sourceTree = "<group>"; };
-		D928733F210CCB5800F63A18 /* CPU.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CPU.swift; sourceTree = "<group>"; };
 		D930631020D54E0A007A0CBD /* Location.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
-		D930631320D58A34007A0CBD /* MagneticFieldValue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MagneticFieldValue.swift; sourceTree = "<group>"; };
-		D930631520D58A54007A0CBD /* CalibratedMagneticFieldValue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalibratedMagneticFieldValue.swift; sourceTree = "<group>"; };
 		D930631720D58A85007A0CBD /* RotationRateValue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RotationRateValue.swift; sourceTree = "<group>"; };
-		D930631920D58AC6007A0CBD /* CMQuaternion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CMQuaternion.swift; sourceTree = "<group>"; };
-		D930631B20D58E6E007A0CBD /* RotationMatrixValue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RotationMatrixValue.swift; sourceTree = "<group>"; };
-		D930631D20D5BDA7007A0CBD /* Compass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Compass.swift; sourceTree = "<group>"; };
 		D9386AF22255158700B081AB /* QuaternionValue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuaternionValue.swift; sourceTree = "<group>"; };
 		D9386AF4225515AA00B081AB /* QuaternionFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuaternionFormatter.swift; sourceTree = "<group>"; };
 		D9386AF62255167F00B081AB /* NumericValues.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumericValues.swift; sourceTree = "<group>"; };
 		D9386AFA225522F200B081AB /* Heading.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Heading.swift; sourceTree = "<group>"; };
 		D9386B3722560BC300B081AB /* OperationQueue+convenience.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "OperationQueue+convenience.swift"; sourceTree = "<group>"; };
-		D950047320C85B590046AB47 /* AccelerationValue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccelerationValue.swift; sourceTree = "<group>"; };
-		D950166B2118BCB7003542DC /* Memory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Memory.swift; sourceTree = "<group>"; };
-		D950166D2118FA0B003542DC /* AudioOutput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioOutput.swift; sourceTree = "<group>"; };
-		D959ECC620D713C5000184E2 /* GeomagnetismValue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeomagnetismValue.swift; sourceTree = "<group>"; };
 		D96A18E320C741E100CAE44F /* DeviceAttitude.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeviceAttitude.swift; sourceTree = "<group>"; };
-		D96C62FF20F6AB0900BF06EF /* WiFi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WiFi.swift; sourceTree = "<group>"; };
-		D991E1F320CF2D45009C849F /* NumericNone.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumericNone.swift; sourceTree = "<group>"; };
+		D98091CC22EE4FBC007FFB15 /* Localizable.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; path = Localizable.strings; sourceTree = "<group>"; };
 		D999586A21010F3B00C577AC /* BasePollingSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasePollingSource.swift; sourceTree = "<group>"; };
-		D999586C2101166B00C577AC /* Advertising.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Advertising.swift; sourceTree = "<group>"; };
-		D999586E21011EA700C577AC /* DeviceOrientation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceOrientation.swift; sourceTree = "<group>"; };
-		D99958702103403A00C577AC /* Storage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Storage.swift; sourceTree = "<group>"; };
-		D9995872210344C600C577AC /* Bluetooth.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bluetooth.swift; sourceTree = "<group>"; };
 		D999587421035F0000C577AC /* CoordinateValue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoordinateValue.swift; sourceTree = "<group>"; };
-		D99958762103626C00C577AC /* MetersPerSecond.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetersPerSecond.swift; sourceTree = "<group>"; };
 		D9ADBCDB20F8DE4700BB0255 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		D9B84DDF20CC83D900380C42 /* Gyroscope.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Gyroscope.swift; sourceTree = "<group>"; };
 		D9B84DE120CF0FB800380C42 /* Magnetometer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Magnetometer.swift; sourceTree = "<group>"; };
-		D9B84DE320CF14F000380C42 /* Accelerometer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Accelerometer.swift; sourceTree = "<group>"; };
 		D9C7D75122751DD90096DE89 /* Snapshot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Snapshot.swift; sourceTree = "<group>"; };
 		D9D7529D20B4BE0600B16A06 /* SourceAvailability.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SourceAvailability.swift; sourceTree = "<group>"; };
 		D9EB5D5B21FB5A8300163BF6 /* MeasurementValue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeasurementValue.swift; sourceTree = "<group>"; };
@@ -208,30 +171,14 @@
 		D9EF059120ACC59400D3F194 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D9EF059D20ACC63700D3F194 /* Controllable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Controllable.swift; sourceTree = "<group>"; };
 		D9EF059F20ACC77D00D3F194 /* Property.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Property.swift; sourceTree = "<group>"; };
-		D9EF05A420ACCE3800D3F194 /* AnyUnit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnyUnit.swift; sourceTree = "<group>"; };
 		D9EF05AC20ACCF7000D3F194 /* CustomisableUpdateIntervalControllable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomisableUpdateIntervalControllable.swift; sourceTree = "<group>"; };
 		D9EF05AE20ACCF8B00D3F194 /* ManuallyUpdatableValuesProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManuallyUpdatableValuesProvider.swift; sourceTree = "<group>"; };
-		D9EF05B020ACD02100D3F194 /* NumericUnit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumericUnit.swift; sourceTree = "<group>"; };
-		D9EF05B220ACD04F00D3F194 /* UnitError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnitError.swift; sourceTree = "<group>"; };
-		D9EF05B420ACD20700D3F194 /* BeatsPerMinute.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BeatsPerMinute.swift; sourceTree = "<group>"; };
-		D9EF05B620ACD22100D3F194 /* Byte.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Byte.swift; sourceTree = "<group>"; };
-		D9EF05B820ACD23400D3F194 /* Boolean.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Boolean.swift; sourceTree = "<group>"; };
-		D9EF05BA20ACD24A00D3F194 /* Decibel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Decibel.swift; sourceTree = "<group>"; };
-		D9EF05BC20ACD25800D3F194 /* Degree.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Degree.swift; sourceTree = "<group>"; };
-		D9EF05BE20ACD26600D3F194 /* Kilopascal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Kilopascal.swift; sourceTree = "<group>"; };
-		D9EF05C020ACD27400D3F194 /* Microtesla.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Microtesla.swift; sourceTree = "<group>"; };
-		D9EF05C220ACD2D400D3F194 /* Meter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Meter.swift; sourceTree = "<group>"; };
-		D9EF05C420ACD2E300D3F194 /* Pixel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pixel.swift; sourceTree = "<group>"; };
-		D9EF05C620ACD2F200D3F194 /* Percent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Percent.swift; sourceTree = "<group>"; };
-		D9EF05C820ACD31400D3F194 /* Point.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Point.swift; sourceTree = "<group>"; };
 		D9EF05CA20ACD35B00D3F194 /* Screen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Screen.swift; sourceTree = "<group>"; };
 		D9EF05D020ACD6B900D3F194 /* AnyConsumer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnyConsumer.swift; sourceTree = "<group>"; };
 		D9EF05DB20AE2B4700D3F194 /* Nimble.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Nimble.framework; path = Carthage/Build/iOS/Nimble.framework; sourceTree = "<group>"; };
 		D9EF05DC20AE2B4700D3F194 /* Quick.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Quick.framework; path = Carthage/Build/iOS/Quick.framework; sourceTree = "<group>"; };
 		D9EF05E020AE2B9700D3F194 /* ScreenTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenTests.swift; sourceTree = "<group>"; };
 		D9EF05E420AE2BBD00D3F194 /* MockScreenBackingData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockScreenBackingData.swift; sourceTree = "<group>"; };
-		D9EF05F120AE2FE100D3F194 /* Nimble.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Nimble.framework; path = Carthage/Build/iOS/Nimble.framework; sourceTree = SOURCE_ROOT; };
-		D9EF05F220AE2FE100D3F194 /* Quick.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Quick.framework; path = Carthage/Build/iOS/Quick.framework; sourceTree = SOURCE_ROOT; };
 		D9F6B05420F8F4A700831338 /* Source.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Source.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -249,23 +196,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				D9EF058B20ACC59300D3F194 /* GatheredKit.framework in Frameworks */,
-				D9EF05F720AE2FEA00D3F194 /* Nimble.framework in Frameworks */,
-				D9EF05F820AE2FEA00D3F194 /* Quick.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		D904B506210CDC350062C965 /* Internals */ = {
-			isa = PBXGroup;
-			children = (
-				D9F94D68210CDCA700493C1B /* Unit */,
-				D9EF05A720ACCEDE00D3F194 /* Extensions */,
-			);
-			path = Internals;
-			sourceTree = "<group>";
-		};
 		D904B507210CDC480062C965 /* Source */ = {
 			isa = PBXGroup;
 			children = (
@@ -307,46 +243,6 @@
 			path = Motion;
 			sourceTree = "<group>";
 		};
-		D9126CD521F3A12A002C37EF /* Legacy */ = {
-			isa = PBXGroup;
-			children = (
-				D9EF05B420ACD20700D3F194 /* BeatsPerMinute.swift */,
-				D9EF05B620ACD22100D3F194 /* Byte.swift */,
-				D9EF05B820ACD23400D3F194 /* Boolean.swift */,
-				D9EF05BA20ACD24A00D3F194 /* Decibel.swift */,
-				D9EF05BC20ACD25800D3F194 /* Degree.swift */,
-				D9EF05BE20ACD26600D3F194 /* Kilopascal.swift */,
-				D9EF05C020ACD27400D3F194 /* Microtesla.swift */,
-				D9EF05C220ACD2D400D3F194 /* Meter.swift */,
-				D99958762103626C00C577AC /* MetersPerSecond.swift */,
-				D991E1F320CF2D45009C849F /* NumericNone.swift */,
-				D9EF05C620ACD2F200D3F194 /* Percent.swift */,
-				D9EF05C420ACD2E300D3F194 /* Pixel.swift */,
-				D9EF05C820ACD31400D3F194 /* Point.swift */,
-				D928465920C499790058245F /* Scale.swift */,
-				D928733B210CB58E00F63A18 /* Time.swift */,
-			);
-			path = Legacy;
-			sourceTree = "<group>";
-		};
-		D9126CD721F3A159002C37EF /* Legacy */ = {
-			isa = PBXGroup;
-			children = (
-				D930631220D58A26007A0CBD /* Device Motion */,
-				D959ECC620D713C5000184E2 /* GeomagnetismValue.swift */,
-				D910EE9B20FFE2E9007F495B /* CellRadioCarrierValue.swift */,
-			);
-			path = Legacy;
-			sourceTree = "<group>";
-		};
-		D9126CDA21F3AC3E002C37EF /* Formatters */ = {
-			isa = PBXGroup;
-			children = (
-				D9126CDD21F3AD06002C37EF /* RotationRateFormatter.swift */,
-			);
-			path = Formatters;
-			sourceTree = "<group>";
-		};
 		D9154EAA21FFC2E600C1E99B /* Formatters */ = {
 			isa = PBXGroup;
 			children = (
@@ -370,18 +266,6 @@
 			path = Producer;
 			sourceTree = "<group>";
 		};
-		D930631220D58A26007A0CBD /* Device Motion */ = {
-			isa = PBXGroup;
-			children = (
-				D930631320D58A34007A0CBD /* MagneticFieldValue.swift */,
-				D930631520D58A54007A0CBD /* CalibratedMagneticFieldValue.swift */,
-				D930631920D58AC6007A0CBD /* CMQuaternion.swift */,
-				D930631B20D58E6E007A0CBD /* RotationMatrixValue.swift */,
-				D950047320C85B590046AB47 /* AccelerationValue.swift */,
-			);
-			path = "Device Motion";
-			sourceTree = "<group>";
-		};
 		D9386AF12255157C00B081AB /* Motion */ = {
 			isa = PBXGroup;
 			children = (
@@ -403,14 +287,6 @@
 			path = Extensions;
 			sourceTree = "<group>";
 		};
-		D950047220C85ADB0046AB47 /* Values */ = {
-			isa = PBXGroup;
-			children = (
-				D9126CD721F3A159002C37EF /* Legacy */,
-			);
-			path = Values;
-			sourceTree = "<group>";
-		};
 		D96A18DF20C741D000CAE44F /* Motion */ = {
 			isa = PBXGroup;
 			children = (
@@ -422,18 +298,6 @@
 				D912414E225A57C100846D05 /* CMLogItem+date.swift */,
 			);
 			path = Motion;
-			sourceTree = "<group>";
-		};
-		D979913F21F8F50500247DD9 /* Legacy */ = {
-			isa = PBXGroup;
-			children = (
-				D904B506210CDC350062C965 /* Internals */,
-				D9EF05A620ACCEB800D3F194 /* Sources */,
-				D9EF05A320ACCDE100D3F194 /* Units */,
-				D950047220C85ADB0046AB47 /* Values */,
-				D9126CDA21F3AC3E002C37EF /* Formatters */,
-			);
-			path = Legacy;
 			sourceTree = "<group>";
 		};
 		D979914021F8F51200247DD9 /* Internals */ = {
@@ -504,8 +368,8 @@
 		D9EF057720ACC59300D3F194 = {
 			isa = PBXGroup;
 			children = (
-				D9EF058320ACC59300D3F194 /* Source */,
-				D9EF058E20ACC59300D3F194 /* Tests */,
+				D9EF058320ACC59300D3F194 /* Sources */,
+				D9EF05DF20AE2B5600D3F194 /* Tests */,
 				D9EF058220ACC59300D3F194 /* Products */,
 				D9EF05DA20AE2B4700D3F194 /* Frameworks */,
 			);
@@ -520,7 +384,7 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		D9EF058320ACC59300D3F194 /* Source */ = {
+		D9EF058320ACC59300D3F194 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
 				D979914421F8F5F300247DD9 /* Values */,
@@ -528,62 +392,12 @@
 				D9154EAA21FFC2E600C1E99B /* Formatters */,
 				D9070D8A2252C95A000A2A6C /* Consumers */,
 				D979914021F8F51200247DD9 /* Internals */,
-				D979913F21F8F50500247DD9 /* Legacy */,
+				D98091CC22EE4FBC007FFB15 /* Localizable.strings */,
 				D9EF058420ACC59300D3F194 /* GatheredKit.h */,
-				D9124161225AA25100846D05 /* Localizable.strings */,
 				D9EF058520ACC59300D3F194 /* Info.plist */,
 			);
-			path = Source;
-			sourceTree = "<group>";
-		};
-		D9EF058E20ACC59300D3F194 /* Tests */ = {
-			isa = PBXGroup;
-			children = (
-				D9EF05DF20AE2B5600D3F194 /* Sources */,
-				D9EF05EC20AE2FC200D3F194 /* Frameworks */,
-				D9EF059120ACC59400D3F194 /* Info.plist */,
-			);
-			path = Tests;
-			sourceTree = "<group>";
-		};
-		D9EF05A320ACCDE100D3F194 /* Units */ = {
-			isa = PBXGroup;
-			children = (
-				D9126CD521F3A12A002C37EF /* Legacy */,
-			);
-			path = Units;
-			sourceTree = "<group>";
-		};
-		D9EF05A620ACCEB800D3F194 /* Sources */ = {
-			isa = PBXGroup;
-			children = (
-				D9B84DE320CF14F000380C42 /* Accelerometer.swift */,
-				D930631D20D5BDA7007A0CBD /* Compass.swift */,
-				D910EE9720FEA637007F495B /* Proximity.swift */,
-				D910EE8620FA412E007F495B /* Battery.swift */,
-				D928733D210CBD2500F63A18 /* Cameras.swift */,
-				D928733F210CCB5800F63A18 /* CPU.swift */,
-				D910EE9020FE9E76007F495B /* Altimeter.swift */,
-				D999586C2101166B00C577AC /* Advertising.swift */,
-				D910EE9920FFDE22007F495B /* CellRadio.swift */,
-				D9287339210CB13B00F63A18 /* OperatingSystem.swift */,
-				D9995872210344C600C577AC /* Bluetooth.swift */,
-				D999586E21011EA700C577AC /* DeviceOrientation.swift */,
-				D99958702103403A00C577AC /* Storage.swift */,
-				D950166B2118BCB7003542DC /* Memory.swift */,
-				D950166D2118FA0B003542DC /* AudioOutput.swift */,
-				D910EE8C20FB6011007F495B /* DeviceMetadata.swift */,
-				D96C62FF20F6AB0900BF06EF /* WiFi.swift */,
-			);
-			path = Sources;
-			sourceTree = "<group>";
-		};
-		D9EF05A720ACCEDE00D3F194 /* Extensions */ = {
-			isa = PBXGroup;
-			children = (
-				D910EE8820FA451C007F495B /* SwiftShims.swift */,
-			);
-			path = Extensions;
+			name = Sources;
+			path = Sources/GatheredKit;
 			sourceTree = "<group>";
 		};
 		D9EF05DA20AE2B4700D3F194 /* Frameworks */ = {
@@ -596,7 +410,7 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		D9EF05DF20AE2B5600D3F194 /* Sources */ = {
+		D9EF05DF20AE2B5600D3F194 /* Tests */ = {
 			isa = PBXGroup;
 			children = (
 				D9EF05E320AE2BB100D3F194 /* Mocks */,
@@ -605,8 +419,10 @@
 				D9124154225A727400846D05 /* OptionalPropertyTests.swift */,
 				D912415B225A97A200846D05 /* OptionalMeasurementValueTests.swift */,
 				D9EF05E020AE2B9700D3F194 /* ScreenTests.swift */,
+				D9EF059120ACC59400D3F194 /* Info.plist */,
 			);
-			path = Sources;
+			name = Tests;
+			path = Tests/GatheredKitTests;
 			sourceTree = "<group>";
 		};
 		D9EF05E320AE2BB100D3F194 /* Mocks */ = {
@@ -620,15 +436,6 @@
 			path = Mocks;
 			sourceTree = "<group>";
 		};
-		D9EF05EC20AE2FC200D3F194 /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				D9EF05F120AE2FE100D3F194 /* Nimble.framework */,
-				D9EF05F220AE2FE100D3F194 /* Quick.framework */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
 		D9F649F421F8EAEF005C216F /* Consumer */ = {
 			isa = PBXGroup;
 			children = (
@@ -638,16 +445,6 @@
 				D916498322725847001138DE /* ConsumersProvider.swift */,
 			);
 			path = Consumer;
-			sourceTree = "<group>";
-		};
-		D9F94D68210CDCA700493C1B /* Unit */ = {
-			isa = PBXGroup;
-			children = (
-				D9EF05A420ACCE3800D3F194 /* AnyUnit.swift */,
-				D9EF05B020ACD02100D3F194 /* NumericUnit.swift */,
-				D9EF05B220ACD04F00D3F194 /* UnitError.swift */,
-			);
-			path = Unit;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -723,12 +520,11 @@
 			};
 			buildConfigurationList = D9EF057B20ACC59300D3F194 /* Build configuration list for PBXProject "GatheredKit" */;
 			compatibilityVersion = "Xcode 9.3";
-			developmentRegion = en;
+			developmentRegion = "en-GB";
 			hasScannedForEncodings = 0;
 			knownRegions = (
-				en,
-				Base,
 				"en-GB",
+				Base,
 			);
 			mainGroup = D9EF057720ACC59300D3F194;
 			productRefGroup = D9EF058220ACC59300D3F194 /* Products */;
@@ -746,7 +542,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D912415F225AA25100846D05 /* Localizable.strings in Resources */,
+				D98091CD22EE4FBC007FFB15 /* Localizable.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -777,7 +573,6 @@
 				D912414A225A52F300846D05 /* CMMagneticFieldFormatter.swift in Sources */,
 				D91C4B1A22500ED3009E234F /* ScaleFormatter.swift in Sources */,
 				D9124148225A524900846D05 /* CMMagneticFieldValue.swift in Sources */,
-				D910EE8920FA451C007F495B /* SwiftShims.swift in Sources */,
 				D9154EAC21FFC2FB00C1E99B /* LocationAuthorizationFormatter.swift in Sources */,
 				D9124146225A520300846D05 /* MagneticFieldValue.swift in Sources */,
 				D9C7D74B2274A7890096DE89 /* Magnetometer.swift in Sources */,
@@ -850,17 +645,6 @@
 			targetProxy = D9EF058C20ACC59300D3F194 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
-
-/* Begin PBXVariantGroup section */
-		D9124161225AA25100846D05 /* Localizable.strings */ = {
-			isa = PBXVariantGroup;
-			children = (
-				D9124160225AA25100846D05 /* en-GB */,
-			);
-			name = Localizable.strings;
-			sourceTree = "<group>";
-		};
-/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		D9EF059320ACC59400D3F194 /* Debug */ = {
@@ -997,7 +781,7 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				INFOPLIST_FILE = Source/Info.plist;
+				INFOPLIST_FILE = "$(SRCROOT)/Sources/GatheredKit/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1025,7 +809,7 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				INFOPLIST_FILE = Source/Info.plist;
+				INFOPLIST_FILE = "$(SRCROOT)/Sources/GatheredKit/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1051,7 +835,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
-				INFOPLIST_FILE = Tests/Info.plist;
+				INFOPLIST_FILE = Tests/GatheredKitTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1076,7 +860,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
-				INFOPLIST_FILE = Tests/Info.plist;
+				INFOPLIST_FILE = Tests/GatheredKitTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

@@ -1,3 +1,4 @@
+#if canImport(UIKit)
 import UIKit
 
 /**
@@ -193,3 +194,4 @@ internal protocol ScreenBackingData {
 }
 
 extension UIScreen: ScreenBackingData {}
+#endif
