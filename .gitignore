@@ -26,12 +26,18 @@ xcuserdata/
 *.dSYM.zip
 *.dSYM
 
-## fastlane
+# Swift Package Manager
+.build
+.swiftpm
 
-fastlane/report.xml
-fastlane/test_output
+# Carthage
+Carthage
 
-## Carthage
+# Node
+node_modules
 
-Carthage/Checkouts
-Carthage/Build
+# macOS
+.DS_Store
+
+# Documentation
+docs/
