@@ -1,31 +1,25 @@
-// swift-tools-version:5.1
-// The swift-tools-version declares the minimum version of Swift required to build this package.
-
+// swift-tools-version:5.0
 import PackageDescription
 
 let package = Package(
     name: "GatheredKit",
     platforms: [
-        .iOS(.v10), .tvOS(.v10)
+        .macOS(.v10_12), .iOS(.v10),
     ],
     products: [
-        // Products define the executables and libraries produced by a package, and make them visible to other packages.
-        .library(
-            name: "GatheredKit",
-            targets: ["GatheredKit"]),
+        .library(name: "GatheredKit", targets: ["GatheredKit"]),
     ],
     dependencies: [
-        // Dependencies declare other packages that this package depends on.
-        // .package(url: /* package url */, from: "1.0.0"),
+        .package(url: "https://github.com/Quick/Quick.git", from: "2.0.0"), // dev
+        .package(url: "https://github.com/Quick/Nimble.git", from: "8.0.0"), // dev
+        .package(url: "https://github.com/danger/swift.git", from: "1.0.0"), // dev
+        .package(url: "https://github.com/Realm/SwiftLint", from: "0.32.0"), // dev
+        .package(url: "https://github.com/f-meloni/Rocket", from: "0.1.0"), // dev
     ],
     targets: [
-        // Targets are the basic building blocks of a package. A target can define a module or a test suite.
-        // Targets can depend on other targets in this package, and on products in packages which this package depends on.
-        .target(
-            name: "GatheredKit",
-            dependencies: []),
-        .testTarget(
-            name: "GatheredKitTests",
-            dependencies: ["GatheredKit"]),
-    ]
+        .target(name: "GatheredKit"),
+        .testTarget(name: "GatheredKitTests", dependencies: ["GatheredKit", "Quick", "Nimble"]), // dev
+        .target(name: "CIDependencies", dependencies: ["Danger", "swiftlint", "danger-swift"], path: "Resources"), // dev
+    ],
+    swiftLanguageVersions: [.v5]
 )

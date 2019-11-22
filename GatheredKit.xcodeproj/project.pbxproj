@@ -69,6 +69,66 @@
 		D9C7D74E2274E1550096DE89 /* BasePollingSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = D999586A21010F3B00C577AC /* BasePollingSource.swift */; };
 		D9C7D75222751DD90096DE89 /* Snapshot.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9C7D75122751DD90096DE89 /* Snapshot.swift */; };
 		D9D7529E20B4BE0600B16A06 /* SourceAvailability.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9D7529D20B4BE0600B16A06 /* SourceAvailability.swift */; };
+		D9E090CB22EE63E80002CF84 /* GatheredKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D9E090C222EE63E80002CF84 /* GatheredKit.framework */; };
+		D9E090D922EE66ED0002CF84 /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = D930631020D54E0A007A0CBD /* Location.swift */; };
+		D9E090EC22EE66FB0002CF84 /* QuaternionValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9386AF22255158700B081AB /* QuaternionValue.swift */; };
+		D9E090ED22EE66FB0002CF84 /* RotationRateValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = D930631720D58A85007A0CBD /* RotationRateValue.swift */; };
+		D9E090EE22EE66FB0002CF84 /* CMMagneticFieldValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9124147225A524900846D05 /* CMMagneticFieldValue.swift */; };
+		D9E090EF22EE66FB0002CF84 /* CMCalibratedMagneticFieldValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = D912414C225A557000846D05 /* CMCalibratedMagneticFieldValue.swift */; };
+		D9E090F022EE66FB0002CF84 /* MeasurementValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9EB5D5B21FB5A8300163BF6 /* MeasurementValue.swift */; };
+		D9E090F122EE66FB0002CF84 /* SpeedValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9126CE821F3B6AA002C37EF /* SpeedValue.swift */; };
+		D9E090F222EE66FB0002CF84 /* AngleValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9126CE621F3B68B002C37EF /* AngleValue.swift */; };
+		D9E090F322EE66FB0002CF84 /* LengthValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9126CD821F3A1AD002C37EF /* LengthValue.swift */; };
+		D9E090F422EE66FB0002CF84 /* FrequencyValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9126CE121F3AF73002C37EF /* FrequencyValue.swift */; };
+		D9E090F522EE66FB0002CF84 /* MagneticFieldValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9124145225A520300846D05 /* MagneticFieldValue.swift */; };
+		D9E090F622EE66FB0002CF84 /* UnitMagneticField.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9124143225A4FED00846D05 /* UnitMagneticField.swift */; };
+		D9E090F722EE66FB0002CF84 /* CoordinateValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = D999587421035F0000C577AC /* CoordinateValue.swift */; };
+		D9E090F822EE66FB0002CF84 /* LocationAuthorizationValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9154EA821FFC2B200C1E99B /* LocationAuthorizationValue.swift */; };
+		D9E090F922EE66FB0002CF84 /* MagneticFieldCalibrationAccuracyValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9124166225AB07400846D05 /* MagneticFieldCalibrationAccuracyValue.swift */; };
+		D9E090FA22EE66FB0002CF84 /* NumericValues.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9386AF62255167F00B081AB /* NumericValues.swift */; };
+		D9E090FB22EE66FB0002CF84 /* PercentValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = D91C4B1322500C8C009E234F /* PercentValue.swift */; };
+		D9E090FC22EE66FB0002CF84 /* ScaleValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = D91C4B1722500E87009E234F /* ScaleValue.swift */; };
+		D9E090FD22EE66FB0002CF84 /* SizeValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9286C2E224E7C6B00A69AF3 /* SizeValue.swift */; };
+		D9E090FE22EE66FF0002CF84 /* CoreMotionSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9124150225A587D00846D05 /* CoreMotionSource.swift */; };
+		D9E090FF22EE66FF0002CF84 /* DeviceAttitude.swift in Sources */ = {isa = PBXBuildFile; fileRef = D96A18E320C741E100CAE44F /* DeviceAttitude.swift */; };
+		D9E0910022EE66FF0002CF84 /* Gyroscope.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9B84DDF20CC83D900380C42 /* Gyroscope.swift */; };
+		D9E0910122EE66FF0002CF84 /* Magnetometer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9B84DE120CF0FB800380C42 /* Magnetometer.swift */; };
+		D9E0910222EE66FF0002CF84 /* Heading.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9386AFA225522F200B081AB /* Heading.swift */; };
+		D9E0910322EE66FF0002CF84 /* CMLogItem+date.swift in Sources */ = {isa = PBXBuildFile; fileRef = D912414E225A57C100846D05 /* CMLogItem+date.swift */; };
+		D9E0910422EE66FF0002CF84 /* Screen.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9EF05CA20ACD35B00D3F194 /* Screen.swift */; };
+		D9E0910522EE67070002CF84 /* CoordinateFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9126CDB21F3AC53002C37EF /* CoordinateFormatter.swift */; };
+		D9E0910622EE67070002CF84 /* LocationAuthorizationFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9154EAB21FFC2FB00C1E99B /* LocationAuthorizationFormatter.swift */; };
+		D9E0910722EE67070002CF84 /* MagneticFieldCalibrationAccuracyFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9124164225AB01F00846D05 /* MagneticFieldCalibrationAccuracyFormatter.swift */; };
+		D9E0910822EE67070002CF84 /* PercentFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D91C4B1522500CC1009E234F /* PercentFormatter.swift */; };
+		D9E0910922EE67070002CF84 /* ScaleFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D91C4B1922500ED3009E234F /* ScaleFormatter.swift */; };
+		D9E0910A22EE67070002CF84 /* SizeFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9286C2C224E7A1500A69AF3 /* SizeFormatter.swift */; };
+		D9E0910B22EE67070002CF84 /* CMMagneticFieldFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9124149225A52F300846D05 /* CMMagneticFieldFormatter.swift */; };
+		D9E0910C22EE67070002CF84 /* RotationRateFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D912413D225A4D3000846D05 /* RotationRateFormatter.swift */; };
+		D9E0910D22EE67070002CF84 /* QuaternionFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9386AF4225515AA00B081AB /* QuaternionFormatter.swift */; };
+		D9E0910E22EE670D0002CF84 /* ClosureConsumer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9070D8B2252C96C000A2A6C /* ClosureConsumer.swift */; };
+		D9E0910F22EE670D0002CF84 /* NotificationsUpdatesConsumer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9070D8D2252C9A2000A2A6C /* NotificationsUpdatesConsumer.swift */; };
+		D9E0911022EE671E0002CF84 /* OperationQueue+convenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9386B3722560BC300B081AB /* OperationQueue+convenience.swift */; };
+		D9E0911122EE671E0002CF84 /* castToOptional.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9124156225A741A00846D05 /* castToOptional.swift */; };
+		D9E0911222EE671E0002CF84 /* String+localized.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9124162225AA37100846D05 /* String+localized.swift */; };
+		D9E0911322EE671E0002CF84 /* AnyProperty.swift in Sources */ = {isa = PBXBuildFile; fileRef = D91649852272586E001138DE /* AnyProperty.swift */; };
+		D9E0911422EE671E0002CF84 /* Snapshot.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9C7D75122751DD90096DE89 /* Snapshot.swift */; };
+		D9E0911522EE671E0002CF84 /* Property.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9EF059F20ACC77D00D3F194 /* Property.swift */; };
+		D9E0911622EE671E0002CF84 /* OptionalProperty.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9164978227242E3001138DE /* OptionalProperty.swift */; };
+		D9E0911722EE671E0002CF84 /* ValuesProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9168F4D20C8851E00100EEE /* ValuesProvider.swift */; };
+		D9E0911822EE671E0002CF84 /* Source.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9F6B05420F8F4A700831338 /* Source.swift */; };
+		D9E0911922EE671E0002CF84 /* Controllable.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9EF059D20ACC63700D3F194 /* Controllable.swift */; };
+		D9E0911A22EE671E0002CF84 /* SourceAvailability.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9D7529D20B4BE0600B16A06 /* SourceAvailability.swift */; };
+		D9E0911B22EE671E0002CF84 /* CustomisableUpdateIntervalControllable.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9EF05AC20ACCF7000D3F194 /* CustomisableUpdateIntervalControllable.swift */; };
+		D9E0911C22EE671E0002CF84 /* ManuallyUpdatableValuesProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9EF05AE20ACCF8B00D3F194 /* ManuallyUpdatableValuesProvider.swift */; };
+		D9E0911D22EE671E0002CF84 /* BasePollingSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = D999586A21010F3B00C577AC /* BasePollingSource.swift */; };
+		D9E0911E22EE671E0002CF84 /* AnyProducer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D916497D227257CB001138DE /* AnyProducer.swift */; };
+		D9E0911F22EE671E0002CF84 /* Producer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D916497A22725788001138DE /* Producer.swift */; };
+		D9E0912022EE671E0002CF84 /* AnyConsumer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9EF05D020ACD6B900D3F194 /* AnyConsumer.swift */; };
+		D9E0912122EE671E0002CF84 /* Consumer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D916497F22725817001138DE /* Consumer.swift */; };
+		D9E0912222EE671E0002CF84 /* WeakConsumerWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = D91649812272582F001138DE /* WeakConsumerWrapper.swift */; };
+		D9E0912322EE671E0002CF84 /* ConsumersProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = D916498322725847001138DE /* ConsumersProvider.swift */; };
+		D9E0912422EE671E0002CF84 /* Action.swift in Sources */ = {isa = PBXBuildFile; fileRef = D910EE9320FEA064007F495B /* Action.swift */; };
+		D9E0912522EE671E0002CF84 /* ActionProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = D910EE9520FEA070007F495B /* ActionProvider.swift */; };
 		D9EF058B20ACC59300D3F194 /* GatheredKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D9EF058120ACC59300D3F194 /* GatheredKit.framework */; };
 		D9EF059220ACC59400D3F194 /* GatheredKit.h in Headers */ = {isa = PBXBuildFile; fileRef = D9EF058420ACC59300D3F194 /* GatheredKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D9EF059E20ACC63700D3F194 /* Controllable.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9EF059D20ACC63700D3F194 /* Controllable.swift */; };
@@ -80,6 +140,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		D9E090CC22EE63E80002CF84 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D9EF057820ACC59300D3F194 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = D9E090C122EE63E80002CF84;
+			remoteInfo = "GatheredKit-macOS";
+		};
 		D9EF058C20ACC59300D3F194 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = D9EF057820ACC59300D3F194 /* Project object */;
@@ -154,6 +221,8 @@
 		D9386AF62255167F00B081AB /* NumericValues.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumericValues.swift; sourceTree = "<group>"; };
 		D9386AFA225522F200B081AB /* Heading.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Heading.swift; sourceTree = "<group>"; };
 		D9386B3722560BC300B081AB /* OperationQueue+convenience.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "OperationQueue+convenience.swift"; sourceTree = "<group>"; };
+		D9416E33238859C400181A32 /* Package.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Package.swift; sourceTree = SOURCE_ROOT; };
+		D9416E34238859CB00181A32 /* CIDependencies.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CIDependencies.swift; sourceTree = "<group>"; };
 		D96A18E320C741E100CAE44F /* DeviceAttitude.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeviceAttitude.swift; sourceTree = "<group>"; };
 		D98091CC22EE4FBC007FFB15 /* Localizable.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; path = Localizable.strings; sourceTree = "<group>"; };
 		D999586A21010F3B00C577AC /* BasePollingSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasePollingSource.swift; sourceTree = "<group>"; };
@@ -163,11 +232,13 @@
 		D9B84DE120CF0FB800380C42 /* Magnetometer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Magnetometer.swift; sourceTree = "<group>"; };
 		D9C7D75122751DD90096DE89 /* Snapshot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Snapshot.swift; sourceTree = "<group>"; };
 		D9D7529D20B4BE0600B16A06 /* SourceAvailability.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SourceAvailability.swift; sourceTree = "<group>"; };
+		D9E090C222EE63E80002CF84 /* GatheredKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = GatheredKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		D9E090CA22EE63E80002CF84 /* GatheredKitTests-macOS.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "GatheredKitTests-macOS.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D9EB5D5B21FB5A8300163BF6 /* MeasurementValue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeasurementValue.swift; sourceTree = "<group>"; };
 		D9EF058120ACC59300D3F194 /* GatheredKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = GatheredKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D9EF058420ACC59300D3F194 /* GatheredKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GatheredKit.h; sourceTree = "<group>"; };
 		D9EF058520ACC59300D3F194 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		D9EF058A20ACC59300D3F194 /* GatheredKitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GatheredKitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		D9EF058A20ACC59300D3F194 /* GatheredKitTests-iOS.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "GatheredKitTests-iOS.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D9EF059120ACC59400D3F194 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D9EF059D20ACC63700D3F194 /* Controllable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Controllable.swift; sourceTree = "<group>"; };
 		D9EF059F20ACC77D00D3F194 /* Property.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Property.swift; sourceTree = "<group>"; };
@@ -183,6 +254,21 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		D9E090BF22EE63E80002CF84 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D9E090C722EE63E80002CF84 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D9E090CB22EE63E80002CF84 /* GatheredKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		D9EF057D20ACC59300D3F194 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -287,6 +373,27 @@
 			path = Extensions;
 			sourceTree = "<group>";
 		};
+		D9416E312388596800181A32 /* GatheredKit */ = {
+			isa = PBXGroup;
+			children = (
+				D979914421F8F5F300247DD9 /* Values */,
+				D979914221F8F5B300247DD9 /* Sources */,
+				D9154EAA21FFC2E600C1E99B /* Formatters */,
+				D9070D8A2252C95A000A2A6C /* Consumers */,
+				D979914021F8F51200247DD9 /* Internals */,
+			);
+			path = GatheredKit;
+			sourceTree = "<group>";
+		};
+		D9416E32238859A100181A32 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				D9416E33238859C400181A32 /* Package.swift */,
+				D9416E34238859CB00181A32 /* CIDependencies.swift */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
 		D96A18DF20C741D000CAE44F /* Motion */ = {
 			isa = PBXGroup;
 			children = (
@@ -370,6 +477,7 @@
 			children = (
 				D9EF058320ACC59300D3F194 /* Sources */,
 				D9EF05DF20AE2B5600D3F194 /* Tests */,
+				D9416E32238859A100181A32 /* Resources */,
 				D9EF058220ACC59300D3F194 /* Products */,
 				D9EF05DA20AE2B4700D3F194 /* Frameworks */,
 			);
@@ -379,7 +487,9 @@
 			isa = PBXGroup;
 			children = (
 				D9EF058120ACC59300D3F194 /* GatheredKit.framework */,
-				D9EF058A20ACC59300D3F194 /* GatheredKitTests.xctest */,
+				D9EF058A20ACC59300D3F194 /* GatheredKitTests-iOS.xctest */,
+				D9E090C222EE63E80002CF84 /* GatheredKit.framework */,
+				D9E090CA22EE63E80002CF84 /* GatheredKitTests-macOS.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -387,11 +497,7 @@
 		D9EF058320ACC59300D3F194 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
-				D979914421F8F5F300247DD9 /* Values */,
-				D979914221F8F5B300247DD9 /* Sources */,
-				D9154EAA21FFC2E600C1E99B /* Formatters */,
-				D9070D8A2252C95A000A2A6C /* Consumers */,
-				D979914021F8F51200247DD9 /* Internals */,
+				D9416E312388596800181A32 /* GatheredKit */,
 				D98091CC22EE4FBC007FFB15 /* Localizable.strings */,
 				D9EF058420ACC59300D3F194 /* GatheredKit.h */,
 				D9EF058520ACC59300D3F194 /* Info.plist */,
@@ -450,6 +556,13 @@
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
+		D9E090BD22EE63E80002CF84 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		D9EF057E20ACC59300D3F194 /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
@@ -461,9 +574,45 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
-		D9EF058020ACC59300D3F194 /* GatheredKit */ = {
+		D9E090C122EE63E80002CF84 /* GatheredKit-macOS */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = D9EF059520ACC59400D3F194 /* Build configuration list for PBXNativeTarget "GatheredKit" */;
+			buildConfigurationList = D9E090D322EE63E80002CF84 /* Build configuration list for PBXNativeTarget "GatheredKit-macOS" */;
+			buildPhases = (
+				D9E090BD22EE63E80002CF84 /* Headers */,
+				D9E090BE22EE63E80002CF84 /* Sources */,
+				D9E090BF22EE63E80002CF84 /* Frameworks */,
+				D9E090C022EE63E80002CF84 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "GatheredKit-macOS";
+			productName = "GatheredKit-macOS";
+			productReference = D9E090C222EE63E80002CF84 /* GatheredKit.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		D9E090C922EE63E80002CF84 /* GatheredKitTests-macOS */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D9E090D622EE63E80002CF84 /* Build configuration list for PBXNativeTarget "GatheredKitTests-macOS" */;
+			buildPhases = (
+				D9E090C622EE63E80002CF84 /* Sources */,
+				D9E090C722EE63E80002CF84 /* Frameworks */,
+				D9E090C822EE63E80002CF84 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				D9E090CD22EE63E80002CF84 /* PBXTargetDependency */,
+			);
+			name = "GatheredKitTests-macOS";
+			productName = "GatheredKit-macOSTests";
+			productReference = D9E090CA22EE63E80002CF84 /* GatheredKitTests-macOS.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		D9EF058020ACC59300D3F194 /* GatheredKit-iOS */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D9EF059520ACC59400D3F194 /* Build configuration list for PBXNativeTarget "GatheredKit-iOS" */;
 			buildPhases = (
 				D9EF057C20ACC59300D3F194 /* Sources */,
 				D9EF057D20ACC59300D3F194 /* Frameworks */,
@@ -474,14 +623,14 @@
 			);
 			dependencies = (
 			);
-			name = GatheredKit;
+			name = "GatheredKit-iOS";
 			productName = GatheredKit;
 			productReference = D9EF058120ACC59300D3F194 /* GatheredKit.framework */;
 			productType = "com.apple.product-type.framework";
 		};
-		D9EF058920ACC59300D3F194 /* GatheredKitTests */ = {
+		D9EF058920ACC59300D3F194 /* GatheredKitTests-iOS */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = D9EF059820ACC59400D3F194 /* Build configuration list for PBXNativeTarget "GatheredKitTests" */;
+			buildConfigurationList = D9EF059820ACC59400D3F194 /* Build configuration list for PBXNativeTarget "GatheredKitTests-iOS" */;
 			buildPhases = (
 				D9EF058620ACC59300D3F194 /* Sources */,
 				D9EF058720ACC59300D3F194 /* Frameworks */,
@@ -493,9 +642,9 @@
 			dependencies = (
 				D9EF058D20ACC59300D3F194 /* PBXTargetDependency */,
 			);
-			name = GatheredKitTests;
+			name = "GatheredKitTests-iOS";
 			productName = GatheredKitTests;
-			productReference = D9EF058A20ACC59300D3F194 /* GatheredKitTests.xctest */;
+			productReference = D9EF058A20ACC59300D3F194 /* GatheredKitTests-iOS.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
@@ -504,10 +653,16 @@
 		D9EF057820ACC59300D3F194 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 0930;
+				LastSwiftUpdateCheck = 1100;
 				LastUpgradeCheck = 0930;
 				ORGANIZATIONNAME = "Joseph Duffy";
 				TargetAttributes = {
+					D9E090C122EE63E80002CF84 = {
+						CreatedOnToolsVersion = 11.0;
+					};
+					D9E090C922EE63E80002CF84 = {
+						CreatedOnToolsVersion = 11.0;
+					};
 					D9EF058020ACC59300D3F194 = {
 						CreatedOnToolsVersion = 9.3.1;
 						LastSwiftMigration = 1020;
@@ -531,13 +686,29 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				D9EF058020ACC59300D3F194 /* GatheredKit */,
-				D9EF058920ACC59300D3F194 /* GatheredKitTests */,
+				D9EF058020ACC59300D3F194 /* GatheredKit-iOS */,
+				D9EF058920ACC59300D3F194 /* GatheredKitTests-iOS */,
+				D9E090C122EE63E80002CF84 /* GatheredKit-macOS */,
+				D9E090C922EE63E80002CF84 /* GatheredKitTests-macOS */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		D9E090C022EE63E80002CF84 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D9E090C822EE63E80002CF84 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		D9EF057F20ACC59300D3F194 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -556,6 +727,79 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		D9E090BE22EE63E80002CF84 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D9E0912122EE671E0002CF84 /* Consumer.swift in Sources */,
+				D9E0912222EE671E0002CF84 /* WeakConsumerWrapper.swift in Sources */,
+				D9E0910222EE66FF0002CF84 /* Heading.swift in Sources */,
+				D9E090FF22EE66FF0002CF84 /* DeviceAttitude.swift in Sources */,
+				D9E0911522EE671E0002CF84 /* Property.swift in Sources */,
+				D9E0911222EE671E0002CF84 /* String+localized.swift in Sources */,
+				D9E090F422EE66FB0002CF84 /* FrequencyValue.swift in Sources */,
+				D9E0910422EE66FF0002CF84 /* Screen.swift in Sources */,
+				D9E0911F22EE671E0002CF84 /* Producer.swift in Sources */,
+				D9E0910F22EE670D0002CF84 /* NotificationsUpdatesConsumer.swift in Sources */,
+				D9E0910722EE67070002CF84 /* MagneticFieldCalibrationAccuracyFormatter.swift in Sources */,
+				D9E090FA22EE66FB0002CF84 /* NumericValues.swift in Sources */,
+				D9E090F322EE66FB0002CF84 /* LengthValue.swift in Sources */,
+				D9E0912422EE671E0002CF84 /* Action.swift in Sources */,
+				D9E090F522EE66FB0002CF84 /* MagneticFieldValue.swift in Sources */,
+				D9E0911B22EE671E0002CF84 /* CustomisableUpdateIntervalControllable.swift in Sources */,
+				D9E090ED22EE66FB0002CF84 /* RotationRateValue.swift in Sources */,
+				D9E0911922EE671E0002CF84 /* Controllable.swift in Sources */,
+				D9E090FE22EE66FF0002CF84 /* CoreMotionSource.swift in Sources */,
+				D9E0910622EE67070002CF84 /* LocationAuthorizationFormatter.swift in Sources */,
+				D9E0911722EE671E0002CF84 /* ValuesProvider.swift in Sources */,
+				D9E090F822EE66FB0002CF84 /* LocationAuthorizationValue.swift in Sources */,
+				D9E0910122EE66FF0002CF84 /* Magnetometer.swift in Sources */,
+				D9E090D922EE66ED0002CF84 /* Location.swift in Sources */,
+				D9E0911D22EE671E0002CF84 /* BasePollingSource.swift in Sources */,
+				D9E090FB22EE66FB0002CF84 /* PercentValue.swift in Sources */,
+				D9E090F722EE66FB0002CF84 /* CoordinateValue.swift in Sources */,
+				D9E090F122EE66FB0002CF84 /* SpeedValue.swift in Sources */,
+				D9E090F922EE66FB0002CF84 /* MagneticFieldCalibrationAccuracyValue.swift in Sources */,
+				D9E0910D22EE67070002CF84 /* QuaternionFormatter.swift in Sources */,
+				D9E0910322EE66FF0002CF84 /* CMLogItem+date.swift in Sources */,
+				D9E090F022EE66FB0002CF84 /* MeasurementValue.swift in Sources */,
+				D9E090EE22EE66FB0002CF84 /* CMMagneticFieldValue.swift in Sources */,
+				D9E0910922EE67070002CF84 /* ScaleFormatter.swift in Sources */,
+				D9E0910C22EE67070002CF84 /* RotationRateFormatter.swift in Sources */,
+				D9E0910022EE66FF0002CF84 /* Gyroscope.swift in Sources */,
+				D9E0911422EE671E0002CF84 /* Snapshot.swift in Sources */,
+				D9E0911322EE671E0002CF84 /* AnyProperty.swift in Sources */,
+				D9E090EC22EE66FB0002CF84 /* QuaternionValue.swift in Sources */,
+				D9E090FC22EE66FB0002CF84 /* ScaleValue.swift in Sources */,
+				D9E0910522EE67070002CF84 /* CoordinateFormatter.swift in Sources */,
+				D9E090EF22EE66FB0002CF84 /* CMCalibratedMagneticFieldValue.swift in Sources */,
+				D9E0910E22EE670D0002CF84 /* ClosureConsumer.swift in Sources */,
+				D9E0911C22EE671E0002CF84 /* ManuallyUpdatableValuesProvider.swift in Sources */,
+				D9E0911E22EE671E0002CF84 /* AnyProducer.swift in Sources */,
+				D9E0910B22EE67070002CF84 /* CMMagneticFieldFormatter.swift in Sources */,
+				D9E0911622EE671E0002CF84 /* OptionalProperty.swift in Sources */,
+				D9E0910822EE67070002CF84 /* PercentFormatter.swift in Sources */,
+				D9E090FD22EE66FB0002CF84 /* SizeValue.swift in Sources */,
+				D9E0911822EE671E0002CF84 /* Source.swift in Sources */,
+				D9E0911022EE671E0002CF84 /* OperationQueue+convenience.swift in Sources */,
+				D9E0912022EE671E0002CF84 /* AnyConsumer.swift in Sources */,
+				D9E0911122EE671E0002CF84 /* castToOptional.swift in Sources */,
+				D9E0910A22EE67070002CF84 /* SizeFormatter.swift in Sources */,
+				D9E0912522EE671E0002CF84 /* ActionProvider.swift in Sources */,
+				D9E090F622EE66FB0002CF84 /* UnitMagneticField.swift in Sources */,
+				D9E090F222EE66FB0002CF84 /* AngleValue.swift in Sources */,
+				D9E0911A22EE671E0002CF84 /* SourceAvailability.swift in Sources */,
+				D9E0912322EE671E0002CF84 /* ConsumersProvider.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D9E090C622EE63E80002CF84 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		D9EF057C20ACC59300D3F194 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -639,14 +883,107 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		D9E090CD22EE63E80002CF84 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = D9E090C122EE63E80002CF84 /* GatheredKit-macOS */;
+			targetProxy = D9E090CC22EE63E80002CF84 /* PBXContainerItemProxy */;
+		};
 		D9EF058D20ACC59300D3F194 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = D9EF058020ACC59300D3F194 /* GatheredKit */;
+			target = D9EF058020ACC59300D3F194 /* GatheredKit-iOS */;
 			targetProxy = D9EF058C20ACC59300D3F194 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
+		D9E090D422EE63E80002CF84 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = uk.josephduffy.GatheredKit;
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		D9E090D522EE63E80002CF84 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = uk.josephduffy.GatheredKit;
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+		D9E090D722EE63E80002CF84 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = "$(SRCROOT)/Tests/GatheredKitTests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.14;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = "uk.josephduffy.GatheredKit-macOSTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		D9E090D822EE63E80002CF84 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = "$(SRCROOT)/Tests/GatheredKitTests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.14;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = "uk.josephduffy.GatheredKit-macOSTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
 		D9EF059320ACC59400D3F194 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -679,7 +1016,7 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "";
 				COPY_PHASE_STRIP = NO;
 				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = dwarf;
@@ -699,15 +1036,20 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				INFOPLIST_FILE = "$(SRCROOT)/Sources/GatheredKit/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				MACOSX_DEPLOYMENT_TARGET = 10.12;
+				MARKETING_VERSION = 0.1.1;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = GatheredKit;
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.2;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
+				VERSION_NUMBER = 0.1.1;
 			};
 			name = Debug;
 		};
@@ -743,7 +1085,7 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "";
 				COPY_PHASE_STRIP = NO;
 				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
@@ -757,8 +1099,12 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				INFOPLIST_FILE = "$(SRCROOT)/Sources/GatheredKit/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				MACOSX_DEPLOYMENT_TARGET = 10.12;
+				MARKETING_VERSION = 0.1.1;
 				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_NAME = GatheredKit;
 				SDKROOT = iphoneos;
 				SWIFT_COMPILATION_MODE = wholemodule;
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
@@ -766,6 +1112,7 @@
 				VALIDATE_PRODUCT = YES;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
+				VERSION_NUMBER = 0.1.1;
 			};
 			name = Release;
 		};
@@ -781,19 +1128,18 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				INFOPLIST_FILE = "$(SRCROOT)/Sources/GatheredKit/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = uk.co.josephduffy.GatheredKit;
-				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				PRODUCT_BUNDLE_IDENTIFIER = uk.josephduffy.GatheredKit;
 				SKIP_INSTALL = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSION_NUMBER = "";
 			};
 			name = Debug;
 		};
@@ -809,18 +1155,17 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				INFOPLIST_FILE = "$(SRCROOT)/Sources/GatheredKit/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = uk.co.josephduffy.GatheredKit;
-				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				PRODUCT_BUNDLE_IDENTIFIER = uk.josephduffy.GatheredKit;
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSION_NUMBER = "";
 			};
 			name = Release;
 		};
@@ -829,13 +1174,12 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = T2ABQ5MBH8;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
-				INFOPLIST_FILE = Tests/GatheredKitTests/Info.plist;
+				INFOPLIST_FILE = "$(SRCROOT)/Tests/GatheredKitTests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -854,13 +1198,12 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = T2ABQ5MBH8;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
-				INFOPLIST_FILE = Tests/GatheredKitTests/Info.plist;
+				INFOPLIST_FILE = "$(SRCROOT)/Tests/GatheredKitTests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -876,6 +1219,24 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		D9E090D322EE63E80002CF84 /* Build configuration list for PBXNativeTarget "GatheredKit-macOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D9E090D422EE63E80002CF84 /* Debug */,
+				D9E090D522EE63E80002CF84 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		D9E090D622EE63E80002CF84 /* Build configuration list for PBXNativeTarget "GatheredKitTests-macOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D9E090D722EE63E80002CF84 /* Debug */,
+				D9E090D822EE63E80002CF84 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		D9EF057B20ACC59300D3F194 /* Build configuration list for PBXProject "GatheredKit" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
@@ -885,7 +1246,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		D9EF059520ACC59400D3F194 /* Build configuration list for PBXNativeTarget "GatheredKit" */ = {
+		D9EF059520ACC59400D3F194 /* Build configuration list for PBXNativeTarget "GatheredKit-iOS" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				D9EF059620ACC59400D3F194 /* Debug */,
@@ -894,7 +1255,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		D9EF059820ACC59400D3F194 /* Build configuration list for PBXNativeTarget "GatheredKitTests" */ = {
+		D9EF059820ACC59400D3F194 /* Build configuration list for PBXNativeTarget "GatheredKitTests-iOS" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				D9EF059920ACC59400D3F194 /* Debug */,

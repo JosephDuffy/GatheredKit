@@ -1,3 +1,4 @@
+#if os(iOS)
 import Foundation
 import CoreMotion
 
@@ -84,3 +85,4 @@ public final class Heading: CoreMotionSource, Source, PropertiesProvider {
     }
 
 }
+#endif

@@ -1,3 +1,4 @@
+#if os(iOS)
 import Foundation
 import CoreMotion
 
@@ -114,3 +115,4 @@ public final class DeviceAttitude: CoreMotionSource, Source, PropertiesProvider 
     }
 
 }
+#endif

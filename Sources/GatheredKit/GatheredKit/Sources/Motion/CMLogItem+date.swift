@@ -1,3 +1,4 @@
+#if os(iOS)
 import CoreMotion
 
 private var deviceBootTime: Date = {
@@ -11,3 +12,4 @@ extension CMLogItem {
     }
     
 }
+#endif

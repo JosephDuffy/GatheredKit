@@ -1,3 +1,4 @@
+#if canImport(UIKit)
 import UIKit
 import Quick
 import Nimble
@@ -130,3 +131,4 @@ final class ScreenTests: QuickSpec {
     }
 
 }
+#endif

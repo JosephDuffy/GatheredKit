@@ -1,70 +1,69 @@
+#if os(iOS)
 import Foundation
 import CoreMotion
 
-public final class Gyroscope: CoreMotionSource, Source, PropertiesProvider {
+public final class Magnetometer: CoreMotionSource, Source, PropertiesProvider {
 
     public static var availability: SourceAvailability {
         return isAvailable ? .available : .unavailable
     }
 
-    public static let name = "Gyroscope"
-
     public static var isAvailable: Bool {
-        return CMMotionManager().isGyroAvailable
+        return CMMotionManager().isMagnetometerAvailable
     }
 
-    public let rotationRate: OptionalRotationRateValue
+    public static let name = "source.magnetometer.name".localized
 
-    public let rawRotationRate: OptionalRotationRateValue
+    public let magneticField: OptionalCMCalibratedMagneticFieldValue
+
+    public let rawMagneticField: OptionalCMMagneticFieldValue
 
     public var allProperties: [AnyProperty] {
-        return [rotationRate, rawRotationRate]
+        return [magneticField, rawMagneticField]
     }
 
     public override init() {
-        rotationRate = OptionalRotationRateValue(
-            displayName: "Rotation Rate (Calibrated)"
-        )
-        rawRotationRate = OptionalRotationRateValue(
-            displayName: "Rotation Rate (Raw)"
-        )
+        magneticField = OptionalCMCalibratedMagneticFieldValue(displayName: "source.magnetometer.value.calibrated_magnetic_field.name".localized)
+        rawMagneticField = OptionalCMMagneticFieldValue(displayName: "source.magnetometer.value.raw_magnetic_field.name".localized)
     }
 
     public override func startUpdating(every updateInterval: TimeInterval) {
-        super.startUpdating(every: updateInterval, motionManagerConfigurator: { motionManager, updatesQueue in
+        super.startUpdating(every: updateInterval, motionManagerConfigurator:  { motionManager, updatesQueue in
             let calibratedHandler: CMDeviceMotionHandler = { [weak self] (_ data: CMDeviceMotion?, error: Error?) in
-                guard let self = self else { return }
+                guard let `self` = self else { return }
                 guard self.isUpdating else { return }
                 guard let data = data else { return }
                 
-                self.rawRotationRate.update(
-                    value: data.rotationRate,
+                self.magneticField.update(
+                    value: data.magneticField,
                     date: data.date
                 )
+                
                 self.notifyUpdateConsumersOfLatestValues()
             }
             
-            let rawHandler: CMGyroHandler = { [weak self] (_ data: CMGyroData?, error: Error?) in
-                guard let self = self else { return }
+            let rawHandler: CMMagnetometerHandler = { [weak self] (_ data: CMMagnetometerData?, error: Error?) in
+                guard let `self` = self else { return }
                 guard self.isUpdating else { return }
                 guard let data = data else { return }
                 
-                self.rotationRate.update(
-                    value: data.rotationRate,
+                self.rawMagneticField.update(
+                    value: data.magneticField,
                     date: data.date
                 )
+                
                 self.notifyUpdateConsumersOfLatestValues()
             }
-            
+
             motionManager.deviceMotionUpdateInterval = updateInterval
-            motionManager.gyroUpdateInterval = updateInterval
+            motionManager.magnetometerUpdateInterval = updateInterval
             motionManager.showsDeviceMovementDisplay = true
             
             motionManager.startDeviceMotionUpdates(
                 to: updatesQueue,
                 withHandler: calibratedHandler
             )
-            motionManager.startGyroUpdates(
+            motionManager.startMagnetometerUpdates(
                 to: updatesQueue,
                 withHandler: rawHandler
             )
@@ -73,8 +72,9 @@ public final class Gyroscope: CoreMotionSource, Source, PropertiesProvider {
     
     public override func stopUpdating() {
         motionManager?.stopDeviceMotionUpdates()
-        motionManager?.stopGyroUpdates()
+        motionManager?.stopMagnetometerUpdates()
         super.stopUpdating()
     }
 
 }
+#endif

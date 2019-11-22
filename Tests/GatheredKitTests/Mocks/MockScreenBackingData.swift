@@ -1,3 +1,5 @@
+#if canImport(UIKit)
+import UIKit
 import Quick
 import Nimble
 
@@ -19,3 +21,4 @@ final class MockScreenBackingData: ScreenBackingData {
     init() {}
 
 }
+#endif

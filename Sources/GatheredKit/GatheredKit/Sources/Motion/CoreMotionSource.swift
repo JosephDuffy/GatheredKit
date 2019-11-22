@@ -1,6 +1,8 @@
+#if os(iOS)
 import Foundation
 import CoreMotion
 
+@available(iOS 4.0, *)
 open class CoreMotionSource: CustomisableUpdateIntervalControllable, Producer {
     
     public typealias ProducedValue = [AnyProperty]
@@ -66,3 +68,4 @@ open class CoreMotionSource: CustomisableUpdateIntervalControllable, Producer {
 }
 
 extension CoreMotionSource: ConsumersProvider { }
+#endif
