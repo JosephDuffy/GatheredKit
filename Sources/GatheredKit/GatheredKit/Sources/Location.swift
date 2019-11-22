@@ -333,7 +333,7 @@ extension SourceAvailability {
         }
         #elseif os(macOS)
         switch authorizationStatus {
-        case .authorized, .authorizedAlways:
+        case .authorizedAlways:
             self = .available
         case .denied:
             self = .permissionDenied
