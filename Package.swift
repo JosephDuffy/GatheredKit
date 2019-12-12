@@ -9,13 +9,9 @@ let package = Package(
     products: [
         .library(name: "GatheredKit", targets: ["GatheredKit"]),
     ],
-    dependencies: [
-        .package(url: "https://github.com/Quick/Quick.git", from: "2.0.0"), // dev
-        .package(url: "https://github.com/Quick/Nimble.git", from: "8.0.0"), // dev
-    ],
     targets: [
         .target(name: "GatheredKit"),
-        .testTarget(name: "GatheredKitTests", dependencies: ["GatheredKit", "Quick", "Nimble"]), // dev
+        .testTarget(name: "GatheredKitTests", dependencies: ["GatheredKit"]),
     ],
     swiftLanguageVersions: [.v5]
 )

@@ -59,8 +59,8 @@ public final class Screen: Source, Controllable, Producer, PropertiesProvider {
 
      This value will update automatically when `startUpdating` is called
      */
-    public var brightness: PercentValue {
-        return PercentValue(displayName: "Brightness", value: screen.brightness.native)
+    public var brightness: Property<CGFloat, PercentFormatter> {
+        return .init(displayName: "Brightness", value: screen.brightness)
     }
 
     /**
@@ -119,12 +119,12 @@ public final class Screen: Source, Controllable, Producer, PropertiesProvider {
 
         reportedScale = ScaleValue(
             displayName: "Scale (reported)",
-            value: screen.scale.native
+            value: screen.scale
         )
 
         nativeScale = ScaleValue(
             displayName: "Scale (native)",
-            value: screen.nativeScale.native
+            value: screen.nativeScale
         )
     }
 

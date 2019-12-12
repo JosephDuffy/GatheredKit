@@ -1,46 +1,17 @@
-import Foundation
-import Quick
-import Nimble
+import XCTest
 import GatheredKit
 
-final class OptionalMeasurementPropertyTests: QuickSpec {
+final class OptionalMeasurementPropertyTests: XCTestCase {
 
-    override func spec() {
-        describe("OptionalMeasurementProperty") {
-            var property: OptionalMeasurementProperty<UnitFrequency>!
-            
-            context("with a nil value") {
-                beforeEach {
-                    property = OptionalMeasurementProperty(displayName: "Test", value: nil)
-                }
-                
-                context("formattedValue") {
-                    it("should be nil") {
-                        expect(property.formattedValue).to(beNil())
-                    }
-                }
-            }
-            
-            context("with a non-nil value") {
-                beforeEach {
-                    property = OptionalMeasurementProperty(displayName: "Test", value: 5)
-                }
-                
-                context("value.formatter.string(for:)") {
-                    context("called with the value") {
-                        var formatterString: String?
-                        
-                        beforeEach {
-                            formatterString = property.formatter.string(for: property.value)
-                        }
-                        
-                        it("should not return nil") {
-                            expect(formatterString).toNot(beNil())
-                        }
-                    }
-                }
-            }
-        }
+    func testNilValue() {
+        let property = OptionalMeasurementProperty<UnitFrequency>(displayName: "Test", value: nil)
+        XCTAssertNil(property.formattedValue)
+    }
+
+    func testNonNilValue() {
+        let property = OptionalMeasurementProperty<UnitFrequency>(displayName: "Test", value: 5)
+        let formattedString = property.formatter.string(for: property.value)
+        XCTAssertNotNil(formattedString)
     }
 
 }
