@@ -1,0 +1,98 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  github_release:
+    name: Create GitHub Release with Prebuilt Carthage Frameworks (Xcode ${{ matrix.xcode }})
+    runs-on: macos-latest
+    strategy:
+      matrix:
+        xcode: ["11.2"]
+
+    steps:
+    - uses: actions/checkout@v1
+
+    - name: Select Xcode ${{ matrix.xcode }}
+      run: sudo xcode-select --switch /Applications/Xcode_${{ matrix.xcode }}.app
+
+    - name: Build carthage archive
+      run: carthage build --archive --platform iOS,macOS,tvOS,watchOS
+
+    - name: Deploy to GitHub
+      uses: softprops/action-gh-release@v1
+      with:
+        files: GatheredKit.framework.zip
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  cocoa_pods_release:
+    name: CocoaPods
+    runs-on: macos-latest
+
+    steps:
+    - uses: actions/checkout@v1
+
+    - name: Cache Bundler
+      uses: actions/cache@v1
+      with:
+        path: vendor/bundle
+        key: ${{ runner.os }}-bundler-${{ hashFiles('**/Gemfile.lock') }}
+        restore-keys: |
+          ${{ runner.os }}-bundler-
+    - name: bundle install
+      run: bundle install --deployment
+
+    - name: Deploy pod
+      run: bundle exec pod trunk push
+      env:
+        COCOAPODS_TRUNK_TOKEN: ${{ secrets.COCOAPODS_TRUNK_TOKEN }}
+
+  build_docs:
+    name: Build Docs
+    runs-on: macos-latest
+
+    steps:
+    - uses: actions/checkout@v1
+
+    - name: Cache Bundler
+      uses: actions/cache@v1
+      with:
+        path: vendor/bundle
+        key: ${{ runner.os }}-bundler-${{ hashFiles('**/Gemfile.lock') }}
+        restore-keys: |
+          ${{ runner.os }}-bundler-
+    - name: bundle install
+      run: bundle install --deployment
+
+    - name: Build docs
+      run: bundle exec jazzy
+
+    - name: Upload Docs
+      uses: actions/upload-artifact@v1
+      with:
+        name: docs
+        path: docs
+
+  docs_upload:
+    needs: [build_docs]
+    name: Upload Documentation
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v1
+
+    - name: Download Docs
+      uses: actions/download-artifact@v1
+      with:
+        name: docs
+
+    - name: Deploy docs
+      uses: JamesIves/github-pages-deploy-action@releases/v3
+      with:
+        ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
+        BRANCH: gh-pages
+        FOLDER: docs
