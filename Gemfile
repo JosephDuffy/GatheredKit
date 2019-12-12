@@ -1,4 +1,5 @@
 source "https://rubygems.org"
 
+gem "cocoapods"
+gem "jazzy"
 gem "fastlane"
-gem "jazzy", "~> 0.9.3"
