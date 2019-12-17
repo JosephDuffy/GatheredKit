@@ -50,5 +50,8 @@ jobs:
     - name: bundle install
       run: bundle install --deployment
 
+    - name: Create Xcode Project
+      run: swift package generate-xcodeproj --skip-extra-files
+
     - name: pod lib lint
       run: bundle exec pod lib lint
