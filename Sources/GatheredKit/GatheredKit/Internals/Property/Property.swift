@@ -52,7 +52,6 @@ open class Property<Value, Formatter: Foundation.Formatter>: AnyProperty, Snapsh
         displayName: String,
         value: Value,
         formatter: Formatter = Formatter(),
-        formattedValue: String? = nil,
         date: Date = Date()
     ) {
         self.displayName = displayName
@@ -66,12 +65,10 @@ open class Property<Value, Formatter: Foundation.Formatter>: AnyProperty, Snapsh
      Updates the value backing this `Property`.
 
      - parameter value: The new value of the property.
-     - parameter formattedValue: The new human-friendly formatted value. Defaults to `nil`.
      - parameter date: The date and time the `value` was recorded. Defaults to the current date and time.
      */
     public func update(
         value: Value,
-        formattedValue: String? = nil,
         date: Date = Date()
     ) {
         snapshot = Snapshot(value: value, date: date)

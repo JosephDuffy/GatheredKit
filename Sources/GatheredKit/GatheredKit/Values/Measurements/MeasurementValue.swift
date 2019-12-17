@@ -19,7 +19,7 @@ public class MeasurementProperty<Unit: Foundation.Unit>: Property<Measurement<Un
         date: Date = Date()
     ) {
         let measurement = Measurement(value: value, unit: unit)
-        self.init(displayName: displayName, value: measurement, formatter: formatter, formattedValue: formattedValue, date: date)
+        self.init(displayName: displayName, value: measurement, formatter: formatter, date: date)
     }
     
     public func update(
@@ -28,7 +28,7 @@ public class MeasurementProperty<Unit: Foundation.Unit>: Property<Measurement<Un
         date: Date = Date()
     ) {
         let measurement = Measurement(value: value, unit: self.measurement.unit)
-        self.update(value: measurement, formattedValue: formattedValue, date: date)
+        self.update(value: measurement, date: date)
     }
     
 }
@@ -46,7 +46,6 @@ public class OptionalMeasurementProperty<Unit: Foundation.Dimension>: OptionalPr
         value: Double?,
         unit: Unit = .baseUnit(),
         formatter: MeasurementFormatter = MeasurementFormatter(),
-        formattedValue: String? = nil,
         date: Date = Date()
     ) {
         self.unit = unit
@@ -56,20 +55,19 @@ public class OptionalMeasurementProperty<Unit: Foundation.Dimension>: OptionalPr
         } else {
             measurement = nil
         }
-        super.init(displayName: displayName, value: measurement, formatter: formatter, formattedValue: formattedValue, date: date)
+        super.init(displayName: displayName, value: measurement, formatter: formatter, date: date)
     }
     
-    public required init(displayName: String, value measurement: Measurement<Unit>? = nil, formatter: MeasurementFormatter = MeasurementFormatter(), formattedValue: String? = nil, date: Date = Date()) {
+    public required init(displayName: String, value measurement: Measurement<Unit>? = nil, formatter: MeasurementFormatter = MeasurementFormatter(), date: Date = Date()) {
         unit = measurement?.unit ?? .baseUnit()
-        super.init(displayName: displayName, value: measurement, formatter: formatter, formattedValue: formattedValue, date: date)
+        super.init(displayName: displayName, value: measurement, formatter: formatter, date: date)
     }
     
     public func update(
         value: Double,
-        formattedValue: String? = nil,
         date: Date = Date()
     ) {
-        update(value: Measurement(value: value, unit: unit), formattedValue: formattedValue, date: date)
+        update(value: Measurement(value: value, unit: unit), date: date)
     }
     
 }
@@ -81,7 +79,6 @@ public extension AnyProperty {
         value: Double,
         unit: Unit,
         formatter: MeasurementFormatter = MeasurementFormatter(),
-        formattedValue: String? = nil,
         date: Date = Date()
     ) -> MeasurementProperty<Unit> {
         let measurement = Measurement(value: value, unit: unit)
@@ -89,7 +86,6 @@ public extension AnyProperty {
             displayName: displayName,
             value: measurement,
             formatter: formatter,
-            formattedValue: formattedValue,
             date: date
         )
     }
@@ -99,7 +95,6 @@ public extension AnyProperty {
         value: Double? = nil,
         unit: Unit,
         formatter: MeasurementFormatter = MeasurementFormatter(),
-        formattedValue: String? = nil,
         date: Date = Date()
     ) -> OptionalMeasurementProperty<Unit> {
         let measurement: Measurement<Unit>?
@@ -112,7 +107,6 @@ public extension AnyProperty {
             displayName: displayName,
             value: measurement,
             formatter: formatter,
-            formattedValue: formattedValue,
             date: date
         )
     }

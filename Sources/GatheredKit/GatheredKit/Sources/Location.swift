@@ -200,13 +200,15 @@ public final class Location: NSObject, Source, Controllable, Producer, Propertie
             coordinate.update(value: location.coordinate, date: timestamp)
 
             if location.course < 0 {
-                course.update(value: nil, formattedValue: "Unknown", date: timestamp)
+                // TODO: Provide formatted value
+                course.update(value: nil, date: timestamp)
             } else {
                 course.update(value: location.speed, date: timestamp)
             }
 
             if location.speed < 0 {
-                speed.update(value: nil, formattedValue: "Unknown", date: timestamp)
+                // TODO: Provide formatted value
+                speed.update(value: nil, date: timestamp)
             } else {
                 speed.update(value: location.speed, date: timestamp)
             }

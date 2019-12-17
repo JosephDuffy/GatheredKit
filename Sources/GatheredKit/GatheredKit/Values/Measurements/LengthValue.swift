@@ -10,10 +10,9 @@ public extension AnyProperty {
         value: Double,
         unit: UnitLength,
         formatter: MeasurementFormatter = MeasurementFormatter(),
-        formattedValue: String? = nil,
         date: Date = Date()
     ) -> LengthValue {
-        return LengthValue(displayName: displayName, value: value, unit: unit, formatter: formatter, formattedValue: formattedValue, date: date)
+        return LengthValue(displayName: displayName, value: value, unit: unit, formatter: formatter, date: date)
     }
 
     static func length(
@@ -21,30 +20,27 @@ public extension AnyProperty {
         value: Double? = nil,
         unit: UnitLength,
         formatter: MeasurementFormatter = MeasurementFormatter(),
-        formattedValue: String? = nil,
         date: Date = Date()
     ) -> OptionalLengthValue {
-        return OptionalLengthValue(displayName: displayName, value: value, unit: unit, formatter: formatter, formattedValue: formattedValue, date: date)
+        return OptionalLengthValue(displayName: displayName, value: value, unit: unit, formatter: formatter, date: date)
     }
 
     static func meters(
         displayName: String,
         value: Double,
         formatter: MeasurementFormatter = MeasurementFormatter(),
-        formattedValue: String? = nil,
         date: Date = Date()
     ) -> LengthValue {
-        return LengthValue(displayName: displayName, value: value, unit: .meters, formatter: formatter, formattedValue: formattedValue, date: date)
+        return LengthValue(displayName: displayName, value: value, unit: .meters, formatter: formatter, date: date)
     }
 
     static func meters(
         displayName: String,
         value: Double? = nil,
         formatter: MeasurementFormatter = MeasurementFormatter(),
-        formattedValue: String? = nil,
         date: Date = Date()
     ) -> OptionalLengthValue {
-        return OptionalLengthValue(displayName: displayName, value: value, unit: .meters, formatter: formatter, formattedValue: formattedValue, date: date)
+        return OptionalLengthValue(displayName: displayName, value: value, unit: .meters, formatter: formatter, date: date)
     }
 
 }

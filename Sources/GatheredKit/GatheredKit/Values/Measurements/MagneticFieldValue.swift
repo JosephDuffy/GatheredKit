@@ -10,10 +10,9 @@ extension AnyProperty {
         value: Double,
         unit: UnitMagneticField,
         formatter: MeasurementFormatter = MeasurementFormatter(),
-        formattedValue: String? = nil,
         date: Date = Date()
     ) -> MagneticFieldValue {
-        return MagneticFieldValue(displayName: displayName, value: value, unit: unit, formatter: formatter, formattedValue: formattedValue, date: date)
+        return MagneticFieldValue(displayName: displayName, value: value, unit: unit, formatter: formatter, date: date)
     }
     
     static func magneticField(
@@ -21,50 +20,45 @@ extension AnyProperty {
         value: Double? = nil,
         unit: UnitMagneticField,
         formatter: MeasurementFormatter = MeasurementFormatter(),
-        formattedValue: String? = nil,
         date: Date = Date()
     ) -> OptionalMagneticFieldValue {
-        return OptionalMagneticFieldValue(displayName: displayName, value: value, unit: unit, formatter: formatter, formattedValue: formattedValue, date: date)
+        return OptionalMagneticFieldValue(displayName: displayName, value: value, unit: unit, formatter: formatter, date: date)
     }
     
     static func tesla(
         displayName: String,
         value: Double,
         formatter: MeasurementFormatter = MeasurementFormatter(),
-        formattedValue: String? = nil,
         date: Date = Date()
     ) -> MagneticFieldValue {
-        return MagneticFieldValue(displayName: displayName, value: value, unit: .tesla, formatter: formatter, formattedValue: formattedValue, date: date)
+        return MagneticFieldValue(displayName: displayName, value: value, unit: .tesla, formatter: formatter, date: date)
     }
     
     static func tesla(
         displayName: String,
         value: Double? = nil,
         formatter: MeasurementFormatter = MeasurementFormatter(),
-        formattedValue: String? = nil,
         date: Date = Date()
     ) -> OptionalMagneticFieldValue {
-        return OptionalMagneticFieldValue(displayName: displayName, value: value, unit: .tesla, formatter: formatter, formattedValue: formattedValue, date: date)
+        return OptionalMagneticFieldValue(displayName: displayName, value: value, unit: .tesla, formatter: formatter, date: date)
     }
     
     static func microTesla(
         displayName: String,
         value: Double,
         formatter: MeasurementFormatter = MeasurementFormatter(),
-        formattedValue: String? = nil,
         date: Date = Date()
     ) -> MagneticFieldValue {
-        return MagneticFieldValue(displayName: displayName, value: value, unit: .microTesla, formatter: formatter, formattedValue: formattedValue, date: date)
+        return MagneticFieldValue(displayName: displayName, value: value, unit: .microTesla, formatter: formatter, date: date)
     }
     
     static func microTesla(
         displayName: String,
         value: Double? = nil,
         formatter: MeasurementFormatter = MeasurementFormatter(),
-        formattedValue: String? = nil,
         date: Date = Date()
     ) -> OptionalMagneticFieldValue {
-        return OptionalMagneticFieldValue(displayName: displayName, value: value, unit: .microTesla, formatter: formatter, formattedValue: formattedValue, date: date)
+        return OptionalMagneticFieldValue(displayName: displayName, value: value, unit: .microTesla, formatter: formatter, date: date)
     }
     
 }

@@ -59,10 +59,11 @@ public final class Heading: CoreMotionSource, Source, PropertiesProvider {
                 guard let self = self else { return }
                 guard self.isUpdating else { return }
                 guard let data = data else { return }
-                
+
+                // TODO: Create Header formatter to allow this
                 self.heading.update(
                     value: data.heading,
-                    formattedValue: data.heading < 0 ? "source.heading.value.heading.unknown-value" : nil,
+//                    formattedValue: data.heading < 0 ? "source.heading.value.heading.unknown-value" : nil,
                     date: data.date
                 )
 
