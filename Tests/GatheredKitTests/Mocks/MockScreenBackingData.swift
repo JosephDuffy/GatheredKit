@@ -3,19 +3,62 @@ import UIKit
 @testable
 import GatheredKit
 
-final class MockScreenBackingData: ScreenBackingData {
+final class MockScreen: UIScreen {
 
-    var bounds = CGRect(x: 0, y: 0, width: 320, height: 480)
+    private var _bounds: CGRect?
 
-    var scale: CGFloat = 2
+    override var bounds: CGRect {
+        get {
+            return _bounds ?? super.bounds
+        }
+        set {
+            _bounds = newValue
+        }
+    }
 
-    var nativeBounds = CGRect(x: 0, y: 0, width: 640, height: 960)
+    private var _nativeBounds: CGRect?
 
-    var nativeScale: CGFloat = 2
+    override var nativeBounds: CGRect {
+        get {
+            return _nativeBounds ?? super.nativeBounds
+        }
+        set {
+            _nativeBounds = newValue
+        }
+    }
 
-    var brightness: CGFloat = 0.76
+    private var _scale: CGFloat?
 
-    init() {}
+    override var scale: CGFloat {
+        get {
+            return _scale ?? super.scale
+        }
+        set {
+            _scale = newValue
+        }
+    }
+
+    private var _nativeScale: CGFloat?
+
+    override var nativeScale: CGFloat {
+        get {
+            return _nativeScale ?? super.nativeScale
+        }
+        set {
+            _nativeScale = newValue
+        }
+    }
+
+    private var _brightness: CGFloat?
+
+    override var brightness: CGFloat {
+        get {
+            return _brightness ?? super.brightness
+        }
+        set {
+            _brightness = newValue
+        }
+    }
 
 }
 #endif

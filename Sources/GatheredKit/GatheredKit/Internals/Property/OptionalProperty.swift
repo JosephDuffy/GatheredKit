@@ -1,10 +1,10 @@
 import Foundation
 
-open class OptionalProperty<Value, Formatter: Foundation.Formatter>: Property<Value?, Formatter> {
+open class OptionalProperty<UnwrappedValue, Formatter: Foundation.Formatter>: Property<UnwrappedValue?, Formatter> {
     
     public required init(
         displayName: String,
-        value: Value? = nil,
+        value: UnwrappedValue? = nil,
         formatter: Formatter = Formatter(),
         formattedValue: String? = nil,
         date: Date = Date()

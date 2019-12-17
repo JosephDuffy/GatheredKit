@@ -1,24 +1,25 @@
 #if canImport(UIKit)
 import UIKit
+import Combine
 
 /**
  A wrapper around `UIScreen`. Each property is read directly from `UIScreen`; every property is always the latest
  available value
  */
-public final class Screen: Source, Controllable, Producer, PropertiesProvider {
-    
-    public typealias ProducedValue = [AnyProperty]
-    
+public final class Screen: Source, Controllable {
+
+    public typealias Publisher = PassthroughSubject<[AnyProperty], Never>
+
     private enum State {
         case notMonitoring
-        case monitoring(brightnessChangeObeserver: NSObjectProtocol, updatesQueue: OperationQueue)
+        case monitoring(brightnessChangeObeserver: NSObjectProtocol, modeChangeObeserver: NSObjectProtocol, updatesQueue: OperationQueue)
     }
-
-    private static var numberFormatter = NumberFormatter()
 
     public static var availability: SourceAvailability = .available
 
     public static var name = "Screen"
+
+    public let publisher: Publisher
 
     /// A boolean indicating if the screen is monitoring for brightness changes
     public var isUpdating: Bool {
@@ -30,8 +31,8 @@ public final class Screen: Source, Controllable, Producer, PropertiesProvider {
         }
     }
     
-    /// The `ScreenBackingData` this `Screen` represents
-    private let screen: ScreenBackingData
+    /// The `UIScreen` this `Screen` represents.
+    public let uiScreen: UIScreen
 
     /**
      The reported resolution of the screen
@@ -59,9 +60,7 @@ public final class Screen: Source, Controllable, Producer, PropertiesProvider {
 
      This value will update automatically when `startUpdating` is called
      */
-    public var brightness: Property<CGFloat, PercentFormatter> {
-        return .init(displayName: "Brightness", value: screen.brightness)
-    }
+    public let brightness: Property<CGFloat, PercentFormatter>
 
     /**
      An array of the screen's properties, in the following order:
@@ -80,29 +79,29 @@ public final class Screen: Source, Controllable, Producer, PropertiesProvider {
             brightness,
         ]
     }
-    
-    internal var consumers: [AnyConsumer] = []
+
+    private var propertyUpdateCancellables: [AnyCancellable] = []
 
     /// The internal state, indicating if the screen is monitoring for changes
     private var state: State = .notMonitoring
     
     private let notificationCenter: NotificationCenter
 
+    /**
+    Create a new instance of `Screen` for the `main` `UIScreen`.
+    */
     public convenience init() {
-        self.init(screen: UIScreen.main as ScreenBackingData)
-    }
-
-    public convenience init(screen: UIScreen) {
-        self.init(screen: screen as ScreenBackingData)
+        self.init(screen: UIScreen.main)
     }
 
     /**
      Create a new instance of `Screen` for the given `UIScreen` instance
 
-     - parameter screen: The `UIScreen` to get data from
+     - Parameter screen: The `UIScreen` to get data from.
+     - Parameter notificationCenter: The notification center to list to notifications from.
      */
-    internal init(screen: ScreenBackingData, notificationCenter: NotificationCenter = .default) {
-        self.screen = screen
+    internal init(screen: UIScreen, notificationCenter: NotificationCenter = .default) {
+        self.uiScreen = screen
         self.notificationCenter = notificationCenter
 
         reportedResolution = SizeValue(
@@ -126,6 +125,16 @@ public final class Screen: Source, Controllable, Producer, PropertiesProvider {
             displayName: "Scale (native)",
             value: screen.nativeScale
         )
+
+        brightness = .init(displayName: "Brightness", value: screen.brightness)
+
+        publisher = .init()
+
+        propertyUpdateCancellables = allProperties.map { property in
+            property.typeErasedPublisher.sink { _ in
+                self.publisher.send(self.allProperties)
+            }
+        }
     }
 
     deinit {
@@ -142,26 +151,50 @@ public final class Screen: Source, Controllable, Producer, PropertiesProvider {
         let updatesQueue = OperationQueue()
         updatesQueue.name = "uk.co.josephduffy.GatheredKit Screen Updates"
 
-        let brightnessChangeObeserver = notificationCenter.addObserver(forName: UIScreen.brightnessDidChangeNotification, object: screen, queue: updatesQueue) { [weak self] _ in
-            guard let `self` = self else { return }
-            self.notifyUpdateConsumersOfLatestValues()
+        let brightnessChangeObeserver = notificationCenter.addObserver(forName: UIScreen.brightnessDidChangeNotification, object: uiScreen, queue: updatesQueue) { [weak self] _ in
+            guard let self = self else { return }
+            self.brightness.updateValueIfDifferent(self.uiScreen.brightness)
         }
 
-        state = .monitoring(brightnessChangeObeserver: brightnessChangeObeserver, updatesQueue: updatesQueue)
+        let modeChangeObeserver = notificationCenter.addObserver(forName: UIScreen.modeDidChangeNotification, object: uiScreen, queue: updatesQueue) { [weak self] _ in
+            guard let self = self else { return }
+            self.reportedResolution.updateValueIfDifferent(self.uiScreen.bounds.size)
+            self.nativeResolution.updateValueIfDifferent(self.uiScreen.nativeBounds.size)
+            self.reportedScale.updateValueIfDifferent(self.uiScreen.scale)
+            self.nativeScale.updateValueIfDifferent(self.uiScreen.nativeScale)
+        }
+
+        brightness.updateValueIfDifferent(uiScreen.brightness)
+        reportedResolution.updateValueIfDifferent(uiScreen.bounds.size)
+        nativeResolution.updateValueIfDifferent(uiScreen.nativeBounds.size)
+        reportedScale.updateValueIfDifferent(uiScreen.scale)
+        nativeScale.updateValueIfDifferent(uiScreen.nativeScale)
+
+        state = .monitoring(
+            brightnessChangeObeserver: brightnessChangeObeserver,
+            modeChangeObeserver: modeChangeObeserver,
+            updatesQueue: updatesQueue
+        )
     }
 
     /**
      Stop performing automatic date refreshes
      */
     public func stopUpdating() {
-        guard case .monitoring(let brightnessChangeObeserver) = state else { return }
+        guard case .monitoring(let brightnessChangeObeserver, let modeChangeObeserver, _) = state else { return }
 
-        NotificationCenter
-            .default
+        notificationCenter
             .removeObserver(
                 brightnessChangeObeserver,
                 name: UIScreen.brightnessDidChangeNotification,
-                object: screen
+                object: uiScreen
+            )
+
+        notificationCenter
+            .removeObserver(
+                modeChangeObeserver,
+                name: UIScreen.modeDidChangeNotification,
+                object: uiScreen
             )
 
         state = .notMonitoring
@@ -169,29 +202,4 @@ public final class Screen: Source, Controllable, Producer, PropertiesProvider {
 
 }
 
-extension Screen: ConsumersProvider { }
-
-/**
- The backing data for the `Screen` source. `UIScreen` conforms to this without any changes
- */
-internal protocol ScreenBackingData {
-
-    /// Bounds of entire screen in points
-    var bounds: CGRect { get }
-
-    /// The natural scale factor associated with the screen.
-    var scale: CGFloat { get }
-
-    /// Native bounds of the physical screen in pixels
-    var nativeBounds: CGRect { get }
-
-    /// Native scale factor of the physical screen
-    var nativeScale: CGFloat { get }
-
-    /// 0 ... 1.0, where 1.0 is maximum brightness
-    var brightness: CGFloat { get }
-
-}
-
-extension UIScreen: ScreenBackingData {}
 #endif
