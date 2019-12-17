@@ -4,16 +4,16 @@ import CoreMotion
 
 @available(iOS 11.0, *)
 public final class Heading: CoreMotionSource, Source, PropertiesProvider {
-    
+
     public enum ReferenceFrame: CaseIterable {
 
         case magneticNorth
         case trueNorth
-        
+
         public var rawValue: UInt {
             return asCMAttitudeReferenceFrame.rawValue
         }
-        
+
         public var asCMAttitudeReferenceFrame: CMAttitudeReferenceFrame {
             switch self {
             case .magneticNorth:
@@ -22,7 +22,7 @@ public final class Heading: CoreMotionSource, Source, PropertiesProvider {
                 return .xTrueNorthZVertical
             }
         }
-        
+
     }
 
     public static var availability: SourceAvailability {
@@ -34,7 +34,7 @@ public final class Heading: CoreMotionSource, Source, PropertiesProvider {
     }
 
     public static let name = "source.heading.name"
-    
+
     public static func availableReferenceFrames() -> [ReferenceFrame] {
         let frames = CMMotionManager.availableAttitudeReferenceFrames()
         return ReferenceFrame.allCases.filter({ frames.isSuperset(of: $0.asCMAttitudeReferenceFrame )})
@@ -54,7 +54,7 @@ public final class Heading: CoreMotionSource, Source, PropertiesProvider {
         every updateInterval: TimeInterval,
         referenceFrame: ReferenceFrame
     ) {
-        super.startUpdating(every: updateInterval, motionManagerConfigurator:  { motionManager, updatesQueue in
+        super.startUpdating(every: updateInterval, motionManagerConfigurator: { motionManager, updatesQueue in
             let handler: CMDeviceMotionHandler = { [weak self] data, error in
                 guard let self = self else { return }
                 guard self.isUpdating else { return }
@@ -67,7 +67,7 @@ public final class Heading: CoreMotionSource, Source, PropertiesProvider {
                     date: data.date
                 )
             }
-            
+
             motionManager.deviceMotionUpdateInterval = updateInterval
             motionManager.showsDeviceMovementDisplay = true
             motionManager.startDeviceMotionUpdates(
@@ -77,7 +77,7 @@ public final class Heading: CoreMotionSource, Source, PropertiesProvider {
             )
         })
     }
-    
+
     public override func stopUpdating() {
         self.motionManager?.stopDeviceMotionUpdates()
         super.stopUpdating()

@@ -8,14 +8,7 @@ public protocol Snapshot: AnySnapshot {
 extension Snapshot {
 
     public var typeErasedValue: Any? {
-        switch value as Any {
-        case Optional<Any>.some(let unwrapped):
-            return unwrapped
-        case Optional<Any>.none:
-            return nil
-        default:
-            return value
-        }
+        return castToOptional(value)
     }
 
 }

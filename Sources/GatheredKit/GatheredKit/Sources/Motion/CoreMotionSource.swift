@@ -2,11 +2,10 @@
 import Foundation
 import CoreMotion
 
-@available(iOS 4.0, *)
 open class CoreMotionSource: CustomisableUpdateIntervalControllable {
-    
+
     public typealias ProducedValue = [AnyProperty]
-    
+
     public static var defaultUpdateInterval: TimeInterval = 1
 
     private enum State {
@@ -19,7 +18,7 @@ open class CoreMotionSource: CustomisableUpdateIntervalControllable {
     }
 
     private var state: State
-    
+
     // TODO: Make private and add functions to start/stop certain types of motion. Also
     // makes this static and cached across instances, as-per the docs. Store closure on
     // this object to allow for removal of update handler without having to call
@@ -44,7 +43,7 @@ open class CoreMotionSource: CustomisableUpdateIntervalControllable {
     public func startUpdating(every updateInterval: TimeInterval) {
         startUpdating(every: updateInterval, motionManagerConfigurator: nil)
     }
-    
+
     public func startUpdating(every updateInterval: TimeInterval, motionManagerConfigurator: ((CMMotionManager, OperationQueue) -> Void)?) {
         if isUpdating {
             stopUpdating()
@@ -53,12 +52,12 @@ open class CoreMotionSource: CustomisableUpdateIntervalControllable {
         let motionManager = CMMotionManager()
         motionManager.deviceMotionUpdateInterval = updateInterval
         let updatesQueue = OperationQueue(name: "uk.co.josephduffy.GatheredKit \(type(of: self)) Updates")
-        
+
         motionManagerConfigurator?(motionManager, updatesQueue)
-        
+
         state = .monitoring(motionManager: motionManager, updatesQueue: updatesQueue)
     }
-    
+
     public func stopUpdating() {
         state = .notMonitoring
     }

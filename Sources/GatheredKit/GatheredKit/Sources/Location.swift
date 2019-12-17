@@ -89,7 +89,7 @@ public final class Location: NSObject, Source, Controllable {
     }
 
     private var state: State = .notMonitoring
-    
+
     public override init() {
         coordinate = .init(displayName: "Coordinate")
     }
@@ -133,7 +133,7 @@ public final class Location: NSObject, Source, Controllable {
 
         let authorizationStatus = CLLocationManager.authorizationStatus()
         self.authorizationStatus.update(value: authorizationStatus)
-        
+
         switch authorizationStatus {
         case .authorizedAlways:
             state = .monitoring(locationManager: locationManager)
@@ -227,7 +227,7 @@ extension Location: CLLocationManagerDelegate {
 
     public func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
         guard status != .notDetermined else { return }
-        
+
         authorizationStatus.update(value: status)
 
         if Location.availability == .available, isAskingForLocationPermissions {

@@ -13,9 +13,9 @@ public final class ScaleFormatter: NumberFormatter {
         negativeSuffix = "x"
         positiveSuffix = "x"
     }
-    
+
     public required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
+
 }

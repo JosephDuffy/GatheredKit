@@ -30,7 +30,7 @@ public final class Screen: Source, Controllable {
             return true
         }
     }
-    
+
     /// The `UIScreen` this `Screen` represents.
     public let uiScreen: UIScreen
 
@@ -84,7 +84,7 @@ public final class Screen: Source, Controllable {
 
     /// The internal state, indicating if the screen is monitoring for changes
     private var state: State = .notMonitoring
-    
+
     private let notificationCenter: NotificationCenter
 
     /**

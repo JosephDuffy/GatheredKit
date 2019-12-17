@@ -14,6 +14,7 @@
  - returns: The provided value cast to `Any?`
  */
 internal func castToOptional(_ value: Any) -> Any? {
+    // swiftlint:disable syntactic_sugar
     switch value {
     case Optional<Any>.some(let value):
         return Optional(value)

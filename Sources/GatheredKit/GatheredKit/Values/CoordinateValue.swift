@@ -21,20 +21,20 @@ public final class CoordinateValue: Property<CLLocationCoordinate2D, CoordinateF
 }
 
 public final class OptionalCoordinateValue: OptionalProperty<CLLocationCoordinate2D, CoordinateFormatter>, PropertiesProvider {
-    
+
     public var allProperties: [AnyProperty] {
         return [
             latitude,
             longitude,
         ]
     }
-    
+
     var latitude: OptionalAngleValue {
         return .degrees(displayName: "Latitude", value: value?.latitude, date: date)
     }
-    
+
     var longitude: OptionalAngleValue {
         return .degrees(displayName: "Longitude", value: value?.longitude, date: date)
     }
-    
+
 }

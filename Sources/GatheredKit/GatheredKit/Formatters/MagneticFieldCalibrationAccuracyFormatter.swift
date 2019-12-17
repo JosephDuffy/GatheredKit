@@ -2,7 +2,7 @@ import Foundation
 import CoreMotion
 
 public final class MagneticFieldCalibrationAccuracyFormatter: Formatter {
-    
+
     public func string(for status: CMMagneticFieldCalibrationAccuracy) -> String {
         switch status {
         case .uncalibrated:

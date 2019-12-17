@@ -8,3 +8,5 @@ trailing_comma:
 disabled_rules:
   - line_length
   - nesting
+  - identifier_name
+  - type_name

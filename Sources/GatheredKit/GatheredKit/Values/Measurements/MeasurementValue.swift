@@ -1,15 +1,15 @@
 import Foundation
 
 public class MeasurementProperty<Unit: Foundation.Unit>: Property<Measurement<Unit>, MeasurementFormatter> {
-    
+
     public var measurement: Measurement<Unit> {
         return value
     }
-    
+
     public var unit: Unit {
         return value.unit
     }
-        
+
     public convenience init(
         displayName: String,
         value: Double,
@@ -21,7 +21,7 @@ public class MeasurementProperty<Unit: Foundation.Unit>: Property<Measurement<Un
         let measurement = Measurement(value: value, unit: unit)
         self.init(displayName: displayName, value: measurement, formatter: formatter, date: date)
     }
-    
+
     public func update(
         value: Double,
         formattedValue: String? = nil,
@@ -30,17 +30,17 @@ public class MeasurementProperty<Unit: Foundation.Unit>: Property<Measurement<Un
         let measurement = Measurement(value: value, unit: self.measurement.unit)
         self.update(value: measurement, date: date)
     }
-    
+
 }
 
 public class OptionalMeasurementProperty<Unit: Foundation.Dimension>: OptionalProperty<Measurement<Unit>, MeasurementFormatter> {
-    
+
     public var measurement: Measurement<Unit>? {
         return value
     }
-    
+
     public let unit: Unit
-    
+
     public required init(
         displayName: String,
         value: Double?,
@@ -57,19 +57,19 @@ public class OptionalMeasurementProperty<Unit: Foundation.Dimension>: OptionalPr
         }
         super.init(displayName: displayName, value: measurement, formatter: formatter, date: date)
     }
-    
+
     public required init(displayName: String, value measurement: Measurement<Unit>? = nil, formatter: MeasurementFormatter = MeasurementFormatter(), date: Date = Date()) {
         unit = measurement?.unit ?? .baseUnit()
         super.init(displayName: displayName, value: measurement, formatter: formatter, date: date)
     }
-    
+
     public func update(
         value: Double,
         date: Date = Date()
     ) {
         update(value: Measurement(value: value, unit: unit), date: date)
     }
-    
+
 }
 
 public extension AnyProperty {

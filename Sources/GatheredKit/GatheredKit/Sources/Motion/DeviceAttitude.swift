@@ -3,18 +3,18 @@ import Foundation
 import CoreMotion
 
 public final class DeviceAttitude: CoreMotionSource, Source, PropertiesProvider {
-    
+
     public enum ReferenceFrame: CaseIterable {
-        
+
         case xArbitraryZVertical
         case xArbitraryCorrectedZVertical
         case xMagneticNorthZVertical
         case xTrueNorthZVertical
-        
+
         public var rawValue: UInt {
             return asCMAttitudeReferenceFrame.rawValue
         }
-        
+
         public var asCMAttitudeReferenceFrame: CMAttitudeReferenceFrame {
             switch self {
             case .xArbitraryZVertical:
@@ -27,7 +27,7 @@ public final class DeviceAttitude: CoreMotionSource, Source, PropertiesProvider 
                 return .xTrueNorthZVertical
             }
         }
-        
+
     }
 
     public static var availability: SourceAvailability {
@@ -39,7 +39,7 @@ public final class DeviceAttitude: CoreMotionSource, Source, PropertiesProvider 
     }
 
     public static let name = "source.device_attitude.name"
-    
+
     public static func availableReferenceFrames() -> [ReferenceFrame] {
         let frames = CMMotionManager.availableAttitudeReferenceFrames()
         return ReferenceFrame.allCases.filter({ frames.isSuperset(of: $0.asCMAttitudeReferenceFrame )})
@@ -64,7 +64,7 @@ public final class DeviceAttitude: CoreMotionSource, Source, PropertiesProvider 
         pitch = OptionalDoubleValue(displayName: "source.device_attitude.value.pitch.name")
         yaw = OptionalDoubleValue(displayName: "source.device_attitude.value.yaw.name")
         quaternion = OptionalQuaternionValue(displayName: "source.device_attitude.value.quaternion.name")
-        
+
         super.init()
     }
 
@@ -83,16 +83,16 @@ public final class DeviceAttitude: CoreMotionSource, Source, PropertiesProvider 
                 guard let data = data else { return }
                 let attitude = data.attitude
                 let date = data.date
-                
+
                 self.roll.update(value: attitude.roll, date: date)
                 self.pitch.update(value: attitude.pitch, date: date)
                 self.yaw.update(value: attitude.yaw, date: date)
                 self.quaternion.update(value: attitude.quaternion, date: date)
             }
-            
+
             motionManager.deviceMotionUpdateInterval = updateInterval
             motionManager.showsDeviceMovementDisplay = true
-            
+
             if let referenceFrame = referenceFrame {
                 motionManager.startDeviceMotionUpdates(
                     using: referenceFrame,
@@ -107,7 +107,7 @@ public final class DeviceAttitude: CoreMotionSource, Source, PropertiesProvider 
             }
         })
     }
-    
+
     public override func stopUpdating() {
         self.motionManager?.stopDeviceMotionUpdates()
         super.stopUpdating()

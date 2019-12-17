@@ -9,11 +9,11 @@ import Foundation
 open class BasePollingSource: Source {
 
     public typealias ProducedValue = [AnyProperty]
-    
+
     open class var availability: SourceAvailability {
         return .available
     }
-    
+
     open class var name: String {
         return ""
     }
@@ -51,7 +51,7 @@ open class BasePollingSource: Source {
             return true
         }
     }
-    
+
     public var allProperties: [AnyProperty] = []
 
     public required init() {

@@ -2,7 +2,7 @@ import Foundation
 import CoreLocation
 
 public final class LocationAuthorizationFormatter: Formatter {
-    
+
     public func string(for status: CLAuthorizationStatus) -> String {
         switch status {
         case .authorizedAlways:

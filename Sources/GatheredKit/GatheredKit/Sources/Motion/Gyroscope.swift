@@ -37,28 +37,28 @@ public final class Gyroscope: CoreMotionSource, Source, PropertiesProvider {
                 guard let self = self else { return }
                 guard self.isUpdating else { return }
                 guard let data = data else { return }
-                
+
                 self.rawRotationRate.update(
                     value: data.rotationRate,
                     date: data.date
                 )
             }
-            
+
             let rawHandler: CMGyroHandler = { [weak self] (_ data: CMGyroData?, error: Error?) in
                 guard let self = self else { return }
                 guard self.isUpdating else { return }
                 guard let data = data else { return }
-                
+
                 self.rotationRate.update(
                     value: data.rotationRate,
                     date: data.date
                 )
             }
-            
+
             motionManager.deviceMotionUpdateInterval = updateInterval
             motionManager.gyroUpdateInterval = updateInterval
             motionManager.showsDeviceMovementDisplay = true
-            
+
             motionManager.startDeviceMotionUpdates(
                 to: updatesQueue,
                 withHandler: calibratedHandler
@@ -69,7 +69,7 @@ public final class Gyroscope: CoreMotionSource, Source, PropertiesProvider {
             )
         })
     }
-    
+
     public override func stopUpdating() {
         motionManager?.stopDeviceMotionUpdates()
         motionManager?.stopGyroUpdates()

@@ -4,7 +4,7 @@ public final class SpeedValue: MeasurementProperty<UnitSpeed> { }
 public final class OptionalSpeedValue: OptionalMeasurementProperty<UnitSpeed> { }
 
 extension AnyProperty {
-    
+
     static func speed(
         displayName: String,
         value: Double,
@@ -14,7 +14,7 @@ extension AnyProperty {
     ) -> SpeedValue {
         return SpeedValue(displayName: displayName, value: value, unit: unit, formatter: formatter, date: date)
     }
-    
+
     static func metersPerSecond(
         displayName: String,
         value: Double,

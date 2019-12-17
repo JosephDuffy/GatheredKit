@@ -2,7 +2,7 @@ import Foundation
 import CoreMotion
 
 public final class QuaternionValue: Property<CMQuaternion, QuaternionFormatter> {
-    
+
     public var allProperties: [AnyProperty] {
         return [
             x,
@@ -27,7 +27,7 @@ public final class QuaternionValue: Property<CMQuaternion, QuaternionFormatter> 
     var w: DoubleValue {
         return DoubleValue(displayName: "w", value: value.w)
     }
-    
+
 }
 
 public final class OptionalQuaternionValue: OptionalProperty<CMQuaternion, QuaternionFormatter> {
@@ -40,7 +40,7 @@ public final class OptionalQuaternionValue: OptionalProperty<CMQuaternion, Quate
             w,
         ]
     }
-    
+
     var x: OptionalDoubleValue {
         return OptionalDoubleValue(displayName: "x", value: value?.x)
     }
@@ -56,5 +56,5 @@ public final class OptionalQuaternionValue: OptionalProperty<CMQuaternion, Quate
     var w: OptionalDoubleValue {
         return OptionalDoubleValue(displayName: "w", value: value?.w)
     }
-    
+
 }

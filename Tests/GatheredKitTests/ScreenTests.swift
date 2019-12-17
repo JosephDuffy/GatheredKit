@@ -97,6 +97,7 @@ final class ScreenTests: XCTestCase {
         brightnessExpectation.assertForOverFulfill = true
         let brightnessCancellable = screen.brightness.publisher.sink { brightness in
             brightnessExpectation.fulfill()
+            XCTAssertEqual(brightness.value, uiScreen.brightness)
             XCTAssertEqual(screen.brightness.value, uiScreen.brightness)
         }
 
@@ -105,6 +106,7 @@ final class ScreenTests: XCTestCase {
         reportedResolutionExpectation.assertForOverFulfill = true
         let reportedResolutionCancellable = screen.reportedResolution.publisher.sink { reportedResolution in
             reportedResolutionExpectation.fulfill()
+            XCTAssertEqual(reportedResolution.value, uiScreen.bounds.size)
             XCTAssertEqual(screen.reportedResolution.value, uiScreen.bounds.size)
         }
 
@@ -113,6 +115,7 @@ final class ScreenTests: XCTestCase {
         nativeResolutionExpectation.assertForOverFulfill = true
         let nativeResolutionCancellable = screen.nativeResolution.publisher.sink { nativeResolution in
             nativeResolutionExpectation.fulfill()
+            XCTAssertEqual(nativeResolution.value, uiScreen.nativeBounds.size)
             XCTAssertEqual(screen.nativeResolution.value, uiScreen.nativeBounds.size)
         }
 
@@ -121,14 +124,16 @@ final class ScreenTests: XCTestCase {
         reportedScaleExpectation.assertForOverFulfill = true
         let reportedScaleCancellable = screen.reportedScale.publisher.sink { reportedScale in
             reportedScaleExpectation.fulfill()
+            XCTAssertEqual(reportedScale.value, uiScreen.scale)
             XCTAssertEqual(screen.reportedScale.value, uiScreen.scale)
         }
 
         let nativeScaleExpectation = XCTestExpectation(description: "Subscriber should be called with updated native scale")
         nativeScaleExpectation.expectedFulfillmentCount = 1
         nativeScaleExpectation.assertForOverFulfill = true
-        let nativeScaleCancellable = screen.nativeScale.publisher.sink { nativeResolution in
+        let nativeScaleCancellable = screen.nativeScale.publisher.sink { nativeScale in
             nativeScaleExpectation.fulfill()
+            XCTAssertEqual(nativeScale.value, uiScreen.nativeScale)
             XCTAssertEqual(screen.nativeScale.value, uiScreen.nativeScale)
         }
 

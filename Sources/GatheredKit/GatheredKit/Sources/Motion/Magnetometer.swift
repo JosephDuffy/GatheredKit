@@ -28,24 +28,24 @@ public final class Magnetometer: CoreMotionSource, Source, PropertiesProvider {
     }
 
     public override func startUpdating(every updateInterval: TimeInterval) {
-        super.startUpdating(every: updateInterval, motionManagerConfigurator:  { motionManager, updatesQueue in
+        super.startUpdating(every: updateInterval, motionManagerConfigurator: { motionManager, updatesQueue in
             let calibratedHandler: CMDeviceMotionHandler = { [weak self] (_ data: CMDeviceMotion?, error: Error?) in
                 guard let `self` = self else { return }
                 guard self.isUpdating else { return }
                 guard let data = data else { return }
-                
+
                 self.magneticField.update(
                     value: data.magneticField,
                     date: data.date
                 )
 
             }
-            
+
             let rawHandler: CMMagnetometerHandler = { [weak self] (_ data: CMMagnetometerData?, error: Error?) in
                 guard let `self` = self else { return }
                 guard self.isUpdating else { return }
                 guard let data = data else { return }
-                
+
                 self.rawMagneticField.update(
                     value: data.magneticField,
                     date: data.date
@@ -55,7 +55,7 @@ public final class Magnetometer: CoreMotionSource, Source, PropertiesProvider {
             motionManager.deviceMotionUpdateInterval = updateInterval
             motionManager.magnetometerUpdateInterval = updateInterval
             motionManager.showsDeviceMovementDisplay = true
-            
+
             motionManager.startDeviceMotionUpdates(
                 to: updatesQueue,
                 withHandler: calibratedHandler
@@ -66,7 +66,7 @@ public final class Magnetometer: CoreMotionSource, Source, PropertiesProvider {
             )
         })
     }
-    
+
     public override func stopUpdating() {
         motionManager?.stopDeviceMotionUpdates()
         motionManager?.stopMagnetometerUpdates()

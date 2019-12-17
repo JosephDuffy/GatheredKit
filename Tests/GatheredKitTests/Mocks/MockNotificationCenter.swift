@@ -5,7 +5,7 @@ internal final class MockNotificationCenter: NotificationCenter {
     typealias AddObserverParameters = (name: Notification.Name?, object: Any?, queue: OperationQueue?, block: (Notification) -> Void)
 
     typealias RemoveObserverParameters = (observer: Any, name: NSNotification.Name?, object: Any?)
-    
+
     internal private(set) var addObserverParameters: [AddObserverParameters] = []
 
     internal var latestAddObserverName: Notification.Name?? {
@@ -56,7 +56,7 @@ internal final class MockNotificationCenter: NotificationCenter {
     internal var removeObserverNames: [Notification.Name?] {
         return removeObserverParameters.map { $0.name }
     }
-    
+
     override func addObserver(forName name: Notification.Name?, object obj: Any?, queue: OperationQueue?, using block: @escaping (Notification) -> Void) -> NSObjectProtocol {
         defer {
             addObserverCallCount += 1
@@ -74,5 +74,5 @@ internal final class MockNotificationCenter: NotificationCenter {
         removeObserverParameters.append(parameters)
         super.removeObserver(observer, name: aName, object: anObject)
     }
-    
+
 }

@@ -4,7 +4,7 @@ public final class MagneticFieldValue: MeasurementProperty<UnitMagneticField> { 
 public final class OptionalMagneticFieldValue: OptionalMeasurementProperty<UnitMagneticField> { }
 
 extension AnyProperty {
-    
+
     static func magneticField(
         displayName: String,
         value: Double,
@@ -14,7 +14,7 @@ extension AnyProperty {
     ) -> MagneticFieldValue {
         return MagneticFieldValue(displayName: displayName, value: value, unit: unit, formatter: formatter, date: date)
     }
-    
+
     static func magneticField(
         displayName: String,
         value: Double? = nil,
@@ -24,7 +24,7 @@ extension AnyProperty {
     ) -> OptionalMagneticFieldValue {
         return OptionalMagneticFieldValue(displayName: displayName, value: value, unit: unit, formatter: formatter, date: date)
     }
-    
+
     static func tesla(
         displayName: String,
         value: Double,
@@ -33,7 +33,7 @@ extension AnyProperty {
     ) -> MagneticFieldValue {
         return MagneticFieldValue(displayName: displayName, value: value, unit: .tesla, formatter: formatter, date: date)
     }
-    
+
     static func tesla(
         displayName: String,
         value: Double? = nil,
@@ -42,7 +42,7 @@ extension AnyProperty {
     ) -> OptionalMagneticFieldValue {
         return OptionalMagneticFieldValue(displayName: displayName, value: value, unit: .tesla, formatter: formatter, date: date)
     }
-    
+
     static func microTesla(
         displayName: String,
         value: Double,
@@ -51,7 +51,7 @@ extension AnyProperty {
     ) -> MagneticFieldValue {
         return MagneticFieldValue(displayName: displayName, value: value, unit: .microTesla, formatter: formatter, date: date)
     }
-    
+
     static func microTesla(
         displayName: String,
         value: Double? = nil,
@@ -60,5 +60,5 @@ extension AnyProperty {
     ) -> OptionalMagneticFieldValue {
         return OptionalMagneticFieldValue(displayName: displayName, value: value, unit: .microTesla, formatter: formatter, date: date)
     }
-    
+
 }

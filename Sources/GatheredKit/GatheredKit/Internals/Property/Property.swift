@@ -26,7 +26,7 @@ open class Property<Value, Formatter: Foundation.Formatter>: AnyProperty, Snapsh
     public var typeErasedFormatter: Foundation.Formatter {
         return formatter
     }
-    
+
     public let displayName: String
 
     public var value: Value {
