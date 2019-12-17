@@ -1,3 +1,4 @@
+#if canImport(CoreMotion)
 import Foundation
 import CoreMotion
 
@@ -40,3 +41,4 @@ public final class OptionalCMMagneticFieldValue: OptionalProperty<CMMagneticFiel
     }
 
 }
+#endif

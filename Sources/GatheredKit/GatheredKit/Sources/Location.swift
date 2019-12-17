@@ -137,7 +137,11 @@ public final class Location: NSObject, Source, Controllable {
         switch authorizationStatus {
         case .authorizedAlways:
             state = .monitoring(locationManager: locationManager)
+            #if os(iOS) || os(macOS)
             locationManager.startUpdatingLocation()
+            #elseif os(tvOS)
+            locationManager.requestLocation()
+            #endif
             updateValues()
         case .authorizedWhenInUse:
             #if os(iOS)
@@ -149,6 +153,12 @@ public final class Location: NSObject, Source, Controllable {
                 locationManager.startUpdatingLocation()
                 updateValues()
             }
+            #elseif os(macOS)
+            state = .monitoring(locationManager: locationManager)
+            locationManager.startUpdatingLocation()
+            updateValues()
+            #elseif os(tvOS)
+            locationManager.requestLocation()
             #endif
         case .notDetermined:
             state = .askingForPermissions(locationManager: locationManager)
@@ -160,11 +170,9 @@ public final class Location: NSObject, Source, Controllable {
                 locationManager.requestWhenInUseAuthorization()
             }
             #elseif os(macOS)
-            if #available(OSX 10.15, *) {
-                locationManager.requestAlwaysAuthorization()
-            } else {
-                locationManager.startUpdatingLocation()
-            }
+            locationManager.requestAlwaysAuthorization()
+            #elseif os(tvOS)
+            locationManager.requestWhenInUseAuthorization()
             #endif
         case .denied, .restricted:
             updateLocationValues(nil)
@@ -309,7 +317,7 @@ extension Location {
 extension SourceAvailability {
 
     public init?(authorizationStatus: CLAuthorizationStatus) {
-        #if os(iOS)
+        #if os(iOS) || os(tvOS)
         switch authorizationStatus {
         case .authorizedAlways, .authorizedWhenInUse:
             self = .available

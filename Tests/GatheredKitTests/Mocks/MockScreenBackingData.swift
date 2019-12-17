@@ -49,6 +49,7 @@ final class MockScreen: UIScreen {
         }
     }
 
+    #if os(iOS) || os(macOS)
     private var _brightness: CGFloat?
 
     override var brightness: CGFloat {
@@ -59,6 +60,7 @@ final class MockScreen: UIScreen {
             _brightness = newValue
         }
     }
+    #endif
 
 }
 #endif

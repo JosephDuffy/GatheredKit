@@ -1,3 +1,4 @@
+#if canImport(CoreMotion)
 import Foundation
 import CoreMotion
 
@@ -58,3 +59,4 @@ public final class OptionalQuaternionValue: OptionalProperty<CMQuaternion, Quate
     }
 
 }
+#endif

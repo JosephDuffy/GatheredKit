@@ -29,13 +29,13 @@ jobs:
       run: swift test --skip-update
 
   xcode_tests:
-    name: ${{ matrix.sdk }} on Xcode ${{ matrix.xcode }}
+    name: ${{ matrix.destination }} on Xcode ${{ matrix.xcode }}
     runs-on: macos-latest
     strategy:
       fail-fast: false
       matrix:
         xcode: ["11.1", "11.2"]
-        sdk: ["iphonesimulator", "macosx"]
+        destination: ["name=iPhone 8", "platform=macOS", "name=Apple TV"]
 
     steps:
     - uses: actions/checkout@v1
@@ -56,8 +56,8 @@ jobs:
     - name: Create Xcode Project
       run: swift package generate-xcodeproj --enable-code-coverage --skip-extra-files
 
-    - name: Test ${{ matrix.sdk }}
-      run: bundle exec fastlane scan --clean --sdk ${{ matrix.sdk }}
+    - name: Test ${{ matrix.destination }}
+      run: bundle exec fastlane scan --clean --destination "${{ matrix.destination }}"
 
     - name: Coveralls
       run: bash <(curl -s https://codecov.io/bash)
@@ -65,11 +65,12 @@ jobs:
          CODECOV_TOKEN: ${{ secrets. CODECOV_TOKEN }}
 
   carthage_archive:
-    name: Carthage Archive on Xcode ${{ matrix.xcode }}
+    name: ${{ matrix.platform }} Carthage Archive on Xcode ${{ matrix.xcode }}
     runs-on: macos-latest
     strategy:
       matrix:
         xcode: ["11.2"]
+        platform: ["iOS", "macOS", "tvOS"]
 
     steps:
     - uses: actions/checkout@v1
@@ -81,4 +82,4 @@ jobs:
       run: swift package generate-xcodeproj --skip-extra-files
 
     - name: Build Carthage Archive
-      run: carthage build --archive --platform iOS,macOS
+      run: carthage build --archive --platform ${{ matrix.platform }}

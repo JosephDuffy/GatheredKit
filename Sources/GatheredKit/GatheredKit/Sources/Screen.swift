@@ -12,7 +12,11 @@ public final class Screen: Source, Controllable {
 
     private enum State {
         case notMonitoring
+        #if os(iOS) || os(macOS)
         case monitoring(brightnessChangeObeserver: NSObjectProtocol, modeChangeObeserver: NSObjectProtocol, updatesQueue: OperationQueue)
+        #elseif os(tvOS)
+        case monitoring(modeChangeObeserver: NSObjectProtocol, updatesQueue: OperationQueue)
+        #endif
     }
 
     public static var availability: SourceAvailability = .available
@@ -54,6 +58,7 @@ public final class Screen: Source, Controllable {
      */
     public let nativeScale: ScaleValue
 
+    #if os(iOS) || os(macOS)
     /**
      The brightness level of the screen. The value of this property will be a number between
      0.0 and 1.0, inclusive.
@@ -61,6 +66,7 @@ public final class Screen: Source, Controllable {
      This value will update automatically when `startUpdating` is called
      */
     public let brightness: Property<CGFloat, PercentFormatter>
+    #endif
 
     /**
      An array of the screen's properties, in the following order:
@@ -71,6 +77,7 @@ public final class Screen: Source, Controllable {
      - Brightness
      */
     public var allProperties: [AnyProperty] {
+        #if os(iOS) || os(macOS)
         return [
             reportedResolution,
             nativeResolution,
@@ -78,6 +85,14 @@ public final class Screen: Source, Controllable {
             nativeScale,
             brightness,
         ]
+        #elseif os(tvOS)
+        return [
+            reportedResolution,
+            nativeResolution,
+            reportedScale,
+            nativeScale,
+        ]
+        #endif
     }
 
     private var propertyUpdateCancellables: [AnyCancellable] = []
@@ -126,7 +141,9 @@ public final class Screen: Source, Controllable {
             value: screen.nativeScale
         )
 
+        #if os(iOS) || os(macOS)
         brightness = .init(displayName: "Brightness", value: screen.brightness)
+        #endif
 
         publisher = .init()
 
@@ -151,10 +168,13 @@ public final class Screen: Source, Controllable {
         let updatesQueue = OperationQueue()
         updatesQueue.name = "uk.co.josephduffy.GatheredKit Screen Updates"
 
+        #if os(iOS) || os(macOS)
         let brightnessChangeObeserver = notificationCenter.addObserver(forName: UIScreen.brightnessDidChangeNotification, object: uiScreen, queue: updatesQueue) { [weak self] _ in
             guard let self = self else { return }
             self.brightness.updateValueIfDifferent(self.uiScreen.brightness)
         }
+        brightness.updateValueIfDifferent(uiScreen.brightness)
+        #endif
 
         let modeChangeObeserver = notificationCenter.addObserver(forName: UIScreen.modeDidChangeNotification, object: uiScreen, queue: updatesQueue) { [weak self] _ in
             guard let self = self else { return }
@@ -164,23 +184,30 @@ public final class Screen: Source, Controllable {
             self.nativeScale.updateValueIfDifferent(self.uiScreen.nativeScale)
         }
 
-        brightness.updateValueIfDifferent(uiScreen.brightness)
         reportedResolution.updateValueIfDifferent(uiScreen.bounds.size)
         nativeResolution.updateValueIfDifferent(uiScreen.nativeBounds.size)
         reportedScale.updateValueIfDifferent(uiScreen.scale)
         nativeScale.updateValueIfDifferent(uiScreen.nativeScale)
 
+        #if os(iOS) || os(macOS)
         state = .monitoring(
             brightnessChangeObeserver: brightnessChangeObeserver,
             modeChangeObeserver: modeChangeObeserver,
             updatesQueue: updatesQueue
         )
+        #elseif os(tvOS)
+        state = .monitoring(
+            modeChangeObeserver: modeChangeObeserver,
+            updatesQueue: updatesQueue
+        )
+        #endif
     }
 
     /**
      Stop performing automatic date refreshes
      */
     public func stopUpdating() {
+        #if os(iOS) || os(macOS)
         guard case .monitoring(let brightnessChangeObeserver, let modeChangeObeserver, _) = state else { return }
 
         notificationCenter
@@ -189,6 +216,9 @@ public final class Screen: Source, Controllable {
                 name: UIScreen.brightnessDidChangeNotification,
                 object: uiScreen
             )
+        #elseif os(tvOS)
+        guard case .monitoring(let modeChangeObeserver, _) = state else { return }
+        #endif
 
         notificationCenter
             .removeObserver(

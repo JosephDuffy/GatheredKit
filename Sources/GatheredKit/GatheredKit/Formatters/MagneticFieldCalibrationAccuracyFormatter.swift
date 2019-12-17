@@ -1,3 +1,4 @@
+#if canImport(CoreMotion)
 import Foundation
 import CoreMotion
 
@@ -24,3 +25,4 @@ public final class MagneticFieldCalibrationAccuracyFormatter: Formatter {
     }
 
 }
+#endif
