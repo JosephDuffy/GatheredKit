@@ -39,32 +39,3 @@ extension CustomisableUpdateIntervalControllable {
     }
 
 }
-
-extension CustomisableUpdateIntervalControllable where Self: Producer {
-
-    /**
-     Start performing periodic updates, updating every `updateInterval` seconds.
-
-     The passed closure will be added to the array of closures that will be called when any
-     of the source's properties are updated. The closure will be called with all properties, but not
-     all the properties will neccessary be new.
-
-     The returned object must be retained; the lifecycle of the listener is tied to the object. If
-     the object is deallocated the listener will be destroyed.
-
-     - parameter updateInterval: The interval between updates, measured in seconds
-     - parameter queue: The dispatch queue the listener should be called from. Defaults to `main`
-     - parameter updateListener: The closure to call with updated properties
-     - returns: An opaque object. The lifecycle of the listener is tied to the object
-     */
-    public func startUpdating(
-        every updateInterval: TimeInterval,
-        sendingUpdatesOn queue: OperationQueue = .main,
-        to updateListener: @escaping ClosureConsumer<ProducedValue, Self>.UpdatesClosure
-    ) -> ClosureConsumer<ProducedValue, Self> {
-        let consumer = consumeUpdates(sendingUpdatesOn: queue, to: updateListener)
-        startUpdating(every: updateInterval)
-        return consumer
-    }
-
-}

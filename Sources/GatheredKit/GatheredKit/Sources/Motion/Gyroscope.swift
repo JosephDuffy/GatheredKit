@@ -42,7 +42,6 @@ public final class Gyroscope: CoreMotionSource, Source, PropertiesProvider {
                     value: data.rotationRate,
                     date: data.date
                 )
-                self.notifyUpdateConsumersOfLatestValues()
             }
             
             let rawHandler: CMGyroHandler = { [weak self] (_ data: CMGyroData?, error: Error?) in
@@ -54,7 +53,6 @@ public final class Gyroscope: CoreMotionSource, Source, PropertiesProvider {
                     value: data.rotationRate,
                     date: data.date
                 )
-                self.notifyUpdateConsumersOfLatestValues()
             }
             
             motionManager.deviceMotionUpdateInterval = updateInterval

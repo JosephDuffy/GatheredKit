@@ -6,8 +6,8 @@ import Foundation
  To benefit from `BasePollingSource` your subclass must implement `ManuallyUpdatablePropertiesProvider`. This
  will add `CustomisableUpdateIntervalSource` conformance via an extension.
  */
-open class BasePollingSource: Source, Producer {
-    
+open class BasePollingSource: Source {
+
     public typealias ProducedValue = [AnyProperty]
     
     open class var availability: SourceAvailability {
@@ -53,8 +53,6 @@ open class BasePollingSource: Source, Producer {
     }
     
     public var allProperties: [AnyProperty] = []
-    
-    internal var consumers: [AnyConsumer] = []
 
     public required init() {
         guard type(of: self) != BasePollingSource.self else {
@@ -64,35 +62,10 @@ open class BasePollingSource: Source, Producer {
 
 }
 
-extension BasePollingSource: ConsumersProvider { }
-
 extension CustomisableUpdateIntervalControllable where Self: BasePollingSource, Self: ManuallyUpdatablePropertiesProvider {
 
     public func stopUpdating() {
         state = .notMonitoring
-    }
-
-    public func startUpdating(every updateInterval: TimeInterval) {
-        let updatesQueue = DispatchQueue(label: "uk.co.josephduffy.GatheredKit \(type(of: self)) Updates")
-        state = .monitoring(updatesQueue: updatesQueue, updateInterval: updateInterval)
-
-        let latestPropertyValues = updateValues()
-        self.notifyUpdateConsumers(of: latestPropertyValues)
-        update(on: updatesQueue, after: updateInterval)
-    }
-
-    private func update(on queue: DispatchQueue, after delay: TimeInterval) {
-        queue.asyncAfter(deadline: .now() + delay) { [weak self, weak queue] in
-            guard let `self` = self else { return }
-            guard let queue = queue else { return }
-            guard queue == self.updatesQueue else { return }
-            guard (self as BasePollingSource).updateInterval == delay else { return }
-            guard (self as BasePollingSource).isUpdating else { return }
-
-            let latestPropertyValues = self.updateValues()
-            self.notifyUpdateConsumers(of: latestPropertyValues)
-            self.update(on: queue, after: delay)
-        }
     }
 
 }

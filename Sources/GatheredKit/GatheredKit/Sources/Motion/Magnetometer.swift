@@ -38,8 +38,7 @@ public final class Magnetometer: CoreMotionSource, Source, PropertiesProvider {
                     value: data.magneticField,
                     date: data.date
                 )
-                
-                self.notifyUpdateConsumersOfLatestValues()
+
             }
             
             let rawHandler: CMMagnetometerHandler = { [weak self] (_ data: CMMagnetometerData?, error: Error?) in
@@ -51,8 +50,6 @@ public final class Magnetometer: CoreMotionSource, Source, PropertiesProvider {
                     value: data.magneticField,
                     date: data.date
                 )
-                
-                self.notifyUpdateConsumersOfLatestValues()
             }
 
             motionManager.deviceMotionUpdateInterval = updateInterval

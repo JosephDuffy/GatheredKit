@@ -66,8 +66,6 @@ public final class Heading: CoreMotionSource, Source, PropertiesProvider {
 //                    formattedValue: data.heading < 0 ? "source.heading.value.heading.unknown-value" : nil,
                     date: data.date
                 )
-
-                self.notifyUpdateConsumersOfLatestValues()
             }
             
             motionManager.deviceMotionUpdateInterval = updateInterval

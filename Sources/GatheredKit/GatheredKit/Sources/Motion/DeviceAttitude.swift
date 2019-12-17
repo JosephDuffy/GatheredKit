@@ -88,7 +88,6 @@ public final class DeviceAttitude: CoreMotionSource, Source, PropertiesProvider 
                 self.pitch.update(value: attitude.pitch, date: date)
                 self.yaw.update(value: attitude.yaw, date: date)
                 self.quaternion.update(value: attitude.quaternion, date: date)
-                self.notifyUpdateConsumersOfLatestValues()
             }
             
             motionManager.deviceMotionUpdateInterval = updateInterval

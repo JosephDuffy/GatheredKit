@@ -13,18 +13,5 @@ public protocol Source: PropertiesProvider {
 
     /// Creates a new instance of the source
     init()
-    
-}
 
-extension Source where Self: Producer {
-    
-    public func consumeUpdates(
-        sendingUpdatesOn queue: OperationQueue = .main,
-        to updateListener: @escaping ClosureConsumer<ProducedValue, Self>.UpdatesClosure
-    ) -> ClosureConsumer<ProducedValue, Self> {
-        let consumer = ClosureConsumer(queue: queue, closure: updateListener)
-        add(consumer: consumer)
-        return consumer
-    }
-    
 }

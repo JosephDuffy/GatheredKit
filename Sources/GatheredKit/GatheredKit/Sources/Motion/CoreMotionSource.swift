@@ -3,7 +3,7 @@ import Foundation
 import CoreMotion
 
 @available(iOS 4.0, *)
-open class CoreMotionSource: CustomisableUpdateIntervalControllable, Producer {
+open class CoreMotionSource: CustomisableUpdateIntervalControllable {
     
     public typealias ProducedValue = [AnyProperty]
     
@@ -17,8 +17,6 @@ open class CoreMotionSource: CustomisableUpdateIntervalControllable, Producer {
     public var updateInterval: TimeInterval? {
         return motionManager?.deviceMotionUpdateInterval
     }
-
-    internal var consumers: [AnyConsumer] = []
 
     private var state: State
     
@@ -67,5 +65,4 @@ open class CoreMotionSource: CustomisableUpdateIntervalControllable, Producer {
 
 }
 
-extension CoreMotionSource: ConsumersProvider { }
 #endif

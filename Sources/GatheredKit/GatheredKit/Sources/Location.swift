@@ -2,7 +2,7 @@ import Foundation
 import CoreLocation
 
 // TODO: Wrap delegate to remove need for inheritance from `NSObject`
-public final class Location: NSObject, Source, Controllable, Producer, PropertiesProvider {
+public final class Location: NSObject, Source, Controllable {
 
     public typealias ProducedValue = [AnyProperty]
 
@@ -71,8 +71,6 @@ public final class Location: NSObject, Source, Controllable, Producer, Propertie
             return false
         }
     }
-    
-    internal var consumers: [AnyConsumer] = []
 
     private var locationManager: CLLocationManager? {
         if case .monitoring(let locationManager) = state {
@@ -136,10 +134,6 @@ public final class Location: NSObject, Source, Controllable, Producer, Propertie
         let authorizationStatus = CLLocationManager.authorizationStatus()
         self.authorizationStatus.update(value: authorizationStatus)
         
-        defer {
-            notifyUpdateConsumersOfLatestValues()
-        }
-        
         switch authorizationStatus {
         case .authorizedAlways:
             state = .monitoring(locationManager: locationManager)
@@ -175,7 +169,6 @@ public final class Location: NSObject, Source, Controllable, Producer, Propertie
         case .denied, .restricted:
             updateLocationValues(nil)
             state = .notMonitoring
-            notifyUpdateConsumersOfLatestValues()
         @unknown default:
             break
         }
@@ -190,8 +183,6 @@ public final class Location: NSObject, Source, Controllable, Producer, Propertie
 
     private func updateValues() {
         updateLocationValues(locationManager?.location)
-
-        notifyUpdateConsumersOfLatestValues()
     }
 
     private func updateLocationValues(_ location: CLLocation? = nil) {
@@ -252,7 +243,7 @@ extension Location: CLLocationManagerDelegate {
             )
             #endif
         } else if isUpdating {
-            notifyUpdateConsumersOfLatestValues()
+//            notifyUpdateConsumersOfLatestValues()
         }
     }
 
@@ -260,12 +251,10 @@ extension Location: CLLocationManagerDelegate {
         guard let location = locations.last else { return }
 
         updateLocationValues(location)
-        notifyUpdateConsumersOfLatestValues()
+//        notifyUpdateConsumersOfLatestValues()
     }
 
 }
-
-extension Location: ConsumersProvider { }
 
 extension Location {
 
