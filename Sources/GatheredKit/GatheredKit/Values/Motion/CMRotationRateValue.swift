@@ -2,7 +2,7 @@
 import Foundation
 import CoreMotion
 
-public final class CMRotationRateValue: Property<CMRotationRate, CMRotationRateFormatter> {
+public final class CMRotationRateValue: Property<CMRotationRate, CMRotationRateFormatter>, PropertiesProvider {
 
     public var allProperties: [AnyProperty] {
         return [x, y, z]
@@ -22,7 +22,7 @@ public final class CMRotationRateValue: Property<CMRotationRate, CMRotationRateF
 
 }
 
-public final class OptionalCMRotationRateValue: OptionalProperty<CMRotationRate, CMRotationRateFormatter> {
+public final class OptionalCMRotationRateValue: OptionalProperty<CMRotationRate, CMRotationRateFormatter>, PropertiesProvider {
 
     public var allProperties: [AnyProperty] {
         return [x, y, z]
