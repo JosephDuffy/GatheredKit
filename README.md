@@ -1,13 +1,16 @@
 ![GatheredKit](https://josephduffy.github.io/GatheredKit/img/banner.png)
 
-[![Build Status](https://api.travis-ci.org/JosephDuffy/GatheredKit.svg)](https://travis-ci.org/JosephDuffy/GatheredKit)
+[![Build Status](https://github.com/JosephDuffy/GatheredKit/workflows/Tests/badge.svg)](https://launch-editor.github.com/actions?workflowID=Tests&event=push&nwo=JosephDuffy%2FGatheredKit)
+[![codecov](https://codecov.io/gh/JosephDuffy/GatheredKit/branch/master/graph/badge.svg)](https://codecov.io/gh/JosephDuffy/GatheredKit)
 [![Documentation](https://josephduffy.github.io/GatheredKit/badge.svg)](https://josephduffy.github.io/GatheredKit/)
+![Compatible with macOS, iOS, watchOS, tvOS, and Linux](https://img.shields.io/badge/platforms-macOS%20%7C%20iOS%20%7C%20watchOS%20%7C%20tvOS%20%7C%20Linux-4BC51D.svg)
+[![SwiftPM Compatible](https://img.shields.io/badge/SwiftPM-compatible-4BC51D.svg?style=flat)](https://github.com/apple/swift-package-manager)
 [![Carthage Compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
-[![CocoaPods Compatible](https://img.shields.io/cocoapods/v/GatheredKit.svg)](https://cocoapods.org/pods/GatheredKit)
+[![CocoaPods Compatible](https://img.shields.io/badge/CocoaPods-compatible-4BC51D.svg?style=flat)](https://cocoapods.org/pods/GatheredKit)
 [![MIT License](https://img.shields.io/badge/License-MIT-4BC51D.svg?style=flat)](./LICENSE)
 --
 
-GatheredKit is an iOS framework that provides a consistent and easy to use API for various data sources offered by iOS.
+GatheredKit is an iOS framework that provides a [Combine](https://developer.apple.com/documentation/combine)-based API for various data sources offered by iOS, macOS, watchOS, and tvOS.
 
 The code originated from [Gathered](https://geo.itunes.apple.com/app/gathered/id929726748?mt=8), hense the name and logo.
 
@@ -25,29 +28,30 @@ The code originated from [Gathered](https://geo.itunes.apple.com/app/gathered/id
 Every source is a class backed by an equivelent Apple-provided class, but with a simplified and consistent API to receive updates. Below is a list of sources that GatheredKit has to offer. Unticked boxes indicate sources that will be added in the future.
 
  - [X] Location
- - [X] Wi-Fi
- - [X] Altimeter
+ - [ ] Compass
+ - [ ] Wi-Fi
+ - [ ] Altimeter
  - [ ] Microphone
- - [X] Cell Radio
+ - [ ] Cell Radio
  - [X] Screen
- - [X] Compass
  - [X] Magnetometer
  - [X] Gyroscope
  - [X] Accelerometer
- - [X] Device Attitude
- - [X] Proximity
- - [X] Battery
- - [X] Advertising
- - [X] Audio Output
- - [X] Device Orientation
- - [X] Bluetooth
- - [X] Storage
- - [X] Memory
- - [X] Device Metadata
- - [X] Operating System
- - [X] CPU
- - [X] Cameras
- - [X] Battery
+ - [X] Device Motion
+ - [ ] Device Attitude
+ - [ ] Proximity
+ - [ ] Battery
+ - [ ] Advertising
+ - [ ] Audio Output
+ - [ ] Device Orientation
+ - [ ] Bluetooth
+ - [ ] Storage
+ - [ ] Memory
+ - [ ] Device Metadata
+ - [ ] Operating System
+ - [ ] CPU
+ - [ ] Cameras
+ - [ ] Battery
 
 # API
 
@@ -61,16 +65,13 @@ The core of GatheredKit is the `Source` protocol.
 /**
  An object that can provide data from a specific source on the device
  */
-public protocol Source: class, ValuesProvider {
+public protocol Source: ValuesProvider {
 
     /// The availability of the source
     static var availability: SourceAvailability { get }
 
     /// A user-friendly name that represents the source, e.g. "Location", "Device Attitude"
     static var name: String { get }
-
-    /// Creates a new instance of the source
-    init()
 
 }
 ```
@@ -83,7 +84,7 @@ This by itself doesn't provide much, but when combined with `ValuesProvider` it 
 /**
  An object that provides values
  */
-public protocol ValuesProvider {
+public protocol ValuesProvider: PropertiesProvider {
 
     /// An array of all the values provided by this object
     var allValues: [Value] { get }
@@ -91,11 +92,11 @@ public protocol ValuesProvider {
 }
 ```
 
-Implementations also have individual properties for each of their values, such as the `brightness` property of the `Screen` source.
+Implementations also have individual properties for each of the properties they offer, such as the `brightness` property of the `Screen` source.
 
 ## `Controllable`
 
-The `Controllable` protocol defines an object that can automatically update its values. These automatic changes can be started and stopped at any time.
+The `Controllable` protocol defines an object that can automatically update its proeprties. These automatic changes can be started and stopped at any time.
 
 ```swift
 /**
@@ -103,15 +104,12 @@ The `Controllable` protocol defines an object that can automatically update its 
  */
 public protocol Controllable: class {
 
-    /// A closure that will be called with the latest values
-    typealias UpdateListener = (_ latestValues: [Value]) -> Void
-
     /// A boolean indicating if the `Controllable` is currently performing automatic updates
     var isUpdating: Bool { get }
 
     /**
      Starts automatic updates. Closures added via `addUpdateListener(_:)` will be
-     called when new values are available
+     called when new properties are available
      */
     func startUpdating()
 
@@ -119,51 +117,6 @@ public protocol Controllable: class {
      Stops automatic updates
      */
     func stopUpdating()
-
-    /**
-     Adds a closure to the array of closures that will be called when any of the source's
-     values are updated. The closure will be called with all values, but not all the values
-     will neccessary be new.
-
-     The returned object must be retained; the lifecycle of the listener is tied to the object. If
-     the object is deallocated the listener will be destroyed.
-
-     - parameter updateListener: The closure to call with updated values
-     - parameter queue: The dispatch queue the listener should be called from
-     - returns: An opaque object. The lifecycle of the listener is tied to the object
-     */
-    func addUpdateListener(_ updateListener: @escaping UpdateListener, queue: DispatchQueue) -> AnyObject
-
-}
-
-public extension Controllable {
-
-    /**
-     Starts automatic updates and adds a closure to the array of closures that will be called when
-     any of the source's values are updated. The closure will be called with all values, but
-     not all the values will neccessary be new.
-
-     The returned object must be retained; the lifecycle of the listener is tied to the object. If
-     the object is deallocated the listener will be destroyed.
-
-     - parameter queue: The dispatch queue the listener should be called from
-     - parameter updateListener: The closure to call with updated values
-     - returns: An opaque object. The lifecycle of the listener is tied to the object
-     */
-    func startUpdating(sendingUpdatesOn queue: DispatchQueue, to updateListener: @escaping UpdateListener) -> AnyObject
-
-    /**
-     Starts automatic updates and adds a closure to the array of closures that will be called when
-     any of the source's values are updated. The closure will be called on the main dispatch queue with
-     all values, but not all the values will neccessary be new.
-
-     The returned object must be retained; the lifecycle of the listener is tied to the object. If
-     the object is deallocated the listener will be destroyed.
-
-     - parameter updateListener: The closure to call with updated values
-     - returns: An opaque object. The lifecycle of the listener is tied to the object
-     */
-    func startUpdating(sendingUpdatesTo updateListener: @escaping UpdateListener) -> AnyObject
 
 }
 ```
@@ -195,36 +148,6 @@ public protocol CustomisableUpdateIntervalControllable: Controllable {
     func startUpdating(every updateInterval: TimeInterval)
 
 }
-
-public extension CustomisableUpdateIntervalControllable {
-
-    /// A boolean indicating if the source is currently updating its properties every `updateInterval`
-    public var isUpdating: Bool
-
-    /**
-     Starts performing period updated. The value of the static variable `defaultUpdateInterval` will
-     used for the update interval.
-     */
-    public func startUpdating()
-
-    /**
-     Start performing periodic updates, updating every `updateInterval` seconds.
-
-     The passed closure will be added to the array of closures that will be called when any
-     of the source's values are updated. The closure will be called with all values, but not
-     all the values will neccessary be new.
-
-     The returned object must be retained; the lifecycle of the listener is tied to the object. If
-     the object is deallocated the listener will be destroyed.
-
-     - parameter updateInterval: The interval between updates, measured in seconds
-     - parameter queue: The dispatch queue the listener should be called from
-     - parameter updateListener: The closure to call with updated values
-     - returns: An opaque object. The lifecycle of the listener is tied to the object
-     */
-    public func startUpdating(every updateInterval: TimeInterval, sendingUpdatesOn queue: DispatchQueue, to updateListener: @escaping UpdateListener) -> AnyObject
-
-}
 ```
 
 ## `ManuallyUpdatableValuesProvider`
@@ -233,36 +156,57 @@ A `ManuallyUpdatableValuesProvider` is a `ValuesProvider` that can be manually u
 
 ```swift
 /**
- A source that supports its properties being updated at any given time
+ A property provider that supports its properties being updated at any given time.
  */
-public protocol ManuallyUpdatableValuesProvider: ValuesProvider {
+public protocol ManuallyUpdatablePropertiesProvider: PropertiesProvider {
 
     /**
-     Force the values provider to update its values.
+     Force the properties provider to update its properties.
 
-     Note that there is no guarantee that the returned values will be new, even
-     if the date has updated
+     Note that there is no guarantee that the returned properties will be new, even
+     if the date has updated.
 
-     - returns: The values after the update
+     - Returns: The properties after the update.
      */
-    func updateValues() -> [Value]
+    func updateValues() -> [AnyProperty]
 
 }
+
 ```
 
 # Installation
 
-GatheredKit can be installed using any of the below methods. Once installed, simply `import GatheredKit` to start using it.
+
+## SwiftPM
+
+To install via [SwiftPM](https://github.com/apple/swift-package-manager) add the package to the dependencies section and as the dependency of a target:
+
+```swift
+let package = Package(
+    ...
+    dependencies: [
+        .package(url: "https://github.com/JosephDuffy/GatheredKit.git", from: "0.1.0"),
+    ],
+    targets: [
+        .target(name: "MyApp", dependencies: ["GatheredKit"]),
+    ],
+    ...
+)
+```
+
+# Documentation
+
+Documentation for GatheredKit is provided in the source code. Browsable documentation is available at [https://josephduffy.github.io/GatheredKit/](https://josephduffy.github.io/GatheredKit/).
 
 ## Carthage
 
-To install via Carthage add to following to your `Cartfile`:
+To install via [Carthage](https://github.com/Carthage/Carthage) add to following to your `Cartfile`:
 
 ```
 github "JosephDuffy/GatheredKit"
 ```
 
-Run `carthage update GatheredKit --platform iOS` to build the framework and then drag the built framework file in to your Xcode project. GatheredKit provides pre-compiled binaries, [which can cause some issues with symbols](https://github.com/Carthage/Carthage#dwarfs-symbol-problem). Use the `--no-use-binaries` flag if this is an issue.
+Run `carthage update GatheredKit` to build the framework and then drag the built framework file in to your Xcode project. GatheredKit provides pre-compiled binaries, [which can cause some issues with symbols](https://github.com/Carthage/Carthage#dwarfs-symbol-problem). Use the `--no-use-binaries` flag if this is an issue.
 
 Remember to [add GatheredKit to your Carthage build phase](https://github.com/Carthage/Carthage#if-youre-building-for-ios-tvos-or-watchos):
 
@@ -278,17 +222,13 @@ $(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/GatheredKit.framework
 
 ## CocoaPods
 
-To install via [CocoaPods](https://cocoapods.org) add the following line to your Podfile:
+To install via [CocoaPods](https://cocoapods.org) add the following to your Podfile:
 
 ```ruby
 pod 'GatheredKit'
 ```
 
 and then run `pod install`.
-
-# Documentation
-
-Documentation for GatheredKit is provided in the source code. Browsable documentation is available at [https://josephduffy.github.io/GatheredKit/](https://josephduffy.github.io/GatheredKit/).
 
 # Running Tests
 
