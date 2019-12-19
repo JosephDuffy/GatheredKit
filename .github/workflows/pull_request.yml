@@ -25,9 +25,9 @@ jobs:
       uses: actions/cache@v1
       with:
         path: DevelopmentDependencies/.build
-        key: ${{ runner.os }}-swiftpm-dev-deps-${{ hashFiles(format('{0}{1}', github.workspace, '/DevelopmentDependencies/Package.resolved')) }}
+        key: ${{ runner.os }}-swiftpm-dev-deps-${{ env.PWD }}-${{ hashFiles('/DevelopmentDependencies/Package.resolved') }}
         restore-keys: |
-          ${{ runner.os }}-swiftpm-devdeps-
+          ${{ runner.os }}-swiftpm-dev-deps-${{ env.PWD }}
     - name: Run Danger
       run: cd DevelopmentDependencies && swift run --skip-update danger-swift ci --danger-js-path $(yarn bin danger) --verbose
       env:
