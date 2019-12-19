@@ -25,11 +25,6 @@ public protocol CustomisableUpdateIntervalControllable: Controllable {
 
 extension CustomisableUpdateIntervalControllable {
 
-    /// A boolean indicating if the source is currently updating its properties every `updateInterval`
-    public var isUpdating: Bool {
-        return updateInterval != nil
-    }
-
     /**
      Starts performing period updated. The value of the static variable `defaultUpdateInterval` will
      used for the update interval.
