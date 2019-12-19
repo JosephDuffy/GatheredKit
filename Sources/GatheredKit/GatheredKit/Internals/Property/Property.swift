@@ -13,8 +13,8 @@ open class Property<Value, Formatter: Foundation.Formatter>: AnyProperty, Snapsh
 
     public let publisher: Publisher
 
-    public var typeErasedPublisher: AnyPublisher<Any, Never> {
-        return publisher.map { $0 as Any }.eraseToAnyPublisher()
+    public var typeErasedPublisher: AnyPublisher<AnySnapshot, Never> {
+        return publisher.map { $0 as AnySnapshot }.eraseToAnyPublisher()
     }
 
     public var snapshot: Snapshot {
