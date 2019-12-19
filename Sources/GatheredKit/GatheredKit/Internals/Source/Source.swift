@@ -11,7 +11,4 @@ public protocol Source: PropertiesProvider {
     /// A user-friendly name that represents the source, e.g. "Location", "Device Attitude"
     static var name: String { get }
 
-    /// Creates a new instance of the source
-    init()
-
 }

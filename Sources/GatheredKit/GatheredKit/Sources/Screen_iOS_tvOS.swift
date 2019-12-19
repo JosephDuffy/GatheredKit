@@ -140,7 +140,7 @@ public final class Screen: Source, Controllable {
             value: screen.nativeScale
         )
 
-        #if os(iOS) || os(macOS)
+        #if os(iOS)
         brightness = .init(displayName: "Brightness", value: screen.brightness)
         #endif
 
@@ -167,7 +167,7 @@ public final class Screen: Source, Controllable {
         let updatesQueue = OperationQueue()
         updatesQueue.name = "uk.co.josephduffy.GatheredKit Screen Updates"
 
-        #if os(iOS) || os(macOS)
+        #if os(iOS)
         let brightnessChangeObeserver = notificationCenter.addObserver(forName: UIScreen.brightnessDidChangeNotification, object: uiScreen, queue: updatesQueue) { [weak self] _ in
             guard let self = self else { return }
             self.brightness.updateValueIfDifferent(self.uiScreen.brightness)
@@ -188,7 +188,7 @@ public final class Screen: Source, Controllable {
         reportedScale.updateValueIfDifferent(uiScreen.scale)
         nativeScale.updateValueIfDifferent(uiScreen.nativeScale)
 
-        #if os(iOS) || os(macOS)
+        #if os(iOS)
         state = .monitoring(
             brightnessChangeObeserver: brightnessChangeObeserver,
             modeChangeObeserver: modeChangeObeserver,

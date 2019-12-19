@@ -1,4 +1,4 @@
-#if canImport(UIKit)
+#if os(iOS) || os(tvOS)
 import UIKit
 import XCTest
 @testable
@@ -18,7 +18,7 @@ final class ScreenTests: XCTestCase {
         XCTAssertEqual(screen.nativeResolution.value, mock.nativeBounds.size)
         XCTAssertEqual(screen.reportedScale.value, mock.scale)
         XCTAssertEqual(screen.nativeScale.value, mock.nativeScale)
-        #if os(iOS) || os(macOS)
+        #if os(iOS)
         XCTAssertEqual(screen.brightness.value, mock.brightness)
         #endif
     }
@@ -38,7 +38,7 @@ final class ScreenTests: XCTestCase {
 
         XCTAssertTrue(screen.isUpdating)
 
-        #if os(iOS) || os(macOS)
+        #if os(iOS)
         XCTAssertEqual(notificationCenter.addObserverCallCount, 2)
         XCTAssertTrue(notificationCenter.addObserverNames.contains(UIScreen.brightnessDidChangeNotification))
         XCTAssertTrue(notificationCenter.addObserverNames.contains(UIScreen.modeDidChangeNotification))
@@ -51,7 +51,7 @@ final class ScreenTests: XCTestCase {
         screen.startUpdating()
 
         XCTAssertTrue(screen.isUpdating)
-        #if os(iOS) || os(macOS)
+        #if os(iOS)
         XCTAssertEqual(notificationCenter.addObserverCallCount, 2)
         #elseif os(tvOS)
         XCTAssertEqual(notificationCenter.addObserverCallCount, 1)
@@ -88,7 +88,7 @@ final class ScreenTests: XCTestCase {
 
         XCTAssertFalse(screen.isUpdating)
 
-        #if os(iOS) || os(macOS)
+        #if os(iOS)
         XCTAssertEqual(notificationCenter.addObserverCallCount, 2)
         XCTAssertTrue(notificationCenter.addObserverNames.contains(UIScreen.brightnessDidChangeNotification))
         XCTAssertTrue(notificationCenter.addObserverNames.contains(UIScreen.modeDidChangeNotification))
@@ -113,7 +113,7 @@ final class ScreenTests: XCTestCase {
         let notificationCenter = NotificationCenter()
         let screen = Screen(screen: uiScreen, notificationCenter: notificationCenter)
 
-        #if os(iOS) || os(macOS)
+        #if os(iOS)
         let brightnessExpectation = XCTestExpectation(description: "Subscriber should be called with updated brightness")
         brightnessExpectation.expectedFulfillmentCount = 1
         brightnessExpectation.assertForOverFulfill = true
@@ -162,7 +162,7 @@ final class ScreenTests: XCTestCase {
 
         screen.startUpdating()
 
-        #if os(iOS) || os(macOS)
+        #if os(iOS)
         XCTAssertEqual(screen.brightness.value, uiScreen.brightness)
         #endif
         XCTAssertEqual(screen.reportedResolution.value, uiScreen.bounds.size)
@@ -170,7 +170,7 @@ final class ScreenTests: XCTestCase {
         XCTAssertEqual(screen.reportedScale.value, uiScreen.scale)
         XCTAssertEqual(screen.nativeScale.value, uiScreen.nativeScale)
 
-        #if os(iOS) || os(macOS)
+        #if os(iOS)
         uiScreen.brightness = 0.53
         notificationCenter.post(name: UIScreen.brightnessDidChangeNotification, object: uiScreen)
         XCTAssertEqual(screen.brightness.value, uiScreen.brightness)
@@ -186,8 +186,7 @@ final class ScreenTests: XCTestCase {
         XCTAssertEqual(screen.reportedScale.value, uiScreen.scale)
         XCTAssertEqual(screen.nativeScale.value, uiScreen.nativeScale)
 
-        // Ensure closures are not
-        #if os(iOS) || os(macOS)
+        #if os(iOS)
         brightnessCancellable.cancel()
         #endif
         reportedResolutionCancellable.cancel()
@@ -195,12 +194,12 @@ final class ScreenTests: XCTestCase {
         reportedScaleCancellable.cancel()
         nativeScaleCancellable.cancel()
 
-        #if os(iOS) || os(macOS)
+        #if os(iOS)
         uiScreen.brightness = 0.63
         notificationCenter.post(name: UIScreen.brightnessDidChangeNotification, object: uiScreen)
         #endif
 
-        #if os(iOS) || os(macOS)
+        #if os(iOS)
         wait(
             for: [
                 brightnessExpectation,
@@ -224,7 +223,7 @@ final class ScreenTests: XCTestCase {
         #endif
     }
 
-    #if os(iOS) || os(macOS)
+    #if os(iOS)
     func testBrightnessUpdateFromDifferentScreen() {
         let mockBackingData = MockScreen()
         let notificationCenter = NotificationCenter()
