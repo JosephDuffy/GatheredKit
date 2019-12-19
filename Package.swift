@@ -8,9 +8,18 @@ let package = Package(
     ],
     products: [
         .library(name: "GatheredKit", targets: ["GatheredKit"]),
+        .library(name: "GatheredKitCore", targets: ["GatheredKitCore"]),
+        .library(name: "GatheredKitLocation", targets: ["GatheredKitLocation"]),
+        .library(name: "GatheredKitMotion", targets: ["GatheredKitMotion"]),
+        .library(name: "GatheredKitDevice", targets: ["GatheredKitDevice"]),
     ],
     targets: [
-        .target(name: "GatheredKit"),
+//        .target(name: "GatheredKit", path: "Sources", sources: ["GatheredKitCore", "GatheredKitLocation", "GatheredKitMotion", "GatheredKitDevice"]),
+        .target(name: "GatheredKit", dependencies: ["GatheredKitCore", "GatheredKitLocation", "GatheredKitMotion", "GatheredKitDevice"]),
+        .target(name: "GatheredKitCore"),
+        .target(name: "GatheredKitLocation", dependencies: ["GatheredKitCore"]),
+        .target(name: "GatheredKitMotion", dependencies: ["GatheredKitCore"]),
+        .target(name: "GatheredKitDevice", dependencies: ["GatheredKitCore"]),
         .testTarget(name: "GatheredKitTests", dependencies: ["GatheredKit"]),
     ]
 )
