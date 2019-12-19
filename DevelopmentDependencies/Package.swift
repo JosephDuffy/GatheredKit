@@ -14,6 +14,6 @@ let package = Package(
         .package(url: "https://github.com/Realm/SwiftLint", .upToNextMinor(from: "0.36.0")),
     ],
     targets: [
-        .target(name: "DangerDependencies", dependencies: ["Danger", "swiftlint", "danger-swift", "SwiftChecksDangerPlugin"], path: "DangerDependencies"), // dev
+        .target(name: "DangerDependencies", dependencies: ["Danger", "swiftlint", "danger-swift"], path: "DangerDependencies"), // dev
     ]
 )
