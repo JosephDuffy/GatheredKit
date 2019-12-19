@@ -1,10 +1,9 @@
-#if canImport(UIKit)
+#if os(iOS) || os(tvOS)
 import UIKit
 import Combine
 
 /**
- A wrapper around `UIScreen`. Each property is read directly from `UIScreen`; every property is always the latest
- available value
+ A wrapper around `UIScreen`.
  */
 public final class Screen: Source, Controllable {
 

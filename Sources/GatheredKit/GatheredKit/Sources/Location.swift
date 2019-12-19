@@ -24,11 +24,7 @@ public final class Location: NSObject, Source, Controllable {
     public let course: OptionalAngleValue = .degrees(displayName: "Course")
     public let altitude: OptionalLengthValue = .meters(displayName: "Altitude")
 
-    private var _floor = OptionalProperty<Int, NumberFormatter>(displayName: "Floor", formatter: NumberFormatter())
-    @available(iOS 10.0, macOS 10.15, *)
-    public var floor: OptionalProperty<Int, NumberFormatter> {
-        return _floor
-    }
+    public let floor = OptionalProperty<Int, NumberFormatter>(displayName: "Floor", formatter: NumberFormatter())
 
     public let horizonalAccuracy: OptionalLengthValue = .meters(displayName: "Horizontal Accuracy")
     public let verticalAccuracy: OptionalLengthValue = .meters(displayName: "Vertical Accuracy")
@@ -47,7 +43,7 @@ public final class Location: NSObject, Source, Controllable {
       - authorisationStatus
      */
     public var allProperties: [AnyProperty] {
-        var properties: [AnyProperty] = [
+        return [
             coordinate,
             speed,
             course,
@@ -55,13 +51,8 @@ public final class Location: NSObject, Source, Controllable {
             horizonalAccuracy,
             verticalAccuracy,
             authorizationStatus,
+            floor,
         ]
-
-        if #available(iOS 10.0, macOS 10.15, *) {
-            properties.append(floor)
-        }
-
-        return properties
     }
 
     public var isUpdating: Bool {
@@ -98,7 +89,7 @@ public final class Location: NSObject, Source, Controllable {
         stopUpdating()
     }
 
-    #if os(iOS)
+    #if os(iOS) || os(watchOS)
     public func startUpdating() {
         startUpdating(allowBackgroundUpdates: false, desiredAccuracy: .best)
     }
@@ -108,7 +99,7 @@ public final class Location: NSObject, Source, Controllable {
             locationManager.allowsBackgroundLocationUpdates = allowBackgroundUpdates
         }
     }
-    #else
+    #elseif os(macOS) || os(tvOS)
     public func startUpdating() {
         startUpdating(desiredAccuracy: .best)
     }
@@ -125,26 +116,22 @@ public final class Location: NSObject, Source, Controllable {
             } else {
                 let locationManager = CLLocationManager()
                 locationManager.delegate = self
-                locationManagerConfigurator?(locationManager)
                 return locationManager
             }
         }()
         locationManager.desiredAccuracy = accuracy.asCLLocationAccuracy
+        locationManagerConfigurator?(locationManager)
 
         let authorizationStatus = CLLocationManager.authorizationStatus()
         self.authorizationStatus.update(value: authorizationStatus)
 
+        #if os(iOS) || os(watchOS)
         switch authorizationStatus {
         case .authorizedAlways:
             state = .monitoring(locationManager: locationManager)
-            #if os(iOS) || os(macOS)
             locationManager.startUpdatingLocation()
-            #elseif os(tvOS)
-            locationManager.requestLocation()
-            #endif
             updateValues()
         case .authorizedWhenInUse:
-            #if os(iOS)
             if locationManager.allowsBackgroundLocationUpdates {
                 state = .askingForPermissions(locationManager: locationManager)
                 locationManager.requestAlwaysAuthorization()
@@ -153,33 +140,55 @@ public final class Location: NSObject, Source, Controllable {
                 locationManager.startUpdatingLocation()
                 updateValues()
             }
-            #elseif os(macOS)
-            state = .monitoring(locationManager: locationManager)
-            locationManager.startUpdatingLocation()
-            updateValues()
-            #elseif os(tvOS)
-            locationManager.requestLocation()
-            #endif
         case .notDetermined:
             state = .askingForPermissions(locationManager: locationManager)
 
-            #if os(iOS)
             if locationManager.allowsBackgroundLocationUpdates {
                 locationManager.requestAlwaysAuthorization()
             } else {
                 locationManager.requestWhenInUseAuthorization()
             }
-            #elseif os(macOS)
-            locationManager.requestAlwaysAuthorization()
-            #elseif os(tvOS)
-            locationManager.requestWhenInUseAuthorization()
-            #endif
         case .denied, .restricted:
             updateLocationValues(nil)
             state = .notMonitoring
         @unknown default:
             break
         }
+        #elseif os(macOS)
+        switch authorizationStatus {
+        case .authorizedAlways:
+            state = .monitoring(locationManager: locationManager)
+            locationManager.startUpdatingLocation()
+            updateValues()
+        case .authorizedWhenInUse:
+            state = .monitoring(locationManager: locationManager)
+            locationManager.startUpdatingLocation()
+            updateValues()
+        case .notDetermined:
+            state = .askingForPermissions(locationManager: locationManager)
+            locationManager.requestAlwaysAuthorization()
+        case .denied, .restricted:
+            updateLocationValues(nil)
+            state = .notMonitoring
+        @unknown default:
+            break
+        }
+        #elseif os(tvOS)
+        switch authorizationStatus {
+        case .authorizedAlways, .authorizedWhenInUse:
+            state = .monitoring(locationManager: locationManager)
+            locationManager.requestLocation()
+            updateValues()
+        case .notDetermined:
+            state = .askingForPermissions(locationManager: locationManager)
+            locationManager.requestWhenInUseAuthorization()
+        case .denied, .restricted:
+            updateLocationValues(nil)
+            state = .notMonitoring
+        @unknown default:
+            break
+        }
+        #endif
     }
 
     public func stopUpdating() {
@@ -240,12 +249,12 @@ extension Location: CLLocationManagerDelegate {
 
         if Location.availability == .available, isAskingForLocationPermissions {
             // The user has just granted location permissions
-            #if os(iOS)
-                startUpdating(
-                    allowBackgroundUpdates: manager.allowsBackgroundLocationUpdates,
-                    desiredAccuracy: Location.Accuracy(accuracy: manager.desiredAccuracy) ?? .best
-                )
-            #elseif os(macOS)
+            #if os(iOS) || os(watchOS)
+            startUpdating(
+                allowBackgroundUpdates: manager.allowsBackgroundLocationUpdates,
+                desiredAccuracy: Location.Accuracy(accuracy: manager.desiredAccuracy) ?? .best
+            )
+            #elseif os(macOS) || os(tvOS)
             startUpdating(
                 desiredAccuracy: Location.Accuracy(accuracy: manager.desiredAccuracy) ?? .best
             )
@@ -317,7 +326,7 @@ extension Location {
 extension SourceAvailability {
 
     public init?(authorizationStatus: CLAuthorizationStatus) {
-        #if os(iOS) || os(tvOS)
+        #if os(iOS) || os(tvOS) || os(watchOS)
         switch authorizationStatus {
         case .authorizedAlways, .authorizedWhenInUse:
             self = .available
