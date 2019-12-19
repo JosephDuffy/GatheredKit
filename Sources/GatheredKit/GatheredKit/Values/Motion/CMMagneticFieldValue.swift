@@ -1,4 +1,4 @@
-#if canImport(CoreMotion)
+#if os(iOS) || os(watchOS)
 import Foundation
 import CoreMotion
 

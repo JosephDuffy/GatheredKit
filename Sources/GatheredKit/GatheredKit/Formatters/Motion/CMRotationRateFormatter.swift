@@ -1,8 +1,8 @@
-#if canImport(CoreMotion)
+#if os(iOS) || os(watchOS)
 import Foundation
 import CoreMotion
 
-public final class RotationRateFormatter: Formatter {
+public final class CMRotationRateFormatter: Formatter {
 
     public var numberFormatter: NumberFormatter
 

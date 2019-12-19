@@ -1,8 +1,8 @@
-#if canImport(CoreMotion)
+#if os(iOS) || os(watchOS)
 import Foundation
 import CoreMotion
 
-public final class RotationRateValue: Property<CMRotationRate, RotationRateFormatter> {
+public final class CMRotationRateValue: Property<CMRotationRate, CMRotationRateFormatter> {
 
     public var allProperties: [AnyProperty] {
         return [x, y, z]
@@ -22,7 +22,7 @@ public final class RotationRateValue: Property<CMRotationRate, RotationRateForma
 
 }
 
-public final class OptionalRotationRateValue: OptionalProperty<CMRotationRate, RotationRateFormatter> {
+public final class OptionalCMRotationRateValue: OptionalProperty<CMRotationRate, CMRotationRateFormatter> {
 
     public var allProperties: [AnyProperty] {
         return [x, y, z]

@@ -43,4 +43,22 @@ extension AnyProperty {
         return OptionalAngleValue(displayName: displayName, value: value, unit: .degrees, formatter: formatter, date: date)
     }
 
+    public static func radians(
+        displayName: String,
+        value: Double,
+        formatter: MeasurementFormatter = MeasurementFormatter(),
+        date: Date = Date()
+    ) -> AngleValue {
+        return .init(displayName: displayName, value: value, unit: .radians, formatter: formatter, date: date)
+    }
+
+    public static func radians(
+        displayName: String,
+        value: Double? = nil,
+        formatter: MeasurementFormatter = MeasurementFormatter(),
+        date: Date = Date()
+    ) -> OptionalAngleValue {
+        return .init(displayName: displayName, value: value, unit: .radians, formatter: formatter, date: date)
+    }
+
 }

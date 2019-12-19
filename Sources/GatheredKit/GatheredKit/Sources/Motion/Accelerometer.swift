@@ -2,17 +2,17 @@
 import Foundation
 import CoreMotion
 
-public final class Gyroscope: Source, CustomisableUpdateIntervalControllable, PropertiesProvider {
+public final class Accelerometer: Source, CustomisableUpdateIntervalControllable, PropertiesProvider {
 
     private enum State {
         case notMonitoring
         case monitoring(updatesQueue: OperationQueue)
     }
 
-    public static let name = "Gyroscope"
+    public static let name = "Accelerometer"
 
     public static var availability: SourceAvailability {
-        return CMMotionManager.shared.isGyroAvailable ? .available : .unavailable
+        return CMMotionManager.shared.isAccelerometerAvailable ? .available : .unavailable
     }
 
     public static var defaultUpdateInterval: TimeInterval = 1
@@ -27,13 +27,13 @@ public final class Gyroscope: Source, CustomisableUpdateIntervalControllable, Pr
     }
 
     public var updateInterval: TimeInterval? {
-        return isUpdating ? CMMotionManager.shared.gyroUpdateInterval : nil
+        return isUpdating ? CMMotionManager.shared.accelerometerUpdateInterval : nil
     }
 
-    public let rotationRate: OptionalCMRotationRateValue = .init(displayName: "Rotation Rate")
+    public let acceleration: OptionalCMAccelerationValue = .init(displayName: "Acceleration")
 
     public var allProperties: [AnyProperty] {
-        return [rotationRate]
+        return [acceleration]
     }
 
     private var state: State = .notMonitoring
@@ -43,25 +43,26 @@ public final class Gyroscope: Source, CustomisableUpdateIntervalControllable, Pr
     public func startUpdating(
         every updateInterval: TimeInterval
     ) {
-        let updatesQueue = OperationQueue(name: "GatheredKit Gyroscope Updates")
+        let updatesQueue = OperationQueue(name: "GatheredKit Accelerometer Updates")
         let motionManager = CMMotionManager.shared
 
-        motionManager.gyroUpdateInterval = updateInterval
-        motionManager.startGyroUpdates(to: updatesQueue) { [weak self] data, error in
+        motionManager.accelerometerUpdateInterval = updateInterval
+        motionManager.showsDeviceMovementDisplay = true
+        motionManager.startAccelerometerUpdates(to: updatesQueue) { [weak self] data, error in
             guard let self = self else { return }
             if let error = error {
                 // TODO: Bubble up error
                 print(error)
             }
             guard let data = data else { return }
-            self.rotationRate.update(value: data.rotationRate, date: data.date)
+            self.acceleration.update(value: data.acceleration, date: data.date)
         }
 
         state = .monitoring(updatesQueue: updatesQueue)
     }
 
     public func stopUpdating() {
-        CMMotionManager.shared.stopGyroUpdates()
+        CMMotionManager.shared.stopAccelerometerUpdates()
         state = .notMonitoring
     }
 

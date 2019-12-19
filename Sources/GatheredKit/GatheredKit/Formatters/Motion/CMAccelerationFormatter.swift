@@ -2,7 +2,7 @@
 import Foundation
 import CoreMotion
 
-public final class CMMagneticFieldFormatter: Formatter {
+public final class CMAccelerationFormatter: Formatter {
 
     public var measurementFormatter: MeasurementFormatter
 
@@ -20,10 +20,10 @@ public final class CMMagneticFieldFormatter: Formatter {
         fatalError("init(coder:) has not been implemented")
     }
 
-    public func string(for magneticField: CMMagneticField) -> String {
-        let xMeasurement = Measurement(value: magneticField.x, unit: UnitMagneticField.microTesla)
-        let yMeasurement = Measurement(value: magneticField.y, unit: UnitMagneticField.microTesla)
-        let zMeasurement = Measurement(value: magneticField.z, unit: UnitMagneticField.microTesla)
+    public func string(for acceleration: CMAcceleration) -> String {
+        let xMeasurement = Measurement(value: acceleration.x, unit: UnitAcceleration.gravity)
+        let yMeasurement = Measurement(value: acceleration.y, unit: UnitAcceleration.gravity)
+        let zMeasurement = Measurement(value: acceleration.z, unit: UnitAcceleration.gravity)
         let x = measurementFormatter.string(from: xMeasurement)
         let y = measurementFormatter.string(from: yMeasurement)
         let z = measurementFormatter.string(from: zMeasurement)

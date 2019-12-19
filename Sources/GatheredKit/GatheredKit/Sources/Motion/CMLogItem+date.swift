@@ -1,4 +1,4 @@
-#if os(iOS)
+#if os(iOS) || os(watchOS)
 import CoreMotion
 
 private var deviceBootTime: Date = {

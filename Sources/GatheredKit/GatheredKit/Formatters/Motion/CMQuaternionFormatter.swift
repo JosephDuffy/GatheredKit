@@ -1,8 +1,8 @@
-#if canImport(CoreMotion)
+#if os(iOS) || os(watchOS)
 import Foundation
 import CoreMotion
 
-public final class QuaternionFormatter: Formatter {
+public final class CMQuaternionFormatter: Formatter {
 
     public var numberFormatter: NumberFormatter
 

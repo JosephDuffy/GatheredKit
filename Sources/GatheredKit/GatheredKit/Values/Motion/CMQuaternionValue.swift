@@ -1,8 +1,8 @@
-#if canImport(CoreMotion)
+#if os(iOS) || os(watchOS)
 import Foundation
 import CoreMotion
 
-public final class QuaternionValue: Property<CMQuaternion, QuaternionFormatter> {
+public final class CMQuaternionValue: Property<CMQuaternion, CMQuaternionFormatter> {
 
     public var allProperties: [AnyProperty] {
         return [
@@ -31,7 +31,7 @@ public final class QuaternionValue: Property<CMQuaternion, QuaternionFormatter> 
 
 }
 
-public final class OptionalQuaternionValue: OptionalProperty<CMQuaternion, QuaternionFormatter> {
+public final class OptionalCMQuaternionValue: OptionalProperty<CMQuaternion, CMQuaternionFormatter> {
 
     public var allProperties: [AnyProperty] {
         return [

@@ -2,7 +2,7 @@
 import Foundation
 import CoreMotion
 
-public final class CMMagneticFieldFormatter: Formatter {
+public final class CMAttitudeFormatter: Formatter {
 
     public var measurementFormatter: MeasurementFormatter
 
@@ -20,14 +20,12 @@ public final class CMMagneticFieldFormatter: Formatter {
         fatalError("init(coder:) has not been implemented")
     }
 
-    public func string(for magneticField: CMMagneticField) -> String {
-        let xMeasurement = Measurement(value: magneticField.x, unit: UnitMagneticField.microTesla)
-        let yMeasurement = Measurement(value: magneticField.y, unit: UnitMagneticField.microTesla)
-        let zMeasurement = Measurement(value: magneticField.z, unit: UnitMagneticField.microTesla)
-        let x = measurementFormatter.string(from: xMeasurement)
-        let y = measurementFormatter.string(from: yMeasurement)
-        let z = measurementFormatter.string(from: zMeasurement)
-        return [x, y, z].joined(separator: ", ")
+    public func string(for acceleration: CMAttitude) -> String {
+        let property = CMAttitudeValue(displayName: "", value: acceleration)
+        let roll = measurementFormatter.string(from: property.roll.measurement)
+        let pitch = measurementFormatter.string(from: property.pitch.measurement)
+        let yaw = measurementFormatter.string(from: property.yaw.measurement)
+        return [roll, pitch, yaw].joined(separator: ", ")
     }
 
     public override func string(for obj: Any?) -> String? {

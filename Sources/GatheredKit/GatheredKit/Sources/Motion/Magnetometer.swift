@@ -1,76 +1,68 @@
-#if os(iOS)
+#if os(iOS) || os(watchOS)
 import Foundation
 import CoreMotion
 
-public final class Magnetometer: CoreMotionSource, Source, PropertiesProvider {
+public final class Magnetometer: Source, CustomisableUpdateIntervalControllable, PropertiesProvider {
+
+    private enum State {
+        case notMonitoring
+        case monitoring(updatesQueue: OperationQueue)
+    }
+
+    public static let name = "Magnetometer"
 
     public static var availability: SourceAvailability {
-        return isAvailable ? .available : .unavailable
+        return CMMotionManager.shared.isMagnetometerAvailable ? .available : .unavailable
     }
 
-    public static var isAvailable: Bool {
-        return CMMotionManager().isMagnetometerAvailable
+    public static var defaultUpdateInterval: TimeInterval = 1
+
+    public var isUpdating: Bool {
+        switch state {
+        case .monitoring:
+            return true
+        case .notMonitoring:
+            return false
+        }
     }
 
-    public static let name = "source.magnetometer.name".localized
+    public var updateInterval: TimeInterval? {
+        return isUpdating ? CMMotionManager.shared.magnetometerUpdateInterval : nil
+    }
 
-    public let magneticField: OptionalCMCalibratedMagneticFieldValue
-
-    public let rawMagneticField: OptionalCMMagneticFieldValue
+    public let magneticField: OptionalCMMagneticFieldValue = .init(displayName: "Magnetic Field")
 
     public var allProperties: [AnyProperty] {
-        return [magneticField, rawMagneticField]
+        return [magneticField]
     }
 
-    public override init() {
-        magneticField = OptionalCMCalibratedMagneticFieldValue(displayName: "source.magnetometer.value.calibrated_magnetic_field.name".localized)
-        rawMagneticField = OptionalCMMagneticFieldValue(displayName: "source.magnetometer.value.raw_magnetic_field.name".localized)
-    }
+    private var state: State = .notMonitoring
 
-    public override func startUpdating(every updateInterval: TimeInterval) {
-        super.startUpdating(every: updateInterval, motionManagerConfigurator: { motionManager, updatesQueue in
-            let calibratedHandler: CMDeviceMotionHandler = { [weak self] (_ data: CMDeviceMotion?, error: Error?) in
-                guard let `self` = self else { return }
-                guard self.isUpdating else { return }
-                guard let data = data else { return }
+    public init() {}
 
-                self.magneticField.update(
-                    value: data.magneticField,
-                    date: data.date
-                )
+    public func startUpdating(
+        every updateInterval: TimeInterval
+    ) {
+        let updatesQueue = OperationQueue(name: "GatheredKit Magnetometer Updates")
+        let motionManager = CMMotionManager.shared
 
+        motionManager.magnetometerUpdateInterval = updateInterval
+        motionManager.startMagnetometerUpdates(to: updatesQueue) { [weak self] data, error in
+            guard let self = self else { return }
+            if let error = error {
+                // TODO: Bubble up error
+                print(error)
             }
+            guard let data = data else { return }
+            self.magneticField.update(value: data.magneticField, date: data.date)
+        }
 
-            let rawHandler: CMMagnetometerHandler = { [weak self] (_ data: CMMagnetometerData?, error: Error?) in
-                guard let `self` = self else { return }
-                guard self.isUpdating else { return }
-                guard let data = data else { return }
-
-                self.rawMagneticField.update(
-                    value: data.magneticField,
-                    date: data.date
-                )
-            }
-
-            motionManager.deviceMotionUpdateInterval = updateInterval
-            motionManager.magnetometerUpdateInterval = updateInterval
-            motionManager.showsDeviceMovementDisplay = true
-
-            motionManager.startDeviceMotionUpdates(
-                to: updatesQueue,
-                withHandler: calibratedHandler
-            )
-            motionManager.startMagnetometerUpdates(
-                to: updatesQueue,
-                withHandler: rawHandler
-            )
-        })
+        state = .monitoring(updatesQueue: updatesQueue)
     }
 
-    public override func stopUpdating() {
-        motionManager?.stopDeviceMotionUpdates()
-        motionManager?.stopMagnetometerUpdates()
-        super.stopUpdating()
+    public func stopUpdating() {
+        CMMotionManager.shared.stopMagnetometerUpdates()
+        state = .notMonitoring
     }
 
 }
