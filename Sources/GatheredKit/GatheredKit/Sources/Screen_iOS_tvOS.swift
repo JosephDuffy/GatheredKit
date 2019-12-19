@@ -7,8 +7,6 @@ import Combine
  */
 public final class Screen: Source, Controllable {
 
-    public typealias Publisher = PassthroughSubject<[AnyProperty], Never>
-
     private enum State {
         case notMonitoring
         #if os(iOS) || os(macOS)
@@ -22,7 +20,7 @@ public final class Screen: Source, Controllable {
 
     public static var name = "Screen"
 
-    public let publisher: Publisher
+    public let publisher = Publisher()
 
     /// A boolean indicating if the screen is monitoring for brightness changes
     public var isUpdating: Bool {
@@ -144,13 +142,7 @@ public final class Screen: Source, Controllable {
         brightness = .init(displayName: "Brightness", value: screen.brightness)
         #endif
 
-        publisher = .init()
-
-        propertyUpdateCancellables = allProperties.map { property in
-            property.typeErasedPublisher.sink { _ in
-                self.publisher.send(self.allProperties)
-            }
-        }
+        propertyUpdateCancellables = publishUpdateWhenAnyPropertyUpdates()
     }
 
     deinit {

@@ -1,6 +1,7 @@
 #if os(iOS) || os(watchOS)
 import Foundation
 import CoreMotion
+import Combine
 
 public final class DeviceAttitude: Source, CustomisableUpdateIntervalControllable, PropertiesProvider {
 
@@ -20,6 +21,8 @@ public final class DeviceAttitude: Source, CustomisableUpdateIntervalControllabl
     public static func availableReferenceFrames() -> CMAttitudeReferenceFrame {
         return CMMotionManager.availableAttitudeReferenceFrames()
     }
+
+    public let publisher = Publisher()
 
     public var isUpdating: Bool {
         switch state {
@@ -47,7 +50,11 @@ public final class DeviceAttitude: Source, CustomisableUpdateIntervalControllabl
 
     private var state: State = .notMonitoring
 
-    public init() {}
+    private var propertyUpdateCancellables: [AnyCancellable] = []
+
+    public init() {
+        propertyUpdateCancellables = publishUpdateWhenAnyPropertyUpdates()
+    }
 
     public func startUpdating(every updateInterval: TimeInterval) {
         startUpdating(every: updateInterval, referenceFrame: nil)

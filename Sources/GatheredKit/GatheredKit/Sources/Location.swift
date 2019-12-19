@@ -1,5 +1,6 @@
 import Foundation
 import CoreLocation
+import Combine
 
 // TODO: Wrap delegate to remove need for inheritance from `NSObject`
 public final class Location: NSObject, Source, Controllable {
@@ -19,7 +20,9 @@ public final class Location: NSObject, Source, Controllable {
 
     public static var name = "Location"
 
-    public let coordinate: OptionalCoordinateValue
+    public let publisher = Publisher()
+
+    public let coordinate: OptionalCoordinateValue = .init(displayName: "Coordinate")
     public let speed: OptionalSpeedValue = .metersPerSecond(displayName: "Speed")
     public let course: OptionalAngleValue = .degrees(displayName: "Course")
     public let altitude: OptionalLengthValue = .meters(displayName: "Altitude")
@@ -81,8 +84,12 @@ public final class Location: NSObject, Source, Controllable {
 
     private var state: State = .notMonitoring
 
+    private var propertyUpdateCancellables: [AnyCancellable] = []
+
     public override init() {
-        coordinate = .init(displayName: "Coordinate")
+        super.init()
+        
+        propertyUpdateCancellables = publishUpdateWhenAnyPropertyUpdates()
     }
 
     deinit {

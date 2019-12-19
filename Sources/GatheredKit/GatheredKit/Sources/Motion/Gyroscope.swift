@@ -1,6 +1,7 @@
 #if os(iOS) || os(watchOS)
 import Foundation
 import CoreMotion
+import Combine
 
 public final class Gyroscope: Source, CustomisableUpdateIntervalControllable, PropertiesProvider {
 
@@ -16,6 +17,8 @@ public final class Gyroscope: Source, CustomisableUpdateIntervalControllable, Pr
     }
 
     public static var defaultUpdateInterval: TimeInterval = 1
+
+    public let publisher = Publisher()
 
     public var isUpdating: Bool {
         switch state {
@@ -38,7 +41,11 @@ public final class Gyroscope: Source, CustomisableUpdateIntervalControllable, Pr
 
     private var state: State = .notMonitoring
 
-    public init() {}
+    private var propertyUpdateCancellables: [AnyCancellable] = []
+
+    public init() {
+        propertyUpdateCancellables = publishUpdateWhenAnyPropertyUpdates()
+    }
 
     public func startUpdating(
         every updateInterval: TimeInterval
