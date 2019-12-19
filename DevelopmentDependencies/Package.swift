@@ -11,7 +11,6 @@ let package = Package(
     ],
     dependencies: [
         .package(url: "https://github.com/danger/swift.git", from: "2.0.0"),
-        .package(url: "https://github.com/JosephDuffy/SwiftChecksDangerPlugin.git", from: "0.1.0"),
         .package(url: "https://github.com/Realm/SwiftLint", .upToNextMinor(from: "0.36.0")),
     ],
     targets: [
