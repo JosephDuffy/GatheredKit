@@ -31,6 +31,20 @@ public class MeasurementProperty<Unit: Foundation.Unit>: Property<Measurement<Un
         self.update(value: measurement, date: date)
     }
 
+    /**
+    Updates the value backing this `Property`, only if the provided value is different.
+
+     - Parameter value: The new value.
+     - Parameter date: The date and time the `value` was recorded. Defaults to the current date and time.
+     - Returns: `true` if the value was updated, otherwise `false`.
+     */
+    @discardableResult
+    public func updateValueIfDifferent(_ value: Double, date: Date = Date()) -> Bool {
+        guard value != self.value.value else { return false }
+        update(value: value, date: date)
+        return true
+    }
+
 }
 
 public class OptionalMeasurementProperty<Unit: Foundation.Dimension>: OptionalProperty<Measurement<Unit>, MeasurementFormatter> {
@@ -68,6 +82,25 @@ public class OptionalMeasurementProperty<Unit: Foundation.Dimension>: OptionalPr
         date: Date = Date()
     ) {
         update(value: Measurement(value: value, unit: unit), date: date)
+    }
+
+    /**
+    Updates the value backing this `Property`, only if the provided value is different.
+
+     - Parameter value: The new value.
+     - Parameter date: The date and time the `value` was recorded. Defaults to the current date and time.
+     - Returns: `true` if the value was updated, otherwise `false`.
+     */
+    @discardableResult
+    public func updateValueIfDifferent(_ value: Double, date: Date = Date()) -> Bool {
+        if let existingValue = self.value?.value {
+            guard value != existingValue else { return false }
+            update(value: value, date: date)
+            return true
+        } else {
+            update(value: value, date: date)
+            return true
+        }
     }
 
 }
