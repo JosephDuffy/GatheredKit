@@ -192,6 +192,8 @@ public final class Screen: Source, Controllable {
             updatesQueue: updatesQueue
         )
         #endif
+        
+        publisher.send(.startedUpdating)
     }
 
     /**
@@ -219,6 +221,7 @@ public final class Screen: Source, Controllable {
             )
 
         state = .notMonitoring
+        publisher.send(.stoppedUpdating)
     }
 
 }

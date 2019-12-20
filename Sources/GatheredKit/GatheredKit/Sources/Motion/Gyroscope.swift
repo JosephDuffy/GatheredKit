@@ -65,11 +65,13 @@ public final class Gyroscope: Source, CustomisableUpdateIntervalControllable, Pr
         }
 
         state = .monitoring(updatesQueue: updatesQueue)
+        publisher.send(.startedUpdating)
     }
 
     public func stopUpdating() {
         CMMotionManager.shared.stopGyroUpdates()
         state = .notMonitoring
+        publisher.send(.stoppedUpdating)
     }
 
 }

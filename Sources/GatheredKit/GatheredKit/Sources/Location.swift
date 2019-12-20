@@ -82,7 +82,18 @@ public final class Location: NSObject, Source, Controllable {
         }
     }
 
-    private var state: State = .notMonitoring
+    private var state: State = .notMonitoring {
+        didSet {
+            switch state {
+            case .monitoring:
+                publisher.send(.startedUpdating)
+            case .askingForPermissions:
+                publisher.send(.requestingPermission)
+            case .notMonitoring:
+                publisher.send(.stoppedUpdating)
+            }
+        }
+    }
 
     private var propertyUpdateCancellables: [AnyCancellable] = []
 

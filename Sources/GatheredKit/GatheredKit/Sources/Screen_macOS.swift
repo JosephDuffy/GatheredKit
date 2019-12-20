@@ -117,6 +117,7 @@ public final class Screen: Source, Controllable {
             colorSpaceObserver: colorSpaceObserver,
             updatesQueue: updatesQueue
         )
+        publisher.send(.startedUpdating)
     }
 
     /**
@@ -140,6 +141,7 @@ public final class Screen: Source, Controllable {
             )
 
         state = .notMonitoring
+        publisher.send(.stoppedUpdating)
     }
 
 }

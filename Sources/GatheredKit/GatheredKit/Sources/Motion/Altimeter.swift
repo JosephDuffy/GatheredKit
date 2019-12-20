@@ -81,12 +81,14 @@ public final class Altimeter: Controllable, ActionProvider {
         }
 
         state = .monitoring(altimeter: altimeter, updatesQueue: updatesQueue)
+        publisher.send(.startedUpdating)
     }
 
     public func stopUpdating() {
         guard case .monitoring(let altimeter, _) = state else { return }
         altimeter.stopRelativeAltitudeUpdates()
         state = .notMonitoring
+        publisher.send(.stoppedUpdating)
     }
 
 }
