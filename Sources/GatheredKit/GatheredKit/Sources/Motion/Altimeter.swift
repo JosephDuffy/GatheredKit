@@ -27,6 +27,8 @@ public final class Altimeter: Controllable, ActionProvider {
             return .requiresPermissionsPrompt
         case .restricted:
             return .restricted
+        @unknown default:
+            return .unavailable
         }
     }
 
@@ -74,15 +76,15 @@ public final class Altimeter: Controllable, ActionProvider {
         altimeter.startRelativeAltitudeUpdates(to: updatesQueue) { [weak self] data, error in
             guard let self = self else { return }
             guard let data = data else { return }
-            self.relativeAltitude.update(value: data.relativeAltitude)
-            self.pressure.update(value: data.pressure)
+            self.relativeAltitude.updateValueIfDifferent(data.relativeAltitude.doubleValue)
+            self.pressure.updateValueIfDifferent(data.pressure.doubleValue)
         }
 
         state = .monitoring(altimeter: altimeter, updatesQueue: updatesQueue)
     }
 
     public func stopUpdating() {
-        guard .monitoring(let altimeter, _) = state else { return }
+        guard case .monitoring(let altimeter, _) = state else { return }
         altimeter.stopRelativeAltitudeUpdates()
         state = .notMonitoring
     }
