@@ -5,9 +5,7 @@ import Combine
 /**
  A wrapper around `NSScreen`.
  */
-public final class Screen: Source, Controllable {
-
-    public typealias Publisher = PassthroughSubject<[AnyProperty], Never>
+public final class Screen: Controllable {
 
     private enum State {
         case notMonitoring
@@ -18,7 +16,7 @@ public final class Screen: Source, Controllable {
 
     public static var name = "Screen"
 
-    public let publisher: Publisher
+    public let publisher = Publisher()
 
     /// A boolean indicating if the screen is monitoring for brightness changes
     public var isUpdating: Bool {
@@ -79,13 +77,7 @@ public final class Screen: Source, Controllable {
         )
         resolution.formatter.suffix = " Pixels"
 
-        publisher = .init()
-
-        propertyUpdateCancellables = allProperties.map { property in
-            property.typeErasedPublisher.sink { _ in
-                self.publisher.send(self.allProperties)
-            }
-        }
+       propertyUpdateCancellables = publishUpdateWhenAnyPropertyUpdates()
     }
 
     deinit {
