@@ -5,11 +5,11 @@ import Combine
 /**
  A wrapper around `UIScreen`.
  */
-public final class Screen: Source, Controllable {
+public final class Screen: ControllableSource {
 
     private enum State {
         case notMonitoring
-        #if os(iOS) || os(macOS)
+        #if os(iOS)
         case monitoring(brightnessChangeObeserver: NSObjectProtocol, modeChangeObeserver: NSObjectProtocol, updatesQueue: OperationQueue)
         #elseif os(tvOS)
         case monitoring(modeChangeObeserver: NSObjectProtocol, updatesQueue: OperationQueue)

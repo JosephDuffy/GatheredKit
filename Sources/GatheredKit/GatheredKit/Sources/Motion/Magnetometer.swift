@@ -3,7 +3,7 @@ import Foundation
 import CoreMotion
 import Combine
 
-public final class Magnetometer: Source, CustomisableUpdateIntervalControllable, PropertiesProvider {
+public final class Magnetometer: CustomisableUpdateIntervalControllableSource {
 
     private enum State {
         case notMonitoring

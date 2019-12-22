@@ -5,7 +5,7 @@ import Combine
 /**
  A wrapper around `NSScreen`.
  */
-public final class Screen: Controllable {
+public final class Screen: ControllableSource {
 
     private enum State {
         case notMonitoring

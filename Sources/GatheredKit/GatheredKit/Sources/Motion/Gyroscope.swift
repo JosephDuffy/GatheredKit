@@ -3,7 +3,7 @@ import Foundation
 import CoreMotion
 import Combine
 
-public final class Gyroscope: Source, CustomisableUpdateIntervalControllable, PropertiesProvider {
+public final class Gyroscope: CustomisableUpdateIntervalControllableSource {
 
     private enum State {
         case notMonitoring

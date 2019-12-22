@@ -3,7 +3,7 @@ import Foundation
 import CoreMotion
 import Combine
 
-public final class Altimeter: Controllable, ActionProvider {
+public final class Altimeter: ControllableSource, ActionProvider {
 
     private enum State {
         case notMonitoring

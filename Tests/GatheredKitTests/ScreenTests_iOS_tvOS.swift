@@ -29,7 +29,7 @@ final class ScreenTests: XCTestCase {
         let screen = Screen(screen: uiScreen, notificationCenter: notificationCenter)
         let expectation = XCTestExpectation(description: "Should not publish updates")
         expectation.isInverted = true
-        let cancellable = screen.publisher.sink { _ in
+        let cancellable = screen.publisher.assertNoFailure().sink { _ in
             expectation.fulfill()
         }
         // Shutup Xcode
@@ -75,7 +75,7 @@ final class ScreenTests: XCTestCase {
         let screen = Screen(screen: uiScreen, notificationCenter: notificationCenter)
         let expectation = XCTestExpectation(description: "Should not publish updates")
         expectation.isInverted = true
-        let cancellable = screen.publisher.sink { _ in
+        let cancellable = screen.publisher.assertNoFailure().sink { _ in
             expectation.fulfill()
         }
         // Shutup Xcode

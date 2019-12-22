@@ -1,21 +1,13 @@
 import Foundation
 import Combine
 
-public enum ControllableEvent {
-    case propertyUpdated(property: AnyProperty, snapshot: AnySnapshot)
-    case startedUpdating
-    case stoppedUpdating
-    case requestingPermission
-}
-
 /**
  An object that be started and stopped
  */
-public protocol Controllable: Source {
+public protocol Controllable {
 
-    typealias Publisher = PassthroughSubject<ControllableEvent, Never>
+    associatedtype Publisher = Combine.Publisher
 
-    /// A publisher that will send all properties when any property changes.
     var publisher: Publisher { get }
 
     /// A boolean indicating if the `Controllable` is currently performing automatic updates
@@ -31,21 +23,5 @@ public protocol Controllable: Source {
      Stops automatic updates
      */
     func stopUpdating()
-
-}
-
-extension Controllable {
-
-    internal func publishUpdateWhenAnyPropertyUpdates() -> [AnyCancellable] {
-        return allProperties.map { property in
-            // Without this Swift throws a "Type of expression is ambiguous without more context" error
-            let _property = property
-            return property.typeErasedPublisher.sink { [weak self, weak _property] snapshot in
-                guard let self = self else { return }
-                guard let property = _property else { return }
-                self.publisher.send(.propertyUpdated(property: property, snapshot: snapshot))
-            }
-        }
-    }
 
 }

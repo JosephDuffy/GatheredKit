@@ -3,7 +3,7 @@ import Foundation
 import CoreMotion
 import Combine
 
-public final class DeviceMotion: Source, CustomisableUpdateIntervalControllable, PropertiesProvider {
+public final class DeviceMotion: CustomisableUpdateIntervalControllableSource, PropertiesProvider {
 
     private enum State {
         case notMonitoring

@@ -3,7 +3,7 @@ import CoreLocation
 import Combine
 
 // TODO: Wrap delegate to remove need for inheritance from `NSObject`
-public final class Location: NSObject, Source, Controllable {
+public final class Location: NSObject, ControllableSource {
 
     public typealias ProducedValue = [AnyProperty]
 

@@ -3,7 +3,7 @@ import Foundation
 import CoreMotion
 import Combine
 
-public final class Accelerometer: Source, CustomisableUpdateIntervalControllable, PropertiesProvider {
+public final class Accelerometer: CustomisableUpdateIntervalControllableSource {
 
     private enum State {
         case notMonitoring
