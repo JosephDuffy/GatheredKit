@@ -1,5 +1,7 @@
 public protocol AnySourceProvider: class {
     
-    var typeErasedSources: [Source] { get }
+    static var name: String { get }
+    
+    var typeErasedSources: [(name: String, source: Source)] { get }
     
 }

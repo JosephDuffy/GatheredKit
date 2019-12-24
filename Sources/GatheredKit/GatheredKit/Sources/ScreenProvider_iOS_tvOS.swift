@@ -3,7 +3,9 @@ import UIKit
 import Combine
 
 public final class ScreenProvider: ControllableSourceProvider {
-
+    
+    public static let name = "Screens"
+    
     private enum State {
         case notMonitoring
         case monitoring(observers: Observers)
@@ -27,7 +29,7 @@ public final class ScreenProvider: ControllableSourceProvider {
     private let sourceProviderEventsSubject = PassthroughSubject<SourceProviderEvent<Screen>, Never>()
 
     @Published
-    public private(set) var sources: [Screen]
+    public private(set) var sources: [(name: String, source: Screen)]
 
     @Published
     public private(set) var isUpdating: Bool = false
@@ -51,7 +53,11 @@ public final class ScreenProvider: ControllableSourceProvider {
 
     internal required init(notificationCenter: NotificationCenter) {
         self.notificationCenter = notificationCenter
-        sources = UIScreen.screens.map { Screen(screen: $0) }
+        sources = UIScreen.screens.map { uiScreen in
+            let name = uiScreen == UIScreen.main ? "Main" : "External"
+            let screen = Screen(screen: uiScreen)
+            return (name, screen)
+        }
     }
 
     public func startUpdating() {
