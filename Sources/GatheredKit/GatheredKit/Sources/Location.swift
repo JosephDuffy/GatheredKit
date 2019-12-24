@@ -3,9 +3,7 @@ import CoreLocation
 import Combine
 
 // TODO: Wrap delegate to remove need for inheritance from `NSObject`
-public final class Location: NSObject, ControllableSource {
-
-    public typealias ProducedValue = [AnyProperty]
+public final class Location: NSObject, Source, Controllable {
 
     private enum State {
         case notMonitoring
@@ -20,7 +18,11 @@ public final class Location: NSObject, ControllableSource {
 
     public static var name = "Location"
 
-    public let publisher = Publisher()
+    public var controllableEventsPublisher: AnyPublisher<ControllableEvent, ControllableError> {
+        return eventsSubject.eraseToAnyPublisher()
+    }
+    
+    private var eventsSubject = PassthroughSubject<ControllableEvent, ControllableError>()
 
     public let coordinate: OptionalCoordinateValue = .init(displayName: "Coordinate")
     public let speed: OptionalSpeedValue = .metersPerSecond(displayName: "Speed")
@@ -58,13 +60,8 @@ public final class Location: NSObject, ControllableSource {
         ]
     }
 
-    public var isUpdating: Bool {
-        if case .monitoring = state {
-            return true
-        } else {
-            return false
-        }
-    }
+    @Published
+    public var isUpdating: Bool = false
 
     private var locationManager: CLLocationManager? {
         if case .monitoring(let locationManager) = state {
@@ -86,11 +83,14 @@ public final class Location: NSObject, ControllableSource {
         didSet {
             switch state {
             case .monitoring:
-                publisher.send(.startedUpdating)
+                isUpdating = true
+                eventsSubject.send(.startedUpdating)
             case .askingForPermissions:
-                publisher.send(.requestingPermission)
+                isUpdating = false
+                eventsSubject.send(.requestingPermission)
             case .notMonitoring:
-                publisher.send(.stoppedUpdating)
+                isUpdating = false
+                eventsSubject.send(.stoppedUpdating)
             }
         }
     }
@@ -100,7 +100,7 @@ public final class Location: NSObject, ControllableSource {
     public override init() {
         super.init()
         
-        propertyUpdateCancellables = publishUpdateWhenAnyPropertyUpdates()
+//        propertyUpdateCancellables = publishUpdateWhenAnyPropertyUpdates()
     }
 
     deinit {

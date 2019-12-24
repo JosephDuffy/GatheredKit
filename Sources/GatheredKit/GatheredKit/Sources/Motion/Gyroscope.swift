@@ -3,7 +3,7 @@ import Foundation
 import CoreMotion
 import Combine
 
-public final class Gyroscope: CustomisableUpdateIntervalControllableSource {
+public final class Gyroscope: Source, CustomisableUpdateIntervalControllable {
 
     private enum State {
         case notMonitoring
@@ -17,17 +17,15 @@ public final class Gyroscope: CustomisableUpdateIntervalControllableSource {
     }
 
     public static var defaultUpdateInterval: TimeInterval = 1
-
-    public let publisher = Publisher()
-
-    public var isUpdating: Bool {
-        switch state {
-        case .monitoring:
-            return true
-        case .notMonitoring:
-            return false
-        }
+    
+    public var controllableEventsPublisher: AnyPublisher<ControllableEvent, ControllableError> {
+        return eventsSubject.eraseToAnyPublisher()
     }
+
+    private let eventsSubject = PassthroughSubject<ControllableEvent, ControllableError>()
+    
+    @Published
+    public private(set) var isUpdating: Bool = false
 
     public var updateInterval: TimeInterval? {
         return isUpdating ? CMMotionManager.shared.gyroUpdateInterval : nil
@@ -39,39 +37,50 @@ public final class Gyroscope: CustomisableUpdateIntervalControllableSource {
         return [rotationRate]
     }
 
-    private var state: State = .notMonitoring
-
-    private var propertyUpdateCancellables: [AnyCancellable] = []
-
-    public init() {
-        propertyUpdateCancellables = publishUpdateWhenAnyPropertyUpdates()
+    private var state: State = .notMonitoring {
+        didSet {
+            switch state {
+            case .monitoring:
+                isUpdating = true
+            case .notMonitoring:
+                isUpdating = false
+            }
+        }
     }
+
+    public init() {}
 
     public func startUpdating(
         every updateInterval: TimeInterval
     ) {
-        let updatesQueue = OperationQueue(name: "GatheredKit Gyroscope Updates")
         let motionManager = CMMotionManager.shared
-
         motionManager.gyroUpdateInterval = updateInterval
+        
+        guard !isUpdating else { return }
+        
+        let updatesQueue = OperationQueue(name: "GatheredKit Gyroscope Updates")
         motionManager.startGyroUpdates(to: updatesQueue) { [weak self] data, error in
             guard let self = self else { return }
+
             if let error = error {
-                // TODO: Bubble up error
-                print(error)
+                CMMotionManager.shared.stopGyroUpdates()
+                self.eventsSubject.send(completion: .failure(.other(error)))
+                self.state = .notMonitoring
+                return
             }
+
             guard let data = data else { return }
             self.rotationRate.update(value: data.rotationRate, date: data.date)
         }
 
         state = .monitoring(updatesQueue: updatesQueue)
-        publisher.send(.startedUpdating)
+        eventsSubject.send(.startedUpdating)
     }
 
     public func stopUpdating() {
         CMMotionManager.shared.stopGyroUpdates()
         state = .notMonitoring
-        publisher.send(.stoppedUpdating)
+        eventsSubject.send(.stoppedUpdating)
     }
 
 }

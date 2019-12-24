@@ -1,4 +1,5 @@
 import Foundation
+import Combine
 
 /**
  An object that can provide data from a specific source on the device

@@ -5,8 +5,8 @@ import Combine
 /**
  A wrapper around `NSScreen`.
  */
-public final class Screen: ControllableSource {
-
+public final class Screen: Source, Controllable {
+    
     private enum State {
         case notMonitoring
         case monitoring(screenParametersObserver: NSObjectProtocol, colorSpaceObserver: NSObjectProtocol, updatesQueue: OperationQueue)
@@ -15,18 +15,14 @@ public final class Screen: ControllableSource {
     public static var availability: SourceAvailability = .available
 
     public static var name = "Screen"
-
-    public let publisher = Publisher()
-
-    /// A boolean indicating if the screen is monitoring for brightness changes
-    public var isUpdating: Bool {
-        switch state {
-        case .notMonitoring:
-            return false
-        case .monitoring:
-            return true
-        }
+    
+    public var controllableEventsPublisher: AnyPublisher<ControllableEvent, ControllableError> {
+        return eventsSubject.eraseToAnyPublisher()
     }
+
+    private let eventsSubject = PassthroughSubject<ControllableEvent, ControllableError>()
+
+    public private(set) var isUpdating: Bool = false
 
     /// The `NSScreen` this `Screen` represents.
     public let nsScreen: NSScreen
@@ -49,7 +45,18 @@ public final class Screen: ControllableSource {
     private var propertyUpdateCancellables: [AnyCancellable] = []
 
     /// The internal state, indicating if the screen is monitoring for changes
-    private var state: State = .notMonitoring
+    private var state: State = .notMonitoring {
+        didSet {
+            switch state {
+            case .monitoring:
+                isUpdating = true
+                eventsSubject.send(.startedUpdating)
+            case .notMonitoring:
+                isUpdating = false
+                eventsSubject.send(.stoppedUpdating)
+            }
+        }
+    }
 
     private let notificationCenter: NotificationCenter
 
@@ -76,8 +83,6 @@ public final class Screen: ControllableSource {
             value: screen.frame.size
         )
         resolution.formatter.suffix = " Pixels"
-
-       propertyUpdateCancellables = publishUpdateWhenAnyPropertyUpdates()
     }
 
     deinit {
@@ -109,7 +114,7 @@ public final class Screen: ControllableSource {
             colorSpaceObserver: colorSpaceObserver,
             updatesQueue: updatesQueue
         )
-        publisher.send(.startedUpdating)
+        eventsSubject.send(.startedUpdating)
     }
 
     /**
@@ -133,7 +138,7 @@ public final class Screen: ControllableSource {
             )
 
         state = .notMonitoring
-        publisher.send(.stoppedUpdating)
+        eventsSubject.send(.stoppedUpdating)
     }
 
 }

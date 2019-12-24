@@ -27,9 +27,11 @@ final class ScreenTests: XCTestCase {
         let notificationCenter = MockNotificationCenter()
         let uiScreen = UIScreen.main
         let screen = Screen(screen: uiScreen, notificationCenter: notificationCenter)
-        let expectation = XCTestExpectation(description: "Should not publish updates")
-        expectation.isInverted = true
-        let cancellable = screen.publisher.assertNoFailure().sink { _ in
+        let expectation = XCTestExpectation(description: "Should publish a start updating event")
+        expectation.assertForOverFulfill = true
+        expectation.expectedFulfillmentCount = 1
+        let cancellable = screen.controllableEventsPublisher.assertNoFailure().sink { event in
+            XCTAssertEqual(event, .startedUpdating)
             expectation.fulfill()
         }
         // Shutup Xcode
@@ -57,7 +59,7 @@ final class ScreenTests: XCTestCase {
         XCTAssertEqual(notificationCenter.addObserverCallCount, 1)
         #endif
 
-        wait(for: [expectation], timeout: 1)
+        wait(for: [expectation], timeout: 0.01)
     }
 
     func testStopUpdatingWhenNotUpdating() {
@@ -73,10 +75,21 @@ final class ScreenTests: XCTestCase {
         let notificationCenter = MockNotificationCenter()
         let uiScreen = UIScreen.main
         let screen = Screen(screen: uiScreen, notificationCenter: notificationCenter)
-        let expectation = XCTestExpectation(description: "Should not publish updates")
-        expectation.isInverted = true
-        let cancellable = screen.publisher.assertNoFailure().sink { _ in
-            expectation.fulfill()
+        let startUpdatingEventExpectation = XCTestExpectation(description: "Should publish a start updating event")
+        startUpdatingEventExpectation.assertForOverFulfill = true
+        startUpdatingEventExpectation.expectedFulfillmentCount = 1
+        let stopUpdatingEventExpectation = XCTestExpectation(description: "Should publish a stop updating event")
+        stopUpdatingEventExpectation.assertForOverFulfill = true
+        stopUpdatingEventExpectation.expectedFulfillmentCount = 1
+        let cancellable = screen.controllableEventsPublisher.assertNoFailure().sink { event in
+            switch event {
+            case .startedUpdating:
+                startUpdatingEventExpectation.fulfill()
+            case .stoppedUpdating:
+                stopUpdatingEventExpectation.fulfill()
+            case .requestingPermission:
+                XCTFail("Should never send requestingPermission event")
+            }
         }
         // Shutup Xcode
         _ = cancellable
@@ -105,7 +118,7 @@ final class ScreenTests: XCTestCase {
         XCTAssertEqual(Set(notificationCenter.addObserverParameters.map { $0.object as? UIScreen }), Set([uiScreen]))
         XCTAssertEqual(Set(notificationCenter.removeObserverParameters.map { $0.object as? UIScreen }), Set([uiScreen]))
 
-        wait(for: [expectation], timeout: 1)
+        wait(for: [startUpdatingEventExpectation], timeout: 0.01)
     }
 
     func testNotificationFromScreen() {
@@ -117,47 +130,42 @@ final class ScreenTests: XCTestCase {
         let brightnessExpectation = XCTestExpectation(description: "Subscriber should be called with updated brightness")
         brightnessExpectation.expectedFulfillmentCount = 1
         brightnessExpectation.assertForOverFulfill = true
-        let brightnessCancellable = screen.brightness.publisher.sink { brightness in
+        let brightnessCancellable = screen.brightness.$snapshot.dropFirst().sink { brightness in
             brightnessExpectation.fulfill()
             XCTAssertEqual(brightness.value, uiScreen.brightness)
-            XCTAssertEqual(screen.brightness.value, uiScreen.brightness)
         }
         #endif
 
         let reportedResolutionExpectation = XCTestExpectation(description: "Subscriber should be called with updated reported resolution")
         reportedResolutionExpectation.expectedFulfillmentCount = 1
         reportedResolutionExpectation.assertForOverFulfill = true
-        let reportedResolutionCancellable = screen.reportedResolution.publisher.sink { reportedResolution in
+        let reportedResolutionCancellable = screen.reportedResolution.$snapshot.dropFirst().sink { reportedResolution in
             reportedResolutionExpectation.fulfill()
             XCTAssertEqual(reportedResolution.value, uiScreen.bounds.size)
-            XCTAssertEqual(screen.reportedResolution.value, uiScreen.bounds.size)
         }
 
         let nativeResolutionExpectation = XCTestExpectation(description: "Subscriber should be called with updated native resolution")
         nativeResolutionExpectation.expectedFulfillmentCount = 1
         nativeResolutionExpectation.assertForOverFulfill = true
-        let nativeResolutionCancellable = screen.nativeResolution.publisher.sink { nativeResolution in
+        let nativeResolutionCancellable = screen.nativeResolution.$snapshot.dropFirst().sink { nativeResolution in
             nativeResolutionExpectation.fulfill()
             XCTAssertEqual(nativeResolution.value, uiScreen.nativeBounds.size)
-            XCTAssertEqual(screen.nativeResolution.value, uiScreen.nativeBounds.size)
         }
 
         let reportedScaleExpectation = XCTestExpectation(description: "Subscriber should be called with updated reported scale")
         reportedScaleExpectation.expectedFulfillmentCount = 1
         reportedScaleExpectation.assertForOverFulfill = true
-        let reportedScaleCancellable = screen.reportedScale.publisher.sink { reportedScale in
+        let reportedScaleCancellable = screen.reportedScale.$snapshot.dropFirst().sink { reportedScale in
             reportedScaleExpectation.fulfill()
             XCTAssertEqual(reportedScale.value, uiScreen.scale)
-            XCTAssertEqual(screen.reportedScale.value, uiScreen.scale)
         }
 
         let nativeScaleExpectation = XCTestExpectation(description: "Subscriber should be called with updated native scale")
         nativeScaleExpectation.expectedFulfillmentCount = 1
         nativeScaleExpectation.assertForOverFulfill = true
-        let nativeScaleCancellable = screen.nativeScale.publisher.sink { nativeScale in
+        let nativeScaleCancellable = screen.nativeScale.$snapshot.dropFirst().sink { nativeScale in
             nativeScaleExpectation.fulfill()
             XCTAssertEqual(nativeScale.value, uiScreen.nativeScale)
-            XCTAssertEqual(screen.nativeScale.value, uiScreen.nativeScale)
         }
 
         screen.startUpdating()
@@ -208,7 +216,7 @@ final class ScreenTests: XCTestCase {
                 reportedScaleExpectation,
                 nativeScaleExpectation,
             ],
-            timeout: 1
+            timeout: 0.01
         )
         #elseif os(tvOS)
         wait(
@@ -218,7 +226,7 @@ final class ScreenTests: XCTestCase {
                 reportedScaleExpectation,
                 nativeScaleExpectation,
             ],
-            timeout: 1
+            timeout: 0.01
         )
         #endif
     }
@@ -228,18 +236,18 @@ final class ScreenTests: XCTestCase {
         let mockBackingData = MockScreen()
         let notificationCenter = NotificationCenter()
         let screen = Screen(screen: mockBackingData, notificationCenter: notificationCenter)
+        screen.startUpdating()
 
         let expectation = XCTestExpectation(description: "Subscriber should not be called")
         expectation.isInverted = true
-        let cancellable = screen.brightness.publisher.sink { _ in
+        let cancellable = screen.brightness.$snapshot.dropFirst().sink { _ in
             expectation.fulfill()
         }
-        screen.startUpdating()
 
         mockBackingData.brightness = 0.53
         notificationCenter.post(name: UIScreen.brightnessDidChangeNotification, object: UIScreen.main)
 
-        wait(for: [expectation], timeout: 1)
+        wait(for: [expectation], timeout: 0.01)
         cancellable.cancel()
     }
     #endif

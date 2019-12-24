@@ -5,7 +5,7 @@ import Combine
 /**
  A wrapper around `UIScreen`.
  */
-public final class Screen: ControllableSource {
+public final class Screen: Source, Controllable {
 
     private enum State {
         case notMonitoring
@@ -19,8 +19,12 @@ public final class Screen: ControllableSource {
     public static var availability: SourceAvailability = .available
 
     public static var name = "Screen"
+    
+    public var controllableEventsPublisher: AnyPublisher<ControllableEvent, ControllableError> {
+        return eventsSubject.eraseToAnyPublisher()
+    }
 
-    public let publisher = Publisher()
+    public let eventsSubject = PassthroughSubject<ControllableEvent, ControllableError>()
 
     /// A boolean indicating if the screen is monitoring for brightness changes
     public var isUpdating: Bool {
@@ -92,8 +96,6 @@ public final class Screen: ControllableSource {
         #endif
     }
 
-    private var propertyUpdateCancellables: [AnyCancellable] = []
-
     /// The internal state, indicating if the screen is monitoring for changes
     private var state: State = .notMonitoring
 
@@ -141,8 +143,6 @@ public final class Screen: ControllableSource {
         #if os(iOS)
         brightness = .init(displayName: "Brightness", value: screen.brightness)
         #endif
-
-        propertyUpdateCancellables = publishUpdateWhenAnyPropertyUpdates()
     }
 
     deinit {
@@ -193,7 +193,7 @@ public final class Screen: ControllableSource {
         )
         #endif
         
-        publisher.send(.startedUpdating)
+        eventsSubject.send(.startedUpdating)
     }
 
     /**
@@ -221,7 +221,7 @@ public final class Screen: ControllableSource {
             )
 
         state = .notMonitoring
-        publisher.send(.stoppedUpdating)
+        eventsSubject.send(completion: .finished)
     }
 
 }

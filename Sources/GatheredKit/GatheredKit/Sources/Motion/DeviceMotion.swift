@@ -3,7 +3,7 @@ import Foundation
 import CoreMotion
 import Combine
 
-public final class DeviceMotion: CustomisableUpdateIntervalControllableSource, PropertiesProvider {
+public final class DeviceMotion: Source, CustomisableUpdateIntervalControllable {
 
     private enum State {
         case notMonitoring
@@ -21,17 +21,15 @@ public final class DeviceMotion: CustomisableUpdateIntervalControllableSource, P
     public static func availableReferenceFrames() -> CMAttitudeReferenceFrame {
         return CMMotionManager.availableAttitudeReferenceFrames()
     }
-
-    public let publisher = Publisher()
-
-    public var isUpdating: Bool {
-        switch state {
-        case .monitoring:
-            return true
-        case .notMonitoring:
-            return false
-        }
+    
+    public var controllableEventsPublisher: AnyPublisher<ControllableEvent, ControllableError> {
+        return eventsSubject.eraseToAnyPublisher()
     }
+
+    private let eventsSubject = PassthroughSubject<ControllableEvent, ControllableError>()
+    
+    @Published
+    public private(set) var isUpdating: Bool = false
 
     public var updateInterval: TimeInterval? {
         return isUpdating ? CMMotionManager.shared.deviceMotionUpdateInterval : nil
@@ -45,16 +43,28 @@ public final class DeviceMotion: CustomisableUpdateIntervalControllableSource, P
     public let rotationRate: OptionalCMRotationRateValue = .init(displayName: "Rotation Rate")
 
     public var allProperties: [AnyProperty] {
-        return [rotationRate]
+        return [
+            attitude,
+            gravity,
+            userAcceleration,
+            heading,
+            magneticField,
+            rotationRate,
+        ]
     }
 
-    private var state: State = .notMonitoring
-
-    private var propertyUpdateCancellables: [AnyCancellable] = []
-
-    public init() {
-        propertyUpdateCancellables = publishUpdateWhenAnyPropertyUpdates()
+    private var state: State = .notMonitoring {
+        didSet {
+            switch state {
+            case .monitoring:
+                isUpdating = true
+            case .notMonitoring:
+                isUpdating = false
+            }
+        }
     }
+
+    public init() {}
 
     public func startUpdating(every updateInterval: TimeInterval) {
         startUpdating(every: updateInterval, referenceFrame: nil)
@@ -64,13 +74,23 @@ public final class DeviceMotion: CustomisableUpdateIntervalControllableSource, P
         every updateInterval: TimeInterval,
         referenceFrame: CMAttitudeReferenceFrame?
     ) {
-        let updatesQueue = OperationQueue(name: "GatheredKit Device Motion Updates")
         let motionManager = CMMotionManager.shared
         motionManager.deviceMotionUpdateInterval = updateInterval
+        
+        guard !isUpdating else { return }
+
+        let updatesQueue = OperationQueue(name: "GatheredKit Device Motion Updates")
 
         let handler: CMDeviceMotionHandler = { [weak self] data, error in
             guard let self = self else { return }
-            guard self.isUpdating else { return }
+
+            if let error = error {
+                CMMotionManager.shared.stopDeviceMotionUpdates()
+                self.eventsSubject.send(completion: .failure(.other(error)))
+                self.state = .notMonitoring
+                return
+            }
+
             guard let data = data else { return }
 
             let date = data.date
@@ -103,13 +123,13 @@ public final class DeviceMotion: CustomisableUpdateIntervalControllableSource, P
         }
 
         state = .monitoring(updatesQueue: updatesQueue)
-        publisher.send(.startedUpdating)
+        eventsSubject.send(.startedUpdating)
     }
 
     public func stopUpdating() {
         CMMotionManager.shared.stopDeviceMotionUpdates()
         state = .notMonitoring
-        publisher.send(.stoppedUpdating)
+        eventsSubject.send(.stoppedUpdating)
     }
 
 }

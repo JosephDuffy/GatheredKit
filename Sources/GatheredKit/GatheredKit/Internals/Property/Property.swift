@@ -1,27 +1,19 @@
 import Foundation
 import Combine
 
-open class Property<Value, Formatter: Foundation.Formatter>: AnyProperty, Snapshot {
-
-    public typealias Publisher = PassthroughSubject<Snapshot, Never>
-    public typealias ProducedValue = Snapshot
+open class Property<Value, Formatter: Foundation.Formatter>: AnyProperty, Snapshot, ObservableObject {
 
     public struct Snapshot: GatheredKit.Snapshot {
         public let value: Value
         public let date: Date
     }
 
-    public let publisher: Publisher
-
     public var typeErasedPublisher: AnyPublisher<AnySnapshot, Never> {
-        return publisher.map { $0 as AnySnapshot }.eraseToAnyPublisher()
+        return $snapshot.map { $0 as AnySnapshot }.eraseToAnyPublisher()
     }
 
-    public var snapshot: Snapshot {
-        didSet {
-            publisher.send(snapshot)
-        }
-    }
+    @Published
+    public var snapshot: Snapshot
 
     public var typeErasedFormatter: Foundation.Formatter {
         return formatter
@@ -45,6 +37,10 @@ open class Property<Value, Formatter: Foundation.Formatter>: AnyProperty, Snapsh
     public let formatter: Formatter
 
     public var formattedValue: String? {
+        guard type(of: formatter) != Foundation.Formatter.self else {
+            // `Formatter.string(for:)` will throw an exception when not overriden
+            return nil
+        }
         return formatter.string(for: value)
     }
 
@@ -58,7 +54,6 @@ open class Property<Value, Formatter: Foundation.Formatter>: AnyProperty, Snapsh
         let snapshot = Snapshot(value: value, date: date)
         self.snapshot = snapshot
         self.formatter = formatter
-        publisher = .init()
     }
 
     /**

@@ -1,4 +1,4 @@
-public enum ControllableSourceEvent {
+public enum SourceEvent {
     case propertyUpdated(property: AnyProperty, snapshot: AnySnapshot)
     case startedUpdating
     case stoppedUpdating

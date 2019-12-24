@@ -13,34 +13,45 @@ public final class ScreenProvider: ControllableSourceProvider {
             let didDisconnect: AnyCancellable
         }
     }
-
-    public typealias ProvidedSource = Screen
-
-    public let publisher = PassthroughSubject<SourceProviderEvent<ProvidedSource>, Never>()
-
-    public var sources: [Screen] {
-        return UIScreen.screens.map { Screen(screen: $0) }
+    
+    public var controllableEventsPublisher: AnyPublisher<ControllableEvent, ControllableError> {
+        return controllableEventsSubject.eraseToAnyPublisher()
     }
 
-    public var isUpdating: Bool {
-        switch state {
-        case .monitoring:
-            return true
-        case .notMonitoring:
-            return false
+    public let controllableEventsSubject = PassthroughSubject<ControllableEvent, ControllableError>()
+    
+    public var sourceProviderEventsPublisher: AnyPublisher<SourceProviderEvent<Screen>, Never> {
+        return sourceProviderEventsSubject.eraseToAnyPublisher()
+    }
+
+    private let sourceProviderEventsSubject = PassthroughSubject<SourceProviderEvent<Screen>, Never>()
+
+    @Published
+    public private(set) var sources: [Screen]
+
+    @Published
+    public private(set) var isUpdating: Bool = false
+
+    private var state: State = .notMonitoring {
+        didSet {
+            switch state {
+            case .monitoring:
+                isUpdating = true
+            case .notMonitoring:
+                isUpdating = false
+            }
         }
     }
 
-    private var state: State = .notMonitoring
-
     private let notificationCenter: NotificationCenter
 
-    public init() {
-        self.notificationCenter = .default
+    public convenience init() {
+        self.init(notificationCenter: .default)
     }
 
-    internal init(notificationCenter: NotificationCenter) {
+    internal required init(notificationCenter: NotificationCenter) {
         self.notificationCenter = notificationCenter
+        sources = UIScreen.screens.map { Screen(screen: $0) }
     }
 
     public func startUpdating() {
@@ -52,7 +63,7 @@ public final class ScreenProvider: ControllableSourceProvider {
             .compactMap { $0 as? UIScreen }
             .map { Screen(screen: $0) }
             .map { SourceProviderEvent.sourceAdded($0) }
-            .sink(receiveValue: publisher.send(_:))
+            .sink(receiveValue: sourceProviderEventsSubject.send(_:))
 
         let didDisconnectCancellable = notificationCenter
             .publisher(for: UIScreen.didDisconnectNotification)
@@ -60,17 +71,17 @@ public final class ScreenProvider: ControllableSourceProvider {
             .compactMap { $0 as? UIScreen }
             .map { Screen(screen: $0) }
             .map { SourceProviderEvent.sourceRemoved($0) }
-            .sink(receiveValue: publisher.send(_:))
+            .sink(receiveValue: sourceProviderEventsSubject.send(_:))
 
         state = .monitoring(observers: .init(didConnect: didConnectCancellable, didDisconnect: didDisconnectCancellable))
-        publisher.send(.startedUpdating)
+        controllableEventsSubject.send(.startedUpdating)
     }
 
     public func stopUpdating() {
         guard isUpdating else { return }
 
         state = .notMonitoring
-        publisher.send(.stoppedUpdating)
+        controllableEventsSubject.send(.stoppedUpdating)
     }
 
 }

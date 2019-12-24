@@ -1,4 +1,4 @@
-public enum ControllableSourceError: Error {
+public enum SourceError: Error {
     /// Source availability is `restricted`
     case restricted
 
