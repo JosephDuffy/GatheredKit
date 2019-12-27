@@ -21,10 +21,10 @@ jobs:
       uses: actions/cache@v1
       with:
         path: .build
-        key: ${{ runner.os }}-xcode_${{ matrix.xcode }}-swiftpm-${{ env.PWD }}-${{ github.ref }}
+        key: ${{ runner.os }}-xcode_${{ matrix.xcode }}-swiftpm-${{ github.workspace }}-${{ github.ref }}
         restore-keys: |
-          ${{ runner.os }}-xcode_${{ matrix.xcode }}-swiftpm-${{ env.PWD }}-${{ github.base_ref }}
-          ${{ runner.os }}-xcode_${{ matrix.xcode }}-swiftpm-${{ env.PWD }}-
+          ${{ runner.os }}-xcode_${{ matrix.xcode }}-swiftpm-${{ github.workspace }}-${{ github.base_ref }}
+          ${{ runner.os }}-xcode_${{ matrix.xcode }}-swiftpm-${{ github.workspace }}-
     - name: SwiftPM tests
       run: swift test --skip-update
 
