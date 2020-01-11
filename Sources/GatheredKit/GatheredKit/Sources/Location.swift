@@ -90,7 +90,7 @@ public final class Location: NSObject, Source, Controllable {
                 eventsSubject.send(.requestingPermission)
             case .notMonitoring:
                 isUpdating = false
-                eventsSubject.send(.stoppedUpdating)
+                eventsSubject.send(completion: .finished)
             }
         }
     }

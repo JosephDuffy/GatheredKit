@@ -87,7 +87,7 @@ public final class ScreenProvider: ControllableSourceProvider {
         guard isUpdating else { return }
 
         state = .notMonitoring
-        controllableEventsSubject.send(.stoppedUpdating)
+        controllableEventsSubject.send(completion: .finished)
     }
 
 }

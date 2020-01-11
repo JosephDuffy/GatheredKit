@@ -80,7 +80,7 @@ public final class Accelerometer: Source, CustomisableUpdateIntervalControllable
     public func stopUpdating() {
         CMMotionManager.shared.stopAccelerometerUpdates()
         state = .notMonitoring
-        eventsSubject.send(.stoppedUpdating)
+        eventsSubject.send(completion: .finished)
     }
 
 }

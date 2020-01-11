@@ -80,7 +80,7 @@ public final class Magnetometer: Source, CustomisableUpdateIntervalControllable 
     public func stopUpdating() {
         CMMotionManager.shared.stopMagnetometerUpdates()
         state = .notMonitoring
-        eventsSubject.send(.stoppedUpdating)
+        eventsSubject.send(completion: .finished)
     }
 
 }

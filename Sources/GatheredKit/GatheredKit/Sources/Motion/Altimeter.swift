@@ -117,7 +117,7 @@ public final class Altimeter: Source, Controllable, ActionProvider {
         guard case .monitoring(let altimeter, _) = state else { return }
         altimeter.stopRelativeAltitudeUpdates()
         state = .notMonitoring
-        eventsSubject.send(.stoppedUpdating)
+        eventsSubject.send(completion: .finished)
     }
 
 }

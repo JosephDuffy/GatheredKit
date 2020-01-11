@@ -129,7 +129,7 @@ public final class DeviceMotion: Source, CustomisableUpdateIntervalControllable 
     public func stopUpdating() {
         CMMotionManager.shared.stopDeviceMotionUpdates()
         state = .notMonitoring
-        eventsSubject.send(.stoppedUpdating)
+        eventsSubject.send(completion: .finished)
     }
 
 }

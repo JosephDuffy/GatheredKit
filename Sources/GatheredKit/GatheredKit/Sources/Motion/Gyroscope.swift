@@ -80,7 +80,7 @@ public final class Gyroscope: Source, CustomisableUpdateIntervalControllable {
     public func stopUpdating() {
         CMMotionManager.shared.stopGyroUpdates()
         state = .notMonitoring
-        eventsSubject.send(.stoppedUpdating)
+        eventsSubject.send(completion: .finished)
     }
 
 }

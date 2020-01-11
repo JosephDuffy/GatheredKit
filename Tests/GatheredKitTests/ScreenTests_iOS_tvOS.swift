@@ -85,16 +85,21 @@ final class ScreenTests: XCTestCase {
         let stopUpdatingEventExpectation = XCTestExpectation(description: "Should publish a stop updating event")
         stopUpdatingEventExpectation.assertForOverFulfill = true
         stopUpdatingEventExpectation.expectedFulfillmentCount = 1
-        let cancellable = screen.controllableEventsPublisher.assertNoFailure().sink { event in
+        let cancellable = screen.controllableEventsPublisher.sink(receiveCompletion: { completion in
+            switch completion {
+            case .finished:
+                stopUpdatingEventExpectation.fulfill()
+            case .failure:
+                XCTFail("Should never fail")
+            }
+        }, receiveValue: { event in
             switch event {
             case .startedUpdating:
                 startUpdatingEventExpectation.fulfill()
-            case .stoppedUpdating:
-                stopUpdatingEventExpectation.fulfill()
             case .requestingPermission, .availabilityUpdated:
                 XCTFail("Should never send \(event) event")
             }
-        }
+        })
         // Shutup Xcode
         _ = cancellable
         screen.startUpdating()

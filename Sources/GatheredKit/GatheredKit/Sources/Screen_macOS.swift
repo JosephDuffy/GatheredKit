@@ -138,7 +138,7 @@ public final class Screen: Source, Controllable {
             )
 
         state = .notMonitoring
-        eventsSubject.send(.stoppedUpdating)
+        eventsSubject.send(completion: .finished)
     }
 
 }
