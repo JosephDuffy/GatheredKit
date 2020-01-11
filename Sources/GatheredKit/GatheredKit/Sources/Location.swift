@@ -239,18 +239,14 @@ public final class Location: NSObject, Source, Controllable {
                 speed.update(value: location.speed, date: timestamp)
             }
             altitude.update(value: location.altitude, date: timestamp)
-            if #available(iOS 10.0, OSX 10.15, *) {
-                floor.update(value: location.floor?.level, date: timestamp)
-            }
+            floor.update(value: location.floor?.level, date: timestamp)
             horizonalAccuracy.update(value: location.horizontalAccuracy, date: timestamp)
             verticalAccuracy.update(value: location.verticalAccuracy, date: timestamp)
         } else {
             coordinate.update(value: nil)
             speed.update(value: nil)
             altitude.update(value: nil)
-            if #available(OSX 10.15, *) {
-                floor.update(value: nil)
-            }
+            floor.update(value: nil)
             horizonalAccuracy.update(value: nil)
             verticalAccuracy.update(value: nil)
         }
@@ -261,8 +257,6 @@ public final class Location: NSObject, Source, Controllable {
 extension Location: CLLocationManagerDelegate {
 
     public func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
-        guard status != .notDetermined else { return }
-
         let availability = Location.availability
         eventsSubject.send(.availabilityUpdated(availability))
         
@@ -280,16 +274,11 @@ extension Location: CLLocationManagerDelegate {
                 desiredAccuracy: Location.Accuracy(accuracy: manager.desiredAccuracy) ?? .best
             )
             #endif
-        } else if isUpdating {
-//            notifyUpdateConsumersOfLatestValues()
         }
     }
 
     public func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        guard let location = locations.last else { return }
-
-        updateLocationValues(location)
-//        notifyUpdateConsumersOfLatestValues()
+        locations.forEach(updateLocationValues(_:))
     }
 
 }
