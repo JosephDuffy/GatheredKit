@@ -261,8 +261,10 @@ extension Location: CLLocationManagerDelegate {
         eventsSubject.send(.availabilityUpdated(availability))
         
         authorizationStatus.update(value: status)
-
-        if availability == .available, isAskingForLocationPermissions {
+        
+        switch availability {
+        case .available:
+            guard isAskingForLocationPermissions else { return }
             // The user has just granted location permissions
             #if os(iOS) || os(watchOS)
             startUpdating(
@@ -274,6 +276,8 @@ extension Location: CLLocationManagerDelegate {
                 desiredAccuracy: Location.Accuracy(accuracy: manager.desiredAccuracy) ?? .best
             )
             #endif
+        case .permissionDenied, .requiresPermissionsPrompt, .restricted, .unavailable:
+            stopUpdating()
         }
     }
 
