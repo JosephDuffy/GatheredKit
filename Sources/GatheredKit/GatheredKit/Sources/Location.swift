@@ -244,6 +244,7 @@ public final class Location: NSObject, Source, Controllable {
             verticalAccuracy.update(value: location.verticalAccuracy, date: timestamp)
         } else {
             coordinate.update(value: nil)
+            course.update(value: nil)
             speed.update(value: nil)
             altitude.update(value: nil)
             floor.update(value: nil)
