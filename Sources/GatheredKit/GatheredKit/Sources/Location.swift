@@ -263,9 +263,12 @@ extension Location: CLLocationManagerDelegate {
     public func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
         guard status != .notDetermined else { return }
 
+        let availability = Location.availability
+        eventsSubject.send(.availabilityUpdated(availability))
+        
         authorizationStatus.update(value: status)
 
-        if Location.availability == .available, isAskingForLocationPermissions {
+        if availability == .available, isAskingForLocationPermissions {
             // The user has just granted location permissions
             #if os(iOS) || os(watchOS)
             startUpdating(

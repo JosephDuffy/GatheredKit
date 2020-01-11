@@ -31,7 +31,11 @@ final class ScreenTests: XCTestCase {
         expectation.assertForOverFulfill = true
         expectation.expectedFulfillmentCount = 1
         let cancellable = screen.controllableEventsPublisher.assertNoFailure().sink { event in
-            XCTAssertEqual(event, .startedUpdating)
+            if case .startedUpdating = event {
+                
+            } else {
+                XCTFail()
+            }
             expectation.fulfill()
         }
         // Shutup Xcode
@@ -87,8 +91,8 @@ final class ScreenTests: XCTestCase {
                 startUpdatingEventExpectation.fulfill()
             case .stoppedUpdating:
                 stopUpdatingEventExpectation.fulfill()
-            case .requestingPermission:
-                XCTFail("Should never send requestingPermission event")
+            case .requestingPermission, .availabilityUpdated:
+                XCTFail("Should never send \(event) event")
             }
         }
         // Shutup Xcode
