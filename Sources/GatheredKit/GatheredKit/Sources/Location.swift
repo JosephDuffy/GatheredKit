@@ -11,12 +11,9 @@ public final class Location: NSObject, Source, Controllable {
         case monitoring(locationManager: CLLocationManager)
     }
 
-    public static var availability: SourceAvailability {
-        let authorizationState = CLLocationManager.authorizationStatus()
-        return SourceAvailability(authorizationStatus: authorizationState) ?? .unavailable
-    }
+    public private(set) var availability: SourceAvailability
 
-    public static var name = "Location"
+    public let name = "Location"
 
     public var controllableEventsPublisher: AnyPublisher<ControllableEvent, ControllableError> {
         return eventsSubject.eraseToAnyPublisher()
@@ -53,10 +50,10 @@ public final class Location: NSObject, Source, Controllable {
             speed,
             course,
             altitude,
+            floor,
             horizonalAccuracy,
             verticalAccuracy,
             authorizationStatus,
-            floor,
         ]
     }
 
@@ -98,9 +95,10 @@ public final class Location: NSObject, Source, Controllable {
     private var propertyUpdateCancellables: [AnyCancellable] = []
 
     public override init() {
-        super.init()
+        let authorizationStatus = CLLocationManager.authorizationStatus()
+        availability = SourceAvailability(authorizationStatus: authorizationStatus) ?? .unavailable
         
-//        propertyUpdateCancellables = publishUpdateWhenAnyPropertyUpdates()
+        super.init()
     }
 
     deinit {
@@ -142,6 +140,7 @@ public final class Location: NSObject, Source, Controllable {
 
         let authorizationStatus = CLLocationManager.authorizationStatus()
         self.authorizationStatus.update(value: authorizationStatus)
+        availability = SourceAvailability(authorizationStatus: authorizationStatus) ?? .unavailable
 
         #if os(iOS) || os(watchOS)
         switch authorizationStatus {
@@ -258,7 +257,7 @@ public final class Location: NSObject, Source, Controllable {
 extension Location: CLLocationManagerDelegate {
 
     public func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
-        let availability = Location.availability
+        availability = SourceAvailability(authorizationStatus: status) ?? .unavailable
         eventsSubject.send(.availabilityUpdated(availability))
         
         authorizationStatus.update(value: status)

@@ -10,27 +10,9 @@ public final class Altimeter: Source, Controllable, ActionProvider {
         case monitoring(altimeter: CMAltimeter, updatesQueue: OperationQueue)
     }
 
-    public static let name = "Altimeter"
+    public let name = "Altimeter"
 
-    public static var availability: SourceAvailability {
-        guard CMAltimeter.isRelativeAltitudeAvailable() else {
-            return .unavailable
-        }
-
-        let authorizationState = CMAltimeter.authorizationStatus()
-        switch authorizationState {
-        case .authorized:
-            return .available
-        case .denied:
-            return .permissionDenied
-        case .notDetermined:
-            return .requiresPermissionsPrompt
-        case .restricted:
-            return .restricted
-        @unknown default:
-            return .unavailable
-        }
-    }
+    public private(set) var availability: SourceAvailability
     
     public var controllableEventsPublisher: AnyPublisher<ControllableEvent, ControllableError> {
         return eventsSubject.eraseToAnyPublisher()
@@ -70,26 +52,34 @@ public final class Altimeter: Source, Controllable, ActionProvider {
         }
     }
 
-    public init() {}
+    public init() {
+        availability = CMAltimeter.availability
+    }
 
     public func startUpdating() {
         guard !isUpdating else { return }
 
-        let authorizationState = CMAltimeter.authorizationStatus()
-        switch authorizationState {
-        case .authorized:
+        let oldAvailability = availability
+        availability = CMAltimeter.availability
+        
+        if availability != oldAvailability {
+            eventsSubject.send(.availabilityUpdated(availability))
+        }
+        
+        switch availability {
+        case .available:
             break
-        case .denied:
+        case .permissionDenied:
             eventsSubject.send(completion: .failure(.permissionDenied))
             return
-        case .notDetermined:
+        case .requiresPermissionsPrompt:
             // Perhaps it will ask the user when `startRelativeAltitudeUpdates` is called?
             break
         case .restricted:
             eventsSubject.send(completion: .failure(.restricted))
             return
-        @unknown default:
-            eventsSubject.send(completion: .failure(.unknownPermission))
+        case .unavailable:
+            eventsSubject.send(completion: .failure(.unavailable))
             return
         }
         
@@ -121,4 +111,29 @@ public final class Altimeter: Source, Controllable, ActionProvider {
     }
 
 }
+
+extension CMAltimeter {
+    
+    fileprivate static var availability: SourceAvailability {
+        guard isRelativeAltitudeAvailable() else {
+            return .unavailable
+        }
+
+        let authorizationStatus = self.authorizationStatus()
+        switch authorizationStatus {
+        case .authorized:
+            return .available
+        case .denied:
+            return .permissionDenied
+        case .notDetermined:
+            return .requiresPermissionsPrompt
+        case .restricted:
+            return .restricted
+        @unknown default:
+            return .unavailable
+        }
+    }
+    
+}
+
 #endif

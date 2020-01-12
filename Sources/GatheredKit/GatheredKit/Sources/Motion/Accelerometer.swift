@@ -4,17 +4,15 @@ import CoreMotion
 import Combine
 
 public final class Accelerometer: Source, CustomisableUpdateIntervalControllable {
-
+    
     private enum State {
         case notMonitoring
         case monitoring(updatesQueue: OperationQueue)
     }
 
-    public static let name = "Accelerometer"
+    public let name = "Accelerometer"
 
-    public static var availability: SourceAvailability {
-        return CMMotionManager.shared.isAccelerometerAvailable ? .available : .unavailable
-    }
+    public let availability: SourceAvailability
 
     public static var defaultUpdateInterval: TimeInterval = 1
     
@@ -50,7 +48,9 @@ public final class Accelerometer: Source, CustomisableUpdateIntervalControllable
 
     private var propertyUpdateCancellables: [AnyCancellable] = []
 
-    public init() {}
+    public init() {
+        availability = CMMotionManager.shared.isAccelerometerAvailable ? .available : .unavailable
+    }
 
     public func startUpdating(
         every updateInterval: TimeInterval

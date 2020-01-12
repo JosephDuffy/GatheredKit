@@ -10,11 +10,11 @@ open class BasePollingSource: Source {
 
     public typealias ProducedValue = [AnyProperty]
 
-    open class var availability: SourceAvailability {
+    open var availability: SourceAvailability {
         return .available
     }
 
-    open class var name: String {
+    open var name: String {
         return ""
     }
 

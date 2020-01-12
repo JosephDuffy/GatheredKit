@@ -10,11 +10,9 @@ public final class Magnetometer: Source, CustomisableUpdateIntervalControllable 
         case monitoring(updatesQueue: OperationQueue)
     }
 
-    public static let name = "Magnetometer"
+    public let name = "Magnetometer"
 
-    public static var availability: SourceAvailability {
-        return CMMotionManager.shared.isMagnetometerAvailable ? .available : .unavailable
-    }
+    public let availability: SourceAvailability
 
     public static var defaultUpdateInterval: TimeInterval = 1
     
@@ -48,7 +46,9 @@ public final class Magnetometer: Source, CustomisableUpdateIntervalControllable 
         }
     }
 
-    public init() {}
+    public init() {
+        availability = CMMotionManager.shared.isMagnetometerAvailable ? .available : .unavailable
+    }
 
     public func startUpdating(
         every updateInterval: TimeInterval

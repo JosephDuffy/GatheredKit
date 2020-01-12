@@ -10,11 +10,9 @@ public final class Gyroscope: Source, CustomisableUpdateIntervalControllable {
         case monitoring(updatesQueue: OperationQueue)
     }
 
-    public static let name = "Gyroscope"
+    public let name = "Gyroscope"
 
-    public static var availability: SourceAvailability {
-        return CMMotionManager.shared.isGyroAvailable ? .available : .unavailable
-    }
+    public let availability: SourceAvailability
 
     public static var defaultUpdateInterval: TimeInterval = 1
     
@@ -48,7 +46,9 @@ public final class Gyroscope: Source, CustomisableUpdateIntervalControllable {
         }
     }
 
-    public init() {}
+    public init() {
+        availability = CMMotionManager.shared.isGyroAvailable ? .available : .unavailable
+    }
 
     public func startUpdating(
         every updateInterval: TimeInterval

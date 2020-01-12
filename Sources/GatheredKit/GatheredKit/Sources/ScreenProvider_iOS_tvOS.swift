@@ -4,8 +4,6 @@ import Combine
 
 public final class ScreenProvider: ControllableSourceProvider {
     
-    public static let name = "Screens"
-    
     private enum State {
         case notMonitoring
         case monitoring(observers: Observers)
@@ -15,6 +13,8 @@ public final class ScreenProvider: ControllableSourceProvider {
             let didDisconnect: AnyCancellable
         }
     }
+    
+    public let name = "Screens"
     
     public var controllableEventsPublisher: AnyPublisher<ControllableEvent, ControllableError> {
         return controllableEventsSubject.eraseToAnyPublisher()

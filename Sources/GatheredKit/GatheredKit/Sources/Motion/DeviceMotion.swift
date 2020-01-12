@@ -10,11 +10,9 @@ public final class DeviceMotion: Source, CustomisableUpdateIntervalControllable 
         case monitoring(updatesQueue: OperationQueue)
     }
 
-    public static let name = "Device Motion"
+    public let name = "Device Motion"
 
-    public static var availability: SourceAvailability {
-        return CMMotionManager.shared.isDeviceMotionAvailable ? .available : .unavailable
-    }
+    public let availability: SourceAvailability
 
     public static var defaultUpdateInterval: TimeInterval = 1
 
@@ -64,7 +62,9 @@ public final class DeviceMotion: Source, CustomisableUpdateIntervalControllable 
         }
     }
 
-    public init() {}
+    public init() {
+        availability = CMMotionManager.shared.isDeviceMotionAvailable ? .available : .unavailable
+    }
 
     public func startUpdating(every updateInterval: TimeInterval) {
         startUpdating(every: updateInterval, referenceFrame: nil)

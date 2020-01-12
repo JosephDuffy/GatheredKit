@@ -16,9 +16,9 @@ public final class Screen: Source, Controllable {
         #endif
     }
 
-    public static var availability: SourceAvailability = .available
+    public let availability: SourceAvailability = .available
 
-    public static var name = "Screen"
+    public let name = "Screen"
     
     public var controllableEventsPublisher: AnyPublisher<ControllableEvent, ControllableError> {
         return eventsSubject.eraseToAnyPublisher()

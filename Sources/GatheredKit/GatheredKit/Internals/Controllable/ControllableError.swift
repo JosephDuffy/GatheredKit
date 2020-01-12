@@ -6,6 +6,9 @@ public enum ControllableError: Error {
     /// Availability is `permissionDenied`
     case permissionDenied
     
+    /// Availability is `Unavailable`
+    case unavailable
+    
     case unknownPermission
 
     case other(Error)

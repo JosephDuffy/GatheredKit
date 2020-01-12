@@ -7,9 +7,9 @@ import Combine
  */
 public final class Screen: Source {
 
-    public static var availability: SourceAvailability = .available
+    public let availability: SourceAvailability = .available
 
-    public static var name = "Screen"
+    public let name = "Screen"
 
     /// The `WKInterfaceDevice` this `Screen` represents. This will always be `WKInterfaceDevice.current()`
     public let device: WKInterfaceDevice

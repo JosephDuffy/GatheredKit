@@ -7,9 +7,9 @@ import Combine
 public protocol Source: PropertiesProvider {
 
     /// The availability of the source
-    static var availability: SourceAvailability { get }
+    var availability: SourceAvailability { get }
 
     /// A user-friendly name that represents the source, e.g. "Location", "Device Attitude"
-    static var name: String { get }
+    var name: String { get }
 
 }
