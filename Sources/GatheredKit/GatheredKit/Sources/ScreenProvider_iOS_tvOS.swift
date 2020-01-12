@@ -67,7 +67,12 @@ public final class ScreenProvider: ControllableSourceProvider {
             .compactMap { $0 as? UIScreen }
             .map { Screen(screen: $0) }
             .map { SourceProviderEvent.sourceAdded($0) }
-            .sink(receiveValue: sourceProviderEventsSubject.send(_:))
+            .sink(receiveValue: { [unowned self] event in
+                self.sources = UIScreen.screens.map { uiScreen in
+                    Screen(screen: uiScreen)
+                }
+                self.sourceProviderEventsSubject.send(event)
+            })
 
         let didDisconnectCancellable = notificationCenter
             .publisher(for: UIScreen.didDisconnectNotification)
@@ -75,7 +80,12 @@ public final class ScreenProvider: ControllableSourceProvider {
             .compactMap { $0 as? UIScreen }
             .map { Screen(screen: $0) }
             .map { SourceProviderEvent.sourceRemoved($0) }
-            .sink(receiveValue: sourceProviderEventsSubject.send(_:))
+            .sink(receiveValue: { [unowned self] event in
+                self.sources = UIScreen.screens.map { uiScreen in
+                    Screen(screen: uiScreen)
+                }
+                self.sourceProviderEventsSubject.send(event)
+            })
 
         state = .monitoring(observers: .init(didConnect: didConnectCancellable, didDisconnect: didDisconnectCancellable))
         controllableEventsSubject.send(.startedUpdating)
