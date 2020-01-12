@@ -10,7 +10,7 @@ public final class Screen: Source, Controllable {
     private enum State {
         case notMonitoring
         #if os(iOS)
-        case monitoring(brightnessChangeObeserver: NSObjectProtocol, modeChangeObeserver: NSObjectProtocol, updatesQueue: OperationQueue)
+        case monitoring(brightnessChangeObeserver: NSObjectProtocol?, modeChangeObeserver: NSObjectProtocol, updatesQueue: OperationQueue)
         #elseif os(tvOS)
         case monitoring(modeChangeObeserver: NSObjectProtocol, updatesQueue: OperationQueue)
         #endif
@@ -59,12 +59,12 @@ public final class Screen: Source, Controllable {
      */
     public let nativeScale: ScaleValue
 
-    #if os(iOS) || os(macOS)
+    #if os(iOS)
     /**
      The brightness level of the screen. The value of this property will be a number between
      0.0 and 1.0, inclusive.
-
-     This value will update automatically when `startUpdating` is called
+     
+     If the screen is not the main screen this value will always be 1.
      */
     public let brightness: Property<CGFloat, PercentFormatter>
     #endif
@@ -142,7 +142,11 @@ public final class Screen: Source, Controllable {
         )
 
         #if os(iOS)
-        brightness = .init(displayName: "Brightness", value: screen.brightness)
+        if screen == .main {
+            brightness = .init(displayName: "Brightness", value: screen.brightness)
+        } else {
+            brightness = .init(displayName: "Brightness", value: 1)
+        }
         #endif
     }
 
@@ -161,11 +165,17 @@ public final class Screen: Source, Controllable {
         updatesQueue.name = "uk.co.josephduffy.GatheredKit Screen Updates"
 
         #if os(iOS)
-        let brightnessChangeObeserver = notificationCenter.addObserver(forName: UIScreen.brightnessDidChangeNotification, object: uiScreen, queue: updatesQueue) { [weak self] _ in
-            guard let self = self else { return }
-            self.brightness.updateValueIfDifferent(self.uiScreen.brightness)
+        let brightnessChangeObeserver: NSObjectProtocol?
+
+        if uiScreen == .main {
+            brightnessChangeObeserver = notificationCenter.addObserver(forName: UIScreen.brightnessDidChangeNotification, object: uiScreen, queue: updatesQueue) { [weak self] _ in
+                guard let self = self else { return }
+                self.brightness.updateValueIfDifferent(self.uiScreen.brightness)
+            }
+            brightness.updateValueIfDifferent(uiScreen.brightness)
+        } else {
+            brightnessChangeObeserver = nil
         }
-        brightness.updateValueIfDifferent(uiScreen.brightness)
         #endif
 
         let modeChangeObeserver = notificationCenter.addObserver(forName: UIScreen.modeDidChangeNotification, object: uiScreen, queue: updatesQueue) { [weak self] _ in
@@ -204,12 +214,14 @@ public final class Screen: Source, Controllable {
         #if os(iOS) || os(macOS)
         guard case .monitoring(let brightnessChangeObeserver, let modeChangeObeserver, _) = state else { return }
 
-        notificationCenter
-            .removeObserver(
-                brightnessChangeObeserver,
-                name: UIScreen.brightnessDidChangeNotification,
-                object: uiScreen
-            )
+        brightnessChangeObeserver.map { brightnessChangeObeserver in
+            notificationCenter
+                .removeObserver(
+                    brightnessChangeObeserver,
+                    name: UIScreen.brightnessDidChangeNotification,
+                    object: uiScreen
+                )
+        }
         #elseif os(tvOS)
         guard case .monitoring(let modeChangeObeserver, _) = state else { return }
         #endif
