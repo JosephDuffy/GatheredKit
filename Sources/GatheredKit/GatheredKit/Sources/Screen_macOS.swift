@@ -53,7 +53,7 @@ public final class Screen: Source, Controllable {
                 eventsSubject.send(.startedUpdating)
             case .notMonitoring:
                 isUpdating = false
-                eventsSubject.send(.stoppedUpdating)
+                eventsSubject.send(completion: .finished)
             }
         }
     }
