@@ -18,7 +18,7 @@ public final class Screen: Source, Controllable {
 
     public let availability: SourceAvailability = .available
 
-    public let name = "Screen"
+    public let name: String
     
     public var controllableEventsPublisher: AnyPublisher<ControllableEvent, ControllableError> {
         return eventsSubject.eraseToAnyPublisher()
@@ -115,6 +115,7 @@ public final class Screen: Source, Controllable {
      - Parameter notificationCenter: The notification center to list to notifications from.
      */
     internal init(screen: UIScreen, notificationCenter: NotificationCenter = .default) {
+        name = screen == .main ? "Main" : "External"
         self.uiScreen = screen
         self.notificationCenter = notificationCenter
 

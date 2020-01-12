@@ -2,12 +2,12 @@ public protocol SourceProvider: AnySourceProvider {
 
     associatedtype ProvidedSource: Source
     
-    var sources: [(name: String, source: ProvidedSource)] { get }
+    var sources: [ProvidedSource] { get }
 
 }
 
 extension SourceProvider {
-    public var typeErasedSources: [(name: String, source: Source)] {
+    public var typeErasedSources: [Source] {
         return sources
     }
 }
