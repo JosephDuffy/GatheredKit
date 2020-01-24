@@ -36,6 +36,9 @@ jobs:
     steps:
     - uses: actions/checkout@v1
 
+    - uses: actions/setup-ruby@v1
+      with:
+        ruby-version: '2.4'
     - name: Cache Bundler
       uses: actions/cache@v1
       with:
@@ -58,6 +61,9 @@ jobs:
     steps:
     - uses: actions/checkout@v1
 
+    - uses: actions/setup-ruby@v1
+      with:
+        ruby-version: '2.4'
     - name: Cache Bundler
       uses: actions/cache@v1
       with:

@@ -43,6 +43,9 @@ jobs:
     - name: Select Xcode ${{ matrix.xcode }}
       run: sudo xcode-select --switch /Applications/Xcode_${{ matrix.xcode }}.app
 
+    - uses: actions/setup-ruby@v1
+      with:
+        ruby-version: '2.4'
     - name: Cache Bundler
       uses: actions/cache@v1
       with:
