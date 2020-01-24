@@ -29,15 +29,6 @@
         }
       },
       {
-        "package": "Files",
-        "repositoryURL": "https://github.com/JohnSundell/Files.git",
-        "state": {
-          "branch": null,
-          "revision": "a84615f4558151fab52ac38df697ce2442991f93",
-          "version": "2.3.0"
-        }
-      },
-      {
         "package": "Logger",
         "repositoryURL": "https://github.com/shibapm/Logger",
         "state": {
@@ -47,21 +38,12 @@
         }
       },
       {
-        "package": "Marathon",
-        "repositoryURL": "https://github.com/JohnSundell/Marathon",
-        "state": {
-          "branch": null,
-          "revision": "35b672e05ac411fb104e462fbfd6541f995abc17",
-          "version": "3.3.0"
-        }
-      },
-      {
         "package": "Nimble",
         "repositoryURL": "https://github.com/Quick/Nimble.git",
         "state": {
           "branch": null,
-          "revision": "6abeb3f5c03beba2b9e4dbe20886e773b5b629b6",
-          "version": "8.0.4"
+          "revision": "b02b00b30b6353632aa4a5fb6124f8147f7140c0",
+          "version": "8.0.5"
         }
       },
       {
@@ -83,15 +65,6 @@
         }
       },
       {
-        "package": "Releases",
-        "repositoryURL": "https://github.com/JohnSundell/Releases.git",
-        "state": {
-          "branch": null,
-          "revision": "ea62f33a429185b0ed21344c2355862c5bc4fcce",
-          "version": "4.0.0"
-        }
-      },
-      {
         "package": "RequestKit",
         "repositoryURL": "https://github.com/nerdishbynature/RequestKit.git",
         "state": {
@@ -101,30 +74,12 @@
         }
       },
       {
-        "package": "Require",
-        "repositoryURL": "https://github.com/JohnSundell/Require.git",
-        "state": {
-          "branch": null,
-          "revision": "7cfbd0d8a2dede0e01f6f0d8ab2c7acef1df112e",
-          "version": "2.0.1"
-        }
-      },
-      {
         "package": "Result",
         "repositoryURL": "https://github.com/antitypical/Result.git",
         "state": {
           "branch": null,
           "revision": "2ca499ba456795616fbc471561ff1d963e6ae160",
           "version": "4.1.0"
-        }
-      },
-      {
-        "package": "ShellOut",
-        "repositoryURL": "https://github.com/JohnSundell/ShellOut.git",
-        "state": {
-          "branch": null,
-          "revision": "4ebf25863deb9c3c02696704fc3d39736183f258",
-          "version": "2.2.1"
         }
       },
       {
@@ -141,8 +96,8 @@
         "repositoryURL": "https://github.com/danger/swift.git",
         "state": {
           "branch": null,
-          "revision": "74b552511bee69051ec23347177d1e5ab6e2510a",
-          "version": "2.0.7"
+          "revision": "9abfbf269f7b1d4bb799ca8f52620180d63d953e",
+          "version": "3.0.0"
         }
       },
       {
@@ -170,6 +125,15 @@
           "branch": null,
           "revision": "a4931e5c3bafbedeb1601d3bb76bbe835c6d475a",
           "version": "5.0.1"
+        }
+      },
+      {
+        "package": "Version",
+        "repositoryURL": "https://github.com/mxcl/Version",
+        "state": {
+          "branch": null,
+          "revision": "200046c93f6d5d78a6d72bfd9c0b27a95e9c0a2b",
+          "version": "1.2.0"
         }
       },
       {

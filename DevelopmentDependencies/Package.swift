@@ -10,7 +10,7 @@ let package = Package(
         .library(name: "DangerDeps", type: .dynamic, targets: ["DangerDependencies"]),
     ],
     dependencies: [
-        .package(url: "https://github.com/danger/swift.git", from: "2.0.0"),
+        .package(url: "https://github.com/danger/swift.git", from: "3.0.0"),
         .package(url: "https://github.com/Realm/SwiftLint", .upToNextMinor(from: "0.36.0")),
     ],
     targets: [

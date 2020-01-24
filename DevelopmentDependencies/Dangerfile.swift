@@ -7,4 +7,4 @@ let danger = Danger()
 // `swift run danger-swift ci` vs `swift run danger-swift local`
 let isPR = danger.github != nil
 
-SwiftLint.lint(inline: isPR, directory: "../", lintAllFiles: true)
+SwiftLint.lint(.all(directory: "../"), inline: isPR)
