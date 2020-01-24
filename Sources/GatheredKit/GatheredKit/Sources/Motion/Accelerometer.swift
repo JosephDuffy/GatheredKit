@@ -4,7 +4,7 @@ import CoreMotion
 import Combine
 
 public final class Accelerometer: Source, CustomisableUpdateIntervalControllable {
-    
+
     private enum State {
         case notMonitoring
         case monitoring(updatesQueue: OperationQueue)
@@ -15,7 +15,7 @@ public final class Accelerometer: Source, CustomisableUpdateIntervalControllable
     public let availability: SourceAvailability
 
     public static var defaultUpdateInterval: TimeInterval = 1
-    
+
     public var controllableEventsPublisher: AnyPublisher<ControllableEvent, ControllableError> {
         return eventsSubject.eraseToAnyPublisher()
     }
@@ -57,9 +57,9 @@ public final class Accelerometer: Source, CustomisableUpdateIntervalControllable
     ) {
         let motionManager = CMMotionManager.shared
         motionManager.accelerometerUpdateInterval = updateInterval
-        
+
         guard !isUpdating else { return }
-        
+
         let updatesQueue = OperationQueue(name: "GatheredKit Accelerometer Updates")
         motionManager.startAccelerometerUpdates(to: updatesQueue) { [weak self] data, error in
             guard let self = self else { return }

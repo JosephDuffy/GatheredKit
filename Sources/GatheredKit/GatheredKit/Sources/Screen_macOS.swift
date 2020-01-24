@@ -6,7 +6,7 @@ import Combine
  A wrapper around `NSScreen`.
  */
 public final class Screen: Source, Controllable {
-    
+
     private enum State {
         case notMonitoring
         case monitoring(screenParametersObserver: NSObjectProtocol, colorSpaceObserver: NSObjectProtocol, updatesQueue: OperationQueue)
@@ -15,7 +15,7 @@ public final class Screen: Source, Controllable {
     public let availability: SourceAvailability = .available
 
     public let name = "Screen"
-    
+
     public var controllableEventsPublisher: AnyPublisher<ControllableEvent, ControllableError> {
         return eventsSubject.eraseToAnyPublisher()
     }

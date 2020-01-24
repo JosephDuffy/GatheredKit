@@ -1,7 +1,7 @@
 public protocol SourceProvider: AnySourceProvider {
 
     associatedtype ProvidedSource: Source
-    
+
     var sources: [ProvidedSource] { get }
 
 }

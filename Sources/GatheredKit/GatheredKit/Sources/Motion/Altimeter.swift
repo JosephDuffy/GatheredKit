@@ -13,7 +13,7 @@ public final class Altimeter: Source, Controllable, ActionProvider {
     public let name = "Altimeter"
 
     public private(set) var availability: SourceAvailability
-    
+
     public var controllableEventsPublisher: AnyPublisher<ControllableEvent, ControllableError> {
         return eventsSubject.eraseToAnyPublisher()
     }
@@ -37,7 +37,7 @@ public final class Altimeter: Source, Controllable, ActionProvider {
                 guard self.isUpdating else { return }
                 self.stopUpdating()
                 self.startUpdating()
-            })
+            }),
         ]
     }
 
@@ -61,11 +61,11 @@ public final class Altimeter: Source, Controllable, ActionProvider {
 
         let oldAvailability = availability
         availability = CMAltimeter.availability
-        
+
         if availability != oldAvailability {
             eventsSubject.send(.availabilityUpdated(availability))
         }
-        
+
         switch availability {
         case .available:
             break
@@ -82,7 +82,7 @@ public final class Altimeter: Source, Controllable, ActionProvider {
             eventsSubject.send(completion: .failure(.unavailable))
             return
         }
-        
+
         let updatesQueue = OperationQueue(name: "GatheredKit Altimeter Updates")
         let altimeter = CMAltimeter()
 
@@ -113,7 +113,7 @@ public final class Altimeter: Source, Controllable, ActionProvider {
 }
 
 extension CMAltimeter {
-    
+
     fileprivate static var availability: SourceAvailability {
         guard isRelativeAltitudeAvailable() else {
             return .unavailable
@@ -133,7 +133,7 @@ extension CMAltimeter {
             return .unavailable
         }
     }
-    
+
 }
 
 #endif

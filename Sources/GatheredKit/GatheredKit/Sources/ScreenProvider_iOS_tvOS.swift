@@ -3,7 +3,7 @@ import UIKit
 import Combine
 
 public final class ScreenProvider: ControllableSourceProvider {
-    
+
     private enum State {
         case notMonitoring
         case monitoring(observers: Observers)
@@ -13,15 +13,15 @@ public final class ScreenProvider: ControllableSourceProvider {
             let didDisconnect: AnyCancellable
         }
     }
-    
+
     public let name = "Screens"
-    
+
     public var controllableEventsPublisher: AnyPublisher<ControllableEvent, ControllableError> {
         return controllableEventsSubject.eraseToAnyPublisher()
     }
 
     public let controllableEventsSubject = PassthroughSubject<ControllableEvent, ControllableError>()
-    
+
     public var sourceProviderEventsPublisher: AnyPublisher<SourceProviderEvent<Screen>, Never> {
         return sourceProviderEventsSubject.eraseToAnyPublisher()
     }

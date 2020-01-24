@@ -19,13 +19,13 @@ public final class DeviceMotion: Source, CustomisableUpdateIntervalControllable 
     public static func availableReferenceFrames() -> CMAttitudeReferenceFrame {
         return CMMotionManager.availableAttitudeReferenceFrames()
     }
-    
+
     public var controllableEventsPublisher: AnyPublisher<ControllableEvent, ControllableError> {
         return eventsSubject.eraseToAnyPublisher()
     }
 
     private let eventsSubject = PassthroughSubject<ControllableEvent, ControllableError>()
-    
+
     @Published
     public private(set) var isUpdating: Bool = false
 
@@ -76,7 +76,7 @@ public final class DeviceMotion: Source, CustomisableUpdateIntervalControllable 
     ) {
         let motionManager = CMMotionManager.shared
         motionManager.deviceMotionUpdateInterval = updateInterval
-        
+
         guard !isUpdating else { return }
 
         let updatesQueue = OperationQueue(name: "GatheredKit Device Motion Updates")

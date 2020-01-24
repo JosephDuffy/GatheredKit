@@ -19,7 +19,7 @@ public final class Screen: Source, Controllable {
     public let availability: SourceAvailability = .available
 
     public let name: String
-    
+
     public var controllableEventsPublisher: AnyPublisher<ControllableEvent, ControllableError> {
         return eventsSubject.eraseToAnyPublisher()
     }
@@ -203,7 +203,7 @@ public final class Screen: Source, Controllable {
             updatesQueue: updatesQueue
         )
         #endif
-        
+
         eventsSubject.send(.startedUpdating)
     }
 

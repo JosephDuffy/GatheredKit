@@ -18,7 +18,7 @@ public final class Location: NSObject, Source, Controllable {
     public var controllableEventsPublisher: AnyPublisher<ControllableEvent, ControllableError> {
         return eventsSubject.eraseToAnyPublisher()
     }
-    
+
     private var eventsSubject = PassthroughSubject<ControllableEvent, ControllableError>()
 
     public let coordinate: OptionalCoordinateValue = .init(displayName: "Coordinate")
@@ -97,7 +97,7 @@ public final class Location: NSObject, Source, Controllable {
     public override init() {
         let authorizationStatus = CLLocationManager.authorizationStatus()
         availability = SourceAvailability(authorizationStatus: authorizationStatus) ?? .unavailable
-        
+
         super.init()
     }
 
@@ -259,9 +259,9 @@ extension Location: CLLocationManagerDelegate {
     public func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
         availability = SourceAvailability(authorizationStatus: status) ?? .unavailable
         eventsSubject.send(.availabilityUpdated(availability))
-        
+
         authorizationStatus.update(value: status)
-        
+
         switch availability {
         case .available:
             guard isAskingForLocationPermissions else { return }

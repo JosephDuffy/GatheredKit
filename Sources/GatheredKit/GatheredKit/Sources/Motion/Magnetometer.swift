@@ -15,13 +15,13 @@ public final class Magnetometer: Source, CustomisableUpdateIntervalControllable 
     public let availability: SourceAvailability
 
     public static var defaultUpdateInterval: TimeInterval = 1
-    
+
     public var controllableEventsPublisher: AnyPublisher<ControllableEvent, ControllableError> {
         return eventsSubject.eraseToAnyPublisher()
     }
 
     private let eventsSubject = PassthroughSubject<ControllableEvent, ControllableError>()
-    
+
     @Published
     public private(set) var isUpdating: Bool = false
 
@@ -55,9 +55,9 @@ public final class Magnetometer: Source, CustomisableUpdateIntervalControllable 
     ) {
         let motionManager = CMMotionManager.shared
         motionManager.magnetometerUpdateInterval = updateInterval
-        
-        guard !isUpdating else{ return }
-        
+
+        guard !isUpdating else { return }
+
         let updatesQueue = OperationQueue(name: "GatheredKit Magnetometer Updates")
         motionManager.startMagnetometerUpdates(to: updatesQueue) { [weak self] data, error in
             guard let self = self else { return }

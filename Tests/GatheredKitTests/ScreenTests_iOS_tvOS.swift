@@ -32,7 +32,7 @@ final class ScreenTests: XCTestCase {
         expectation.expectedFulfillmentCount = 1
         let cancellable = screen.controllableEventsPublisher.assertNoFailure().sink { event in
             if case .startedUpdating = event {
-                
+
             } else {
                 XCTFail()
             }
