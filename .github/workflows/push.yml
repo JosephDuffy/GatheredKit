@@ -43,9 +43,13 @@ jobs:
     - name: Select Xcode ${{ matrix.xcode }}
       run: sudo xcode-select --switch /Applications/Xcode_${{ matrix.xcode }}.app
 
-    - uses: actions/setup-ruby@v1
+    - name: Read .ruby-version
+      id: ruby-version
+      run: echo ::set-output name=version::$(cat .ruby-version)
+    - name: Setup Ruby ${{ steps.ruby-version.outputs.version }}
+      uses: actions/setup-ruby@v1
       with:
-        ruby-version: '2.4'
+        ruby-version: ${{ steps.ruby-version.outputs.version }}
     - name: Cache Bundler
       uses: actions/cache@v1
       with:
