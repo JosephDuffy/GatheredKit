@@ -52,13 +52,15 @@ jobs:
       uses: actions/setup-ruby@v1
       with:
         ruby-version: ${{ steps.ruby-version.outputs.version }}
+    - name: Update Bundler
+      run: bundle update --bundler
     - name: Cache Bundler
       uses: actions/cache@v1
       with:
         path: vendor/bundle
-        key: ${{ runner.os }}-bundler-${{ hashFiles('**/Gemfile.lock') }}
+        key: ${{ runner.os }}-bundler-ruby${{ steps.ruby-version.outputs.version }}-${{ hashFiles('**/Gemfile.lock') }}
         restore-keys: |
-          ${{ runner.os }}-bundler-
+          ${{ runner.os }}-bundler-ruby${{ steps.ruby-version.outputs.version }}-
     - name: bundle install
       run: bundle install --deployment
 
