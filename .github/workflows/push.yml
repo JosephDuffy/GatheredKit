@@ -62,7 +62,9 @@ jobs:
         restore-keys: |
           ${{ runner.os }}-bundler-ruby${{ steps.ruby-version.outputs.version }}-
     - name: bundle install
-      run: bundle install --deployment
+      run:  |
+        bundle config set deployment 'true'
+        bundle install
 
     - name: Create Xcode Project
       run: swift package generate-xcodeproj --enable-code-coverage --skip-extra-files
