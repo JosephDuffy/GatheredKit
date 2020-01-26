@@ -38,7 +38,9 @@ jobs:
 
     - name: Read .ruby-version
       id: ruby-version
-      run: echo ::set-output name=version::$(cat .ruby-version)
+      run: |
+        FULL_VERSION=$(cat .ruby-version)
+        echo ::set-output name=version::${FULL_VERSION%.*}
     - name: Setup Ruby ${{ steps.ruby-version.outputs.version }}
       uses: actions/setup-ruby@v1
       with:
@@ -67,7 +69,9 @@ jobs:
 
     - name: Read .ruby-version
       id: ruby-version
-      run: echo ::set-output name=version::$(cat .ruby-version)
+      run: |
+        FULL_VERSION=$(cat .ruby-version)
+        echo ::set-output name=version::${FULL_VERSION%.*}
     - name: Setup Ruby ${{ steps.ruby-version.outputs.version }}
       uses: actions/setup-ruby@v1
       with:
