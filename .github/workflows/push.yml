@@ -59,7 +59,7 @@ jobs:
     - name: Coveralls
       run: bash <(curl -s https://codecov.io/bash)
       env:
-         CODECOV_TOKEN: ${{ secrets. CODECOV_TOKEN }}
+         CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
 
   carthage_archive:
     name: ${{ matrix.platform }} Carthage Archive on Xcode ${{ matrix.xcode }}
