@@ -29,7 +29,7 @@ jobs:
         restore-keys: |
           ${{ runner.os }}-swiftpm-dev-deps-${{ env.PWD }}
     - name: Run Danger
-      run: cd DevelopmentDependencies && swift run --skip-update danger-swift ci --danger-js-path $(yarn bin danger) --verbose
+      run: cd DevelopmentDependencies && swift run danger-swift ci --danger-js-path $(yarn bin danger) --verbose
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
