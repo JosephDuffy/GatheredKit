@@ -128,12 +128,12 @@
         }
       },
       {
-        "package": "Version",
-        "repositoryURL": "https://github.com/mxcl/Version",
+        "package": "xcutils",
+        "repositoryURL": "https://github.com/JosephDuffy/xcutils.git",
         "state": {
-          "branch": null,
-          "revision": "200046c93f6d5d78a6d72bfd9c0b27a95e9c0a2b",
-          "version": "1.2.0"
+          "branch": "master",
+          "revision": "1a35d9eeb9fd61b4b2799f1d7deaf61328b9f2e5",
+          "version": null
         }
       },
       {

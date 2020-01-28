@@ -12,6 +12,7 @@ let package = Package(
     dependencies: [
         .package(url: "https://github.com/danger/swift.git", from: "3.0.0"),
         .package(url: "https://github.com/Realm/SwiftLint", .upToNextMinor(from: "0.36.0")),
+        .package(url: "https://github.com/JosephDuffy/xcutils.git", .branch("master")),
     ],
     targets: [
         .target(name: "DangerDependencies", dependencies: ["Danger", "swiftlint", "danger-swift"], path: "DangerDependencies"), // dev

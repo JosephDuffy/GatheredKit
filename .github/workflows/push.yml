@@ -35,7 +35,7 @@ jobs:
       fail-fast: false
       matrix:
         xcode: ["11.1", "11.2"]
-        destination: ["name=iPhone 8", "platform=macOS", "name=Apple TV"]
+        platform: ["iOS", "tvOS", "macOS"]
 
     steps:
     - uses: actions/checkout@v1
@@ -43,34 +43,18 @@ jobs:
     - name: Select Xcode ${{ matrix.xcode }}
       run: sudo xcode-select --switch /Applications/Xcode_${{ matrix.xcode }}.app
 
-    - name: Read .ruby-version
-      id: ruby-version
-      run: |
-        FULL_VERSION=$(cat .ruby-version)
-        echo ::set-output name=version::${FULL_VERSION%.*}
-    - name: Setup Ruby ${{ steps.ruby-version.outputs.version }}
-      uses: actions/setup-ruby@v1
-      with:
-        ruby-version: ${{ steps.ruby-version.outputs.version }}
-    - name: Update Bundler
-      run: bundle update --bundler
-    - name: Cache Bundler
-      uses: actions/cache@v1
-      with:
-        path: vendor/bundle
-        key: ${{ runner.os }}-bundler-ruby${{ steps.ruby-version.outputs.version }}-${{ hashFiles('**/Gemfile.lock') }}
-        restore-keys: |
-          ${{ runner.os }}-bundler-ruby${{ steps.ruby-version.outputs.version }}-
-    - name: bundle install
-      run:  |
-        bundle config set deployment 'true'
-        bundle install
-
     - name: Create Xcode Project
       run: swift package generate-xcodeproj --enable-code-coverage --skip-extra-files
 
-    - name: Test ${{ matrix.destination }}
-      run: bundle exec fastlane scan --clean --destination "${{ matrix.destination }}"
+    - name: Cache SwiftPM
+      uses: actions/cache@v1
+      with:
+        path: DevelopmentDependencies/.build
+        key: ${{ runner.os }}-swiftpm-dev-deps-${{ env.PWD }}-${{ hashFiles('DevelopmentDependencies/Package.resolved') }}
+        restore-keys: |
+          ${{ runner.os }}-swiftpm-dev-deps-${{ env.PWD }}
+    - name: Run Tests
+      run: swift run --package-path ./DevelopmentDependencies/ xcutils test --platform ${{ matrix.platform }} --scheme GatheredKit-Package --project GatheredKit.xcodeproj/
 
     - name: Coveralls
       run: bash <(curl -s https://codecov.io/bash)
