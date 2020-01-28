@@ -29,7 +29,7 @@ jobs:
       run: swift test --skip-update
 
   xcode_tests:
-    name: ${{ matrix.destination }} on Xcode ${{ matrix.xcode }}
+    name: ${{ matrix.platform }} on Xcode ${{ matrix.xcode }}
     runs-on: macos-latest
     strategy:
       fail-fast: false
