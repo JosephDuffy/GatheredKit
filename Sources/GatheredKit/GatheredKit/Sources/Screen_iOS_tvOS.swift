@@ -9,6 +9,7 @@ public final class Screen: Source, Controllable {
 
     private enum State {
         case notMonitoring
+        // swiftlint:disable duplicate_enum_cases
         #if os(iOS)
         case monitoring(brightnessChangeObeserver: NSObjectProtocol?, modeChangeObeserver: NSObjectProtocol, updatesQueue: OperationQueue)
         #elseif os(tvOS)
