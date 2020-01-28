@@ -12,14 +12,14 @@ final class ScreenTests: XCTestCase {
     }
 
     func testValues() {
-        let mock = MockScreen()
-        let screen = Screen(screen: mock)
-        XCTAssertEqual(screen.reportedResolution.value, mock.bounds.size)
-        XCTAssertEqual(screen.nativeResolution.value, mock.nativeBounds.size)
-        XCTAssertEqual(screen.reportedScale.value, mock.scale)
-        XCTAssertEqual(screen.nativeScale.value, mock.nativeScale)
+        let uiScreen = UIScreen.main
+        let screen = Screen(screen: uiScreen)
+        XCTAssertEqual(screen.reportedResolution.value, uiScreen.bounds.size)
+        XCTAssertEqual(screen.nativeResolution.value, uiScreen.nativeBounds.size)
+        XCTAssertEqual(screen.reportedScale.value, uiScreen.scale)
+        XCTAssertEqual(screen.nativeScale.value, uiScreen.nativeScale)
         #if os(iOS)
-        XCTAssertEqual(screen.brightness.value, mock.brightness)
+        XCTAssertEqual(screen.brightness.value, uiScreen.brightness)
         #endif
     }
 
@@ -135,16 +135,6 @@ final class ScreenTests: XCTestCase {
         let notificationCenter = NotificationCenter()
         let screen = Screen(screen: uiScreen, notificationCenter: notificationCenter)
 
-        #if os(iOS)
-        let brightnessExpectation = XCTestExpectation(description: "Subscriber should be called with updated brightness")
-        brightnessExpectation.expectedFulfillmentCount = 1
-        brightnessExpectation.assertForOverFulfill = true
-        let brightnessCancellable = screen.brightness.$snapshot.dropFirst().sink { brightness in
-            brightnessExpectation.fulfill()
-            XCTAssertEqual(brightness.value, uiScreen.brightness)
-        }
-        #endif
-
         let reportedResolutionExpectation = XCTestExpectation(description: "Subscriber should be called with updated reported resolution")
         reportedResolutionExpectation.expectedFulfillmentCount = 1
         reportedResolutionExpectation.assertForOverFulfill = true
@@ -179,20 +169,6 @@ final class ScreenTests: XCTestCase {
 
         screen.startUpdating()
 
-        #if os(iOS)
-        XCTAssertEqual(screen.brightness.value, uiScreen.brightness)
-        #endif
-        XCTAssertEqual(screen.reportedResolution.value, uiScreen.bounds.size)
-        XCTAssertEqual(screen.nativeResolution.value, uiScreen.nativeBounds.size)
-        XCTAssertEqual(screen.reportedScale.value, uiScreen.scale)
-        XCTAssertEqual(screen.nativeScale.value, uiScreen.nativeScale)
-
-        #if os(iOS)
-        uiScreen.brightness = 0.53
-        notificationCenter.post(name: UIScreen.brightnessDidChangeNotification, object: uiScreen)
-        XCTAssertEqual(screen.brightness.value, uiScreen.brightness)
-        #endif
-
         uiScreen.bounds.size = CGSize(width: 3008, height: 1692)
         uiScreen.nativeBounds.size = CGSize(width: 6016, height: 3384)
         uiScreen.scale = 2
@@ -203,31 +179,11 @@ final class ScreenTests: XCTestCase {
         XCTAssertEqual(screen.reportedScale.value, uiScreen.scale)
         XCTAssertEqual(screen.nativeScale.value, uiScreen.nativeScale)
 
-        #if os(iOS)
-        brightnessCancellable.cancel()
-        #endif
         reportedResolutionCancellable.cancel()
         nativeResolutionCancellable.cancel()
         reportedScaleCancellable.cancel()
         nativeScaleCancellable.cancel()
 
-        #if os(iOS)
-        uiScreen.brightness = 0.63
-        notificationCenter.post(name: UIScreen.brightnessDidChangeNotification, object: uiScreen)
-        #endif
-
-        #if os(iOS)
-        wait(
-            for: [
-                brightnessExpectation,
-                reportedResolutionExpectation,
-                nativeResolutionExpectation,
-                reportedScaleExpectation,
-                nativeScaleExpectation,
-            ],
-            timeout: 0.01
-        )
-        #elseif os(tvOS)
         wait(
             for: [
                 reportedResolutionExpectation,
@@ -237,10 +193,42 @@ final class ScreenTests: XCTestCase {
             ],
             timeout: 0.01
         )
-        #endif
     }
 
     #if os(iOS)
+    func testBrightnessUpdate() {
+        let uiScreen = UIScreen.main
+        let notificationCenter = NotificationCenter()
+        let screen = Screen(screen: uiScreen, notificationCenter: notificationCenter)
+
+        let brightnessExpectation = XCTestExpectation(description: "Subscriber should be called with updated brightness")
+        brightnessExpectation.expectedFulfillmentCount = 1
+        brightnessExpectation.assertForOverFulfill = true
+        let brightnessCancellable = screen.brightness.$snapshot.sink { brightness in
+            brightnessExpectation.fulfill()
+            XCTAssertEqual(brightness.value, uiScreen.brightness)
+        }
+
+        screen.startUpdating()
+        
+        uiScreen.brightness = 0.54
+        notificationCenter.post(name: UIScreen.brightnessDidChangeNotification, object: uiScreen)
+        XCTAssertEqual(screen.brightness.value, uiScreen.brightness)
+        
+        brightnessCancellable.cancel()
+        
+        uiScreen.brightness = 0.63
+        notificationCenter.post(name: UIScreen.brightnessDidChangeNotification, object: uiScreen)
+        XCTAssertEqual(screen.brightness.value, uiScreen.brightness)
+        
+        wait(
+            for: [
+                brightnessExpectation,
+            ],
+            timeout: 0.01
+        )
+    }
+    
     func testBrightnessUpdateFromDifferentScreen() {
         let mockBackingData = MockScreen()
         let notificationCenter = NotificationCenter()
