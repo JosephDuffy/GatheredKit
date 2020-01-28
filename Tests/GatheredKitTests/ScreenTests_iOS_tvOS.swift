@@ -210,17 +210,17 @@ final class ScreenTests: XCTestCase {
         }
 
         screen.startUpdating()
-        
+
         uiScreen.brightness = 0.54
         notificationCenter.post(name: UIScreen.brightnessDidChangeNotification, object: uiScreen)
         XCTAssertEqual(screen.brightness.value, uiScreen.brightness)
-        
+
         brightnessCancellable.cancel()
-        
+
         uiScreen.brightness = 0.63
         notificationCenter.post(name: UIScreen.brightnessDidChangeNotification, object: uiScreen)
         XCTAssertEqual(screen.brightness.value, uiScreen.brightness)
-        
+
         wait(
             for: [
                 brightnessExpectation,
@@ -228,7 +228,7 @@ final class ScreenTests: XCTestCase {
             timeout: 0.01
         )
     }
-    
+
     func testBrightnessUpdateFromDifferentScreen() {
         let mockBackingData = MockScreen()
         let notificationCenter = NotificationCenter()
