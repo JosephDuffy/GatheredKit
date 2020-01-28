@@ -54,7 +54,7 @@ jobs:
         restore-keys: |
           ${{ runner.os }}-swiftpm-dev-deps-${{ env.PWD }}
     - name: Run Tests
-      run: swift run --package-path ./DevelopmentDependencies/ xcutils test --platform ${{ matrix.platform }} --scheme GatheredKit-Package --project GatheredKit.xcodeproj/
+      run: swift run --configuration release --package-path ./DevelopmentDependencies/ xcutils test --platform ${{ matrix.platform }} --scheme GatheredKit-Package --project GatheredKit.xcodeproj/
 
     - name: Coveralls
       run: bash <(curl -s https://codecov.io/bash)
