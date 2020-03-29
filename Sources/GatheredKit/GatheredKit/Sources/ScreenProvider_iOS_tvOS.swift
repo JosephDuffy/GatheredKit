@@ -68,6 +68,7 @@ public final class ScreenProvider: ControllableSourceProvider {
             .map { Screen(screen: $0) }
             .map { SourceProviderEvent.sourceAdded($0) }
             .sink(receiveValue: { [unowned self] event in
+                // TODO: Explcitly insert at correct index
                 self.sources = UIScreen.screens.map { uiScreen in
                     Screen(screen: uiScreen)
                 }
@@ -81,6 +82,7 @@ public final class ScreenProvider: ControllableSourceProvider {
             .map { Screen(screen: $0) }
             .map { SourceProviderEvent.sourceRemoved($0) }
             .sink(receiveValue: { [unowned self] event in
+            // TODO: Explcitly remove from index
                 self.sources = UIScreen.screens.map { uiScreen in
                     Screen(screen: uiScreen)
                 }
