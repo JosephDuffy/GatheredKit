@@ -24,7 +24,7 @@ public final class Altimeter: Source, Controllable, ActionProvider {
     public private(set) var isUpdating: Bool = false
 
     public let relativeAltitude: OptionalLengthValue = .meters(displayName: "Relative Altitude")
-    public let pressure: OptionalPressureValue = .kilopascals(displayName: "Pressire")
+    public let pressure: OptionalPressureValue = .kilopascals(displayName: "Pressure")
 
     public var allProperties: [AnyProperty] {
         return [relativeAltitude, pressure]
