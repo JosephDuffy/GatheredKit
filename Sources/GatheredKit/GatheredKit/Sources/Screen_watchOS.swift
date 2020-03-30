@@ -17,12 +17,14 @@ public final class Screen: Source {
     /**
      The native resolution of the screen
      */
-    public let resolution: SizeValue
+    @SizeValue
+    public private(set) var resolution: CGSize
 
     /**
      The native scale factor of the screen
      */
-    public let scale: ScaleValue
+    @ScaleValue
+    public private(set) var scale: CGFloat
 
     /**
      An array of the screen's properties, in the following order:
@@ -31,8 +33,8 @@ public final class Screen: Source {
      */
     public var allProperties: [AnyProperty] {
         return [
-            resolution,
-            scale,
+            _resolution,
+            _scale,
         ]
     }
 
@@ -51,13 +53,13 @@ public final class Screen: Source {
     internal init(device: WKInterfaceDevice) {
         self.device = device
 
-        resolution = SizeValue(
+        _resolution = .init(
             displayName: "Resolution",
             value: device.screenBounds.size
         )
-        resolution.formatter.suffix = " Points"
+        _resolution.formatter.suffix = " Points"
 
-        scale = ScaleValue(
+        _scale = .init(
             displayName: "Scale",
             value: device.screenScale
         )

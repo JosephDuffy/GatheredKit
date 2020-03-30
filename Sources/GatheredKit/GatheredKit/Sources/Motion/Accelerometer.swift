@@ -29,7 +29,8 @@ public final class Accelerometer: Source, CustomisableUpdateIntervalControllable
         return isUpdating ? CMMotionManager.shared.accelerometerUpdateInterval : nil
     }
 
-    public let acceleration: OptionalCMAccelerationValue = .init(displayName: "Acceleration")
+    @OptionalCMAccelerationValue
+    public private(set) var acceleration: CMAcceleration?
 
     public var allProperties: [AnyProperty] {
         return [acceleration]
@@ -46,10 +47,9 @@ public final class Accelerometer: Source, CustomisableUpdateIntervalControllable
         }
     }
 
-    private var propertyUpdateCancellables: [AnyCancellable] = []
-
     public init() {
         availability = CMMotionManager.shared.isAccelerometerAvailable ? .available : .unavailable
+        _acceleration = .init(displayName: "Acceleration")
     }
 
     public func startUpdating(

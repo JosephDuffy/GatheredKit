@@ -2,6 +2,7 @@
 import Foundation
 import CoreMotion
 
+// TODO: Update to not used computed values à la `CoordinateValue`
 public final class CMQuaternionValue: Property<CMQuaternion, CMQuaternionFormatter> {
 
     public var allProperties: [AnyProperty] {
@@ -31,6 +32,7 @@ public final class CMQuaternionValue: Property<CMQuaternion, CMQuaternionFormatt
 
 }
 
+// TODO: Update to not used computed values à la `CoordinateValue`
 public final class OptionalCMQuaternionValue: OptionalProperty<CMQuaternion, CMQuaternionFormatter> {
 
     public var allProperties: [AnyProperty] {

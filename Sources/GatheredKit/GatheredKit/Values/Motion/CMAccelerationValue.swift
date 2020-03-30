@@ -2,6 +2,7 @@
 import Foundation
 import CoreMotion
 
+@propertyWrapper
 public final class CMAccelerationValue: Property<CMAcceleration, CMAccelerationFormatter>, PropertiesProvider {
 
     public var allProperties: [AnyProperty] {
@@ -20,8 +21,13 @@ public final class CMAccelerationValue: Property<CMAcceleration, CMAccelerationF
         return .gravity(displayName: "z".localized, value: value.z, date: date)
     }
 
+    public override init(displayName: String, value: Value, formatter: Formatter = Formatter(), date: Date = Date()) {
+        <#code#>
+    }
+
 }
 
+@propertyWrapper
 public final class OptionalCMAccelerationValue: OptionalProperty<CMAcceleration, CMAccelerationFormatter>, PropertiesProvider {
 
     public var allProperties: [AnyProperty] {

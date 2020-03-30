@@ -1,59 +1,69 @@
 import Foundation
 import Combine
 
+@propertyWrapper
 open class Property<Value, Formatter: Foundation.Formatter>: AnyProperty, Snapshot, ObservableObject {
+
+    open class Metadata: PropertyMetadata {
+
+        public let displayName: String
+
+        public let formatter: Formatter
+
+        @Published
+        public fileprivate(set) var snapshot: Property<Value, Formatter>.Snapshot
+
+        public var typeErasedPublisher: AnyPublisher<AnySnapshot, Never> {
+            return $snapshot.map { $0 as AnySnapshot }.eraseToAnyPublisher()
+        }
+
+        public init(displayName: String, value: Value, formatter: Formatter = Formatter(), date: Date = Date()) {
+            self.displayName = displayName
+            self.formatter = formatter
+            self.snapshot = Snapshot(value: value, date: date)
+        }
+        
+    }
 
     public struct Snapshot: GatheredKit.Snapshot {
         public let value: Value
         public let date: Date
     }
 
-    public var typeErasedPublisher: AnyPublisher<AnySnapshot, Never> {
-        return $snapshot.map { $0 as AnySnapshot }.eraseToAnyPublisher()
-    }
-
-    @Published
-    public var snapshot: Snapshot
-
-    public var typeErasedFormatter: Foundation.Formatter {
-        return formatter
-    }
-
-    public let displayName: String
 
     public var value: Value {
         get {
-            return snapshot.value
+            return metadata.snapshot.value
         }
         set {
-            snapshot = Snapshot(value: newValue, date: Date())
+            metadata.snapshot = Snapshot(value: newValue, date: Date())
         }
     }
 
-    public var date: Date {
-        return snapshot.date
-    }
-
-    public let formatter: Formatter
-
-    public var formattedValue: String? {
-        guard type(of: formatter) != Foundation.Formatter.self else {
-            // `Formatter.string(for:)` will throw an exception when not overriden
-            return nil
+    open var wrappedValue: Value {
+        get {
+            return metadata.snapshot.value
         }
-        return formatter.string(for: value)
+        set {
+            metadata.snapshot = Snapshot(value: newValue, date: Date())
+        }
     }
 
-    public required init(
+    open var projectedValue: Metadata { return metadata }
+
+    public let metadata: Metadata
+
+    public var typeErasedMetadata: AnyPropertyMetadata {
+        return metadata
+    }
+
+    public init(
         displayName: String,
         value: Value,
         formatter: Formatter = Formatter(),
         date: Date = Date()
     ) {
-        self.displayName = displayName
-        let snapshot = Snapshot(value: value, date: date)
-        self.snapshot = snapshot
-        self.formatter = formatter
+        metadata = Metadata(displayName: displayName, value: value, formatter: formatter, date: date)
     }
 
     /**
@@ -66,7 +76,7 @@ open class Property<Value, Formatter: Foundation.Formatter>: AnyProperty, Snapsh
         value: Value,
         date: Date = Date()
     ) {
-        snapshot = Snapshot(value: value, date: date)
+        metadata.snapshot = Snapshot(value: value, date: date)
     }
 
 }
@@ -94,4 +104,17 @@ extension Property: Equatable where Value: Equatable {
             lhs.value == rhs.value &&
             lhs.date == rhs.date
     }
+}
+
+extension Property where Value: ExpressibleByNilLiteral {
+
+    public convenience init(
+        displayName: String,
+        optionalValue: Value = nil,
+        formatter: Formatter = Formatter(),
+        date: Date = Date()
+    ) {
+        self.init(displayName: displayName, value: optionalValue, formatter: formatter, date: date)
+    }
+
 }

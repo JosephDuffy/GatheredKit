@@ -14,12 +14,12 @@ final class ScreenTests: XCTestCase {
     func testValues() {
         let uiScreen = UIScreen.main
         let screen = Screen(screen: uiScreen)
-        XCTAssertEqual(screen.reportedResolution.value, uiScreen.bounds.size)
-        XCTAssertEqual(screen.nativeResolution.value, uiScreen.nativeBounds.size)
-        XCTAssertEqual(screen.reportedScale.value, uiScreen.scale)
-        XCTAssertEqual(screen.nativeScale.value, uiScreen.nativeScale)
+        XCTAssertEqual(screen.reportedResolution, uiScreen.bounds.size)
+        XCTAssertEqual(screen.nativeResolution, uiScreen.nativeBounds.size)
+        XCTAssertEqual(screen.reportedScale, uiScreen.scale)
+        XCTAssertEqual(screen.nativeScale, uiScreen.nativeScale)
         #if os(iOS)
-        XCTAssertEqual(screen.brightness.value, uiScreen.brightness)
+        XCTAssertEqual(screen.brightness, uiScreen.brightness)
         #endif
     }
 
@@ -138,7 +138,7 @@ final class ScreenTests: XCTestCase {
         let reportedResolutionExpectation = XCTestExpectation(description: "Subscriber should be called with updated reported resolution")
         reportedResolutionExpectation.expectedFulfillmentCount = 1
         reportedResolutionExpectation.assertForOverFulfill = true
-        let reportedResolutionCancellable = screen.reportedResolution.$snapshot.dropFirst().sink { reportedResolution in
+        let reportedResolutionCancellable = screen.$reportedResolution.$snapshot.dropFirst().sink { reportedResolution in
             reportedResolutionExpectation.fulfill()
             XCTAssertEqual(reportedResolution.value, uiScreen.bounds.size)
         }
@@ -146,7 +146,7 @@ final class ScreenTests: XCTestCase {
         let nativeResolutionExpectation = XCTestExpectation(description: "Subscriber should be called with updated native resolution")
         nativeResolutionExpectation.expectedFulfillmentCount = 1
         nativeResolutionExpectation.assertForOverFulfill = true
-        let nativeResolutionCancellable = screen.nativeResolution.$snapshot.dropFirst().sink { nativeResolution in
+        let nativeResolutionCancellable = screen.$nativeResolution.$snapshot.dropFirst().sink { nativeResolution in
             nativeResolutionExpectation.fulfill()
             XCTAssertEqual(nativeResolution.value, uiScreen.nativeBounds.size)
         }
@@ -154,7 +154,7 @@ final class ScreenTests: XCTestCase {
         let reportedScaleExpectation = XCTestExpectation(description: "Subscriber should be called with updated reported scale")
         reportedScaleExpectation.expectedFulfillmentCount = 1
         reportedScaleExpectation.assertForOverFulfill = true
-        let reportedScaleCancellable = screen.reportedScale.$snapshot.dropFirst().sink { reportedScale in
+        let reportedScaleCancellable = screen.$reportedScale.$snapshot.dropFirst().sink { reportedScale in
             reportedScaleExpectation.fulfill()
             XCTAssertEqual(reportedScale.value, uiScreen.scale)
         }
@@ -162,7 +162,7 @@ final class ScreenTests: XCTestCase {
         let nativeScaleExpectation = XCTestExpectation(description: "Subscriber should be called with updated native scale")
         nativeScaleExpectation.expectedFulfillmentCount = 1
         nativeScaleExpectation.assertForOverFulfill = true
-        let nativeScaleCancellable = screen.nativeScale.$snapshot.dropFirst().sink { nativeScale in
+        let nativeScaleCancellable = screen.$nativeScale.$snapshot.dropFirst().sink { nativeScale in
             nativeScaleExpectation.fulfill()
             XCTAssertEqual(nativeScale.value, uiScreen.nativeScale)
         }
@@ -174,10 +174,10 @@ final class ScreenTests: XCTestCase {
         uiScreen.scale = 2
         uiScreen.nativeScale = 2
         notificationCenter.post(name: UIScreen.modeDidChangeNotification, object: uiScreen)
-        XCTAssertEqual(screen.reportedResolution.value, uiScreen.bounds.size)
-        XCTAssertEqual(screen.nativeResolution.value, uiScreen.nativeBounds.size)
-        XCTAssertEqual(screen.reportedScale.value, uiScreen.scale)
-        XCTAssertEqual(screen.nativeScale.value, uiScreen.nativeScale)
+        XCTAssertEqual(screen.reportedResolution, uiScreen.bounds.size)
+        XCTAssertEqual(screen.nativeResolution, uiScreen.nativeBounds.size)
+        XCTAssertEqual(screen.reportedScale, uiScreen.scale)
+        XCTAssertEqual(screen.nativeScale, uiScreen.nativeScale)
 
         reportedResolutionCancellable.cancel()
         nativeResolutionCancellable.cancel()
@@ -204,7 +204,7 @@ final class ScreenTests: XCTestCase {
         let brightnessExpectation = XCTestExpectation(description: "Subscriber should be called with updated brightness")
         brightnessExpectation.expectedFulfillmentCount = 1
         brightnessExpectation.assertForOverFulfill = true
-        let brightnessCancellable = screen.brightness.$snapshot.sink { brightness in
+        let brightnessCancellable = screen.$brightness.$snapshot.sink { brightness in
             brightnessExpectation.fulfill()
             XCTAssertEqual(brightness.value, uiScreen.brightness)
         }
@@ -213,13 +213,13 @@ final class ScreenTests: XCTestCase {
 
         uiScreen.brightness = 0.54
         notificationCenter.post(name: UIScreen.brightnessDidChangeNotification, object: uiScreen)
-        XCTAssertEqual(screen.brightness.value, uiScreen.brightness)
+        XCTAssertEqual(screen.brightness, uiScreen.brightness)
 
         brightnessCancellable.cancel()
 
         uiScreen.brightness = 0.63
         notificationCenter.post(name: UIScreen.brightnessDidChangeNotification, object: uiScreen)
-        XCTAssertEqual(screen.brightness.value, uiScreen.brightness)
+        XCTAssertEqual(screen.brightness, uiScreen.brightness)
 
         wait(
             for: [
@@ -237,7 +237,7 @@ final class ScreenTests: XCTestCase {
 
         let expectation = XCTestExpectation(description: "Subscriber should not be called")
         expectation.isInverted = true
-        let cancellable = screen.brightness.$snapshot.dropFirst().sink { _ in
+        let cancellable = screen.$brightness.$snapshot.dropFirst().sink { _ in
             expectation.fulfill()
         }
 

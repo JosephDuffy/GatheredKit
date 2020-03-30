@@ -1,7 +1,7 @@
 import Foundation
 
-public final class LengthValue: MeasurementProperty<UnitLength> { }
-public final class OptionalLengthValue: OptionalMeasurementProperty<UnitLength> { }
+public typealias LengthValue = MeasurementProperty<UnitLength>
+public typealias OptionalLengthValue = OptionalMeasurementProperty<UnitLength>
 
 public extension AnyProperty {
 

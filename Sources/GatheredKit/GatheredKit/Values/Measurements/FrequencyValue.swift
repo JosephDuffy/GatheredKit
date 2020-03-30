@@ -1,15 +1,7 @@
 import Foundation
 
-public final class FrequencyValue: MeasurementProperty<UnitFrequency> { }
-public final class OptionalFrequencyValue: OptionalMeasurementProperty<UnitFrequency> { }
-
-extension UnitFrequency {
-
-    public static var radiansPerSecond: UnitFrequency {
-        return UnitFrequency(symbol: "rad/s", converter: UnitConverterLinear(coefficient: 2 * Double.pi))
-    }
-
-}
+public typealias FrequencyValue = MeasurementProperty<UnitFrequency>
+public typealias OptionalFrequencyValue = OptionalMeasurementProperty<UnitFrequency>
 
 extension AnyProperty {
 

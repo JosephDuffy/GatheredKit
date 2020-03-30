@@ -1,6 +1,8 @@
 import Foundation
 
-public final class DoubleValue: Property<Double, NumberFormatter> { }
-public final class OptionalDoubleValue: OptionalProperty<Double, NumberFormatter> { }
-public final class FloatValue: Property<Float, NumberFormatter> { }
-public final class OptionalFloatValue: OptionalProperty<Float, NumberFormatter> { }
+public typealias DoubleValue = Property<Double, NumberFormatter>
+public typealias OptionalDoubleValue = OptionalProperty<Double, NumberFormatter>
+public typealias FloatValue = Property<Float, NumberFormatter>
+public typealias OptionalFloatValue = OptionalProperty<Float, NumberFormatter>
+public typealias IntValue = Property<Int, NumberFormatter>
+public typealias OptionalIntValue = OptionalProperty<Int, NumberFormatter>

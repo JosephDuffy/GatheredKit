@@ -1,7 +1,7 @@
 import Foundation
 
-public final class AccelerationValue: MeasurementProperty<UnitAcceleration> { }
-public final class OptionalAccelerationValue: OptionalMeasurementProperty<UnitAcceleration> { }
+public typealias AccelerationValue = MeasurementProperty<UnitAcceleration>
+public typealias OptionalAccelerationValue = OptionalMeasurementProperty<UnitAcceleration>
 
 extension AnyProperty {
 

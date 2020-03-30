@@ -1,6 +1,7 @@
 import Foundation
 
-public class MeasurementProperty<Unit: Foundation.Unit>: Property<Measurement<Unit>, MeasurementFormatter> {
+@propertyWrapper
+open class MeasurementProperty<Unit: Foundation.Unit>: Property<Measurement<Unit>, MeasurementFormatter> {
 
     public var measurement: Measurement<Unit> {
         return value
@@ -9,6 +10,17 @@ public class MeasurementProperty<Unit: Foundation.Unit>: Property<Measurement<Un
     public var unit: Unit {
         return value.unit
     }
+
+    open override var wrappedValue: Value {
+        get {
+            return value
+        }
+        set {
+            value = newValue
+        }
+    }
+
+    open override var projectedValue: Metadata { return metadata }
 
     public convenience init(
         displayName: String,
@@ -47,6 +59,7 @@ public class MeasurementProperty<Unit: Foundation.Unit>: Property<Measurement<Un
 
 }
 
+@propertyWrapper
 public class OptionalMeasurementProperty<Unit: Foundation.Dimension>: OptionalProperty<Measurement<Unit>, MeasurementFormatter> {
 
     public var measurement: Measurement<Unit>? {
@@ -54,6 +67,17 @@ public class OptionalMeasurementProperty<Unit: Foundation.Dimension>: OptionalPr
     }
 
     public let unit: Unit
+
+    open override var wrappedValue: Value {
+        get {
+            return value
+        }
+        set {
+            value = newValue
+        }
+    }
+
+    open override var projectedValue: Metadata { return metadata }
 
     public required init(
         displayName: String,
@@ -72,7 +96,7 @@ public class OptionalMeasurementProperty<Unit: Foundation.Dimension>: OptionalPr
         super.init(displayName: displayName, value: measurement, formatter: formatter, date: date)
     }
 
-    public required init(displayName: String, value measurement: Measurement<Unit>? = nil, formatter: MeasurementFormatter = MeasurementFormatter(), date: Date = Date()) {
+    public required override init(displayName: String, value measurement: Measurement<Unit>? = nil, formatter: MeasurementFormatter = MeasurementFormatter(), date: Date = Date()) {
         unit = measurement?.unit ?? .baseUnit()
         super.init(displayName: displayName, value: measurement, formatter: formatter, date: date)
     }

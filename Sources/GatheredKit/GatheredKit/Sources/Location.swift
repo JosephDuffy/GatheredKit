@@ -21,16 +21,29 @@ public final class Location: NSObject, Source, Controllable {
 
     private var eventsSubject = PassthroughSubject<ControllableEvent, ControllableError>()
 
-    public let coordinate: OptionalCoordinateValue = .init(displayName: "Coordinate")
-    public let speed: OptionalSpeedValue = .metersPerSecond(displayName: "Speed")
-    public let course: OptionalAngleValue = .degrees(displayName: "Course")
-    public let altitude: OptionalLengthValue = .meters(displayName: "Altitude")
+    @OptionalCoordinateValue
+    public private(set) var coordinate: CLLocationCoordinate2D?
 
-    public let floor = OptionalProperty<Int, NumberFormatter>(displayName: "Floor", formatter: NumberFormatter())
+    @OptionalSpeedValue
+    public private(set) var speed: Measurement<UnitSpeed>?
 
-    public let horizonalAccuracy: OptionalLengthValue = .meters(displayName: "Horizontal Accuracy")
-    public let verticalAccuracy: OptionalLengthValue = .meters(displayName: "Vertical Accuracy")
-    public let authorizationStatus = LocationAuthorizationValue(displayName: "Authorization Status", value: CLLocationManager.authorizationStatus())
+    @OptionalAngleValue
+    public private(set) var course: Measurement<UnitAngle>?
+
+    @OptionalLengthValue
+    public private(set) var altitude: Measurement<UnitLength>?
+
+    @OptionalIntValue
+    public private(set) var floor: Int?
+
+    @OptionalLengthValue
+    public private(set) var horizonalAccuracy: Measurement<UnitLength>?
+
+    @OptionalLengthValue
+    public private(set) var verticalAccuracy: Measurement<UnitLength>?
+
+    @LocationAuthorizationValue
+    public private(set) var authorizationStatus: CLAuthorizationStatus
 
     /**
      An array of all the properties associated with the location of the
@@ -46,14 +59,14 @@ public final class Location: NSObject, Source, Controllable {
      */
     public var allProperties: [AnyProperty] {
         return [
-            coordinate,
-            speed,
-            course,
-            altitude,
-            floor,
-            horizonalAccuracy,
-            verticalAccuracy,
-            authorizationStatus,
+            $coordinate,
+            $speed,
+            $course,
+            $altitude,
+            $floor,
+            $horizonalAccuracy,
+            $verticalAccuracy,
+            $authorizationStatus,
         ]
     }
 
@@ -92,11 +105,18 @@ public final class Location: NSObject, Source, Controllable {
         }
     }
 
-    private var propertyUpdateCancellables: [AnyCancellable] = []
-
     public override init() {
         let authorizationStatus = CLLocationManager.authorizationStatus()
         availability = SourceAvailability(authorizationStatus: authorizationStatus) ?? .unavailable
+
+        _coordinate = .init(displayName: "Coordinate")
+        _speed = .metersPerSecond(displayName: "Speed")
+        _course = .degrees(displayName: "Course")
+        _altitude = .meters(displayName: "Altitude")
+        _floor = .init(displayName: "Floor")
+        _horizonalAccuracy = .meters(displayName: "Horizontal Accuracy")
+        _verticalAccuracy = .meters(displayName: "Vertical Accuracy")
+        _authorizationStatus = .init(displayName: "Authorization Status", value: CLLocationManager.authorizationStatus())
 
         super.init()
     }
@@ -139,7 +159,7 @@ public final class Location: NSObject, Source, Controllable {
         locationManagerConfigurator?(locationManager)
 
         let authorizationStatus = CLLocationManager.authorizationStatus()
-        self.authorizationStatus.update(value: authorizationStatus)
+        $authorizationStatus.update(value: authorizationStatus)
         availability = SourceAvailability(authorizationStatus: authorizationStatus) ?? .unavailable
 
         #if os(iOS) || os(watchOS)
@@ -222,33 +242,33 @@ public final class Location: NSObject, Source, Controllable {
     private func updateLocationValues(_ location: CLLocation? = nil) {
         if let location = location {
             let timestamp = location.timestamp
-            coordinate.update(value: location.coordinate, date: timestamp)
-
-            if location.course < 0 {
-                // TODO: Provide formatted value
-                course.update(value: nil, date: timestamp)
-            } else {
-                course.update(value: location.speed, date: timestamp)
-            }
+            $coordinate.update(value: location.coordinate, date: timestamp)
 
             if location.speed < 0 {
                 // TODO: Provide formatted value
-                speed.update(value: nil, date: timestamp)
+                $speed.update(value: nil, date: timestamp)
             } else {
-                speed.update(value: location.speed, date: timestamp)
+                $speed.update(value: location.speed, date: timestamp)
             }
-            altitude.update(value: location.altitude, date: timestamp)
-            floor.update(value: location.floor?.level, date: timestamp)
-            horizonalAccuracy.update(value: location.horizontalAccuracy, date: timestamp)
-            verticalAccuracy.update(value: location.verticalAccuracy, date: timestamp)
+
+            if location.course < 0 {
+                // TODO: Provide formatted value
+                $course.update(value: nil, date: timestamp)
+            } else {
+                $course.update(value: location.speed, date: timestamp)
+            }
+            $altitude.update(value: location.altitude, date: timestamp)
+            $floor.update(value: location.floor?.level, date: timestamp)
+            $horizonalAccuracy.update(value: location.horizontalAccuracy, date: timestamp)
+            $verticalAccuracy.update(value: location.verticalAccuracy, date: timestamp)
         } else {
-            coordinate.update(value: nil)
-            course.update(value: nil)
-            speed.update(value: nil)
-            altitude.update(value: nil)
-            floor.update(value: nil)
-            horizonalAccuracy.update(value: nil)
-            verticalAccuracy.update(value: nil)
+            $coordinate.update(value: nil)
+            $speed.update(value: nil)
+            $course.update(value: nil)
+            $altitude.update(value: nil)
+            $floor.update(value: nil)
+            $horizonalAccuracy.update(value: nil)
+            $verticalAccuracy.update(value: nil)
         }
     }
 
@@ -260,7 +280,7 @@ extension Location: CLLocationManagerDelegate {
         availability = SourceAvailability(authorizationStatus: status) ?? .unavailable
         eventsSubject.send(.availabilityUpdated(availability))
 
-        authorizationStatus.update(value: status)
+        $authorizationStatus.update(value: status)
 
         switch availability {
         case .available:

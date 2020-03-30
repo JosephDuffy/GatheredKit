@@ -2,6 +2,7 @@
 import Foundation
 import CoreMotion
 
+// TODO: Update to not used computed values à la `CoordinateValue`
 public final class CMMagneticFieldValue: Property<CMMagneticField, CMMagneticFieldFormatter>, PropertiesProvider {
 
     public var allProperties: [AnyProperty] {
@@ -22,6 +23,7 @@ public final class CMMagneticFieldValue: Property<CMMagneticField, CMMagneticFie
 
 }
 
+// TODO: Update to not used computed values à la `CoordinateValue`
 public final class OptionalCMMagneticFieldValue: OptionalProperty<CMMagneticField, CMMagneticFieldFormatter>, PropertiesProvider {
 
     public var allProperties: [AnyProperty] {

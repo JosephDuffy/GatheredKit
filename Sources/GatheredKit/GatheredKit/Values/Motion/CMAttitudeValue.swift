@@ -4,6 +4,7 @@ import CoreMotion
 
 // TODO: Add rotationMatrix
 
+// TODO: Update to not used computed values à la `CoordinateValue`
 public final class CMAttitudeValue: Property<CMAttitude, CMAttitudeFormatter>, PropertiesProvider {
 
     public var allProperties: [AnyProperty] {
@@ -28,6 +29,7 @@ public final class CMAttitudeValue: Property<CMAttitude, CMAttitudeFormatter>, P
 
 }
 
+// TODO: Update to not used computed values à la `CoordinateValue`
 public final class OptionalCMAttitudeValue: OptionalProperty<CMAttitude, CMAttitudeFormatter>, PropertiesProvider {
 
     public var allProperties: [AnyProperty] {

@@ -30,7 +30,8 @@ public final class Screen: Source, Controllable {
     /**
      The resolution of the screen
      */
-    public let resolution: SizeValue
+    @SizeValue
+    public private(set) var resolution: CGSize
 
     /**
      An array of the screen's properties, in the following order:
@@ -38,11 +39,9 @@ public final class Screen: Source, Controllable {
      */
     public var allProperties: [AnyProperty] {
         return [
-            resolution,
+            $resolution,
         ]
     }
-
-    private var propertyUpdateCancellables: [AnyCancellable] = []
 
     /// The internal state, indicating if the screen is monitoring for changes
     private var state: State = .notMonitoring {
@@ -78,11 +77,11 @@ public final class Screen: Source, Controllable {
         self.nsScreen = screen
         self.notificationCenter = notificationCenter
 
-        resolution = SizeValue(
+        _resolution = .init(
             displayName: "Resolution",
             value: screen.frame.size
         )
-        resolution.formatter.suffix = " Pixels"
+        _resolution.formatter.suffix = " Pixels"
     }
 
     deinit {
@@ -101,9 +100,9 @@ public final class Screen: Source, Controllable {
 
         let screenParametersObserver = notificationCenter.addObserver(forName: NSApplication.didChangeScreenParametersNotification, object: NSApplication.shared, queue: updatesQueue) { [weak self] _ in
             guard let self = self else { return }
-            self.resolution.updateValueIfDifferent(self.nsScreen.frame.size)
+            self._resolution.updateValueIfDifferent(self.nsScreen.frame.size)
         }
-        resolution.updateValueIfDifferent(nsScreen.frame.size)
+        _resolution.updateValueIfDifferent(nsScreen.frame.size)
 
         let colorSpaceObserver = notificationCenter.addObserver(forName: NSScreen.colorSpaceDidChangeNotification, object: nsScreen, queue: updatesQueue) { _ in
             // TODO: Update colour space

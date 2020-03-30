@@ -1,7 +1,7 @@
 import Foundation
 
-public final class PressureValue: MeasurementProperty<UnitPressure> { }
-public final class OptionalPressureValue: OptionalMeasurementProperty<UnitPressure> { }
+public typealias PressureValue = MeasurementProperty<UnitPressure>
+public typealias OptionalPressureValue = OptionalMeasurementProperty<UnitPressure>
 
 extension AnyProperty {
 

@@ -2,6 +2,7 @@
 import Foundation
 import CoreMotion
 
+// TODO: Update to not used computed values à la `CoordinateValue`
 public final class CMRotationRateValue: Property<CMRotationRate, CMRotationRateFormatter>, PropertiesProvider {
 
     public var allProperties: [AnyProperty] {
@@ -22,6 +23,7 @@ public final class CMRotationRateValue: Property<CMRotationRate, CMRotationRateF
 
 }
 
+// TODO: Update to not used computed values à la `CoordinateValue`
 public final class OptionalCMRotationRateValue: OptionalProperty<CMRotationRate, CMRotationRateFormatter>, PropertiesProvider {
 
     public var allProperties: [AnyProperty] {

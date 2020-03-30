@@ -43,22 +43,26 @@ public final class Screen: Source, Controllable {
     /**
      The reported resolution of the screen
      */
-    public let reportedResolution: SizeValue
+    @SizeValue
+    public private(set) var reportedResolution: CGSize
 
     /**
      The native resolution of the screen
      */
-    public let nativeResolution: SizeValue
+    @SizeValue
+    public private(set) var nativeResolution: CGSize
 
     /**
      The reported scale factor of the screen
      */
-    public let reportedScale: ScaleValue
+    @ScaleValue
+    public private(set) var reportedScale: CGFloat
 
     /**
      The native scale factor of the screen
      */
-    public let nativeScale: ScaleValue
+    @ScaleValue
+    public private(set) var nativeScale: CGFloat
 
     #if os(iOS)
     /**
@@ -67,7 +71,8 @@ public final class Screen: Source, Controllable {
      
      If the screen is not the main screen this value will always be 1.
      */
-    public let brightness: Property<CGFloat, PercentFormatter>
+    @PercentValue
+    public private(set) var brightness: CGFloat
     #endif
 
     /**
@@ -79,20 +84,20 @@ public final class Screen: Source, Controllable {
      - Brightness
      */
     public var allProperties: [AnyProperty] {
-        #if os(iOS) || os(macOS)
+        #if os(iOS)
         return [
-            reportedResolution,
-            nativeResolution,
-            reportedScale,
-            nativeScale,
-            brightness,
+            $reportedResolution,
+            $nativeResolution,
+            $reportedScale,
+            $nativeScale,
+            $brightness,
         ]
         #elseif os(tvOS)
         return [
-            reportedResolution,
-            nativeResolution,
-            reportedScale,
-            nativeScale,
+            $reportedResolution,
+            $nativeResolution,
+            $reportedScale,
+            $nativeScale,
         ]
         #endif
     }
@@ -120,34 +125,31 @@ public final class Screen: Source, Controllable {
         self.uiScreen = screen
         self.notificationCenter = notificationCenter
 
-        reportedResolution = SizeValue(
+        _reportedResolution = .init(
             displayName: "Resolution (reported)",
             value: screen.bounds.size
         )
-        reportedResolution.formatter.suffix = " Points"
+        _reportedResolution.formatter.suffix = " Points"
 
-        nativeResolution = SizeValue(
+        _nativeResolution = .init(
             displayName: "Resolution (native)",
             value: screen.nativeBounds.size
         )
-        nativeResolution.formatter.suffix = " Pixels"
+        _nativeResolution.formatter.suffix = " Pixels"
 
-        reportedScale = ScaleValue(
+        _reportedScale = .init(
             displayName: "Scale (reported)",
             value: screen.scale
         )
 
-        nativeScale = ScaleValue(
+        _nativeScale = .init(
             displayName: "Scale (native)",
             value: screen.nativeScale
         )
 
         #if os(iOS)
-        if screen == .main {
-            brightness = .init(displayName: "Brightness", value: screen.brightness)
-        } else {
-            brightness = .init(displayName: "Brightness", value: 1)
-        }
+        let brightness = screen == .main ? screen.brightness : 1
+        _brightness = .init(displayName: "Brightness", value: brightness)
         #endif
     }
 
@@ -171,9 +173,9 @@ public final class Screen: Source, Controllable {
         if uiScreen == .main {
             brightnessChangeObeserver = notificationCenter.addObserver(forName: UIScreen.brightnessDidChangeNotification, object: uiScreen, queue: updatesQueue) { [weak self] _ in
                 guard let self = self else { return }
-                self.brightness.updateValueIfDifferent(self.uiScreen.brightness)
+                self.$brightness.updateValueIfDifferent(self.uiScreen.brightness)
             }
-            brightness.updateValueIfDifferent(uiScreen.brightness)
+            $brightness.updateValueIfDifferent(uiScreen.brightness)
         } else {
             brightnessChangeObeserver = nil
         }
@@ -181,16 +183,16 @@ public final class Screen: Source, Controllable {
 
         let modeChangeObeserver = notificationCenter.addObserver(forName: UIScreen.modeDidChangeNotification, object: uiScreen, queue: updatesQueue) { [weak self] _ in
             guard let self = self else { return }
-            self.reportedResolution.updateValueIfDifferent(self.uiScreen.bounds.size)
-            self.nativeResolution.updateValueIfDifferent(self.uiScreen.nativeBounds.size)
-            self.reportedScale.updateValueIfDifferent(self.uiScreen.scale)
-            self.nativeScale.updateValueIfDifferent(self.uiScreen.nativeScale)
+            self.$reportedResolution.updateValueIfDifferent(self.uiScreen.bounds.size)
+            self.$nativeResolution.updateValueIfDifferent(self.uiScreen.nativeBounds.size)
+            self.$reportedScale.updateValueIfDifferent(self.uiScreen.scale)
+            self.$nativeScale.updateValueIfDifferent(self.uiScreen.nativeScale)
         }
 
-        reportedResolution.updateValueIfDifferent(uiScreen.bounds.size)
-        nativeResolution.updateValueIfDifferent(uiScreen.nativeBounds.size)
-        reportedScale.updateValueIfDifferent(uiScreen.scale)
-        nativeScale.updateValueIfDifferent(uiScreen.nativeScale)
+        $reportedResolution.updateValueIfDifferent(uiScreen.bounds.size)
+        $nativeResolution.updateValueIfDifferent(uiScreen.nativeBounds.size)
+        $reportedScale.updateValueIfDifferent(uiScreen.scale)
+        $nativeScale.updateValueIfDifferent(uiScreen.nativeScale)
 
         #if os(iOS)
         state = .monitoring(
@@ -212,7 +214,7 @@ public final class Screen: Source, Controllable {
      Stop performing automatic date refreshes
      */
     public func stopUpdating() {
-        #if os(iOS) || os(macOS)
+        #if os(iOS)
         guard case .monitoring(let brightnessChangeObeserver, let modeChangeObeserver, _) = state else { return }
 
         brightnessChangeObeserver.map { brightnessChangeObeserver in

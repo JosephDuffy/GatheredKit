@@ -1,7 +1,7 @@
 import Foundation
 
-public final class MagneticFieldValue: MeasurementProperty<UnitMagneticField> { }
-public final class OptionalMagneticFieldValue: OptionalMeasurementProperty<UnitMagneticField> { }
+public typealias MagneticFieldValue = MeasurementProperty<UnitMagneticField>
+public typealias OptionalMagneticFieldValue = OptionalMeasurementProperty<UnitMagneticField>
 
 extension AnyProperty {
 

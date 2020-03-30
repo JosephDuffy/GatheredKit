@@ -1,4 +1,4 @@
 import CoreGraphics
 
-public final class SizeValue: Property<CGSize, SizeFormatter> { }
-public final class OptionalSizeValue: OptionalProperty<CGSize, SizeFormatter> { }
+public typealias SizeValue = Property<CGSize, SizeFormatter>
+public typealias OptionalSizeValue = OptionalProperty<CGSize, SizeFormatter>

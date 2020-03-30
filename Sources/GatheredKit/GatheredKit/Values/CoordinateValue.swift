@@ -1,62 +1,90 @@
 import Foundation
 import CoreLocation
 
+@propertyWrapper
 public final class CoordinateValue: Property<CLLocationCoordinate2D, CoordinateFormatter>, PropertiesProvider {
 
     public var allProperties: [AnyProperty] {
         return [
-            latitude,
-            longitude,
+            _latitude,
+            _longitude,
         ]
     }
 
-    public let latitude: AngleValue
+    @AngleValue
+    public var latitude: Measurement<UnitAngle>
 
-    public let longitude: AngleValue
+    @AngleValue
+    public var longitude: Measurement<UnitAngle>
 
-    public required init(displayName: String, value: CLLocationCoordinate2D, formatter: CoordinateFormatter = CoordinateFormatter(), date: Date = Date()) {
-        latitude = .degrees(displayName: "Latitude", value: value.latitude, date: date)
-        longitude = .degrees(displayName: "Longitude", value: value.longitude, date: date)
+    public override var wrappedValue: Value {
+        get {
+            return value
+        }
+        set {
+            value = newValue
+        }
+    }
+
+    public override var projectedValue: Metadata { return metadata }
+
+    public required override init(displayName: String, value: CLLocationCoordinate2D, formatter: CoordinateFormatter = CoordinateFormatter(), date: Date = Date()) {
+        _latitude = .degrees(displayName: "Latitude", value: value.latitude, date: date)
+        _longitude = .degrees(displayName: "Longitude", value: value.longitude, date: date)
 
         super.init(displayName: displayName, value: value, formatter: formatter, date: date)
     }
 
     public override func update(value: CLLocationCoordinate2D, date: Date = Date()) {
-        latitude.update(value: value.latitude, date: date)
-        longitude.update(value: value.longitude, date: date)
+        $latitude.updateValueIfDifferent(value.latitude, date: date)
+        $longitude.updateValueIfDifferent(value.longitude, date: date)
 
         super.update(value: value, date: date)
     }
 
 }
 
+@propertyWrapper
 public final class OptionalCoordinateValue: OptionalProperty<CLLocationCoordinate2D, CoordinateFormatter>, PropertiesProvider {
 
     public var allProperties: [AnyProperty] {
         return [
-            latitude,
-            longitude,
+            $latitude,
+            $longitude,
         ]
     }
 
-    public let latitude: OptionalAngleValue
+    @OptionalAngleValue
+    public var latitude: Measurement<UnitAngle>?
 
-    public let longitude: OptionalAngleValue
+    @OptionalAngleValue
+    public var longitude: Measurement<UnitAngle>?
 
-    public required init(displayName: String, value: CLLocationCoordinate2D? = nil, formatter: CoordinateFormatter = CoordinateFormatter(), date: Date = Date()) {
-        latitude = .degrees(displayName: "Latitude", value: value?.latitude, date: date)
-        longitude = .degrees(displayName: "Longitude", value: value?.longitude, date: date)
+    public override var wrappedValue: Value {
+        get {
+            return value
+        }
+        set {
+            value = newValue
+        }
+    }
+
+    open override var projectedValue: Metadata { return metadata }
+
+    public required override init(displayName: String, value: CLLocationCoordinate2D? = nil, formatter: CoordinateFormatter = CoordinateFormatter(), date: Date = Date()) {
+        _latitude = .degrees(displayName: "Latitude", value: value?.latitude, date: date)
+        _longitude = .degrees(displayName: "Longitude", value: value?.longitude, date: date)
 
         super.init(displayName: displayName, value: value, formatter: formatter, date: date)
     }
 
     public override func update(value: CLLocationCoordinate2D?, date: Date = Date()) {
         if let value = value {
-            latitude.update(value: value.latitude, date: date)
-            longitude.update(value: value.longitude, date: date)
+            $latitude.updateValueIfDifferent(value.latitude, date: date)
+            $longitude.updateValueIfDifferent(value.longitude, date: date)
         } else {
-            latitude.update(value: nil, date: date)
-            longitude.update(value: nil, date: date)
+            $latitude.update(value: nil, date: date)
+            $longitude.update(value: nil, date: date)
         }
 
         super.update(value: value, date: date)
