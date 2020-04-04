@@ -1,6 +1,7 @@
 # Xcode
 
-*.xcodeproj
+## User settings
+xcuserdata/
 
 ## Build generated
 build/
@@ -10,10 +11,6 @@ build/
 
 # Swift Package Manager
 .build/
-.swiftpm/
-
-# Carthage
-Carthage/
 
 # macOS
 .DS_Store

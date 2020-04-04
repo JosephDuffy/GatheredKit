@@ -32,39 +32,3 @@ jobs:
       run: cd DevelopmentDependencies && swift run --configuration release danger-swift ci --danger-js-path $(yarn bin danger) --verbose
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-  pod_lib_lint:
-    name: pod lib lint
-    runs-on: macos-latest
-
-    steps:
-    - uses: actions/checkout@v1
-
-    - name: Read .ruby-version
-      id: ruby-version
-      run: |
-        FULL_VERSION=$(cat .ruby-version)
-        echo ::set-output name=version::${FULL_VERSION%.*}
-    - name: Setup Ruby ${{ steps.ruby-version.outputs.version }}
-      uses: actions/setup-ruby@v1
-      with:
-        ruby-version: ${{ steps.ruby-version.outputs.version }}
-    - name: Update Bundler
-      run: bundle update --bundler
-    - name: Cache Bundler
-      uses: actions/cache@v1
-      with:
-        path: vendor/bundle
-        key: ${{ runner.os }}-bundler-ruby${{ steps.ruby-version.outputs.version }}-${{ hashFiles('**/Gemfile.lock') }}
-        restore-keys: |
-          ${{ runner.os }}-bundler-ruby${{ steps.ruby-version.outputs.version }}-
-    - name: bundle install
-      run:  |
-        bundle config set deployment 'true'
-        bundle install
-
-    - name: Create Xcode Project
-      run: swift package generate-xcodeproj --skip-extra-files
-
-    - name: pod lib lint
-      run: bundle exec pod lib lint
