@@ -21,7 +21,7 @@ public final class Screen: Source, Controllable {
         return eventsSubject.eraseToAnyPublisher()
     }
 
-    private lazy var eventsSubject = CurrentValueSubject<ControllableEvent, ControllableError>()
+    private lazy var eventsSubject = PassthroughSubject<ControllableEvent, ControllableError>()
 
     public private(set) var isUpdating: Bool = false
 
