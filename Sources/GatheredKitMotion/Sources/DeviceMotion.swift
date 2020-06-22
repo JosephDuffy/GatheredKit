@@ -21,13 +21,24 @@ public final class DeviceMotion: Source, CustomisableUpdateIntervalControllable 
         return CMMotionManager.availableAttitudeReferenceFrames()
     }
 
+    @available(iOS 13.0, *)
     public var controllableEventsPublisher: AnyPublisher<ControllableEvent, ControllableError> {
         return eventsSubject.eraseToAnyPublisher()
     }
 
-    private let eventsSubject = PassthroughSubject<ControllableEvent, ControllableError>()
+    @available(iOS 13.0, *)
+    private var eventsSubject: PassthroughSubject<ControllableEvent, ControllableError> {
+        return _eventsSubject as! PassthroughSubject<ControllableEvent, ControllableError>
+    }
 
-    @Published
+    private lazy var _eventsSubject: Any = {
+        if #available(iOS 13.0, *) {
+            return PassthroughSubject<ControllableEvent, ControllableError>()
+        } else {
+            fatalError()
+        }
+    }()
+
     public private(set) var isUpdating: Bool = false
 
     public var updateInterval: TimeInterval? {
@@ -106,7 +117,11 @@ public final class DeviceMotion: Source, CustomisableUpdateIntervalControllable 
 
             if let error = error {
                 CMMotionManager.shared.stopDeviceMotionUpdates()
-                self.eventsSubject.send(completion: .failure(.other(error)))
+                if #available(iOS 13.0, *) {
+                    self.eventsSubject.send(completion: .failure(.other(error)))
+                } else {
+                    // Fallback on earlier versions
+                }
                 self.state = .notMonitoring
                 return
             }
@@ -143,13 +158,21 @@ public final class DeviceMotion: Source, CustomisableUpdateIntervalControllable 
         }
 
         state = .monitoring(updatesQueue: updatesQueue)
-        eventsSubject.send(.startedUpdating)
+        if #available(iOS 13.0, *) {
+            eventsSubject.send(.startedUpdating)
+        } else {
+            // Fallback on earlier versions
+        }
     }
 
     public func stopUpdating() {
         CMMotionManager.shared.stopDeviceMotionUpdates()
         state = .notMonitoring
-        eventsSubject.send(completion: .finished)
+        if #available(iOS 13.0, *) {
+            eventsSubject.send(completion: .finished)
+        } else {
+            // Fallback on earlier versions
+        }
     }
 
 }

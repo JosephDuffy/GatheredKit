@@ -37,6 +37,7 @@ open class Property<Value, Formatter, ReadOnlyProperty>: AnyProperty where Forma
         return property.formatter
     }
 
+    @available(iOS 13.0, *)
     public var typeErasedPublisher: AnyPublisher<AnySnapshot, Never> {
         return property.typeErasedPublisher
     }

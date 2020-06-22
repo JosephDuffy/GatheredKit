@@ -1,10 +1,12 @@
 import Combine
 
 public protocol ControllableSourceProvider: SourceProvider, AnyControllableSourceProvider {
+    @available(iOS 13.0, *)
     var sourceProviderEventsPublisher: AnyPublisher<SourceProviderEvent<ProvidedSource>, Never> { get }
 }
 
 extension ControllableSourceProvider {
+    @available(iOS 13.0, *)
     public var typeErasedSourceProviderEventsPublisher: AnyPublisher<AnySourceProviderEvent, Never> {
         return sourceProviderEventsPublisher.map { event in
             switch event {
@@ -23,5 +25,6 @@ public enum AnySourceProviderEvent {
 }
 
 public protocol AnyControllableSourceProvider: AnySourceProvider, Controllable {
+    @available(iOS 13.0, *)
     var typeErasedSourceProviderEventsPublisher: AnyPublisher<AnySourceProviderEvent, Never> { get }
 }

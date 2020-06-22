@@ -22,11 +22,23 @@ public final class Screen: Source, Controllable {
 
     public let name: String
 
+    @available(iOS 13.0, *)
     public var controllableEventsPublisher: AnyPublisher<ControllableEvent, ControllableError> {
         return eventsSubject.eraseToAnyPublisher()
     }
 
-    public let eventsSubject = PassthroughSubject<ControllableEvent, ControllableError>()
+    @available(iOS 13.0, *)
+    private var eventsSubject: PassthroughSubject<ControllableEvent, ControllableError> {
+        return _eventsSubject as! PassthroughSubject<ControllableEvent, ControllableError>
+    }
+
+    private lazy var _eventsSubject: Any = {
+        if #available(iOS 13.0, *) {
+            return PassthroughSubject<ControllableEvent, ControllableError>()
+        } else {
+            fatalError()
+        }
+    }()
 
     /// A boolean indicating if the screen is monitoring for brightness changes
     public var isUpdating: Bool {
@@ -209,7 +221,11 @@ public final class Screen: Source, Controllable {
         )
         #endif
 
-        eventsSubject.send(.startedUpdating)
+        if #available(iOS 13.0, *) {
+            eventsSubject.send(.startedUpdating)
+        } else {
+            // Fallback on earlier versions
+        }
     }
 
     /**
@@ -239,7 +255,11 @@ public final class Screen: Source, Controllable {
             )
 
         state = .notMonitoring
-        eventsSubject.send(completion: .finished)
+        if #available(iOS 13.0, *) {
+            eventsSubject.send(completion: .finished)
+        } else {
+            // Fallback on earlier versions
+        }
     }
 
 }

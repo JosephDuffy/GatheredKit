@@ -16,11 +16,23 @@ public final class Location: NSObject, Source, Controllable {
 
     public let name = "Location"
 
+    @available(iOS 13.0, *)
     public var controllableEventsPublisher: AnyPublisher<ControllableEvent, ControllableError> {
         return eventsSubject.eraseToAnyPublisher()
     }
 
-    private var eventsSubject = PassthroughSubject<ControllableEvent, ControllableError>()
+    @available(iOS 13.0, *)
+    private var eventsSubject: PassthroughSubject<ControllableEvent, ControllableError> {
+        return _eventsSubject as! PassthroughSubject<ControllableEvent, ControllableError>
+    }
+
+    private lazy var _eventsSubject: Any = {
+        if #available(iOS 13.0, *) {
+            return PassthroughSubject<ControllableEvent, ControllableError>()
+        } else {
+            fatalError()
+        }
+    }()
 
     @OptionalCoordinateProperty
     public private(set) var coordinate: CLLocationCoordinate2D?
@@ -71,7 +83,6 @@ public final class Location: NSObject, Source, Controllable {
         ]
     }
 
-    @Published
     public var isUpdating: Bool = false
 
     private var locationManager: CLLocationManager? {
@@ -95,13 +106,25 @@ public final class Location: NSObject, Source, Controllable {
             switch state {
             case .monitoring:
                 isUpdating = true
-                eventsSubject.send(.startedUpdating)
+                if #available(iOS 13.0, *) {
+                    eventsSubject.send(.startedUpdating)
+                } else {
+                    // Fallback on earlier versions
+                }
             case .askingForPermissions:
                 isUpdating = false
-                eventsSubject.send(.requestingPermission)
+                if #available(iOS 13.0, *) {
+                    eventsSubject.send(.requestingPermission)
+                } else {
+                    // Fallback on earlier versions
+                }
             case .notMonitoring:
                 isUpdating = false
-                eventsSubject.send(completion: .finished)
+                if #available(iOS 13.0, *) {
+                    eventsSubject.send(completion: .finished)
+                } else {
+                    // Fallback on earlier versions
+                }
             }
         }
     }
@@ -279,7 +302,11 @@ extension Location: CLLocationManagerDelegate {
 
     public func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
         availability = SourceAvailability(authorizationStatus: status) ?? .unavailable
-        eventsSubject.send(.availabilityUpdated(availability))
+        if #available(iOS 13.0, *) {
+            eventsSubject.send(.availabilityUpdated(availability))
+        } else {
+            // Fallback on earlier versions
+        }
 
         _authorizationStatus.update(value: status)
 

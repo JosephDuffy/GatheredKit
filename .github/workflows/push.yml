@@ -12,21 +12,21 @@ jobs:
         xcode: ["11.4"]
 
     steps:
-    - uses: actions/checkout@v1
+      - uses: actions/checkout@v1
 
-    - name: Select Xcode ${{ matrix.xcode }}
-      run: sudo xcode-select --switch /Applications/Xcode_${{ matrix.xcode }}.app
+      - name: Select Xcode ${{ matrix.xcode }}
+        run: sudo xcode-select --switch /Applications/Xcode_${{ matrix.xcode }}.app
 
-    - name: Cache SwiftPM
-      uses: actions/cache@v1
-      with:
-        path: .build
-        key: ${{ runner.os }}-xcode_${{ matrix.xcode }}-swiftpm-${{ github.workspace }}-${{ github.ref }}
-        restore-keys: |
-          ${{ runner.os }}-xcode_${{ matrix.xcode }}-swiftpm-${{ github.workspace }}-${{ github.base_ref }}
-          ${{ runner.os }}-xcode_${{ matrix.xcode }}-swiftpm-${{ github.workspace }}-
-    - name: SwiftPM tests
-      run: swift test --skip-update
+      - name: Cache SwiftPM
+        uses: actions/cache@v1
+        with:
+          path: .build
+          key: ${{ runner.os }}-xcode_${{ matrix.xcode }}-swiftpm-${{ github.workspace }}-${{ github.ref }}
+          restore-keys: |
+            ${{ runner.os }}-xcode_${{ matrix.xcode }}-swiftpm-${{ github.workspace }}-${{ github.base_ref }}
+            ${{ runner.os }}-xcode_${{ matrix.xcode }}-swiftpm-${{ github.workspace }}-
+      - name: SwiftPM tests
+        run: swift test --skip-update
 
   xcode_tests:
     name: ${{ matrix.platform }} on Xcode ${{ matrix.xcode }}
@@ -38,25 +38,25 @@ jobs:
         platform: ["iOS", "tvOS", "macOS"]
 
     steps:
-    - uses: actions/checkout@v1
+      - uses: actions/checkout@v1
 
-    - name: Select Xcode ${{ matrix.xcode }}
-      run: sudo xcode-select --switch /Applications/Xcode_${{ matrix.xcode }}.app
+      - name: Select Xcode ${{ matrix.xcode }}
+        run: sudo xcode-select --switch /Applications/Xcode_${{ matrix.xcode }}.app
 
-    - name: Create Xcode Project
-      run: swift package generate-xcodeproj --enable-code-coverage --skip-extra-files
+      - name: Create Xcode Project
+        run: swift package generate-xcodeproj --enable-code-coverage --skip-extra-files
 
-    - name: Cache SwiftPM
-      uses: actions/cache@v1
-      with:
-        path: DevelopmentDependencies/.build
-        key: ${{ runner.os }}-swiftpm-dev-deps-${{ env.PWD }}-${{ hashFiles('DevelopmentDependencies/Package.resolved') }}
-        restore-keys: |
-          ${{ runner.os }}-swiftpm-dev-deps-${{ env.PWD }}
-    - name: Run Tests
-      run: swift run --configuration release --package-path ./DevelopmentDependencies/ xcutils test --platform ${{ matrix.platform }} --scheme GatheredKit-Package --project GatheredKit.xcodeproj/
+      - name: Cache SwiftPM
+        uses: actions/cache@v1
+        with:
+          path: DevelopmentDependencies/.build
+          key: ${{ runner.os }}-swiftpm-dev-deps-${{ env.PWD }}-${{ hashFiles('DevelopmentDependencies/Package.resolved') }}
+          restore-keys: |
+            ${{ runner.os }}-swiftpm-dev-deps-${{ env.PWD }}
+      - name: Run Tests
+        run: swift run --configuration release --package-path ./DevelopmentDependencies/ xcutils test ${{ matrix.platform }} --scheme GatheredKit-Package
 
-    - name: Coveralls
-      run: bash <(curl -s https://codecov.io/bash)
-      env:
-         CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
+      - name: Coveralls
+        run: bash <(curl -s https://codecov.io/bash)
+        env:
+          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}

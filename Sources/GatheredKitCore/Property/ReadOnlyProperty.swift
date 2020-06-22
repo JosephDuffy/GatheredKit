@@ -21,8 +21,33 @@ open class ReadOnlyProperty<Value, Formatter: Foundation.Formatter>: AnyProperty
 
     public let displayName: String
 
-    @Published
     public internal(set) var snapshot: Snapshot
+
+    #if canImport(Combine)
+    /// The upates subject that publishes updates.
+    @available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
+    private var snapshotSubject: PassthroughSubject<Snapshot, Never> {
+        return _snapshotSubject as! PassthroughSubject<Snapshot, Never>
+    }
+
+    private lazy var _snapshotSubject: Any = {
+        if #available(iOS 13.0, *) {
+            return PassthroughSubject<Snapshot, Never>()
+        } else {
+            preconditionFailure("Should not be accessed")
+        }
+    }()
+
+    @available(iOS 13.0, *)
+    public var publisher: AnyPublisher<Snapshot, Never> {
+        return snapshotSubject.eraseToAnyPublisher()
+    }
+
+    @available(iOS 13.0, *)
+    public var typeErasedPublisher: AnyPublisher<AnySnapshot, Never> {
+        return publisher.map { $0 as AnySnapshot }.eraseToAnyPublisher()
+    }
+    #endif
 
     public internal(set) var value: Value {
         get {
@@ -45,14 +70,6 @@ open class ReadOnlyProperty<Value, Formatter: Foundation.Formatter>: AnyProperty
 
     public var typeErasedFormatter: Foundation.Formatter {
         return formatter
-    }
-
-    public var publisher: Published<Snapshot>.Publisher {
-        return $snapshot
-    }
-
-    public var typeErasedPublisher: AnyPublisher<AnySnapshot, Never> {
-        return $snapshot.map { $0 as AnySnapshot }.eraseToAnyPublisher()
     }
 
     public required init(displayName: String, value: Value, formatter: Formatter = Formatter(), date: Date = Date()) {

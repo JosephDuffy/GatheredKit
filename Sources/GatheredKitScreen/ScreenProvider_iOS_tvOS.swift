@@ -3,6 +3,7 @@ import UIKit
 import Combine
 import GatheredKitCore
 
+@available(iOS 13.0, *)
 public final class ScreenProvider: ControllableSourceProvider {
 
     private enum State {
@@ -29,10 +30,8 @@ public final class ScreenProvider: ControllableSourceProvider {
 
     private let sourceProviderEventsSubject = PassthroughSubject<SourceProviderEvent<Screen>, Never>()
 
-    @Published
     public private(set) var sources: [Screen]
 
-    @Published
     public private(set) var isUpdating: Bool = false
 
     private var state: State = .notMonitoring {
