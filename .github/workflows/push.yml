@@ -3,8 +3,8 @@ name: Tests
 on: [push]
 
 jobs:
-  swiftpm_tests:
-    name: SwiftPM on Xcode ${{ matrix.xcode }}
+  macos_tests:
+    name: macOS Tests (SwiftPM)
     runs-on: macos-latest
     strategy:
       fail-fast: false
@@ -12,7 +12,7 @@ jobs:
         xcode: ["11.4"]
 
     steps:
-      - uses: actions/checkout@v1
+      - uses: actions/checkout@v2
 
       - name: Select Xcode ${{ matrix.xcode }}
         run: sudo xcode-select --switch /Applications/Xcode_${{ matrix.xcode }}.app
@@ -21,42 +21,112 @@ jobs:
         uses: actions/cache@v1
         with:
           path: .build
-          key: ${{ runner.os }}-xcode_${{ matrix.xcode }}-swiftpm-${{ github.workspace }}-${{ github.ref }}
+          key: ${{ runner.os }}-xcode_${{ matrix.xcode }}-swiftpm-deps-${{ github.workspace }}-${{ hashFiles('Package.resolved') }}
           restore-keys: |
-            ${{ runner.os }}-xcode_${{ matrix.xcode }}-swiftpm-${{ github.workspace }}-${{ github.base_ref }}
-            ${{ runner.os }}-xcode_${{ matrix.xcode }}-swiftpm-${{ github.workspace }}-
+            ${{ runner.os }}-xcode_${{ matrix.xcode }}-swiftpm-deps-${{ github.workspace }}
+
       - name: SwiftPM tests
-        run: swift test --skip-update
+        run: swift test --enable-code-coverage
+
+      - name: Convert coverage to lcov
+        run: xcrun llvm-cov export -format="lcov" .build/debug/GatheredKitPackageTests.xctest/Contents/MacOS/GatheredKitPackageTests -instr-profile .build/debug/codecov/default.profdata > coverage.lcov
+
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v1
+        with:
+          fail_ci_if_error: true
 
   xcode_tests:
-    name: ${{ matrix.platform }} on Xcode ${{ matrix.xcode }}
+    name: ${{ matrix.platform }} Tests (Xcode)
     runs-on: macos-latest
     strategy:
       fail-fast: false
       matrix:
         xcode: ["11.4"]
-        platform: ["iOS", "tvOS", "macOS"]
+        platform: ["iOS", "tvOS"]
+        platform-version: ["latest", "12.0"]
 
     steps:
-      - uses: actions/checkout@v1
+      - uses: actions/checkout@v2
 
       - name: Select Xcode ${{ matrix.xcode }}
         run: sudo xcode-select --switch /Applications/Xcode_${{ matrix.xcode }}.app
-
-      - name: Create Xcode Project
-        run: swift package generate-xcodeproj --enable-code-coverage --skip-extra-files
 
       - name: Cache SwiftPM
         uses: actions/cache@v1
         with:
           path: DevelopmentDependencies/.build
-          key: ${{ runner.os }}-swiftpm-dev-deps-${{ env.PWD }}-${{ hashFiles('DevelopmentDependencies/Package.resolved') }}
+          key: ${{ runner.os }}-xcode_${{ matrix.xcode }}-swiftpm-ci-deps-${{ github.workspace }}-${{ hashFiles('DevelopmentDependencies/Package.resolved') }}
           restore-keys: |
-            ${{ runner.os }}-swiftpm-dev-deps-${{ env.PWD }}
-      - name: Run Tests
-        run: swift run --configuration release --package-path ./DevelopmentDependencies/ xcutils test ${{ matrix.platform }} --scheme GatheredKit-Package
+            ${{ runner.os }}-xcode_${{ matrix.xcode }}-swiftpm-ci-deps-${{ github.workspace }}
 
-      - name: Coveralls
-        run: bash <(curl -s https://codecov.io/bash)
-        env:
-          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
+      - name: Cache DerivedData
+        uses: actions/cache@v1
+        with:
+          path: ~/Library/Developer/Xcode/DerivedData
+          key: ${{ runner.os }}-${{ matrix.platform }}_derived_data-xcode_${{ matrix.xcode }}
+          restore-keys: |
+            ${{ runner.os }}-${{ matrix.platform }}_derived_data
+
+      - name: Run Tests
+        run: swift run --configuration release --skip-update --package-path ./DevelopmentDependencies/ xcutils test ${{ matrix.platform }} --version ${{ matrix.platform-version }} --scheme GatheredKit-Package --enable-code-coverage
+
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v1
+        with:
+          fail_ci_if_error: true
+
+  watchos_build:
+    name: watchOS Build (Xcode)
+    runs-on: macos-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        xcode: ["11.4"]
+        version: ["latest", "4.0"]
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Select Xcode ${{ matrix.xcode }}
+        run: sudo xcode-select --switch /Applications/Xcode_${{ matrix.xcode }}.app
+
+      - name: Cache SwiftPM
+        uses: actions/cache@v1
+        with:
+          path: DevelopmentDependencies/.build
+          key: ${{ runner.os }}-xcode_${{ matrix.xcode }}-swiftpm-ci-deps-${{ github.workspace }}-${{ hashFiles('DevelopmentDependencies/Package.resolved') }}
+          restore-keys: |
+            ${{ runner.os }}-xcode_${{ matrix.xcode }}-swiftpm-ci-deps-${{ github.workspace }}
+
+      - name: Cache DerivedData
+        uses: actions/cache@v1
+        with:
+          path: ~/Library/Developer/Xcode/DerivedData
+          key: ${{ runner.os }}-watchOS_derived_data-xcode_${{ matrix.xcode }}
+          restore-keys: |
+            ${{ runner.os }}-watchOS_derived_data
+
+      - name: Build for watchOS
+        run: swift run --configuration release --skip-update --package-path ./DevelopmentDependencies/ xcutils build watchOS --scheme GatheredKit --version ${{ matrix.version }}
+
+  linux_tests:
+    name: SwiftPM on ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-16.04, ubuntu-latest]
+        swift: ["5.2.3"]
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Install swiftenv
+        run: |
+          eval "$(curl -sL https://swiftenv.fuller.li/install.sh)"
+          echo "::set-env name=SWIFTENV_ROOT::$HOME/.swiftenv"
+          echo "::add-path::$SWIFTENV_ROOT/bin:$PATH"
+
+      - name: swift test
+        run: swift test --skip-update --enable-test-discovery

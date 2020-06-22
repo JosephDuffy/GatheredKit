@@ -17,23 +17,11 @@ public final class Screen: Source, Controllable {
 
     public let name = "Screen"
 
-    @available(iOS 13.0, *)
     public var controllableEventsPublisher: AnyPublisher<ControllableEvent, ControllableError> {
         return eventsSubject.eraseToAnyPublisher()
     }
 
-    @available(iOS 13.0, *)
-    private var eventsSubject: PassthroughSubject<ControllableEvent, ControllableError> {
-        return _eventsSubject as! PassthroughSubject<ControllableEvent, ControllableError>
-    }
-
-    private lazy var _eventsSubject: Any = {
-        if #available(iOS 13.0, *) {
-            return PassthroughSubject<ControllableEvent, ControllableError>()
-        } else {
-            fatalError()
-        }
-    }()
+    private lazy var eventsSubject = CurrentValueSubject<ControllableEvent, ControllableError>()
 
     public private(set) var isUpdating: Bool = false
 

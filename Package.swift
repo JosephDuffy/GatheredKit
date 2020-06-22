@@ -4,7 +4,7 @@ import PackageDescription
 let package = Package(
     name: "GatheredKit",
     platforms: [
-        .macOS(.v10_15), .iOS(.v13), .tvOS(.v13), .watchOS(.v6),
+        .macOS(.v10_15), .iOS(.v12), .tvOS(.v12), .watchOS(.v5),
     ],
     products: [
         .library(name: "GatheredKit", targets: ["GatheredKit"]),

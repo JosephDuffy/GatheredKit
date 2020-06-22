@@ -22,18 +22,18 @@ public final class Screen: Source, Controllable {
 
     public let name: String
 
-    @available(iOS 13.0, *)
+    @available(iOS 13.0, tvOS 13.0, *)
     public var controllableEventsPublisher: AnyPublisher<ControllableEvent, ControllableError> {
         return eventsSubject.eraseToAnyPublisher()
     }
 
-    @available(iOS 13.0, *)
+    @available(iOS 13.0, tvOS 13.0, *)
     private var eventsSubject: PassthroughSubject<ControllableEvent, ControllableError> {
         return _eventsSubject as! PassthroughSubject<ControllableEvent, ControllableError>
     }
 
     private lazy var _eventsSubject: Any = {
-        if #available(iOS 13.0, *) {
+        if #available(iOS 13.0, tvOS 13.0, *) {
             return PassthroughSubject<ControllableEvent, ControllableError>()
         } else {
             fatalError()
@@ -221,7 +221,7 @@ public final class Screen: Source, Controllable {
         )
         #endif
 
-        if #available(iOS 13.0, *) {
+        if #available(iOS 13.0, tvOS 13.0, watchOS 6.0, *) {
             eventsSubject.send(.startedUpdating)
         } else {
             // Fallback on earlier versions
@@ -255,7 +255,7 @@ public final class Screen: Source, Controllable {
             )
 
         state = .notMonitoring
-        if #available(iOS 13.0, *) {
+        if #available(iOS 13.0, tvOS 13.0, watchOS 6.0, *) {
             eventsSubject.send(completion: .finished)
         } else {
             // Fallback on earlier versions

@@ -6,7 +6,7 @@ public protocol AnyProperty: class, AnySnapshot {
     var date: Date { get }
     var typeErasedFormatter: Formatter { get }
     // TODO: Change `Never` to `Error`
-    @available(iOS 13.0, *)
+    @available(iOS 13.0, tvOS 13.0, watchOS 6.0, *)
     var typeErasedPublisher: AnyPublisher<AnySnapshot, Never> { get }
 }
 

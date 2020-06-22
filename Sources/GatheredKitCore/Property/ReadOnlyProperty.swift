@@ -26,24 +26,24 @@ open class ReadOnlyProperty<Value, Formatter: Foundation.Formatter>: AnyProperty
     #if canImport(Combine)
     /// The upates subject that publishes updates.
     @available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-    private var snapshotSubject: PassthroughSubject<Snapshot, Never> {
-        return _snapshotSubject as! PassthroughSubject<Snapshot, Never>
+    private var snapshotSubject: CurrentValueSubject<Snapshot, Never> {
+        return _snapshotSubject as! CurrentValueSubject<Snapshot, Never>
     }
 
     private lazy var _snapshotSubject: Any = {
-        if #available(iOS 13.0, *) {
-            return PassthroughSubject<Snapshot, Never>()
+        if #available(iOS 13.0, tvOS 13.0, watchOS 6.0, *) {
+            return CurrentValueSubject<Snapshot, Never>(snapshot)
         } else {
             preconditionFailure("Should not be accessed")
         }
     }()
 
-    @available(iOS 13.0, *)
+    @available(iOS 13.0, tvOS 13.0, watchOS 6.0, *)
     public var publisher: AnyPublisher<Snapshot, Never> {
         return snapshotSubject.eraseToAnyPublisher()
     }
 
-    @available(iOS 13.0, *)
+    @available(iOS 13.0, tvOS 13.0, watchOS 6.0, *)
     public var typeErasedPublisher: AnyPublisher<AnySnapshot, Never> {
         return publisher.map { $0 as AnySnapshot }.eraseToAnyPublisher()
     }

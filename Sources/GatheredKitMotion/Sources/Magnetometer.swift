@@ -17,18 +17,18 @@ public final class Magnetometer: Source, CustomisableUpdateIntervalControllable 
 
     public static var defaultUpdateInterval: TimeInterval = 1
 
-    @available(iOS 13.0, *)
+    @available(iOS 13.0, watchOS 6.0, *)
     public var controllableEventsPublisher: AnyPublisher<ControllableEvent, ControllableError> {
         return eventsSubject.eraseToAnyPublisher()
     }
 
-    @available(iOS 13.0, *)
+    @available(iOS 13.0, watchOS 6.0, *)
     private var eventsSubject: PassthroughSubject<ControllableEvent, ControllableError> {
         return _eventsSubject as! PassthroughSubject<ControllableEvent, ControllableError>
     }
 
     private lazy var _eventsSubject: Any = {
-        if #available(iOS 13.0, *) {
+        if #available(iOS 13.0, watchOS 6.0, *) {
             return PassthroughSubject<ControllableEvent, ControllableError>()
         } else {
             fatalError()
@@ -79,7 +79,7 @@ public final class Magnetometer: Source, CustomisableUpdateIntervalControllable 
 
             if let error = error {
                 CMMotionManager.shared.stopMagnetometerUpdates()
-                if #available(iOS 13.0, *) {
+                if #available(iOS 13.0, tvOS 13.0, watchOS 6.0, *) {
                     self.eventsSubject.send(completion: .failure(.other(error)))
                 } else {
                     // Fallback on earlier versions
@@ -93,7 +93,7 @@ public final class Magnetometer: Source, CustomisableUpdateIntervalControllable 
         }
 
         state = .monitoring(updatesQueue: updatesQueue)
-        if #available(iOS 13.0, *) {
+        if #available(iOS 13.0, tvOS 13.0, watchOS 6.0, *) {
             eventsSubject.send(.startedUpdating)
         } else {
             // Fallback on earlier versions
@@ -103,7 +103,7 @@ public final class Magnetometer: Source, CustomisableUpdateIntervalControllable 
     public func stopUpdating() {
         CMMotionManager.shared.stopMagnetometerUpdates()
         state = .notMonitoring
-        if #available(iOS 13.0, *) {
+        if #available(iOS 13.0, tvOS 13.0, watchOS 6.0, *) {
             eventsSubject.send(completion: .finished)
         } else {
             // Fallback on earlier versions

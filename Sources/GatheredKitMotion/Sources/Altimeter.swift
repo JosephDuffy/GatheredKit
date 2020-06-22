@@ -15,18 +15,18 @@ public final class Altimeter: Source, Controllable, ActionProvider {
 
     public private(set) var availability: SourceAvailability
 
-    @available(iOS 13.0, *)
+    @available(iOS 13.0, watchOS 6.0, *)
     public var controllableEventsPublisher: AnyPublisher<ControllableEvent, ControllableError> {
         return eventsSubject.eraseToAnyPublisher()
     }
 
-    @available(iOS 13.0, *)
+    @available(iOS 13.0, watchOS 6.0, *)
     private var eventsSubject: PassthroughSubject<ControllableEvent, ControllableError> {
         return _eventsSubject as! PassthroughSubject<ControllableEvent, ControllableError>
     }
 
     private lazy var _eventsSubject: Any = {
-        if #available(iOS 13.0, *) {
+        if #available(iOS 13.0, watchOS 6.0, *) {
             return PassthroughSubject<ControllableEvent, ControllableError>()
         } else {
             fatalError()
@@ -79,7 +79,7 @@ public final class Altimeter: Source, Controllable, ActionProvider {
         availability = CMAltimeter.availability
 
         if availability != oldAvailability {
-            if #available(iOS 13.0, *) {
+            if #available(iOS 13.0, tvOS 13.0, watchOS 6.0, *) {
                 eventsSubject.send(.availabilityUpdated(availability))
             } else {
                 // Fallback on earlier versions
@@ -90,7 +90,7 @@ public final class Altimeter: Source, Controllable, ActionProvider {
         case .available:
             break
         case .permissionDenied:
-            if #available(iOS 13.0, *) {
+            if #available(iOS 13.0, tvOS 13.0, watchOS 6.0, *) {
                 eventsSubject.send(completion: .failure(.permissionDenied))
             } else {
                 // Fallback on earlier versions
@@ -100,14 +100,14 @@ public final class Altimeter: Source, Controllable, ActionProvider {
             // Perhaps it will ask the user when `startRelativeAltitudeUpdates` is called?
             break
         case .restricted:
-            if #available(iOS 13.0, *) {
+            if #available(iOS 13.0, tvOS 13.0, watchOS 6.0, *) {
                 eventsSubject.send(completion: .failure(.restricted))
             } else {
                 // Fallback on earlier versions
             }
             return
         case .unavailable:
-            if #available(iOS 13.0, *) {
+            if #available(iOS 13.0, tvOS 13.0, watchOS 6.0, *) {
                 eventsSubject.send(completion: .failure(.unavailable))
             } else {
                 // Fallback on earlier versions
@@ -123,7 +123,7 @@ public final class Altimeter: Source, Controllable, ActionProvider {
             guard let self = self else { return }
             if let error = error {
                 altimeter?.stopRelativeAltitudeUpdates()
-                if #available(iOS 13.0, *) {
+                if #available(iOS 13.0, tvOS 13.0, watchOS 6.0, *) {
                     self.eventsSubject.send(completion: .failure(.other(error)))
                 } else {
                     // Fallback on earlier versions
@@ -137,7 +137,7 @@ public final class Altimeter: Source, Controllable, ActionProvider {
         }
 
         state = .monitoring(altimeter: altimeter, updatesQueue: updatesQueue)
-        if #available(iOS 13.0, *) {
+        if #available(iOS 13.0, tvOS 13.0, watchOS 6.0, *) {
             eventsSubject.send(.startedUpdating)
         } else {
             // Fallback on earlier versions
@@ -148,7 +148,7 @@ public final class Altimeter: Source, Controllable, ActionProvider {
         guard case .monitoring(let altimeter, _) = state else { return }
         altimeter.stopRelativeAltitudeUpdates()
         state = .notMonitoring
-        if #available(iOS 13.0, *) {
+        if #available(iOS 13.0, tvOS 13.0, watchOS 6.0, *) {
             eventsSubject.send(completion: .finished)
         } else {
             // Fallback on earlier versions
