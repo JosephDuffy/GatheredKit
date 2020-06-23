@@ -15,7 +15,7 @@ let package = Package(
         .library(name: "GatheredKitTestHelpers", targets: ["GatheredKitTestHelpers"]),
     ],
     targets: [
-        .target(name: "GatheredKit", dependencies: ["GatheredKitCore", "GatheredKitLocation", "GatheredKitScreen"]),
+        .target(name: "GatheredKit", dependencies: ["GatheredKitCore", "GatheredKitLocation", "GatheredKitMotion", "GatheredKitScreen"]),
 
         .target(name: "GatheredKitCore"),
         .testTarget(name: "GatheredKitCoreTests", dependencies: ["GatheredKitCore", "GatheredKitTestHelpers"]),
