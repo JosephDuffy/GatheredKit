@@ -203,7 +203,7 @@ final class ScreenTests: XCTestCase {
 
     #if os(iOS)
     func testBrightnessUpdate() {
-        if #available(iOS 13.0, tvOS 13.0, *) {
+        if #available(iOS 13.0, *) {
             let uiScreen = UIScreen.main
             let notificationCenter = NotificationCenter()
             let screen = Screen(screen: uiScreen, notificationCenter: notificationCenter)
