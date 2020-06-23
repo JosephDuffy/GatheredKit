@@ -1,4 +1,4 @@
-#if os(iOS) || os(tvOS) || os(macOS)
+#if os(iOS) || os(tvOS)
 import UIKit
 @testable
 import GatheredKitScreen
@@ -49,7 +49,7 @@ final class MockScreen: UIScreen {
         }
     }
 
-    #if os(iOS) || os(macOS)
+    #if os(iOS)
     private var _brightness: CGFloat?
 
     override var brightness: CGFloat {
