@@ -44,12 +44,7 @@ jobs:
       matrix:
         xcode: ["11.4"]
         platform: ["iOS", "tvOS"]
-        scheme:
-          [
-            "GatheredKitCore",
-            "GatheredKitLocationTests",
-            "GatheredKitScreenTests",
-          ]
+        scheme: ["GatheredKitCore", "GatheredKitLocation", "GatheredKitScreen"]
 
     steps:
       - uses: actions/checkout@v2
