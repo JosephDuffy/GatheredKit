@@ -6,28 +6,24 @@ jobs:
   swiftlint:
     name: SwiftLint (Xcode ${{ matrix.xcode }})
     runs-on: macos-latest
-
-    steps:
-    - uses: actions/checkout@v2
-
     strategy:
       matrix:
         xcode: ["11.5"]
 
     steps:
-    - uses: actions/checkout@v2
+      - uses: actions/checkout@v2
 
-    - name: Select Xcode ${{ matrix.xcode }}
-      run: sudo xcode-select --switch /Applications/Xcode_${{ matrix.xcode }}.app
+      - name: Select Xcode ${{ matrix.xcode }}
+        run: sudo xcode-select --switch /Applications/Xcode_${{ matrix.xcode }}.app
 
-    - name: Cache SwiftPM
-      uses: actions/cache@v2
-      with:
-        path: DevelopmentDependencies/.build
-        key: ${{ runner.os }}-xcode_${{ matrix.xcode }}-swiftpm-${{ github.workspace }}-${{ hashFiles('DevelopmentDependencies/Package.resolved') }}
+      - name: Cache SwiftPM
+        uses: actions/cache@v2
+        with:
+          path: DevelopmentDependencies/.build
+          key: ${{ runner.os }}-xcode_${{ matrix.xcode }}-swiftpm-${{ github.workspace }}-${{ hashFiles('DevelopmentDependencies/Package.resolved') }}
 
-    - name: Build SwiftLint
-      run: swift build --skip-update --configuration release --package-path ./DevelopmentDependencies/ --product swiftlint
+      - name: Build SwiftLint
+        run: swift build --skip-update --configuration release --package-path ./DevelopmentDependencies/ --product swiftlint
 
-    - name: Run SwiftLint
-      run: ./scripts/swiftlint-github-actions.sh
+      - name: Run SwiftLint
+        run: ./scripts/swiftlint-github-actions.sh
