@@ -1,3 +1,3 @@
 #!/bin/bash
 
-swift run --package-path ./DevelopmentDependencies/ --skip-update swiftlint "$@"
+swift run --skip-update --configuration release --package-path ./DevelopmentDependencies/ swiftlint

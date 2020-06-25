@@ -1,4 +1,4 @@
-// swift-tools-version:5.0
+// swift-tools-version:5.2
 import PackageDescription
 
 let package = Package(
@@ -6,15 +6,11 @@ let package = Package(
     platforms: [
         .macOS(.v10_10),
     ],
-    products: [
-        .library(name: "DangerDeps", type: .dynamic, targets: ["DangerDependencies"]),
-    ],
     dependencies: [
-        .package(url: "https://github.com/danger/swift.git", from: "3.0.0"),
-        .package(url: "https://github.com/Realm/SwiftLint", .upToNextMinor(from: "0.36.0")),
+        .package(name: "SwiftLint", url: "https://github.com/Realm/SwiftLint", .upToNextMinor(from: "0.39.0")),
         .package(url: "https://github.com/JosephDuffy/xcutils.git", .branch("master")),
     ],
     targets: [
-        .target(name: "DangerDependencies", dependencies: ["Danger", "swiftlint", "danger-swift"], path: "DangerDependencies"), // dev
+        .target(name: "DevelopmentDependencies"),
     ]
 )
