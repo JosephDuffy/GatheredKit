@@ -6,20 +6,11 @@ xcuserdata/
 ## Build generated
 build/
 
-## Obj-C/Swift specific
-*.hmap
-
 # Swift Package Manager
 .build/
 
 # macOS
 .DS_Store
 
-# Node
-node_modules
-
 # Documentation
 docs/
-
-# Tests
-test_output/
