@@ -48,9 +48,9 @@ jobs:
         uses: actions/cache@v2
         with:
           path: DevelopmentDependencies/.build
-          key: ${{ runner.os }}-xcode_${{ matrix.xcode }}-swiftpm-${{ github.workspace }}-${{ hashFiles('DevelopmentDependencies/Package.resolved') }}
+          key: ${{ runner.os }}-xcode_${{ matrix.xcode }}-swiftpm-ci-deps-${{ github.workspace }}-${{ hashFiles('DevelopmentDependencies/Package.resolved') }}
           restore-keys: |
-            ${{ runner.os }}-xcode_${{ matrix.xcode }}-swiftpm-${{ github.workspace }}-
+            ${{ runner.os }}-xcode_${{ matrix.xcode }}-swiftpm-ci-deps-${{ github.workspace }}-
 
       - name: Cache DerivedData
         uses: actions/cache@v2
@@ -86,9 +86,9 @@ jobs:
         uses: actions/cache@v2
         with:
           path: DevelopmentDependencies/.build
-          key: ${{ runner.os }}-xcode_${{ matrix.xcode }}-swiftpm-${{ github.workspace }}-${{ hashFiles('DevelopmentDependencies/Package.resolved') }}
+          key: ${{ runner.os }}-xcode_${{ matrix.xcode }}-swiftpm-ci-deps-${{ github.workspace }}-${{ hashFiles('DevelopmentDependencies/Package.resolved') }}
           restore-keys: |
-            ${{ runner.os }}-xcode_${{ matrix.xcode }}-swiftpm-${{ github.workspace }}-
+            ${{ runner.os }}-xcode_${{ matrix.xcode }}-swiftpm-ci-deps-${{ github.workspace }}-
 
       - name: Cache DerivedData
         uses: actions/cache@v2
