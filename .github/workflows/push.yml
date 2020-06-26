@@ -29,13 +29,14 @@ jobs:
           fail_ci_if_error: true
 
   xcode_tests:
-    name: ${{ matrix.platform }} Tests (Xcode ${{ matrix.xcode }})
+    name: ${{ matrix.platform }} ${{ matrix.scheme }} Tests (Xcode ${{ matrix.xcode }})
     runs-on: macos-latest
     strategy:
       fail-fast: false
       matrix:
         xcode: ["11.5"]
         platform: ["iOS", "tvOS", "macCatalyst"]
+        scheme: ["GatheredKitCore", "GatheredKitLocation", "GatheredKitScreen"]
 
     steps:
       - uses: actions/checkout@v2
@@ -60,7 +61,7 @@ jobs:
             ${{ runner.os }}-${{ matrix.platform }}_derived_data
 
       - name: Run Tests
-        run: swift run --configuration release --skip-update --package-path ./DevelopmentDependencies/ xcutils test ${{ matrix.platform }} --scheme GatheredKit-Package --enable-code-coverage
+        run: swift run --configuration release --skip-update --package-path ./DevelopmentDependencies/ xcutils test ${{ matrix.platform }} --scheme ${{ matrix.scheme }} --enable-code-coverage
 
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v1
