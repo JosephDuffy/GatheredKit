@@ -56,15 +56,6 @@ public final class BasicProperty<Value, Formatter>: Property where Formatter: Fo
         updateSubject = UpdateSubject()
     }
 
-    public convenience init(
-        displayName: String,
-        optionalValue: Value = nil,
-        formatter: Formatter = Formatter(),
-        date: Date = Date()
-    ) where Value: ExpressibleByNilLiteral {
-        self.init(displayName: displayName, value: optionalValue, formatter: formatter, date: date)
-    }
-
     // MARK: Update Functions
 
     /**
@@ -103,5 +94,16 @@ extension BasicProperty: Equatable where Value: Equatable {
             lhs.displayName == rhs.displayName &&
             lhs.value == rhs.value &&
             lhs.date == rhs.date
+    }
+}
+
+extension BasicProperty where Value: ExpressibleByNilLiteral {
+    public convenience init(
+        displayName: String,
+        optionalValue: Value = nil,
+        formatter: Formatter = Formatter(),
+        date: Date = Date()
+    ) {
+        self.init(displayName: displayName, value: optionalValue, formatter: formatter, date: date)
     }
 }

@@ -92,27 +92,6 @@ public final class OptionalMeasurementProperty<Unit: Foundation.Unit>: Property,
         updateSubject = .init()
     }
 
-    public init(
-        displayName: String,
-        value measuredValue: Double? = nil,
-        unit: Unit = .baseUnit(),
-        formatter: MeasurementFormatter = MeasurementFormatter(),
-        date: Date = Date()
-    ) where Unit: Foundation.Dimension {
-        let measurement: Measurement<Unit>?
-        if let measuredValue = measuredValue {
-            measurement = Measurement(value: measuredValue, unit: unit)
-        } else {
-            measurement = nil
-        }
-
-        self.displayName = displayName
-        self.formatter = formatter
-        self.unit = unit
-        snapshot = Snapshot(value: measurement, date: date)
-        updateSubject = .init()
-    }
-
     // MARK: Update Functions
 
     public func update(
@@ -146,5 +125,16 @@ public final class OptionalMeasurementProperty<Unit: Foundation.Unit>: Property,
         update(value: value, date: date)
         return true
     }
+}
 
+extension OptionalMeasurementProperty where Unit: Foundation.Dimension {
+    public convenience init(
+        displayName: String,
+        value measuredValue: Double? = nil,
+        dimention: Unit = .baseUnit(),
+        formatter: MeasurementFormatter = MeasurementFormatter(),
+        date: Date = Date()
+    ) {
+        self.init(displayName: displayName, value: measuredValue, unit: dimention, formatter: formatter, date: date)
+    }
 }
