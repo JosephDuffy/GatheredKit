@@ -68,7 +68,7 @@ public final class ScreenProvider: ControllableSourceProvider {
             queue: nil
         ) { [unowned self] notification in
             guard let uiScreen = notification.object as? UIScreen else { return }
-            let screen = Screen(screen: uiScreen, notificationCenter: notificationCenter)
+            let screen = Screen(screen: uiScreen, notificationCenter: self.notificationCenter)
             let event = SourceProviderEvent.sourceAdded(screen)
             // TODO: Explcitly insert at correct index
             self.sources = UIScreen.screens.map { uiScreen in
@@ -83,7 +83,7 @@ public final class ScreenProvider: ControllableSourceProvider {
             queue: nil
         ) { [unowned self] notification in
             guard let uiScreen = notification.object as? UIScreen else { return }
-            let screen = Screen(screen: uiScreen, notificationCenter: notificationCenter)
+            let screen = Screen(screen: uiScreen, notificationCenter: self.notificationCenter)
             let event = SourceProviderEvent.sourceRemoved(screen)
             // TODO: Explcitly remove from index
             self.sources = UIScreen.screens.map { uiScreen in
