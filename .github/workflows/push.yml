@@ -69,7 +69,7 @@ jobs:
           fail_ci_if_error: false
 
   watchos_build:
-    name: watchOS Build (Xcode ${{ matrix.xcode }}
+    name: watchOS Build (Xcode ${{ matrix.xcode }})
     runs-on: macos-latest
     strategy:
       fail-fast: false
