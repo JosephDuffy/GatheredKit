@@ -21,23 +21,11 @@ public final class DeviceMotion: Source, CustomisableUpdateIntervalControllable 
         return CMMotionManager.availableAttitudeReferenceFrames()
     }
 
-    @available(iOS 13.0, watchOS 6.0, *)
-    public var controllableEventsPublisher: AnyPublisher<ControllableEvent, ControllableError> {
-        return eventsSubject.eraseToAnyPublisher()
+    public var controllableEventUpdatePublisher: AnyUpdatePublisher<ControllableEvent> {
+        return controllableEventUpdateSubject.eraseToAnyUpdatePublisher()
     }
 
-    @available(iOS 13.0, watchOS 6.0, *)
-    private var eventsSubject: PassthroughSubject<ControllableEvent, ControllableError> {
-        return _eventsSubject as! PassthroughSubject<ControllableEvent, ControllableError>
-    }
-
-    private lazy var _eventsSubject: Any = {
-        if #available(iOS 13.0, watchOS 6.0, *) {
-            return PassthroughSubject<ControllableEvent, ControllableError>()
-        } else {
-            fatalError()
-        }
-    }()
+    private let controllableEventUpdateSubject: UpdateSubject<ControllableEvent>
 
     public private(set) var isUpdating: Bool = false
 
@@ -94,6 +82,8 @@ public final class DeviceMotion: Source, CustomisableUpdateIntervalControllable 
         _heading = .init(displayName: "Heading")
         _magneticField = .init(displayName: "Calibrated Magnetic Field")
         _rotationRate = .init(displayName: "Rotation Rate")
+
+        controllableEventUpdateSubject = .init()
     }
 
     public func startUpdating(every updateInterval: TimeInterval) {
@@ -117,11 +107,7 @@ public final class DeviceMotion: Source, CustomisableUpdateIntervalControllable 
 
             if let error = error {
                 CMMotionManager.shared.stopDeviceMotionUpdates()
-                if #available(iOS 13.0, tvOS 13.0, watchOS 6.0, *) {
-                    self.eventsSubject.send(completion: .failure(.other(error)))
-                } else {
-                    // Fallback on earlier versions
-                }
+                self.controllableEventUpdateSubject.notifyUpdateListeners(of: .stoppedUpdating(error: error))
                 self.state = .notMonitoring
                 return
             }
@@ -158,21 +144,13 @@ public final class DeviceMotion: Source, CustomisableUpdateIntervalControllable 
         }
 
         state = .monitoring(updatesQueue: updatesQueue)
-        if #available(iOS 13.0, tvOS 13.0, watchOS 6.0, *) {
-            eventsSubject.send(.startedUpdating)
-        } else {
-            // Fallback on earlier versions
-        }
+        controllableEventUpdateSubject.notifyUpdateListeners(of: .startedUpdating)
     }
 
     public func stopUpdating() {
         CMMotionManager.shared.stopDeviceMotionUpdates()
         state = .notMonitoring
-        if #available(iOS 13.0, tvOS 13.0, watchOS 6.0, *) {
-            eventsSubject.send(completion: .finished)
-        } else {
-            // Fallback on earlier versions
-        }
+        controllableEventUpdateSubject.notifyUpdateListeners(of: .stoppedUpdating())
     }
 
 }

@@ -33,13 +33,12 @@ open class Property<Value, Formatter, ReadOnlyProperty>: AnyProperty where Forma
         return property.date
     }
 
-    public var typeErasedFormatter: Foundation.Formatter {
-        return property.formatter
+    public var typeErasedUpdatePublisher: AnyUpdatePublisher<AnySnapshot> {
+        return property.typeErasedUpdatePublisher
     }
 
-    @available(iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-    public var typeErasedPublisher: AnyPublisher<AnySnapshot, Never> {
-        return property.typeErasedPublisher
+    public var typeErasedFormatter: Foundation.Formatter {
+        return property.formatter
     }
 
     public var typeErasedValue: Any? {

@@ -5,5 +5,7 @@ public enum SourceError: Error {
     /// Source availability is `permissionDenied`
     case permissionDenied
 
+    case unavailable
+
     case other(Error)
 }

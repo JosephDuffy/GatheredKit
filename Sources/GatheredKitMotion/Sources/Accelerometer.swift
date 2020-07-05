@@ -17,23 +17,11 @@ public final class Accelerometer: Source, CustomisableUpdateIntervalControllable
 
     public static var defaultUpdateInterval: TimeInterval = 1
 
-    @available(iOS 13.0, watchOS 6.0, *)
-    public var controllableEventsPublisher: AnyPublisher<ControllableEvent, ControllableError> {
-        return eventsSubject.eraseToAnyPublisher()
+    public var controllableEventUpdatePublisher: AnyUpdatePublisher<ControllableEvent> {
+        return controllableEventUpdateSubject.eraseToAnyUpdatePublisher()
     }
 
-    @available(iOS 13.0, watchOS 6.0, *)
-    private var eventsSubject: PassthroughSubject<ControllableEvent, ControllableError> {
-        return _eventsSubject as! PassthroughSubject<ControllableEvent, ControllableError>
-    }
-
-    private lazy var _eventsSubject: Any = {
-        if #available(iOS 13.0, watchOS 6.0, *) {
-            return PassthroughSubject<ControllableEvent, ControllableError>()
-        } else {
-            fatalError()
-        }
-    }()
+    private let controllableEventUpdateSubject: UpdateSubject<ControllableEvent>
 
     public private(set) var isUpdating: Bool = false
 
@@ -62,6 +50,7 @@ public final class Accelerometer: Source, CustomisableUpdateIntervalControllable
     public init() {
         availability = CMMotionManager.shared.isAccelerometerAvailable ? .available : .unavailable
         _acceleration = .init(displayName: "Acceleration")
+        controllableEventUpdateSubject = .init()
     }
 
     public func startUpdating(
@@ -78,11 +67,7 @@ public final class Accelerometer: Source, CustomisableUpdateIntervalControllable
             guard let self = self else { return }
             if let error = error {
                 CMMotionManager.shared.stopAccelerometerUpdates()
-                if #available(iOS 13.0, tvOS 13.0, watchOS 6.0, *) {
-                    self.eventsSubject.send(completion: .failure(.other(error)))
-                } else {
-                    // Fallback on earlier versions
-                }
+                self.controllableEventUpdateSubject.notifyUpdateListeners(of: .stoppedUpdating(error: error))
                 self.state = .notMonitoring
                 return
             }
@@ -91,21 +76,13 @@ public final class Accelerometer: Source, CustomisableUpdateIntervalControllable
         }
 
         state = .monitoring(updatesQueue: updatesQueue)
-        if #available(iOS 13.0, tvOS 13.0, watchOS 6.0, *) {
-            eventsSubject.send(.startedUpdating)
-        } else {
-            // Fallback on earlier versions
-        }
+        controllableEventUpdateSubject.notifyUpdateListeners(of: .startedUpdating)
     }
 
     public func stopUpdating() {
         CMMotionManager.shared.stopAccelerometerUpdates()
         state = .notMonitoring
-        if #available(iOS 13.0, tvOS 13.0, watchOS 6.0, *) {
-            eventsSubject.send(completion: .finished)
-        } else {
-            // Fallback on earlier versions
-        }
+        controllableEventUpdateSubject.notifyUpdateListeners(of: .stoppedUpdating())
     }
 
 }

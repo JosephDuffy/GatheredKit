@@ -3,7 +3,6 @@ import UIKit
 import Combine
 import GatheredKitCore
 
-@available(iOS 13.0, tvOS 13.0, watchOS 6.0, *)
 public final class ScreenProvider: ControllableSourceProvider {
 
     private enum State {
@@ -11,24 +10,24 @@ public final class ScreenProvider: ControllableSourceProvider {
         case monitoring(observers: Observers)
 
         struct Observers {
-            let didConnect: AnyCancellable
-            let didDisconnect: AnyCancellable
+            let didConnect: NSObjectProtocol
+            let didDisconnect: NSObjectProtocol
         }
     }
 
     public let name = "Screens"
 
-    public var controllableEventsPublisher: AnyPublisher<ControllableEvent, ControllableError> {
-        return controllableEventsSubject.eraseToAnyPublisher()
+    public var sourceProviderEventsPublisher: AnyUpdatePublisher<SourceProviderEvent<Screen>> {
+        sourceProviderEventsSubject.eraseToAnyUpdatePublisher()
     }
 
-    public let controllableEventsSubject = PassthroughSubject<ControllableEvent, ControllableError>()
+    private let sourceProviderEventsSubject: UpdateSubject<SourceProviderEvent<Screen>>
 
-    public var sourceProviderEventsPublisher: AnyPublisher<SourceProviderEvent<Screen>, Never> {
-        return sourceProviderEventsSubject.eraseToAnyPublisher()
+    public var controllableEventUpdatePublisher: AnyUpdatePublisher<ControllableEvent> {
+        controllableEventUpdateSubject.eraseToAnyUpdatePublisher()
     }
 
-    private let sourceProviderEventsSubject = PassthroughSubject<SourceProviderEvent<Screen>, Never>()
+    private let controllableEventUpdateSubject: UpdateSubject<ControllableEvent>
 
     public private(set) var sources: [Screen]
 
@@ -56,48 +55,52 @@ public final class ScreenProvider: ControllableSourceProvider {
         sources = UIScreen.screens.map { uiScreen in
             Screen(screen: uiScreen)
         }
+        sourceProviderEventsSubject = .init()
+        controllableEventUpdateSubject = .init()
     }
 
     public func startUpdating() {
         guard !isUpdating else { return }
 
-        let didConnectCancellable = notificationCenter
-            .publisher(for: UIScreen.didConnectNotification)
-            .map(\Notification.object)
-            .compactMap { $0 as? UIScreen }
-            .map { Screen(screen: $0) }
-            .map { SourceProviderEvent.sourceAdded($0) }
-            .sink(receiveValue: { [unowned self] event in
-                // TODO: Explcitly insert at correct index
-                self.sources = UIScreen.screens.map { uiScreen in
-                    Screen(screen: uiScreen)
-                }
-                self.sourceProviderEventsSubject.send(event)
-            })
+        let didConnectCancellable = notificationCenter.addObserver(
+            forName: UIScreen.didConnectNotification,
+            object: nil,
+            queue: nil
+        ) { [unowned self] notification in
+            guard let uiScreen = notification.object as? UIScreen else { return }
+            let screen = Screen(screen: uiScreen, notificationCenter: notificationCenter)
+            let event = SourceProviderEvent.sourceAdded(screen)
+            // TODO: Explcitly insert at correct index
+            self.sources = UIScreen.screens.map { uiScreen in
+                Screen(screen: uiScreen)
+            }
+            self.sourceProviderEventsSubject.notifyUpdateListeners(of: event)
+        }
 
-        let didDisconnectCancellable = notificationCenter
-            .publisher(for: UIScreen.didDisconnectNotification)
-            .map(\Notification.object)
-            .compactMap { $0 as? UIScreen }
-            .map { Screen(screen: $0) }
-            .map { SourceProviderEvent.sourceRemoved($0) }
-            .sink(receiveValue: { [unowned self] event in
+        let didDisconnectCancellable = notificationCenter.addObserver(
+            forName: UIScreen.didDisconnectNotification,
+            object: nil,
+            queue: nil
+        ) { [unowned self] notification in
+            guard let uiScreen = notification.object as? UIScreen else { return }
+            let screen = Screen(screen: uiScreen, notificationCenter: notificationCenter)
+            let event = SourceProviderEvent.sourceRemoved(screen)
             // TODO: Explcitly remove from index
-                self.sources = UIScreen.screens.map { uiScreen in
-                    Screen(screen: uiScreen)
-                }
-                self.sourceProviderEventsSubject.send(event)
-            })
+            self.sources = UIScreen.screens.map { uiScreen in
+                Screen(screen: uiScreen)
+            }
+            self.sourceProviderEventsSubject.notifyUpdateListeners(of: event)
+        }
 
         state = .monitoring(observers: .init(didConnect: didConnectCancellable, didDisconnect: didDisconnectCancellable))
-        controllableEventsSubject.send(.startedUpdating)
+        controllableEventUpdateSubject.notifyUpdateListeners(of: .startedUpdating)
     }
 
     public func stopUpdating() {
         guard isUpdating else { return }
 
         state = .notMonitoring
-        controllableEventsSubject.send(completion: .finished)
+        controllableEventUpdateSubject.notifyUpdateListeners(of: .stoppedUpdating())
     }
 
 }

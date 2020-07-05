@@ -21,24 +21,12 @@ public final class Screen: Source, Controllable {
     public let availability: SourceAvailability = .available
 
     public let name: String
-
-    @available(iOS 13.0, tvOS 13.0, *)
-    public var controllableEventsPublisher: AnyPublisher<ControllableEvent, ControllableError> {
-        return eventsSubject.eraseToAnyPublisher()
+    
+    public var controllableEventUpdatePublisher: AnyUpdatePublisher<ControllableEvent> {
+        controllableEventUpdateSubject.eraseToAnyUpdatePublisher()
     }
 
-    @available(iOS 13.0, tvOS 13.0, *)
-    private var eventsSubject: PassthroughSubject<ControllableEvent, ControllableError> {
-        return _eventsSubject as! PassthroughSubject<ControllableEvent, ControllableError>
-    }
-
-    private lazy var _eventsSubject: Any = {
-        if #available(iOS 13.0, tvOS 13.0, *) {
-            return PassthroughSubject<ControllableEvent, ControllableError>()
-        } else {
-            fatalError()
-        }
-    }()
+    private let controllableEventUpdateSubject: UpdateSubject<ControllableEvent>
 
     /// A boolean indicating if the screen is monitoring for brightness changes
     public var isUpdating: Bool {
@@ -163,6 +151,8 @@ public final class Screen: Source, Controllable {
         _brightness = .init(displayName: "Brightness", value: brightness)
         #endif
 
+        controllableEventUpdateSubject = .init()
+
         $reportedResolution.formatter.suffix = " Points"
         $nativeResolution.formatter.suffix = " Pixels"
     }
@@ -185,7 +175,11 @@ public final class Screen: Source, Controllable {
         let brightnessChangeObeserver: NSObjectProtocol?
 
         if uiScreen == .main {
-            brightnessChangeObeserver = notificationCenter.addObserver(forName: UIScreen.brightnessDidChangeNotification, object: uiScreen, queue: updatesQueue) { [weak self] _ in
+            brightnessChangeObeserver = notificationCenter.addObserver(
+                forName: UIScreen.brightnessDidChangeNotification,
+                object: uiScreen,
+                queue: updatesQueue
+            ) { [weak self] _ in
                 guard let self = self else { return }
                 self._brightness.updateValueIfDifferent(self.uiScreen.brightness)
             }
@@ -221,11 +215,7 @@ public final class Screen: Source, Controllable {
         )
         #endif
 
-        if #available(iOS 13.0, tvOS 13.0, watchOS 6.0, *) {
-            eventsSubject.send(.startedUpdating)
-        } else {
-            // Fallback on earlier versions
-        }
+        controllableEventUpdateSubject.notifyUpdateListeners(of: .startedUpdating)
     }
 
     /**
@@ -255,11 +245,7 @@ public final class Screen: Source, Controllable {
             )
 
         state = .notMonitoring
-        if #available(iOS 13.0, tvOS 13.0, watchOS 6.0, *) {
-            eventsSubject.send(completion: .finished)
-        } else {
-            // Fallback on earlier versions
-        }
+        controllableEventUpdateSubject.notifyUpdateListeners(of: .stoppedUpdating())
     }
 
 }

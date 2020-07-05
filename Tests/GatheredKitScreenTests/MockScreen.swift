@@ -5,6 +5,32 @@ import GatheredKitScreen
 
 final class MockScreen: UIScreen {
 
+    static func ==(lhs: MockScreen, rhs: UIScreen) -> Bool {
+        if lhs.forceEqualToMain && rhs == .main {
+            return true
+        } else {
+            return (lhs as UIScreen) == rhs
+        }
+    }
+
+    static func ==(lhs: UIScreen, rhs: MockScreen) -> Bool {
+        if rhs.forceEqualToMain && lhs == .main {
+            return true
+        } else {
+            return (rhs as UIScreen) == lhs
+        }
+    }
+
+    var forceEqualToMain = false
+
+    override func isEqual(_ object: Any?) -> Bool {
+        if forceEqualToMain, (object as? UIScreen)?.isEqual(UIScreen.main) == true {
+            return true
+        } else {
+            return super.isEqual(object)
+        }
+    }
+
     private var _bounds: CGRect?
 
     override var bounds: CGRect {

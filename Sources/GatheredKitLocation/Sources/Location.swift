@@ -16,23 +16,11 @@ public final class Location: NSObject, Source, Controllable {
 
     public let name = "Location"
 
-    @available(iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-    public var controllableEventsPublisher: AnyPublisher<ControllableEvent, ControllableError> {
-        return eventsSubject.eraseToAnyPublisher()
+    public var controllableEventUpdatePublisher: AnyUpdatePublisher<ControllableEvent> {
+        return eventsSubject.eraseToAnyUpdatePublisher()
     }
 
-    @available(iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-    private var eventsSubject: PassthroughSubject<ControllableEvent, ControllableError> {
-        return _eventsSubject as! PassthroughSubject<ControllableEvent, ControllableError>
-    }
-
-    private lazy var _eventsSubject: Any = {
-        if #available(iOS 13.0, tvOS 13.0, watchOS 6.0, *) {
-            return PassthroughSubject<ControllableEvent, ControllableError>()
-        } else {
-            fatalError()
-        }
-    }()
+    private let eventsSubject: UpdateSubject<ControllableEvent>
 
     @OptionalCoordinateProperty
     public private(set) var coordinate: CLLocationCoordinate2D?
@@ -106,25 +94,13 @@ public final class Location: NSObject, Source, Controllable {
             switch state {
             case .monitoring:
                 isUpdating = true
-                if #available(iOS 13.0, tvOS 13.0, watchOS 6.0, *) {
-                    eventsSubject.send(.startedUpdating)
-                } else {
-                    // Fallback on earlier versions
-                }
+                eventsSubject.notifyUpdateListeners(of: .startedUpdating)
             case .askingForPermissions:
                 isUpdating = false
-                if #available(iOS 13.0, tvOS 13.0, watchOS 6.0, *) {
-                    eventsSubject.send(.requestingPermission)
-                } else {
-                    // Fallback on earlier versions
-                }
+                eventsSubject.notifyUpdateListeners(of: .requestingPermission)
             case .notMonitoring:
                 isUpdating = false
-                if #available(iOS 13.0, tvOS 13.0, watchOS 6.0, *) {
-                    eventsSubject.send(completion: .finished)
-                } else {
-                    // Fallback on earlier versions
-                }
+                eventsSubject.notifyUpdateListeners(of: .stoppedUpdating())
             }
         }
     }
@@ -141,6 +117,8 @@ public final class Location: NSObject, Source, Controllable {
         _horizonalAccuracy = .meters(displayName: "Horizontal Accuracy")
         _verticalAccuracy = .meters(displayName: "Vertical Accuracy")
         _authorizationStatus = .init(displayName: "Authorization Status", value: CLLocationManager.authorizationStatus())
+
+        eventsSubject = UpdateSubject()
 
         super.init()
     }
@@ -302,11 +280,7 @@ extension Location: CLLocationManagerDelegate {
 
     public func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
         availability = SourceAvailability(authorizationStatus: status) ?? .unavailable
-        if #available(iOS 13.0, tvOS 13.0, watchOS 6.0, *) {
-            eventsSubject.send(.availabilityUpdated(availability))
-        } else {
-            // Fallback on earlier versions
-        }
+        eventsSubject.notifyUpdateListeners(of: .availabilityUpdated(availability))
 
         _authorizationStatus.update(value: status)
 

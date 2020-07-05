@@ -17,11 +17,11 @@ public final class Screen: Source, Controllable {
 
     public let name = "Screen"
 
-    public var controllableEventsPublisher: AnyPublisher<ControllableEvent, ControllableError> {
-        return eventsSubject.eraseToAnyPublisher()
+    public var controllableEventUpdatePublisher: AnyUpdatePublisher<ControllableEvent> {
+        controllableEventUpdateSubject.eraseToAnyUpdatePublisher()
     }
 
-    private lazy var eventsSubject = PassthroughSubject<ControllableEvent, ControllableError>()
+    private let controllableEventUpdateSubject: UpdateSubject<ControllableEvent>
 
     public private(set) var isUpdating: Bool = false
 
@@ -50,10 +50,10 @@ public final class Screen: Source, Controllable {
             switch state {
             case .monitoring:
                 isUpdating = true
-                eventsSubject.send(.startedUpdating)
+                controllableEventUpdateSubject.notifyUpdateListeners(of: .startedUpdating)
             case .notMonitoring:
                 isUpdating = false
-                eventsSubject.send(completion: .finished)
+                controllableEventUpdateSubject.notifyUpdateListeners(of: .stoppedUpdating())
             }
         }
     }
@@ -77,6 +77,7 @@ public final class Screen: Source, Controllable {
     internal init(screen: NSScreen, notificationCenter: NotificationCenter = .default) {
         self.nsScreen = screen
         self.notificationCenter = notificationCenter
+        controllableEventUpdateSubject = .init()
 
         _resolution = .init(
             displayName: "Resolution",
@@ -114,7 +115,7 @@ public final class Screen: Source, Controllable {
             colorSpaceObserver: colorSpaceObserver,
             updatesQueue: updatesQueue
         )
-        eventsSubject.send(.startedUpdating)
+        controllableEventUpdateSubject.notifyUpdateListeners(of: .startedUpdating)
     }
 
     /**
@@ -138,7 +139,7 @@ public final class Screen: Source, Controllable {
             )
 
         state = .notMonitoring
-        eventsSubject.send(completion: .finished)
+        controllableEventUpdateSubject.notifyUpdateListeners(of: .stoppedUpdating())
     }
 
 }

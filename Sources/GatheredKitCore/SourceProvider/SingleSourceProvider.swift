@@ -19,19 +19,20 @@ public final class SingleSourceProvider<Source: GatheredKitCore.Source>: SourceP
 }
 
 extension SingleSourceProvider: ControllableSourceProvider, Controllable, AnyControllableSourceProvider where Source: Controllable {
+    /// An events publisher that will publish source provider events.
+    /// - Important: This publisher will never publish any events; no sources will ever be added or removed from this provider.
+    ///     A new instance is returned every time this property is accessed.
+    public var sourceProviderEventsPublisher: AnyUpdatePublisher<SourceProviderEvent<Source>> {
+        let subject = UpdateSubject<SourceProviderEvent<Source>>()
+        return subject.eraseToAnyUpdatePublisher()
+    }
 
-    @available(iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-    public var sourceProviderEventsPublisher: AnyPublisher<SourceProviderEvent<Source>, Never> {
-        return Empty(completeImmediately: false, outputType: SourceProviderEvent<Source>.self, failureType: Never.self).eraseToAnyPublisher()
+    public var controllableEventUpdatePublisher: AnyUpdatePublisher<ControllableEvent> {
+        source.controllableEventUpdatePublisher
     }
 
     public var isUpdating: Bool {
         return source.isUpdating
-    }
-
-    @available(iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-    public var controllableEventsPublisher: AnyPublisher<ControllableEvent, ControllableError> {
-        return source.controllableEventsPublisher
     }
 
     public func startUpdating() {
