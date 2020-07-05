@@ -1,88 +1,150 @@
 import Foundation
 
-@available(*, deprecated, renamed: "OptionalMeasurementProperty")
-public typealias WritableOptionalMeasurementProperty = OptionalMeasurementProperty
-
 @propertyWrapper
-public class OptionalMeasurementProperty<Unit: Foundation.Dimension>: OptionalProperty<Measurement<Unit>, MeasurementFormatter, OptionalReadOnlyMeasurementProperty<Unit>> {
+public final class OptionalMeasurementProperty<Unit: Foundation.Unit>: Property, Equatable {
+    public typealias Value = Measurement<Unit>?
 
-    open override var wrappedValue: Measurement<Unit>? {
+    public static func == (lhs: OptionalMeasurementProperty<Unit>, rhs: OptionalMeasurementProperty<Unit>) -> Bool {
+        lhs.displayName == rhs.displayName &&
+            lhs.snapshot == rhs.snapshot
+    }
+
+    public var wrappedValue: Value {
         get {
-            return super.wrappedValue
+            value
         }
         set {
-            super.wrappedValue = newValue
+            update(measurement: newValue)
         }
     }
 
-    open override var projectedValue: OptionalReadOnlyMeasurementProperty<Unit> { return super.projectedValue }
+    public var projectedValue: ReadOnlyProperty<OptionalMeasurementProperty<Unit>> {
+        asReadOnlyProperty
+    }
+
+    // MARK: `Property` Requirements
+
+    /// The latest snapshot of data.
+    public internal(set) var snapshot: Snapshot<Value> {
+        didSet {
+            updateSubject.notifyUpdateListeners(of: snapshot)
+        }
+    }
+
+    /// A human-friendly display name that describes the property.
+    public let displayName: String
+
+    /// A formatter that can be used to build a human-friendly string from the
+    /// value.
+    public let formatter: MeasurementFormatter
+
+    public var updatePublisher: AnyUpdatePublisher<Snapshot<Value>> {
+        return updateSubject.eraseToAnyUpdatePublisher()
+    }
+
+    private let updateSubject: UpdateSubject<Snapshot<Value>>
+
+    // MARK: Measurement Properties
+
+    public var measurement: Value {
+        return value
+    }
+
+    public private(set) var unit: Unit
+
+    public var measuredValue: Double? {
+        return measurement?.value
+    }
+
+    // MARK: Initialisers
 
     public init(
         displayName: String,
-        value: Double?,
+        measurement: Measurement<Unit>,
+        formatter: MeasurementFormatter = MeasurementFormatter(),
+        date: Date = Date()
+    ) {
+        self.displayName = displayName
+        self.formatter = formatter
+        unit = measurement.unit
+        snapshot = Snapshot(value: measurement, date: date)
+        updateSubject = .init()
+    }
+
+    public init(
+        displayName: String,
+        value measuredValue: Double? = nil,
+        unit: Unit,
+        formatter: MeasurementFormatter = MeasurementFormatter(),
+        date: Date = Date()
+    ) {
+        let measurement: Measurement<Unit>?
+        if let measuredValue = measuredValue {
+            measurement = Measurement(value: measuredValue, unit: unit)
+        } else {
+            measurement = nil
+        }
+
+        self.displayName = displayName
+        self.formatter = formatter
+        self.unit = unit
+        snapshot = Snapshot(value: measurement, date: date)
+        updateSubject = .init()
+    }
+
+    public init(
+        displayName: String,
+        value measuredValue: Double? = nil,
         unit: Unit = .baseUnit(),
         formatter: MeasurementFormatter = MeasurementFormatter(),
         date: Date = Date()
-    ) {
-        let property = OptionalReadOnlyMeasurementProperty<Unit>(
-            displayName: displayName,
-            value: value,
-            unit: unit,
-            formatter: formatter,
-            date: date
-        )
-        super.init(property: property)
+    ) where Unit: Foundation.Dimension {
+        let measurement: Measurement<Unit>?
+        if let measuredValue = measuredValue {
+            measurement = Measurement(value: measuredValue, unit: unit)
+        } else {
+            measurement = nil
+        }
+
+        self.displayName = displayName
+        self.formatter = formatter
+        self.unit = unit
+        snapshot = Snapshot(value: measurement, date: date)
+        updateSubject = .init()
     }
 
-    public required init(
-        displayName: String,
-        value measurement: Measurement<Unit>? = nil,
-        formatter: MeasurementFormatter = MeasurementFormatter(),
+    // MARK: Update Functions
+
+    public func update(
+        measurement: Measurement<Unit>?,
         date: Date = Date()
     ) {
-        let property = OptionalReadOnlyMeasurementProperty<Unit>(
-            displayName: displayName,
-            value: measurement?.value,
-            unit: measurement?.unit ?? .baseUnit(),
-            formatter: formatter,
-            date: date
-        )
-        super.init(property: property)
+        snapshot = Snapshot(value: measurement, date: date)
     }
 
     public func update(
-        measuredValue: Double?,
+        value measuredValue: Double?,
         date: Date = Date()
     ) {
         if let measuredValue = measuredValue {
-            update(value: Measurement(value: measuredValue, unit: property.unit), date: date)
+            update(measurement: Measurement(value: measuredValue, unit: unit), date: date)
         } else {
-            update(value: Measurement<Unit>?.none, date: date)
+            update(measurement: nil, date: date)
         }
     }
 
     /**
-    Updates the value backing this `Property`, only if the provided value is different.
+     Updates the value backing this `Property`, only if the provided value is different.
 
      - Parameter value: The new value.
      - Parameter date: The date and time the `value` was recorded. Defaults to the current date and time.
      - Returns: `true` if the value was updated, otherwise `false`.
      */
     @discardableResult
-    public func updateValueIfDifferent(measuredValue: Double?, date: Date = Date()) -> Bool {
-        if let measuredValue = measuredValue {
-            if let existingValue = wrappedValue?.value {
-                guard measuredValue != existingValue else { return false }
-            }
-
-            let measurement = Measurement(value: measuredValue, unit: property.unit)
-            update(value: measurement, date: date)
-            return true
-        } else {
-            guard wrappedValue == nil else { return false }
-            update(value: nil, date: date)
-            return true
-        }
+    public func updateValueIfDifferent(_ value: Double?, date: Date = Date()) -> Bool {
+        guard value != measuredValue else { return false }
+        update(value: value, date: date)
+        return true
     }
 
 }

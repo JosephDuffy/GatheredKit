@@ -123,11 +123,11 @@ public final class DeviceMotion: Source, CustomisableUpdateIntervalControllable 
             let userAcceleration = data.userAcceleration
 
             self._attitude.updateValueIfDifferent(attitude, date: date)
-            self._gravity.update(value: gravity, date: date)
-            self._heading.updateValueIfDifferent(measuredValue: heading, date: date)
-            self._magneticField.update(value: magneticField, date: date)
-            self._rotationRate.update(value: rotationRate, date: date)
-            self._userAcceleration.update(value: userAcceleration, date: date)
+            self._gravity.updateValue(gravity, date: date)
+            self._heading.updateValueIfDifferent(heading, date: date)
+            self._magneticField.updateValue(magneticField, date: date)
+            self._rotationRate.updateValue(rotationRate, date: date)
+            self._userAcceleration.updateValue(userAcceleration, date: date)
         }
 
         if let referenceFrame = referenceFrame {

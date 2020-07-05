@@ -72,7 +72,7 @@ public final class Accelerometer: Source, CustomisableUpdateIntervalControllable
                 return
             }
             guard let data = data else { return }
-            self._acceleration.update(value: data.acceleration, date: data.date)
+            self._acceleration.updateValue(data.acceleration, date: data.date)
         }
 
         state = .monitoring(updatesQueue: updatesQueue)

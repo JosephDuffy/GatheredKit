@@ -4,7 +4,10 @@ import CoreMotion
 import GatheredKitCore
 
 @propertyWrapper
-public final class CMCalibratedMagneticFieldProperty: BasicProperty<CMCalibratedMagneticField, CMMagneticFieldFormatter>, PropertiesProvider {
+public final class CMCalibratedMagneticFieldProperty: Property, PropertiesProvider {
+    public typealias Value = CMCalibratedMagneticField
+    // TODO: Create `CMCalibratedMagneticFieldFormatter`
+    public typealias Formatter = CMMagneticFieldFormatter
 
     public var allProperties: [AnyProperty] {
         return [$accuracy, $field]
@@ -16,70 +19,60 @@ public final class CMCalibratedMagneticFieldProperty: BasicProperty<CMCalibrated
     @CMMagneticFieldProperty
     public private(set) var field: CMMagneticField
 
-    public override var wrappedValue: CMCalibratedMagneticField {
-           get {
-               return super.wrappedValue
-           }
-           set {
-               super.wrappedValue = newValue
-           }
-       }
+    // MARK: Property Wrapper Properties
 
-    public override var projectedValue: ReadOnlyProperty<CMCalibratedMagneticField, CMMagneticFieldFormatter> { return super.projectedValue }
+    public var wrappedValue: Value {
+        get {
+            value
+        }
+        set {
+            updateValue(newValue)
+        }
+    }
 
-    public required init(displayName: String, value: CMCalibratedMagneticField, formatter: CMMagneticFieldFormatter = CMMagneticFieldFormatter(), date: Date = Date()) {
+    public var projectedValue: ReadOnlyProperty<CMCalibratedMagneticFieldProperty> {
+        asReadOnlyProperty
+    }
+
+    // MARK: `Property` Requirements
+
+    /// A human-friendly display name that describes the property.
+    public let displayName: String
+
+    /// The latest snapshot of data.
+    public internal(set) var snapshot: Snapshot<Value> {
+        didSet {
+            updateSubject.notifyUpdateListeners(of: snapshot)
+        }
+    }
+
+    /// A formatter that can be used to build a human-friendly string from the
+    /// value.
+    public let formatter: Formatter
+
+    public var updatePublisher: AnyUpdatePublisher<Snapshot<Value>> {
+        return updateSubject.eraseToAnyUpdatePublisher()
+    }
+
+    private let updateSubject: UpdateSubject<Snapshot<Value>>
+
+    // MARK: Initialisers
+
+    public required init(displayName: String, value: Value, formatter: Formatter = Formatter(), date: Date = Date()) {
+        self.displayName = displayName
+        self.formatter = formatter
+        snapshot = Snapshot(value: value, date: date)
+        updateSubject = .init()
+
         _accuracy = .init(displayName: "Accuracy", value: value.accuracy, date: date)
         _field = .init(displayName: "Field", value: value.field, date: date)
-
-        super.init(displayName: displayName, value: value, formatter: formatter, date: date)
     }
 
-    public override func update(value: CMCalibratedMagneticField, date: Date = Date()) {
+    public func updateValue(_ value: Value, date: Date = Date()) {
         _accuracy.updateValueIfDifferent(value.accuracy, date: date)
-        _field.update(value: value.field, date: date)
+        _field.updateValue(value.field, date: date)
 
-        super.update(value: value, date: date)
+        snapshot = Snapshot(value: value, date: date)
     }
-
 }
-
-@propertyWrapper
-public final class OptionalCMCalibratedMagneticFieldProperty: BasicProperty<CMCalibratedMagneticField?, CMMagneticFieldFormatter>, PropertiesProvider {
-
-        public var allProperties: [AnyProperty] {
-            return [$accuracy, $field]
-        }
-
-        @OptionalCMMagneticFieldCalibrationAccuracyProperty
-        public private(set) var accuracy: CMMagneticFieldCalibrationAccuracy?
-
-        @OptionalCMMagneticFieldProperty
-        public private(set) var field: CMMagneticField?
-
-        public override var wrappedValue: CMCalibratedMagneticField? {
-               get {
-                   return super.wrappedValue
-               }
-               set {
-                   super.wrappedValue = newValue
-               }
-           }
-
-        public override var projectedValue: ReadOnlyProperty<CMCalibratedMagneticField?, CMMagneticFieldFormatter> { return super.projectedValue }
-
-        public required init(displayName: String, value: CMCalibratedMagneticField? = nil, formatter: CMMagneticFieldFormatter = CMMagneticFieldFormatter(), date: Date = Date()) {
-            _accuracy = .init(displayName: "Accuracy", value: value?.accuracy, date: date)
-            _field = .init(displayName: "Field", value: value?.field, date: date)
-
-            super.init(displayName: displayName, value: value, formatter: formatter, date: date)
-        }
-
-        public override func update(value: CMCalibratedMagneticField?, date: Date = Date()) {
-            _accuracy.updateValueIfDifferent(value?.accuracy, date: date)
-            _field.update(value: value?.field, date: date)
-
-            super.update(value: value, date: date)
-        }
-
-    }
 #endif

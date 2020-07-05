@@ -9,10 +9,24 @@ extension AnyProperty {
         formatter: MeasurementFormatter = MeasurementFormatter(),
         date: Date = Date()
     ) -> MeasurementProperty<Unit> {
-        let measurement = Measurement(value: value, unit: unit)
         return MeasurementProperty<Unit>(
             displayName: displayName,
-            value: measurement,
+            value: value,
+            unit: unit,
+            formatter: formatter,
+            date: date
+        )
+    }
+
+    public static func measurement<Unit: Foundation.Unit>(
+        displayName: String,
+        measurement: Measurement<Unit>,
+        formatter: MeasurementFormatter = MeasurementFormatter(),
+        date: Date = Date()
+    ) -> MeasurementProperty<Unit> {
+        return MeasurementProperty<Unit>(
+            displayName: displayName,
+            measurement: measurement,
             formatter: formatter,
             date: date
         )
@@ -25,18 +39,27 @@ extension AnyProperty {
         formatter: MeasurementFormatter = MeasurementFormatter(),
         date: Date = Date()
     ) -> OptionalMeasurementProperty<Unit> {
-        let measurement: Measurement<Unit>?
-        if let value = value {
-            measurement = Measurement(value: value, unit: unit)
-        } else {
-            measurement = nil
-        }
         return OptionalMeasurementProperty<Unit>(
             displayName: displayName,
-            value: measurement,
+            value: value,
+            unit: unit,
             formatter: formatter,
             date: date
         )
     }
 
+    public static func measurement<Unit: Foundation.Unit>(
+        displayName: String,
+        measurement: Measurement<Unit>,
+        unit: Unit,
+        formatter: MeasurementFormatter = MeasurementFormatter(),
+        date: Date = Date()
+    ) -> OptionalMeasurementProperty<Unit> {
+        return OptionalMeasurementProperty<Unit>(
+            displayName: displayName,
+            measurement: measurement,
+            formatter: formatter,
+            date: date
+        )
+    }
 }

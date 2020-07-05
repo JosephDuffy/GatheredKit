@@ -20,8 +20,7 @@ public final class CMAttitudeFormatter: Formatter {
         fatalError("init(coder:) has not been implemented")
     }
 
-    public func string(for acceleration: CMAttitude) -> String {
-        let property = CMAttitudeProperty(displayName: "", value: acceleration)
+    public func string(for property: CMAttitudeProperty) -> String {
         let roll = measurementFormatter.string(from: property.$roll.measurement)
         let pitch = measurementFormatter.string(from: property.$pitch.measurement)
         let yaw = measurementFormatter.string(from: property.$yaw.measurement)

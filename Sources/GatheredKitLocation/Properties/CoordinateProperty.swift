@@ -3,7 +3,8 @@ import CoreLocation
 import GatheredKitCore
 
 @propertyWrapper
-public final class CoordinateProperty: BasicProperty<CLLocationCoordinate2D, CoordinateFormatter>, PropertiesProvider {
+public final class CoordinateProperty: Property, PropertiesProvider {
+    public typealias Value = CLLocationCoordinate2D
 
     public var allProperties: [AnyProperty] {
         return [
@@ -12,35 +13,63 @@ public final class CoordinateProperty: BasicProperty<CLLocationCoordinate2D, Coo
         ]
     }
 
+    public var wrappedValue: CLLocationCoordinate2D {
+        get {
+            return snapshot.value
+        }
+        set {
+            update(value: newValue)
+        }
+    }
+
+    public var projectedValue: ReadOnlyProperty<CoordinateProperty> {
+        asReadOnlyProperty
+    }
+
+    // MARK: `Property` Requirements
+
+    /// The latest snapshot of data.
+    public internal(set) var snapshot: Snapshot<Value> {
+        didSet {
+            updateSubject.notifyUpdateListeners(of: snapshot)
+        }
+    }
+
+    /// A human-friendly display name that describes the property.
+    public let displayName: String
+
+    /// A formatter that can be used to build a human-friendly string from the
+    /// value.
+    public let formatter: CoordinateFormatter
+
+    public var updatePublisher: AnyUpdatePublisher<Snapshot<Value>> {
+        return updateSubject.eraseToAnyUpdatePublisher()
+    }
+
+    private let updateSubject: UpdateSubject<Snapshot<Value>>
+
+    // MARK: Coodinate Properties
+
     @AngleProperty
     public private(set) var latitude: Measurement<UnitAngle>
 
     @AngleProperty
     public private(set) var longitude: Measurement<UnitAngle>
 
-    public override var wrappedValue: CLLocationCoordinate2D {
-        get {
-            return super.wrappedValue
-        }
-        set {
-            super.wrappedValue = newValue
-        }
-    }
-
-    public override var projectedValue: ReadOnlyProperty<CLLocationCoordinate2D, CoordinateFormatter> { return super.projectedValue }
-
     public required init(displayName: String, value: CLLocationCoordinate2D, formatter: CoordinateFormatter = CoordinateFormatter(), date: Date = Date()) {
+        self.displayName = displayName
+        self.formatter = formatter
+        snapshot = Snapshot(value: value, date: date)
+        updateSubject = .init()
         _latitude = .degrees(displayName: "Latitude", value: value.latitude, date: date)
         _longitude = .degrees(displayName: "Longitude", value: value.longitude, date: date)
-
-        super.init(displayName: displayName, value: value, formatter: formatter, date: date)
     }
 
-    public override func update(value: CLLocationCoordinate2D, date: Date = Date()) {
+    public func update(value: CLLocationCoordinate2D, date: Date = Date()) {
         _latitude.updateValueIfDifferent(value.latitude, date: date)
         _longitude.updateValueIfDifferent(value.longitude, date: date)
 
-        super.update(value: value, date: date)
+        snapshot = Snapshot(value: value, date: date)
     }
 
 }

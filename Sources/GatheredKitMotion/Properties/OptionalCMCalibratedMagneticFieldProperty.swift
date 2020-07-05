@@ -4,30 +4,20 @@ import CoreMotion
 import GatheredKitCore
 
 @propertyWrapper
-public final class CMQuaternionProperty: Property, PropertiesProvider {
-    public typealias Value = CMQuaternion
-    public typealias Formatter = CMQuaternionFormatter
+public final class OptionalCMCalibratedMagneticFieldProperty: Property, PropertiesProvider {
+    public typealias Value = CMCalibratedMagneticField?
+    // TODO: Create `CMCalibratedMagneticFieldFormatter`
+    public typealias Formatter = CMMagneticFieldFormatter
 
     public var allProperties: [AnyProperty] {
-        return [
-            $x,
-            $y,
-            $z,
-            $w,
-        ]
+        return [$accuracy, $field]
     }
 
-    @DoubleProperty
-    public private(set) var x: Double
+    @OptionalCMMagneticFieldCalibrationAccuracyProperty
+    public private(set) var accuracy: CMMagneticFieldCalibrationAccuracy?
 
-    @DoubleProperty
-    public private(set) var y: Double
-
-    @DoubleProperty
-    public private(set) var z: Double
-
-    @DoubleProperty
-    public private(set) var w: Double
+    @OptionalCMMagneticFieldProperty
+    public private(set) var field: CMMagneticField?
 
     // MARK: Property Wrapper Properties
 
@@ -40,7 +30,7 @@ public final class CMQuaternionProperty: Property, PropertiesProvider {
         }
     }
 
-    public var projectedValue: ReadOnlyProperty<CMQuaternionProperty> {
+    public var projectedValue: ReadOnlyProperty<OptionalCMCalibratedMagneticFieldProperty> {
         asReadOnlyProperty
     }
 
@@ -68,25 +58,19 @@ public final class CMQuaternionProperty: Property, PropertiesProvider {
 
     // MARK: Initialisers
 
-    public required init(displayName: String, value: Value, formatter: Formatter = Formatter(), date: Date = Date()) {
+    public required init(displayName: String, value: Value = nil, formatter: Formatter = Formatter(), date: Date = Date()) {
         self.displayName = displayName
         self.formatter = formatter
         snapshot = Snapshot(value: value, date: date)
         updateSubject = .init()
 
-        _x = .init(displayName: "x", value: value.x, date: date)
-        _y = .init(displayName: "y", value: value.y, date: date)
-        _z = .init(displayName: "z", value: value.z, date: date)
-        _w = .init(displayName: "w", value: value.z, date: date)
+        _accuracy = .init(displayName: "Accuracy", value: value?.accuracy, date: date)
+        _field = .init(displayName: "Field", value: value?.field, date: date)
     }
 
-    // MARK: Update Functions
-
     public func updateValue(_ value: Value, date: Date = Date()) {
-        _x.updateValueIfDifferent(value.x, date: date)
-        _y.updateValueIfDifferent(value.y, date: date)
-        _z.updateValueIfDifferent(value.z, date: date)
-        _w.updateValueIfDifferent(value.z, date: date)
+        _accuracy.updateValueIfDifferent(value?.accuracy, date: date)
+        _field.updateValue(value?.field, date: date)
 
         snapshot = Snapshot(value: value, date: date)
     }

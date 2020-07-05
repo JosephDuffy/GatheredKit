@@ -101,8 +101,9 @@ public final class Altimeter: Source, Controllable, ActionProvider {
                 return
             }
             guard let data = data else { return }
-            self._relativeAltitude.updateValueIfDifferent(measuredValue: data.relativeAltitude.doubleValue)
-            self._pressure.updateValueIfDifferent(measuredValue: data.pressure.doubleValue)
+            
+            self._relativeAltitude.updateValueIfDifferent(data.relativeAltitude.doubleValue)
+            self._pressure.updateValueIfDifferent(data.pressure.doubleValue)
         }
 
         state = .monitoring(altimeter: altimeter, updatesQueue: updatesQueue)

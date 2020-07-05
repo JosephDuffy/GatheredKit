@@ -4,7 +4,9 @@ import CoreMotion
 import GatheredKitCore
 
 @propertyWrapper
-public final class CMAccelerationProperty: BasicProperty<CMAcceleration, CMAccelerationFormatter>, PropertiesProvider {
+public final class CMAccelerationProperty: Property, PropertiesProvider {
+    public typealias Value = CMAcceleration
+    public typealias Formatter = CMAccelerationFormatter
 
     public var allProperties: [AnyProperty] {
         return [$x, $y, $z]
@@ -19,77 +21,62 @@ public final class CMAccelerationProperty: BasicProperty<CMAcceleration, CMAccel
     @AccelerationProperty
     public private(set) var z: Measurement<UnitAcceleration>
 
-    public override var wrappedValue: CMAcceleration {
-           get {
-               return super.wrappedValue
-           }
-           set {
-               super.wrappedValue = newValue
-           }
-       }
+    // MARK: Property Wrapper Properties
 
-    public override var projectedValue: ReadOnlyProperty<CMAcceleration, CMAccelerationFormatter> { return super.projectedValue }
+    public var wrappedValue: Value {
+        get {
+            value
+        }
+        set {
+            updateValue(newValue)
+        }
+    }
 
-    public required init(displayName: String, value: CMAcceleration, formatter: CMAccelerationFormatter = CMAccelerationFormatter(), date: Date = Date()) {
+    public var projectedValue: ReadOnlyProperty<CMAccelerationProperty> {
+        asReadOnlyProperty
+    }
+
+    // MARK: `Property` Requirements
+
+    /// A human-friendly display name that describes the property.
+    public let displayName: String
+
+    /// The latest snapshot of data.
+    public internal(set) var snapshot: Snapshot<Value> {
+        didSet {
+            updateSubject.notifyUpdateListeners(of: snapshot)
+        }
+    }
+
+    /// A formatter that can be used to build a human-friendly string from the
+    /// value.
+    public let formatter: Formatter
+
+    public var updatePublisher: AnyUpdatePublisher<Snapshot<Value>> {
+        return updateSubject.eraseToAnyUpdatePublisher()
+    }
+
+    private let updateSubject: UpdateSubject<Snapshot<Value>>
+
+    // MARK: Initialisers
+
+    public required init(displayName: String, value: Value, formatter: Formatter = Formatter(), date: Date = Date()) {
+        self.displayName = displayName
+        self.formatter = formatter
+        snapshot = Snapshot(value: value, date: date)
+        updateSubject = .init()
+
         _x = .gravity(displayName: "x", value: value.x, date: date)
         _y = .gravity(displayName: "y", value: value.y, date: date)
         _z = .gravity(displayName: "z", value: value.z, date: date)
-
-        super.init(displayName: displayName, value: value, formatter: formatter, date: date)
     }
 
-    public override func update(value: CMAcceleration, date: Date = Date()) {
+    public func updateValue(_ value: Value, date: Date = Date()) {
         _x.updateValueIfDifferent(value.x, date: date)
         _y.updateValueIfDifferent(value.y, date: date)
         _z.updateValueIfDifferent(value.z, date: date)
 
-        super.update(value: value, date: date)
+        snapshot = Snapshot(value: value, date: date)
     }
-
-}
-
-@propertyWrapper
-public final class OptionalCMAccelerationProperty: BasicProperty<CMAcceleration?, CMAccelerationFormatter>, PropertiesProvider {
-
-    public var allProperties: [AnyProperty] {
-        return [$x, $y, $z]
-    }
-
-    @OptionalAccelerationProperty
-    public var x: Measurement<UnitAcceleration>?
-
-    @OptionalAccelerationProperty
-    public var y: Measurement<UnitAcceleration>?
-
-    @OptionalAccelerationProperty
-    public var z: Measurement<UnitAcceleration>?
-
-    public override var wrappedValue: CMAcceleration? {
-        get {
-            return super.wrappedValue
-        }
-        set {
-            super.wrappedValue = newValue
-        }
-    }
-
-    public override var projectedValue: ReadOnlyProperty<CMAcceleration?, CMAccelerationFormatter> { return super.projectedValue }
-
-    public required init(displayName: String, value: CMAcceleration? = nil, formatter: CMAccelerationFormatter = CMAccelerationFormatter(), date: Date = Date()) {
-        _x = .gravity(displayName: "x", value: value?.x, date: date)
-        _y = .gravity(displayName: "y", value: value?.y, date: date)
-        _z = .gravity(displayName: "z", value: value?.z, date: date)
-
-        super.init(displayName: displayName, value: value, formatter: formatter, date: date)
-    }
-
-    public override func update(value: CMAcceleration?, date: Date = Date()) {
-        _x.updateValueIfDifferent(measuredValue: value?.x, date: date)
-        _y.updateValueIfDifferent(measuredValue: value?.y, date: date)
-        _z.updateValueIfDifferent(measuredValue: value?.z, date: date)
-
-        super.update(value: value, date: date)
-    }
-
 }
 #endif

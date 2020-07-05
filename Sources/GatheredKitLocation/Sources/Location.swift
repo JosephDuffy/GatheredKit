@@ -250,19 +250,19 @@ public final class Location: NSObject, Source, Controllable {
                 // TODO: Provide formatted value
                 _speed.update(value: nil, date: timestamp)
             } else {
-                _speed.update(measuredValue: location.speed, date: timestamp)
+                _speed.update(value: location.speed, date: timestamp)
             }
 
             if location.course < 0 {
                 // TODO: Provide formatted value
                 _course.update(value: nil, date: timestamp)
             } else {
-                _course.update(measuredValue: location.speed, date: timestamp)
+                _course.update(value: location.speed, date: timestamp)
             }
-            _altitude.update(measuredValue: location.altitude, date: timestamp)
+            _altitude.update(value: location.altitude, date: timestamp)
             _floor.update(value: location.floor?.level, date: timestamp)
-            _horizonalAccuracy.update(measuredValue: location.horizontalAccuracy, date: timestamp)
-            _verticalAccuracy.update(measuredValue: location.verticalAccuracy, date: timestamp)
+            _horizonalAccuracy.update(value: location.horizontalAccuracy, date: timestamp)
+            _verticalAccuracy.update(value: location.verticalAccuracy, date: timestamp)
         } else {
             _coordinate.update(value: nil)
             _speed.update(value: nil)

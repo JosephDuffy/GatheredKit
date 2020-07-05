@@ -74,7 +74,7 @@ public final class Magnetometer: Source, CustomisableUpdateIntervalControllable 
             }
 
             guard let data = data else { return }
-            self._magneticField.update(value: data.magneticField, date: data.date)
+            self._magneticField.updateValue(data.magneticField, date: data.date)
         }
 
         state = .monitoring(updatesQueue: updatesQueue)

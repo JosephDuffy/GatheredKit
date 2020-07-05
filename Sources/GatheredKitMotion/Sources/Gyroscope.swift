@@ -74,7 +74,7 @@ public final class Gyroscope: Source, CustomisableUpdateIntervalControllable {
             }
 
             guard let data = data else { return }
-            self._rotationRate.update(value: data.rotationRate, date: data.date)
+            self._rotationRate.updateValue(data.rotationRate, date: data.date)
         }
 
         state = .monitoring(updatesQueue: updatesQueue)
