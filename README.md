@@ -1,57 +1,55 @@
 ![GatheredKit](https://josephduffy.github.io/GatheredKit/img/banner.png)
 
-[![Build Status](https://github.com/JosephDuffy/GatheredKit/workflows/Tests/badge.svg)](https://launch-editor.github.com/actions?workflowID=Tests&event=push&nwo=JosephDuffy%2FGatheredKit)
+[![Tests Status](https://github.com/JosephDuffy/GatheredKit/workflows/Tests/badge.svg)](https://launch-editor.github.com/actions?workflowID=Tests&event=push&nwo=JosephDuffy%2FGatheredKit)
 [![codecov](https://codecov.io/gh/JosephDuffy/GatheredKit/branch/master/graph/badge.svg)](https://codecov.io/gh/JosephDuffy/GatheredKit)
 [![Documentation](https://josephduffy.github.io/GatheredKit/badge.svg)](https://josephduffy.github.io/GatheredKit/)
-![Compatible with macOS, iOS, watchOS, tvOS, and Linux](https://img.shields.io/badge/platforms-macOS%20%7C%20iOS%20%7C%20watchOS%20%7C%20tvOS%20%7C%20Linux-4BC51D.svg)
+![Compatible with macOS, iOS, watchOS, and tvOS](https://img.shields.io/badge/platforms-macOS%20%7C%20iOS%20%7C%20watchOS%20%7C%20tvOS%20-4BC51D.svg)
 [![SwiftPM Compatible](https://img.shields.io/badge/SwiftPM-compatible-4BC51D.svg?style=flat)](https://github.com/apple/swift-package-manager)
-[![Carthage Compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
-[![CocoaPods Compatible](https://img.shields.io/badge/CocoaPods-compatible-4BC51D.svg?style=flat)](https://cocoapods.org/pods/GatheredKit)
 [![MIT License](https://img.shields.io/badge/License-MIT-4BC51D.svg?style=flat)](./LICENSE)
 --
 
-GatheredKit is an iOS framework that provides a [Combine](https://developer.apple.com/documentation/combine)-based API for various data sources offered by iOS, macOS, watchOS, and tvOS.
+GatheredKit is an Swift Package that provides a consistent API for various data sources offered by macOS, iOS, watchOS, and tvOS.
 
-The code originated from [Gathered](https://geo.itunes.apple.com/app/gathered/id929726748?mt=8), hense the name and logo.
+The code originated from [Gathered](https://geo.itunes.apple.com/app/gathered/id929726748?mt=8), hence the name and logo.
 
 # Quick Links
 
- - [Available Sources](#available-sources)
- - [API](#api)
- - [Installation](#installation)
- - [Documentation](#documentation)
- - [Running Tests](#running-tests)
- - [License](#license)
+- [Available Sources](#available-sources)
+- [API](#api)
+- [Installation](#installation)
+- [Documentation](#documentation)
+- [Running Tests](#running-tests)
+- [License](#license)
 
 # Available Sources
 
-Every source is a class backed by an equivelent Apple-provided class, but with a simplified and consistent API to receive updates. Below is a list of sources that GatheredKit has to offer. Unticked boxes indicate sources that will be added in the future.
+Every source is a class backed by an equivalent Apple-provided class, but with a simplified and consistent API to receive updates. Below is a list of sources that GatheredKit has to offer. Unticked boxes indicate sources that will be added in the future.
 
- - [X] Location
- - [ ] Compass
- - [ ] Wi-Fi
- - [ ] Altimeter
- - [ ] Microphone
- - [ ] Cell Radio
- - [X] Screen
- - [X] Magnetometer
- - [X] Gyroscope
- - [X] Accelerometer
- - [X] Device Motion
- - [ ] Device Attitude
- - [ ] Proximity
- - [ ] Battery
- - [ ] Advertising
- - [ ] Audio Output
- - [ ] Device Orientation
- - [ ] Bluetooth
- - [ ] Storage
- - [ ] Memory
- - [ ] Device Metadata
- - [ ] Operating System
- - [ ] CPU
- - [ ] Cameras
- - [ ] Battery
+- [x] Location
+- [ ] Compass
+- [ ] Wi-Fi
+- [ ] Altimeter
+- [ ] Microphone
+- [ ] Cell Radio
+- [x] Screen
+- [x] Magnetometer
+- [x] Gyroscope
+- [x] Accelerometer
+- [x] Device Motion
+- [ ] Device Attitude
+- [ ] Proximity
+- [ ] Battery
+- [ ] Advertising
+- [ ] Audio Output
+- [ ] Device Orientation
+- [ ] Bluetooth
+- [ ] Storage
+- [ ] Memory
+- [ ] Device Metadata
+- [ ] Operating System
+- [ ] CPU
+- [ ] Cameras
+- [ ] Battery
 
 # API
 
@@ -96,7 +94,7 @@ Implementations also have individual properties for each of the properties they 
 
 ## `Controllable`
 
-The `Controllable` protocol defines an object that can automatically update its proeprties. These automatic changes can be started and stopped at any time.
+The `Controllable` protocol defines an object that can automatically update its properties. These automatic changes can be started and stopped at any time.
 
 ```swift
 /**
@@ -175,7 +173,6 @@ public protocol ManuallyUpdatablePropertiesProvider: PropertiesProvider {
 ```
 
 # Installation
-
 
 ## SwiftPM
 
