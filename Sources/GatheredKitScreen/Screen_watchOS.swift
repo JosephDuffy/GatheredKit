@@ -63,7 +63,7 @@ public final class Screen: Source {
             displayName: "Scale",
             value: device.screenScale
         )
-        
+
         $resolution.formatter.suffix = " Points"
     }
 

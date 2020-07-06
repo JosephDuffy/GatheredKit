@@ -5,7 +5,7 @@ import GatheredKitScreen
 
 final class MockScreen: UIScreen {
 
-    static func ==(lhs: MockScreen, rhs: UIScreen) -> Bool {
+    static func == (lhs: MockScreen, rhs: UIScreen) -> Bool {
         if lhs.forceEqualToMain && rhs == .main {
             return true
         } else {
@@ -13,7 +13,7 @@ final class MockScreen: UIScreen {
         }
     }
 
-    static func ==(lhs: UIScreen, rhs: MockScreen) -> Bool {
+    static func == (lhs: UIScreen, rhs: MockScreen) -> Bool {
         if rhs.forceEqualToMain && lhs == .main {
             return true
         } else {

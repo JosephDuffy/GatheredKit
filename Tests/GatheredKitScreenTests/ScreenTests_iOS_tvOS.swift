@@ -37,10 +37,10 @@ final class ScreenTests: XCTestCase {
             }
 
             switch event {
-            case .startedUpdating :
+            case .startedUpdating:
                 break
             default:
-                XCTFail()
+                XCTFail("Should only publish the `startedUpdating")
             }
         }
         _ = cancellable
