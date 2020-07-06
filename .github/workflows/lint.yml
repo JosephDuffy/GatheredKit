@@ -3,8 +3,8 @@ name: Lint
 on: [pull_request]
 
 jobs:
-  swiftlint:
-    name: SwiftLint (Xcode ${{ matrix.xcode }})
+  swift-format:
+    name: swift-format lint (Xcode ${{ matrix.xcode }})
     runs-on: macos-latest
     strategy:
       matrix:
@@ -22,8 +22,8 @@ jobs:
           path: DevelopmentDependencies/.build
           key: ${{ runner.os }}-xcode_${{ matrix.xcode }}-swiftpm-${{ github.workspace }}-${{ hashFiles('DevelopmentDependencies/Package.resolved') }}
 
-      - name: Build SwiftLint
-        run: swift build --skip-update --configuration release --package-path ./DevelopmentDependencies/ --product swiftlint
+      - name: Build swift-format
+        run: swift build --skip-update --configuration release --package-path ./DevelopmentDependencies/ --product swift-format
 
-      - name: Run SwiftLint
-        run: ./scripts/swiftlint-github-actions.sh
+      - name: Run swift-format
+        run: ./scripts/swift-format-github-actions.sh

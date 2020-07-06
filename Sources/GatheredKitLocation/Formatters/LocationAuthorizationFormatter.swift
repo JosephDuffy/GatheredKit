@@ -1,5 +1,5 @@
-import Foundation
 import CoreLocation
+import Foundation
 
 public final class LocationAuthorizationFormatter: Formatter {
 

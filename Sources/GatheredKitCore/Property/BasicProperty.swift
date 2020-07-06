@@ -49,7 +49,9 @@ public final class BasicProperty<Value, Formatter>: Property where Formatter: Fo
 
     // MARK: Initialisers
 
-    public required init(displayName: String, value: Value, formatter: Formatter = Formatter(), date: Date = Date()) {
+    public required init(
+        displayName: String, value: Value, formatter: Formatter = Formatter(), date: Date = Date()
+    ) {
         self.displayName = displayName
         self.formatter = formatter
         self.snapshot = Snapshot(value: value, date: date)
@@ -89,11 +91,11 @@ extension BasicProperty where Value: Equatable {
 }
 
 extension BasicProperty: Equatable where Value: Equatable {
-    public static func == (lhs: BasicProperty<Value, Formatter>, rhs: BasicProperty<Value, Formatter>) -> Bool {
+    public static func == (
+        lhs: BasicProperty<Value, Formatter>, rhs: BasicProperty<Value, Formatter>
+    ) -> Bool {
         return
-            lhs.displayName == rhs.displayName &&
-            lhs.value == rhs.value &&
-            lhs.date == rhs.date
+            lhs.displayName == rhs.displayName && lhs.value == rhs.value && lhs.date == rhs.date
     }
 }
 

@@ -7,8 +7,8 @@ let package = Package(
         .macOS(.v10_10),
     ],
     dependencies: [
-        .package(name: "SwiftLint", url: "https://github.com/Realm/SwiftLint", .upToNextMinor(from: "0.39.0")),
         .package(url: "https://github.com/JosephDuffy/xcutils.git", .branch("master")),
+        .package(url: "https://github.com/apple/swift-format.git", .branch("swift-5.2-branch")),
     ],
     targets: [
         .target(name: "DevelopmentDependencies"),

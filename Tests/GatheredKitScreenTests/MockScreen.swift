@@ -1,7 +1,8 @@
 #if os(iOS) || os(tvOS)
 import UIKit
-@testable
-import GatheredKitScreen
+@testable import GatheredKitScreen
+
+// swift-format-ignore: NoLeadingUnderscores
 
 final class MockScreen: UIScreen {
 

@@ -1,8 +1,9 @@
 import XCTest
 
+// swift-format-ignore: AlwaysUseLowerCamelCase
+
 /// Tests to that will show which platform is being tested in the list of tests.
 final class PlatformTests: XCTestCase {
-
     #if os(iOS)
     func test_iOS() {
         XCTAssertTrue(true)
@@ -26,5 +27,4 @@ final class PlatformTests: XCTestCase {
         XCTAssertTrue(true)
     }
     #endif
-
 }

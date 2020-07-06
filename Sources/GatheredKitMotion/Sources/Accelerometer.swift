@@ -67,7 +67,8 @@ public final class Accelerometer: Source, CustomisableUpdateIntervalControllable
             guard let self = self else { return }
             if let error = error {
                 CMMotionManager.shared.stopAccelerometerUpdates()
-                self.controllableEventUpdateSubject.notifyUpdateListeners(of: .stoppedUpdating(error: error))
+                self.controllableEventUpdateSubject.notifyUpdateListeners(
+                    of: .stoppedUpdating(error: error))
                 self.state = .notMonitoring
                 return
             }

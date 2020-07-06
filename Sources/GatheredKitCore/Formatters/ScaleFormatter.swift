@@ -1,9 +1,7 @@
 import Foundation
 
-/**
- A `NumberFormatter` with the `negativeSuffix` and `positiveSuffix`
- properties set to "x"
- */
+/// A `NumberFormatter` with the `negativeSuffix` and `positiveSuffix`
+/// properties set to "x"
 public final class ScaleFormatter: NumberFormatter {
 
     public override init() {

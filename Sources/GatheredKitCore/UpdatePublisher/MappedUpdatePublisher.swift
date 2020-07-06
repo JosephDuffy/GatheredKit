@@ -1,4 +1,5 @@
 import Foundation
+
 #if canImport(Combine)
 import Combine
 #endif
@@ -48,7 +49,8 @@ public final class MappedUpdatePublisher<Input, Payload>: UpdatePublisher {
         }
     }
 
-    public final func addUpdateListener(_ updateListener: @escaping UpdateListener) -> Subscription {
+    public final func addUpdateListener(_ updateListener: @escaping UpdateListener) -> Subscription
+    {
         let uuid = UUID()
         updateListeners[uuid] = updateListener
 

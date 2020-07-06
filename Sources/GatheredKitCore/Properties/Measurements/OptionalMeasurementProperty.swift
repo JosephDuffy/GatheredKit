@@ -4,9 +4,10 @@ import Foundation
 public final class OptionalMeasurementProperty<Unit: Foundation.Unit>: Property, Equatable {
     public typealias Value = Measurement<Unit>?
 
-    public static func == (lhs: OptionalMeasurementProperty<Unit>, rhs: OptionalMeasurementProperty<Unit>) -> Bool {
-        lhs.displayName == rhs.displayName &&
-            lhs.snapshot == rhs.snapshot
+    public static func == (
+        lhs: OptionalMeasurementProperty<Unit>, rhs: OptionalMeasurementProperty<Unit>
+    ) -> Bool {
+        lhs.displayName == rhs.displayName && lhs.snapshot == rhs.snapshot
     }
 
     public var wrappedValue: Value {
@@ -135,6 +136,8 @@ extension OptionalMeasurementProperty where Unit: Foundation.Dimension {
         formatter: MeasurementFormatter = MeasurementFormatter(),
         date: Date = Date()
     ) {
-        self.init(displayName: displayName, value: measuredValue, unit: dimention, formatter: formatter, date: date)
+        self.init(
+            displayName: displayName, value: measuredValue, unit: dimention, formatter: formatter,
+            date: date)
     }
 }

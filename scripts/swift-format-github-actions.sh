@@ -13,7 +13,7 @@ function convertToGitHubActionsLoggingCommands() {
 }
 
 function swiftlint() {
-    swift run --skip-update --configuration release --package-path ./DevelopmentDependencies/ swiftlint
+    swift run --skip-update --configuration release --package-path ./DevelopmentDependencies/ swift-format -r ./Sources ./Tests --mode lint
 }
 
 set -o pipefail && swiftlint "$@" | stripPWD | convertToGitHubActionsLoggingCommands

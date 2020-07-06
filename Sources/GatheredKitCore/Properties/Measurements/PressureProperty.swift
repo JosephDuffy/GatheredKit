@@ -12,7 +12,8 @@ extension AnyProperty {
         formatter: MeasurementFormatter = MeasurementFormatter(),
         date: Date = Date()
     ) -> PressureProperty {
-        return .init(displayName: displayName, value: value, unit: unit, formatter: formatter, date: date)
+        return .init(
+            displayName: displayName, value: value, unit: unit, formatter: formatter, date: date)
     }
 
     public static func pressure(
@@ -22,7 +23,8 @@ extension AnyProperty {
         formatter: MeasurementFormatter = MeasurementFormatter(),
         date: Date = Date()
     ) -> OptionalPressureProperty {
-        return .init(displayName: displayName, value: value, unit: unit, formatter: formatter, date: date)
+        return .init(
+            displayName: displayName, value: value, unit: unit, formatter: formatter, date: date)
     }
 
     public static func kilopascals(
@@ -31,7 +33,9 @@ extension AnyProperty {
         formatter: MeasurementFormatter = MeasurementFormatter(),
         date: Date = Date()
     ) -> PressureProperty {
-        return .init(displayName: displayName, value: value, unit: .kilopascals, formatter: formatter, date: date)
+        return .init(
+            displayName: displayName, value: value, unit: .kilopascals, formatter: formatter,
+            date: date)
     }
 
     public static func kilopascals(
@@ -40,7 +44,9 @@ extension AnyProperty {
         formatter: MeasurementFormatter = MeasurementFormatter(),
         date: Date = Date()
     ) -> OptionalPressureProperty {
-        return .init(displayName: displayName, value: value, unit: .kilopascals, formatter: formatter, date: date)
+        return .init(
+            displayName: displayName, value: value, unit: .kilopascals, formatter: formatter,
+            date: date)
     }
 
 }

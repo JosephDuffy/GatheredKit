@@ -12,7 +12,8 @@ extension AnyProperty {
         formatter: MeasurementFormatter = MeasurementFormatter(),
         date: Date = Date()
     ) -> MagneticFieldProperty {
-        return MagneticFieldProperty(displayName: displayName, value: value, unit: unit, formatter: formatter, date: date)
+        return MagneticFieldProperty(
+            displayName: displayName, value: value, unit: unit, formatter: formatter, date: date)
     }
 
     public static func magneticField(
@@ -22,7 +23,8 @@ extension AnyProperty {
         formatter: MeasurementFormatter = MeasurementFormatter(),
         date: Date = Date()
     ) -> OptionalMagneticFieldProperty {
-        return OptionalMagneticFieldProperty(displayName: displayName, value: value, unit: unit, formatter: formatter, date: date)
+        return OptionalMagneticFieldProperty(
+            displayName: displayName, value: value, unit: unit, formatter: formatter, date: date)
     }
 
     public static func tesla(
@@ -31,7 +33,8 @@ extension AnyProperty {
         formatter: MeasurementFormatter = MeasurementFormatter(),
         date: Date = Date()
     ) -> MagneticFieldProperty {
-        return MagneticFieldProperty(displayName: displayName, value: value, unit: .tesla, formatter: formatter, date: date)
+        return MagneticFieldProperty(
+            displayName: displayName, value: value, unit: .tesla, formatter: formatter, date: date)
     }
 
     public static func tesla(
@@ -40,7 +43,8 @@ extension AnyProperty {
         formatter: MeasurementFormatter = MeasurementFormatter(),
         date: Date = Date()
     ) -> OptionalMagneticFieldProperty {
-        return OptionalMagneticFieldProperty(displayName: displayName, value: value, unit: .tesla, formatter: formatter, date: date)
+        return OptionalMagneticFieldProperty(
+            displayName: displayName, value: value, unit: .tesla, formatter: formatter, date: date)
     }
 
     public static func microTesla(
@@ -49,7 +53,9 @@ extension AnyProperty {
         formatter: MeasurementFormatter = MeasurementFormatter(),
         date: Date = Date()
     ) -> MagneticFieldProperty {
-        return MagneticFieldProperty(displayName: displayName, value: value, unit: .microTesla, formatter: formatter, date: date)
+        return MagneticFieldProperty(
+            displayName: displayName, value: value, unit: .microTesla, formatter: formatter,
+            date: date)
     }
 
     public static func microTesla(
@@ -58,7 +64,9 @@ extension AnyProperty {
         formatter: MeasurementFormatter = MeasurementFormatter(),
         date: Date = Date()
     ) -> OptionalMagneticFieldProperty {
-        return OptionalMagneticFieldProperty(displayName: displayName, value: value, unit: .microTesla, formatter: formatter, date: date)
+        return OptionalMagneticFieldProperty(
+            displayName: displayName, value: value, unit: .microTesla, formatter: formatter,
+            date: date)
     }
 
 }

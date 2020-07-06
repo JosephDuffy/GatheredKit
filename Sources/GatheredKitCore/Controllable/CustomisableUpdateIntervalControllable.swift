@@ -1,8 +1,6 @@
 import Foundation
 
-/**
- A source that supports updating its properties at a given time interval
- */
+/// A source that supports updating its properties at a given time interval
 public protocol CustomisableUpdateIntervalControllable: Controllable {
 
     /// The default update interval that will be used when calling `startUpdating()`

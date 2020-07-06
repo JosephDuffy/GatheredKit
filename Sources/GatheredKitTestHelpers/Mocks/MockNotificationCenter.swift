@@ -2,9 +2,14 @@ import Foundation
 
 public final class MockNotificationCenter: NotificationCenter {
 
-    public typealias AddObserverParameters = (name: Notification.Name?, object: Any?, queue: OperationQueue?, block: (Notification) -> Void)
+    public typealias AddObserverParameters = (
+        name: Notification.Name?, object: Any?, queue: OperationQueue?,
+        block: (Notification) -> Void
+    )
 
-    public typealias RemoveObserverParameters = (observer: Any, name: NSNotification.Name?, object: Any?)
+    public typealias RemoveObserverParameters = (
+        observer: Any, name: NSNotification.Name?, object: Any?
+    )
 
     public private(set) var addObserverParameters: [AddObserverParameters] = []
 
@@ -57,7 +62,10 @@ public final class MockNotificationCenter: NotificationCenter {
         return removeObserverParameters.map { $0.name }
     }
 
-    public override func addObserver(forName name: Notification.Name?, object obj: Any?, queue: OperationQueue?, using block: @escaping (Notification) -> Void) -> NSObjectProtocol {
+    public override func addObserver(
+        forName name: Notification.Name?, object obj: Any?, queue: OperationQueue?,
+        using block: @escaping (Notification) -> Void
+    ) -> NSObjectProtocol {
         defer {
             addObserverCallCount += 1
         }
@@ -69,7 +77,9 @@ public final class MockNotificationCenter: NotificationCenter {
         return opaqueObject
     }
 
-    public override func removeObserver(_ observer: Any, name aName: NSNotification.Name?, object anObject: Any?) {
+    public override func removeObserver(
+        _ observer: Any, name aName: NSNotification.Name?, object anObject: Any?
+    ) {
         let parameters = RemoveObserverParameters(observer, aName, anObject)
         removeObserverParameters.append(parameters)
         super.removeObserver(observer, name: aName, object: anObject)

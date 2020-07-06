@@ -1,5 +1,5 @@
-import Foundation
 import CoreLocation
+import Foundation
 
 public final class CoordinateFormatter: Formatter {
 
@@ -20,7 +20,10 @@ public final class CoordinateFormatter: Formatter {
     }
 
     required convenience init?(coder aDecoder: NSCoder) {
-        guard let numberFormatter = aDecoder.decodeObject(forKey: "numberFormatter") as? NumberFormatter else { return nil }
+        guard
+            let numberFormatter = aDecoder.decodeObject(forKey: "numberFormatter")
+                as? NumberFormatter
+        else { return nil }
 
         self.init(numberFormatter: numberFormatter)
     }
@@ -35,9 +38,10 @@ public final class CoordinateFormatter: Formatter {
         guard
             let coordinate = obj as? CLLocationCoordinate2D,
             let latitudeString = numberFormatter.string(from: NSNumber(value: coordinate.latitude)),
-            let longitudeString = numberFormatter.string(from: NSNumber(value: coordinate.longitude))
-            else {
-                return nil
+            let longitudeString = numberFormatter.string(
+                from: NSNumber(value: coordinate.longitude))
+        else {
+            return nil
         }
 
         return latitudeString + ", " + longitudeString

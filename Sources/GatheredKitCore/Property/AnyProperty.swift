@@ -1,5 +1,5 @@
-import Foundation
 import Combine
+import Foundation
 
 public protocol AnyProperty: class, AnySnapshot {
     typealias AnyUpdateListener = (_ snapshot: AnySnapshot) -> Void

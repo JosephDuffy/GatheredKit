@@ -12,7 +12,8 @@ extension AnyProperty {
         formatter: MeasurementFormatter = MeasurementFormatter(),
         date: Date = Date()
     ) -> SpeedProperty {
-        return SpeedProperty(displayName: displayName, value: value, unit: unit, formatter: formatter, date: date)
+        return SpeedProperty(
+            displayName: displayName, value: value, unit: unit, formatter: formatter, date: date)
     }
 
     public static func metersPerSecond(
@@ -21,7 +22,9 @@ extension AnyProperty {
         formatter: MeasurementFormatter = MeasurementFormatter(),
         date: Date = Date()
     ) -> SpeedProperty {
-        return SpeedProperty(displayName: displayName, value: value, unit: .metersPerSecond, formatter: formatter, date: date)
+        return SpeedProperty(
+            displayName: displayName, value: value, unit: .metersPerSecond, formatter: formatter,
+            date: date)
     }
 
     public static func speed(
@@ -31,7 +34,8 @@ extension AnyProperty {
         formatter: MeasurementFormatter = MeasurementFormatter(),
         date: Date = Date()
     ) -> OptionalSpeedProperty {
-        return OptionalSpeedProperty(displayName: displayName, value: value, unit: unit, formatter: formatter, date: date)
+        return OptionalSpeedProperty(
+            displayName: displayName, value: value, unit: unit, formatter: formatter, date: date)
     }
 
     public static func metersPerSecond(
@@ -40,7 +44,9 @@ extension AnyProperty {
         formatter: MeasurementFormatter = MeasurementFormatter(),
         date: Date = Date()
     ) -> OptionalSpeedProperty {
-        return OptionalSpeedProperty(displayName: displayName, value: value, unit: .metersPerSecond, formatter: formatter, date: date)
+        return OptionalSpeedProperty(
+            displayName: displayName, value: value, unit: .metersPerSecond, formatter: formatter,
+            date: date)
     }
 
 }

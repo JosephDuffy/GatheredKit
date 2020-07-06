@@ -68,7 +68,8 @@ public final class Magnetometer: Source, CustomisableUpdateIntervalControllable 
 
             if let error = error {
                 CMMotionManager.shared.stopMagnetometerUpdates()
-                self.controllableEventUpdateSubject.notifyUpdateListeners(of: .stoppedUpdating(error: error))
+                self.controllableEventUpdateSubject.notifyUpdateListeners(
+                    of: .stoppedUpdating(error: error))
                 self.state = .notMonitoring
                 return
             }

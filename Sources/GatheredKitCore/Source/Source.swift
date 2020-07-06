@@ -1,9 +1,7 @@
-import Foundation
 import Combine
+import Foundation
 
-/**
- An object that can provide data from a specific source on the device
- */
+/// An object that can provide data from a specific source on the device
 public protocol Source: PropertiesProvider {
 
     /// The availability of the source

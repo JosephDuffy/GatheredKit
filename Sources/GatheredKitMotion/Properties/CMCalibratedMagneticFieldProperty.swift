@@ -58,7 +58,9 @@ public final class CMCalibratedMagneticFieldProperty: Property, PropertiesProvid
 
     // MARK: Initialisers
 
-    public required init(displayName: String, value: Value, formatter: Formatter = Formatter(), date: Date = Date()) {
+    public required init(
+        displayName: String, value: Value, formatter: Formatter = Formatter(), date: Date = Date()
+    ) {
         self.displayName = displayName
         self.formatter = formatter
         snapshot = Snapshot(value: value, date: date)

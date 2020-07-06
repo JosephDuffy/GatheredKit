@@ -12,7 +12,8 @@ extension AnyProperty {
         formatter: MeasurementFormatter = MeasurementFormatter(),
         date: Date = Date()
     ) -> AngleProperty {
-        return AngleProperty(displayName: displayName, value: value, unit: unit, formatter: formatter, date: date)
+        return AngleProperty(
+            displayName: displayName, value: value, unit: unit, formatter: formatter, date: date)
     }
 
     public static func angle(
@@ -22,7 +23,8 @@ extension AnyProperty {
         formatter: MeasurementFormatter = MeasurementFormatter(),
         date: Date = Date()
     ) -> OptionalAngleProperty {
-        return OptionalAngleProperty(displayName: displayName, value: value, unit: unit, formatter: formatter, date: date)
+        return OptionalAngleProperty(
+            displayName: displayName, value: value, unit: unit, formatter: formatter, date: date)
     }
 
     public static func degrees(
@@ -31,7 +33,9 @@ extension AnyProperty {
         formatter: MeasurementFormatter = MeasurementFormatter(),
         date: Date = Date()
     ) -> AngleProperty {
-        return AngleProperty(displayName: displayName, value: value, unit: .degrees, formatter: formatter, date: date)
+        return AngleProperty(
+            displayName: displayName, value: value, unit: .degrees, formatter: formatter, date: date
+        )
     }
 
     public static func degrees(
@@ -40,7 +44,9 @@ extension AnyProperty {
         formatter: MeasurementFormatter = MeasurementFormatter(),
         date: Date = Date()
     ) -> OptionalAngleProperty {
-        return OptionalAngleProperty(displayName: displayName, value: value, unit: .degrees, formatter: formatter, date: date)
+        return OptionalAngleProperty(
+            displayName: displayName, value: value, unit: .degrees, formatter: formatter, date: date
+        )
     }
 
     public static func radians(
@@ -49,7 +55,9 @@ extension AnyProperty {
         formatter: MeasurementFormatter = MeasurementFormatter(),
         date: Date = Date()
     ) -> AngleProperty {
-        return .init(displayName: displayName, value: value, unit: .radians, formatter: formatter, date: date)
+        return .init(
+            displayName: displayName, value: value, unit: .radians, formatter: formatter, date: date
+        )
     }
 
     public static func radians(
@@ -58,7 +66,9 @@ extension AnyProperty {
         formatter: MeasurementFormatter = MeasurementFormatter(),
         date: Date = Date()
     ) -> OptionalAngleProperty {
-        return .init(displayName: displayName, value: value, unit: .radians, formatter: formatter, date: date)
+        return .init(
+            displayName: displayName, value: value, unit: .radians, formatter: formatter, date: date
+        )
     }
 
 }

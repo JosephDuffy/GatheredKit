@@ -1,5 +1,5 @@
-import XCTest
 import GatheredKitCore
+import XCTest
 
 final class MicroTeslaTests: XCTestCase {
 

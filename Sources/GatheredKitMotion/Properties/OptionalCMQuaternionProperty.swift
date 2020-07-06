@@ -68,7 +68,10 @@ public final class OptionalCMQuaternionProperty: Property, PropertiesProvider {
 
     // MARK: Initialisers
 
-    public required init(displayName: String, value: Value = nil, formatter: CMQuaternionFormatter = CMQuaternionFormatter(), date: Date = Date()) {
+    public required init(
+        displayName: String, value: Value = nil,
+        formatter: CMQuaternionFormatter = CMQuaternionFormatter(), date: Date = Date()
+    ) {
         self.displayName = displayName
         self.formatter = formatter
         snapshot = Snapshot(value: value, date: date)

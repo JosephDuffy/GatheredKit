@@ -20,7 +20,9 @@ extension UpdatePublisher {
         return AnyUpdatePublisher(updatePublisher: self)
     }
 
-    public func map<Output>(_ transform: @escaping (_ payload: Payload) -> Output) -> MappedUpdatePublisher<Payload, Output> {
+    public func map<Output>(_ transform: @escaping (_ payload: Payload) -> Output)
+        -> MappedUpdatePublisher<Payload, Output>
+    {
         return MappedUpdatePublisher(updatePublisher: self, transform: transform)
     }
 }

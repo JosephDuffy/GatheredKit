@@ -1,7 +1,9 @@
 import Combine
 
 public protocol ControllableSourceProvider: SourceProvider, AnyControllableSourceProvider {
-    var sourceProviderEventsPublisher: AnyUpdatePublisher<SourceProviderEvent<ProvidedSource>> { get }
+    var sourceProviderEventsPublisher: AnyUpdatePublisher<SourceProviderEvent<ProvidedSource>> {
+        get
+    }
 }
 
 extension ControllableSourceProvider {

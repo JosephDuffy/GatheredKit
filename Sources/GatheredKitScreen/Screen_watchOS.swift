@@ -3,9 +3,7 @@ import WatchKit
 import Combine
 import GatheredKitCore
 
-/**
- A wrapper around `WKInterfaceDevice`.
- */
+/// A wrapper around `WKInterfaceDevice`.
 public final class Screen: Source {
 
     public let availability: SourceAvailability = .available

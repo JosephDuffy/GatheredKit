@@ -5,8 +5,7 @@ public final class MeasurementProperty<Unit: Foundation.Unit>: Property, Equatab
     public typealias Value = Measurement<Unit>
 
     public static func == (lhs: MeasurementProperty<Unit>, rhs: MeasurementProperty<Unit>) -> Bool {
-        lhs.displayName == rhs.displayName &&
-            lhs.snapshot == rhs.snapshot
+        lhs.displayName == rhs.displayName && lhs.snapshot == rhs.snapshot
     }
 
     public var wrappedValue: Value {
@@ -80,7 +79,8 @@ public final class MeasurementProperty<Unit: Foundation.Unit>: Property, Equatab
         date: Date = Date()
     ) {
         let measurement = Measurement(value: value, unit: unit)
-        self.init(displayName: displayName, measurement: measurement, formatter: formatter, date: date)
+        self.init(
+            displayName: displayName, measurement: measurement, formatter: formatter, date: date)
     }
 
     // MARK: Update Functions

@@ -3,14 +3,14 @@ import AppKit
 import Combine
 import GatheredKitCore
 
-/**
- A wrapper around `NSScreen`.
- */
+/// A wrapper around `NSScreen`.
 public final class Screen: Source, Controllable {
 
     private enum State {
         case notMonitoring
-        case monitoring(screenParametersObserver: NSObjectProtocol, colorSpaceObserver: NSObjectProtocol, updatesQueue: OperationQueue)
+        case monitoring(
+            screenParametersObserver: NSObjectProtocol, colorSpaceObserver: NSObjectProtocol,
+            updatesQueue: OperationQueue)
     }
 
     public let availability: SourceAvailability = .available
@@ -40,7 +40,7 @@ public final class Screen: Source, Controllable {
      */
     public var allProperties: [AnyProperty] {
         return [
-            $resolution,
+            $resolution
         ]
     }
 
@@ -100,13 +100,18 @@ public final class Screen: Source, Controllable {
         let updatesQueue = OperationQueue()
         updatesQueue.name = "uk.co.josephduffy.GatheredKit Screen Updates"
 
-        let screenParametersObserver = notificationCenter.addObserver(forName: NSApplication.didChangeScreenParametersNotification, object: NSApplication.shared, queue: updatesQueue) { [weak self] _ in
+        let screenParametersObserver = notificationCenter.addObserver(
+            forName: NSApplication.didChangeScreenParametersNotification,
+            object: NSApplication.shared, queue: updatesQueue
+        ) { [weak self] _ in
             guard let self = self else { return }
             self._resolution.updateValueIfDifferent(self.nsScreen.frame.size)
         }
         _resolution.updateValueIfDifferent(nsScreen.frame.size)
 
-        let colorSpaceObserver = notificationCenter.addObserver(forName: NSScreen.colorSpaceDidChangeNotification, object: nsScreen, queue: updatesQueue) { _ in
+        let colorSpaceObserver = notificationCenter.addObserver(
+            forName: NSScreen.colorSpaceDidChangeNotification, object: nsScreen, queue: updatesQueue
+        ) { _ in
             // TODO: Update colour space
         }
 
@@ -122,7 +127,8 @@ public final class Screen: Source, Controllable {
      Stop performing automatic date refreshes
      */
     public func stopUpdating() {
-        guard case .monitoring(let screenParametersObserver, let colorSpaceObserver, _) = state else { return }
+        guard case .monitoring(let screenParametersObserver, let colorSpaceObserver, _) = state
+        else { return }
 
         notificationCenter
             .removeObserver(

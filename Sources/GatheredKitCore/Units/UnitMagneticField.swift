@@ -6,8 +6,10 @@ public final class UnitMagneticField: Dimension {
         return tesla
     }
 
-    public static let tesla = UnitMagneticField(symbol: "T", converter: UnitConverterLinear(coefficient: 1))
+    public static let tesla = UnitMagneticField(
+        symbol: "T", converter: UnitConverterLinear(coefficient: 1))
 
-    public static let microTesla = UnitMagneticField(symbol: "µT", converter: UnitConverterLinear(coefficient: 1/1000))
+    public static let microTesla = UnitMagneticField(
+        symbol: "µT", converter: UnitConverterLinear(coefficient: 1 / 1000))
 
 }

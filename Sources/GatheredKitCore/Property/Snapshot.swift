@@ -24,5 +24,5 @@ public struct Snapshot<Value>: AnySnapshot {
 }
 
 extension Snapshot: Equatable where Value: Equatable {
-    
+
 }

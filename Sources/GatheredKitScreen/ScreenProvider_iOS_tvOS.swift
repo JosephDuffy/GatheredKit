@@ -71,7 +71,9 @@ public final class ScreenProvider: ControllableSourceProvider {
             let screen = Screen(screen: uiScreen, notificationCenter: self.notificationCenter)
             let event = SourceProviderEvent.sourceAdded(screen)
 
-            if self.sources.count == UIScreen.screens.count - 1, let insertedIndex = UIScreen.screens.firstIndex(of: uiScreen) {
+            if self.sources.count == UIScreen.screens.count - 1,
+                let insertedIndex = UIScreen.screens.firstIndex(of: uiScreen)
+            {
                 self.sources.insert(screen, at: insertedIndex)
             } else {
                 self.sources.append(screen)
@@ -86,14 +88,18 @@ public final class ScreenProvider: ControllableSourceProvider {
             queue: nil
         ) { [unowned self] notification in
             guard let uiScreen = notification.object as? UIScreen else { return }
-            guard let index = self.sources.firstIndex(where: { $0.uiScreen == uiScreen }) else { return }
+            guard let index = self.sources.firstIndex(where: { $0.uiScreen == uiScreen }) else {
+                return
+            }
             let screen = self.sources.remove(at: index)
 
             let event = SourceProviderEvent.sourceRemoved(screen)
             self.sourceProviderEventsSubject.notifyUpdateListeners(of: event)
         }
 
-        state = .monitoring(observers: .init(didConnect: didConnectCancellable, didDisconnect: didDisconnectCancellable))
+        state = .monitoring(
+            observers: .init(
+                didConnect: didConnectCancellable, didDisconnect: didDisconnectCancellable))
         controllableEventUpdateSubject.notifyUpdateListeners(of: .startedUpdating)
     }
 

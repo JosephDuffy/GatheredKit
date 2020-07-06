@@ -51,7 +51,6 @@ public final class DeviceMotion: Source, CustomisableUpdateIntervalControllable 
     @OptionalCMRotationRateProperty
     public private(set) var rotationRate: CMRotationRate?
 
-
     public var allProperties: [AnyProperty] {
         return [
             $attitude,
@@ -107,7 +106,8 @@ public final class DeviceMotion: Source, CustomisableUpdateIntervalControllable 
 
             if let error = error {
                 CMMotionManager.shared.stopDeviceMotionUpdates()
-                self.controllableEventUpdateSubject.notifyUpdateListeners(of: .stoppedUpdating(error: error))
+                self.controllableEventUpdateSubject.notifyUpdateListeners(
+                    of: .stoppedUpdating(error: error))
                 self.state = .notMonitoring
                 return
             }

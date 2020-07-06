@@ -67,7 +67,10 @@ public final class CMAttitudeProperty: Property, PropertiesProvider {
 
     // MARK: Initialisers
 
-    public init(displayName: String, value: CMAttitude, formatter: CMAttitudeFormatter = CMAttitudeFormatter(), date: Date = Date()) {
+    public init(
+        displayName: String, value: CMAttitude,
+        formatter: CMAttitudeFormatter = CMAttitudeFormatter(), date: Date = Date()
+    ) {
         self.displayName = displayName
         self.formatter = formatter
         snapshot = Snapshot(value: value, date: date)

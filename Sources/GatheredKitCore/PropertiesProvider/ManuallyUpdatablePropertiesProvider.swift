@@ -1,6 +1,4 @@
-/**
- A property provider that supports its properties being updated at any given time.
- */
+/// A property provider that supports its properties being updated at any given time.
 public protocol ManuallyUpdatablePropertiesProvider: PropertiesProvider {
 
     /**

@@ -1,5 +1,5 @@
-import Foundation
 import CoreLocation
+import Foundation
 import GatheredKitCore
 
 @propertyWrapper
@@ -56,7 +56,10 @@ public final class CoordinateProperty: Property, PropertiesProvider {
     @AngleProperty
     public private(set) var longitude: Measurement<UnitAngle>
 
-    public required init(displayName: String, value: CLLocationCoordinate2D, formatter: CoordinateFormatter = CoordinateFormatter(), date: Date = Date()) {
+    public required init(
+        displayName: String, value: CLLocationCoordinate2D,
+        formatter: CoordinateFormatter = CoordinateFormatter(), date: Date = Date()
+    ) {
         self.displayName = displayName
         self.formatter = formatter
         snapshot = Snapshot(value: value, date: date)

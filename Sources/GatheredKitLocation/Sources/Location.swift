@@ -1,6 +1,6 @@
-import Foundation
-import CoreLocation
 import Combine
+import CoreLocation
+import Foundation
 import GatheredKitCore
 
 // TODO: Wrap delegate to remove need for inheritance from `NSObject`
@@ -116,7 +116,8 @@ public final class Location: NSObject, Source, Controllable {
         _floor = .init(displayName: "Floor")
         _horizonalAccuracy = .meters(displayName: "Horizontal Accuracy")
         _verticalAccuracy = .meters(displayName: "Vertical Accuracy")
-        _authorizationStatus = .init(displayName: "Authorization Status", value: CLLocationManager.authorizationStatus())
+        _authorizationStatus = .init(
+            displayName: "Authorization Status", value: CLLocationManager.authorizationStatus())
 
         eventsSubject = UpdateSubject()
 
@@ -132,7 +133,9 @@ public final class Location: NSObject, Source, Controllable {
         startUpdating(allowBackgroundUpdates: false, desiredAccuracy: .best)
     }
 
-    public func startUpdating(allowBackgroundUpdates: Bool = false, desiredAccuracy accuracy: Accuracy = .best) {
+    public func startUpdating(
+        allowBackgroundUpdates: Bool = false, desiredAccuracy accuracy: Accuracy = .best
+    ) {
         startUpdating(desiredAccuracy: accuracy) { locationManager in
             locationManager.allowsBackgroundLocationUpdates = allowBackgroundUpdates
         }
@@ -147,7 +150,10 @@ public final class Location: NSObject, Source, Controllable {
     }
     #endif
 
-    private func startUpdating(desiredAccuracy accuracy: Accuracy, locationManagerConfigurator: ((CLLocationManager) -> Void)?) {
+    private func startUpdating(
+        desiredAccuracy accuracy: Accuracy,
+        locationManagerConfigurator: ((CLLocationManager) -> Void)?
+    ) {
         let locationManager: CLLocationManager = {
             if let locationManager = self.locationManager {
                 return locationManager
@@ -278,7 +284,9 @@ public final class Location: NSObject, Source, Controllable {
 
 extension Location: CLLocationManagerDelegate {
 
-    public func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
+    public func locationManager(
+        _ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus
+    ) {
         availability = SourceAvailability(authorizationStatus: status) ?? .unavailable
         eventsSubject.notifyUpdateListeners(of: .availabilityUpdated(availability))
 
@@ -303,7 +311,9 @@ extension Location: CLLocationManagerDelegate {
         }
     }
 
-    public func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+    public func locationManager(
+        _ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]
+    ) {
         locations.forEach(updateLocationValues(_:))
     }
 

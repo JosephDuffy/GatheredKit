@@ -18,7 +18,9 @@ public final class SingleSourceProvider<Source: GatheredKitCore.Source>: SourceP
 
 }
 
-extension SingleSourceProvider: ControllableSourceProvider, Controllable, AnyControllableSourceProvider where Source: Controllable {
+extension SingleSourceProvider: ControllableSourceProvider, Controllable,
+    AnyControllableSourceProvider
+where Source: Controllable {
     /// An events publisher that will publish source provider events.
     /// - Important: This publisher will never publish any events; no sources will ever be added or removed from this provider.
     ///     A new instance is returned every time this property is accessed.

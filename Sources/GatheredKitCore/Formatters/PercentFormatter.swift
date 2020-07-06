@@ -1,8 +1,6 @@
 import Foundation
 
-/**
- A `NumberFormatter` with the `numberStyle` set to `percent`
- */
+/// A `NumberFormatter` with the `numberStyle` set to `percent`
 public final class PercentFormatter: NumberFormatter {
 
     public override init() {

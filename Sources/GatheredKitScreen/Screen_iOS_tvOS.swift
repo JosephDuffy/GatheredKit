@@ -3,16 +3,16 @@ import UIKit
 import Combine
 import GatheredKitCore
 
-/**
- A wrapper around `UIScreen`.
- */
+/// A wrapper around `UIScreen`.
 public final class Screen: Source, Controllable {
 
     private enum State {
         case notMonitoring
         // swiftlint:disable duplicate_enum_cases
         #if os(iOS)
-        case monitoring(brightnessChangeObeserver: NSObjectProtocol?, modeChangeObeserver: NSObjectProtocol, updatesQueue: OperationQueue)
+        case monitoring(
+            brightnessChangeObeserver: NSObjectProtocol?, modeChangeObeserver: NSObjectProtocol,
+            updatesQueue: OperationQueue)
         #elseif os(tvOS)
         case monitoring(modeChangeObeserver: NSObjectProtocol, updatesQueue: OperationQueue)
         #endif
@@ -21,7 +21,7 @@ public final class Screen: Source, Controllable {
     public let availability: SourceAvailability = .available
 
     public let name: String
-    
+
     public var controllableEventUpdatePublisher: AnyUpdatePublisher<ControllableEvent> {
         controllableEventUpdateSubject.eraseToAnyUpdatePublisher()
     }
@@ -189,7 +189,9 @@ public final class Screen: Source, Controllable {
         }
         #endif
 
-        let modeChangeObeserver = notificationCenter.addObserver(forName: UIScreen.modeDidChangeNotification, object: uiScreen, queue: updatesQueue) { [weak self] _ in
+        let modeChangeObeserver = notificationCenter.addObserver(
+            forName: UIScreen.modeDidChangeNotification, object: uiScreen, queue: updatesQueue
+        ) { [weak self] _ in
             guard let self = self else { return }
             self._reportedResolution.updateValueIfDifferent(self.uiScreen.bounds.size)
             self._nativeResolution.updateValueIfDifferent(self.uiScreen.nativeBounds.size)
@@ -223,7 +225,8 @@ public final class Screen: Source, Controllable {
      */
     public func stopUpdating() {
         #if os(iOS)
-        guard case .monitoring(let brightnessChangeObeserver, let modeChangeObeserver, _) = state else { return }
+        guard case .monitoring(let brightnessChangeObeserver, let modeChangeObeserver, _) = state
+        else { return }
 
         brightnessChangeObeserver.map { brightnessChangeObeserver in
             notificationCenter

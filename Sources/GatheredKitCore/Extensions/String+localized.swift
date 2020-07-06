@@ -14,4 +14,4 @@ extension String {
 
 }
 
-private final class FrameworkClass { }
+private final class FrameworkClass {}

@@ -34,12 +34,14 @@ public final class Altimeter: Source, Controllable, ActionProvider {
 
     public var actions: [Action] {
         return [
-            Action(title: "Reset Altitude", isAvailable: isUpdating, perform: { [weak self] in
-                guard let self = self else { return }
-                guard self.isUpdating else { return }
-                self.stopUpdating()
-                self.startUpdating()
-            }),
+            Action(
+                title: "Reset Altitude", isAvailable: isUpdating,
+                perform: { [weak self] in
+                    guard let self = self else { return }
+                    guard self.isUpdating else { return }
+                    self.stopUpdating()
+                    self.startUpdating()
+                })
         ]
     }
 
@@ -68,23 +70,27 @@ public final class Altimeter: Source, Controllable, ActionProvider {
         availability = CMAltimeter.availability
 
         if availability != oldAvailability {
-            controllableEventUpdateSubject.notifyUpdateListeners(of: .availabilityUpdated(availability))
+            controllableEventUpdateSubject.notifyUpdateListeners(
+                of: .availabilityUpdated(availability))
         }
 
         switch availability {
         case .available:
             break
         case .permissionDenied:
-            controllableEventUpdateSubject.notifyUpdateListeners(of: .failedToStart(error: .permissionDenied))
+            controllableEventUpdateSubject.notifyUpdateListeners(
+                of: .failedToStart(error: .permissionDenied))
             return
         case .requiresPermissionsPrompt:
             // Perhaps it will ask the user when `startRelativeAltitudeUpdates` is called?
             break
         case .restricted:
-            controllableEventUpdateSubject.notifyUpdateListeners(of: .failedToStart(error: .restricted))
+            controllableEventUpdateSubject.notifyUpdateListeners(
+                of: .failedToStart(error: .restricted))
             return
         case .unavailable:
-            controllableEventUpdateSubject.notifyUpdateListeners(of: .failedToStart(error: .unavailable))
+            controllableEventUpdateSubject.notifyUpdateListeners(
+                of: .failedToStart(error: .unavailable))
             return
         }
 
@@ -92,16 +98,18 @@ public final class Altimeter: Source, Controllable, ActionProvider {
         updatesQueue.name = "GatheredKit Altimeter Updates"
         let altimeter = CMAltimeter()
 
-        altimeter.startRelativeAltitudeUpdates(to: updatesQueue) { [weak self, weak altimeter] data, error in
+        altimeter.startRelativeAltitudeUpdates(to: updatesQueue) {
+            [weak self, weak altimeter] data, error in
             guard let self = self else { return }
             if let error = error {
                 altimeter?.stopRelativeAltitudeUpdates()
-                self.controllableEventUpdateSubject.notifyUpdateListeners(of: .stoppedUpdating(error: error))
+                self.controllableEventUpdateSubject.notifyUpdateListeners(
+                    of: .stoppedUpdating(error: error))
                 self.state = .notMonitoring
                 return
             }
             guard let data = data else { return }
-            
+
             self._relativeAltitude.updateValueIfDifferent(data.relativeAltitude.doubleValue)
             self._pressure.updateValueIfDifferent(data.pressure.doubleValue)
         }

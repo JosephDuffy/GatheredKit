@@ -17,11 +17,13 @@ public final class AnyUpdatePublisher<Payload>: UpdatePublisher {
 
     private let boxedAddUpdateListener: (_ updateListener: @escaping UpdateListener) -> Subscription
 
-    public init<UpdatePublisher: GatheredKitCore.UpdatePublisher>(updatePublisher: UpdatePublisher) where UpdatePublisher.Payload == Payload {
+    public init<UpdatePublisher: GatheredKitCore.UpdatePublisher>(updatePublisher: UpdatePublisher)
+    where UpdatePublisher.Payload == Payload {
         if #available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *) {
-            boxedCombinePublisher = {
-                return updatePublisher.combinePublisher
-            } as BoxedCombinePublisher
+            boxedCombinePublisher =
+                {
+                    return updatePublisher.combinePublisher
+                } as BoxedCombinePublisher
         } else {
             boxedCombinePublisher = {
                 fatalError("boxedCombinePublisher unavailable")
