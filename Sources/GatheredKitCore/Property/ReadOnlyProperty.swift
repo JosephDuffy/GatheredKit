@@ -33,3 +33,9 @@ public final class ReadOnlyProperty<Property: AnyProperty>: AnyProperty {
         return wrapped[keyPath: keyPath]
     }
 }
+
+extension ReadOnlyProperty: PropertiesProvider where Property: PropertiesProvider {
+    public var allProperties: [AnyProperty] {
+        wrapped.allProperties
+    }
+}
