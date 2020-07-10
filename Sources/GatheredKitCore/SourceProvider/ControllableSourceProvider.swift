@@ -18,12 +18,3 @@ extension ControllableSourceProvider {
         }.eraseToAnyUpdatePublisher()
     }
 }
-
-public enum AnySourceProviderEvent {
-    case sourceAdded(Source)
-    case sourceRemoved(Source)
-}
-
-public protocol AnyControllableSourceProvider: AnySourceProvider, Controllable {
-    var typeErasedSourceProviderEventsPublisher: AnyUpdatePublisher<AnySourceProviderEvent> { get }
-}
