@@ -4,7 +4,7 @@ import CoreMotion
 import GatheredKitCore
 
 @propertyWrapper
-public final class CMAccelerationProperty: Property, PropertiesProvider {
+public final class CMAccelerationProperty: UpdatableProperty, PropertiesProvider {
     public typealias Value = CMAcceleration
     public typealias Formatter = CMAccelerationFormatter
 
@@ -73,12 +73,15 @@ public final class CMAccelerationProperty: Property, PropertiesProvider {
         _z = .gravity(displayName: "z", value: value.z, date: date)
     }
 
-    public func updateValue(_ value: Value, date: Date = Date()) {
-        _x.updateValueIfDifferent(value.x, date: date)
-        _y.updateValueIfDifferent(value.y, date: date)
-        _z.updateValueIfDifferent(value.z, date: date)
+    @discardableResult
+    public func updateValue(_ value: Value, date: Date) -> Snapshot<Value> {
+        _x.updateMeasuredValue(value.x, date: date)
+        _y.updateMeasuredValue(value.y, date: date)
+        _z.updateMeasuredValue(value.z, date: date)
 
-        snapshot = Snapshot(value: value, date: date)
+        let snapshot = Snapshot(value: value, date: date)
+        self.snapshot = snapshot
+        return snapshot
     }
 }
 #endif

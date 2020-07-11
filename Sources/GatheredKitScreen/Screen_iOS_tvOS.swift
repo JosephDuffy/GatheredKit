@@ -4,7 +4,7 @@ import Combine
 import GatheredKitCore
 
 /// A wrapper around `UIScreen`.
-public final class Screen: Source, Controllable {
+public final class Screen: UpdatingSource, Controllable {
 
     private enum State {
         case notMonitoring
@@ -22,11 +22,11 @@ public final class Screen: Source, Controllable {
 
     public let name: String
 
-    public var controllableEventUpdatePublisher: AnyUpdatePublisher<ControllableEvent> {
-        controllableEventUpdateSubject.eraseToAnyUpdatePublisher()
+    public var sourceEventPublisher: AnyUpdatePublisher<SourceEvent> {
+        return sourceEventsSubject.eraseToAnyUpdatePublisher()
     }
 
-    private let controllableEventUpdateSubject: UpdateSubject<ControllableEvent>
+    private let sourceEventsSubject: UpdateSubject<SourceEvent>
 
     /// A boolean indicating if the screen is monitoring for brightness changes
     public var isUpdating: Bool {
@@ -151,7 +151,7 @@ public final class Screen: Source, Controllable {
         _brightness = .init(displayName: "Brightness", value: brightness)
         #endif
 
-        controllableEventUpdateSubject = .init()
+        sourceEventsSubject = .init()
 
         $reportedResolution.formatter.suffix = " Points"
         $nativeResolution.formatter.suffix = " Pixels"
@@ -181,9 +181,20 @@ public final class Screen: Source, Controllable {
                 queue: updatesQueue
             ) { [weak self] _ in
                 guard let self = self else { return }
-                self._brightness.updateValueIfDifferent(self.uiScreen.brightness)
+
+                if let snapshot = self._brightness.updateValueIfDifferent(self.uiScreen.brightness) {
+                    self.sourceEventsSubject.notifyUpdateListeners(
+                        of: .propertyUpdated(
+                            property: self.$brightness,
+                            snapshot: snapshot
+                        )
+                    )
+                }
             }
-            _brightness.updateValueIfDifferent(uiScreen.brightness)
+
+            if let snapshot = _brightness.updateValueIfDifferent(uiScreen.brightness) {
+                sourceEventsSubject.notifyUpdateListeners(of: .propertyUpdated(property: $brightness, snapshot: snapshot))
+            }
         } else {
             brightnessChangeObeserver = nil
         }
@@ -193,10 +204,38 @@ public final class Screen: Source, Controllable {
             forName: UIScreen.modeDidChangeNotification, object: uiScreen, queue: updatesQueue
         ) { [weak self] _ in
             guard let self = self else { return }
-            self._reportedResolution.updateValueIfDifferent(self.uiScreen.bounds.size)
-            self._nativeResolution.updateValueIfDifferent(self.uiScreen.nativeBounds.size)
-            self._reportedScale.updateValueIfDifferent(self.uiScreen.scale)
-            self._nativeScale.updateValueIfDifferent(self.uiScreen.nativeScale)
+            if let snapshot = self._reportedResolution.updateValueIfDifferent(self.uiScreen.bounds.size) {
+                self.sourceEventsSubject.notifyUpdateListeners(
+                    of: .propertyUpdated(
+                        property: self.$reportedResolution,
+                        snapshot: snapshot
+                    )
+                )
+            }
+                if let snapshot = self._nativeResolution.updateValueIfDifferent(self.uiScreen.nativeBounds.size) {
+                    self.sourceEventsSubject.notifyUpdateListeners(
+                        of: .propertyUpdated(
+                            property: self.$nativeResolution,
+                            snapshot: snapshot
+                        )
+                    )
+                }
+                    if let snapshot = self._reportedScale.updateValueIfDifferent(self.uiScreen.scale) {
+                        self.sourceEventsSubject.notifyUpdateListeners(
+                            of: .propertyUpdated(
+                                property: self.$reportedResolution,
+                                snapshot: snapshot
+                            )
+                        )
+                    }
+                        if let snapshot = self._nativeScale.updateValueIfDifferent(self.uiScreen.nativeScale) {
+                            self.sourceEventsSubject.notifyUpdateListeners(
+                                of: .propertyUpdated(
+                                    property: self.$nativeScale,
+                                    snapshot: snapshot
+                                )
+                            )
+                        }
         }
 
         _reportedResolution.updateValueIfDifferent(uiScreen.bounds.size)
@@ -217,7 +256,7 @@ public final class Screen: Source, Controllable {
         )
         #endif
 
-        controllableEventUpdateSubject.notifyUpdateListeners(of: .startedUpdating)
+        sourceEventsSubject.notifyUpdateListeners(of: .startedUpdating)
     }
 
     /**
@@ -248,7 +287,7 @@ public final class Screen: Source, Controllable {
             )
 
         state = .notMonitoring
-        controllableEventUpdateSubject.notifyUpdateListeners(of: .stoppedUpdating())
+        sourceEventsSubject.notifyUpdateListeners(of: .stoppedUpdating())
     }
 
 }

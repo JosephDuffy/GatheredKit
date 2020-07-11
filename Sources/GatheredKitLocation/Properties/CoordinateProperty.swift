@@ -3,7 +3,7 @@ import Foundation
 import GatheredKitCore
 
 @propertyWrapper
-public final class CoordinateProperty: Property, PropertiesProvider {
+public final class CoordinateProperty: UpdatableProperty, PropertiesProvider {
     public typealias Value = CLLocationCoordinate2D
 
     public var allProperties: [AnyProperty] {
@@ -18,7 +18,7 @@ public final class CoordinateProperty: Property, PropertiesProvider {
             return snapshot.value
         }
         set {
-            update(value: newValue)
+            updateValue(newValue)
         }
     }
 
@@ -68,11 +68,13 @@ public final class CoordinateProperty: Property, PropertiesProvider {
         _longitude = .degrees(displayName: "Longitude", value: value.longitude, date: date)
     }
 
-    public func update(value: CLLocationCoordinate2D, date: Date = Date()) {
-        _latitude.updateValueIfDifferent(value.latitude, date: date)
-        _longitude.updateValueIfDifferent(value.longitude, date: date)
+    public func updateValue(_ value: CLLocationCoordinate2D, date: Date) -> Snapshot<CLLocationCoordinate2D> {
+        _latitude.updateMeasuredValue(value.latitude, date: date)
+        _longitude.updateMeasuredValue(value.longitude, date: date)
 
-        snapshot = Snapshot(value: value, date: date)
+        let snapshot = Snapshot(value: value, date: date)
+        self.snapshot = snapshot
+        return snapshot
     }
 
 }

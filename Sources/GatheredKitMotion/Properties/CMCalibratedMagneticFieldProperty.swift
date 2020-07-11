@@ -4,7 +4,7 @@ import CoreMotion
 import GatheredKitCore
 
 @propertyWrapper
-public final class CMCalibratedMagneticFieldProperty: Property, PropertiesProvider {
+public final class CMCalibratedMagneticFieldProperty: UpdatableProperty, PropertiesProvider {
     public typealias Value = CMCalibratedMagneticField
     // TODO: Create `CMCalibratedMagneticFieldFormatter`
     public typealias Formatter = CMMagneticFieldFormatter
@@ -70,11 +70,14 @@ public final class CMCalibratedMagneticFieldProperty: Property, PropertiesProvid
         _field = .init(displayName: "Field", value: value.field, date: date)
     }
 
-    public func updateValue(_ value: Value, date: Date = Date()) {
-        _accuracy.updateValueIfDifferent(value.accuracy, date: date)
+    @discardableResult
+    public func updateValue(_ value: Value, date: Date) -> Snapshot<Value> {
+        _accuracy.updateValue(value.accuracy, date: date)
         _field.updateValue(value.field, date: date)
 
-        snapshot = Snapshot(value: value, date: date)
+        let snapshot = Snapshot(value: value, date: date)
+        self.snapshot = snapshot
+        return snapshot
     }
 }
 #endif

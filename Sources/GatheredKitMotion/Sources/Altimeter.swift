@@ -4,7 +4,7 @@ import CoreMotion
 import Combine
 import GatheredKitCore
 
-public final class Altimeter: Source, Controllable, ActionProvider {
+public final class Altimeter: UpdatingSource, Controllable, ActionProvider {
 
     private enum State {
         case notMonitoring
@@ -15,11 +15,11 @@ public final class Altimeter: Source, Controllable, ActionProvider {
 
     public private(set) var availability: SourceAvailability
 
-    public var controllableEventUpdatePublisher: AnyUpdatePublisher<ControllableEvent> {
-        return controllableEventUpdateSubject.eraseToAnyUpdatePublisher()
+    public var sourceEventPublisher: AnyUpdatePublisher<SourceEvent> {
+        return sourceEventsSubject.eraseToAnyUpdatePublisher()
     }
 
-    private let controllableEventUpdateSubject: UpdateSubject<ControllableEvent>
+    private let sourceEventsSubject: UpdateSubject<SourceEvent>
 
     public private(set) var isUpdating: Bool = false
 
@@ -60,7 +60,7 @@ public final class Altimeter: Source, Controllable, ActionProvider {
         availability = CMAltimeter.availability
         _relativeAltitude = .meters(displayName: "Relative Altitude")
         _pressure = .kilopascals(displayName: "Pressure")
-        controllableEventUpdateSubject = .init()
+        sourceEventsSubject = .init()
     }
 
     public func startUpdating() {
@@ -70,7 +70,7 @@ public final class Altimeter: Source, Controllable, ActionProvider {
         availability = CMAltimeter.availability
 
         if availability != oldAvailability {
-            controllableEventUpdateSubject.notifyUpdateListeners(
+            sourceEventsSubject.notifyUpdateListeners(
                 of: .availabilityUpdated(availability))
         }
 
@@ -78,18 +78,18 @@ public final class Altimeter: Source, Controllable, ActionProvider {
         case .available:
             break
         case .permissionDenied:
-            controllableEventUpdateSubject.notifyUpdateListeners(
+            sourceEventsSubject.notifyUpdateListeners(
                 of: .failedToStart(error: .permissionDenied))
             return
         case .requiresPermissionsPrompt:
             // Perhaps it will ask the user when `startRelativeAltitudeUpdates` is called?
             break
         case .restricted:
-            controllableEventUpdateSubject.notifyUpdateListeners(
+            sourceEventsSubject.notifyUpdateListeners(
                 of: .failedToStart(error: .restricted))
             return
         case .unavailable:
-            controllableEventUpdateSubject.notifyUpdateListeners(
+            sourceEventsSubject.notifyUpdateListeners(
                 of: .failedToStart(error: .unavailable))
             return
         }
@@ -103,26 +103,26 @@ public final class Altimeter: Source, Controllable, ActionProvider {
             guard let self = self else { return }
             if let error = error {
                 altimeter?.stopRelativeAltitudeUpdates()
-                self.controllableEventUpdateSubject.notifyUpdateListeners(
+                self.sourceEventsSubject.notifyUpdateListeners(
                     of: .stoppedUpdating(error: error))
                 self.state = .notMonitoring
                 return
             }
             guard let data = data else { return }
 
-            self._relativeAltitude.updateValueIfDifferent(data.relativeAltitude.doubleValue)
-            self._pressure.updateValueIfDifferent(data.pressure.doubleValue)
+            self._relativeAltitude.updateMeasuredValueIfDifferent(data.relativeAltitude.doubleValue)
+            self._pressure.updateMeasuredValueIfDifferent(data.pressure.doubleValue)
         }
 
         state = .monitoring(altimeter: altimeter, updatesQueue: updatesQueue)
-        controllableEventUpdateSubject.notifyUpdateListeners(of: .startedUpdating)
+        sourceEventsSubject.notifyUpdateListeners(of: .startedUpdating)
     }
 
     public func stopUpdating() {
         guard case .monitoring(let altimeter, _) = state else { return }
         altimeter.stopRelativeAltitudeUpdates()
         state = .notMonitoring
-        controllableEventUpdateSubject.notifyUpdateListeners(of: .stoppedUpdating())
+        sourceEventsSubject.notifyUpdateListeners(of: .stoppedUpdating())
     }
 
 }

@@ -4,9 +4,14 @@ import Foundation
 ///
 /// To benefit from `BasePollingSource` your subclass must implement `ManuallyUpdatablePropertiesProvider`. This
 /// will add `CustomisableUpdateIntervalSource` conformance via an extension.
-open class BasePollingSource: Source {
+open class BasePollingSource: UpdatingSource {
 
     public typealias ProducedValue = [AnyProperty]
+
+    fileprivate enum State {
+        case notMonitoring
+        case monitoring(updatesQueue: DispatchQueue, updateInterval: TimeInterval?)
+    }
 
     open var availability: SourceAvailability {
         return .available
@@ -14,22 +19,6 @@ open class BasePollingSource: Source {
 
     open var name: String {
         return ""
-    }
-
-    fileprivate enum State {
-        case notMonitoring
-        case monitoring(updatesQueue: DispatchQueue, updateInterval: TimeInterval?)
-    }
-
-    fileprivate var state: State = .notMonitoring
-
-    fileprivate var updatesQueue: DispatchQueue? {
-        switch state {
-        case .monitoring(let updatesQueue, _):
-            return updatesQueue
-        case .notMonitoring:
-            return nil
-        }
     }
 
     public final var updateInterval: TimeInterval? {
@@ -52,12 +41,30 @@ open class BasePollingSource: Source {
 
     public var allProperties: [AnyProperty] = []
 
+    public var sourceEventPublisher: AnyUpdatePublisher<SourceEvent> {
+        return sourceEventsSubject.eraseToAnyUpdatePublisher()
+    }
+
+    internal let sourceEventsSubject: UpdateSubject<SourceEvent>
+
+    fileprivate var state: State = .notMonitoring
+
+    private var updatesQueue: DispatchQueue? {
+        switch state {
+        case .monitoring(let updatesQueue, _):
+            return updatesQueue
+        case .notMonitoring:
+            return nil
+        }
+    }
+
     public required init() {
         guard type(of: self) != BasePollingSource.self else {
             fatalError("BasePollingSource must be subclassed")
         }
-    }
 
+        sourceEventsSubject = .init()
+    }
 }
 
 extension CustomisableUpdateIntervalControllable

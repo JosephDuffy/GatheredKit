@@ -1,4 +1,4 @@
-public enum ControllableEvent {
+public enum SourceEvent {
     case propertyUpdated(property: AnyProperty, snapshot: AnySnapshot)
     case failedToStart(error: SourceError)
     case startedUpdating

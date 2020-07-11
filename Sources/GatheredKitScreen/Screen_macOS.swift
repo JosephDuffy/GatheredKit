@@ -4,7 +4,7 @@ import Combine
 import GatheredKitCore
 
 /// A wrapper around `NSScreen`.
-public final class Screen: Source, Controllable {
+public final class Screen: UpdatingSource, Controllable {
 
     private enum State {
         case notMonitoring
@@ -17,11 +17,11 @@ public final class Screen: Source, Controllable {
 
     public let name = "Screen"
 
-    public var controllableEventUpdatePublisher: AnyUpdatePublisher<ControllableEvent> {
-        controllableEventUpdateSubject.eraseToAnyUpdatePublisher()
+    public var sourceEventPublisher: AnyUpdatePublisher<SourceEvent> {
+        return sourceEventsSubject.eraseToAnyUpdatePublisher()
     }
 
-    private let controllableEventUpdateSubject: UpdateSubject<ControllableEvent>
+    private let sourceEventsSubject: UpdateSubject<SourceEvent>
 
     public private(set) var isUpdating: Bool = false
 
@@ -50,10 +50,10 @@ public final class Screen: Source, Controllable {
             switch state {
             case .monitoring:
                 isUpdating = true
-                controllableEventUpdateSubject.notifyUpdateListeners(of: .startedUpdating)
+                sourceEventsSubject.notifyUpdateListeners(of: .startedUpdating)
             case .notMonitoring:
                 isUpdating = false
-                controllableEventUpdateSubject.notifyUpdateListeners(of: .stoppedUpdating())
+                sourceEventsSubject.notifyUpdateListeners(of: .stoppedUpdating())
             }
         }
     }
@@ -77,7 +77,7 @@ public final class Screen: Source, Controllable {
     internal init(screen: NSScreen, notificationCenter: NotificationCenter = .default) {
         self.nsScreen = screen
         self.notificationCenter = notificationCenter
-        controllableEventUpdateSubject = .init()
+        sourceEventsSubject = .init()
 
         _resolution = .init(
             displayName: "Resolution",
@@ -105,9 +105,15 @@ public final class Screen: Source, Controllable {
             object: NSApplication.shared, queue: updatesQueue
         ) { [weak self] _ in
             guard let self = self else { return }
-            self._resolution.updateValueIfDifferent(self.nsScreen.frame.size)
+
+            if let snapshot = self._resolution.updateValueIfDifferent(self.nsScreen.frame.size) {
+                self.sourceEventsSubject.notifyUpdateListeners(of: .propertyUpdated(property: self.$resolution, snapshot: snapshot))
+            }
         }
-        _resolution.updateValueIfDifferent(nsScreen.frame.size)
+
+        if let snapshot = self._resolution.updateValueIfDifferent(self.nsScreen.frame.size) {
+            self.sourceEventsSubject.notifyUpdateListeners(of: .propertyUpdated(property: self.$resolution, snapshot: snapshot))
+        }
 
         let colorSpaceObserver = notificationCenter.addObserver(
             forName: NSScreen.colorSpaceDidChangeNotification, object: nsScreen, queue: updatesQueue
@@ -120,7 +126,7 @@ public final class Screen: Source, Controllable {
             colorSpaceObserver: colorSpaceObserver,
             updatesQueue: updatesQueue
         )
-        controllableEventUpdateSubject.notifyUpdateListeners(of: .startedUpdating)
+        sourceEventsSubject.notifyUpdateListeners(of: .startedUpdating)
     }
 
     /**
@@ -145,7 +151,7 @@ public final class Screen: Source, Controllable {
             )
 
         state = .notMonitoring
-        controllableEventUpdateSubject.notifyUpdateListeners(of: .stoppedUpdating())
+        sourceEventsSubject.notifyUpdateListeners(of: .stoppedUpdating())
     }
 
 }

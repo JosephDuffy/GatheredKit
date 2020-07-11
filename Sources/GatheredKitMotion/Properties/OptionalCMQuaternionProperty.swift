@@ -4,7 +4,7 @@ import CoreMotion
 import GatheredKitCore
 
 @propertyWrapper
-public final class OptionalCMQuaternionProperty: Property, PropertiesProvider {
+public final class OptionalCMQuaternionProperty: UpdatableProperty, PropertiesProvider {
     public typealias Value = CMQuaternion?
     public typealias Formatter = CMQuaternionFormatter
 
@@ -85,13 +85,16 @@ public final class OptionalCMQuaternionProperty: Property, PropertiesProvider {
 
     // MARK: Update Functions
 
-    public func updateValue(_ value: Value, date: Date = Date()) {
-        _x.updateValueIfDifferent(value?.x, date: date)
-        _y.updateValueIfDifferent(value?.y, date: date)
-        _z.updateValueIfDifferent(value?.z, date: date)
-        _w.updateValueIfDifferent(value?.z, date: date)
+    @discardableResult
+    public func updateValue(_ value: Value, date: Date) -> Snapshot<Value> {
+        _x.updateValue(value?.x, date: date)
+        _y.updateValue(value?.y, date: date)
+        _z.updateValue(value?.z, date: date)
+        _w.updateValue(value?.z, date: date)
 
-        snapshot = Snapshot(value: value, date: date)
+        let snapshot = Snapshot(value: value, date: date)
+        self.snapshot = snapshot
+        return snapshot
     }
 }
 #endif

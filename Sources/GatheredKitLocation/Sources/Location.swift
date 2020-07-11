@@ -4,7 +4,7 @@ import Foundation
 import GatheredKitCore
 
 // TODO: Wrap delegate to remove need for inheritance from `NSObject`
-public final class Location: NSObject, Source, Controllable {
+public final class Location: NSObject, UpdatingSource, Controllable {
 
     private enum State {
         case notMonitoring
@@ -16,11 +16,11 @@ public final class Location: NSObject, Source, Controllable {
 
     public let name = "Location"
 
-    public var controllableEventUpdatePublisher: AnyUpdatePublisher<ControllableEvent> {
-        return eventsSubject.eraseToAnyUpdatePublisher()
+    public var sourceEventPublisher: AnyUpdatePublisher<SourceEvent> {
+        return sourceEventsSubject.eraseToAnyUpdatePublisher()
     }
 
-    private let eventsSubject: UpdateSubject<ControllableEvent>
+    private let sourceEventsSubject: UpdateSubject<SourceEvent>
 
     @OptionalCoordinateProperty
     public private(set) var coordinate: CLLocationCoordinate2D?
@@ -94,13 +94,13 @@ public final class Location: NSObject, Source, Controllable {
             switch state {
             case .monitoring:
                 isUpdating = true
-                eventsSubject.notifyUpdateListeners(of: .startedUpdating)
+                sourceEventsSubject.notifyUpdateListeners(of: .startedUpdating)
             case .askingForPermissions:
                 isUpdating = false
-                eventsSubject.notifyUpdateListeners(of: .requestingPermission)
+                sourceEventsSubject.notifyUpdateListeners(of: .requestingPermission)
             case .notMonitoring:
                 isUpdating = false
-                eventsSubject.notifyUpdateListeners(of: .stoppedUpdating())
+                sourceEventsSubject.notifyUpdateListeners(of: .stoppedUpdating())
             }
         }
     }
@@ -119,7 +119,7 @@ public final class Location: NSObject, Source, Controllable {
         _authorizationStatus = .init(
             displayName: "Authorization Status", value: CLLocationManager.authorizationStatus())
 
-        eventsSubject = UpdateSubject()
+        sourceEventsSubject = UpdateSubject()
 
         super.init()
     }
@@ -167,7 +167,7 @@ public final class Location: NSObject, Source, Controllable {
         locationManagerConfigurator?(locationManager)
 
         let authorizationStatus = CLLocationManager.authorizationStatus()
-        _authorizationStatus.update(value: authorizationStatus)
+        _authorizationStatus.updateValueIfDifferent(authorizationStatus)
         availability = SourceAvailability(authorizationStatus: authorizationStatus) ?? .unavailable
 
         #if os(iOS) || os(watchOS)
@@ -248,35 +248,55 @@ public final class Location: NSObject, Source, Controllable {
     }
 
     private func updateLocationValues(_ location: CLLocation? = nil) {
+        let coordinateSnapshot: Snapshot<CLLocationCoordinate2D?>
+        let speedSnapshot: Snapshot<Measurement<UnitSpeed>?>
+        let courseSnapshot: Snapshot<Measurement<UnitAngle>?>
+        let altitudeSnapshot: Snapshot<Measurement<UnitLength>?>
+        let floorSnapshot: Snapshot<Int?>
+        let horizonalAccuracySnapshot: Snapshot<Measurement<UnitLength>?>
+        let verticalAccuracySnapshot: Snapshot<Measurement<UnitLength>?>
+
+        defer {
+            sourceEventsSubject.notifyUpdateListeners(of: .propertyUpdated(property: $coordinate, snapshot: coordinateSnapshot))
+            sourceEventsSubject.notifyUpdateListeners(of: .propertyUpdated(property: $speed, snapshot: speedSnapshot))
+            sourceEventsSubject.notifyUpdateListeners(of: .propertyUpdated(property: $course, snapshot: courseSnapshot))
+            sourceEventsSubject.notifyUpdateListeners(of: .propertyUpdated(property: $altitude, snapshot: altitudeSnapshot))
+            sourceEventsSubject.notifyUpdateListeners(of: .propertyUpdated(property: $floor, snapshot: floorSnapshot))
+            sourceEventsSubject.notifyUpdateListeners(of: .propertyUpdated(property: $horizonalAccuracy, snapshot: horizonalAccuracySnapshot))
+            sourceEventsSubject.notifyUpdateListeners(of: .propertyUpdated(property: $verticalAccuracy, snapshot: verticalAccuracySnapshot))
+        }
+
         if let location = location {
             let timestamp = location.timestamp
-            _coordinate.update(value: location.coordinate, date: timestamp)
+
+            coordinateSnapshot = _coordinate.updateValue(location.coordinate, date: timestamp)
 
             if location.speed < 0 {
                 // TODO: Provide formatted value
-                _speed.update(value: nil, date: timestamp)
+                speedSnapshot = _speed.updateValue(nil, date: timestamp)
             } else {
-                _speed.update(value: location.speed, date: timestamp)
+                speedSnapshot = _speed.updateMeasuredValue(location.speed, date: timestamp)
             }
 
             if location.course < 0 {
                 // TODO: Provide formatted value
-                _course.update(value: nil, date: timestamp)
+                courseSnapshot = _course.updateValue(nil, date: timestamp)
             } else {
-                _course.update(value: location.speed, date: timestamp)
+                courseSnapshot = _course.updateMeasuredValue(location.speed, date: timestamp)
             }
-            _altitude.update(value: location.altitude, date: timestamp)
-            _floor.update(value: location.floor?.level, date: timestamp)
-            _horizonalAccuracy.update(value: location.horizontalAccuracy, date: timestamp)
-            _verticalAccuracy.update(value: location.verticalAccuracy, date: timestamp)
+
+            altitudeSnapshot = _altitude.updateMeasuredValue(location.altitude, date: timestamp)
+            floorSnapshot = _floor.updateValue(location.floor?.level, date: timestamp)
+            horizonalAccuracySnapshot = _horizonalAccuracy.updateMeasuredValue(location.horizontalAccuracy, date: timestamp)
+            verticalAccuracySnapshot = _verticalAccuracy.updateMeasuredValue(location.verticalAccuracy, date: timestamp)
         } else {
-            _coordinate.update(value: nil)
-            _speed.update(value: nil)
-            _course.update(value: nil)
-            _altitude.update(value: nil)
-            _floor.update(value: nil)
-            _horizonalAccuracy.update(value: nil)
-            _verticalAccuracy.update(value: nil)
+            coordinateSnapshot = _coordinate.updateValue(nil)
+            speedSnapshot = _speed.updateValue(nil)
+            courseSnapshot = _course.updateValue(nil)
+            altitudeSnapshot = _altitude.updateValue(nil)
+            floorSnapshot = _floor.updateValue(nil)
+            horizonalAccuracySnapshot = _horizonalAccuracy.updateValue(nil)
+            verticalAccuracySnapshot = _verticalAccuracy.updateValue(nil)
         }
     }
 
@@ -288,9 +308,10 @@ extension Location: CLLocationManagerDelegate {
         _ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus
     ) {
         availability = SourceAvailability(authorizationStatus: status) ?? .unavailable
-        eventsSubject.notifyUpdateListeners(of: .availabilityUpdated(availability))
+        sourceEventsSubject.notifyUpdateListeners(of: .availabilityUpdated(availability))
 
-        _authorizationStatus.update(value: status)
+        let snapshot = _authorizationStatus.updateValue(status)
+        sourceEventsSubject.notifyUpdateListeners(of: .propertyUpdated(property: $authorizationStatus, snapshot: snapshot))
 
         switch availability {
         case .available:

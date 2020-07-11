@@ -6,7 +6,7 @@ import GatheredKitCore
 // TODO: Add rotationMatrix
 
 @propertyWrapper
-public final class OptionalCMAttitudeProperty: Property, PropertiesProvider {
+public final class OptionalCMAttitudeProperty: UpdatableProperty, PropertiesProvider {
     public typealias Value = CMAttitude?
     public typealias Formatter = CMAttitudeFormatter
 
@@ -84,24 +84,16 @@ public final class OptionalCMAttitudeProperty: Property, PropertiesProvider {
 
     // MARK: Update Functions
 
-    public func updateValue(_ value: Value, date: Date = Date()) {
-        _roll.updateValueIfDifferent(value?.roll, date: date)
-        _pitch.updateValueIfDifferent(value?.pitch, date: date)
-        _yaw.updateValueIfDifferent(value?.yaw, date: date)
+    @discardableResult
+    public func updateValue(_ value: Value, date: Date = Date()) -> Snapshot<Value> {
+        _roll.updateMeasuredValue(value?.roll, date: date)
+        _pitch.updateMeasuredValue(value?.pitch, date: date)
+        _yaw.updateMeasuredValue(value?.yaw, date: date)
         _quaternion.updateValue(value?.quaternion, date: date)
 
-        snapshot = Snapshot(value: value, date: date)
-    }
-
-    public func updateValueIfDifferent(_ value: Value, date: Date = Date()) {
-        guard value != self.value else { return }
-
-        _roll.updateValueIfDifferent(value?.roll, date: date)
-        _pitch.updateValueIfDifferent(value?.pitch, date: date)
-        _yaw.updateValueIfDifferent(value?.yaw, date: date)
-        _quaternion.updateValue(value?.quaternion, date: date)
-
-        snapshot = Snapshot(value: value, date: date)
+        let snapshot = Snapshot(value: value, date: date)
+        self.snapshot = snapshot
+        return snapshot
     }
 }
 #endif

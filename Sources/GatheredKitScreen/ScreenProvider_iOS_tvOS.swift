@@ -3,7 +3,7 @@ import UIKit
 import Combine
 import GatheredKitCore
 
-public final class ScreenProvider: ControllableSourceProvider {
+public final class ScreenProvider: UpdatingSourceProvider, ControllableSourceProvider {
 
     private enum State {
         case notMonitoring
@@ -22,12 +22,6 @@ public final class ScreenProvider: ControllableSourceProvider {
     }
 
     private let sourceProviderEventsSubject: UpdateSubject<SourceProviderEvent<Screen>>
-
-    public var controllableEventUpdatePublisher: AnyUpdatePublisher<ControllableEvent> {
-        controllableEventUpdateSubject.eraseToAnyUpdatePublisher()
-    }
-
-    private let controllableEventUpdateSubject: UpdateSubject<ControllableEvent>
 
     public private(set) var sources: [Screen]
 
@@ -56,7 +50,6 @@ public final class ScreenProvider: ControllableSourceProvider {
             Screen(screen: uiScreen)
         }
         sourceProviderEventsSubject = .init()
-        controllableEventUpdateSubject = .init()
     }
 
     public func startUpdating() {
@@ -100,14 +93,14 @@ public final class ScreenProvider: ControllableSourceProvider {
         state = .monitoring(
             observers: .init(
                 didConnect: didConnectCancellable, didDisconnect: didDisconnectCancellable))
-        controllableEventUpdateSubject.notifyUpdateListeners(of: .startedUpdating)
+        sourceProviderEventsSubject.notifyUpdateListeners(of: .startedUpdating)
     }
 
     public func stopUpdating() {
         guard isUpdating else { return }
 
         state = .notMonitoring
-        controllableEventUpdateSubject.notifyUpdateListeners(of: .stoppedUpdating())
+        sourceProviderEventsSubject.notifyUpdateListeners(of: .stoppedUpdating())
     }
 
 }

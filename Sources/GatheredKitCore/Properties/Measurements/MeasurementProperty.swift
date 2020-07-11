@@ -1,7 +1,7 @@
 import Foundation
 
 @propertyWrapper
-public final class MeasurementProperty<Unit: Foundation.Unit>: Property, Equatable {
+public final class MeasurementProperty<Unit: Foundation.Unit>: UpdatableProperty, Equatable {
     public typealias Value = Measurement<Unit>
 
     public static func == (lhs: MeasurementProperty<Unit>, rhs: MeasurementProperty<Unit>) -> Bool {
@@ -13,7 +13,7 @@ public final class MeasurementProperty<Unit: Foundation.Unit>: Property, Equatab
             value
         }
         set {
-            update(measurement: newValue)
+            updateValue(newValue)
         }
     }
 
@@ -85,33 +85,36 @@ public final class MeasurementProperty<Unit: Foundation.Unit>: Property, Equatab
 
     // MARK: Update Functions
 
-    public func update(
-        measurement: Measurement<Unit>,
-        date: Date = Date()
-    ) {
-        snapshot = Snapshot(value: measurement, date: date)
+    @discardableResult
+    public func updateValue(
+        _ value: Measurement<Unit>,
+        date: Date
+    ) -> Snapshot<Value> {
+        let snapshot = Snapshot(value: value, date: date)
+        self.snapshot = snapshot
+        return snapshot
     }
 
-    public func update(
-        value: Double,
+    @discardableResult
+    public func updateMeasuredValue(
+        _ measuredValue: Double,
         date: Date = Date()
-    ) {
-        let measurement = Measurement(value: value, unit: self.measurement.unit)
-        self.update(measurement: measurement, date: date)
+    ) -> Snapshot<Value> {
+        let measurement = Measurement(value: measuredValue, unit: self.measurement.unit)
+        return updateValue(measurement, date: date)
     }
 
     /**
-    Updates the value backing this `Property`, only if the provided value is different.
+     Updates the value backing this `Property`, only if the provided value is different.
 
      - Parameter value: The new value.
      - Parameter date: The date and time the `value` was recorded. Defaults to the current date and time.
-     - Returns: `true` if the value was updated, otherwise `false`.
+     - Returns: The new snapshot, or `nil` if the value was not different.
      */
     @discardableResult
-    public func updateValueIfDifferent(_ value: Double, date: Date = Date()) -> Bool {
-        guard value != measurement.value else { return false }
-        update(value: value, date: date)
-        return true
+    public func updateMeasuredValueIfDifferent(_ measuredValue: Double, date: Date = Date()) -> Snapshot<Value>? {
+        guard measuredValue != self.measuredValue else { return nil }
+        return updateMeasuredValue(measuredValue, date: date)
     }
 
 }

@@ -4,7 +4,7 @@ import CoreMotion
 import Combine
 import GatheredKitCore
 
-public final class DeviceMotion: Source, CustomisableUpdateIntervalControllable {
+public final class DeviceMotion: UpdatingSource, CustomisableUpdateIntervalControllable {
 
     private enum State {
         case notMonitoring
@@ -21,11 +21,11 @@ public final class DeviceMotion: Source, CustomisableUpdateIntervalControllable 
         return CMMotionManager.availableAttitudeReferenceFrames()
     }
 
-    public var controllableEventUpdatePublisher: AnyUpdatePublisher<ControllableEvent> {
-        return controllableEventUpdateSubject.eraseToAnyUpdatePublisher()
+    public var sourceEventPublisher: AnyUpdatePublisher<SourceEvent> {
+        return sourceEventsSubject.eraseToAnyUpdatePublisher()
     }
 
-    private let controllableEventUpdateSubject: UpdateSubject<ControllableEvent>
+    private let sourceEventsSubject: UpdateSubject<SourceEvent>
 
     public private(set) var isUpdating: Bool = false
 
@@ -82,7 +82,7 @@ public final class DeviceMotion: Source, CustomisableUpdateIntervalControllable 
         _magneticField = .init(displayName: "Calibrated Magnetic Field")
         _rotationRate = .init(displayName: "Rotation Rate")
 
-        controllableEventUpdateSubject = .init()
+        sourceEventsSubject = .init()
     }
 
     public func startUpdating(every updateInterval: TimeInterval) {
@@ -106,7 +106,7 @@ public final class DeviceMotion: Source, CustomisableUpdateIntervalControllable 
 
             if let error = error {
                 CMMotionManager.shared.stopDeviceMotionUpdates()
-                self.controllableEventUpdateSubject.notifyUpdateListeners(
+                self.sourceEventsSubject.notifyUpdateListeners(
                     of: .stoppedUpdating(error: error))
                 self.state = .notMonitoring
                 return
@@ -124,7 +124,7 @@ public final class DeviceMotion: Source, CustomisableUpdateIntervalControllable 
 
             self._attitude.updateValueIfDifferent(attitude, date: date)
             self._gravity.updateValue(gravity, date: date)
-            self._heading.updateValueIfDifferent(heading, date: date)
+            self._heading.updateMeasuredValueIfDifferent(heading, date: date)
             self._magneticField.updateValue(magneticField, date: date)
             self._rotationRate.updateValue(rotationRate, date: date)
             self._userAcceleration.updateValue(userAcceleration, date: date)
@@ -144,13 +144,13 @@ public final class DeviceMotion: Source, CustomisableUpdateIntervalControllable 
         }
 
         state = .monitoring(updatesQueue: updatesQueue)
-        controllableEventUpdateSubject.notifyUpdateListeners(of: .startedUpdating)
+        sourceEventsSubject.notifyUpdateListeners(of: .startedUpdating)
     }
 
     public func stopUpdating() {
         CMMotionManager.shared.stopDeviceMotionUpdates()
         state = .notMonitoring
-        controllableEventUpdateSubject.notifyUpdateListeners(of: .stoppedUpdating())
+        sourceEventsSubject.notifyUpdateListeners(of: .stoppedUpdating())
     }
 
 }

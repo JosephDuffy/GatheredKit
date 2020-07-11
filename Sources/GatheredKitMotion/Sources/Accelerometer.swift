@@ -4,7 +4,7 @@ import CoreMotion
 import Combine
 import GatheredKitCore
 
-public final class Accelerometer: Source, CustomisableUpdateIntervalControllable {
+public final class Accelerometer: UpdatingSource, CustomisableUpdateIntervalControllable {
 
     private enum State {
         case notMonitoring
@@ -17,11 +17,11 @@ public final class Accelerometer: Source, CustomisableUpdateIntervalControllable
 
     public static var defaultUpdateInterval: TimeInterval = 1
 
-    public var controllableEventUpdatePublisher: AnyUpdatePublisher<ControllableEvent> {
-        return controllableEventUpdateSubject.eraseToAnyUpdatePublisher()
+    public var sourceEventPublisher: AnyUpdatePublisher<SourceEvent> {
+        return sourceEventsSubject.eraseToAnyUpdatePublisher()
     }
 
-    private let controllableEventUpdateSubject: UpdateSubject<ControllableEvent>
+    private let sourceEventsSubject: UpdateSubject<SourceEvent>
 
     public private(set) var isUpdating: Bool = false
 
@@ -50,7 +50,7 @@ public final class Accelerometer: Source, CustomisableUpdateIntervalControllable
     public init() {
         availability = CMMotionManager.shared.isAccelerometerAvailable ? .available : .unavailable
         _acceleration = .init(displayName: "Acceleration")
-        controllableEventUpdateSubject = .init()
+        sourceEventsSubject = .init()
     }
 
     public func startUpdating(
@@ -67,23 +67,24 @@ public final class Accelerometer: Source, CustomisableUpdateIntervalControllable
             guard let self = self else { return }
             if let error = error {
                 CMMotionManager.shared.stopAccelerometerUpdates()
-                self.controllableEventUpdateSubject.notifyUpdateListeners(
+                self.sourceEventsSubject.notifyUpdateListeners(
                     of: .stoppedUpdating(error: error))
                 self.state = .notMonitoring
                 return
             }
             guard let data = data else { return }
-            self._acceleration.updateValue(data.acceleration, date: data.date)
+            let snapshot = self._acceleration.updateValue(data.acceleration, date: data.date)
+            self.sourceEventsSubject.notifyUpdateListeners(of: .propertyUpdated(property: self.$acceleration, snapshot: snapshot))
         }
 
         state = .monitoring(updatesQueue: updatesQueue)
-        controllableEventUpdateSubject.notifyUpdateListeners(of: .startedUpdating)
+        sourceEventsSubject.notifyUpdateListeners(of: .startedUpdating)
     }
 
     public func stopUpdating() {
         CMMotionManager.shared.stopAccelerometerUpdates()
         state = .notMonitoring
-        controllableEventUpdateSubject.notifyUpdateListeners(of: .stoppedUpdating())
+        sourceEventsSubject.notifyUpdateListeners(of: .stoppedUpdating())
     }
 
 }

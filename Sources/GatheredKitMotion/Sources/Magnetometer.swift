@@ -4,7 +4,7 @@ import CoreMotion
 import Combine
 import GatheredKitCore
 
-public final class Magnetometer: Source, CustomisableUpdateIntervalControllable {
+public final class Magnetometer: UpdatingSource, CustomisableUpdateIntervalControllable {
 
     private enum State {
         case notMonitoring
@@ -17,11 +17,11 @@ public final class Magnetometer: Source, CustomisableUpdateIntervalControllable 
 
     public static var defaultUpdateInterval: TimeInterval = 1
 
-    public var controllableEventUpdatePublisher: AnyUpdatePublisher<ControllableEvent> {
-        return controllableEventUpdateSubject.eraseToAnyUpdatePublisher()
+    public var sourceEventPublisher: AnyUpdatePublisher<SourceEvent> {
+        return sourceEventsSubject.eraseToAnyUpdatePublisher()
     }
 
-    private let controllableEventUpdateSubject: UpdateSubject<ControllableEvent>
+    private let sourceEventsSubject: UpdateSubject<SourceEvent>
 
     public private(set) var isUpdating: Bool = false
 
@@ -50,7 +50,7 @@ public final class Magnetometer: Source, CustomisableUpdateIntervalControllable 
     public init() {
         availability = CMMotionManager.shared.isMagnetometerAvailable ? .available : .unavailable
         _magneticField = .init(displayName: "Magnetic Field")
-        controllableEventUpdateSubject = .init()
+        sourceEventsSubject = .init()
     }
 
     public func startUpdating(
@@ -68,7 +68,7 @@ public final class Magnetometer: Source, CustomisableUpdateIntervalControllable 
 
             if let error = error {
                 CMMotionManager.shared.stopMagnetometerUpdates()
-                self.controllableEventUpdateSubject.notifyUpdateListeners(
+                self.sourceEventsSubject.notifyUpdateListeners(
                     of: .stoppedUpdating(error: error))
                 self.state = .notMonitoring
                 return
@@ -79,13 +79,13 @@ public final class Magnetometer: Source, CustomisableUpdateIntervalControllable 
         }
 
         state = .monitoring(updatesQueue: updatesQueue)
-        controllableEventUpdateSubject.notifyUpdateListeners(of: .startedUpdating)
+        sourceEventsSubject.notifyUpdateListeners(of: .startedUpdating)
     }
 
     public func stopUpdating() {
         CMMotionManager.shared.stopMagnetometerUpdates()
         state = .notMonitoring
-        controllableEventUpdateSubject.notifyUpdateListeners(of: .stoppedUpdating())
+        sourceEventsSubject.notifyUpdateListeners(of: .stoppedUpdating())
     }
 
 }

@@ -1,7 +1,7 @@
 import Foundation
 
 @propertyWrapper
-public final class BasicProperty<Value, Formatter>: Property where Formatter: Foundation.Formatter {
+public final class BasicProperty<Value, Formatter>: UpdatableProperty where Formatter: Foundation.Formatter {
     public var wrappedValue: Value {
         get {
             return value
@@ -65,28 +65,16 @@ public final class BasicProperty<Value, Formatter>: Property where Formatter: Fo
 
      - parameter value: The new value of the property.
      - parameter date: The date and time the `value` was recorded. Defaults to the current date and time.
-     */
-    public func update(
-        value: Value,
-        date: Date = Date()
-    ) {
-        snapshot = Snapshot(value: value, date: date)
-    }
-}
-
-extension BasicProperty where Value: Equatable {
-    /**
-     Updates the value backing this `Property`, only if the provided value is different.
-
-     - Parameter value: The new value.
-     - Parameter date: The date and time the `value` was recorded. Defaults to the current date and time.
-     - Returns: `true` if the value was updated, otherwise `false`.
+     - Returns: The new snapshot.
      */
     @discardableResult
-    public func updateValueIfDifferent(_ value: Value, date: Date = Date()) -> Bool {
-        guard value != self.value else { return false }
-        update(value: value, date: date)
-        return true
+    public func updateValue(
+        _ value: Value,
+        date: Date
+    ) -> Snapshot<Value> {
+        let snapshot = Snapshot(value: value, date: date)
+        self.snapshot = snapshot
+        return snapshot
     }
 }
 
