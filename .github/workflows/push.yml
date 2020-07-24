@@ -26,7 +26,7 @@ jobs:
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v1
         with:
-          fail_ci_if_error: false
+          fail_ci_if_error: true
 
   xcode_tests:
     name: ${{ matrix.platform }} ${{ matrix.scheme }} Tests (Xcode ${{ matrix.xcode }})
@@ -66,7 +66,7 @@ jobs:
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v1
         with:
-          fail_ci_if_error: false
+          fail_ci_if_error: true
 
   watchos_build:
     name: watchOS Build (Xcode ${{ matrix.xcode }})
