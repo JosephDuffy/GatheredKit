@@ -1,0 +1,29 @@
+name: Lint
+
+on: [pull_request]
+
+jobs:
+  swift-format:
+    name: swift-format lint (Xcode ${{ matrix.xcode }})
+    runs-on: macos-latest
+    strategy:
+      matrix:
+        xcode: ["11.5"]
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Select Xcode ${{ matrix.xcode }}
+        run: sudo xcode-select --switch /Applications/Xcode_${{ matrix.xcode }}.app
+
+      - name: Cache SwiftPM
+        uses: actions/cache@v2
+        with:
+          path: DevelopmentDependencies/.build
+          key: ${{ runner.os }}-xcode_${{ matrix.xcode }}-swiftpm-${{ github.workspace }}-${{ hashFiles('DevelopmentDependencies/Package.resolved') }}
+
+      - name: Build swift-format
+        run: swift build --skip-update --configuration release --package-path ./DevelopmentDependencies/ --product swift-format
+
+      - name: Run swift-format
+        run: ./scripts/swift-format-github-actions.sh
