@@ -138,7 +138,8 @@
       buildConfiguration = "Debug"
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
-      shouldUseLaunchSchemeArgsEnv = "YES">
+      shouldUseLaunchSchemeArgsEnv = "YES"
+      codeCoverageEnabled = "YES">
       <Testables>
          <TestableReference
             skipped = "NO">
@@ -167,6 +168,16 @@
                BlueprintIdentifier = "GatheredKitScreenTests"
                BuildableName = "GatheredKitScreenTests"
                BlueprintName = "GatheredKitScreenTests"
+               ReferencedContainer = "container:">
+            </BuildableReference>
+         </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "GatheredKitTests"
+               BuildableName = "GatheredKitTests"
+               BlueprintName = "GatheredKitTests"
                ReferencedContainer = "container:">
             </BuildableReference>
          </TestableReference>

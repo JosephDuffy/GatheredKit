@@ -38,7 +38,7 @@ public final class MappedUpdatePublisher<Input, Payload>: UpdatePublisher {
 
     private var updateListeners: [UUID: UpdateListener] = [:]
 
-    public init<UpdatePublisher: GatheredKitCore.UpdatePublisher>(
+    public init<UpdatePublisher: GatheredKit.UpdatePublisher>(
         updatePublisher: UpdatePublisher,
         transform: @escaping Transformer
     ) where UpdatePublisher.Payload == Input {

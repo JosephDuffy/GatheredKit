@@ -1,7 +1,7 @@
 #if os(macOS)
 import AppKit
 import Combine
-import GatheredKitCore
+import GatheredKit
 
 /// A wrapper around `NSScreen`.
 public final class Screen: UpdatingSource, Controllable {

@@ -1,7 +1,7 @@
 import Combine
 import CoreLocation
 import Foundation
-import GatheredKitCore
+import GatheredKit
 
 // TODO: Wrap delegate to remove need for inheritance from `NSObject`
 public final class Location: NSObject, UpdatingSource, Controllable {

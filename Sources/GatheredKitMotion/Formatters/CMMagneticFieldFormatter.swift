@@ -1,7 +1,7 @@
 #if os(iOS) || os(watchOS)
 import Foundation
 import CoreMotion
-import GatheredKitCore
+import GatheredKit
 
 public final class CMMagneticFieldFormatter: Formatter {
 

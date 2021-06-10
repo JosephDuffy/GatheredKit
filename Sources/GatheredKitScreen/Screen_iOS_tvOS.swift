@@ -1,7 +1,7 @@
 #if os(iOS) || os(tvOS)
 import UIKit
 import Combine
-import GatheredKitCore
+import GatheredKit
 
 /// A wrapper around `UIScreen`.
 public final class Screen: UpdatingSource, Controllable {

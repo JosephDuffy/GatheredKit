@@ -1,5 +1,5 @@
 import CoreLocation
-import GatheredKitCore
+import GatheredKit
 
 public typealias CLLocationAuthorizationProperty = BasicProperty<
     CLAuthorizationStatus, LocationAuthorizationFormatter

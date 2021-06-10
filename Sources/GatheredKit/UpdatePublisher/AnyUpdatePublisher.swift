@@ -17,7 +17,7 @@ public final class AnyUpdatePublisher<Payload>: UpdatePublisher {
 
     private let boxedAddUpdateListener: (_ updateListener: @escaping UpdateListener) -> Subscription
 
-    public init<UpdatePublisher: GatheredKitCore.UpdatePublisher>(updatePublisher: UpdatePublisher)
+    public init<UpdatePublisher: GatheredKit.UpdatePublisher>(updatePublisher: UpdatePublisher)
     where UpdatePublisher.Payload == Payload {
         if #available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *) {
             boxedCombinePublisher =

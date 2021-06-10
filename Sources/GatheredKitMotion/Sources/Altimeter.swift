@@ -2,7 +2,7 @@
 import Foundation
 import CoreMotion
 import Combine
-import GatheredKitCore
+import GatheredKit
 
 public final class Altimeter: UpdatingSource, Controllable, ActionProvider {
 

@@ -1,7 +1,7 @@
 #if os(watchOS)
 import WatchKit
 import Combine
-import GatheredKitCore
+import GatheredKit
 
 /// A wrapper around `WKInterfaceDevice`.
 public final class Screen: Source {

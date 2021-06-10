@@ -8,23 +8,21 @@ final class PlatformTests: XCTestCase {
     func test_iOS() {
         XCTAssertTrue(true)
     }
-    #endif
-
-    #if targetEnvironment(macCatalyst)
+    #elseif targetEnvironment(macCatalyst)
     func test_macCatalyst() {
         XCTAssertTrue(true)
     }
-    #endif
-
-    #if os(macOS)
+    #elseif os(macOS)
     func test_macOS() {
         XCTAssertTrue(true)
     }
-    #endif
-
-    #if os(tvOS)
+    #elseif os(tvOS)
     func test_tvOS() {
         XCTAssertTrue(true)
+    }
+    #else
+    func test_unkownPlatform() {
+        XCTFail("Unsupported platform")
     }
     #endif
 }

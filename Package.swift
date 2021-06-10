@@ -8,26 +8,23 @@ let package = Package(
     ],
     products: [
         .library(name: "GatheredKit", targets: ["GatheredKit"]),
-        .library(name: "GatheredKitCore", targets: ["GatheredKitCore"]),
         .library(name: "GatheredKitLocation", targets: ["GatheredKitLocation"]),
         .library(name: "GatheredKitMotion", targets: ["GatheredKitMotion"]),
         .library(name: "GatheredKitScreen", targets: ["GatheredKitScreen"]),
         .library(name: "GatheredKitTestHelpers", targets: ["GatheredKitTestHelpers"]),
     ],
     targets: [
-        .target(name: "GatheredKit", dependencies: ["GatheredKitCore", "GatheredKitLocation", "GatheredKitMotion", "GatheredKitScreen"]),
+        .target(name: "GatheredKit"),
+        .testTarget(name: "GatheredKitTests", dependencies: ["GatheredKit", "GatheredKitTestHelpers"]),
 
-        .target(name: "GatheredKitCore"),
-        .testTarget(name: "GatheredKitCoreTests", dependencies: ["GatheredKitCore", "GatheredKitTestHelpers"]),
-
-        .target(name: "GatheredKitLocation", dependencies: ["GatheredKitCore"]),
+        .target(name: "GatheredKitLocation", dependencies: ["GatheredKit"]),
         .testTarget(name: "GatheredKitLocationTests", dependencies: ["GatheredKitLocation"]),
 
-        .target(name: "GatheredKitMotion", dependencies: ["GatheredKitCore"]),
+        .target(name: "GatheredKitMotion", dependencies: ["GatheredKit"]),
 
-        .target(name: "GatheredKitScreen", dependencies: ["GatheredKitCore"]),
+        .target(name: "GatheredKitScreen", dependencies: ["GatheredKit"]),
         .testTarget(name: "GatheredKitScreenTests", dependencies: ["GatheredKitScreen", "GatheredKitTestHelpers"]),
 
-        .target(name: "GatheredKitTestHelpers", dependencies: ["GatheredKitCore"]),
+        .target(name: "GatheredKitTestHelpers", dependencies: ["GatheredKit"]),
     ]
 )

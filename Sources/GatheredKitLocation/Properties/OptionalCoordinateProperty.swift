@@ -1,6 +1,6 @@
 import CoreLocation
 import Foundation
-import GatheredKitCore
+import GatheredKit
 
 @propertyWrapper
 public final class OptionalCoordinateProperty: UpdatableProperty, PropertiesProvider {
