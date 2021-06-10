@@ -1,6 +1,6 @@
 import Foundation
 
-//open class ReadOnlyMeasurementProperty<Unit: Foundation.Unit>: ReadOnly<NewProperty<Measurement<Unit>, MeasurementFormatter>> {
+// open class ReadOnlyMeasurementProperty<Unit: Foundation.Unit>: ReadOnly<NewProperty<Measurement<Unit>, MeasurementFormatter>> {
 //
 //    public var measurement: Measurement<Unit> {
 //        return value
@@ -14,4 +14,4 @@ import Foundation
 //        return measurement.value
 //    }
 //
-//}
+// }

@@ -38,7 +38,7 @@ public final class MeasurementProperty<Unit: Foundation.Unit>: UpdatableProperty
     public let formatter: MeasurementFormatter
 
     public var updatePublisher: AnyUpdatePublisher<Snapshot<Value>> {
-        return updateSubject.eraseToAnyUpdatePublisher()
+        updateSubject.eraseToAnyUpdatePublisher()
     }
 
     private let updateSubject: UpdateSubject<Snapshot<Value>>
@@ -46,15 +46,15 @@ public final class MeasurementProperty<Unit: Foundation.Unit>: UpdatableProperty
     // MARK: Measurement Properties
 
     public var measurement: Measurement<Unit> {
-        return value
+        value
     }
 
     public var unit: Unit {
-        return measurement.unit
+        measurement.unit
     }
 
     public var measuredValue: Double {
-        return measurement.value
+        measurement.value
     }
 
     // MARK: Initialisers
@@ -80,7 +80,8 @@ public final class MeasurementProperty<Unit: Foundation.Unit>: UpdatableProperty
     ) {
         let measurement = Measurement(value: value, unit: unit)
         self.init(
-            displayName: displayName, measurement: measurement, formatter: formatter, date: date)
+            displayName: displayName, measurement: measurement, formatter: formatter, date: date
+        )
     }
 
     // MARK: Update Functions
@@ -116,5 +117,4 @@ public final class MeasurementProperty<Unit: Foundation.Unit>: UpdatableProperty
         guard measuredValue != self.measuredValue else { return nil }
         return updateMeasuredValue(measuredValue, date: date)
     }
-
 }

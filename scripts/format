@@ -1,0 +1,7 @@
+#!/bin/bash
+
+if [[ -z "${SRCROOT}" ]]; then
+    SRCROOT="$(dirname "$(dirname "${BASH_SOURCE[0]}")")"
+fi
+
+swift run -c release --package-path "$SRCROOT"/DevelopmentDependencies swiftformat "$SRCROOT"/Sources "$SRCROOT"/Tests "$@"

@@ -1,10 +1,9 @@
 #if os(iOS) || os(tvOS)
-import UIKit
 import Combine
 import GatheredKit
+import UIKit
 
 public final class ScreenProvider: UpdatingSourceProvider, ControllableSourceProvider {
-
     private enum State {
         case notMonitoring
         case monitoring(observers: Observers)
@@ -65,7 +64,7 @@ public final class ScreenProvider: UpdatingSourceProvider, ControllableSourcePro
             let event = SourceProviderEvent.sourceAdded(screen)
 
             if self.sources.count == UIScreen.screens.count - 1,
-                let insertedIndex = UIScreen.screens.firstIndex(of: uiScreen)
+               let insertedIndex = UIScreen.screens.firstIndex(of: uiScreen)
             {
                 self.sources.insert(screen, at: insertedIndex)
             } else {
@@ -92,7 +91,8 @@ public final class ScreenProvider: UpdatingSourceProvider, ControllableSourcePro
 
         state = .monitoring(
             observers: .init(
-                didConnect: didConnectCancellable, didDisconnect: didDisconnectCancellable))
+                didConnect: didConnectCancellable, didDisconnect: didDisconnectCancellable
+            ))
         sourceProviderEventsSubject.notifyUpdateListeners(of: .startedUpdating)
     }
 
@@ -102,7 +102,6 @@ public final class ScreenProvider: UpdatingSourceProvider, ControllableSourcePro
         state = .notMonitoring
         sourceProviderEventsSubject.notifyUpdateListeners(of: .stoppedUpdating())
     }
-
 }
 
 #endif

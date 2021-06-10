@@ -1,6 +1,6 @@
 #if os(iOS) || os(watchOS)
-import Foundation
 import CoreMotion
+import Foundation
 import GatheredKit
 
 @propertyWrapper
@@ -9,7 +9,7 @@ public final class CMRotationRateProperty: UpdatableProperty, PropertiesProvider
     public typealias Formatter = CMRotationRateFormatter
 
     public var allProperties: [AnyProperty] {
-        return [$x, $y, $z]
+        [$x, $y, $z]
     }
 
     @FrequencyProperty
@@ -53,7 +53,7 @@ public final class CMRotationRateProperty: UpdatableProperty, PropertiesProvider
     public let formatter: Formatter
 
     public var updatePublisher: AnyUpdatePublisher<Snapshot<Value>> {
-        return updateSubject.eraseToAnyUpdatePublisher()
+        updateSubject.eraseToAnyUpdatePublisher()
     }
 
     private let updateSubject: UpdateSubject<Snapshot<Value>>

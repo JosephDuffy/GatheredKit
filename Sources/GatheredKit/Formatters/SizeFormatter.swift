@@ -2,7 +2,6 @@ import CoreGraphics
 import Foundation
 
 public final class SizeFormatter: Formatter {
-
     public var numberFormatter: NumberFormatter
 
     public var suffix: String
@@ -13,12 +12,13 @@ public final class SizeFormatter: Formatter {
         super.init()
     }
 
-    public convenience override init() {
+    public override convenience init() {
         let numberFormatter = NumberFormatter()
         numberFormatter.maximumFractionDigits = 0
         self.init(numberFormatter: numberFormatter)
     }
 
+    @available(*, unavailable)
     public required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -33,5 +33,4 @@ public final class SizeFormatter: Formatter {
         guard let size = obj as? CGSize else { return nil }
         return string(for: size)
     }
-
 }

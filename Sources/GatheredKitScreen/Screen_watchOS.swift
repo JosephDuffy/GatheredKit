@@ -1,11 +1,10 @@
 #if os(watchOS)
-import WatchKit
 import Combine
 import GatheredKit
+import WatchKit
 
 /// A wrapper around `WKInterfaceDevice`.
 public final class Screen: Source {
-
     public let availability: SourceAvailability = .available
 
     public let name = "Screen"
@@ -31,15 +30,15 @@ public final class Screen: Source {
      - Scale
      */
     public var allProperties: [AnyProperty] {
-        return [
+        [
             $resolution,
             $scale,
         ]
     }
 
     /**
-    Create a new instance of `Screen` for the `current` `WKInterfaceDevice`.
-    */
+     Create a new instance of `Screen` for the `current` `WKInterfaceDevice`.
+     */
     public convenience init() {
         self.init(device: .current())
     }
@@ -64,7 +63,6 @@ public final class Screen: Source {
 
         $resolution.formatter.suffix = " Points"
     }
-
 }
 
 #endif

@@ -1,11 +1,10 @@
 #if os(iOS) || os(watchOS)
-import Foundation
-import CoreMotion
 import Combine
+import CoreMotion
+import Foundation
 import GatheredKit
 
 public final class Altimeter: UpdatingSource, Controllable, ActionProvider {
-
     private enum State {
         case notMonitoring
         case monitoring(altimeter: CMAltimeter, updatesQueue: OperationQueue)
@@ -16,7 +15,7 @@ public final class Altimeter: UpdatingSource, Controllable, ActionProvider {
     public private(set) var availability: SourceAvailability
 
     public var sourceEventPublisher: AnyUpdatePublisher<SourceEvent> {
-        return sourceEventsSubject.eraseToAnyUpdatePublisher()
+        sourceEventsSubject.eraseToAnyUpdatePublisher()
     }
 
     private let sourceEventsSubject: UpdateSubject<SourceEvent>
@@ -29,11 +28,11 @@ public final class Altimeter: UpdatingSource, Controllable, ActionProvider {
     public private(set) var pressure: Measurement<UnitPressure>?
 
     public var allProperties: [AnyProperty] {
-        return [$relativeAltitude, $pressure]
+        [$relativeAltitude, $pressure]
     }
 
     public var actions: [Action] {
-        return [
+        [
             Action(
                 title: "Reset Altitude", isAvailable: isUpdating,
                 perform: { [weak self] in
@@ -41,7 +40,8 @@ public final class Altimeter: UpdatingSource, Controllable, ActionProvider {
                     guard self.isUpdating else { return }
                     self.stopUpdating()
                     self.startUpdating()
-                })
+                }
+            ),
         ]
     }
 
@@ -124,11 +124,9 @@ public final class Altimeter: UpdatingSource, Controllable, ActionProvider {
         state = .notMonitoring
         sourceEventsSubject.notifyUpdateListeners(of: .stoppedUpdating())
     }
-
 }
 
 extension CMAltimeter {
-
     fileprivate static var availability: SourceAvailability {
         guard isRelativeAltitudeAvailable() else {
             return .unavailable
@@ -148,7 +146,6 @@ extension CMAltimeter {
             return .unavailable
         }
     }
-
 }
 
 #endif

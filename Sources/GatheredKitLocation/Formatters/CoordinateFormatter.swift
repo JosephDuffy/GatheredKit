@@ -2,14 +2,13 @@ import CoreLocation
 import Foundation
 
 public final class CoordinateFormatter: Formatter {
-
     public let numberFormatter: NumberFormatter
 
     public override init() {
         let formatter = NumberFormatter()
         formatter.maximumFractionDigits = 8
         formatter.decimalSeparator = "."
-        self.numberFormatter = formatter
+        numberFormatter = formatter
         super.init()
     }
 
@@ -22,7 +21,7 @@ public final class CoordinateFormatter: Formatter {
     required convenience init?(coder aDecoder: NSCoder) {
         guard
             let numberFormatter = aDecoder.decodeObject(forKey: "numberFormatter")
-                as? NumberFormatter
+            as? NumberFormatter
         else { return nil }
 
         self.init(numberFormatter: numberFormatter)
@@ -46,5 +45,4 @@ public final class CoordinateFormatter: Formatter {
 
         return latitudeString + ", " + longitudeString
     }
-
 }

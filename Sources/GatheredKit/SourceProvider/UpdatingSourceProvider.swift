@@ -4,7 +4,7 @@ public protocol UpdatingSourceProvider: SourceProvider & AnyUpdatingSourceProvid
 
 extension UpdatingSourceProvider {
     public var typeErasedSourceProviderEventsPublisher: AnyUpdatePublisher<AnySourceProviderEvent> {
-        return sourceProviderEventsPublisher.map { event in
+        sourceProviderEventsPublisher.map { event in
             switch event {
             case .startedUpdating:
                 return .startedUpdating

@@ -17,12 +17,12 @@ public protocol UpdatePublisher {
 
 extension UpdatePublisher {
     public func eraseToAnyUpdatePublisher() -> AnyUpdatePublisher<Payload> {
-        return AnyUpdatePublisher(updatePublisher: self)
+        AnyUpdatePublisher(updatePublisher: self)
     }
 
     public func map<Output>(_ transform: @escaping (_ payload: Payload) -> Output)
         -> MappedUpdatePublisher<Payload, Output>
     {
-        return MappedUpdatePublisher(updatePublisher: self, transform: transform)
+        MappedUpdatePublisher(updatePublisher: self, transform: transform)
     }
 }

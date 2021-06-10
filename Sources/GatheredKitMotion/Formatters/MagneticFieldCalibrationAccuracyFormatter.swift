@@ -1,9 +1,8 @@
 #if canImport(CoreMotion)
-import Foundation
 import CoreMotion
+import Foundation
 
 public final class MagneticFieldCalibrationAccuracyFormatter: Formatter {
-
     public func string(for status: CMMagneticFieldCalibrationAccuracy) -> String {
         switch status {
         case .uncalibrated:
@@ -23,6 +22,5 @@ public final class MagneticFieldCalibrationAccuracyFormatter: Formatter {
         guard let status = obj as? CMMagneticFieldCalibrationAccuracy else { return nil }
         return string(for: status)
     }
-
 }
 #endif

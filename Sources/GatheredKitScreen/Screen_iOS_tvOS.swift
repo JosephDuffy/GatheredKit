@@ -1,18 +1,18 @@
 #if os(iOS) || os(tvOS)
-import UIKit
 import Combine
 import GatheredKit
+import UIKit
 
 /// A wrapper around `UIScreen`.
 public final class Screen: UpdatingSource, Controllable {
-
     private enum State {
         case notMonitoring
         // swiftlint:disable duplicate_enum_cases
         #if os(iOS)
         case monitoring(
             brightnessChangeObeserver: NSObjectProtocol?, modeChangeObeserver: NSObjectProtocol,
-            updatesQueue: OperationQueue)
+            updatesQueue: OperationQueue
+        )
         #elseif os(tvOS)
         case monitoring(modeChangeObeserver: NSObjectProtocol, updatesQueue: OperationQueue)
         #endif
@@ -23,7 +23,7 @@ public final class Screen: UpdatingSource, Controllable {
     public let name: String
 
     public var sourceEventPublisher: AnyUpdatePublisher<SourceEvent> {
-        return sourceEventsSubject.eraseToAnyUpdatePublisher()
+        sourceEventsSubject.eraseToAnyUpdatePublisher()
     }
 
     private let sourceEventsSubject: UpdateSubject<SourceEvent>
@@ -69,7 +69,7 @@ public final class Screen: UpdatingSource, Controllable {
     /**
      The brightness level of the screen. The value of this property will be a number between
      0.0 and 1.0, inclusive.
-     
+
      If the screen is not the main screen this value will always be 1.
      */
     @PercentProperty
@@ -109,8 +109,8 @@ public final class Screen: UpdatingSource, Controllable {
     private let notificationCenter: NotificationCenter
 
     /**
-    Create a new instance of `Screen` for the `main` `UIScreen`.
-    */
+     Create a new instance of `Screen` for the `main` `UIScreen`.
+     */
     public convenience init() {
         self.init(screen: UIScreen.main)
     }
@@ -123,7 +123,7 @@ public final class Screen: UpdatingSource, Controllable {
      */
     internal init(screen: UIScreen, notificationCenter: NotificationCenter = .default) {
         name = screen == .main ? "Main" : "External"
-        self.uiScreen = screen
+        uiScreen = screen
         self.notificationCenter = notificationCenter
 
         _reportedResolution = .init(
@@ -212,30 +212,30 @@ public final class Screen: UpdatingSource, Controllable {
                     )
                 )
             }
-                if let snapshot = self._nativeResolution.updateValueIfDifferent(self.uiScreen.nativeBounds.size) {
-                    self.sourceEventsSubject.notifyUpdateListeners(
-                        of: .propertyUpdated(
-                            property: self.$nativeResolution,
-                            snapshot: snapshot
-                        )
+            if let snapshot = self._nativeResolution.updateValueIfDifferent(self.uiScreen.nativeBounds.size) {
+                self.sourceEventsSubject.notifyUpdateListeners(
+                    of: .propertyUpdated(
+                        property: self.$nativeResolution,
+                        snapshot: snapshot
                     )
-                }
-                    if let snapshot = self._reportedScale.updateValueIfDifferent(self.uiScreen.scale) {
-                        self.sourceEventsSubject.notifyUpdateListeners(
-                            of: .propertyUpdated(
-                                property: self.$reportedResolution,
-                                snapshot: snapshot
-                            )
-                        )
-                    }
-                        if let snapshot = self._nativeScale.updateValueIfDifferent(self.uiScreen.nativeScale) {
-                            self.sourceEventsSubject.notifyUpdateListeners(
-                                of: .propertyUpdated(
-                                    property: self.$nativeScale,
-                                    snapshot: snapshot
-                                )
-                            )
-                        }
+                )
+            }
+            if let snapshot = self._reportedScale.updateValueIfDifferent(self.uiScreen.scale) {
+                self.sourceEventsSubject.notifyUpdateListeners(
+                    of: .propertyUpdated(
+                        property: self.$reportedResolution,
+                        snapshot: snapshot
+                    )
+                )
+            }
+            if let snapshot = self._nativeScale.updateValueIfDifferent(self.uiScreen.nativeScale) {
+                self.sourceEventsSubject.notifyUpdateListeners(
+                    of: .propertyUpdated(
+                        property: self.$nativeScale,
+                        snapshot: snapshot
+                    )
+                )
+            }
         }
 
         _reportedResolution.updateValueIfDifferent(uiScreen.bounds.size)
@@ -289,7 +289,6 @@ public final class Screen: UpdatingSource, Controllable {
         state = .notMonitoring
         sourceEventsSubject.notifyUpdateListeners(of: .stoppedUpdating())
     }
-
 }
 
 #endif

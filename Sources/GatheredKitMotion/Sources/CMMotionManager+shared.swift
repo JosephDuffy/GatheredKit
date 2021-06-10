@@ -1,6 +1,6 @@
 #if os(iOS) || os(watchOS)
-import Foundation
 import CoreMotion
+import Foundation
 
 private var _sharedCMMotionManager: CMMotionManager?
 

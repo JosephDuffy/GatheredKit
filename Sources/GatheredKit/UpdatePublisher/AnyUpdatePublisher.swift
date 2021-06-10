@@ -7,7 +7,7 @@ public final class AnyUpdatePublisher<Payload>: UpdatePublisher {
 
     @available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
     public var combinePublisher: AnyPublisher<Payload, Never> {
-        return (boxedCombinePublisher as! BoxedCombinePublisher)()
+        (boxedCombinePublisher as! BoxedCombinePublisher)()
     }
 
     @available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
@@ -18,12 +18,12 @@ public final class AnyUpdatePublisher<Payload>: UpdatePublisher {
     private let boxedAddUpdateListener: (_ updateListener: @escaping UpdateListener) -> Subscription
 
     public init<UpdatePublisher: GatheredKit.UpdatePublisher>(updatePublisher: UpdatePublisher)
-    where UpdatePublisher.Payload == Payload {
+        where UpdatePublisher.Payload == Payload
+    {
         if #available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *) {
-            boxedCombinePublisher =
-                {
-                    return updatePublisher.combinePublisher
-                } as BoxedCombinePublisher
+            boxedCombinePublisher = {
+                updatePublisher.combinePublisher
+            } as BoxedCombinePublisher
         } else {
             boxedCombinePublisher = {
                 fatalError("boxedCombinePublisher unavailable")
@@ -31,11 +31,11 @@ public final class AnyUpdatePublisher<Payload>: UpdatePublisher {
         }
 
         boxedAddUpdateListener = { updateListener in
-            return updatePublisher.addUpdateListener(updateListener)
+            updatePublisher.addUpdateListener(updateListener)
         }
     }
 
     public func addUpdateListener(_ updateListener: @escaping UpdateListener) -> Subscription {
-        return boxedAddUpdateListener(updateListener)
+        boxedAddUpdateListener(updateListener)
     }
 }

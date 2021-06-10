@@ -4,7 +4,7 @@ import Foundation
 public final class BasicProperty<Value, Formatter>: UpdatableProperty where Formatter: Foundation.Formatter {
     public var wrappedValue: Value {
         get {
-            return value
+            value
         }
         set {
             value = newValue
@@ -30,7 +30,7 @@ public final class BasicProperty<Value, Formatter>: UpdatableProperty where Form
     /// The current value of the property.
     public internal(set) var value: Value {
         get {
-            return snapshot.value
+            snapshot.value
         }
         set {
             snapshot = Snapshot(value: newValue, date: Date())
@@ -42,7 +42,7 @@ public final class BasicProperty<Value, Formatter>: UpdatableProperty where Form
     public let formatter: Formatter
 
     public var updatePublisher: AnyUpdatePublisher<Snapshot<Value>> {
-        return updateSubject.eraseToAnyUpdatePublisher()
+        updateSubject.eraseToAnyUpdatePublisher()
     }
 
     private let updateSubject: UpdateSubject<Snapshot<Value>>
@@ -54,7 +54,7 @@ public final class BasicProperty<Value, Formatter>: UpdatableProperty where Form
     ) {
         self.displayName = displayName
         self.formatter = formatter
-        self.snapshot = Snapshot(value: value, date: date)
+        snapshot = Snapshot(value: value, date: date)
         updateSubject = UpdateSubject()
     }
 
@@ -82,8 +82,7 @@ extension BasicProperty: Equatable where Value: Equatable {
     public static func == (
         lhs: BasicProperty<Value, Formatter>, rhs: BasicProperty<Value, Formatter>
     ) -> Bool {
-        return
-            lhs.displayName == rhs.displayName && lhs.value == rhs.value && lhs.date == rhs.date
+        lhs.displayName == rhs.displayName && lhs.value == rhs.value && lhs.date == rhs.date
     }
 }
 

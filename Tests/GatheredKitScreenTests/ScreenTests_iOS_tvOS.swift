@@ -1,11 +1,10 @@
 #if os(iOS) || os(tvOS)
-import UIKit
-import XCTest
 @testable import GatheredKitScreen
 import GatheredKitTestHelpers
+import UIKit
+import XCTest
 
 final class ScreenTests: XCTestCase {
-
     func testDefaultInitialiser() {
         let screen = Screen()
         XCTAssertEqual(screen.uiScreen, UIScreen.main)
@@ -60,7 +59,8 @@ final class ScreenTests: XCTestCase {
         #endif
         XCTAssertEqual(
             Set(notificationCenter.addObserverParameters.map { $0.object as? UIScreen }),
-            Set([uiScreen]))
+            Set([uiScreen])
+        )
 
         screen.startUpdating()
 
@@ -138,10 +138,12 @@ final class ScreenTests: XCTestCase {
 
         XCTAssertEqual(
             Set(notificationCenter.addObserverParameters.map { $0.object as? UIScreen }),
-            Set([uiScreen]))
+            Set([uiScreen])
+        )
         XCTAssertEqual(
             Set(notificationCenter.removeObserverParameters.map { $0.object as? UIScreen }),
-            Set([uiScreen]))
+            Set([uiScreen])
+        )
 
         wait(for: [startUpdatingEventExpectation], timeout: 0.01)
     }
@@ -166,11 +168,11 @@ final class ScreenTests: XCTestCase {
         nativeResolutionExpectation.expectedFulfillmentCount = 1
         nativeResolutionExpectation.assertForOverFulfill = true
         let nativeResolutionCancellable = screen.$nativeResolution.updatePublisher.addUpdateListener
-        {
-            nativeResolution in
-            nativeResolutionExpectation.fulfill()
-            XCTAssertEqual(nativeResolution.value, uiScreen.nativeBounds.size)
-        }
+            {
+                nativeResolution in
+                nativeResolutionExpectation.fulfill()
+                XCTAssertEqual(nativeResolution.value, uiScreen.nativeBounds.size)
+            }
 
         let reportedScaleExpectation = XCTestExpectation(
             description: "Subscriber should be called with updated reported scale")
@@ -251,7 +253,7 @@ final class ScreenTests: XCTestCase {
 
         wait(
             for: [
-                brightnessExpectation
+                brightnessExpectation,
             ],
             timeout: 0.1
         )
@@ -272,12 +274,12 @@ final class ScreenTests: XCTestCase {
 
         mockScreen.brightness = 0.53
         notificationCenter.post(
-            name: UIScreen.brightnessDidChangeNotification, object: UIScreen.main)
+            name: UIScreen.brightnessDidChangeNotification, object: UIScreen.main
+        )
 
         wait(for: [expectation], timeout: 0.1)
     }
     #endif
-
 }
 
 #endif

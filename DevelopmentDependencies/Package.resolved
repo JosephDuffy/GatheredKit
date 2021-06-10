@@ -6,26 +6,17 @@
         "repositoryURL": "https://github.com/apple/swift-argument-parser.git",
         "state": {
           "branch": null,
-          "revision": "223d62adc52d51669ae2ee19bdb8b7d9fd6fcd9c",
-          "version": "0.0.6"
+          "revision": "986d191f94cec88f6350056da59c2e59e83d1229",
+          "version": "0.4.3"
         }
       },
       {
-        "package": "swift-format",
-        "repositoryURL": "https://github.com/apple/swift-format.git",
-        "state": {
-          "branch": "swift-5.2-branch",
-          "revision": "07e082b100dd14439b11451c24796999ff3ef928",
-          "version": null
-        }
-      },
-      {
-        "package": "SwiftSyntax",
-        "repositoryURL": "https://github.com/apple/swift-syntax",
+        "package": "SwiftFormat",
+        "repositoryURL": "https://github.com/nicklockwood/SwiftFormat",
         "state": {
           "branch": null,
-          "revision": "0688b9cfc4c3dd234e4f55f1f056b2affc849873",
-          "version": "0.50200.0"
+          "revision": "872e7034f54aeee3f20acf790ecc13e1383f7360",
+          "version": "0.48.4"
         }
       },
       {
@@ -33,8 +24,8 @@
         "repositoryURL": "https://github.com/mxcl/Version.git",
         "state": {
           "branch": null,
-          "revision": "200046c93f6d5d78a6d72bfd9c0b27a95e9c0a2b",
-          "version": "1.2.0"
+          "revision": "1fe824b80d89201652e7eca7c9252269a1d85e25",
+          "version": "2.0.1"
         }
       },
       {
@@ -42,7 +33,7 @@
         "repositoryURL": "https://github.com/JosephDuffy/xcutils.git",
         "state": {
           "branch": "master",
-          "revision": "c89ab37a15ec5c93f954b50b0259d784fbd6c46e",
+          "revision": "c20c11190446042792c798d2fa73559330864673",
           "version": null
         }
       }

@@ -8,14 +8,17 @@ final class PlatformTests: XCTestCase {
     func test_iOS() {
         XCTAssertTrue(true)
     }
+
     #elseif targetEnvironment(macCatalyst)
     func test_macCatalyst() {
         XCTAssertTrue(true)
     }
+
     #elseif os(macOS)
     func test_macOS() {
         XCTAssertTrue(true)
     }
+
     #elseif os(tvOS)
     func test_tvOS() {
         XCTAssertTrue(true)

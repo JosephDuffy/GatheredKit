@@ -2,7 +2,6 @@ import Foundation
 
 /// A source that supports updating its properties at a given time interval
 public protocol CustomisableUpdateIntervalControllable: Controllable {
-
     /// The default update interval that will be used when calling `startUpdating()`
     /// without specifying the update interval.
     /// This value is unique per-source and does not persist between app runs
@@ -18,11 +17,9 @@ public protocol CustomisableUpdateIntervalControllable: Controllable {
      - parameter updateInterval: The interval between updates, measured in seconds
      */
     func startUpdating(every updateInterval: TimeInterval)
-
 }
 
 extension CustomisableUpdateIntervalControllable {
-
     /**
      Starts performing period updated. The value of the static variable `defaultUpdateInterval` will
      used for the update interval.
@@ -30,5 +27,4 @@ extension CustomisableUpdateIntervalControllable {
     public func startUpdating() {
         startUpdating(every: type(of: self).defaultUpdateInterval)
     }
-
 }

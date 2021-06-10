@@ -13,7 +13,7 @@ public final class MappedUpdatePublisher<Input, Payload>: UpdatePublisher {
     /// A publisher that publishes updates when the snapshot updates.
     @available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
     public var combinePublisher: AnyPublisher<Payload, Never> {
-        return combineSubject.eraseToAnyPublisher()
+        combineSubject.eraseToAnyPublisher()
     }
 
     @available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
@@ -22,7 +22,7 @@ public final class MappedUpdatePublisher<Input, Payload>: UpdatePublisher {
     /// The updates subject that publishes snapshot updates.
     @available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
     private var combineSubject: PayloadSubject {
-        return _combineSubject as! PayloadSubject
+        _combineSubject as! PayloadSubject
     }
 
     private lazy var _combineSubject: Any = {

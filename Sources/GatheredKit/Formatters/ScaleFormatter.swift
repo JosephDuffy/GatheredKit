@@ -3,7 +3,6 @@ import Foundation
 /// A `NumberFormatter` with the `negativeSuffix` and `positiveSuffix`
 /// properties set to "x"
 public final class ScaleFormatter: NumberFormatter {
-
     public override init() {
         super.init()
 
@@ -11,8 +10,8 @@ public final class ScaleFormatter: NumberFormatter {
         positiveSuffix = "x"
     }
 
+    @available(*, unavailable)
     public required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-
 }

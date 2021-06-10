@@ -2,7 +2,6 @@ import Foundation
 
 @dynamicMemberLookup
 public final class ReadOnlyProperty<Property: AnyProperty>: AnyProperty {
-
     public var displayName: String {
         wrapped.displayName
     }
@@ -30,7 +29,7 @@ public final class ReadOnlyProperty<Property: AnyProperty>: AnyProperty {
     }
 
     public subscript<Value>(dynamicMember keyPath: KeyPath<Property, Value>) -> Value {
-        return wrapped[keyPath: keyPath]
+        wrapped[keyPath: keyPath]
     }
 }
 

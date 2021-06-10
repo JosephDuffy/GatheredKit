@@ -1,10 +1,10 @@
-//@testable
-//import GatheredKitLocation
-//import CoreLocation
-//import Quick
-//import Nimble
+// @testable
+// import GatheredKitLocation
+// import CoreLocation
+// import Quick
+// import Nimble
 //
-//final class LocationTests: QuickSpec {
+// final class LocationTests: QuickSpec {
 //
 //    override func spec() {
 //        describe("Location") {
@@ -177,11 +177,11 @@
 //                        expect(Location.availability).to(equal(.available))
 //                    }
 //                }
-//                
+//
 //            }
 //
 //        }
 //
 //    }
 //
-//}
+// }

@@ -1,6 +1,6 @@
 #if os(iOS) || os(watchOS)
-import Foundation
 import CoreMotion
+import Foundation
 import GatheredKit
 
 // TODO: Add rotationMatrix
@@ -13,7 +13,7 @@ public final class OptionalCMAttitudeProperty: UpdatableProperty, PropertiesProv
     // MARK: `CMAttitude` Properties
 
     public var allProperties: [AnyProperty] {
-        return [$roll, $pitch, $yaw, $quaternion]
+        [$roll, $pitch, $yaw, $quaternion]
     }
 
     @OptionalAngleProperty
@@ -60,7 +60,7 @@ public final class OptionalCMAttitudeProperty: UpdatableProperty, PropertiesProv
     public let formatter: Formatter
 
     public var updatePublisher: AnyUpdatePublisher<Snapshot<Value>> {
-        return updateSubject.eraseToAnyUpdatePublisher()
+        updateSubject.eraseToAnyUpdatePublisher()
     }
 
     private let updateSubject: UpdateSubject<Snapshot<Value>>

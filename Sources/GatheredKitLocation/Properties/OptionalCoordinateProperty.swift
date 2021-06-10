@@ -7,7 +7,7 @@ public final class OptionalCoordinateProperty: UpdatableProperty, PropertiesProv
     public typealias Value = CLLocationCoordinate2D?
 
     public var allProperties: [AnyProperty] {
-        return [
+        [
             $latitude,
             $longitude,
         ]
@@ -15,7 +15,7 @@ public final class OptionalCoordinateProperty: UpdatableProperty, PropertiesProv
 
     public var wrappedValue: CLLocationCoordinate2D? {
         get {
-            return snapshot.value
+            snapshot.value
         }
         set {
             updateValue(newValue)
@@ -43,7 +43,7 @@ public final class OptionalCoordinateProperty: UpdatableProperty, PropertiesProv
     public let formatter: CoordinateFormatter
 
     public var updatePublisher: AnyUpdatePublisher<Snapshot<Value>> {
-        return updateSubject.eraseToAnyUpdatePublisher()
+        updateSubject.eraseToAnyUpdatePublisher()
     }
 
     private let updateSubject: UpdateSubject<Snapshot<Value>>
@@ -76,5 +76,4 @@ public final class OptionalCoordinateProperty: UpdatableProperty, PropertiesProv
         self.snapshot = snapshot
         return snapshot
     }
-
 }

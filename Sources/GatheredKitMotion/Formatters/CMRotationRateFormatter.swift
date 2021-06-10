@@ -1,9 +1,8 @@
 #if os(iOS) || os(watchOS)
-import Foundation
 import CoreMotion
+import Foundation
 
 public final class CMRotationRateFormatter: Formatter {
-
     public var numberFormatter: NumberFormatter
 
     public init(numberFormatter: NumberFormatter) {
@@ -11,11 +10,12 @@ public final class CMRotationRateFormatter: Formatter {
         super.init()
     }
 
-    public convenience override init() {
+    public override convenience init() {
         let numberFormatter = NumberFormatter()
         self.init(numberFormatter: numberFormatter)
     }
 
+    @available(*, unavailable)
     public required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -31,6 +31,5 @@ public final class CMRotationRateFormatter: Formatter {
         guard let rotationRate = obj as? CMRotationRate else { return nil }
         return string(for: rotationRate)
     }
-
 }
 #endif

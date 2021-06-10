@@ -1,13 +1,12 @@
 #if os(iOS) || os(tvOS)
-import UIKit
 @testable import GatheredKitScreen
+import UIKit
 
 // swift-format-ignore: NoLeadingUnderscores
 
 final class MockScreen: UIScreen {
-
     static func == (lhs: MockScreen, rhs: UIScreen) -> Bool {
-        if lhs.forceEqualToMain && rhs == .main {
+        if lhs.forceEqualToMain, rhs == .main {
             return true
         } else {
             return (lhs as UIScreen) == rhs
@@ -15,7 +14,7 @@ final class MockScreen: UIScreen {
     }
 
     static func == (lhs: UIScreen, rhs: MockScreen) -> Bool {
-        if rhs.forceEqualToMain && lhs == .main {
+        if rhs.forceEqualToMain, lhs == .main {
             return true
         } else {
             return (rhs as UIScreen) == lhs
@@ -36,7 +35,7 @@ final class MockScreen: UIScreen {
 
     override var bounds: CGRect {
         get {
-            return _bounds ?? super.bounds
+            _bounds ?? super.bounds
         }
         set {
             _bounds = newValue
@@ -47,7 +46,7 @@ final class MockScreen: UIScreen {
 
     override var nativeBounds: CGRect {
         get {
-            return _nativeBounds ?? super.nativeBounds
+            _nativeBounds ?? super.nativeBounds
         }
         set {
             _nativeBounds = newValue
@@ -58,7 +57,7 @@ final class MockScreen: UIScreen {
 
     override var scale: CGFloat {
         get {
-            return _scale ?? super.scale
+            _scale ?? super.scale
         }
         set {
             _scale = newValue
@@ -69,7 +68,7 @@ final class MockScreen: UIScreen {
 
     override var nativeScale: CGFloat {
         get {
-            return _nativeScale ?? super.nativeScale
+            _nativeScale ?? super.nativeScale
         }
         set {
             _nativeScale = newValue
@@ -81,13 +80,12 @@ final class MockScreen: UIScreen {
 
     override var brightness: CGFloat {
         get {
-            return _brightness ?? super.brightness
+            _brightness ?? super.brightness
         }
         set {
             _brightness = newValue
         }
     }
     #endif
-
 }
 #endif

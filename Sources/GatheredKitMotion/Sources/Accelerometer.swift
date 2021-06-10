@@ -1,11 +1,10 @@
 #if os(iOS) || os(watchOS)
-import Foundation
-import CoreMotion
 import Combine
+import CoreMotion
+import Foundation
 import GatheredKit
 
 public final class Accelerometer: UpdatingSource, CustomisableUpdateIntervalControllable {
-
     private enum State {
         case notMonitoring
         case monitoring(updatesQueue: OperationQueue)
@@ -18,7 +17,7 @@ public final class Accelerometer: UpdatingSource, CustomisableUpdateIntervalCont
     public static var defaultUpdateInterval: TimeInterval = 1
 
     public var sourceEventPublisher: AnyUpdatePublisher<SourceEvent> {
-        return sourceEventsSubject.eraseToAnyUpdatePublisher()
+        sourceEventsSubject.eraseToAnyUpdatePublisher()
     }
 
     private let sourceEventsSubject: UpdateSubject<SourceEvent>
@@ -26,14 +25,14 @@ public final class Accelerometer: UpdatingSource, CustomisableUpdateIntervalCont
     public private(set) var isUpdating: Bool = false
 
     public var updateInterval: TimeInterval? {
-        return isUpdating ? CMMotionManager.shared.accelerometerUpdateInterval : nil
+        isUpdating ? CMMotionManager.shared.accelerometerUpdateInterval : nil
     }
 
     @OptionalCMAccelerationProperty
     public private(set) var acceleration: CMAcceleration?
 
     public var allProperties: [AnyProperty] {
-        return [$acceleration]
+        [$acceleration]
     }
 
     private var state: State = .notMonitoring {
@@ -86,6 +85,5 @@ public final class Accelerometer: UpdatingSource, CustomisableUpdateIntervalCont
         state = .notMonitoring
         sourceEventsSubject.notifyUpdateListeners(of: .stoppedUpdating())
     }
-
 }
 #endif

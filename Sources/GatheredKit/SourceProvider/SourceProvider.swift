@@ -7,6 +7,6 @@ public protocol SourceProvider: AnySourceProvider {
 
 extension SourceProvider {
     public var typeErasedSources: [Source] {
-        return sources
+        sources
     }
 }

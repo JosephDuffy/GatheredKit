@@ -1,5 +1,4 @@
 public final class Subscription {
-
     internal typealias CancelHandler = () -> Void
 
     private var cancelHandler: CancelHandler?

@@ -4,7 +4,6 @@ public typealias PressureProperty = MeasurementProperty<UnitPressure>
 public typealias OptionalPressureProperty = OptionalMeasurementProperty<UnitPressure>
 
 extension AnyProperty {
-
     public static func pressure(
         displayName: String,
         value: Double,
@@ -12,8 +11,9 @@ extension AnyProperty {
         formatter: MeasurementFormatter = MeasurementFormatter(),
         date: Date = Date()
     ) -> PressureProperty {
-        return .init(
-            displayName: displayName, value: value, unit: unit, formatter: formatter, date: date)
+        .init(
+            displayName: displayName, value: value, unit: unit, formatter: formatter, date: date
+        )
     }
 
     public static func pressure(
@@ -23,8 +23,9 @@ extension AnyProperty {
         formatter: MeasurementFormatter = MeasurementFormatter(),
         date: Date = Date()
     ) -> OptionalPressureProperty {
-        return .init(
-            displayName: displayName, value: value, unit: unit, formatter: formatter, date: date)
+        .init(
+            displayName: displayName, value: value, unit: unit, formatter: formatter, date: date
+        )
     }
 
     public static func kilopascals(
@@ -33,9 +34,10 @@ extension AnyProperty {
         formatter: MeasurementFormatter = MeasurementFormatter(),
         date: Date = Date()
     ) -> PressureProperty {
-        return .init(
+        .init(
             displayName: displayName, value: value, unit: .kilopascals, formatter: formatter,
-            date: date)
+            date: date
+        )
     }
 
     public static func kilopascals(
@@ -44,9 +46,9 @@ extension AnyProperty {
         formatter: MeasurementFormatter = MeasurementFormatter(),
         date: Date = Date()
     ) -> OptionalPressureProperty {
-        return .init(
+        .init(
             displayName: displayName, value: value, unit: .kilopascals, formatter: formatter,
-            date: date)
+            date: date
+        )
     }
-
 }

@@ -1,6 +1,5 @@
 /// A property provider that supports its properties being updated at any given time.
 public protocol ManuallyUpdatablePropertiesProvider: PropertiesProvider {
-
     /**
      Force the properties provider to update its properties.
 
@@ -10,5 +9,4 @@ public protocol ManuallyUpdatablePropertiesProvider: PropertiesProvider {
      - Returns: The properties after the update.
      */
     func updateValues() -> [AnyProperty]
-
 }

@@ -1,10 +1,9 @@
 #if os(iOS) || os(watchOS)
-import Foundation
 import CoreMotion
+import Foundation
 import GatheredKit
 
 public final class CMMagneticFieldFormatter: Formatter {
-
     public var measurementFormatter: MeasurementFormatter
 
     public init(measurementFormatter: MeasurementFormatter) {
@@ -12,11 +11,12 @@ public final class CMMagneticFieldFormatter: Formatter {
         super.init()
     }
 
-    public convenience override init() {
+    public override convenience init() {
         let measurementFormatter = MeasurementFormatter()
         self.init(measurementFormatter: measurementFormatter)
     }
 
+    @available(*, unavailable)
     public required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -35,6 +35,5 @@ public final class CMMagneticFieldFormatter: Formatter {
         guard let magneticField = obj as? CMMagneticField else { return nil }
         return string(for: magneticField)
     }
-
 }
 #endif

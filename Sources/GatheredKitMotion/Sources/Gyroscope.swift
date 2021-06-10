@@ -1,11 +1,10 @@
 #if os(iOS) || os(watchOS)
-import Foundation
-import CoreMotion
 import Combine
+import CoreMotion
+import Foundation
 import GatheredKit
 
 public final class Gyroscope: UpdatingSource, CustomisableUpdateIntervalControllable {
-
     private enum State {
         case notMonitoring
         case monitoring(updatesQueue: OperationQueue)
@@ -18,7 +17,7 @@ public final class Gyroscope: UpdatingSource, CustomisableUpdateIntervalControll
     public static var defaultUpdateInterval: TimeInterval = 1
 
     public var sourceEventPublisher: AnyUpdatePublisher<SourceEvent> {
-        return sourceEventsSubject.eraseToAnyUpdatePublisher()
+        sourceEventsSubject.eraseToAnyUpdatePublisher()
     }
 
     private let sourceEventsSubject: UpdateSubject<SourceEvent>
@@ -26,14 +25,14 @@ public final class Gyroscope: UpdatingSource, CustomisableUpdateIntervalControll
     public private(set) var isUpdating: Bool = false
 
     public var updateInterval: TimeInterval? {
-        return isUpdating ? CMMotionManager.shared.gyroUpdateInterval : nil
+        isUpdating ? CMMotionManager.shared.gyroUpdateInterval : nil
     }
 
     @OptionalCMRotationRateProperty
     public private(set) var rotationRate: CMRotationRate?
 
     public var allProperties: [AnyProperty] {
-        return [$rotationRate]
+        [$rotationRate]
     }
 
     private var state: State = .notMonitoring {
@@ -87,6 +86,5 @@ public final class Gyroscope: UpdatingSource, CustomisableUpdateIntervalControll
         state = .notMonitoring
         sourceEventsSubject.notifyUpdateListeners(of: .stoppedUpdating())
     }
-
 }
 #endif

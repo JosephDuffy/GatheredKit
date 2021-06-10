@@ -1,7 +1,6 @@
 import Foundation
 
 extension AnyProperty {
-
     public static func measurement<Unit: Foundation.Unit>(
         displayName: String,
         value: Double,
@@ -9,7 +8,7 @@ extension AnyProperty {
         formatter: MeasurementFormatter = MeasurementFormatter(),
         date: Date = Date()
     ) -> MeasurementProperty<Unit> {
-        return MeasurementProperty<Unit>(
+        MeasurementProperty<Unit>(
             displayName: displayName,
             value: value,
             unit: unit,
@@ -24,7 +23,7 @@ extension AnyProperty {
         formatter: MeasurementFormatter = MeasurementFormatter(),
         date: Date = Date()
     ) -> MeasurementProperty<Unit> {
-        return MeasurementProperty<Unit>(
+        MeasurementProperty<Unit>(
             displayName: displayName,
             measurement: measurement,
             formatter: formatter,
@@ -39,7 +38,7 @@ extension AnyProperty {
         formatter: MeasurementFormatter = MeasurementFormatter(),
         date: Date = Date()
     ) -> OptionalMeasurementProperty<Unit> {
-        return OptionalMeasurementProperty<Unit>(
+        OptionalMeasurementProperty<Unit>(
             displayName: displayName,
             value: value,
             unit: unit,
@@ -55,7 +54,7 @@ extension AnyProperty {
         formatter: MeasurementFormatter = MeasurementFormatter(),
         date: Date = Date()
     ) -> OptionalMeasurementProperty<Unit> {
-        return OptionalMeasurementProperty<Unit>(
+        OptionalMeasurementProperty<Unit>(
             displayName: displayName,
             measurement: measurement,
             formatter: formatter,

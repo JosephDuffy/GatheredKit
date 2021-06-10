@@ -1,7 +1,6 @@
 import Foundation
 
 public final class MockNotificationCenter: NotificationCenter {
-
     public typealias AddObserverParameters = (
         name: Notification.Name?, object: Any?, queue: OperationQueue?,
         block: (Notification) -> Void
@@ -14,52 +13,53 @@ public final class MockNotificationCenter: NotificationCenter {
     public private(set) var addObserverParameters: [AddObserverParameters] = []
 
     public var latestAddObserverName: Notification.Name?? {
-        return addObserverParameters.last?.name
+        addObserverParameters.last?.name
     }
 
     public var addObserverNames: [Notification.Name?] {
-        return addObserverParameters.map { $0.name }
+        addObserverParameters.map(\.name)
     }
 
     public var latestAddObserverObject: Any?? {
-        return addObserverParameters.last?.object
+        addObserverParameters.last?.object
     }
 
     public var addObserverObjects: [Any?] {
-        return addObserverParameters.map { $0.object }
+        addObserverParameters.map(\.object)
     }
 
     public var latestAddObserverQueue: OperationQueue?? {
-        return addObserverParameters.last?.queue
+        addObserverParameters.last?.queue
     }
 
     public var addObserverQueues: [OperationQueue?] {
-        return addObserverParameters.map { $0.queue }
+        addObserverParameters.map(\.queue)
     }
 
     public var latestAddObserverBlock: ((Notification) -> Void)? {
-        return addObserverParameters.last?.block
+        addObserverParameters.last?.block
     }
 
     public var addObserverBlocks: [((Notification) -> Void)?] {
-        return addObserverParameters.map { $0.block }
+        addObserverParameters.map(\.block)
     }
 
     public var latestAddObserverOpaqueObject: NSObjectProtocol? {
-        return addObserverOpaqueObjects.last
+        addObserverOpaqueObjects.last
     }
 
     public private(set) var addObserverOpaqueObjects: [NSObjectProtocol] = []
 
     public var addObserverHasBeenCalled: Bool {
-        return !addObserverParameters.isEmpty
+        !addObserverParameters.isEmpty
     }
+
     public private(set) var addObserverCallCount = 0
 
     public private(set) var removeObserverParameters: [RemoveObserverParameters] = []
 
     public var removeObserverNames: [Notification.Name?] {
-        return removeObserverParameters.map { $0.name }
+        removeObserverParameters.map(\.name)
     }
 
     public override func addObserver(
@@ -84,5 +84,4 @@ public final class MockNotificationCenter: NotificationCenter {
         removeObserverParameters.append(parameters)
         super.removeObserver(observer, name: aName, object: anObject)
     }
-
 }

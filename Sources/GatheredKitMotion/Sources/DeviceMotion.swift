@@ -1,11 +1,10 @@
 #if os(iOS) || os(watchOS)
-import Foundation
-import CoreMotion
 import Combine
+import CoreMotion
+import Foundation
 import GatheredKit
 
 public final class DeviceMotion: UpdatingSource, CustomisableUpdateIntervalControllable {
-
     private enum State {
         case notMonitoring
         case monitoring(updatesQueue: OperationQueue)
@@ -18,11 +17,11 @@ public final class DeviceMotion: UpdatingSource, CustomisableUpdateIntervalContr
     public static var defaultUpdateInterval: TimeInterval = 1
 
     public static func availableReferenceFrames() -> CMAttitudeReferenceFrame {
-        return CMMotionManager.availableAttitudeReferenceFrames()
+        CMMotionManager.availableAttitudeReferenceFrames()
     }
 
     public var sourceEventPublisher: AnyUpdatePublisher<SourceEvent> {
-        return sourceEventsSubject.eraseToAnyUpdatePublisher()
+        sourceEventsSubject.eraseToAnyUpdatePublisher()
     }
 
     private let sourceEventsSubject: UpdateSubject<SourceEvent>
@@ -30,7 +29,7 @@ public final class DeviceMotion: UpdatingSource, CustomisableUpdateIntervalContr
     public private(set) var isUpdating: Bool = false
 
     public var updateInterval: TimeInterval? {
-        return isUpdating ? CMMotionManager.shared.deviceMotionUpdateInterval : nil
+        isUpdating ? CMMotionManager.shared.deviceMotionUpdateInterval : nil
     }
 
     @OptionalCMAttitudeProperty
@@ -52,7 +51,7 @@ public final class DeviceMotion: UpdatingSource, CustomisableUpdateIntervalContr
     public private(set) var rotationRate: CMRotationRate?
 
     public var allProperties: [AnyProperty] {
-        return [
+        [
             $attitude,
             $gravity,
             $userAcceleration,
@@ -152,6 +151,5 @@ public final class DeviceMotion: UpdatingSource, CustomisableUpdateIntervalContr
         state = .notMonitoring
         sourceEventsSubject.notifyUpdateListeners(of: .stoppedUpdating())
     }
-
 }
 #endif

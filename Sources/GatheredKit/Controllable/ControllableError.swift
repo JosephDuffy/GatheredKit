@@ -1,5 +1,4 @@
 public enum ControllableError: Error {
-
     /// Availability is `restricted`
     case restricted
 

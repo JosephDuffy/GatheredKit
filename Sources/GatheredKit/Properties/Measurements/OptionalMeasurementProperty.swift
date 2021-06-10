@@ -40,7 +40,7 @@ public final class OptionalMeasurementProperty<Unit: Foundation.Unit>: Updatable
     public let formatter: MeasurementFormatter
 
     public var updatePublisher: AnyUpdatePublisher<Snapshot<Value>> {
-        return updateSubject.eraseToAnyUpdatePublisher()
+        updateSubject.eraseToAnyUpdatePublisher()
     }
 
     private let updateSubject: UpdateSubject<Snapshot<Value>>
@@ -48,13 +48,13 @@ public final class OptionalMeasurementProperty<Unit: Foundation.Unit>: Updatable
     // MARK: Measurement Properties
 
     public var measurement: Value {
-        return value
+        value
     }
 
     public private(set) var unit: Unit
 
     public var measuredValue: Double? {
-        return measurement?.value
+        measurement?.value
     }
 
     // MARK: Initialisers
@@ -141,6 +141,7 @@ extension OptionalMeasurementProperty where Unit: Foundation.Dimension {
     ) {
         self.init(
             displayName: displayName, value: measuredValue, unit: dimention, formatter: formatter,
-            date: date)
+            date: date
+        )
     }
 }

@@ -5,12 +5,12 @@ import GatheredKit
 
 /// A wrapper around `NSScreen`.
 public final class Screen: UpdatingSource, Controllable {
-
     private enum State {
         case notMonitoring
         case monitoring(
             screenParametersObserver: NSObjectProtocol, colorSpaceObserver: NSObjectProtocol,
-            updatesQueue: OperationQueue)
+            updatesQueue: OperationQueue
+        )
     }
 
     public let availability: SourceAvailability = .available
@@ -18,7 +18,7 @@ public final class Screen: UpdatingSource, Controllable {
     public let name = "Screen"
 
     public var sourceEventPublisher: AnyUpdatePublisher<SourceEvent> {
-        return sourceEventsSubject.eraseToAnyUpdatePublisher()
+        sourceEventsSubject.eraseToAnyUpdatePublisher()
     }
 
     private let sourceEventsSubject: UpdateSubject<SourceEvent>
@@ -39,8 +39,8 @@ public final class Screen: UpdatingSource, Controllable {
      - Resolution
      */
     public var allProperties: [AnyProperty] {
-        return [
-            $resolution
+        [
+            $resolution,
         ]
     }
 
@@ -61,8 +61,8 @@ public final class Screen: UpdatingSource, Controllable {
     private let notificationCenter: NotificationCenter
 
     /**
-    Create a new instance of `Screen` for the `main` `UIScreen`.
-    */
+     Create a new instance of `Screen` for the `main` `UIScreen`.
+     */
     public convenience init?() {
         guard let screen = NSScreen.main else { return nil }
         self.init(screen: screen)
@@ -75,7 +75,7 @@ public final class Screen: UpdatingSource, Controllable {
      - Parameter notificationCenter: The notification center to listen to notifications from.
      */
     internal init(screen: NSScreen, notificationCenter: NotificationCenter = .default) {
-        self.nsScreen = screen
+        nsScreen = screen
         self.notificationCenter = notificationCenter
         sourceEventsSubject = .init()
 
@@ -111,8 +111,8 @@ public final class Screen: UpdatingSource, Controllable {
             }
         }
 
-        if let snapshot = self._resolution.updateValueIfDifferent(self.nsScreen.frame.size) {
-            self.sourceEventsSubject.notifyUpdateListeners(of: .propertyUpdated(property: self.$resolution, snapshot: snapshot))
+        if let snapshot = _resolution.updateValueIfDifferent(nsScreen.frame.size) {
+            sourceEventsSubject.notifyUpdateListeners(of: .propertyUpdated(property: $resolution, snapshot: snapshot))
         }
 
         let colorSpaceObserver = notificationCenter.addObserver(
@@ -153,7 +153,6 @@ public final class Screen: UpdatingSource, Controllable {
         state = .notMonitoring
         sourceEventsSubject.notifyUpdateListeners(of: .stoppedUpdating())
     }
-
 }
 
 #endif

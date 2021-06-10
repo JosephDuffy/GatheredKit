@@ -11,7 +11,6 @@ public protocol AnyProperty: AnyObject, AnySnapshot {
 }
 
 extension AnyProperty {
-
     public var formattedValue: String? {
         guard type(of: typeErasedFormatter) != Foundation.Formatter.self else {
             // `Formatter.string(for:)` will throw an exception when not overriden
@@ -19,5 +18,4 @@ extension AnyProperty {
         }
         return typeErasedFormatter.string(for: typeErasedValue)
     }
-
 }

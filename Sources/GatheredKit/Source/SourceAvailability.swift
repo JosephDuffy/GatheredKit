@@ -1,5 +1,4 @@
 public enum SourceAvailability {
-
     /// The source is available for use
     case available
 
@@ -21,5 +20,4 @@ public enum SourceAvailability {
 
     /// The device does not support this source
     case unavailable
-
 }

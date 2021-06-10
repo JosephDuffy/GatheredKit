@@ -1,10 +1,10 @@
-//@testable
-//import GatheredKit
-//import CoreLocation
-//import Quick
-//import Nimble
+// @testable
+// import GatheredKit
+// import CoreLocation
+// import Quick
+// import Nimble
 //
-//internal final class MockLocationManager: LocationManager {
+// internal final class MockLocationManager: LocationManager {
 //
 //    internal static var mockAuthorizationStatus: CLAuthorizationStatus!
 //
@@ -68,4 +68,4 @@
 //        stopUpdatingLocationHandler?()
 //    }
 //
-//}
+// }

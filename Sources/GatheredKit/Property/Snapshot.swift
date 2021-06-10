@@ -8,7 +8,7 @@ public struct Snapshot<Value>: AnySnapshot {
     public let date: Date
 
     public var typeErasedValue: Any? {
-        return castToOptional(value)
+        castToOptional(value)
     }
 
     /**
@@ -23,6 +23,4 @@ public struct Snapshot<Value>: AnySnapshot {
     }
 }
 
-extension Snapshot: Equatable where Value: Equatable {
-
-}
+extension Snapshot: Equatable where Value: Equatable {}

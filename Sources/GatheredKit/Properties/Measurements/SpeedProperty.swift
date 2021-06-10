@@ -4,7 +4,6 @@ public typealias SpeedProperty = MeasurementProperty<UnitSpeed>
 public typealias OptionalSpeedProperty = OptionalMeasurementProperty<UnitSpeed>
 
 extension AnyProperty {
-
     public static func speed(
         displayName: String,
         value: Double,
@@ -12,8 +11,9 @@ extension AnyProperty {
         formatter: MeasurementFormatter = MeasurementFormatter(),
         date: Date = Date()
     ) -> SpeedProperty {
-        return SpeedProperty(
-            displayName: displayName, value: value, unit: unit, formatter: formatter, date: date)
+        SpeedProperty(
+            displayName: displayName, value: value, unit: unit, formatter: formatter, date: date
+        )
     }
 
     public static func metersPerSecond(
@@ -22,9 +22,10 @@ extension AnyProperty {
         formatter: MeasurementFormatter = MeasurementFormatter(),
         date: Date = Date()
     ) -> SpeedProperty {
-        return SpeedProperty(
+        SpeedProperty(
             displayName: displayName, value: value, unit: .metersPerSecond, formatter: formatter,
-            date: date)
+            date: date
+        )
     }
 
     public static func speed(
@@ -34,8 +35,9 @@ extension AnyProperty {
         formatter: MeasurementFormatter = MeasurementFormatter(),
         date: Date = Date()
     ) -> OptionalSpeedProperty {
-        return OptionalSpeedProperty(
-            displayName: displayName, value: value, unit: unit, formatter: formatter, date: date)
+        OptionalSpeedProperty(
+            displayName: displayName, value: value, unit: unit, formatter: formatter, date: date
+        )
     }
 
     public static func metersPerSecond(
@@ -44,9 +46,9 @@ extension AnyProperty {
         formatter: MeasurementFormatter = MeasurementFormatter(),
         date: Date = Date()
     ) -> OptionalSpeedProperty {
-        return OptionalSpeedProperty(
+        OptionalSpeedProperty(
             displayName: displayName, value: value, unit: .metersPerSecond, formatter: formatter,
-            date: date)
+            date: date
+        )
     }
-
 }

@@ -1,5 +1,4 @@
 public struct Action {
-
     public let title: String
 
     public let isAvailable: Bool
@@ -13,11 +12,10 @@ public struct Action {
     ) {
         self.title = title
         self.isAvailable = isAvailable
-        self.performClosure = perform
+        performClosure = perform
     }
 
     public func perform() {
         performClosure()
     }
-
 }

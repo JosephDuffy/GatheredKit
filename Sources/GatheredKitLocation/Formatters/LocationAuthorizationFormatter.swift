@@ -2,7 +2,6 @@ import CoreLocation
 import Foundation
 
 public final class LocationAuthorizationFormatter: Formatter {
-
     public func string(for status: CLAuthorizationStatus) -> String {
         switch status {
         case .authorizedAlways:
@@ -24,5 +23,4 @@ public final class LocationAuthorizationFormatter: Formatter {
         guard let status = obj as? CLAuthorizationStatus else { return nil }
         return string(for: status)
     }
-
 }

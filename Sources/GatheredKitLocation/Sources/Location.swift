@@ -5,7 +5,6 @@ import GatheredKit
 
 // TODO: Wrap delegate to remove need for inheritance from `NSObject`
 public final class Location: NSObject, UpdatingSource, Controllable {
-
     private enum State {
         case notMonitoring
         case askingForPermissions(locationManager: CLLocationManager)
@@ -17,7 +16,7 @@ public final class Location: NSObject, UpdatingSource, Controllable {
     public let name = "Location"
 
     public var sourceEventPublisher: AnyUpdatePublisher<SourceEvent> {
-        return sourceEventsSubject.eraseToAnyUpdatePublisher()
+        sourceEventsSubject.eraseToAnyUpdatePublisher()
     }
 
     private let sourceEventsSubject: UpdateSubject<SourceEvent>
@@ -59,7 +58,7 @@ public final class Location: NSObject, UpdatingSource, Controllable {
       - authorisationStatus
      */
     public var allProperties: [AnyProperty] {
-        return [
+        [
             $coordinate,
             $speed,
             $course,
@@ -117,7 +116,8 @@ public final class Location: NSObject, UpdatingSource, Controllable {
         _horizonalAccuracy = .meters(displayName: "Horizontal Accuracy")
         _verticalAccuracy = .meters(displayName: "Vertical Accuracy")
         _authorizationStatus = .init(
-            displayName: "Authorization Status", value: CLLocationManager.authorizationStatus())
+            displayName: "Authorization Status", value: CLLocationManager.authorizationStatus()
+        )
 
         sourceEventsSubject = UpdateSubject()
 
@@ -140,6 +140,7 @@ public final class Location: NSObject, UpdatingSource, Controllable {
             locationManager.allowsBackgroundLocationUpdates = allowBackgroundUpdates
         }
     }
+
     #elseif os(macOS) || os(tvOS)
     public func startUpdating() {
         startUpdating(desiredAccuracy: .best)
@@ -299,11 +300,9 @@ public final class Location: NSObject, UpdatingSource, Controllable {
             verticalAccuracySnapshot = _verticalAccuracy.updateValue(nil)
         }
     }
-
 }
 
 extension Location: CLLocationManagerDelegate {
-
     public func locationManager(
         _ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus
     ) {
@@ -337,11 +336,9 @@ extension Location: CLLocationManagerDelegate {
     ) {
         locations.forEach(updateLocationValues(_:))
     }
-
 }
 
 extension Location {
-
     public enum Accuracy {
         case bestForNavigation
         case best
@@ -385,13 +382,10 @@ extension Location {
                 return nil
             }
         }
-
     }
-
 }
 
 extension SourceAvailability {
-
     public init?(authorizationStatus: CLAuthorizationStatus) {
         #if os(iOS) || os(tvOS) || os(watchOS)
         switch authorizationStatus {
@@ -421,5 +415,4 @@ extension SourceAvailability {
         }
         #endif
     }
-
 }

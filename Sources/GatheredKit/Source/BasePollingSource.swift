@@ -5,7 +5,6 @@ import Foundation
 /// To benefit from `BasePollingSource` your subclass must implement `ManuallyUpdatablePropertiesProvider`. This
 /// will add `CustomisableUpdateIntervalSource` conformance via an extension.
 open class BasePollingSource: UpdatingSource {
-
     public typealias ProducedValue = [AnyProperty]
 
     fileprivate enum State {
@@ -14,11 +13,11 @@ open class BasePollingSource: UpdatingSource {
     }
 
     open var availability: SourceAvailability {
-        return .available
+        .available
     }
 
     open var name: String {
-        return ""
+        ""
     }
 
     public final var updateInterval: TimeInterval? {
@@ -42,7 +41,7 @@ open class BasePollingSource: UpdatingSource {
     public var allProperties: [AnyProperty] = []
 
     public var sourceEventPublisher: AnyUpdatePublisher<SourceEvent> {
-        return sourceEventsSubject.eraseToAnyUpdatePublisher()
+        sourceEventsSubject.eraseToAnyUpdatePublisher()
     }
 
     internal let sourceEventsSubject: UpdateSubject<SourceEvent>
@@ -68,13 +67,12 @@ open class BasePollingSource: UpdatingSource {
 }
 
 extension CustomisableUpdateIntervalControllable
-where Self: BasePollingSource, Self: ManuallyUpdatablePropertiesProvider {
-
+    where Self: BasePollingSource, Self: ManuallyUpdatablePropertiesProvider
+{
     public func stopUpdating() {
         state = .notMonitoring
     }
-
 }
 
 extension CustomisableUpdateIntervalControllable
-where Self: BasePollingSource, Self: ManuallyUpdatablePropertiesProvider {}
+    where Self: BasePollingSource, Self: ManuallyUpdatablePropertiesProvider {}
