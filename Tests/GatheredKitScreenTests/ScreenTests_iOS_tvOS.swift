@@ -29,7 +29,7 @@ final class ScreenTests: XCTestCase {
         let expectation = XCTestExpectation(description: "Should publish a start updating event")
         expectation.assertForOverFulfill = true
         expectation.expectedFulfillmentCount = 1
-        let cancellable = screen.sourceEventPublisher.addUpdateListener { event in
+        let cancellable = screen.addUpdateListener { event in
             defer {
                 expectation.fulfill()
             }
@@ -95,7 +95,7 @@ final class ScreenTests: XCTestCase {
             description: "Should publish a stop updating event")
         stopUpdatingEventExpectation.assertForOverFulfill = true
         stopUpdatingEventExpectation.expectedFulfillmentCount = 1
-        let cancellable = screen.sourceEventPublisher.addUpdateListener { event in
+        let cancellable = screen.addUpdateListener { event in
             switch event {
             case .startedUpdating:
                 startUpdatingEventExpectation.fulfill()
