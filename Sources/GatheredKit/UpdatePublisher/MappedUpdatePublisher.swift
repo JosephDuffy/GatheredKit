@@ -1,18 +1,17 @@
 import Foundation
-
 #if canImport(Combine)
 import Combine
 #endif
 
-public final class MappedUpdatePublisher<Input, Payload>: UpdatePublisher {
-    public typealias UpdateListener = (_ payload: Payload) -> Void
+internal final class MappedUpdatePublisher<Input, Payload>: UpdatePublisher {
+    internal typealias UpdateListener = (_ payload: Payload) -> Void
 
-    public typealias Transformer = (_ input: Input) -> Payload
+    internal typealias Transformer = (_ input: Input) -> Payload
 
     #if canImport(Combine)
     /// A publisher that publishes updates when the snapshot updates.
     @available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-    public var combinePublisher: AnyPublisher<Payload, Never> {
+    internal var combinePublisher: AnyPublisher<Payload, Never> {
         combineSubject.eraseToAnyPublisher()
     }
 
@@ -38,7 +37,7 @@ public final class MappedUpdatePublisher<Input, Payload>: UpdatePublisher {
 
     private var updateListeners: [UUID: UpdateListener] = [:]
 
-    public init<UpdatePublisher: GatheredKit.UpdatePublisher>(
+    internal init<UpdatePublisher: GatheredKit.UpdatePublisher>(
         updatePublisher: UpdatePublisher,
         transform: @escaping Transformer
     ) where UpdatePublisher.Payload == Input {
@@ -49,8 +48,7 @@ public final class MappedUpdatePublisher<Input, Payload>: UpdatePublisher {
         }
     }
 
-    public final func addUpdateListener(_ updateListener: @escaping UpdateListener) -> Subscription
-    {
+    internal func addUpdateListener(_ updateListener: @escaping UpdateListener) -> Subscription {
         let uuid = UUID()
         updateListeners[uuid] = updateListener
 
@@ -67,5 +65,11 @@ public final class MappedUpdatePublisher<Input, Payload>: UpdatePublisher {
             combineSubject.send(payload)
         }
         #endif
+    }
+}
+
+extension UpdatePublisher {
+    internal func map<Output>(_ transform: @escaping (_ payload: Payload) -> Output) -> MappedUpdatePublisher<Payload, Output> {
+        MappedUpdatePublisher(updatePublisher: self, transform: transform)
     }
 }

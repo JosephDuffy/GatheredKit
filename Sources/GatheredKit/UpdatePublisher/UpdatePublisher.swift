@@ -2,7 +2,8 @@
 import Combine
 #endif
 
-public protocol UpdatePublisher {
+/// A type that publishes
+public protocol UpdatePublisher: AnyObject {
     associatedtype Payload
 
     typealias UpdateListener = (_ payload: Payload) -> Void
@@ -18,11 +19,5 @@ public protocol UpdatePublisher {
 extension UpdatePublisher {
     public func eraseToAnyUpdatePublisher() -> AnyUpdatePublisher<Payload> {
         AnyUpdatePublisher(updatePublisher: self)
-    }
-
-    public func map<Output>(_ transform: @escaping (_ payload: Payload) -> Output)
-        -> MappedUpdatePublisher<Payload, Output>
-    {
-        MappedUpdatePublisher(updatePublisher: self, transform: transform)
     }
 }
