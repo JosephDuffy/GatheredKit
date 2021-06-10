@@ -1,14 +1,10 @@
 import Foundation
 
-@propertyWrapper
-public final class BasicProperty<Value, Formatter>: UpdatableProperty where Formatter: Foundation.Formatter {
+@propertyWrapper public final class BasicProperty<Value, Formatter>: UpdatableProperty
+where Formatter: Foundation.Formatter {
     public var wrappedValue: Value {
-        get {
-            return value
-        }
-        set {
-            value = newValue
-        }
+        get { return value }
+        set { value = newValue }
     }
 
     public var projectedValue: ReadOnlyProperty<BasicProperty<Value, Formatter>> {
@@ -22,19 +18,13 @@ public final class BasicProperty<Value, Formatter>: UpdatableProperty where Form
 
     /// The latest snapshot of data.
     public internal(set) var snapshot: Snapshot<Value> {
-        didSet {
-            updateSubject.notifyUpdateListeners(of: snapshot)
-        }
+        didSet { updateSubject.notifyUpdateListeners(of: snapshot) }
     }
 
     /// The current value of the property.
     public internal(set) var value: Value {
-        get {
-            return snapshot.value
-        }
-        set {
-            snapshot = Snapshot(value: newValue, date: Date())
-        }
+        get { return snapshot.value }
+        set { snapshot = Snapshot(value: newValue, date: Date()) }
     }
 
     /// A formatter that can be used to build a human-friendly string from the
@@ -50,7 +40,10 @@ public final class BasicProperty<Value, Formatter>: UpdatableProperty where Form
     // MARK: Initialisers
 
     public required init(
-        displayName: String, value: Value, formatter: Formatter = Formatter(), date: Date = Date()
+        displayName: String,
+        value: Value,
+        formatter: Formatter = Formatter(),
+        date: Date = Date()
     ) {
         self.displayName = displayName
         self.formatter = formatter
@@ -67,11 +60,7 @@ public final class BasicProperty<Value, Formatter>: UpdatableProperty where Form
      - parameter date: The date and time the `value` was recorded. Defaults to the current date and time.
      - Returns: The new snapshot.
      */
-    @discardableResult
-    public func updateValue(
-        _ value: Value,
-        date: Date
-    ) -> Snapshot<Value> {
+    @discardableResult public func updateValue(_ value: Value, date: Date) -> Snapshot<Value> {
         let snapshot = Snapshot(value: value, date: date)
         self.snapshot = snapshot
         return snapshot
@@ -80,10 +69,10 @@ public final class BasicProperty<Value, Formatter>: UpdatableProperty where Form
 
 extension BasicProperty: Equatable where Value: Equatable {
     public static func == (
-        lhs: BasicProperty<Value, Formatter>, rhs: BasicProperty<Value, Formatter>
+        lhs: BasicProperty<Value, Formatter>,
+        rhs: BasicProperty<Value, Formatter>
     ) -> Bool {
-        return
-            lhs.displayName == rhs.displayName && lhs.value == rhs.value && lhs.date == rhs.date
+        return lhs.displayName == rhs.displayName && lhs.value == rhs.value && lhs.date == rhs.date
     }
 }
 

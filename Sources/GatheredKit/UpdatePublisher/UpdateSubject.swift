@@ -11,19 +11,17 @@ open class UpdateSubject<Payload>: UpdatePublisher {
 
     #if canImport(Combine)
     /// A publisher that publishes updates when the snapshot updates.
-    @available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-    public var combinePublisher: AnyPublisher<Payload, Never> {
-        return combineSubject.eraseToAnyPublisher()
-    }
+    @available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *) public var combinePublisher:
+        AnyPublisher<Payload, Never>
+    { return combineSubject.eraseToAnyPublisher() }
 
-    @available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-    private typealias PayloadSubject = PassthroughSubject<Payload, Never>
+    @available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *) private typealias PayloadSubject =
+        PassthroughSubject<Payload, Never>
 
     /// The updates subject that publishes snapshot updates.
-    @available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-    private var combineSubject: PayloadSubject {
-        return _combineSubject as! PayloadSubject
-    }
+    @available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *) private var combineSubject:
+        PayloadSubject
+    { return _combineSubject as! PayloadSubject }
 
     private lazy var _combineSubject: Any = {
         if #available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *) {
@@ -36,10 +34,9 @@ open class UpdateSubject<Payload>: UpdatePublisher {
 
     public init() {}
 
-    @available(*, deprecated, renamed: "notifyUpdateListeners(of:)")
-    public func send(_ payload: Payload) {
-        notifyUpdateListeners(of: payload)
-    }
+    @available(*, deprecated, renamed: "notifyUpdateListeners(of:)") public func send(
+        _ payload: Payload
+    ) { notifyUpdateListeners(of: payload) }
 
     open func notifyUpdateListeners(of payload: Payload) {
         updateListeners.lazy.map(\.value).forEach { $0(payload) }
@@ -56,8 +53,6 @@ open class UpdateSubject<Payload>: UpdatePublisher {
         let uuid = UUID()
         updateListeners[uuid] = updateListener
 
-        return Subscription { [weak self] in
-            self?.updateListeners.removeValue(forKey: uuid)
-        }
+        return Subscription { [weak self] in self?.updateListeners.removeValue(forKey: uuid) }
     }
 }

@@ -29,20 +29,15 @@ public final class Accelerometer: UpdatingSource, CustomisableUpdateIntervalCont
         return isUpdating ? CMMotionManager.shared.accelerometerUpdateInterval : nil
     }
 
-    @OptionalCMAccelerationProperty
-    public private(set) var acceleration: CMAcceleration?
+    @OptionalCMAccelerationProperty public private(set) var acceleration: CMAcceleration?
 
-    public var allProperties: [AnyProperty] {
-        return [$acceleration]
-    }
+    public var allProperties: [AnyProperty] { return [$acceleration] }
 
     private var state: State = .notMonitoring {
         didSet {
             switch state {
-            case .monitoring:
-                isUpdating = true
-            case .notMonitoring:
-                isUpdating = false
+            case .monitoring: isUpdating = true
+            case .notMonitoring: isUpdating = false
             }
         }
     }
@@ -53,9 +48,7 @@ public final class Accelerometer: UpdatingSource, CustomisableUpdateIntervalCont
         sourceEventsSubject = .init()
     }
 
-    public func startUpdating(
-        every updateInterval: TimeInterval
-    ) {
+    public func startUpdating(every updateInterval: TimeInterval) {
         let motionManager = CMMotionManager.shared
         motionManager.accelerometerUpdateInterval = updateInterval
 
@@ -67,14 +60,15 @@ public final class Accelerometer: UpdatingSource, CustomisableUpdateIntervalCont
             guard let self = self else { return }
             if let error = error {
                 CMMotionManager.shared.stopAccelerometerUpdates()
-                self.sourceEventsSubject.notifyUpdateListeners(
-                    of: .stoppedUpdating(error: error))
+                self.sourceEventsSubject.notifyUpdateListeners(of: .stoppedUpdating(error: error))
                 self.state = .notMonitoring
                 return
             }
             guard let data = data else { return }
             let snapshot = self._acceleration.updateValue(data.acceleration, date: data.date)
-            self.sourceEventsSubject.notifyUpdateListeners(of: .propertyUpdated(property: self.$acceleration, snapshot: snapshot))
+            self.sourceEventsSubject.notifyUpdateListeners(
+                of: .propertyUpdated(property: self.$acceleration, snapshot: snapshot)
+            )
         }
 
         state = .monitoring(updatesQueue: updatesQueue)

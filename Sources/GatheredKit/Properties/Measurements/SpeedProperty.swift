@@ -13,7 +13,12 @@ extension AnyProperty {
         date: Date = Date()
     ) -> SpeedProperty {
         return SpeedProperty(
-            displayName: displayName, value: value, unit: unit, formatter: formatter, date: date)
+            displayName: displayName,
+            value: value,
+            unit: unit,
+            formatter: formatter,
+            date: date
+        )
     }
 
     public static func metersPerSecond(
@@ -23,8 +28,12 @@ extension AnyProperty {
         date: Date = Date()
     ) -> SpeedProperty {
         return SpeedProperty(
-            displayName: displayName, value: value, unit: .metersPerSecond, formatter: formatter,
-            date: date)
+            displayName: displayName,
+            value: value,
+            unit: .metersPerSecond,
+            formatter: formatter,
+            date: date
+        )
     }
 
     public static func speed(
@@ -35,7 +44,12 @@ extension AnyProperty {
         date: Date = Date()
     ) -> OptionalSpeedProperty {
         return OptionalSpeedProperty(
-            displayName: displayName, value: value, unit: unit, formatter: formatter, date: date)
+            displayName: displayName,
+            value: value,
+            unit: unit,
+            formatter: formatter,
+            date: date
+        )
     }
 
     public static func metersPerSecond(
@@ -45,8 +59,12 @@ extension AnyProperty {
         date: Date = Date()
     ) -> OptionalSpeedProperty {
         return OptionalSpeedProperty(
-            displayName: displayName, value: value, unit: .metersPerSecond, formatter: formatter,
-            date: date)
+            displayName: displayName,
+            value: value,
+            unit: .metersPerSecond,
+            formatter: formatter,
+            date: date
+        )
     }
 
 }

@@ -2,37 +2,23 @@ import CoreLocation
 import Foundation
 import GatheredKit
 
-@propertyWrapper
-public final class CoordinateProperty: UpdatableProperty, PropertiesProvider {
+@propertyWrapper public final class CoordinateProperty: UpdatableProperty, PropertiesProvider {
     public typealias Value = CLLocationCoordinate2D
 
-    public var allProperties: [AnyProperty] {
-        return [
-            $latitude,
-            $longitude,
-        ]
-    }
+    public var allProperties: [AnyProperty] { return [$latitude, $longitude] }
 
     public var wrappedValue: CLLocationCoordinate2D {
-        get {
-            return snapshot.value
-        }
-        set {
-            updateValue(newValue)
-        }
+        get { return snapshot.value }
+        set { updateValue(newValue) }
     }
 
-    public var projectedValue: ReadOnlyProperty<CoordinateProperty> {
-        asReadOnlyProperty
-    }
+    public var projectedValue: ReadOnlyProperty<CoordinateProperty> { asReadOnlyProperty }
 
     // MARK: `Property` Requirements
 
     /// The latest snapshot of data.
     public internal(set) var snapshot: Snapshot<Value> {
-        didSet {
-            updateSubject.notifyUpdateListeners(of: snapshot)
-        }
+        didSet { updateSubject.notifyUpdateListeners(of: snapshot) }
     }
 
     /// A human-friendly display name that describes the property.
@@ -50,15 +36,15 @@ public final class CoordinateProperty: UpdatableProperty, PropertiesProvider {
 
     // MARK: Coodinate Properties
 
-    @AngleProperty
-    public private(set) var latitude: Measurement<UnitAngle>
+    @AngleProperty public private(set) var latitude: Measurement<UnitAngle>
 
-    @AngleProperty
-    public private(set) var longitude: Measurement<UnitAngle>
+    @AngleProperty public private(set) var longitude: Measurement<UnitAngle>
 
     public required init(
-        displayName: String, value: CLLocationCoordinate2D,
-        formatter: CoordinateFormatter = CoordinateFormatter(), date: Date = Date()
+        displayName: String,
+        value: CLLocationCoordinate2D,
+        formatter: CoordinateFormatter = CoordinateFormatter(),
+        date: Date = Date()
     ) {
         self.displayName = displayName
         self.formatter = formatter
@@ -68,7 +54,9 @@ public final class CoordinateProperty: UpdatableProperty, PropertiesProvider {
         _longitude = .degrees(displayName: "Longitude", value: value.longitude, date: date)
     }
 
-    public func updateValue(_ value: CLLocationCoordinate2D, date: Date) -> Snapshot<CLLocationCoordinate2D> {
+    public func updateValue(_ value: CLLocationCoordinate2D, date: Date) -> Snapshot<
+        CLLocationCoordinate2D
+    > {
         _latitude.updateMeasuredValue(value.latitude, date: date)
         _longitude.updateMeasuredValue(value.longitude, date: date)
 

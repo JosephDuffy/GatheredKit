@@ -35,14 +35,12 @@ public final class CoordinateFormatter: Formatter {
     }
 
     public override func string(for obj: Any?) -> String? {
-        guard
-            let coordinate = obj as? CLLocationCoordinate2D,
+        guard let coordinate = obj as? CLLocationCoordinate2D,
             let latitudeString = numberFormatter.string(from: NSNumber(value: coordinate.latitude)),
             let longitudeString = numberFormatter.string(
-                from: NSNumber(value: coordinate.longitude))
-        else {
-            return nil
-        }
+                from: NSNumber(value: coordinate.longitude)
+            )
+        else { return nil }
 
         return latitudeString + ", " + longitudeString
     }

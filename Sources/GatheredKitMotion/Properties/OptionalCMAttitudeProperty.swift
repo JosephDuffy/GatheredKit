@@ -12,36 +12,24 @@ public final class OptionalCMAttitudeProperty: UpdatableProperty, PropertiesProv
 
     // MARK: `CMAttitude` Properties
 
-    public var allProperties: [AnyProperty] {
-        return [$roll, $pitch, $yaw, $quaternion]
-    }
+    public var allProperties: [AnyProperty] { return [$roll, $pitch, $yaw, $quaternion] }
 
-    @OptionalAngleProperty
-    public private(set) var roll: Measurement<UnitAngle>?
+    @OptionalAngleProperty public private(set) var roll: Measurement<UnitAngle>?
 
-    @OptionalAngleProperty
-    public private(set) var pitch: Measurement<UnitAngle>?
+    @OptionalAngleProperty public private(set) var pitch: Measurement<UnitAngle>?
 
-    @OptionalAngleProperty
-    public private(set) var yaw: Measurement<UnitAngle>?
+    @OptionalAngleProperty public private(set) var yaw: Measurement<UnitAngle>?
 
-    @OptionalCMQuaternionProperty
-    public private(set) var quaternion: CMQuaternion?
+    @OptionalCMQuaternionProperty public private(set) var quaternion: CMQuaternion?
 
     // MARK: Property Wrapper Properties
 
     public var wrappedValue: Value {
-        get {
-            value
-        }
-        set {
-            updateValue(newValue)
-        }
+        get { value }
+        set { updateValue(newValue) }
     }
 
-    public var projectedValue: ReadOnlyProperty<OptionalCMAttitudeProperty> {
-        asReadOnlyProperty
-    }
+    public var projectedValue: ReadOnlyProperty<OptionalCMAttitudeProperty> { asReadOnlyProperty }
 
     // MARK: `Property` Requirements
 
@@ -50,9 +38,7 @@ public final class OptionalCMAttitudeProperty: UpdatableProperty, PropertiesProv
 
     /// The latest snapshot of data.
     public internal(set) var snapshot: Snapshot<Value> {
-        didSet {
-            updateSubject.notifyUpdateListeners(of: snapshot)
-        }
+        didSet { updateSubject.notifyUpdateListeners(of: snapshot) }
     }
 
     /// A formatter that can be used to build a human-friendly string from the
@@ -68,8 +54,10 @@ public final class OptionalCMAttitudeProperty: UpdatableProperty, PropertiesProv
     // MARK: Initialisers
 
     public init(
-        displayName: String, value: Value = nil,
-        formatter: CMAttitudeFormatter = CMAttitudeFormatter(), date: Date = Date()
+        displayName: String,
+        value: Value = nil,
+        formatter: CMAttitudeFormatter = CMAttitudeFormatter(),
+        date: Date = Date()
     ) {
         self.displayName = displayName
         self.formatter = formatter
@@ -84,8 +72,9 @@ public final class OptionalCMAttitudeProperty: UpdatableProperty, PropertiesProv
 
     // MARK: Update Functions
 
-    @discardableResult
-    public func updateValue(_ value: Value, date: Date = Date()) -> Snapshot<Value> {
+    @discardableResult public func updateValue(_ value: Value, date: Date = Date()) -> Snapshot<
+        Value
+    > {
         _roll.updateMeasuredValue(value?.roll, date: date)
         _pitch.updateMeasuredValue(value?.pitch, date: date)
         _yaw.updateMeasuredValue(value?.yaw, date: date)

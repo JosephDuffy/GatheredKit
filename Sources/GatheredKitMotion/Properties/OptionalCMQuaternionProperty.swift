@@ -8,41 +8,24 @@ public final class OptionalCMQuaternionProperty: UpdatableProperty, PropertiesPr
     public typealias Value = CMQuaternion?
     public typealias Formatter = CMQuaternionFormatter
 
-    public var allProperties: [AnyProperty] {
-        return [
-            $x,
-            $y,
-            $z,
-            $w,
-        ]
-    }
+    public var allProperties: [AnyProperty] { return [$x, $y, $z, $w] }
 
-    @OptionalDoubleProperty
-    public private(set) var x: Double?
+    @OptionalDoubleProperty public private(set) var x: Double?
 
-    @OptionalDoubleProperty
-    public private(set) var y: Double?
+    @OptionalDoubleProperty public private(set) var y: Double?
 
-    @OptionalDoubleProperty
-    public private(set) var z: Double?
+    @OptionalDoubleProperty public private(set) var z: Double?
 
-    @OptionalDoubleProperty
-    public private(set) var w: Double?
+    @OptionalDoubleProperty public private(set) var w: Double?
 
     // MARK: Property Wrapper Properties
 
     public var wrappedValue: Value {
-        get {
-            value
-        }
-        set {
-            updateValue(newValue)
-        }
+        get { value }
+        set { updateValue(newValue) }
     }
 
-    public var projectedValue: ReadOnlyProperty<OptionalCMQuaternionProperty> {
-        asReadOnlyProperty
-    }
+    public var projectedValue: ReadOnlyProperty<OptionalCMQuaternionProperty> { asReadOnlyProperty }
 
     // MARK: `Property` Requirements
 
@@ -51,9 +34,7 @@ public final class OptionalCMQuaternionProperty: UpdatableProperty, PropertiesPr
 
     /// The latest snapshot of data.
     public internal(set) var snapshot: Snapshot<Value> {
-        didSet {
-            updateSubject.notifyUpdateListeners(of: snapshot)
-        }
+        didSet { updateSubject.notifyUpdateListeners(of: snapshot) }
     }
 
     /// A formatter that can be used to build a human-friendly string from the
@@ -69,8 +50,10 @@ public final class OptionalCMQuaternionProperty: UpdatableProperty, PropertiesPr
     // MARK: Initialisers
 
     public required init(
-        displayName: String, value: Value = nil,
-        formatter: CMQuaternionFormatter = CMQuaternionFormatter(), date: Date = Date()
+        displayName: String,
+        value: Value = nil,
+        formatter: CMQuaternionFormatter = CMQuaternionFormatter(),
+        date: Date = Date()
     ) {
         self.displayName = displayName
         self.formatter = formatter
@@ -85,8 +68,7 @@ public final class OptionalCMQuaternionProperty: UpdatableProperty, PropertiesPr
 
     // MARK: Update Functions
 
-    @discardableResult
-    public func updateValue(_ value: Value, date: Date) -> Snapshot<Value> {
+    @discardableResult public func updateValue(_ value: Value, date: Date) -> Snapshot<Value> {
         _x.updateValue(value?.x, date: date)
         _y.updateValue(value?.y, date: date)
         _z.updateValue(value?.z, date: date)

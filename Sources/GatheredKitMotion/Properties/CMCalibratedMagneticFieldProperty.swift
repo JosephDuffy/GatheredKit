@@ -9,25 +9,18 @@ public final class CMCalibratedMagneticFieldProperty: UpdatableProperty, Propert
     // TODO: Create `CMCalibratedMagneticFieldFormatter`
     public typealias Formatter = CMMagneticFieldFormatter
 
-    public var allProperties: [AnyProperty] {
-        return [$accuracy, $field]
-    }
+    public var allProperties: [AnyProperty] { return [$accuracy, $field] }
 
-    @CMMagneticFieldCalibrationAccuracyProperty
-    public private(set) var accuracy: CMMagneticFieldCalibrationAccuracy
+    @CMMagneticFieldCalibrationAccuracyProperty public private(set) var accuracy:
+        CMMagneticFieldCalibrationAccuracy
 
-    @CMMagneticFieldProperty
-    public private(set) var field: CMMagneticField
+    @CMMagneticFieldProperty public private(set) var field: CMMagneticField
 
     // MARK: Property Wrapper Properties
 
     public var wrappedValue: Value {
-        get {
-            value
-        }
-        set {
-            updateValue(newValue)
-        }
+        get { value }
+        set { updateValue(newValue) }
     }
 
     public var projectedValue: ReadOnlyProperty<CMCalibratedMagneticFieldProperty> {
@@ -41,9 +34,7 @@ public final class CMCalibratedMagneticFieldProperty: UpdatableProperty, Propert
 
     /// The latest snapshot of data.
     public internal(set) var snapshot: Snapshot<Value> {
-        didSet {
-            updateSubject.notifyUpdateListeners(of: snapshot)
-        }
+        didSet { updateSubject.notifyUpdateListeners(of: snapshot) }
     }
 
     /// A formatter that can be used to build a human-friendly string from the
@@ -59,7 +50,10 @@ public final class CMCalibratedMagneticFieldProperty: UpdatableProperty, Propert
     // MARK: Initialisers
 
     public required init(
-        displayName: String, value: Value, formatter: Formatter = Formatter(), date: Date = Date()
+        displayName: String,
+        value: Value,
+        formatter: Formatter = Formatter(),
+        date: Date = Date()
     ) {
         self.displayName = displayName
         self.formatter = formatter
@@ -70,8 +64,7 @@ public final class CMCalibratedMagneticFieldProperty: UpdatableProperty, Propert
         _field = .init(displayName: "Field", value: value.field, date: date)
     }
 
-    @discardableResult
-    public func updateValue(_ value: Value, date: Date) -> Snapshot<Value> {
+    @discardableResult public func updateValue(_ value: Value, date: Date) -> Snapshot<Value> {
         _accuracy.updateValue(value.accuracy, date: date)
         _field.updateValue(value.field, date: date)
 

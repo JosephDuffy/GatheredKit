@@ -1,4 +1,4 @@
-// swift-tools-version:5.2
+// swift-tools-version:5.4
 import PackageDescription
 
 let package = Package(
@@ -8,7 +8,7 @@ let package = Package(
     ],
     dependencies: [
         .package(url: "https://github.com/JosephDuffy/xcutils.git", .branch("master")),
-        .package(url: "https://github.com/apple/swift-format.git", .branch("swift-5.2-branch")),
+        .package(url: "https://github.com/apple/swift-format.git", .exact("0.50400.0")),
     ],
     targets: [
         .target(name: "DevelopmentDependencies"),

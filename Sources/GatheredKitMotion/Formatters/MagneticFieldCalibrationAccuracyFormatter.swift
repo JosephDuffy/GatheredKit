@@ -6,16 +6,11 @@ public final class MagneticFieldCalibrationAccuracyFormatter: Formatter {
 
     public func string(for status: CMMagneticFieldCalibrationAccuracy) -> String {
         switch status {
-        case .uncalibrated:
-            return "Uncalibrated"
-        case .low:
-            return "Low"
-        case .medium:
-            return "Medium"
-        case .high:
-            return "High"
-        @unknown default:
-            return "Unknown"
+        case .uncalibrated: return "Uncalibrated"
+        case .low: return "Low"
+        case .medium: return "Medium"
+        case .high: return "High"
+        @unknown default: return "Unknown"
         }
     }
 

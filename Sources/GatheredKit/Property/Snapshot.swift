@@ -7,9 +7,7 @@ public struct Snapshot<Value>: AnySnapshot {
     /// The date the `value` was captured.
     public let date: Date
 
-    public var typeErasedValue: Any? {
-        return castToOptional(value)
-    }
+    public var typeErasedValue: Any? { return castToOptional(value) }
 
     /**
      Create a new snapshot with the provided value and date.

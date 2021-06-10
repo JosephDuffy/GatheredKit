@@ -13,7 +13,12 @@ extension AnyProperty {
         date: Date = Date()
     ) -> AccelerationProperty {
         return .init(
-            displayName: displayName, value: value, unit: unit, formatter: formatter, date: date)
+            displayName: displayName,
+            value: value,
+            unit: unit,
+            formatter: formatter,
+            date: date
+        )
     }
 
     public static func acceleration(
@@ -24,7 +29,12 @@ extension AnyProperty {
         date: Date = Date()
     ) -> OptionalAccelerationProperty {
         return .init(
-            displayName: displayName, value: value, unit: unit, formatter: formatter, date: date)
+            displayName: displayName,
+            value: value,
+            unit: unit,
+            formatter: formatter,
+            date: date
+        )
     }
 
     public static func metersPerSecondSquared(
@@ -34,8 +44,12 @@ extension AnyProperty {
         date: Date = Date()
     ) -> AccelerationProperty {
         return .init(
-            displayName: displayName, value: value, unit: .metersPerSecondSquared,
-            formatter: formatter, date: date)
+            displayName: displayName,
+            value: value,
+            unit: .metersPerSecondSquared,
+            formatter: formatter,
+            date: date
+        )
     }
 
     public static func metersPerSecondSquared(
@@ -45,8 +59,12 @@ extension AnyProperty {
         date: Date = Date()
     ) -> OptionalAccelerationProperty {
         return .init(
-            displayName: displayName, value: value, unit: .metersPerSecondSquared,
-            formatter: formatter, date: date)
+            displayName: displayName,
+            value: value,
+            unit: .metersPerSecondSquared,
+            formatter: formatter,
+            date: date
+        )
     }
 
     public static func gravity(
@@ -56,7 +74,11 @@ extension AnyProperty {
         date: Date = Date()
     ) -> AccelerationProperty {
         return .init(
-            displayName: displayName, value: value, unit: .gravity, formatter: formatter, date: date
+            displayName: displayName,
+            value: value,
+            unit: .gravity,
+            formatter: formatter,
+            date: date
         )
     }
 
@@ -67,7 +89,11 @@ extension AnyProperty {
         date: Date = Date()
     ) -> OptionalAccelerationProperty {
         return .init(
-            displayName: displayName, value: value, unit: .gravity, formatter: formatter, date: date
+            displayName: displayName,
+            value: value,
+            unit: .gravity,
+            formatter: formatter,
+            date: date
         )
     }
 

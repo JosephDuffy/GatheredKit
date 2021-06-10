@@ -5,8 +5,4 @@ public protocol SourceProvider: AnySourceProvider {
     var sources: [ProvidedSource] { get }
 }
 
-extension SourceProvider {
-    public var typeErasedSources: [Source] {
-        return sources
-    }
-}
+extension SourceProvider { public var typeErasedSources: [Source] { return sources } }

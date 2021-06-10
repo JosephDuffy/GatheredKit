@@ -31,15 +31,11 @@ final class ScreenTests: XCTestCase {
         expectation.assertForOverFulfill = true
         expectation.expectedFulfillmentCount = 1
         let cancellable = screen.sourceEventPublisher.addUpdateListener { event in
-            defer {
-                expectation.fulfill()
-            }
+            defer { expectation.fulfill() }
 
             switch event {
-            case .startedUpdating:
-                break
-            default:
-                XCTFail("Should only publish the `startedUpdating")
+            case .startedUpdating: break
+            default: XCTFail("Should only publish the `startedUpdating")
             }
         }
         _ = cancellable
@@ -50,17 +46,21 @@ final class ScreenTests: XCTestCase {
         #if os(iOS)
         XCTAssertEqual(notificationCenter.addObserverCallCount, 2)
         XCTAssertTrue(
-            notificationCenter.addObserverNames.contains(UIScreen.brightnessDidChangeNotification))
+            notificationCenter.addObserverNames.contains(UIScreen.brightnessDidChangeNotification)
+        )
         XCTAssertTrue(
-            notificationCenter.addObserverNames.contains(UIScreen.modeDidChangeNotification))
+            notificationCenter.addObserverNames.contains(UIScreen.modeDidChangeNotification)
+        )
         #elseif os(tvOS)
         XCTAssertEqual(notificationCenter.addObserverCallCount, 1)
         XCTAssertTrue(
-            notificationCenter.addObserverNames.contains(UIScreen.modeDidChangeNotification))
+            notificationCenter.addObserverNames.contains(UIScreen.modeDidChangeNotification)
+        )
         #endif
         XCTAssertEqual(
             Set(notificationCenter.addObserverParameters.map { $0.object as? UIScreen }),
-            Set([uiScreen]))
+            Set([uiScreen])
+        )
 
         screen.startUpdating()
 
@@ -88,21 +88,20 @@ final class ScreenTests: XCTestCase {
         let uiScreen = UIScreen.main
         let screen = Screen(screen: uiScreen, notificationCenter: notificationCenter)
         let startUpdatingEventExpectation = XCTestExpectation(
-            description: "Should publish a start updating event")
+            description: "Should publish a start updating event"
+        )
         startUpdatingEventExpectation.assertForOverFulfill = true
         startUpdatingEventExpectation.expectedFulfillmentCount = 1
         let stopUpdatingEventExpectation = XCTestExpectation(
-            description: "Should publish a stop updating event")
+            description: "Should publish a stop updating event"
+        )
         stopUpdatingEventExpectation.assertForOverFulfill = true
         stopUpdatingEventExpectation.expectedFulfillmentCount = 1
         let cancellable = screen.sourceEventPublisher.addUpdateListener { event in
             switch event {
-            case .startedUpdating:
-                startUpdatingEventExpectation.fulfill()
-            case .stoppedUpdating:
-                stopUpdatingEventExpectation.fulfill()
-            default:
-                XCTFail("Should never send \(event) event")
+            case .startedUpdating: startUpdatingEventExpectation.fulfill()
+            case .stoppedUpdating: stopUpdatingEventExpectation.fulfill()
+            default: XCTFail("Should never send \(event) event")
             }
         }
         // Shutup Xcode
@@ -118,30 +117,39 @@ final class ScreenTests: XCTestCase {
         #if os(iOS)
         XCTAssertEqual(notificationCenter.addObserverCallCount, 2)
         XCTAssertTrue(
-            notificationCenter.addObserverNames.contains(UIScreen.brightnessDidChangeNotification))
+            notificationCenter.addObserverNames.contains(UIScreen.brightnessDidChangeNotification)
+        )
         XCTAssertTrue(
-            notificationCenter.addObserverNames.contains(UIScreen.modeDidChangeNotification))
+            notificationCenter.addObserverNames.contains(UIScreen.modeDidChangeNotification)
+        )
         XCTAssertEqual(notificationCenter.removeObserverParameters.count, 2)
         XCTAssertTrue(
             notificationCenter.removeObserverNames.contains(
-                UIScreen.brightnessDidChangeNotification))
+                UIScreen.brightnessDidChangeNotification
+            )
+        )
         XCTAssertTrue(
-            notificationCenter.removeObserverNames.contains(UIScreen.modeDidChangeNotification))
+            notificationCenter.removeObserverNames.contains(UIScreen.modeDidChangeNotification)
+        )
         #elseif os(tvOS)
         XCTAssertEqual(notificationCenter.addObserverCallCount, 1)
         XCTAssertTrue(
-            notificationCenter.addObserverNames.contains(UIScreen.modeDidChangeNotification))
+            notificationCenter.addObserverNames.contains(UIScreen.modeDidChangeNotification)
+        )
         XCTAssertEqual(notificationCenter.removeObserverParameters.count, 1)
         XCTAssertTrue(
-            notificationCenter.removeObserverNames.contains(UIScreen.modeDidChangeNotification))
+            notificationCenter.removeObserverNames.contains(UIScreen.modeDidChangeNotification)
+        )
         #endif
 
         XCTAssertEqual(
             Set(notificationCenter.addObserverParameters.map { $0.object as? UIScreen }),
-            Set([uiScreen]))
+            Set([uiScreen])
+        )
         XCTAssertEqual(
             Set(notificationCenter.removeObserverParameters.map { $0.object as? UIScreen }),
-            Set([uiScreen]))
+            Set([uiScreen])
+        )
 
         wait(for: [startUpdatingEventExpectation], timeout: 0.01)
     }
@@ -152,43 +160,42 @@ final class ScreenTests: XCTestCase {
         let screen = Screen(screen: uiScreen, notificationCenter: notificationCenter)
 
         let reportedResolutionExpectation = XCTestExpectation(
-            description: "Subscriber should be called with updated reported resolution")
+            description: "Subscriber should be called with updated reported resolution"
+        )
         reportedResolutionExpectation.expectedFulfillmentCount = 1
         reportedResolutionExpectation.assertForOverFulfill = true
         let reportedResolutionCancellable = screen.$reportedResolution.updatePublisher
-            .addUpdateListener { reportedResolution in
-                reportedResolutionExpectation.fulfill()
+            .addUpdateListener { reportedResolution in reportedResolutionExpectation.fulfill()
                 XCTAssertEqual(reportedResolution.value, uiScreen.bounds.size)
             }
 
         let nativeResolutionExpectation = XCTestExpectation(
-            description: "Subscriber should be called with updated native resolution")
+            description: "Subscriber should be called with updated native resolution"
+        )
         nativeResolutionExpectation.expectedFulfillmentCount = 1
         nativeResolutionExpectation.assertForOverFulfill = true
         let nativeResolutionCancellable = screen.$nativeResolution.updatePublisher.addUpdateListener
-        {
-            nativeResolution in
-            nativeResolutionExpectation.fulfill()
+        { nativeResolution in nativeResolutionExpectation.fulfill()
             XCTAssertEqual(nativeResolution.value, uiScreen.nativeBounds.size)
         }
 
         let reportedScaleExpectation = XCTestExpectation(
-            description: "Subscriber should be called with updated reported scale")
+            description: "Subscriber should be called with updated reported scale"
+        )
         reportedScaleExpectation.expectedFulfillmentCount = 1
         reportedScaleExpectation.assertForOverFulfill = true
         let reportedScaleCancellable = screen.$reportedScale.updatePublisher.addUpdateListener {
-            reportedScale in
-            reportedScaleExpectation.fulfill()
+            reportedScale in reportedScaleExpectation.fulfill()
             XCTAssertEqual(reportedScale.value, uiScreen.scale)
         }
 
         let nativeScaleExpectation = XCTestExpectation(
-            description: "Subscriber should be called with updated native scale")
+            description: "Subscriber should be called with updated native scale"
+        )
         nativeScaleExpectation.expectedFulfillmentCount = 1
         nativeScaleExpectation.assertForOverFulfill = true
         let nativeScaleCancellable = screen.$nativeScale.updatePublisher.addUpdateListener {
-            nativeScale in
-            nativeScaleExpectation.fulfill()
+            nativeScale in nativeScaleExpectation.fulfill()
             XCTAssertEqual(nativeScale.value, uiScreen.nativeScale)
         }
 
@@ -211,10 +218,8 @@ final class ScreenTests: XCTestCase {
 
         wait(
             for: [
-                reportedResolutionExpectation,
-                nativeResolutionExpectation,
-                reportedScaleExpectation,
-                nativeScaleExpectation,
+                reportedResolutionExpectation, nativeResolutionExpectation,
+                reportedScaleExpectation, nativeScaleExpectation,
             ],
             timeout: 0.01
         )
@@ -229,11 +234,11 @@ final class ScreenTests: XCTestCase {
         let screen = Screen(screen: uiScreen, notificationCenter: notificationCenter)
 
         let brightnessExpectation = XCTestExpectation(
-            description: "Subscriber should be called when brightness updates")
+            description: "Subscriber should be called when brightness updates"
+        )
 
         let brightnessCancellable = screen.$brightness.updatePublisher.addUpdateListener {
-            brightness in
-            brightnessExpectation.fulfill()
+            brightness in brightnessExpectation.fulfill()
             XCTAssertEqual(brightness.value, uiScreen.brightness)
         }
 
@@ -249,12 +254,7 @@ final class ScreenTests: XCTestCase {
         notificationCenter.post(name: UIScreen.brightnessDidChangeNotification, object: uiScreen)
         XCTAssertEqual(screen.brightness, uiScreen.brightness)
 
-        wait(
-            for: [
-                brightnessExpectation
-            ],
-            timeout: 0.1
-        )
+        wait(for: [brightnessExpectation], timeout: 0.1)
     }
 
     func testBrightnessUpdateFromDifferentScreen() {
@@ -272,7 +272,9 @@ final class ScreenTests: XCTestCase {
 
         mockScreen.brightness = 0.53
         notificationCenter.post(
-            name: UIScreen.brightnessDidChangeNotification, object: UIScreen.main)
+            name: UIScreen.brightnessDidChangeNotification,
+            object: UIScreen.main
+        )
 
         wait(for: [expectation], timeout: 0.1)
     }

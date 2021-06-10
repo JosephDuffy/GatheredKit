@@ -1,0 +1,9 @@
+#!/bin/bash
+
+if [[ -z "${SRCROOT}" ]]; then
+    SRCROOT="$(dirname "$(dirname "${BASH_SOURCE[0]}")")"
+fi
+
+# swift-format gets pretty close. The `prioritizeKeepingFunctionOutputTogether` option currently crashes (https://bugs.swift.org/browse/SR-13049) and will be added when available.
+echo "$SRCROOT"/Sources/
+swift run --package-path "$SRCROOT"/DevelopmentDependencies swift-format --in-place --recursive "$SRCROOT"/Sources/ --recursive "$SRCROOT"/Tests/

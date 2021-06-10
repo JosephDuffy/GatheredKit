@@ -27,8 +27,6 @@ extension CustomisableUpdateIntervalControllable {
      Starts performing period updated. The value of the static variable `defaultUpdateInterval` will
      used for the update interval.
      */
-    public func startUpdating() {
-        startUpdating(every: type(of: self).defaultUpdateInterval)
-    }
+    public func startUpdating() { startUpdating(every: type(of: self).defaultUpdateInterval) }
 
 }

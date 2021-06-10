@@ -3,38 +3,26 @@ import Foundation
 import CoreMotion
 import GatheredKit
 
-@propertyWrapper
-public final class CMRotationRateProperty: UpdatableProperty, PropertiesProvider {
+@propertyWrapper public final class CMRotationRateProperty: UpdatableProperty, PropertiesProvider {
     public typealias Value = CMRotationRate
     public typealias Formatter = CMRotationRateFormatter
 
-    public var allProperties: [AnyProperty] {
-        return [$x, $y, $z]
-    }
+    public var allProperties: [AnyProperty] { return [$x, $y, $z] }
 
-    @FrequencyProperty
-    public private(set) var x: Measurement<UnitFrequency>
+    @FrequencyProperty public private(set) var x: Measurement<UnitFrequency>
 
-    @FrequencyProperty
-    public private(set) var y: Measurement<UnitFrequency>
+    @FrequencyProperty public private(set) var y: Measurement<UnitFrequency>
 
-    @FrequencyProperty
-    public private(set) var z: Measurement<UnitFrequency>
+    @FrequencyProperty public private(set) var z: Measurement<UnitFrequency>
 
     // MARK: Property Wrapper Properties
 
     public var wrappedValue: Value {
-        get {
-            value
-        }
-        set {
-            updateValue(newValue)
-        }
+        get { value }
+        set { updateValue(newValue) }
     }
 
-    public var projectedValue: ReadOnlyProperty<CMRotationRateProperty> {
-        asReadOnlyProperty
-    }
+    public var projectedValue: ReadOnlyProperty<CMRotationRateProperty> { asReadOnlyProperty }
 
     // MARK: `Property` Requirements
 
@@ -43,9 +31,7 @@ public final class CMRotationRateProperty: UpdatableProperty, PropertiesProvider
 
     /// The latest snapshot of data.
     public internal(set) var snapshot: Snapshot<Value> {
-        didSet {
-            updateSubject.notifyUpdateListeners(of: snapshot)
-        }
+        didSet { updateSubject.notifyUpdateListeners(of: snapshot) }
     }
 
     /// A formatter that can be used to build a human-friendly string from the
@@ -61,7 +47,10 @@ public final class CMRotationRateProperty: UpdatableProperty, PropertiesProvider
     // MARK: Initialisers
 
     public required init(
-        displayName: String, value: Value, formatter: Formatter = Formatter(), date: Date = Date()
+        displayName: String,
+        value: Value,
+        formatter: Formatter = Formatter(),
+        date: Date = Date()
     ) {
         self.displayName = displayName
         self.formatter = formatter

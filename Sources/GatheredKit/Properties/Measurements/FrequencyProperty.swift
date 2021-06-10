@@ -13,7 +13,12 @@ extension AnyProperty {
         date: Date = Date()
     ) -> FrequencyProperty {
         return .init(
-            displayName: displayName, value: value, unit: unit, formatter: formatter, date: date)
+            displayName: displayName,
+            value: value,
+            unit: unit,
+            formatter: formatter,
+            date: date
+        )
     }
 
     public static func frequency(
@@ -24,7 +29,12 @@ extension AnyProperty {
         date: Date = Date()
     ) -> OptionalFrequencyProperty {
         return .init(
-            displayName: displayName, value: value, unit: unit, formatter: formatter, date: date)
+            displayName: displayName,
+            value: value,
+            unit: unit,
+            formatter: formatter,
+            date: date
+        )
     }
 
     public static func radiansPerSecond(
@@ -34,8 +44,12 @@ extension AnyProperty {
         date: Date = Date()
     ) -> FrequencyProperty {
         return .init(
-            displayName: displayName, value: value, unit: .radiansPerSecond, formatter: formatter,
-            date: date)
+            displayName: displayName,
+            value: value,
+            unit: .radiansPerSecond,
+            formatter: formatter,
+            date: date
+        )
     }
 
     public static func radiansPerSecond(
@@ -45,8 +59,12 @@ extension AnyProperty {
         date: Date = Date()
     ) -> OptionalFrequencyProperty {
         return .init(
-            displayName: displayName, value: value, unit: .radiansPerSecond, formatter: formatter,
-            date: date)
+            displayName: displayName,
+            value: value,
+            unit: .radiansPerSecond,
+            formatter: formatter,
+            date: date
+        )
     }
 
 }

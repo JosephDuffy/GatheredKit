@@ -29,20 +29,15 @@ public final class Magnetometer: UpdatingSource, CustomisableUpdateIntervalContr
         return isUpdating ? CMMotionManager.shared.magnetometerUpdateInterval : nil
     }
 
-    @OptionalCMMagneticFieldProperty
-    public private(set) var magneticField: CMMagneticField?
+    @OptionalCMMagneticFieldProperty public private(set) var magneticField: CMMagneticField?
 
-    public var allProperties: [AnyProperty] {
-        return [$magneticField]
-    }
+    public var allProperties: [AnyProperty] { return [$magneticField] }
 
     private var state: State = .notMonitoring {
         didSet {
             switch state {
-            case .monitoring:
-                isUpdating = true
-            case .notMonitoring:
-                isUpdating = false
+            case .monitoring: isUpdating = true
+            case .notMonitoring: isUpdating = false
             }
         }
     }
@@ -53,9 +48,7 @@ public final class Magnetometer: UpdatingSource, CustomisableUpdateIntervalContr
         sourceEventsSubject = .init()
     }
 
-    public func startUpdating(
-        every updateInterval: TimeInterval
-    ) {
+    public func startUpdating(every updateInterval: TimeInterval) {
         let motionManager = CMMotionManager.shared
         motionManager.magnetometerUpdateInterval = updateInterval
 
@@ -68,8 +61,7 @@ public final class Magnetometer: UpdatingSource, CustomisableUpdateIntervalContr
 
             if let error = error {
                 CMMotionManager.shared.stopMagnetometerUpdates()
-                self.sourceEventsSubject.notifyUpdateListeners(
-                    of: .stoppedUpdating(error: error))
+                self.sourceEventsSubject.notifyUpdateListeners(of: .stoppedUpdating(error: error))
                 self.state = .notMonitoring
                 return
             }

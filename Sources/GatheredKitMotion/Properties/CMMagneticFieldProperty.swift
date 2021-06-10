@@ -3,38 +3,26 @@ import Foundation
 import CoreMotion
 import GatheredKit
 
-@propertyWrapper
-public final class CMMagneticFieldProperty: UpdatableProperty, PropertiesProvider {
+@propertyWrapper public final class CMMagneticFieldProperty: UpdatableProperty, PropertiesProvider {
     public typealias Value = CMMagneticField
     public typealias Formatter = CMMagneticFieldFormatter
 
-    public var allProperties: [AnyProperty] {
-        return [$x, $y, $z]
-    }
+    public var allProperties: [AnyProperty] { return [$x, $y, $z] }
 
-    @MagneticFieldProperty
-    public private(set) var x: Measurement<UnitMagneticField>
+    @MagneticFieldProperty public private(set) var x: Measurement<UnitMagneticField>
 
-    @MagneticFieldProperty
-    public private(set) var y: Measurement<UnitMagneticField>
+    @MagneticFieldProperty public private(set) var y: Measurement<UnitMagneticField>
 
-    @MagneticFieldProperty
-    public private(set) var z: Measurement<UnitMagneticField>
+    @MagneticFieldProperty public private(set) var z: Measurement<UnitMagneticField>
 
     // MARK: Property Wrapper Properties
 
     public var wrappedValue: Value {
-        get {
-            value
-        }
-        set {
-            updateValue(newValue)
-        }
+        get { value }
+        set { updateValue(newValue) }
     }
 
-    public var projectedValue: ReadOnlyProperty<CMMagneticFieldProperty> {
-        asReadOnlyProperty
-    }
+    public var projectedValue: ReadOnlyProperty<CMMagneticFieldProperty> { asReadOnlyProperty }
 
     // MARK: `Property` Requirements
 
@@ -43,9 +31,7 @@ public final class CMMagneticFieldProperty: UpdatableProperty, PropertiesProvide
 
     /// The latest snapshot of data.
     public internal(set) var snapshot: Snapshot<Value> {
-        didSet {
-            updateSubject.notifyUpdateListeners(of: snapshot)
-        }
+        didSet { updateSubject.notifyUpdateListeners(of: snapshot) }
     }
 
     /// A formatter that can be used to build a human-friendly string from the
@@ -61,7 +47,10 @@ public final class CMMagneticFieldProperty: UpdatableProperty, PropertiesProvide
     // MARK: Initialisers
 
     public required init(
-        displayName: String, value: Value, formatter: Formatter = Formatter(), date: Date = Date()
+        displayName: String,
+        value: Value,
+        formatter: Formatter = Formatter(),
+        date: Date = Date()
     ) {
         self.displayName = displayName
         self.formatter = formatter
@@ -73,8 +62,7 @@ public final class CMMagneticFieldProperty: UpdatableProperty, PropertiesProvide
         _z = .microTesla(displayName: "z", value: value.z, date: date)
     }
 
-    @discardableResult
-    public func updateValue(_ value: Value, date: Date) -> Snapshot<Value> {
+    @discardableResult public func updateValue(_ value: Value, date: Date) -> Snapshot<Value> {
         _x.updateMeasuredValue(value.x, date: date)
         _y.updateMeasuredValue(value.y, date: date)
         _z.updateMeasuredValue(value.z, date: date)

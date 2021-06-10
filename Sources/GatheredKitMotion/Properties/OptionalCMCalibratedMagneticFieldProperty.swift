@@ -4,30 +4,24 @@ import CoreMotion
 import GatheredKit
 
 @propertyWrapper
-public final class OptionalCMCalibratedMagneticFieldProperty: UpdatableProperty, PropertiesProvider {
+public final class OptionalCMCalibratedMagneticFieldProperty: UpdatableProperty, PropertiesProvider
+{
     public typealias Value = CMCalibratedMagneticField?
     // TODO: Create `CMCalibratedMagneticFieldFormatter`
     public typealias Formatter = CMMagneticFieldFormatter
 
-    public var allProperties: [AnyProperty] {
-        return [$accuracy, $field]
-    }
+    public var allProperties: [AnyProperty] { return [$accuracy, $field] }
 
-    @OptionalCMMagneticFieldCalibrationAccuracyProperty
-    public private(set) var accuracy: CMMagneticFieldCalibrationAccuracy?
+    @OptionalCMMagneticFieldCalibrationAccuracyProperty public private(set) var accuracy:
+        CMMagneticFieldCalibrationAccuracy?
 
-    @OptionalCMMagneticFieldProperty
-    public private(set) var field: CMMagneticField?
+    @OptionalCMMagneticFieldProperty public private(set) var field: CMMagneticField?
 
     // MARK: Property Wrapper Properties
 
     public var wrappedValue: Value {
-        get {
-            value
-        }
-        set {
-            updateValue(newValue)
-        }
+        get { value }
+        set { updateValue(newValue) }
     }
 
     public var projectedValue: ReadOnlyProperty<OptionalCMCalibratedMagneticFieldProperty> {
@@ -41,9 +35,7 @@ public final class OptionalCMCalibratedMagneticFieldProperty: UpdatableProperty,
 
     /// The latest snapshot of data.
     public internal(set) var snapshot: Snapshot<Value> {
-        didSet {
-            updateSubject.notifyUpdateListeners(of: snapshot)
-        }
+        didSet { updateSubject.notifyUpdateListeners(of: snapshot) }
     }
 
     /// A formatter that can be used to build a human-friendly string from the
@@ -59,7 +51,9 @@ public final class OptionalCMCalibratedMagneticFieldProperty: UpdatableProperty,
     // MARK: Initialisers
 
     public required init(
-        displayName: String, value: Value = nil, formatter: Formatter = Formatter(),
+        displayName: String,
+        value: Value = nil,
+        formatter: Formatter = Formatter(),
         date: Date = Date()
     ) {
         self.displayName = displayName
@@ -71,8 +65,7 @@ public final class OptionalCMCalibratedMagneticFieldProperty: UpdatableProperty,
         _field = .init(displayName: "Field", value: value?.field, date: date)
     }
 
-    @discardableResult
-    public func updateValue(_ value: Value, date: Date) -> Snapshot<Value> {
+    @discardableResult public func updateValue(_ value: Value, date: Date) -> Snapshot<Value> {
         _accuracy.updateValue(value?.accuracy, date: date)
         _field.updateValue(value?.field, date: date)
 

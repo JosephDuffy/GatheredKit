@@ -177,7 +177,7 @@
 //                        expect(Location.availability).to(equal(.available))
 //                    }
 //                }
-//                
+//
 //            }
 //
 //        }

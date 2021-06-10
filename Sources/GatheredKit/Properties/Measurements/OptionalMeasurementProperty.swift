@@ -1,22 +1,18 @@
 import Foundation
 
 @propertyWrapper
-public final class OptionalMeasurementProperty<Unit: Foundation.Unit>: UpdatableProperty, Equatable {
+public final class OptionalMeasurementProperty<Unit: Foundation.Unit>: UpdatableProperty, Equatable
+{
     public typealias Value = Measurement<Unit>?
 
     public static func == (
-        lhs: OptionalMeasurementProperty<Unit>, rhs: OptionalMeasurementProperty<Unit>
-    ) -> Bool {
-        lhs.displayName == rhs.displayName && lhs.snapshot == rhs.snapshot
-    }
+        lhs: OptionalMeasurementProperty<Unit>,
+        rhs: OptionalMeasurementProperty<Unit>
+    ) -> Bool { lhs.displayName == rhs.displayName && lhs.snapshot == rhs.snapshot }
 
     public var wrappedValue: Value {
-        get {
-            value
-        }
-        set {
-            updateValue(newValue)
-        }
+        get { value }
+        set { updateValue(newValue) }
     }
 
     public var projectedValue: ReadOnlyProperty<OptionalMeasurementProperty<Unit>> {
@@ -27,9 +23,7 @@ public final class OptionalMeasurementProperty<Unit: Foundation.Unit>: Updatable
 
     /// The latest snapshot of data.
     public internal(set) var snapshot: Snapshot<Value> {
-        didSet {
-            updateSubject.notifyUpdateListeners(of: snapshot)
-        }
+        didSet { updateSubject.notifyUpdateListeners(of: snapshot) }
     }
 
     /// A human-friendly display name that describes the property.
@@ -47,15 +41,11 @@ public final class OptionalMeasurementProperty<Unit: Foundation.Unit>: Updatable
 
     // MARK: Measurement Properties
 
-    public var measurement: Value {
-        return value
-    }
+    public var measurement: Value { return value }
 
     public private(set) var unit: Unit
 
-    public var measuredValue: Double? {
-        return measurement?.value
-    }
+    public var measuredValue: Double? { return measurement?.value }
 
     // MARK: Initialisers
 
@@ -95,8 +85,7 @@ public final class OptionalMeasurementProperty<Unit: Foundation.Unit>: Updatable
 
     // MARK: Update Functions
 
-    @discardableResult
-    public func updateValue(
+    @discardableResult public func updateValue(
         _ measurement: Measurement<Unit>?,
         date: Date = Date()
     ) -> Snapshot<Value> {
@@ -105,8 +94,7 @@ public final class OptionalMeasurementProperty<Unit: Foundation.Unit>: Updatable
         return snapshot
     }
 
-    @discardableResult
-    public func updateMeasuredValue(
+    @discardableResult public func updateMeasuredValue(
         _ measuredValue: Double?,
         date: Date = Date()
     ) -> Snapshot<Value> {
@@ -124,8 +112,10 @@ public final class OptionalMeasurementProperty<Unit: Foundation.Unit>: Updatable
      - Parameter date: The date and time the `value` was recorded. Defaults to the current date and time.
      - Returns: The new snapshot, or `nil` if the value was not different.
      */
-    @discardableResult
-    public func updateMeasuredValueIfDifferent(_ measuredValue: Double?, date: Date = Date()) -> Snapshot<Value>? {
+    @discardableResult public func updateMeasuredValueIfDifferent(
+        _ measuredValue: Double?,
+        date: Date = Date()
+    ) -> Snapshot<Value>? {
         guard measuredValue != measurement?.value else { return nil }
         return updateMeasuredValue(measuredValue, date: date)
     }
@@ -140,7 +130,11 @@ extension OptionalMeasurementProperty where Unit: Foundation.Dimension {
         date: Date = Date()
     ) {
         self.init(
-            displayName: displayName, value: measuredValue, unit: dimention, formatter: formatter,
-            date: date)
+            displayName: displayName,
+            value: measuredValue,
+            unit: dimention,
+            formatter: formatter,
+            date: date
+        )
     }
 }

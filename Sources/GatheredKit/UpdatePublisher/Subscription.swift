@@ -8,9 +8,7 @@ public final class Subscription {
         self.cancelHandler = cancelHandler
     }
 
-    deinit {
-        cancel()
-    }
+    deinit { cancel() }
 
     public func cancel() {
         guard let cancelHandler = cancelHandler else { return }

@@ -22,29 +22,22 @@ public final class Location: NSObject, UpdatingSource, Controllable {
 
     private let sourceEventsSubject: UpdateSubject<SourceEvent>
 
-    @OptionalCoordinateProperty
-    public private(set) var coordinate: CLLocationCoordinate2D?
+    @OptionalCoordinateProperty public private(set) var coordinate: CLLocationCoordinate2D?
 
-    @OptionalSpeedProperty
-    public private(set) var speed: Measurement<UnitSpeed>?
+    @OptionalSpeedProperty public private(set) var speed: Measurement<UnitSpeed>?
 
-    @OptionalAngleProperty
-    public private(set) var course: Measurement<UnitAngle>?
+    @OptionalAngleProperty public private(set) var course: Measurement<UnitAngle>?
 
-    @OptionalLengthProperty
-    public private(set) var altitude: Measurement<UnitLength>?
+    @OptionalLengthProperty public private(set) var altitude: Measurement<UnitLength>?
 
-    @OptionalIntProperty
-    public private(set) var floor: Int?
+    @OptionalIntProperty public private(set) var floor: Int?
 
-    @OptionalLengthProperty
-    public private(set) var horizonalAccuracy: Measurement<UnitLength>?
+    @OptionalLengthProperty public private(set) var horizonalAccuracy: Measurement<UnitLength>?
 
-    @OptionalLengthProperty
-    public private(set) var verticalAccuracy: Measurement<UnitLength>?
+    @OptionalLengthProperty public private(set) var verticalAccuracy: Measurement<UnitLength>?
 
-    @CLLocationAuthorizationProperty
-    public private(set) var authorizationStatus: CLAuthorizationStatus
+    @CLLocationAuthorizationProperty public private(set) var authorizationStatus:
+        CLAuthorizationStatus
 
     /**
      An array of all the properties associated with the location of the
@@ -60,13 +53,7 @@ public final class Location: NSObject, UpdatingSource, Controllable {
      */
     public var allProperties: [AnyProperty] {
         return [
-            $coordinate,
-            $speed,
-            $course,
-            $altitude,
-            $floor,
-            $horizonalAccuracy,
-            $verticalAccuracy,
+            $coordinate, $speed, $course, $altitude, $floor, $horizonalAccuracy, $verticalAccuracy,
             $authorizationStatus,
         ]
     }
@@ -82,11 +69,7 @@ public final class Location: NSObject, UpdatingSource, Controllable {
     }
 
     private var isAskingForLocationPermissions: Bool {
-        if case .askingForPermissions = state {
-            return true
-        } else {
-            return false
-        }
+        if case .askingForPermissions = state { return true } else { return false }
     }
 
     private var state: State = .notMonitoring {
@@ -117,16 +100,16 @@ public final class Location: NSObject, UpdatingSource, Controllable {
         _horizonalAccuracy = .meters(displayName: "Horizontal Accuracy")
         _verticalAccuracy = .meters(displayName: "Vertical Accuracy")
         _authorizationStatus = .init(
-            displayName: "Authorization Status", value: CLLocationManager.authorizationStatus())
+            displayName: "Authorization Status",
+            value: CLLocationManager.authorizationStatus()
+        )
 
         sourceEventsSubject = UpdateSubject()
 
         super.init()
     }
 
-    deinit {
-        stopUpdating()
-    }
+    deinit { stopUpdating() }
 
     #if os(iOS) || os(watchOS)
     public func startUpdating() {
@@ -134,16 +117,15 @@ public final class Location: NSObject, UpdatingSource, Controllable {
     }
 
     public func startUpdating(
-        allowBackgroundUpdates: Bool = false, desiredAccuracy accuracy: Accuracy = .best
+        allowBackgroundUpdates: Bool = false,
+        desiredAccuracy accuracy: Accuracy = .best
     ) {
         startUpdating(desiredAccuracy: accuracy) { locationManager in
             locationManager.allowsBackgroundLocationUpdates = allowBackgroundUpdates
         }
     }
     #elseif os(macOS) || os(tvOS)
-    public func startUpdating() {
-        startUpdating(desiredAccuracy: .best)
-    }
+    public func startUpdating() { startUpdating(desiredAccuracy: .best) }
 
     public func startUpdating(desiredAccuracy accuracy: Accuracy = .best) {
         startUpdating(desiredAccuracy: accuracy, locationManagerConfigurator: nil)
@@ -196,8 +178,7 @@ public final class Location: NSObject, UpdatingSource, Controllable {
         case .denied, .restricted:
             updateLocationValues(nil)
             state = .notMonitoring
-        @unknown default:
-            break
+        @unknown default: break
         }
         #elseif os(macOS)
         switch authorizationStatus {
@@ -215,8 +196,7 @@ public final class Location: NSObject, UpdatingSource, Controllable {
         case .denied, .restricted:
             updateLocationValues(nil)
             state = .notMonitoring
-        @unknown default:
-            break
+        @unknown default: break
         }
         #elseif os(tvOS)
         switch authorizationStatus {
@@ -230,8 +210,7 @@ public final class Location: NSObject, UpdatingSource, Controllable {
         case .denied, .restricted:
             updateLocationValues(nil)
             state = .notMonitoring
-        @unknown default:
-            break
+        @unknown default: break
         }
         #endif
     }
@@ -243,9 +222,7 @@ public final class Location: NSObject, UpdatingSource, Controllable {
         state = .notMonitoring
     }
 
-    private func updateValues() {
-        updateLocationValues(locationManager?.location)
-    }
+    private func updateValues() { updateLocationValues(locationManager?.location) }
 
     private func updateLocationValues(_ location: CLLocation? = nil) {
         let coordinateSnapshot: Snapshot<CLLocationCoordinate2D?>
@@ -257,13 +234,33 @@ public final class Location: NSObject, UpdatingSource, Controllable {
         let verticalAccuracySnapshot: Snapshot<Measurement<UnitLength>?>
 
         defer {
-            sourceEventsSubject.notifyUpdateListeners(of: .propertyUpdated(property: $coordinate, snapshot: coordinateSnapshot))
-            sourceEventsSubject.notifyUpdateListeners(of: .propertyUpdated(property: $speed, snapshot: speedSnapshot))
-            sourceEventsSubject.notifyUpdateListeners(of: .propertyUpdated(property: $course, snapshot: courseSnapshot))
-            sourceEventsSubject.notifyUpdateListeners(of: .propertyUpdated(property: $altitude, snapshot: altitudeSnapshot))
-            sourceEventsSubject.notifyUpdateListeners(of: .propertyUpdated(property: $floor, snapshot: floorSnapshot))
-            sourceEventsSubject.notifyUpdateListeners(of: .propertyUpdated(property: $horizonalAccuracy, snapshot: horizonalAccuracySnapshot))
-            sourceEventsSubject.notifyUpdateListeners(of: .propertyUpdated(property: $verticalAccuracy, snapshot: verticalAccuracySnapshot))
+            sourceEventsSubject.notifyUpdateListeners(
+                of: .propertyUpdated(property: $coordinate, snapshot: coordinateSnapshot)
+            )
+            sourceEventsSubject.notifyUpdateListeners(
+                of: .propertyUpdated(property: $speed, snapshot: speedSnapshot)
+            )
+            sourceEventsSubject.notifyUpdateListeners(
+                of: .propertyUpdated(property: $course, snapshot: courseSnapshot)
+            )
+            sourceEventsSubject.notifyUpdateListeners(
+                of: .propertyUpdated(property: $altitude, snapshot: altitudeSnapshot)
+            )
+            sourceEventsSubject.notifyUpdateListeners(
+                of: .propertyUpdated(property: $floor, snapshot: floorSnapshot)
+            )
+            sourceEventsSubject.notifyUpdateListeners(
+                of: .propertyUpdated(
+                    property: $horizonalAccuracy,
+                    snapshot: horizonalAccuracySnapshot
+                )
+            )
+            sourceEventsSubject.notifyUpdateListeners(
+                of: .propertyUpdated(
+                    property: $verticalAccuracy,
+                    snapshot: verticalAccuracySnapshot
+                )
+            )
         }
 
         if let location = location {
@@ -287,8 +284,14 @@ public final class Location: NSObject, UpdatingSource, Controllable {
 
             altitudeSnapshot = _altitude.updateMeasuredValue(location.altitude, date: timestamp)
             floorSnapshot = _floor.updateValue(location.floor?.level, date: timestamp)
-            horizonalAccuracySnapshot = _horizonalAccuracy.updateMeasuredValue(location.horizontalAccuracy, date: timestamp)
-            verticalAccuracySnapshot = _verticalAccuracy.updateMeasuredValue(location.verticalAccuracy, date: timestamp)
+            horizonalAccuracySnapshot = _horizonalAccuracy.updateMeasuredValue(
+                location.horizontalAccuracy,
+                date: timestamp
+            )
+            verticalAccuracySnapshot = _verticalAccuracy.updateMeasuredValue(
+                location.verticalAccuracy,
+                date: timestamp
+            )
         } else {
             coordinateSnapshot = _coordinate.updateValue(nil)
             speedSnapshot = _speed.updateValue(nil)
@@ -305,13 +308,16 @@ public final class Location: NSObject, UpdatingSource, Controllable {
 extension Location: CLLocationManagerDelegate {
 
     public func locationManager(
-        _ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus
+        _ manager: CLLocationManager,
+        didChangeAuthorization status: CLAuthorizationStatus
     ) {
         availability = SourceAvailability(authorizationStatus: status) ?? .unavailable
         sourceEventsSubject.notifyUpdateListeners(of: .availabilityUpdated(availability))
 
         let snapshot = _authorizationStatus.updateValue(status)
-        sourceEventsSubject.notifyUpdateListeners(of: .propertyUpdated(property: $authorizationStatus, snapshot: snapshot))
+        sourceEventsSubject.notifyUpdateListeners(
+            of: .propertyUpdated(property: $authorizationStatus, snapshot: snapshot)
+        )
 
         switch availability {
         case .available:
@@ -333,10 +339,9 @@ extension Location: CLLocationManagerDelegate {
     }
 
     public func locationManager(
-        _ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]
-    ) {
-        locations.forEach(updateLocationValues(_:))
-    }
+        _ manager: CLLocationManager,
+        didUpdateLocations locations: [CLLocation]
+    ) { locations.forEach(updateLocationValues(_:)) }
 
 }
 
@@ -352,37 +357,24 @@ extension Location {
 
         public var asCLLocationAccuracy: CLLocationAccuracy {
             switch self {
-            case .bestForNavigation:
-                return kCLLocationAccuracyBestForNavigation
-            case .best:
-                return kCLLocationAccuracyBest
-            case .tenMeters:
-                return kCLLocationAccuracyNearestTenMeters
-            case .hundredMeters:
-                return kCLLocationAccuracyHundredMeters
-            case .kilometer:
-                return kCLLocationAccuracyKilometer
-            case .threeKilometers:
-                return kCLLocationAccuracyThreeKilometers
+            case .bestForNavigation: return kCLLocationAccuracyBestForNavigation
+            case .best: return kCLLocationAccuracyBest
+            case .tenMeters: return kCLLocationAccuracyNearestTenMeters
+            case .hundredMeters: return kCLLocationAccuracyHundredMeters
+            case .kilometer: return kCLLocationAccuracyKilometer
+            case .threeKilometers: return kCLLocationAccuracyThreeKilometers
             }
         }
 
         public init?(accuracy: CLLocationAccuracy) {
             switch accuracy {
-            case kCLLocationAccuracyBestForNavigation:
-                self = .bestForNavigation
-            case kCLLocationAccuracyBest:
-                self = .best
-            case kCLLocationAccuracyNearestTenMeters:
-                self = .tenMeters
-            case kCLLocationAccuracyHundredMeters:
-                self = .hundredMeters
-            case kCLLocationAccuracyKilometer:
-                self = .kilometer
-            case kCLLocationAccuracyThreeKilometers:
-                self = .threeKilometers
-            default:
-                return nil
+            case kCLLocationAccuracyBestForNavigation: self = .bestForNavigation
+            case kCLLocationAccuracyBest: self = .best
+            case kCLLocationAccuracyNearestTenMeters: self = .tenMeters
+            case kCLLocationAccuracyHundredMeters: self = .hundredMeters
+            case kCLLocationAccuracyKilometer: self = .kilometer
+            case kCLLocationAccuracyThreeKilometers: self = .threeKilometers
+            default: return nil
             }
         }
 
@@ -395,29 +387,19 @@ extension SourceAvailability {
     public init?(authorizationStatus: CLAuthorizationStatus) {
         #if os(iOS) || os(tvOS) || os(watchOS)
         switch authorizationStatus {
-        case .authorizedAlways, .authorizedWhenInUse:
-            self = .available
-        case .denied:
-            self = .permissionDenied
-        case .restricted:
-            self = .restricted
-        case .notDetermined:
-            self = .requiresPermissionsPrompt
-        @unknown default:
-            return nil
+        case .authorizedAlways, .authorizedWhenInUse: self = .available
+        case .denied: self = .permissionDenied
+        case .restricted: self = .restricted
+        case .notDetermined: self = .requiresPermissionsPrompt
+        @unknown default: return nil
         }
         #elseif os(macOS)
         switch authorizationStatus {
-        case .authorizedAlways:
-            self = .available
-        case .denied:
-            self = .permissionDenied
-        case .restricted:
-            self = .restricted
-        case .notDetermined:
-            self = .requiresPermissionsPrompt
-        @unknown default:
-            return nil
+        case .authorizedAlways: self = .available
+        case .denied: self = .permissionDenied
+        case .restricted: self = .restricted
+        case .notDetermined: self = .requiresPermissionsPrompt
+        @unknown default: return nil
         }
         #endif
     }

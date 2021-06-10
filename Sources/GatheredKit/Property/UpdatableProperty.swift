@@ -8,8 +8,7 @@ public protocol UpdatableProperty: Property {
      - Parameter date: The date and time the `value` was recorded. Defaults to the current date and time.
      - Returns: The new snapshot.
      */
-    @discardableResult
-    func updateValue(_ value: Value, date: Date) -> Snapshot<Value>
+    @discardableResult func updateValue(_ value: Value, date: Date) -> Snapshot<Value>
 }
 
 extension UpdatableProperty {
@@ -20,8 +19,7 @@ extension UpdatableProperty {
      - Parameter value: The new value of the property.
      - Returns: The new snapshot.
      */
-    @discardableResult
-    public func updateValue(_ value: Value) -> Snapshot<Value> {
+    @discardableResult public func updateValue(_ value: Value) -> Snapshot<Value> {
         updateValue(value, date: Date())
     }
 }
@@ -34,8 +32,9 @@ extension UpdatableProperty where Value: Equatable {
      - Parameter date: The date and time the `value` was recorded. Defaults to the current date and time.
      - Returns: The new snapshot, or `nil` if the value was not different.
      */
-    @discardableResult
-    public func updateValueIfDifferent(_ value: Value, date: Date = Date()) -> Snapshot<Value>? {
+    @discardableResult public func updateValueIfDifferent(_ value: Value, date: Date = Date())
+        -> Snapshot<Value>?
+    {
         guard value != self.value else { return nil }
         return updateValue(value, date: date)
     }

@@ -30,25 +30,19 @@ public final class ScreenProvider: UpdatingSourceProvider, ControllableSourcePro
     private var state: State = .notMonitoring {
         didSet {
             switch state {
-            case .monitoring:
-                isUpdating = true
-            case .notMonitoring:
-                isUpdating = false
+            case .monitoring: isUpdating = true
+            case .notMonitoring: isUpdating = false
             }
         }
     }
 
     private let notificationCenter: NotificationCenter
 
-    public convenience init() {
-        self.init(notificationCenter: .default)
-    }
+    public convenience init() { self.init(notificationCenter: .default) }
 
     internal required init(notificationCenter: NotificationCenter) {
         self.notificationCenter = notificationCenter
-        sources = UIScreen.screens.map { uiScreen in
-            Screen(screen: uiScreen)
-        }
+        sources = UIScreen.screens.map { uiScreen in Screen(screen: uiScreen) }
         sourceProviderEventsSubject = .init()
     }
 
@@ -92,7 +86,10 @@ public final class ScreenProvider: UpdatingSourceProvider, ControllableSourcePro
 
         state = .monitoring(
             observers: .init(
-                didConnect: didConnectCancellable, didDisconnect: didDisconnectCancellable))
+                didConnect: didConnectCancellable,
+                didDisconnect: didDisconnectCancellable
+            )
+        )
         sourceProviderEventsSubject.notifyUpdateListeners(of: .startedUpdating)
     }
 

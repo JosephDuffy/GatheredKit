@@ -7,9 +7,7 @@ private var deviceBootTime: Date = {
 
 extension CMLogItem {
 
-    internal var date: Date {
-        return Date(timeInterval: timestamp, since: deviceBootTime)
-    }
+    internal var date: Date { return Date(timeInterval: timestamp, since: deviceBootTime) }
 
 }
 #endif

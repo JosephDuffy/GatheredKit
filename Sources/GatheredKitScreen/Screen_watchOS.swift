@@ -16,33 +16,24 @@ public final class Screen: Source {
     /**
      The native resolution of the screen
      */
-    @SizeProperty
-    public private(set) var resolution: CGSize
+    @SizeProperty public private(set) var resolution: CGSize
 
     /**
      The native scale factor of the screen
      */
-    @ScaleProperty
-    public private(set) var scale: CGFloat
+    @ScaleProperty public private(set) var scale: CGFloat
 
     /**
      An array of the screen's properties, in the following order:
      - Resolution
      - Scale
      */
-    public var allProperties: [AnyProperty] {
-        return [
-            $resolution,
-            $scale,
-        ]
-    }
+    public var allProperties: [AnyProperty] { return [$resolution, $scale] }
 
     /**
     Create a new instance of `Screen` for the `current` `WKInterfaceDevice`.
     */
-    public convenience init() {
-        self.init(device: .current())
-    }
+    public convenience init() { self.init(device: .current()) }
 
     /**
      Create a new instance of `Screen` for the given `WKInterfaceDevice` instance.
@@ -52,15 +43,9 @@ public final class Screen: Source {
     internal init(device: WKInterfaceDevice) {
         self.device = device
 
-        _resolution = .init(
-            displayName: "Resolution",
-            value: device.screenBounds.size
-        )
+        _resolution = .init(displayName: "Resolution", value: device.screenBounds.size)
 
-        _scale = .init(
-            displayName: "Scale",
-            value: device.screenScale
-        )
+        _scale = .init(displayName: "Scale", value: device.screenScale)
 
         $resolution.formatter.suffix = " Points"
     }

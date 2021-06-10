@@ -29,20 +29,15 @@ public final class Gyroscope: UpdatingSource, CustomisableUpdateIntervalControll
         return isUpdating ? CMMotionManager.shared.gyroUpdateInterval : nil
     }
 
-    @OptionalCMRotationRateProperty
-    public private(set) var rotationRate: CMRotationRate?
+    @OptionalCMRotationRateProperty public private(set) var rotationRate: CMRotationRate?
 
-    public var allProperties: [AnyProperty] {
-        return [$rotationRate]
-    }
+    public var allProperties: [AnyProperty] { return [$rotationRate] }
 
     private var state: State = .notMonitoring {
         didSet {
             switch state {
-            case .monitoring:
-                isUpdating = true
-            case .notMonitoring:
-                isUpdating = false
+            case .monitoring: isUpdating = true
+            case .notMonitoring: isUpdating = false
             }
         }
     }
@@ -53,9 +48,7 @@ public final class Gyroscope: UpdatingSource, CustomisableUpdateIntervalControll
         sourceEventsSubject = .init()
     }
 
-    public func startUpdating(
-        every updateInterval: TimeInterval
-    ) {
+    public func startUpdating(every updateInterval: TimeInterval) {
         let motionManager = CMMotionManager.shared
         motionManager.gyroUpdateInterval = updateInterval
 
@@ -68,8 +61,7 @@ public final class Gyroscope: UpdatingSource, CustomisableUpdateIntervalControll
 
             if let error = error {
                 CMMotionManager.shared.stopGyroUpdates()
-                self.sourceEventsSubject.notifyUpdateListeners(
-                    of: .stoppedUpdating(error: error))
+                self.sourceEventsSubject.notifyUpdateListeners(of: .stoppedUpdating(error: error))
                 self.state = .notMonitoring
                 return
             }

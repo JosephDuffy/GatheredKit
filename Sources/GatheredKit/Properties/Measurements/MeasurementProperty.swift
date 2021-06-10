@@ -9,25 +9,17 @@ public final class MeasurementProperty<Unit: Foundation.Unit>: UpdatableProperty
     }
 
     public var wrappedValue: Value {
-        get {
-            value
-        }
-        set {
-            updateValue(newValue)
-        }
+        get { value }
+        set { updateValue(newValue) }
     }
 
-    public var projectedValue: ReadOnlyProperty<MeasurementProperty<Unit>> {
-        asReadOnlyProperty
-    }
+    public var projectedValue: ReadOnlyProperty<MeasurementProperty<Unit>> { asReadOnlyProperty }
 
     // MARK: `Property` Requirements
 
     /// The latest snapshot of data.
     public internal(set) var snapshot: Snapshot<Value> {
-        didSet {
-            updateSubject.notifyUpdateListeners(of: snapshot)
-        }
+        didSet { updateSubject.notifyUpdateListeners(of: snapshot) }
     }
 
     /// A human-friendly display name that describes the property.
@@ -45,17 +37,11 @@ public final class MeasurementProperty<Unit: Foundation.Unit>: UpdatableProperty
 
     // MARK: Measurement Properties
 
-    public var measurement: Measurement<Unit> {
-        return value
-    }
+    public var measurement: Measurement<Unit> { return value }
 
-    public var unit: Unit {
-        return measurement.unit
-    }
+    public var unit: Unit { return measurement.unit }
 
-    public var measuredValue: Double {
-        return measurement.value
-    }
+    public var measuredValue: Double { return measurement.value }
 
     // MARK: Initialisers
 
@@ -80,26 +66,26 @@ public final class MeasurementProperty<Unit: Foundation.Unit>: UpdatableProperty
     ) {
         let measurement = Measurement(value: value, unit: unit)
         self.init(
-            displayName: displayName, measurement: measurement, formatter: formatter, date: date)
+            displayName: displayName,
+            measurement: measurement,
+            formatter: formatter,
+            date: date
+        )
     }
 
     // MARK: Update Functions
 
-    @discardableResult
-    public func updateValue(
-        _ value: Measurement<Unit>,
-        date: Date
-    ) -> Snapshot<Value> {
+    @discardableResult public func updateValue(_ value: Measurement<Unit>, date: Date) -> Snapshot<
+        Value
+    > {
         let snapshot = Snapshot(value: value, date: date)
         self.snapshot = snapshot
         return snapshot
     }
 
-    @discardableResult
-    public func updateMeasuredValue(
-        _ measuredValue: Double,
-        date: Date = Date()
-    ) -> Snapshot<Value> {
+    @discardableResult public func updateMeasuredValue(_ measuredValue: Double, date: Date = Date())
+        -> Snapshot<Value>
+    {
         let measurement = Measurement(value: measuredValue, unit: self.measurement.unit)
         return updateValue(measurement, date: date)
     }
@@ -111,8 +97,10 @@ public final class MeasurementProperty<Unit: Foundation.Unit>: UpdatableProperty
      - Parameter date: The date and time the `value` was recorded. Defaults to the current date and time.
      - Returns: The new snapshot, or `nil` if the value was not different.
      */
-    @discardableResult
-    public func updateMeasuredValueIfDifferent(_ measuredValue: Double, date: Date = Date()) -> Snapshot<Value>? {
+    @discardableResult public func updateMeasuredValueIfDifferent(
+        _ measuredValue: Double,
+        date: Date = Date()
+    ) -> Snapshot<Value>? {
         guard measuredValue != self.measuredValue else { return nil }
         return updateMeasuredValue(measuredValue, date: date)
     }

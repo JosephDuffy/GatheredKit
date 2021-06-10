@@ -33,42 +33,28 @@ public final class DeviceMotion: UpdatingSource, CustomisableUpdateIntervalContr
         return isUpdating ? CMMotionManager.shared.deviceMotionUpdateInterval : nil
     }
 
-    @OptionalCMAttitudeProperty
-    public private(set) var attitude: CMAttitude?
+    @OptionalCMAttitudeProperty public private(set) var attitude: CMAttitude?
 
-    @OptionalCMAccelerationProperty
-    public private(set) var gravity: CMAcceleration?
+    @OptionalCMAccelerationProperty public private(set) var gravity: CMAcceleration?
 
-    @OptionalCMAccelerationProperty
-    public private(set) var userAcceleration: CMAcceleration?
+    @OptionalCMAccelerationProperty public private(set) var userAcceleration: CMAcceleration?
 
-    @OptionalAngleProperty
-    public private(set) var heading: Measurement<UnitAngle>?
+    @OptionalAngleProperty public private(set) var heading: Measurement<UnitAngle>?
 
-    @OptionalCMCalibratedMagneticFieldProperty
-    public private(set) var magneticField: CMCalibratedMagneticField?
+    @OptionalCMCalibratedMagneticFieldProperty public private(set) var magneticField:
+        CMCalibratedMagneticField?
 
-    @OptionalCMRotationRateProperty
-    public private(set) var rotationRate: CMRotationRate?
+    @OptionalCMRotationRateProperty public private(set) var rotationRate: CMRotationRate?
 
     public var allProperties: [AnyProperty] {
-        return [
-            $attitude,
-            $gravity,
-            $userAcceleration,
-            $heading,
-            $magneticField,
-            $rotationRate,
-        ]
+        return [$attitude, $gravity, $userAcceleration, $heading, $magneticField, $rotationRate]
     }
 
     private var state: State = .notMonitoring {
         didSet {
             switch state {
-            case .monitoring:
-                isUpdating = true
-            case .notMonitoring:
-                isUpdating = false
+            case .monitoring: isUpdating = true
+            case .notMonitoring: isUpdating = false
             }
         }
     }
@@ -106,8 +92,7 @@ public final class DeviceMotion: UpdatingSource, CustomisableUpdateIntervalContr
 
             if let error = error {
                 CMMotionManager.shared.stopDeviceMotionUpdates()
-                self.sourceEventsSubject.notifyUpdateListeners(
-                    of: .stoppedUpdating(error: error))
+                self.sourceEventsSubject.notifyUpdateListeners(of: .stoppedUpdating(error: error))
                 self.state = .notMonitoring
                 return
             }
@@ -137,10 +122,7 @@ public final class DeviceMotion: UpdatingSource, CustomisableUpdateIntervalContr
                 withHandler: handler
             )
         } else {
-            motionManager.startDeviceMotionUpdates(
-                to: updatesQueue,
-                withHandler: handler
-            )
+            motionManager.startDeviceMotionUpdates(to: updatesQueue, withHandler: handler)
         }
 
         state = .monitoring(updatesQueue: updatesQueue)

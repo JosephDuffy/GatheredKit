@@ -5,43 +5,30 @@ import GatheredKit
 
 // TODO: Add rotationMatrix
 
-@propertyWrapper
-public final class CMAttitudeProperty: UpdatableProperty, PropertiesProvider {
+@propertyWrapper public final class CMAttitudeProperty: UpdatableProperty, PropertiesProvider {
     public typealias Value = CMAttitude
     public typealias Formatter = CMAttitudeFormatter
 
     // MARK: `CMAttitude` Properties
 
-    public var allProperties: [AnyProperty] {
-        return [$roll, $pitch, $yaw, $quaternion]
-    }
+    public var allProperties: [AnyProperty] { return [$roll, $pitch, $yaw, $quaternion] }
 
-    @AngleProperty
-    public private(set) var roll: Measurement<UnitAngle>
+    @AngleProperty public private(set) var roll: Measurement<UnitAngle>
 
-    @AngleProperty
-    public private(set) var pitch: Measurement<UnitAngle>
+    @AngleProperty public private(set) var pitch: Measurement<UnitAngle>
 
-    @AngleProperty
-    public private(set) var yaw: Measurement<UnitAngle>
+    @AngleProperty public private(set) var yaw: Measurement<UnitAngle>
 
-    @CMQuaternionProperty
-    public private(set) var quaternion: CMQuaternion
+    @CMQuaternionProperty public private(set) var quaternion: CMQuaternion
 
     // MARK: Property Wrapper Properties
 
     public var wrappedValue: Value {
-        get {
-            value
-        }
-        set {
-            updateValue(newValue)
-        }
+        get { value }
+        set { updateValue(newValue) }
     }
 
-    public var projectedValue: ReadOnlyProperty<CMAttitudeProperty> {
-        asReadOnlyProperty
-    }
+    public var projectedValue: ReadOnlyProperty<CMAttitudeProperty> { asReadOnlyProperty }
 
     // MARK: `Property` Requirements
 
@@ -50,9 +37,7 @@ public final class CMAttitudeProperty: UpdatableProperty, PropertiesProvider {
 
     /// The latest snapshot of data.
     public internal(set) var snapshot: Snapshot<Value> {
-        didSet {
-            updateSubject.notifyUpdateListeners(of: snapshot)
-        }
+        didSet { updateSubject.notifyUpdateListeners(of: snapshot) }
     }
 
     /// A formatter that can be used to build a human-friendly string from the
@@ -68,8 +53,10 @@ public final class CMAttitudeProperty: UpdatableProperty, PropertiesProvider {
     // MARK: Initialisers
 
     public init(
-        displayName: String, value: CMAttitude,
-        formatter: CMAttitudeFormatter = CMAttitudeFormatter(), date: Date = Date()
+        displayName: String,
+        value: CMAttitude,
+        formatter: CMAttitudeFormatter = CMAttitudeFormatter(),
+        date: Date = Date()
     ) {
         self.displayName = displayName
         self.formatter = formatter
@@ -84,8 +71,7 @@ public final class CMAttitudeProperty: UpdatableProperty, PropertiesProvider {
 
     // MARK: Update Functions
 
-    @discardableResult
-    public func updateValue(_ value: CMAttitude, date: Date) -> Snapshot<Value> {
+    @discardableResult public func updateValue(_ value: CMAttitude, date: Date) -> Snapshot<Value> {
         _roll.updateMeasuredValue(value.roll, date: date)
         _pitch.updateMeasuredValue(value.pitch, date: date)
         _yaw.updateMeasuredValue(value.yaw, date: date)

@@ -21,17 +21,11 @@ public final class MockNotificationCenter: NotificationCenter {
         return addObserverParameters.map { $0.name }
     }
 
-    public var latestAddObserverObject: Any?? {
-        return addObserverParameters.last?.object
-    }
+    public var latestAddObserverObject: Any?? { return addObserverParameters.last?.object }
 
-    public var addObserverObjects: [Any?] {
-        return addObserverParameters.map { $0.object }
-    }
+    public var addObserverObjects: [Any?] { return addObserverParameters.map { $0.object } }
 
-    public var latestAddObserverQueue: OperationQueue?? {
-        return addObserverParameters.last?.queue
-    }
+    public var latestAddObserverQueue: OperationQueue?? { return addObserverParameters.last?.queue }
 
     public var addObserverQueues: [OperationQueue?] {
         return addObserverParameters.map { $0.queue }
@@ -51,9 +45,7 @@ public final class MockNotificationCenter: NotificationCenter {
 
     public private(set) var addObserverOpaqueObjects: [NSObjectProtocol] = []
 
-    public var addObserverHasBeenCalled: Bool {
-        return !addObserverParameters.isEmpty
-    }
+    public var addObserverHasBeenCalled: Bool { return !addObserverParameters.isEmpty }
     public private(set) var addObserverCallCount = 0
 
     public private(set) var removeObserverParameters: [RemoveObserverParameters] = []
@@ -63,12 +55,12 @@ public final class MockNotificationCenter: NotificationCenter {
     }
 
     public override func addObserver(
-        forName name: Notification.Name?, object obj: Any?, queue: OperationQueue?,
+        forName name: Notification.Name?,
+        object obj: Any?,
+        queue: OperationQueue?,
         using block: @escaping (Notification) -> Void
     ) -> NSObjectProtocol {
-        defer {
-            addObserverCallCount += 1
-        }
+        defer { addObserverCallCount += 1 }
 
         addObserverParameters.append((name: name, object: obj, queue: queue, block: block))
 
@@ -78,7 +70,9 @@ public final class MockNotificationCenter: NotificationCenter {
     }
 
     public override func removeObserver(
-        _ observer: Any, name aName: NSNotification.Name?, object anObject: Any?
+        _ observer: Any,
+        name aName: NSNotification.Name?,
+        object anObject: Any?
     ) {
         let parameters = RemoveObserverParameters(observer, aName, anObject)
         removeObserverParameters.append(parameters)

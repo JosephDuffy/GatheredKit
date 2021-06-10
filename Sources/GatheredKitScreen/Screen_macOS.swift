@@ -9,8 +9,10 @@ public final class Screen: UpdatingSource, Controllable {
     private enum State {
         case notMonitoring
         case monitoring(
-            screenParametersObserver: NSObjectProtocol, colorSpaceObserver: NSObjectProtocol,
-            updatesQueue: OperationQueue)
+            screenParametersObserver: NSObjectProtocol,
+            colorSpaceObserver: NSObjectProtocol,
+            updatesQueue: OperationQueue
+        )
     }
 
     public let availability: SourceAvailability = .available
@@ -31,18 +33,13 @@ public final class Screen: UpdatingSource, Controllable {
     /**
      The resolution of the screen
      */
-    @SizeProperty
-    public private(set) var resolution: CGSize
+    @SizeProperty public private(set) var resolution: CGSize
 
     /**
      An array of the screen's properties, in the following order:
      - Resolution
      */
-    public var allProperties: [AnyProperty] {
-        return [
-            $resolution
-        ]
-    }
+    public var allProperties: [AnyProperty] { return [$resolution] }
 
     /// The internal state, indicating if the screen is monitoring for changes
     private var state: State = .notMonitoring {
@@ -79,16 +76,11 @@ public final class Screen: UpdatingSource, Controllable {
         self.notificationCenter = notificationCenter
         sourceEventsSubject = .init()
 
-        _resolution = .init(
-            displayName: "Resolution",
-            value: screen.frame.size
-        )
+        _resolution = .init(displayName: "Resolution", value: screen.frame.size)
         $resolution.formatter.suffix = " Pixels"
     }
 
-    deinit {
-        stopUpdating()
-    }
+    deinit { stopUpdating() }
 
     /**
      Start automatically monitoring changes to the source. This will start delegate methods being called
@@ -102,23 +94,28 @@ public final class Screen: UpdatingSource, Controllable {
 
         let screenParametersObserver = notificationCenter.addObserver(
             forName: NSApplication.didChangeScreenParametersNotification,
-            object: NSApplication.shared, queue: updatesQueue
-        ) { [weak self] _ in
-            guard let self = self else { return }
+            object: NSApplication.shared,
+            queue: updatesQueue
+        ) { [weak self] _ in guard let self = self else { return }
 
             if let snapshot = self._resolution.updateValueIfDifferent(self.nsScreen.frame.size) {
-                self.sourceEventsSubject.notifyUpdateListeners(of: .propertyUpdated(property: self.$resolution, snapshot: snapshot))
+                self.sourceEventsSubject.notifyUpdateListeners(
+                    of: .propertyUpdated(property: self.$resolution, snapshot: snapshot)
+                )
             }
         }
 
         if let snapshot = self._resolution.updateValueIfDifferent(self.nsScreen.frame.size) {
-            self.sourceEventsSubject.notifyUpdateListeners(of: .propertyUpdated(property: self.$resolution, snapshot: snapshot))
+            self.sourceEventsSubject.notifyUpdateListeners(
+                of: .propertyUpdated(property: self.$resolution, snapshot: snapshot)
+            )
         }
 
         let colorSpaceObserver = notificationCenter.addObserver(
-            forName: NSScreen.colorSpaceDidChangeNotification, object: nsScreen, queue: updatesQueue
-        ) { _ in
-            // TODO: Update colour space
+            forName: NSScreen.colorSpaceDidChangeNotification,
+            object: nsScreen,
+            queue: updatesQueue
+        ) { _ in  // TODO: Update colour space
         }
 
         state = .monitoring(
@@ -136,19 +133,17 @@ public final class Screen: UpdatingSource, Controllable {
         guard case .monitoring(let screenParametersObserver, let colorSpaceObserver, _) = state
         else { return }
 
-        notificationCenter
-            .removeObserver(
-                screenParametersObserver,
-                name: NSApplication.didChangeScreenParametersNotification,
-                object: NSApplication.shared
-            )
+        notificationCenter.removeObserver(
+            screenParametersObserver,
+            name: NSApplication.didChangeScreenParametersNotification,
+            object: NSApplication.shared
+        )
 
-        notificationCenter
-            .removeObserver(
-                colorSpaceObserver,
-                name: NSScreen.colorSpaceDidChangeNotification,
-                object: nsScreen
-            )
+        notificationCenter.removeObserver(
+            colorSpaceObserver,
+            name: NSScreen.colorSpaceDidChangeNotification,
+            object: nsScreen
+        )
 
         state = .notMonitoring
         sourceEventsSubject.notifyUpdateListeners(of: .stoppedUpdating())
