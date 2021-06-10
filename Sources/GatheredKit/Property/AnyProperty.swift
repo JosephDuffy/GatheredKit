@@ -1,7 +1,7 @@
 import Combine
 import Foundation
 
-public protocol AnyProperty: class, AnySnapshot {
+public protocol AnyProperty: AnyObject, AnySnapshot {
     typealias AnyUpdateListener = (_ snapshot: AnySnapshot) -> Void
 
     var displayName: String { get }

@@ -1,7 +1,7 @@
 import Combine
 
 /// An object that be started and stopped
-public protocol Controllable: class {
+public protocol Controllable: AnyObject {
     /**
      Starts automatic updates. Closures added via `addUpdateListener(_:)` will be
      called when new properties are available

@@ -1,4 +1,4 @@
-public protocol AnySourceProvider: class {
+public protocol AnySourceProvider: AnyObject {
 
     var name: String { get }
 
