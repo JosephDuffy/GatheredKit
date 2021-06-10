@@ -1,12 +1,14 @@
 import Foundation
 
+/// A snapshot of data.
 public struct Snapshot<Value>: AnySnapshot {
     /// The value captured at `date`.
     public let value: Value
 
-    /// The date the `value` was captured.
+    /// The point in time the data was captured.
     public let date: Date
 
+    /// The data that was captured, erased as `Any`.
     public var typeErasedValue: Any? {
         castToOptional(value)
     }
@@ -15,7 +17,7 @@ public struct Snapshot<Value>: AnySnapshot {
      Create a new snapshot with the provided value and date.
 
      - parameter value: The captured value.
-     - parameter date: The date the value was captured.
+     - parameter date: The point in time the value was captured.
      */
     public init(value: Value, date: Date) {
         self.value = value
@@ -24,3 +26,4 @@ public struct Snapshot<Value>: AnySnapshot {
 }
 
 extension Snapshot: Equatable where Value: Equatable {}
+extension Snapshot: Hashable where Value: Hashable {}
