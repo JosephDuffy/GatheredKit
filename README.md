@@ -14,7 +14,7 @@ The code originated from [Gathered](https://geo.itunes.apple.com/app/gathered/id
 
 # Provided Libraries
 
-GatheredKit provider multiple libraries that each provide one or more data sources. This is done to allow the a subset of the data sources to be included, which both reduced bloat and ensures that consumers do not accidentally include APIs that require extra permissions, such as accessing the IDFA.
+GatheredKit provides multiple libraries that each provide one or more data sources. This is done to allow the a subset of the data sources to be included, which both reduced bloat and ensures that consumers do not accidentally include APIs that require extra permissions, such as accessing the IDFA.
 
 ## [`GatheredKit`](./Sources/GatheredKit/README.md)
 
