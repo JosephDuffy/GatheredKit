@@ -1,3 +1,4 @@
+import Combine
 import Foundation
 
 public protocol Property: AnyProperty {
@@ -23,6 +24,16 @@ extension Property {
     /// The date of the latest value.
     public var date: Date {
         snapshot.date
+    }
+
+    @available(macOS 12.0, iOS 15.0, tvOS 15.0, watchOS 8.0, *)
+    public var snapshots: AsyncPublisher<AnyPublisher<Snapshot<Value>, Never>> {
+        updatePublisher.combinePublisher.values
+    }
+
+    @available(macOS 12.0, iOS 15.0, tvOS 15.0, watchOS 8.0, *)
+    public var values: AsyncPublisher<AnyPublisher<Value, Never>> {
+        updatePublisher.combinePublisher.map(\.value).eraseToAnyPublisher().values
     }
 
     /// The type-erased current value of the property.
