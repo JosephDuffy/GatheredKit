@@ -10,27 +10,14 @@ internal final class MappedUpdatePublisher<Input, Payload>: UpdatePublisher {
 
     #if canImport(Combine)
     /// A publisher that publishes updates when the snapshot updates.
-    @available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
     internal var combinePublisher: AnyPublisher<Payload, Never> {
         combineSubject.eraseToAnyPublisher()
     }
 
-    @available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
     private typealias PayloadSubject = PassthroughSubject<Payload, Never>
 
     /// The updates subject that publishes snapshot updates.
-    @available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-    private var combineSubject: PayloadSubject {
-        _combineSubject as! PayloadSubject
-    }
-
-    private lazy var _combineSubject: Any = {
-        if #available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *) {
-            return PayloadSubject()
-        } else {
-            preconditionFailure("Should not be accessed")
-        }
-    }()
+    private lazy var combineSubject = PayloadSubject()
     #endif
 
     private var subscription: Subscription?

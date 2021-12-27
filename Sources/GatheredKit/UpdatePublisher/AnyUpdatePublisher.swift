@@ -5,12 +5,10 @@ import Combine
 public final class AnyUpdatePublisher<Payload>: UpdatePublisher {
     public typealias UpdateListener = (_ payload: Payload) -> Void
 
-    @available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
     public var combinePublisher: AnyPublisher<Payload, Never> {
         (boxedCombinePublisher as! BoxedCombinePublisher)()
     }
 
-    @available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
     private typealias BoxedCombinePublisher = () -> AnyPublisher<Payload, Never>
 
     private let boxedCombinePublisher: Any

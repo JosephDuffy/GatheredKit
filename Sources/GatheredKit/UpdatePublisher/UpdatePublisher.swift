@@ -9,7 +9,6 @@ public protocol UpdatePublisher: AnyObject {
     typealias UpdateListener = (_ payload: Payload) -> Void
 
     #if canImport(Combine)
-    @available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
     var combinePublisher: AnyPublisher<Payload, Never> { get }
     #endif
 
