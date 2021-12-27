@@ -25,7 +25,7 @@ public final class Gyroscope: UpdatingSource, CustomisableUpdateIntervalControll
     public private(set) var isUpdating: Bool = false
 
     public var updateInterval: TimeInterval? {
-        isUpdating ? CMMotionManager.shared.gyroUpdateInterval : nil
+        isUpdating ? motionManager.gyroUpdateInterval : nil
     }
 
     @OptionalCMRotationRateProperty
@@ -34,6 +34,8 @@ public final class Gyroscope: UpdatingSource, CustomisableUpdateIntervalControll
     public var allProperties: [AnyProperty] {
         [$rotationRate]
     }
+
+    private let motionManager: CMMotionManager
 
     private var state: State = .notMonitoring {
         didSet {
@@ -46,16 +48,36 @@ public final class Gyroscope: UpdatingSource, CustomisableUpdateIntervalControll
         }
     }
 
-    public init() {
-        availability = CMMotionManager.shared.isGyroAvailable ? .available : .unavailable
+    private var propertiesCancellables: [AnyCancellable] = []
+
+    public init(motionManager: CMMotionManager = .gatheredKitShared) {
+        self.motionManager = motionManager
+        availability = motionManager.isGyroAvailable ? .available : .unavailable
         _rotationRate = .init(displayName: "Rotation Rate")
         sourceEventsSubject = .init()
+
+        propertiesCancellables = allProperties.map { property in
+            property
+                .typeErasedUpdatePublisher
+                .combinePublisher
+                .sink { [weak property, sourceEventsSubject] snapshot in
+                    guard let property = property else { return }
+                    sourceEventsSubject.notifyUpdateListeners(of: .propertyUpdated(property: property, snapshot: snapshot))
+                }
+        }
     }
 
+    deinit {
+        motionManager.stopGyroUpdates()
+    }
+
+    /**
+     Start providing updates every ``updateInterval`` seconds. The update interval
+     is shared across instance of ``Gyroscope``.
+     */
     public func startUpdating(
         every updateInterval: TimeInterval
     ) {
-        let motionManager = CMMotionManager.shared
         motionManager.gyroUpdateInterval = updateInterval
 
         guard !isUpdating else { return }
@@ -66,7 +88,7 @@ public final class Gyroscope: UpdatingSource, CustomisableUpdateIntervalControll
             guard let self = self else { return }
 
             if let error = error {
-                CMMotionManager.shared.stopGyroUpdates()
+                self.motionManager.stopGyroUpdates()
                 self.sourceEventsSubject.notifyUpdateListeners(
                     of: .stoppedUpdating(error: error))
                 self.state = .notMonitoring
@@ -82,7 +104,7 @@ public final class Gyroscope: UpdatingSource, CustomisableUpdateIntervalControll
     }
 
     public func stopUpdating() {
-        CMMotionManager.shared.stopGyroUpdates()
+        motionManager.stopGyroUpdates()
         state = .notMonitoring
         sourceEventsSubject.notifyUpdateListeners(of: .stoppedUpdating())
     }

@@ -7,7 +7,7 @@ import GatheredKit
 public final class Altimeter: UpdatingSource, Controllable, ActionProvider {
     private enum State {
         case notMonitoring
-        case monitoring(altimeter: CMAltimeter, updatesQueue: OperationQueue)
+        case monitoring(updatesQueue: OperationQueue)
     }
 
     public let name = "Altimeter"
@@ -45,6 +45,8 @@ public final class Altimeter: UpdatingSource, Controllable, ActionProvider {
         ]
     }
 
+    private let altimeter: CMAltimeter
+
     private var state: State = .notMonitoring {
         didSet {
             switch state {
@@ -56,11 +58,28 @@ public final class Altimeter: UpdatingSource, Controllable, ActionProvider {
         }
     }
 
-    public init() {
+    private var propertiesCancellables: [AnyCancellable] = []
+
+    public init(altimeter: CMAltimeter = CMAltimeter()) {
+        self.altimeter = altimeter
         availability = CMAltimeter.availability
         _relativeAltitude = .meters(displayName: "Relative Altitude")
         _pressure = .kilopascals(displayName: "Pressure")
         sourceEventsSubject = .init()
+
+        propertiesCancellables = allProperties.map { property in
+            property
+                .typeErasedUpdatePublisher
+                .combinePublisher
+                .sink { [weak property, sourceEventsSubject] snapshot in
+                    guard let property = property else { return }
+                    sourceEventsSubject.notifyUpdateListeners(of: .propertyUpdated(property: property, snapshot: snapshot))
+                }
+        }
+    }
+
+    deinit {
+        altimeter.stopRelativeAltitudeUpdates()
     }
 
     public func startUpdating() {
@@ -96,13 +115,12 @@ public final class Altimeter: UpdatingSource, Controllable, ActionProvider {
 
         let updatesQueue = OperationQueue()
         updatesQueue.name = "GatheredKit Altimeter Updates"
-        let altimeter = CMAltimeter()
 
         altimeter.startRelativeAltitudeUpdates(to: updatesQueue) {
-            [weak self, weak altimeter] data, error in
+            [weak self] data, error in
             guard let self = self else { return }
             if let error = error {
-                altimeter?.stopRelativeAltitudeUpdates()
+                self.altimeter.stopRelativeAltitudeUpdates()
                 self.sourceEventsSubject.notifyUpdateListeners(
                     of: .stoppedUpdating(error: error))
                 self.state = .notMonitoring
@@ -110,16 +128,16 @@ public final class Altimeter: UpdatingSource, Controllable, ActionProvider {
             }
             guard let data = data else { return }
 
-            self._relativeAltitude.updateMeasuredValueIfDifferent(data.relativeAltitude.doubleValue)
-            self._pressure.updateMeasuredValueIfDifferent(data.pressure.doubleValue)
+            self._relativeAltitude.updateMeasuredValue(data.relativeAltitude.doubleValue)
+            self._pressure.updateMeasuredValue(data.pressure.doubleValue)
         }
 
-        state = .monitoring(altimeter: altimeter, updatesQueue: updatesQueue)
+        state = .monitoring(updatesQueue: updatesQueue)
         sourceEventsSubject.notifyUpdateListeners(of: .startedUpdating)
     }
 
     public func stopUpdating() {
-        guard case .monitoring(let altimeter, _) = state else { return }
+        guard case .monitoring = state else { return }
         altimeter.stopRelativeAltitudeUpdates()
         state = .notMonitoring
         sourceEventsSubject.notifyUpdateListeners(of: .stoppedUpdating())

@@ -20,20 +20,22 @@ public final class Accelerometer: UpdatingSource, CustomisableUpdateIntervalCont
         sourceEventsSubject.eraseToAnyUpdatePublisher()
     }
 
-    private let sourceEventsSubject: UpdateSubject<SourceEvent>
+    private let sourceEventsSubject = UpdateSubject<SourceEvent>()
 
     public private(set) var isUpdating: Bool = false
 
     public var updateInterval: TimeInterval? {
-        isUpdating ? CMMotionManager.shared.accelerometerUpdateInterval : nil
+        isUpdating ? motionManager.accelerometerUpdateInterval : nil
     }
 
-    @OptionalCMAccelerationProperty
+    @OptionalCMAccelerationProperty(displayName: "Acceleration")
     public private(set) var acceleration: CMAcceleration?
 
     public var allProperties: [AnyProperty] {
         [$acceleration]
     }
+
+    private let motionManager: CMMotionManager
 
     private var state: State = .notMonitoring {
         didSet {
@@ -46,16 +48,34 @@ public final class Accelerometer: UpdatingSource, CustomisableUpdateIntervalCont
         }
     }
 
-    public init() {
-        availability = CMMotionManager.shared.isAccelerometerAvailable ? .available : .unavailable
-        _acceleration = .init(displayName: "Acceleration")
-        sourceEventsSubject = .init()
+    private var propertiesCancellables: [AnyCancellable] = []
+
+    public init(motionManager: CMMotionManager = .gatheredKitShared) {
+        self.motionManager = motionManager
+        availability = motionManager.isAccelerometerAvailable ? .available : .unavailable
+
+        propertiesCancellables = allProperties.map { property in
+            property
+                .typeErasedUpdatePublisher
+                .combinePublisher
+                .sink { [weak property, sourceEventsSubject] snapshot in
+                    guard let property = property else { return }
+                    sourceEventsSubject.notifyUpdateListeners(of: .propertyUpdated(property: property, snapshot: snapshot))
+                }
+        }
     }
 
+    deinit {
+        motionManager.stopAccelerometerUpdates()
+    }
+
+    /**
+     Start providing updates every ``updateInterval`` seconds. The update interval
+     is shared across instance of ``Accelerometer``.
+     */
     public func startUpdating(
         every updateInterval: TimeInterval
     ) {
-        let motionManager = CMMotionManager.shared
         motionManager.accelerometerUpdateInterval = updateInterval
 
         guard !isUpdating else { return }
@@ -65,15 +85,15 @@ public final class Accelerometer: UpdatingSource, CustomisableUpdateIntervalCont
         motionManager.startAccelerometerUpdates(to: updatesQueue) { [weak self] data, error in
             guard let self = self else { return }
             if let error = error {
-                CMMotionManager.shared.stopAccelerometerUpdates()
+                self.motionManager.stopAccelerometerUpdates()
                 self.sourceEventsSubject.notifyUpdateListeners(
                     of: .stoppedUpdating(error: error))
                 self.state = .notMonitoring
                 return
             }
             guard let data = data else { return }
-            let snapshot = self._acceleration.updateValue(data.acceleration, date: data.date)
-            self.sourceEventsSubject.notifyUpdateListeners(of: .propertyUpdated(property: self.$acceleration, snapshot: snapshot))
+
+            self._acceleration.updateValue(data.acceleration, date: data.date)
         }
 
         state = .monitoring(updatesQueue: updatesQueue)
@@ -81,7 +101,7 @@ public final class Accelerometer: UpdatingSource, CustomisableUpdateIntervalCont
     }
 
     public func stopUpdating() {
-        CMMotionManager.shared.stopAccelerometerUpdates()
+        motionManager.stopAccelerometerUpdates()
         state = .notMonitoring
         sourceEventsSubject.notifyUpdateListeners(of: .stoppedUpdating())
     }

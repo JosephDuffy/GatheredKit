@@ -25,7 +25,7 @@ public final class Magnetometer: UpdatingSource, CustomisableUpdateIntervalContr
     public private(set) var isUpdating: Bool = false
 
     public var updateInterval: TimeInterval? {
-        isUpdating ? CMMotionManager.shared.magnetometerUpdateInterval : nil
+        isUpdating ? motionManager.magnetometerUpdateInterval : nil
     }
 
     @OptionalCMMagneticFieldProperty
@@ -34,6 +34,8 @@ public final class Magnetometer: UpdatingSource, CustomisableUpdateIntervalContr
     public var allProperties: [AnyProperty] {
         [$magneticField]
     }
+
+    private let motionManager: CMMotionManager
 
     private var state: State = .notMonitoring {
         didSet {
@@ -46,16 +48,32 @@ public final class Magnetometer: UpdatingSource, CustomisableUpdateIntervalContr
         }
     }
 
-    public init() {
-        availability = CMMotionManager.shared.isMagnetometerAvailable ? .available : .unavailable
+    private var propertiesCancellables: [AnyCancellable] = []
+
+    public init(motionManager: CMMotionManager = .gatheredKitShared) {
+        self.motionManager = motionManager
+        availability = motionManager.isMagnetometerAvailable ? .available : .unavailable
         _magneticField = .init(displayName: "Magnetic Field")
         sourceEventsSubject = .init()
+
+        propertiesCancellables = allProperties.map { property in
+            property
+                .typeErasedUpdatePublisher
+                .combinePublisher
+                .sink { [weak property, sourceEventsSubject] snapshot in
+                    guard let property = property else { return }
+                    sourceEventsSubject.notifyUpdateListeners(of: .propertyUpdated(property: property, snapshot: snapshot))
+                }
+        }
     }
 
+    /**
+     Start providing updates every ``updateInterval`` seconds. The update interval
+     is shared across instance of ``Magnetometer``.
+     */
     public func startUpdating(
         every updateInterval: TimeInterval
     ) {
-        let motionManager = CMMotionManager.shared
         motionManager.magnetometerUpdateInterval = updateInterval
 
         guard !isUpdating else { return }
@@ -66,7 +84,7 @@ public final class Magnetometer: UpdatingSource, CustomisableUpdateIntervalContr
             guard let self = self else { return }
 
             if let error = error {
-                CMMotionManager.shared.stopMagnetometerUpdates()
+                self.motionManager.stopMagnetometerUpdates()
                 self.sourceEventsSubject.notifyUpdateListeners(
                     of: .stoppedUpdating(error: error))
                 self.state = .notMonitoring
@@ -82,7 +100,7 @@ public final class Magnetometer: UpdatingSource, CustomisableUpdateIntervalContr
     }
 
     public func stopUpdating() {
-        CMMotionManager.shared.stopMagnetometerUpdates()
+        motionManager.stopMagnetometerUpdates()
         state = .notMonitoring
         sourceEventsSubject.notifyUpdateListeners(of: .stoppedUpdating())
     }

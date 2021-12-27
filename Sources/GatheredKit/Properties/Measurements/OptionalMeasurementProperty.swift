@@ -116,19 +116,6 @@ public final class OptionalMeasurementProperty<Unit: Foundation.Unit>: Updatable
             return updateValue(nil, date: date)
         }
     }
-
-    /**
-     Updates the value backing this `Property`, only if the provided value is different.
-
-     - Parameter value: The new value.
-     - Parameter date: The date and time the `value` was recorded. Defaults to the current date and time.
-     - Returns: The new snapshot, or `nil` if the value was not different.
-     */
-    @discardableResult
-    public func updateMeasuredValueIfDifferent(_ measuredValue: Double?, date: Date = Date()) -> Snapshot<Value>? {
-        guard measuredValue != measurement?.value else { return nil }
-        return updateMeasuredValue(measuredValue, date: date)
-    }
 }
 
 extension OptionalMeasurementProperty where Unit: Foundation.Dimension {

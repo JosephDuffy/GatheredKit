@@ -29,7 +29,7 @@ public final class DeviceMotion: UpdatingSource, CustomisableUpdateIntervalContr
     public private(set) var isUpdating: Bool = false
 
     public var updateInterval: TimeInterval? {
-        isUpdating ? CMMotionManager.shared.deviceMotionUpdateInterval : nil
+        isUpdating ? motionManager.deviceMotionUpdateInterval : nil
     }
 
     @OptionalCMAttitudeProperty
@@ -61,6 +61,8 @@ public final class DeviceMotion: UpdatingSource, CustomisableUpdateIntervalContr
         ]
     }
 
+    private let motionManager: CMMotionManager
+
     private var state: State = .notMonitoring {
         didSet {
             switch state {
@@ -72,8 +74,11 @@ public final class DeviceMotion: UpdatingSource, CustomisableUpdateIntervalContr
         }
     }
 
-    public init() {
-        availability = CMMotionManager.shared.isDeviceMotionAvailable ? .available : .unavailable
+    private var propertiesCancellables: [AnyCancellable] = []
+
+    public init(motionManager: CMMotionManager = .gatheredKitShared) {
+        self.motionManager = motionManager
+        availability = motionManager.isDeviceMotionAvailable ? .available : .unavailable
         _attitude = .init(displayName: "Attitude")
         _gravity = .init(displayName: "Gravity Acceleration")
         _userAcceleration = .init(displayName: "User Acceleration")
@@ -82,17 +87,38 @@ public final class DeviceMotion: UpdatingSource, CustomisableUpdateIntervalContr
         _rotationRate = .init(displayName: "Rotation Rate")
 
         sourceEventsSubject = .init()
+
+        propertiesCancellables = allProperties.map { property in
+            property
+                .typeErasedUpdatePublisher
+                .combinePublisher
+                .sink { [weak property, sourceEventsSubject] snapshot in
+                    guard let property = property else { return }
+                    sourceEventsSubject.notifyUpdateListeners(of: .propertyUpdated(property: property, snapshot: snapshot))
+                }
+        }
     }
 
+    deinit {
+        motionManager.stopDeviceMotionUpdates()
+    }
+
+    /**
+     Start providing updates every ``updateInterval`` seconds. The update interval
+     is shared across instance of ``DeviceMotion``.
+     */
     public func startUpdating(every updateInterval: TimeInterval) {
         startUpdating(every: updateInterval, referenceFrame: nil)
     }
 
+    /**
+     Start providing updates every ``updateInterval`` seconds. The update interval
+     is shared across instance of ``DeviceMotion``.
+     */
     public func startUpdating(
         every updateInterval: TimeInterval,
         referenceFrame: CMAttitudeReferenceFrame?
     ) {
-        let motionManager = CMMotionManager.shared
         motionManager.deviceMotionUpdateInterval = updateInterval
 
         guard !isUpdating else { return }
@@ -104,7 +130,7 @@ public final class DeviceMotion: UpdatingSource, CustomisableUpdateIntervalContr
             guard let self = self else { return }
 
             if let error = error {
-                CMMotionManager.shared.stopDeviceMotionUpdates()
+                self.motionManager.stopDeviceMotionUpdates()
                 self.sourceEventsSubject.notifyUpdateListeners(
                     of: .stoppedUpdating(error: error))
                 self.state = .notMonitoring
@@ -123,7 +149,7 @@ public final class DeviceMotion: UpdatingSource, CustomisableUpdateIntervalContr
 
             self._attitude.updateValueIfDifferent(attitude, date: date)
             self._gravity.updateValue(gravity, date: date)
-            self._heading.updateMeasuredValueIfDifferent(heading, date: date)
+            self._heading.updateMeasuredValue(heading, date: date)
             self._magneticField.updateValue(magneticField, date: date)
             self._rotationRate.updateValue(rotationRate, date: date)
             self._userAcceleration.updateValue(userAcceleration, date: date)
@@ -147,7 +173,7 @@ public final class DeviceMotion: UpdatingSource, CustomisableUpdateIntervalContr
     }
 
     public func stopUpdating() {
-        CMMotionManager.shared.stopDeviceMotionUpdates()
+        motionManager.stopDeviceMotionUpdates()
         state = .notMonitoring
         sourceEventsSubject.notifyUpdateListeners(of: .stoppedUpdating())
     }
