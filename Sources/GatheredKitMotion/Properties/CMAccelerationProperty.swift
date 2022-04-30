@@ -4,7 +4,7 @@ import Foundation
 import GatheredKit
 
 @propertyWrapper
-public final class CMAccelerationProperty: UpdatableProperty, PropertiesProvider {
+public final class CMAccelerationProperty: UpdatableProperty, PropertiesProviding {
     public typealias Value = CMAcceleration
     public typealias Formatter = CMAccelerationFormatter
 

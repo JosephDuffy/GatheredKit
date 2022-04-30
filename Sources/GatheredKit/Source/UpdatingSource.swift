@@ -3,7 +3,8 @@ import Combine
 #endif
 
 public protocol UpdatingSource: Source {
-    /// An update publisher that can be used to subscribe to events emitted by he controllable.
+    /// An update publisher that can be used to subscribe to events emitted by
+    /// the source.
     var sourceEventPublisher: AnyUpdatePublisher<SourceEvent> { get }
 
     /// A boolean indicating if the source is currently performing automatic updates.

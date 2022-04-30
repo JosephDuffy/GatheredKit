@@ -4,7 +4,7 @@ import Foundation
 import GatheredKit
 
 @propertyWrapper
-public final class OptionalCMRotationRateProperty: UpdatableProperty, PropertiesProvider {
+public final class OptionalCMRotationRateProperty: UpdatableProperty, PropertiesProviding {
     public typealias Value = CMRotationRate?
     public typealias Formatter = CMRotationRateFormatter
 

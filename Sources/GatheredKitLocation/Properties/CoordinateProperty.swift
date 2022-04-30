@@ -3,7 +3,7 @@ import Foundation
 import GatheredKit
 
 @propertyWrapper
-public final class CoordinateProperty: UpdatableProperty, PropertiesProvider {
+public final class CoordinateProperty: UpdatableProperty, PropertiesProviding {
     public typealias Value = CLLocationCoordinate2D
 
     public var allProperties: [AnyProperty] {

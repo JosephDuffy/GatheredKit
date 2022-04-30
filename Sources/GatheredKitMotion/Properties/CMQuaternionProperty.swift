@@ -4,7 +4,7 @@ import Foundation
 import GatheredKit
 
 @propertyWrapper
-public final class CMQuaternionProperty: UpdatableProperty, PropertiesProvider {
+public final class CMQuaternionProperty: UpdatableProperty, PropertiesProviding {
     public typealias Value = CMQuaternion
     public typealias Formatter = CMQuaternionFormatter
 

@@ -33,7 +33,7 @@ public final class ReadOnlyProperty<Property: AnyProperty>: AnyProperty {
     }
 }
 
-extension ReadOnlyProperty: PropertiesProvider where Property: PropertiesProvider {
+extension ReadOnlyProperty: PropertiesProviding where Property: PropertiesProviding {
     public var allProperties: [AnyProperty] {
         wrapped.allProperties
     }

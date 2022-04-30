@@ -6,7 +6,7 @@ import GatheredKit
 // TODO: Add rotationMatrix
 
 @propertyWrapper
-public final class OptionalCMAttitudeProperty: UpdatableProperty, PropertiesProvider {
+public final class OptionalCMAttitudeProperty: UpdatableProperty, PropertiesProviding {
     public typealias Value = CMAttitude?
     public typealias Formatter = CMAttitudeFormatter
 

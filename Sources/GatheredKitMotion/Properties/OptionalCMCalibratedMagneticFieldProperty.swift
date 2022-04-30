@@ -4,7 +4,7 @@ import Foundation
 import GatheredKit
 
 @propertyWrapper
-public final class OptionalCMCalibratedMagneticFieldProperty: UpdatableProperty, PropertiesProvider {
+public final class OptionalCMCalibratedMagneticFieldProperty: UpdatableProperty, PropertiesProviding {
     public typealias Value = CMCalibratedMagneticField?
     // TODO: Create `CMCalibratedMagneticFieldFormatter`
     public typealias Formatter = CMMagneticFieldFormatter

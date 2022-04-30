@@ -1,5 +1,5 @@
 /// A property provider that supports its properties being updated at any given time.
-public protocol ManuallyUpdatablePropertiesProvider: PropertiesProvider {
+public protocol ManuallyUpdatablePropertiesProvider: PropertiesProviding {
     /**
      Force the properties provider to update its properties.
 
