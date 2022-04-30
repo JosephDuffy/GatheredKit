@@ -43,24 +43,37 @@ jobs:
       - name: Select Xcode ${{ matrix.xcode }}
         run: sudo xcode-select --switch /Applications/Xcode_${{ matrix.xcode }}.app
 
-      - name: Cache SwiftPM
-        uses: actions/cache@v2
+      - name: Install Mint
+        run: brew install mint
+
+      - name: Cache Mint
+        uses: actions/cache@v3
         with:
-          path: DevelopmentDependencies/.build
-          key: ${{ runner.os }}-xcode_${{ matrix.xcode }}-swiftpm-ci-deps-${{ github.workspace }}-${{ hashFiles('DevelopmentDependencies/Package.resolved') }}
+          path: ~/.mint
+          key: ${{ runner.os }}-mint-xcode_${{ matrix.xcode }}-${{ hashFiles('**/Mintfile') }}
           restore-keys: |
-            ${{ runner.os }}-xcode_${{ matrix.xcode }}-swiftpm-ci-deps-${{ github.workspace }}-
+            ${{ runner.os }}-mint-xcode_${{ matrix.xcode }}
+
+      - run: mint bootstrap
+
+      - name: Cache SwiftPM
+        uses: actions/cache@v3
+        with:
+          path: .build
+          key: ${{ runner.os }}-xcode_${{ matrix.xcode }}-swiftpm-${{ hashFiles('**/Package.resolved') }}
+          restore-keys: |
+            ${{ runner.os }}-xcode_${{ matrix.xcode }}-swiftpm-
 
       - name: Cache DerivedData
-        uses: actions/cache@v2
+        uses: actions/cache@v3
         with:
           path: ~/Library/Developer/Xcode/DerivedData
-          key: ${{ runner.os }}-${{ matrix.platform }}_derived_data-xcode_${{ matrix.xcode }}
+          key: ${{ runner.os }}-${{ matrix.platform }}-derived_data-xcode_${{ matrix.xcode }}
           restore-keys: |
-            ${{ runner.os }}-${{ matrix.platform }}_derived_data
+            ${{ runner.os }}-${{ matrix.platform }}-derived_data-
 
       - name: Run Tests
-        run: swift run --configuration release --skip-update --package-path ./DevelopmentDependencies/ xcutils test ${{ matrix.platform }} --scheme GatheredKit-Package --enable-code-coverage
+        run: mint run xcutils test ${{ matrix.platform }} --scheme GatheredKit-Package --enable-code-coverage | $(mint which xcbeautify)
 
       - name: Convert coverage for Codecov
         id: convert-coverage
