@@ -5,11 +5,11 @@ on: [push]
 jobs:
   macos_tests:
     name: macOS Tests (SwiftPM, Xcode ${{ matrix.xcode }})
-    runs-on: macos-latest
+    runs-on: macos-12
     strategy:
       fail-fast: false
       matrix:
-        xcode: ["11.5", "12_beta"]
+        xcode: ["13.3.1"]
 
     steps:
       - uses: actions/checkout@v2
@@ -30,11 +30,11 @@ jobs:
 
   xcode_tests:
     name: ${{ matrix.platform }} ${{ matrix.scheme }} Tests (Xcode ${{ matrix.xcode }})
-    runs-on: macos-latest
+    runs-on: macos-12
     strategy:
       fail-fast: false
       matrix:
-        xcode: ["11.5", "12_beta"]
+        xcode: ["13.3.1"]
         platform: ["iOS", "tvOS", "macCatalyst"]
         scheme: ["GatheredKitCore", "GatheredKitLocation", "GatheredKitScreen"]
 
@@ -70,11 +70,11 @@ jobs:
 
   watchos_build:
     name: watchOS Build (Xcode ${{ matrix.xcode }})
-    runs-on: macos-latest
+    runs-on: macos-12
     strategy:
       fail-fast: false
       matrix:
-        xcode: ["11.5", "12_beta"]
+        xcode: ["13.3.1"]
 
     steps:
       - uses: actions/checkout@v2
