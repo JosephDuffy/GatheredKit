@@ -16,11 +16,11 @@ public final class Accelerometer: UpdatingSource, CustomisableUpdateIntervalCont
 
     public static var defaultUpdateInterval: TimeInterval = 1
 
-    public var sourceEventPublisher: AnyUpdatePublisher<SourceEvent> {
-        sourceEventsSubject.eraseToAnyUpdatePublisher()
+    public var eventsPublisher: AnyPublisher<SourceEvent, Never> {
+        eventsSubject.eraseToAnyPublisher()
     }
 
-    private let sourceEventsSubject = UpdateSubject<SourceEvent>()
+    private let eventsSubject = PassthroughSubject<SourceEvent, Never>()
 
     public private(set) var isUpdating: Bool = false
 
@@ -58,9 +58,9 @@ public final class Accelerometer: UpdatingSource, CustomisableUpdateIntervalCont
             property
                 .typeErasedUpdatePublisher
                 .combinePublisher
-                .sink { [weak property, sourceEventsSubject] snapshot in
+                .sink { [weak property, eventsSubject] snapshot in
                     guard let property = property else { return }
-                    sourceEventsSubject.notifyUpdateListeners(of: .propertyUpdated(property: property, snapshot: snapshot))
+                    eventsSubject.send(.propertyUpdated(property: property, snapshot: snapshot))
                 }
         }
     }
@@ -86,8 +86,7 @@ public final class Accelerometer: UpdatingSource, CustomisableUpdateIntervalCont
             guard let self = self else { return }
             if let error = error {
                 self.motionManager.stopAccelerometerUpdates()
-                self.sourceEventsSubject.notifyUpdateListeners(
-                    of: .stoppedUpdating(error: error))
+                self.eventsSubject.send(.stoppedUpdating(error: error))
                 self.state = .notMonitoring
                 return
             }
@@ -97,13 +96,13 @@ public final class Accelerometer: UpdatingSource, CustomisableUpdateIntervalCont
         }
 
         state = .monitoring(updatesQueue: updatesQueue)
-        sourceEventsSubject.notifyUpdateListeners(of: .startedUpdating)
+        eventsSubject.send(.startedUpdating)
     }
 
     public func stopUpdating() {
         motionManager.stopAccelerometerUpdates()
         state = .notMonitoring
-        sourceEventsSubject.notifyUpdateListeners(of: .stoppedUpdating())
+        eventsSubject.send(.stoppedUpdating())
     }
 }
 #endif

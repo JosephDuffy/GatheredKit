@@ -1,3 +1,4 @@
+import Combine
 import Foundation
 
 /// A base class that can be used to create sources that can only be polled for updates.
@@ -40,39 +41,23 @@ open class BasePollingSource: UpdatingSource {
 
     public var allProperties: [AnyProperty] = []
 
-    public var sourceEventPublisher: AnyUpdatePublisher<SourceEvent> {
-        sourceEventsSubject.eraseToAnyUpdatePublisher()
+    public var eventsPublisher: AnyPublisher<SourceEvent, Never> {
+        eventsSubject.eraseToAnyPublisher()
     }
 
-    internal let sourceEventsSubject: UpdateSubject<SourceEvent>
+    internal let eventsSubject = PassthroughSubject<SourceEvent, Never>()
 
     fileprivate var state: State = .notMonitoring
-
-    private var updatesQueue: DispatchQueue? {
-        switch state {
-        case .monitoring(let updatesQueue, _):
-            return updatesQueue
-        case .notMonitoring:
-            return nil
-        }
-    }
 
     public required init() {
         guard type(of: self) != BasePollingSource.self else {
             fatalError("BasePollingSource must be subclassed")
         }
-
-        sourceEventsSubject = .init()
     }
 }
 
-extension CustomisableUpdateIntervalControllable
-    where Self: BasePollingSource, Self: ManuallyUpdatablePropertiesProvider
-{
+extension CustomisableUpdateIntervalControllable where Self: BasePollingSource, Self: ManuallyUpdatablePropertiesProvider {
     public func stopUpdating() {
         state = .notMonitoring
     }
 }
-
-extension CustomisableUpdateIntervalControllable
-    where Self: BasePollingSource, Self: ManuallyUpdatablePropertiesProvider {}

@@ -17,11 +17,11 @@ public final class Screen: UpdatingSource, Controllable {
 
     public let name = "Screen"
 
-    public var sourceEventPublisher: AnyUpdatePublisher<SourceEvent> {
-        sourceEventsSubject.eraseToAnyUpdatePublisher()
+    public var eventsPublisher: AnyPublisher<SourceEvent, Never> {
+        eventsSubject.eraseToAnyPublisher()
     }
 
-    private let sourceEventsSubject: UpdateSubject<SourceEvent>
+    private let eventsSubject = PassthroughSubject<SourceEvent, Never>()
 
     public private(set) var isUpdating: Bool = false
 
@@ -50,10 +50,10 @@ public final class Screen: UpdatingSource, Controllable {
             switch state {
             case .monitoring:
                 isUpdating = true
-                sourceEventsSubject.notifyUpdateListeners(of: .startedUpdating)
+                eventsSubject.send(.startedUpdating)
             case .notMonitoring:
                 isUpdating = false
-                sourceEventsSubject.notifyUpdateListeners(of: .stoppedUpdating())
+                eventsSubject.send(.stoppedUpdating())
             }
         }
     }
@@ -77,7 +77,6 @@ public final class Screen: UpdatingSource, Controllable {
     internal init(screen: NSScreen, notificationCenter: NotificationCenter = .default) {
         nsScreen = screen
         self.notificationCenter = notificationCenter
-        sourceEventsSubject = .init()
 
         _resolution = .init(
             displayName: "Resolution",
@@ -107,12 +106,12 @@ public final class Screen: UpdatingSource, Controllable {
             guard let self = self else { return }
 
             if let snapshot = self._resolution.updateValueIfDifferent(self.nsScreen.frame.size) {
-                self.sourceEventsSubject.notifyUpdateListeners(of: .propertyUpdated(property: self.$resolution, snapshot: snapshot))
+                self.eventsSubject.send(.propertyUpdated(property: self.$resolution, snapshot: snapshot))
             }
         }
 
         if let snapshot = _resolution.updateValueIfDifferent(nsScreen.frame.size) {
-            sourceEventsSubject.notifyUpdateListeners(of: .propertyUpdated(property: $resolution, snapshot: snapshot))
+            eventsSubject.send(.propertyUpdated(property: $resolution, snapshot: snapshot))
         }
 
         let colorSpaceObserver = notificationCenter.addObserver(
@@ -126,7 +125,7 @@ public final class Screen: UpdatingSource, Controllable {
             colorSpaceObserver: colorSpaceObserver,
             updatesQueue: updatesQueue
         )
-        sourceEventsSubject.notifyUpdateListeners(of: .startedUpdating)
+        eventsSubject.send(.startedUpdating)
     }
 
     /**
@@ -151,7 +150,7 @@ public final class Screen: UpdatingSource, Controllable {
             )
 
         state = .notMonitoring
-        sourceEventsSubject.notifyUpdateListeners(of: .stoppedUpdating())
+        eventsSubject.send(.stoppedUpdating())
     }
 }
 

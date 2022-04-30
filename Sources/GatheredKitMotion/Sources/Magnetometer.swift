@@ -16,11 +16,11 @@ public final class Magnetometer: UpdatingSource, CustomisableUpdateIntervalContr
 
     public static var defaultUpdateInterval: TimeInterval = 1
 
-    public var sourceEventPublisher: AnyUpdatePublisher<SourceEvent> {
-        sourceEventsSubject.eraseToAnyUpdatePublisher()
+    public var eventsPublisher: AnyPublisher<SourceEvent, Never> {
+        eventsSubject.eraseToAnyPublisher()
     }
 
-    private let sourceEventsSubject: UpdateSubject<SourceEvent>
+    private let eventsSubject = PassthroughSubject<SourceEvent, Never>()
 
     public private(set) var isUpdating: Bool = false
 
@@ -54,15 +54,14 @@ public final class Magnetometer: UpdatingSource, CustomisableUpdateIntervalContr
         self.motionManager = motionManager
         availability = motionManager.isMagnetometerAvailable ? .available : .unavailable
         _magneticField = .init(displayName: "Magnetic Field")
-        sourceEventsSubject = .init()
 
         propertiesCancellables = allProperties.map { property in
             property
                 .typeErasedUpdatePublisher
                 .combinePublisher
-                .sink { [weak property, sourceEventsSubject] snapshot in
+                .sink { [weak property, eventsSubject] snapshot in
                     guard let property = property else { return }
-                    sourceEventsSubject.notifyUpdateListeners(of: .propertyUpdated(property: property, snapshot: snapshot))
+                    eventsSubject.send(.propertyUpdated(property: property, snapshot: snapshot))
                 }
         }
     }
@@ -85,8 +84,7 @@ public final class Magnetometer: UpdatingSource, CustomisableUpdateIntervalContr
 
             if let error = error {
                 self.motionManager.stopMagnetometerUpdates()
-                self.sourceEventsSubject.notifyUpdateListeners(
-                    of: .stoppedUpdating(error: error))
+                self.eventsSubject.send(.stoppedUpdating(error: error))
                 self.state = .notMonitoring
                 return
             }
@@ -96,13 +94,13 @@ public final class Magnetometer: UpdatingSource, CustomisableUpdateIntervalContr
         }
 
         state = .monitoring(updatesQueue: updatesQueue)
-        sourceEventsSubject.notifyUpdateListeners(of: .startedUpdating)
+        eventsSubject.send(.startedUpdating)
     }
 
     public func stopUpdating() {
         motionManager.stopMagnetometerUpdates()
         state = .notMonitoring
-        sourceEventsSubject.notifyUpdateListeners(of: .stoppedUpdating())
+        eventsSubject.send(.stoppedUpdating())
     }
 }
 #endif

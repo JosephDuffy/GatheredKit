@@ -15,11 +15,11 @@ public final class Location: NSObject, UpdatingSource, Controllable {
 
     public let name = "Location"
 
-    public var sourceEventPublisher: AnyUpdatePublisher<SourceEvent> {
-        sourceEventsSubject.eraseToAnyUpdatePublisher()
+    public var eventsPublisher: AnyPublisher<SourceEvent, Never> {
+        eventsSubject.eraseToAnyPublisher()
     }
 
-    private let sourceEventsSubject: UpdateSubject<SourceEvent>
+    private let eventsSubject = PassthroughSubject<SourceEvent, Never>()
 
     @OptionalCoordinateProperty
     public private(set) var coordinate: CLLocationCoordinate2D?
@@ -70,7 +70,7 @@ public final class Location: NSObject, UpdatingSource, Controllable {
         ]
     }
 
-    public var isUpdating: Bool = false
+    public private(set) var isUpdating: Bool = false
 
     private var locationManager: CLLocationManager? {
         if case .monitoring(let locationManager) = state {
@@ -93,13 +93,13 @@ public final class Location: NSObject, UpdatingSource, Controllable {
             switch state {
             case .monitoring:
                 isUpdating = true
-                sourceEventsSubject.notifyUpdateListeners(of: .startedUpdating)
+                eventsSubject.send(.startedUpdating)
             case .askingForPermissions:
                 isUpdating = false
-                sourceEventsSubject.notifyUpdateListeners(of: .requestingPermission)
+                eventsSubject.send(.requestingPermission)
             case .notMonitoring:
                 isUpdating = false
-                sourceEventsSubject.notifyUpdateListeners(of: .stoppedUpdating())
+                eventsSubject.send(.stoppedUpdating())
             }
         }
     }
@@ -118,8 +118,6 @@ public final class Location: NSObject, UpdatingSource, Controllable {
         _authorizationStatus = .init(
             displayName: "Authorization Status", value: CLLocationManager.authorizationStatus()
         )
-
-        sourceEventsSubject = UpdateSubject()
 
         super.init()
     }
@@ -258,13 +256,13 @@ public final class Location: NSObject, UpdatingSource, Controllable {
         let verticalAccuracySnapshot: Snapshot<Measurement<UnitLength>?>
 
         defer {
-            sourceEventsSubject.notifyUpdateListeners(of: .propertyUpdated(property: $coordinate, snapshot: coordinateSnapshot))
-            sourceEventsSubject.notifyUpdateListeners(of: .propertyUpdated(property: $speed, snapshot: speedSnapshot))
-            sourceEventsSubject.notifyUpdateListeners(of: .propertyUpdated(property: $course, snapshot: courseSnapshot))
-            sourceEventsSubject.notifyUpdateListeners(of: .propertyUpdated(property: $altitude, snapshot: altitudeSnapshot))
-            sourceEventsSubject.notifyUpdateListeners(of: .propertyUpdated(property: $floor, snapshot: floorSnapshot))
-            sourceEventsSubject.notifyUpdateListeners(of: .propertyUpdated(property: $horizonalAccuracy, snapshot: horizonalAccuracySnapshot))
-            sourceEventsSubject.notifyUpdateListeners(of: .propertyUpdated(property: $verticalAccuracy, snapshot: verticalAccuracySnapshot))
+            eventsSubject.send(.propertyUpdated(property: $coordinate, snapshot: coordinateSnapshot))
+            eventsSubject.send(.propertyUpdated(property: $speed, snapshot: speedSnapshot))
+            eventsSubject.send(.propertyUpdated(property: $course, snapshot: courseSnapshot))
+            eventsSubject.send(.propertyUpdated(property: $altitude, snapshot: altitudeSnapshot))
+            eventsSubject.send(.propertyUpdated(property: $floor, snapshot: floorSnapshot))
+            eventsSubject.send(.propertyUpdated(property: $horizonalAccuracy, snapshot: horizonalAccuracySnapshot))
+            eventsSubject.send(.propertyUpdated(property: $verticalAccuracy, snapshot: verticalAccuracySnapshot))
         }
 
         if let location = location {
@@ -307,10 +305,10 @@ extension Location: CLLocationManagerDelegate {
         _ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus
     ) {
         availability = SourceAvailability(authorizationStatus: status) ?? .unavailable
-        sourceEventsSubject.notifyUpdateListeners(of: .availabilityUpdated(availability))
+        eventsSubject.send(.availabilityUpdated(availability))
 
         let snapshot = _authorizationStatus.updateValue(status)
-        sourceEventsSubject.notifyUpdateListeners(of: .propertyUpdated(property: $authorizationStatus, snapshot: snapshot))
+        eventsSubject.send(.propertyUpdated(property: $authorizationStatus, snapshot: snapshot))
 
         switch availability {
         case .available:

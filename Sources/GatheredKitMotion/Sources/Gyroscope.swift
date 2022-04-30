@@ -16,11 +16,11 @@ public final class Gyroscope: UpdatingSource, CustomisableUpdateIntervalControll
 
     public static var defaultUpdateInterval: TimeInterval = 1
 
-    public var sourceEventPublisher: AnyUpdatePublisher<SourceEvent> {
-        sourceEventsSubject.eraseToAnyUpdatePublisher()
+    public var eventsPublisher: AnyPublisher<SourceEvent, Never> {
+        eventsSubject.eraseToAnyPublisher()
     }
 
-    private let sourceEventsSubject: UpdateSubject<SourceEvent>
+    private let eventsSubject = PassthroughSubject<SourceEvent, Never>()
 
     public private(set) var isUpdating: Bool = false
 
@@ -54,15 +54,14 @@ public final class Gyroscope: UpdatingSource, CustomisableUpdateIntervalControll
         self.motionManager = motionManager
         availability = motionManager.isGyroAvailable ? .available : .unavailable
         _rotationRate = .init(displayName: "Rotation Rate")
-        sourceEventsSubject = .init()
 
         propertiesCancellables = allProperties.map { property in
             property
                 .typeErasedUpdatePublisher
                 .combinePublisher
-                .sink { [weak property, sourceEventsSubject] snapshot in
+                .sink { [weak property, eventsSubject] snapshot in
                     guard let property = property else { return }
-                    sourceEventsSubject.notifyUpdateListeners(of: .propertyUpdated(property: property, snapshot: snapshot))
+                    eventsSubject.send(.propertyUpdated(property: property, snapshot: snapshot))
                 }
         }
     }
@@ -89,8 +88,7 @@ public final class Gyroscope: UpdatingSource, CustomisableUpdateIntervalControll
 
             if let error = error {
                 self.motionManager.stopGyroUpdates()
-                self.sourceEventsSubject.notifyUpdateListeners(
-                    of: .stoppedUpdating(error: error))
+                self.eventsSubject.send(.stoppedUpdating(error: error))
                 self.state = .notMonitoring
                 return
             }
@@ -100,13 +98,13 @@ public final class Gyroscope: UpdatingSource, CustomisableUpdateIntervalControll
         }
 
         state = .monitoring(updatesQueue: updatesQueue)
-        sourceEventsSubject.notifyUpdateListeners(of: .startedUpdating)
+        eventsSubject.send(.startedUpdating)
     }
 
     public func stopUpdating() {
         motionManager.stopGyroUpdates()
         state = .notMonitoring
-        sourceEventsSubject.notifyUpdateListeners(of: .stoppedUpdating())
+        eventsSubject.send(.stoppedUpdating())
     }
 }
 #endif

@@ -22,11 +22,11 @@ public final class Screen: UpdatingSource, Controllable {
 
     public let name: String
 
-    public var sourceEventPublisher: AnyUpdatePublisher<SourceEvent> {
-        sourceEventsSubject.eraseToAnyUpdatePublisher()
+    public var eventsPublisher: AnyPublisher<SourceEvent, Never> {
+        eventsSubject.eraseToAnyPublisher()
     }
 
-    private let sourceEventsSubject: UpdateSubject<SourceEvent>
+    private let eventsSubject = PassthroughSubject<SourceEvent, Never>()
 
     /// A boolean indicating if the screen is monitoring for brightness changes
     public var isUpdating: Bool {
@@ -151,8 +151,6 @@ public final class Screen: UpdatingSource, Controllable {
         _brightness = .init(displayName: "Brightness", value: brightness)
         #endif
 
-        sourceEventsSubject = .init()
-
         $reportedResolution.formatter.suffix = " Points"
         $nativeResolution.formatter.suffix = " Pixels"
     }
@@ -183,8 +181,8 @@ public final class Screen: UpdatingSource, Controllable {
                 guard let self = self else { return }
 
                 if let snapshot = self._brightness.updateValueIfDifferent(self.uiScreen.brightness) {
-                    self.sourceEventsSubject.notifyUpdateListeners(
-                        of: .propertyUpdated(
+                    self.eventsSubject.send(
+                        .propertyUpdated(
                             property: self.$brightness,
                             snapshot: snapshot
                         )
@@ -193,7 +191,7 @@ public final class Screen: UpdatingSource, Controllable {
             }
 
             if let snapshot = _brightness.updateValueIfDifferent(uiScreen.brightness) {
-                sourceEventsSubject.notifyUpdateListeners(of: .propertyUpdated(property: $brightness, snapshot: snapshot))
+                eventsSubject.send(.propertyUpdated(property: $brightness, snapshot: snapshot))
             }
         } else {
             brightnessChangeObeserver = nil
@@ -205,32 +203,32 @@ public final class Screen: UpdatingSource, Controllable {
         ) { [weak self] _ in
             guard let self = self else { return }
             if let snapshot = self._reportedResolution.updateValueIfDifferent(self.uiScreen.bounds.size) {
-                self.sourceEventsSubject.notifyUpdateListeners(
-                    of: .propertyUpdated(
+                self.eventsSubject.send(
+                    .propertyUpdated(
                         property: self.$reportedResolution,
                         snapshot: snapshot
                     )
                 )
             }
             if let snapshot = self._nativeResolution.updateValueIfDifferent(self.uiScreen.nativeBounds.size) {
-                self.sourceEventsSubject.notifyUpdateListeners(
-                    of: .propertyUpdated(
+                self.eventsSubject.send(
+                    .propertyUpdated(
                         property: self.$nativeResolution,
                         snapshot: snapshot
                     )
                 )
             }
             if let snapshot = self._reportedScale.updateValueIfDifferent(self.uiScreen.scale) {
-                self.sourceEventsSubject.notifyUpdateListeners(
-                    of: .propertyUpdated(
+                self.eventsSubject.send(
+                    .propertyUpdated(
                         property: self.$reportedResolution,
                         snapshot: snapshot
                     )
                 )
             }
             if let snapshot = self._nativeScale.updateValueIfDifferent(self.uiScreen.nativeScale) {
-                self.sourceEventsSubject.notifyUpdateListeners(
-                    of: .propertyUpdated(
+                self.eventsSubject.send(
+                    .propertyUpdated(
                         property: self.$nativeScale,
                         snapshot: snapshot
                     )
@@ -256,7 +254,7 @@ public final class Screen: UpdatingSource, Controllable {
         )
         #endif
 
-        sourceEventsSubject.notifyUpdateListeners(of: .startedUpdating)
+        eventsSubject.send(.startedUpdating)
     }
 
     /**
@@ -287,7 +285,7 @@ public final class Screen: UpdatingSource, Controllable {
             )
 
         state = .notMonitoring
-        sourceEventsSubject.notifyUpdateListeners(of: .stoppedUpdating())
+        eventsSubject.send(.stoppedUpdating())
     }
 }
 

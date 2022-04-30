@@ -2,7 +2,7 @@
 import Combine
 #endif
 
-/// A type that publishes
+/// A type that publishes updates.
 public protocol UpdatePublisher: AnyObject {
     associatedtype Payload
 

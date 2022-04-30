@@ -14,11 +14,11 @@ public final class Altimeter: UpdatingSource, Controllable, ActionProvider {
 
     public private(set) var availability: SourceAvailability
 
-    public var sourceEventPublisher: AnyUpdatePublisher<SourceEvent> {
-        sourceEventsSubject.eraseToAnyUpdatePublisher()
+    public var eventsPublisher: AnyPublisher<SourceEvent, Never> {
+        eventsSubject.eraseToAnyPublisher()
     }
 
-    private let sourceEventsSubject: UpdateSubject<SourceEvent>
+    private let eventsSubject = PassthroughSubject<SourceEvent, Never>()
 
     public private(set) var isUpdating: Bool = false
 
@@ -65,15 +65,14 @@ public final class Altimeter: UpdatingSource, Controllable, ActionProvider {
         availability = CMAltimeter.availability
         _relativeAltitude = .meters(displayName: "Relative Altitude")
         _pressure = .kilopascals(displayName: "Pressure")
-        sourceEventsSubject = .init()
 
         propertiesCancellables = allProperties.map { property in
             property
                 .typeErasedUpdatePublisher
                 .combinePublisher
-                .sink { [weak property, sourceEventsSubject] snapshot in
+                .sink { [weak property, eventsSubject] snapshot in
                     guard let property = property else { return }
-                    sourceEventsSubject.notifyUpdateListeners(of: .propertyUpdated(property: property, snapshot: snapshot))
+                    eventsSubject.send(.propertyUpdated(property: property, snapshot: snapshot))
                 }
         }
     }
@@ -89,27 +88,23 @@ public final class Altimeter: UpdatingSource, Controllable, ActionProvider {
         availability = CMAltimeter.availability
 
         if availability != oldAvailability {
-            sourceEventsSubject.notifyUpdateListeners(
-                of: .availabilityUpdated(availability))
+            eventsSubject.send(.availabilityUpdated(availability))
         }
 
         switch availability {
         case .available:
             break
         case .permissionDenied:
-            sourceEventsSubject.notifyUpdateListeners(
-                of: .failedToStart(error: .permissionDenied))
+            eventsSubject.send(.failedToStart(error: .permissionDenied))
             return
         case .requiresPermissionsPrompt:
             // Perhaps it will ask the user when `startRelativeAltitudeUpdates` is called?
             break
         case .restricted:
-            sourceEventsSubject.notifyUpdateListeners(
-                of: .failedToStart(error: .restricted))
+            eventsSubject.send(.failedToStart(error: .restricted))
             return
         case .unavailable:
-            sourceEventsSubject.notifyUpdateListeners(
-                of: .failedToStart(error: .unavailable))
+            eventsSubject.send(.failedToStart(error: .unavailable))
             return
         }
 
@@ -121,8 +116,7 @@ public final class Altimeter: UpdatingSource, Controllable, ActionProvider {
             guard let self = self else { return }
             if let error = error {
                 self.altimeter.stopRelativeAltitudeUpdates()
-                self.sourceEventsSubject.notifyUpdateListeners(
-                    of: .stoppedUpdating(error: error))
+                self.eventsSubject.send(.stoppedUpdating(error: error))
                 self.state = .notMonitoring
                 return
             }
@@ -133,14 +127,14 @@ public final class Altimeter: UpdatingSource, Controllable, ActionProvider {
         }
 
         state = .monitoring(updatesQueue: updatesQueue)
-        sourceEventsSubject.notifyUpdateListeners(of: .startedUpdating)
+        eventsSubject.send(.startedUpdating)
     }
 
     public func stopUpdating() {
         guard case .monitoring = state else { return }
         altimeter.stopRelativeAltitudeUpdates()
         state = .notMonitoring
-        sourceEventsSubject.notifyUpdateListeners(of: .stoppedUpdating())
+        eventsSubject.send(.stoppedUpdating())
     }
 }
 
