@@ -3,12 +3,11 @@ import CoreLocation
 import Foundation
 import GatheredKit
 
-// TODO: Wrap delegate to remove need for inheritance from `NSObject`
-public final class Location: NSObject, UpdatingSource, Controllable {
+public final class Location: UpdatingSource, Controllable {
     private enum State {
         case notMonitoring
-        case askingForPermissions(locationManager: CLLocationManager)
-        case monitoring(locationManager: CLLocationManager)
+        case askingForPermissions(locationManager: CLLocationManager, delegateProxy: CLLocationManagerDelegateProxy)
+        case monitoring(locationManager: CLLocationManager, delegateProxy: CLLocationManagerDelegateProxy)
     }
 
     public private(set) var availability: SourceAvailability
@@ -73,12 +72,15 @@ public final class Location: NSObject, UpdatingSource, Controllable {
     public private(set) var isUpdating: Bool = false
 
     private var locationManager: CLLocationManager? {
-        if case .monitoring(let locationManager) = state {
+        switch state {
+        case .monitoring(let locationManager, _), .askingForPermissions(let locationManager, _):
             return locationManager
-        } else {
+        case .notMonitoring:
             return nil
         }
     }
+
+    private var locationManagerDelegateProxy: CLLocationManagerDelegateProxy?
 
     private var isAskingForLocationPermissions: Bool {
         if case .askingForPermissions = state {
@@ -104,7 +106,7 @@ public final class Location: NSObject, UpdatingSource, Controllable {
         }
     }
 
-    public override init() {
+    public init() {
         let authorizationStatus = CLLocationManager.authorizationStatus()
         availability = SourceAvailability(authorizationStatus: authorizationStatus) ?? .unavailable
 
@@ -118,8 +120,6 @@ public final class Location: NSObject, UpdatingSource, Controllable {
         _authorizationStatus = .init(
             displayName: "Authorization Status", value: CLLocationManager.authorizationStatus()
         )
-
-        super.init()
     }
 
     deinit {
@@ -153,13 +153,19 @@ public final class Location: NSObject, UpdatingSource, Controllable {
         desiredAccuracy accuracy: Accuracy,
         locationManagerConfigurator: ((CLLocationManager) -> Void)?
     ) {
-        let locationManager: CLLocationManager = {
-            if let locationManager = self.locationManager {
-                return locationManager
-            } else {
+        let (locationManager, delegateProxy) = { () -> (CLLocationManager, CLLocationManagerDelegateProxy) in
+            switch state {
+            case .notMonitoring:
                 let locationManager = CLLocationManager()
-                locationManager.delegate = self
-                return locationManager
+                let delegateProxy = CLLocationManagerDelegateProxy { [weak self] manager, status in
+                    self?.locationManager(manager, didChangeAuthorization: status)
+                } didUpdateLocations: { [weak self] manager, locations in
+                    self?.locationManager(manager, didUpdateLocations: locations)
+                }
+                locationManager.delegate = delegateProxy
+                return (locationManager, delegateProxy)
+            case .monitoring(let locationManager, let delegateProxy), .askingForPermissions(let locationManager, let delegateProxy):
+                return (locationManager, delegateProxy)
             }
         }()
         locationManager.desiredAccuracy = accuracy.asCLLocationAccuracy
@@ -172,20 +178,20 @@ public final class Location: NSObject, UpdatingSource, Controllable {
         #if os(iOS) || os(watchOS)
         switch authorizationStatus {
         case .authorizedAlways:
-            state = .monitoring(locationManager: locationManager)
+            state = .monitoring(locationManager: locationManager, delegateProxy: delegateProxy)
             locationManager.startUpdatingLocation()
             updateValues()
         case .authorizedWhenInUse:
             if locationManager.allowsBackgroundLocationUpdates {
-                state = .askingForPermissions(locationManager: locationManager)
+                state = .askingForPermissions(locationManager: locationManager, delegateProxy: delegateProxy)
                 locationManager.requestAlwaysAuthorization()
             } else {
-                state = .monitoring(locationManager: locationManager)
+                state = .monitoring(locationManager: locationManager, delegateProxy: delegateProxy)
                 locationManager.startUpdatingLocation()
                 updateValues()
             }
         case .notDetermined:
-            state = .askingForPermissions(locationManager: locationManager)
+            state = .askingForPermissions(locationManager: locationManager, delegateProxy: delegateProxy)
 
             if locationManager.allowsBackgroundLocationUpdates {
                 locationManager.requestAlwaysAuthorization()
@@ -201,15 +207,15 @@ public final class Location: NSObject, UpdatingSource, Controllable {
         #elseif os(macOS)
         switch authorizationStatus {
         case .authorizedAlways:
-            state = .monitoring(locationManager: locationManager)
+            state = .monitoring(locationManager: locationManager, delegateProxy: delegateProxy)
             locationManager.startUpdatingLocation()
             updateValues()
         case .authorizedWhenInUse:
-            state = .monitoring(locationManager: locationManager)
+            state = .monitoring(locationManager: locationManager, delegateProxy: delegateProxy)
             locationManager.startUpdatingLocation()
             updateValues()
         case .notDetermined:
-            state = .askingForPermissions(locationManager: locationManager)
+            state = .askingForPermissions(locationManager: locationManager, delegateProxy: delegateProxy)
             locationManager.requestAlwaysAuthorization()
         case .denied, .restricted:
             updateLocationValues(nil)
@@ -220,11 +226,11 @@ public final class Location: NSObject, UpdatingSource, Controllable {
         #elseif os(tvOS)
         switch authorizationStatus {
         case .authorizedAlways, .authorizedWhenInUse:
-            state = .monitoring(locationManager: locationManager)
+            state = .monitoring(locationManager: locationManager, delegateProxy: delegateProxy)
             locationManager.requestLocation()
             updateValues()
         case .notDetermined:
-            state = .askingForPermissions(locationManager: locationManager)
+            state = .askingForPermissions(locationManager: locationManager, delegateProxy: delegateProxy)
             locationManager.requestWhenInUseAuthorization()
         case .denied, .restricted:
             updateLocationValues(nil)
@@ -298,11 +304,10 @@ public final class Location: NSObject, UpdatingSource, Controllable {
             verticalAccuracySnapshot = _verticalAccuracy.updateValue(nil)
         }
     }
-}
 
-extension Location: CLLocationManagerDelegate {
-    public func locationManager(
-        _ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus
+    private func locationManager(
+        _ manager: CLLocationManager,
+        didChangeAuthorization status: CLAuthorizationStatus
     ) {
         availability = SourceAvailability(authorizationStatus: status) ?? .unavailable
         eventsSubject.send(.availabilityUpdated(availability))
@@ -329,10 +334,35 @@ extension Location: CLLocationManagerDelegate {
         }
     }
 
-    public func locationManager(
+    private func locationManager(
         _ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]
     ) {
         locations.forEach(updateLocationValues(_:))
+    }
+}
+
+private final class CLLocationManagerDelegateProxy: NSObject, CLLocationManagerDelegate {
+    let didChangeAuthorization: (_ manager: CLLocationManager, _ status: CLAuthorizationStatus) -> Void
+    let didUpdateLocations: (_ manager: CLLocationManager, _ locations: [CLLocation]) -> Void
+
+    init(
+        didChangeAuthorization: @escaping (_ manager: CLLocationManager, _ status: CLAuthorizationStatus) -> Void,
+        didUpdateLocations: @escaping (_ manager: CLLocationManager, _ locations: [CLLocation]) -> Void
+    ) {
+        self.didChangeAuthorization = didChangeAuthorization
+        self.didUpdateLocations = didUpdateLocations
+    }
+
+    func locationManager(
+        _ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus
+    ) {
+        didChangeAuthorization(manager, status)
+    }
+
+    public func locationManager(
+        _ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]
+    ) {
+        didUpdateLocations(manager, locations)
     }
 }
 
