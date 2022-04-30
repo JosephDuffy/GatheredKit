@@ -5,6 +5,7 @@ xcuserdata/
 
 ## Build generated
 build/
+default.profraw
 
 # Swift Package Manager
 .build/
