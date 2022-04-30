@@ -111,8 +111,7 @@ public final class Altimeter: UpdatingSource, Controllable, ActionProvider {
         let updatesQueue = OperationQueue()
         updatesQueue.name = "GatheredKit Altimeter Updates"
 
-        altimeter.startRelativeAltitudeUpdates(to: updatesQueue) {
-            [weak self] data, error in
+        altimeter.startRelativeAltitudeUpdates(to: updatesQueue) { [weak self] data, error in
             guard let self = self else { return }
             if let error = error {
                 self.altimeter.stopRelativeAltitudeUpdates()
@@ -144,7 +143,7 @@ extension CMAltimeter {
             return .unavailable
         }
 
-        let authorizationStatus = self.authorizationStatus()
+        let authorizationStatus = authorizationStatus()
         switch authorizationStatus {
         case .authorized:
             return .available

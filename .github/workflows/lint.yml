@@ -16,14 +16,18 @@ jobs:
       - name: Select Xcode ${{ matrix.xcode }}
         run: sudo xcode-select --switch /Applications/Xcode_${{ matrix.xcode }}.app
 
-      - name: Cache SwiftPM
-        uses: actions/cache@v2
+      - name: Install Mint
+        run: brew install mint
+
+      - name: Cache Mint
+        uses: actions/cache@v3
         with:
-          path: DevelopmentDependencies/.build
-          key: ${{ runner.os }}-xcode_${{ matrix.xcode }}-swiftpm-${{ github.workspace }}-${{ hashFiles('DevelopmentDependencies/Package.resolved') }}
+          path: ~/.mint
+          key: ${{ runner.os }}-mint-xcode_${{ matrix.xcode }}-${{ hashFiles('**/Mintfile') }}
+          restore-keys: |
+            ${{ runner.os }}-mint-xcode_${{ matrix.xcode }}
 
-      - name: Build swift-format
-        run: swift build --skip-update --configuration release --package-path ./DevelopmentDependencies/ --product swift-format
+      - run: mint bootstrap
 
-      - name: Run swift-format
-        run: ./scripts/swift-format-github-actions.sh
+      - name: Run SwiftFormat
+        run: mint run swiftformat --lint .

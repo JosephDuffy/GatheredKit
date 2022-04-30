@@ -101,7 +101,7 @@ public final class MeasurementProperty<Unit: Foundation.Unit>: UpdatableProperty
         _ measuredValue: Double,
         date: Date = Date()
     ) -> Snapshot<Value> {
-        let measurement = Measurement(value: measuredValue, unit: self.measurement.unit)
+        let measurement = Measurement(value: measuredValue, unit: measurement.unit)
         return updateValue(measurement, date: date)
     }
 
