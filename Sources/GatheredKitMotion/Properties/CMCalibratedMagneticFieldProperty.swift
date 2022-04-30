@@ -1,4 +1,5 @@
 #if os(iOS) || os(watchOS)
+import Combine
 import CoreMotion
 import Foundation
 import GatheredKit
@@ -40,21 +41,16 @@ public final class CMCalibratedMagneticFieldProperty: UpdatableProperty, Propert
     public let displayName: String
 
     /// The latest snapshot of data.
-    public internal(set) var snapshot: Snapshot<Value> {
-        didSet {
-            updateSubject.notifyUpdateListeners(of: snapshot)
-        }
-    }
+    @Published
+    public internal(set) var snapshot: Snapshot<Value>
 
     /// A formatter that can be used to build a human-friendly string from the
     /// value.
     public let formatter: Formatter
 
-    public var updatePublisher: AnyUpdatePublisher<Snapshot<Value>> {
-        updateSubject.eraseToAnyUpdatePublisher()
+    public var snapshotsPublisher: AnyPublisher<Snapshot<Value>, Never> {
+        $snapshot.eraseToAnyPublisher()
     }
-
-    private let updateSubject: UpdateSubject<Snapshot<Value>>
 
     // MARK: Initialisers
 
@@ -64,7 +60,6 @@ public final class CMCalibratedMagneticFieldProperty: UpdatableProperty, Propert
         self.displayName = displayName
         self.formatter = formatter
         snapshot = Snapshot(value: value, date: date)
-        updateSubject = .init()
 
         _accuracy = .init(displayName: "Accuracy", value: value.accuracy, date: date)
         _field = .init(displayName: "Field", value: value.field, date: date)

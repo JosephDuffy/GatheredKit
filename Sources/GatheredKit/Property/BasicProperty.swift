@@ -1,3 +1,4 @@
+import Combine
 import Foundation
 
 @propertyWrapper
@@ -21,11 +22,8 @@ public final class BasicProperty<Value, Formatter>: UpdatableProperty where Form
     public let displayName: String
 
     /// The latest snapshot of data.
-    public internal(set) var snapshot: Snapshot<Value> {
-        didSet {
-            updateSubject.notifyUpdateListeners(of: snapshot)
-        }
-    }
+    @Published
+    public internal(set) var snapshot: Snapshot<Value>
 
     /// The current value of the property.
     public internal(set) var value: Value {
@@ -41,21 +39,21 @@ public final class BasicProperty<Value, Formatter>: UpdatableProperty where Form
     /// value.
     public let formatter: Formatter
 
-    public var updatePublisher: AnyUpdatePublisher<Snapshot<Value>> {
-        updateSubject.eraseToAnyUpdatePublisher()
+    public var snapshotsPublisher: AnyPublisher<Snapshot<Value>, Never> {
+        $snapshot.eraseToAnyPublisher()
     }
-
-    private let updateSubject: UpdateSubject<Snapshot<Value>>
 
     // MARK: Initialisers
 
     public required init(
-        displayName: String, value: Value, formatter: Formatter = Formatter(), date: Date = Date()
+        displayName: String,
+        value: Value,
+        formatter: Formatter = Formatter(),
+        date: Date = Date()
     ) {
         self.displayName = displayName
         self.formatter = formatter
         snapshot = Snapshot(value: value, date: date)
-        updateSubject = UpdateSubject()
     }
 
     // MARK: Update Functions

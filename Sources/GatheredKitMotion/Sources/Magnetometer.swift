@@ -57,8 +57,7 @@ public final class Magnetometer: UpdatingSource, CustomisableUpdateIntervalContr
 
         propertiesCancellables = allProperties.map { property in
             property
-                .typeErasedUpdatePublisher
-                .combinePublisher
+                .typeErasedSnapshotPublisher
                 .sink { [weak property, eventsSubject] snapshot in
                     guard let property = property else { return }
                     eventsSubject.send(.propertyUpdated(property: property, snapshot: snapshot))

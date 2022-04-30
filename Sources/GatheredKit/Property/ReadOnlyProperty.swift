@@ -1,3 +1,4 @@
+import Combine
 import Foundation
 
 @dynamicMemberLookup
@@ -14,8 +15,8 @@ public final class ReadOnlyProperty<Property: AnyProperty>: AnyProperty {
         wrapped.typeErasedFormatter
     }
 
-    public var typeErasedUpdatePublisher: AnyUpdatePublisher<AnySnapshot> {
-        wrapped.typeErasedUpdatePublisher
+    public var typeErasedSnapshotPublisher: AnyPublisher<AnySnapshot, Never> {
+        wrapped.typeErasedSnapshotPublisher
     }
 
     public var typeErasedValue: Any? {

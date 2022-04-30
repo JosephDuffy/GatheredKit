@@ -1,3 +1,4 @@
+import Combine
 import Foundation
 
 @propertyWrapper
@@ -26,11 +27,8 @@ public final class OptionalMeasurementProperty<Unit: Foundation.Unit>: Updatable
     // MARK: `Property` Requirements
 
     /// The latest snapshot of data.
-    public internal(set) var snapshot: Snapshot<Value> {
-        didSet {
-            updateSubject.notifyUpdateListeners(of: snapshot)
-        }
-    }
+    @Published
+    public internal(set) var snapshot: Snapshot<Value>
 
     /// A human-friendly display name that describes the property.
     public let displayName: String
@@ -39,11 +37,9 @@ public final class OptionalMeasurementProperty<Unit: Foundation.Unit>: Updatable
     /// value.
     public let formatter: MeasurementFormatter
 
-    public var updatePublisher: AnyUpdatePublisher<Snapshot<Value>> {
-        updateSubject.eraseToAnyUpdatePublisher()
+    public var snapshotsPublisher: AnyPublisher<Snapshot<Value>, Never> {
+        $snapshot.eraseToAnyPublisher()
     }
-
-    private let updateSubject: UpdateSubject<Snapshot<Value>>
 
     // MARK: Measurement Properties
 
@@ -69,7 +65,6 @@ public final class OptionalMeasurementProperty<Unit: Foundation.Unit>: Updatable
         self.formatter = formatter
         unit = measurement.unit
         snapshot = Snapshot(value: measurement, date: date)
-        updateSubject = .init()
     }
 
     public init(
@@ -90,7 +85,6 @@ public final class OptionalMeasurementProperty<Unit: Foundation.Unit>: Updatable
         self.formatter = formatter
         self.unit = unit
         snapshot = Snapshot(value: measurement, date: date)
-        updateSubject = .init()
     }
 
     // MARK: Update Functions

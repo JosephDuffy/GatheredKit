@@ -9,7 +9,11 @@ public protocol Property: AnyProperty {
     var value: Value { get }
     var formatter: Formatter { get }
     var asReadOnlyProperty: ReadOnlyProperty<Self> { get }
-    var updatePublisher: AnyUpdatePublisher<Snapshot<Value>> { get }
+    /// An asynchronous stream of snapshots, starting with the current snapshot.
+    var snapshots: AsyncStream<Snapshot<Value>> { get }
+
+    /// A Combine publisher, starting with the current snapshot.
+    var snapshotsPublisher: AnyPublisher<Snapshot<Value>, Never> { get }
 }
 
 extension Property {
@@ -26,14 +30,32 @@ extension Property {
         snapshot.date
     }
 
-    @available(macOS 12.0, iOS 15.0, tvOS 15.0, watchOS 8.0, *)
-    public var snapshots: AsyncPublisher<AnyPublisher<Snapshot<Value>, Never>> {
-        updatePublisher.combinePublisher.values
+    public var snapshots: AsyncStream<Snapshot<Value>> {
+        AsyncStream<Snapshot<Value>> { continuation in
+            let cancellable = snapshotsPublisher.sink { snapshot in
+                continuation.yield(snapshot)
+            }
+            continuation.onTermination = { @Sendable [cancellable] _ in
+                cancellable.cancel()
+            }
+        }
     }
 
-    @available(macOS 12.0, iOS 15.0, tvOS 15.0, watchOS 8.0, *)
-    public var values: AsyncPublisher<AnyPublisher<Value, Never>> {
-        updatePublisher.combinePublisher.map(\.value).eraseToAnyPublisher().values
+    /// An asynchronous stream of values, starting with the current value.
+    public var values: AsyncStream<Value> {
+        AsyncStream<Value> { continuation in
+            let cancellable = snapshotsPublisher.sink { snapshot in
+                continuation.yield(snapshot.value)
+            }
+            continuation.onTermination = { @Sendable [cancellable] _ in
+                cancellable.cancel()
+            }
+        }
+    }
+
+    /// A Combine publisher, starting with the current value.
+    var valuePublisher: AnyPublisher<Value, Never> {
+        snapshotsPublisher.map { $0.value }.eraseToAnyPublisher()
     }
 
     /// The type-erased current value of the property.
@@ -51,7 +73,7 @@ extension Property {
         ReadOnlyProperty(self)
     }
 
-    public var typeErasedUpdatePublisher: AnyUpdatePublisher<AnySnapshot> {
-        updatePublisher.map { $0 as AnySnapshot }.eraseToAnyUpdatePublisher()
+    public var typeErasedSnapshotPublisher: AnyPublisher<AnySnapshot, Never> {
+        snapshotsPublisher.map { $0 as AnySnapshot }.eraseToAnyPublisher()
     }
 }

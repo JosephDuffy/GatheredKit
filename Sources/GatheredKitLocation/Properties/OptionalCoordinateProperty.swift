@@ -1,3 +1,4 @@
+import Combine
 import CoreLocation
 import Foundation
 import GatheredKit
@@ -29,11 +30,8 @@ public final class OptionalCoordinateProperty: UpdatableProperty, PropertiesProv
     // MARK: `Property` Requirements
 
     /// The latest snapshot of data.
-    public internal(set) var snapshot: Snapshot<Value> {
-        didSet {
-            updateSubject.notifyUpdateListeners(of: snapshot)
-        }
-    }
+    @Published
+    public internal(set) var snapshot: Snapshot<Value>
 
     /// A human-friendly display name that describes the property.
     public let displayName: String
@@ -42,11 +40,9 @@ public final class OptionalCoordinateProperty: UpdatableProperty, PropertiesProv
     /// value.
     public let formatter: CoordinateFormatter
 
-    public var updatePublisher: AnyUpdatePublisher<Snapshot<Value>> {
-        updateSubject.eraseToAnyUpdatePublisher()
+    public var snapshotsPublisher: AnyPublisher<Snapshot<Value>, Never> {
+        $snapshot.eraseToAnyPublisher()
     }
-
-    private let updateSubject: UpdateSubject<Snapshot<Value>>
 
     // MARK: Coodinate Properties
 
@@ -63,7 +59,6 @@ public final class OptionalCoordinateProperty: UpdatableProperty, PropertiesProv
         self.displayName = displayName
         self.formatter = formatter
         snapshot = Snapshot(value: value, date: date)
-        updateSubject = .init()
         _latitude = .degrees(displayName: "Latitude", value: value?.latitude, date: date)
         _longitude = .degrees(displayName: "Longitude", value: value?.longitude, date: date)
     }
