@@ -1,9 +1,7 @@
 #if os(iOS) || os(watchOS)
 import CoreMotion
 
-private var deviceBootTime: Date = {
-    Date().addingTimeInterval(-ProcessInfo.processInfo.systemUptime)
-}()
+private let deviceBootTime = Date(timeIntervalSinceNow: -ProcessInfo.processInfo.systemUptime)
 
 extension CMLogItem {
     internal var date: Date {
