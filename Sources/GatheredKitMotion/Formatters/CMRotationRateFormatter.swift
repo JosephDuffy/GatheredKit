@@ -31,5 +31,10 @@ public final class CMRotationRateFormatter: Formatter {
         guard let rotationRate = obj as? CMRotationRate else { return nil }
         return string(for: rotationRate)
     }
+
+    public override func getObjectValue(_ obj: AutoreleasingUnsafeMutablePointer<AnyObject?>?, for string: String, errorDescription error: AutoreleasingUnsafeMutablePointer<NSString?>?) -> Bool {
+        #warning("TODO: Implement")
+        fatalError("Unimplemented")
+    }
 }
 #endif

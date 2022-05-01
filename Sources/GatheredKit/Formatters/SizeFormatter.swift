@@ -33,4 +33,9 @@ public final class SizeFormatter: Formatter {
         guard let size = obj as? CGSize else { return nil }
         return string(for: size)
     }
+
+    public override func getObjectValue(_ obj: AutoreleasingUnsafeMutablePointer<AnyObject?>?, for string: String, errorDescription error: AutoreleasingUnsafeMutablePointer<NSString?>?) -> Bool {
+        #warning("TODO: Implement")
+        fatalError("Unimplemented")
+    }
 }

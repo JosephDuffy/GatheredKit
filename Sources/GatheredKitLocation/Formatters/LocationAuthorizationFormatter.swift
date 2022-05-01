@@ -23,4 +23,9 @@ public final class LocationAuthorizationFormatter: Formatter {
         guard let status = obj as? CLAuthorizationStatus else { return nil }
         return string(for: status)
     }
+
+    public override func getObjectValue(_ obj: AutoreleasingUnsafeMutablePointer<AnyObject?>?, for string: String, errorDescription error: AutoreleasingUnsafeMutablePointer<NSString?>?) -> Bool {
+        #warning("TODO: Implement")
+        fatalError("Unimplemented")
+    }
 }

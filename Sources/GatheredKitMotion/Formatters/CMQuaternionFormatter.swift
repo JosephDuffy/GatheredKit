@@ -32,5 +32,10 @@ public final class CMQuaternionFormatter: Formatter {
         guard let size = obj as? CMQuaternion else { return nil }
         return string(for: size)
     }
+
+    public override func getObjectValue(_ obj: AutoreleasingUnsafeMutablePointer<AnyObject?>?, for string: String, errorDescription error: AutoreleasingUnsafeMutablePointer<NSString?>?) -> Bool {
+        #warning("TODO: Implement")
+        fatalError("Unimplemented")
+    }
 }
 #endif

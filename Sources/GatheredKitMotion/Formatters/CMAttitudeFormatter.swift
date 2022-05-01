@@ -31,5 +31,10 @@ public final class CMAttitudeFormatter: Formatter {
         guard let magneticField = obj as? CMMagneticField else { return nil }
         return string(for: magneticField)
     }
+
+    public override func getObjectValue(_ obj: AutoreleasingUnsafeMutablePointer<AnyObject?>?, for string: String, errorDescription error: AutoreleasingUnsafeMutablePointer<NSString?>?) -> Bool {
+        #warning("TODO: Implement")
+        fatalError("Unimplemented")
+    }
 }
 #endif
