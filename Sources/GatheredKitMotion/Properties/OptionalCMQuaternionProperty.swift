@@ -75,7 +75,7 @@ public final class OptionalCMQuaternionProperty: UpdatableProperty, PropertiesPr
         _x = .init(displayName: "x", value: value?.x, date: date)
         _y = .init(displayName: "y", value: value?.y, date: date)
         _z = .init(displayName: "z", value: value?.z, date: date)
-        _w = .init(displayName: "w", value: value?.z, date: date)
+        _w = .init(displayName: "w", value: value?.w, date: date)
     }
 
     // MARK: Update Functions
@@ -85,7 +85,7 @@ public final class OptionalCMQuaternionProperty: UpdatableProperty, PropertiesPr
         _x.updateValue(value?.x, date: date)
         _y.updateValue(value?.y, date: date)
         _z.updateValue(value?.z, date: date)
-        _w.updateValue(value?.z, date: date)
+        _w.updateValue(value?.w, date: date)
 
         let snapshot = Snapshot(value: value, date: date)
         self.snapshot = snapshot
