@@ -111,8 +111,8 @@ public final class Location: UpdatingSource, Controllable {
         availability = SourceAvailability(authorizationStatus: authorizationStatus) ?? .unavailable
 
         _coordinate = .init(displayName: "Coordinate")
-        _speed = .metersPerSecond(displayName: "Speed")
-        _course = .degrees(displayName: "Course")
+        _speed = .metersPerSecond(displayName: "Speed", formatter: SpeedFormatter())
+        _course = .degrees(displayName: "Course", formatter: CourseFormatter())
         _altitude = .meters(displayName: "Altitude")
         _floor = .init(displayName: "Floor")
         _horizonalAccuracy = .meters(displayName: "Horizontal Accuracy")
@@ -277,14 +277,12 @@ public final class Location: UpdatingSource, Controllable {
             coordinateSnapshot = _coordinate.updateValue(location.coordinate, date: timestamp)
 
             if location.speed < 0 {
-                // TODO: Provide formatted value
                 speedSnapshot = _speed.updateValue(nil, date: timestamp)
             } else {
                 speedSnapshot = _speed.updateMeasuredValue(location.speed, date: timestamp)
             }
 
             if location.course < 0 {
-                // TODO: Provide formatted value
                 courseSnapshot = _course.updateValue(nil, date: timestamp)
             } else {
                 courseSnapshot = _course.updateMeasuredValue(location.speed, date: timestamp)
