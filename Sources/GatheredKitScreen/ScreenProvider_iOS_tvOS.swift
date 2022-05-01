@@ -16,12 +16,13 @@ public final class ScreenProvider: UpdatingSourceProvider, ControllableSourcePro
 
     public let name = "Screens"
 
-    public var sourceProviderEventsPublisher: AnyUpdatePublisher<SourceProviderEvent<Screen>> {
-        sourceProviderEventsSubject.eraseToAnyUpdatePublisher()
+    public var sourceProviderEventsPublisher: AnyPublisher<SourceProviderEvent<Screen>, Never> {
+        sourceProviderEventsSubject.eraseToAnyPublisher()
     }
 
-    private let sourceProviderEventsSubject: UpdateSubject<SourceProviderEvent<Screen>>
+    private let sourceProviderEventsSubject = PassthroughSubject<SourceProviderEvent<Screen>, Never>()
 
+    @Published
     public private(set) var sources: [Screen]
 
     public private(set) var isUpdating: Bool = false
@@ -48,7 +49,6 @@ public final class ScreenProvider: UpdatingSourceProvider, ControllableSourcePro
         sources = UIScreen.screens.map { uiScreen in
             Screen(screen: uiScreen)
         }
-        sourceProviderEventsSubject = .init()
     }
 
     public func startUpdating() {
@@ -71,7 +71,7 @@ public final class ScreenProvider: UpdatingSourceProvider, ControllableSourcePro
                 self.sources.append(screen)
             }
 
-            self.sourceProviderEventsSubject.notifyUpdateListeners(of: event)
+            self.sourceProviderEventsSubject.send(event)
         }
 
         let didDisconnectCancellable = notificationCenter.addObserver(
@@ -86,21 +86,21 @@ public final class ScreenProvider: UpdatingSourceProvider, ControllableSourcePro
             let screen = self.sources.remove(at: index)
 
             let event = SourceProviderEvent.sourceRemoved(screen)
-            self.sourceProviderEventsSubject.notifyUpdateListeners(of: event)
+            self.sourceProviderEventsSubject.send(event)
         }
 
         state = .monitoring(
             observers: .init(
                 didConnect: didConnectCancellable, didDisconnect: didDisconnectCancellable
             ))
-        sourceProviderEventsSubject.notifyUpdateListeners(of: .startedUpdating)
+        sourceProviderEventsSubject.send(.startedUpdating)
     }
 
     public func stopUpdating() {
         guard isUpdating else { return }
 
         state = .notMonitoring
-        sourceProviderEventsSubject.notifyUpdateListeners(of: .stoppedUpdating())
+        sourceProviderEventsSubject.send(.stoppedUpdating())
     }
 }
 

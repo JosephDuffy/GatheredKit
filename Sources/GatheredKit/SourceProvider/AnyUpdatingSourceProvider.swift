@@ -1,5 +1,7 @@
+import Combine
+
 public protocol AnyUpdatingSourceProvider: AnySourceProvider {
-    var typeErasedSourceProviderEventsPublisher: AnyUpdatePublisher<AnySourceProviderEvent> { get }
+    var typeErasedSourceProviderEventsPublisher: AnyPublisher<AnySourceProviderEvent, Never> { get }
 
     var isUpdating: Bool { get }
 }

@@ -1,9 +1,11 @@
+import Combine
+
 public protocol UpdatingSourceProvider: SourceProvider & AnyUpdatingSourceProvider {
-    var sourceProviderEventsPublisher: AnyUpdatePublisher<SourceProviderEvent<ProvidedSource>> { get }
+    var sourceProviderEventsPublisher: AnyPublisher<SourceProviderEvent<ProvidedSource>, Never> { get }
 }
 
 extension UpdatingSourceProvider {
-    public var typeErasedSourceProviderEventsPublisher: AnyUpdatePublisher<AnySourceProviderEvent> {
+    public var typeErasedSourceProviderEventsPublisher: AnyPublisher<AnySourceProviderEvent, Never> {
         sourceProviderEventsPublisher.map { event in
             switch event {
             case .startedUpdating:
@@ -15,6 +17,6 @@ extension UpdatingSourceProvider {
             case .sourceRemoved(let source):
                 return .sourceRemoved(source)
             }
-        }.eraseToAnyUpdatePublisher()
+        }.eraseToAnyPublisher()
     }
 }
