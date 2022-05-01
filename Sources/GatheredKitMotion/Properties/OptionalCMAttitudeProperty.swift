@@ -12,7 +12,7 @@ public final class OptionalCMAttitudeProperty: UpdatableProperty, PropertiesProv
     // MARK: `CMAttitude` Properties
 
     public var allProperties: [AnyProperty] {
-        [$roll, $pitch, $yaw, $quaternion]
+        [$roll, $pitch, $yaw, $quaternion, $rotationMatrix]
     }
 
     @OptionalAngleProperty
