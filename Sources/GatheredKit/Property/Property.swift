@@ -55,7 +55,7 @@ extension Property {
 
     /// A Combine publisher, starting with the current value.
     var valuePublisher: AnyPublisher<Value, Never> {
-        snapshotsPublisher.map { $0.value }.eraseToAnyPublisher()
+        snapshotsPublisher.map(\.value).eraseToAnyPublisher()
     }
 
     /// The type-erased current value of the property.

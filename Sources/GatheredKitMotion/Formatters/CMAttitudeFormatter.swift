@@ -44,7 +44,7 @@ public final class CMAttitudeFormatter: Formatter {
         errorDescription error: AutoreleasingUnsafeMutablePointer<NSString?>?
     ) -> Bool {
         // It's not possible to construct a `CMAttitude`.
-        return false
+        false
     }
 }
 #endif

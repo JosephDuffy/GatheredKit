@@ -158,20 +158,19 @@ final class ScreenTests: XCTestCase {
         reportedResolutionExpectation.expectedFulfillmentCount = 2
         reportedResolutionExpectation.assertForOverFulfill = true
         let reportedResolutionCancellable = screen.$reportedResolution.snapshotsPublisher.sink { reportedResolution in
-                reportedResolutionExpectation.fulfill()
-                XCTAssertEqual(reportedResolution.value, uiScreen.bounds.size)
-            }
+            reportedResolutionExpectation.fulfill()
+            XCTAssertEqual(reportedResolution.value, uiScreen.bounds.size)
+        }
 
         let nativeResolutionExpectation = XCTestExpectation(
             description: "Subscriber should be called with updated native resolution")
         nativeResolutionExpectation.expectedFulfillmentCount = 2
         nativeResolutionExpectation.assertForOverFulfill = true
-        let nativeResolutionCancellable = screen.$nativeResolution.snapshotsPublisher.sink
-            {
-                nativeResolution in
-                nativeResolutionExpectation.fulfill()
-                XCTAssertEqual(nativeResolution.value, uiScreen.nativeBounds.size)
-            }
+        let nativeResolutionCancellable = screen.$nativeResolution.snapshotsPublisher.sink {
+            nativeResolution in
+            nativeResolutionExpectation.fulfill()
+            XCTAssertEqual(nativeResolution.value, uiScreen.nativeBounds.size)
+        }
 
         let reportedScaleExpectation = XCTestExpectation(
             description: "Subscriber should be called with updated reported scale")
