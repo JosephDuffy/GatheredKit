@@ -23,6 +23,11 @@ final class PlatformTests: XCTestCase {
     func test_tvOS() {
         XCTAssertTrue(true)
     }
+
+    #elseif os(watchOS)
+    func test_watchOS() {
+        XCTAssertTrue(true)
+    }
     #else
     func test_unkownPlatform() {
         XCTFail("Unsupported platform")
