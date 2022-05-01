@@ -122,7 +122,7 @@ public final class Screen: UpdatingSource, Controllable {
      - Parameter notificationCenter: The notification center to list to notifications from.
      */
     internal init(screen: UIScreen, notificationCenter: NotificationCenter = .default) {
-        name = screen == .main ? "Main" : "External"
+        name = screen == .main ? "Main Screen" : "External Screen"
         uiScreen = screen
         self.notificationCenter = notificationCenter
 
