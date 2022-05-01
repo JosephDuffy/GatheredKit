@@ -35,12 +35,19 @@ public final class Screen: UpdatingSource, Controllable {
     public private(set) var resolution: CGSize
 
     /**
+     The colour space of the screen.
+     */
+    @OptionalNSColorSpaceProperty
+    public private(set) var colorSpace: NSColorSpace?
+
+    /**
      An array of the screen's properties, in the following order:
      - Resolution
      */
     public var allProperties: [AnyProperty] {
         [
             $resolution,
+            $colorSpace,
         ]
     }
 
@@ -59,6 +66,8 @@ public final class Screen: UpdatingSource, Controllable {
     }
 
     private let notificationCenter: NotificationCenter
+
+    private var propertiesCancellables: [AnyCancellable] = []
 
     /**
      Create a new instance of `Screen` for the `main` `UIScreen`.
@@ -82,7 +91,18 @@ public final class Screen: UpdatingSource, Controllable {
             displayName: "Resolution",
             value: screen.frame.size
         )
+        _colorSpace = .init(displayName: "Colour Space", value: screen.colorSpace)
+
         $resolution.formatter.suffix = " Pixels"
+
+        propertiesCancellables = allProperties.map { property in
+            property
+                .typeErasedSnapshotPublisher
+                .sink { [weak property, eventsSubject] snapshot in
+                    guard let property = property else { return }
+                    eventsSubject.send(.propertyUpdated(property: property, snapshot: snapshot))
+                }
+        }
     }
 
     deinit {
@@ -109,16 +129,18 @@ public final class Screen: UpdatingSource, Controllable {
                 self.eventsSubject.send(.propertyUpdated(property: self.$resolution, snapshot: snapshot))
             }
         }
-
-        if let snapshot = _resolution.updateValueIfDifferent(nsScreen.frame.size) {
-            eventsSubject.send(.propertyUpdated(property: $resolution, snapshot: snapshot))
-        }
+        _resolution.updateValueIfDifferent(nsScreen.frame.size)
 
         let colorSpaceObserver = notificationCenter.addObserver(
-            forName: NSScreen.colorSpaceDidChangeNotification, object: nsScreen, queue: updatesQueue
-        ) { _ in
-            // TODO: Update colour space
+            forName: NSScreen.colorSpaceDidChangeNotification,
+            object: nsScreen,
+            queue: updatesQueue
+        ) { [weak self] notification in
+            guard let self = self else { return }
+            guard let screen = notification.object as? NSScreen else { return }
+            self._colorSpace.updateValue(screen.colorSpace)
         }
+        _colorSpace.updateValueIfDifferent(nsScreen.colorSpace)
 
         state = .monitoring(
             screenParametersObserver: screenParametersObserver,
