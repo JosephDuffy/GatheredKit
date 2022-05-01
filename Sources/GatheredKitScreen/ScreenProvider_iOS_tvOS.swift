@@ -89,6 +89,10 @@ public final class ScreenProvider: UpdatingSourceProvider, ControllableSourcePro
             self.sourceProviderEventsSubject.send(event)
         }
 
+        sources = UIScreen.screens.map { uiScreen in
+            Screen(screen: uiScreen)
+        }
+
         state = .monitoring(
             observers: .init(
                 didConnect: didConnectCancellable, didDisconnect: didDisconnectCancellable
