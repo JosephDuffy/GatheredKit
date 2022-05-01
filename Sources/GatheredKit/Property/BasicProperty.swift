@@ -16,6 +16,10 @@ open class BasicProperty<Value, Formatter>: UpdatableProperty where Formatter: F
         asReadOnlyProperty
     }
 
+    public var asReadOnlyProperty: ReadOnlyProperty<BasicProperty<Value, Formatter>> {
+        ReadOnlyProperty(self)
+    }
+
     // MARK: `Property` Requirements
 
     /// A human-friendly display name that describes the property.
