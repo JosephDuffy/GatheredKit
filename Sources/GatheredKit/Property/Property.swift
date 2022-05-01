@@ -8,7 +8,6 @@ public protocol Property: AnyProperty {
     var snapshot: Snapshot<Value> { get }
     var value: Value { get }
     var formatter: Formatter { get }
-    var asReadOnlyProperty: ReadOnlyProperty<Self> { get }
     /// An asynchronous stream of snapshots, starting with the current snapshot.
     var snapshots: AsyncStream<Snapshot<Value>> { get }
 
@@ -17,10 +16,6 @@ public protocol Property: AnyProperty {
 }
 
 extension Property {
-    public var projectedValue: ReadOnlyProperty<Self> {
-        asReadOnlyProperty
-    }
-
     public var value: Value {
         snapshot.value
     }
@@ -67,10 +62,6 @@ extension Property {
     /// string from the value.
     public var typeErasedFormatter: Foundation.Formatter {
         formatter
-    }
-
-    public var asReadOnlyProperty: ReadOnlyProperty<Self> {
-        ReadOnlyProperty(self)
     }
 
     public var typeErasedSnapshotPublisher: AnyPublisher<AnySnapshot, Never> {

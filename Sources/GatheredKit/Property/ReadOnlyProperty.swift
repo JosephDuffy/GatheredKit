@@ -39,3 +39,9 @@ extension ReadOnlyProperty: PropertiesProviding where Property: PropertiesProvid
         wrapped.allProperties
     }
 }
+
+extension Property {
+    public var asReadOnlyProperty: ReadOnlyProperty<Self> {
+        ReadOnlyProperty(self)
+    }
+}
