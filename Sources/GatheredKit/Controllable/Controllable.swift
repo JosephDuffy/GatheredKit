@@ -12,4 +12,6 @@ public protocol Controllable: AnyObject {
      Stops automatic updates
      */
     func stopUpdating()
+
+    var isUpdating: Bool { get }
 }
