@@ -4,8 +4,6 @@ import CoreMotion
 import Foundation
 import GatheredKit
 
-// TODO: Add rotationMatrix
-
 @propertyWrapper
 public final class CMAttitudeProperty: UpdatableProperty, PropertiesProviding {
     public typealias Value = CMAttitude
@@ -28,6 +26,9 @@ public final class CMAttitudeProperty: UpdatableProperty, PropertiesProviding {
 
     @CMQuaternionProperty
     public private(set) var quaternion: CMQuaternion
+
+    @CMRotationMatrixProperty
+    public private(set) var rotationMatrix: CMRotationMatrix
 
     // MARK: Property Wrapper Properties
 
@@ -75,6 +76,7 @@ public final class CMAttitudeProperty: UpdatableProperty, PropertiesProviding {
         _pitch = .radians(displayName: "Pitch", value: value.pitch, date: date)
         _yaw = .radians(displayName: "Yaw", value: value.yaw, date: date)
         _quaternion = .init(displayName: "Quaternion", value: value.quaternion, date: date)
+        _rotationMatrix = .init(displayName: "Rotation Matrix", value: value.rotationMatrix, date: date)
     }
 
     // MARK: Update Functions

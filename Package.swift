@@ -29,6 +29,7 @@ let package = Package(
             dependencies: ["GatheredKit"],
             exclude: ["README.md"]
         ),
+        .testTarget(name: "GatheredKitMotionTests", dependencies: ["GatheredKitMotion"]),
 
         .target(name: "GatheredKitScreen", dependencies: ["GatheredKit"]),
         .testTarget(name: "GatheredKitScreenTests", dependencies: ["GatheredKitScreen", "GatheredKitTestHelpers"]),
