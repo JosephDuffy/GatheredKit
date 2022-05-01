@@ -4,8 +4,6 @@ import CoreMotion
 import Foundation
 import GatheredKit
 
-// TODO: Add rotationMatrix
-
 @propertyWrapper
 public final class OptionalCMAttitudeProperty: UpdatableProperty, PropertiesProviding {
     public typealias Value = CMAttitude?
@@ -28,6 +26,9 @@ public final class OptionalCMAttitudeProperty: UpdatableProperty, PropertiesProv
 
     @OptionalCMQuaternionProperty
     public private(set) var quaternion: CMQuaternion?
+
+    @OptionalCMRotationMatrixProperty
+    public private(set) var rotationMatrix: CMRotationMatrix?
 
     // MARK: Property Wrapper Properties
 
@@ -64,8 +65,10 @@ public final class OptionalCMAttitudeProperty: UpdatableProperty, PropertiesProv
     // MARK: Initialisers
 
     public init(
-        displayName: String, value: Value = nil,
-        formatter: CMAttitudeFormatter = CMAttitudeFormatter(), date: Date = Date()
+        displayName: String,
+        value: Value = nil,
+        formatter: CMAttitudeFormatter = CMAttitudeFormatter(),
+        date: Date = Date()
     ) {
         self.displayName = displayName
         self.formatter = formatter
@@ -75,6 +78,7 @@ public final class OptionalCMAttitudeProperty: UpdatableProperty, PropertiesProv
         _pitch = .radians(displayName: "Pitch", value: value?.pitch, date: date)
         _yaw = .radians(displayName: "Yaw", value: value?.yaw, date: date)
         _quaternion = .init(displayName: "Quaternion", value: value?.quaternion, date: date)
+        _rotationMatrix = .init(displayName: "Rotation Matrix", value: value?.rotationMatrix, date: date)
     }
 
     // MARK: Update Functions
@@ -85,6 +89,7 @@ public final class OptionalCMAttitudeProperty: UpdatableProperty, PropertiesProv
         _pitch.updateMeasuredValue(value?.pitch, date: date)
         _yaw.updateMeasuredValue(value?.yaw, date: date)
         _quaternion.updateValue(value?.quaternion, date: date)
+        _rotationMatrix.updateValue(value?.rotationMatrix, date: date)
 
         let snapshot = Snapshot(value: value, date: date)
         self.snapshot = snapshot
