@@ -28,9 +28,14 @@ open class NSColorSpaceFormatter: Formatter {
         return string(for: colorSpace)
     }
 
-    public override func getObjectValue(_ obj: AutoreleasingUnsafeMutablePointer<AnyObject?>?, for string: String, errorDescription error: AutoreleasingUnsafeMutablePointer<NSString?>?) -> Bool {
-        #warning("TODO: Implement")
-        fatalError("Unimplemented")
+    open override func getObjectValue(
+        _ obj: AutoreleasingUnsafeMutablePointer<AnyObject?>?,
+        for string: String,
+        errorDescription error: AutoreleasingUnsafeMutablePointer<NSString?>?
+    ) -> Bool {
+        // This _could_ be implemented, but the output string would need to
+        // include more information to be accurate.
+        false
     }
 }
 #endif

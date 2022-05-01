@@ -34,8 +34,12 @@ public final class SizeFormatter: Formatter {
         return string(for: size)
     }
 
-    public override func getObjectValue(_ obj: AutoreleasingUnsafeMutablePointer<AnyObject?>?, for string: String, errorDescription error: AutoreleasingUnsafeMutablePointer<NSString?>?) -> Bool {
-        #warning("TODO: Implement")
-        fatalError("Unimplemented")
+    public override func getObjectValue(
+        _ obj: AutoreleasingUnsafeMutablePointer<AnyObject?>?,
+        for string: String,
+        errorDescription error: AutoreleasingUnsafeMutablePointer<NSString?>?
+    ) -> Bool {
+        // `CGSize` is not a class.
+        false
     }
 }

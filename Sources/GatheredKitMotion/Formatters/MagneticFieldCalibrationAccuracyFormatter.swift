@@ -23,9 +23,13 @@ public final class MagneticFieldCalibrationAccuracyFormatter: Formatter {
         return string(for: status)
     }
 
-    public override func getObjectValue(_ obj: AutoreleasingUnsafeMutablePointer<AnyObject?>?, for string: String, errorDescription error: AutoreleasingUnsafeMutablePointer<NSString?>?) -> Bool {
-        #warning("TODO: Implement")
-        fatalError("Unimplemented")
+    public override func getObjectValue(
+        _ obj: AutoreleasingUnsafeMutablePointer<AnyObject?>?,
+        for string: String,
+        errorDescription error: AutoreleasingUnsafeMutablePointer<NSString?>?
+    ) -> Bool {
+        // `CMMagneticFieldCalibrationAccuracy` is not a class.
+        false
     }
 }
 #endif

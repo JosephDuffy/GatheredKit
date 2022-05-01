@@ -30,7 +30,7 @@ open class NSColorSpaceModelFormatter: Formatter {
         case .patterned:
             return "Patterned"
         @unknown default:
-            return "Unknowm"
+            return "Unknown"
         }
     }
 
@@ -39,9 +39,13 @@ open class NSColorSpaceModelFormatter: Formatter {
         return string(for: colorSpaceModel)
     }
 
-    public override func getObjectValue(_ obj: AutoreleasingUnsafeMutablePointer<AnyObject?>?, for string: String, errorDescription error: AutoreleasingUnsafeMutablePointer<NSString?>?) -> Bool {
-        #warning("TODO: Implement")
-        fatalError("Unimplemented")
+    open override func getObjectValue(
+        _ obj: AutoreleasingUnsafeMutablePointer<AnyObject?>?,
+        for string: String,
+        errorDescription error: AutoreleasingUnsafeMutablePointer<NSString?>?
+    ) -> Bool {
+        // `NSColorSpace.Model` is not a class.
+        false
     }
 }
 #endif

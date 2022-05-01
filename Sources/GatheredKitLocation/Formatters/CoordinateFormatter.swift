@@ -46,8 +46,12 @@ public final class CoordinateFormatter: Formatter {
         return latitudeString + ", " + longitudeString
     }
 
-    public override func getObjectValue(_ obj: AutoreleasingUnsafeMutablePointer<AnyObject?>?, for string: String, errorDescription error: AutoreleasingUnsafeMutablePointer<NSString?>?) -> Bool {
-        #warning("TODO: Implement")
-        fatalError("Unimplemented")
+    public override func getObjectValue(
+        _ obj: AutoreleasingUnsafeMutablePointer<AnyObject?>?,
+        for string: String,
+        errorDescription error: AutoreleasingUnsafeMutablePointer<NSString?>?
+    ) -> Bool {
+        // `CLLocationCoordinate2D` is not a class.
+        false
     }
 }
