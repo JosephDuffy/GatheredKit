@@ -36,7 +36,7 @@ public final class CMMagneticFieldFormatter: Formatter {
         return string(for: magneticField)
     }
 
-    open override func getObjectValue(
+    public override func getObjectValue(
         _ obj: AutoreleasingUnsafeMutablePointer<AnyObject?>?,
         for string: String,
         errorDescription error: AutoreleasingUnsafeMutablePointer<NSString?>?

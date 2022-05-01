@@ -38,7 +38,7 @@ public final class CMRotationMatrixFormatter: Formatter {
         return string(for: rotationMatrix)
     }
 
-    open override func getObjectValue(
+    public override func getObjectValue(
         _ obj: AutoreleasingUnsafeMutablePointer<AnyObject?>?,
         for string: String,
         errorDescription error: AutoreleasingUnsafeMutablePointer<NSString?>?
