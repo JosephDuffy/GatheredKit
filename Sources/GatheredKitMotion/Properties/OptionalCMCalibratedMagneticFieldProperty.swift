@@ -7,8 +7,7 @@ import GatheredKit
 @propertyWrapper
 public final class OptionalCMCalibratedMagneticFieldProperty: UpdatableProperty, PropertiesProviding {
     public typealias Value = CMCalibratedMagneticField?
-    // TODO: Create `CMCalibratedMagneticFieldFormatter`
-    public typealias Formatter = CMMagneticFieldFormatter
+    public typealias Formatter = CMCalibratedMagneticFieldFormatter
 
     public var allProperties: [AnyProperty] {
         [$accuracy, $field]
@@ -46,7 +45,7 @@ public final class OptionalCMCalibratedMagneticFieldProperty: UpdatableProperty,
 
     /// A formatter that can be used to build a human-friendly string from the
     /// value.
-    public let formatter: Formatter
+    public let formatter: CMCalibratedMagneticFieldFormatter
 
     public var snapshotsPublisher: AnyPublisher<Snapshot<Value>, Never> {
         $snapshot.eraseToAnyPublisher()
@@ -55,7 +54,9 @@ public final class OptionalCMCalibratedMagneticFieldProperty: UpdatableProperty,
     // MARK: Initialisers
 
     public required init(
-        displayName: String, value: Value = nil, formatter: Formatter = Formatter(),
+        displayName: String,
+        value: Value = nil,
+        formatter: Formatter = CMCalibratedMagneticFieldFormatter(),
         date: Date = Date()
     ) {
         self.displayName = displayName
