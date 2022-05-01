@@ -20,21 +20,31 @@ public final class CMAttitudeFormatter: Formatter {
         fatalError("init(coder:) has not been implemented")
     }
 
-    public func string(for property: CMAttitudeProperty) -> String {
-        let roll = measurementFormatter.string(from: property.$roll.measurement)
-        let pitch = measurementFormatter.string(from: property.$pitch.measurement)
-        let yaw = measurementFormatter.string(from: property.$yaw.measurement)
+    public func string(for attitude: CMAttitude) -> String {
+        let roll = measurementFormatter.string(
+            from: Measurement(value: attitude.roll, unit: UnitAngle.radians)
+        )
+        let pitch = measurementFormatter.string(
+            from: Measurement(value: attitude.pitch, unit: UnitAngle.radians)
+        )
+        let yaw = measurementFormatter.string(
+            from: Measurement(value: attitude.yaw, unit: UnitAngle.radians)
+        )
         return [roll, pitch, yaw].joined(separator: ", ")
     }
 
     public override func string(for obj: Any?) -> String? {
-        guard let magneticField = obj as? CMMagneticField else { return nil }
-        return string(for: magneticField)
+        guard let attitude = obj as? CMAttitude else { return nil }
+        return string(for: attitude)
     }
 
-    public override func getObjectValue(_ obj: AutoreleasingUnsafeMutablePointer<AnyObject?>?, for string: String, errorDescription error: AutoreleasingUnsafeMutablePointer<NSString?>?) -> Bool {
-        #warning("TODO: Implement")
-        fatalError("Unimplemented")
+    public override func getObjectValue(
+        _ obj: AutoreleasingUnsafeMutablePointer<AnyObject?>?,
+        for string: String,
+        errorDescription error: AutoreleasingUnsafeMutablePointer<NSString?>?
+    ) -> Bool {
+        // It's not possible to construct a `CMAttitude`.
+        return false
     }
 }
 #endif
