@@ -1,0 +1,10 @@
+// Sources
+
+// Thermal State
+"source.thermal-state.name" = "Thermal State";
+"source.thermal-state.property.state" = "State";
+"property.thermal-state.nominal" = "Nominal";
+"property.thermal-state.fair" = "Fair";
+"property.thermal-state.serious" = "Serious";
+"property.thermal-state.critical" = "Critical";
+"property.thermal-state.unknown" = "Unknown";

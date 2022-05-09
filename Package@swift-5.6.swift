@@ -12,6 +12,7 @@ let package = Package(
         .library(name: "GatheredKitCamera", targets: ["GatheredKitCamera"]),
         .library(name: "GatheredKitLocation", targets: ["GatheredKitLocation"]),
         .library(name: "GatheredKitMotion", targets: ["GatheredKitMotion"]),
+        .library(name: "GatheredKitProcessInfo", targets: ["GatheredKitProcessInfo"]),
         .library(name: "GatheredKitScreen", targets: ["GatheredKitScreen"]),
         .library(name: "GatheredKitTestHelpers", targets: ["GatheredKitTestHelpers"]),
     ],
@@ -36,6 +37,8 @@ let package = Package(
             exclude: ["README.md"]
         ),
         .testTarget(name: "GatheredKitMotionTests", dependencies: ["GatheredKitMotion"]),
+
+            .target(name: "GatheredKitProcessInfo", dependencies: ["GatheredKit"]),
 
         .target(name: "GatheredKitScreen", dependencies: ["GatheredKit"]),
         .testTarget(name: "GatheredKitScreenTests", dependencies: ["GatheredKitScreen", "GatheredKitTestHelpers"]),
