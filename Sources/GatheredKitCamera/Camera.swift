@@ -31,7 +31,7 @@ public final class Camera: UpdatingSource, Controllable {
     @StringProperty
     public private(set) var uniqueID: String
 
-    @AVCaptureDevicePosition
+    @AVCaptureDevicePositionProperty
     public private(set) var position: AVCaptureDevice.Position
 
     public var allProperties: [AnyProperty] {

@@ -1,5 +1,5 @@
 import AVFoundation
 import GatheredKit
 
-public typealias AVCaptureDevicePosition = BasicProperty<AVCaptureDevice.Position, AVCaptureDevicePositionFormatter>
-public typealias OptionalAVCaptureDevicePosition = BasicProperty<AVCaptureDevice.Position?, AVCaptureDevicePositionFormatter>
+public typealias AVCaptureDevicePositionProperty = BasicProperty<AVCaptureDevice.Position, AVCaptureDevicePositionFormatter>
+public typealias OptionalAVCaptureDevicePositionProperty = BasicProperty<AVCaptureDevice.Position?, AVCaptureDevicePositionFormatter>
