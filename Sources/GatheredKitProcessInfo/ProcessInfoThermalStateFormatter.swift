@@ -14,31 +14,31 @@ open class ProcessInfoThermalStateFormatter: Formatter {
         switch thermalState {
         case .nominal:
             return NSLocalizedString(
-                "source.thermal-state.nominal",
+                "thermal-state.nominal",
                 bundle: .module,
                 comment: ""
             )
         case .fair:
             return NSLocalizedString(
-                "source.thermal-state.fair",
+                "thermal-state.fair",
                 bundle: .module,
                 comment: ""
             )
         case .serious:
             return NSLocalizedString(
-                "source.thermal-state.serious",
+                "thermal-state.serious",
                 bundle: .module,
                 comment: ""
             )
         case .critical:
             return NSLocalizedString(
-                "source.thermal-state.serious",
+                "thermal-state.serious",
                 bundle: .module,
                 comment: ""
             )
         @unknown default:
             return NSLocalizedString(
-                "source.thermal-state.unknown",
+                "thermal-state.unknown",
                 bundle: .module,
                 comment: ""
             )
