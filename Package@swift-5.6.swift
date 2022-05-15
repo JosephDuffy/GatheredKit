@@ -5,7 +5,7 @@ let package = Package(
     name: "GatheredKit",
     defaultLocalization: "en-gb",
     platforms: [
-        .macOS(.v10_15), .iOS(.v13), .tvOS(.v13), .watchOS(.v6),
+        .macOS(.v10_15), .iOS(.v13), .tvOS(.v13), .watchOS(.v6), .macCatalyst(.v13)
     ],
     products: [
         .library(name: "GatheredKit", targets: ["GatheredKit"]),
@@ -38,7 +38,7 @@ let package = Package(
         ),
         .testTarget(name: "GatheredKitMotionTests", dependencies: ["GatheredKitMotion"]),
 
-            .target(name: "GatheredKitProcessInfo", dependencies: ["GatheredKit"]),
+        .target(name: "GatheredKitProcessInfo", dependencies: ["GatheredKit"]),
 
         .target(name: "GatheredKitScreen", dependencies: ["GatheredKit"]),
         .testTarget(name: "GatheredKitScreenTests", dependencies: ["GatheredKitScreen", "GatheredKitTestHelpers"]),
