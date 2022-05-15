@@ -8,7 +8,8 @@ public final class CameraProvider: SourceProvider {
     @Published
     public private(set) var sources: [Camera]
 
-    public init(
+    #if os(iOS)
+    public convenience init(
         deviceTypes: [AVCaptureDevice.DeviceType] = [
             .builtInDualWideCamera,
             .builtInDualCamera,
@@ -22,6 +23,22 @@ public final class CameraProvider: SourceProvider {
             .unspecified, .back, .front
         ]
     ) {
+        self.init(_deviceTypes: deviceTypes, _positions: positions)
+    }
+    #elseif os(macOS)
+    public convenience init(
+        deviceTypes: [AVCaptureDevice.DeviceType] = [
+            .builtInWideAngleCamera,
+        ],
+        positions: [AVCaptureDevice.Position] = [
+            .unspecified, .back, .front
+        ]
+    ) {
+        self.init(_deviceTypes: deviceTypes, _positions: positions)
+    }
+    #endif
+
+    private init(_deviceTypes deviceTypes: [AVCaptureDevice.DeviceType], _positions positions: [AVCaptureDevice.Position]) {
         let captureDevices: [AVCaptureDevice] = positions.flatMap { position -> [AVCaptureDevice] in
             let discoverySession = AVCaptureDevice.DiscoverySession(
                 deviceTypes: deviceTypes,
