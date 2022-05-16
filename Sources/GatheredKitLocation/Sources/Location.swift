@@ -173,7 +173,11 @@ public final class Location: UpdatingSource, Controllable {
 
         let authorizationStatus = CLLocationManager.authorizationStatus()
         _authorizationStatus.updateValueIfDifferent(authorizationStatus)
-        availability = SourceAvailability(authorizationStatus: authorizationStatus) ?? .unavailable
+        let availability = SourceAvailability(authorizationStatus: authorizationStatus) ?? .unavailable
+        if availability != self.availability {
+            self.availability = availability
+            eventsSubject.send(.availabilityUpdated(availability))
+        }
 
         #if os(iOS) || os(watchOS)
         switch authorizationStatus {
