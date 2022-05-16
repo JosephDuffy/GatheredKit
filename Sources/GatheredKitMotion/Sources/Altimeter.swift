@@ -4,7 +4,7 @@ import CoreMotion
 import Foundation
 import GatheredKit
 
-public final class Altimeter: UpdatingSource, Controllable, ActionProvider {
+public final class Altimeter: UpdatingSource, Controllable {
     private enum State {
         case notMonitoring
         case monitoring(updatesQueue: OperationQueue)
@@ -20,29 +20,17 @@ public final class Altimeter: UpdatingSource, Controllable, ActionProvider {
 
     private let eventsSubject = PassthroughSubject<SourceEvent, Never>()
 
+    @Published
     public private(set) var isUpdating: Bool = false
 
     @OptionalLengthProperty
     public private(set) var relativeAltitude: Measurement<UnitLength>?
+
     @OptionalPressureProperty
     public private(set) var pressure: Measurement<UnitPressure>?
 
     public var allProperties: [AnyProperty] {
         [$relativeAltitude, $pressure]
-    }
-
-    public var actions: [Action] {
-        [
-            Action(
-                title: "Reset Altitude", isAvailable: isUpdating,
-                perform: { [weak self] in
-                    guard let self = self else { return }
-                    guard self.isUpdating else { return }
-                    self.stopUpdating()
-                    self.startUpdating()
-                }
-            ),
-        ]
     }
 
     private let altimeter: CMAltimeter
@@ -110,7 +98,27 @@ public final class Altimeter: UpdatingSource, Controllable, ActionProvider {
         let updatesQueue = OperationQueue()
         updatesQueue.name = "GatheredKit Altimeter Updates"
 
-        altimeter.startRelativeAltitudeUpdates(to: updatesQueue) { [weak self] data, error in
+        startRelativeAltitudeUpdates(to: updatesQueue)
+
+        state = .monitoring(updatesQueue: updatesQueue)
+        eventsSubject.send(.startedUpdating)
+    }
+
+    public func stopUpdating() {
+        guard case .monitoring = state else { return }
+        altimeter.stopRelativeAltitudeUpdates()
+        state = .notMonitoring
+        eventsSubject.send(.stoppedUpdating())
+    }
+
+    public func resetRelativeAltitude() {
+        guard case .monitoring(let updatesQueue) = state else { return }
+        altimeter.stopRelativeAltitudeUpdates()
+        startRelativeAltitudeUpdates(to: updatesQueue)
+    }
+
+    private func startRelativeAltitudeUpdates(to queue: OperationQueue) {
+        altimeter.startRelativeAltitudeUpdates(to: queue) { [weak self] data, error in
             guard let self = self else { return }
             if let error = error {
                 self.altimeter.stopRelativeAltitudeUpdates()
@@ -123,16 +131,6 @@ public final class Altimeter: UpdatingSource, Controllable, ActionProvider {
             self._relativeAltitude.updateMeasuredValue(data.relativeAltitude.doubleValue)
             self._pressure.updateMeasuredValue(data.pressure.doubleValue)
         }
-
-        state = .monitoring(updatesQueue: updatesQueue)
-        eventsSubject.send(.startedUpdating)
-    }
-
-    public func stopUpdating() {
-        guard case .monitoring = state else { return }
-        altimeter.stopRelativeAltitudeUpdates()
-        state = .notMonitoring
-        eventsSubject.send(.stoppedUpdating())
     }
 }
 
