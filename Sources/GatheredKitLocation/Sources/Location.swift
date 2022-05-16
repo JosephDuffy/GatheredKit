@@ -319,19 +319,30 @@ public final class Location: UpdatingSource, Controllable {
 
         switch availability {
         case .available:
-            guard isAskingForLocationPermissions else { return }
-            // The user has just granted location permissions
-            #if os(iOS) || os(watchOS)
-            startUpdating(
-                allowBackgroundUpdates: manager.allowsBackgroundLocationUpdates,
-                desiredAccuracy: Location.Accuracy(accuracy: manager.desiredAccuracy) ?? .best
-            )
-            #elseif os(macOS) || os(tvOS)
-            startUpdating(
-                desiredAccuracy: Location.Accuracy(accuracy: manager.desiredAccuracy) ?? .best
-            )
-            #endif
-        case .permissionDenied, .requiresPermissionsPrompt, .restricted, .unavailable:
+            switch state {
+            case .askingForPermissions:
+                // The user has just granted location permissions
+                #if os(iOS) || os(watchOS)
+                startUpdating(
+                    allowBackgroundUpdates: manager.allowsBackgroundLocationUpdates,
+                    desiredAccuracy: Location.Accuracy(accuracy: manager.desiredAccuracy) ?? .best
+                )
+                #elseif os(macOS) || os(tvOS)
+                startUpdating(
+                    desiredAccuracy: Location.Accuracy(accuracy: manager.desiredAccuracy) ?? .best
+                )
+                #endif
+            case .monitoring, .notMonitoring:
+                break
+            }
+        case .requiresPermissionsPrompt:
+            switch state {
+            case .monitoring:
+                stopUpdating()
+            case .notMonitoring, .askingForPermissions:
+                break
+            }
+        case .permissionDenied, .restricted, .unavailable:
             stopUpdating()
         }
     }
