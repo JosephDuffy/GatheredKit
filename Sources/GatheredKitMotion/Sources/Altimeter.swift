@@ -12,6 +12,9 @@ public final class Altimeter: UpdatingSource, Controllable {
 
     public let name = "Altimeter"
 
+    /// Unlike other sources this reflects the _hardware_ availablility, rather
+    /// than permissions; even when the user has denied Motion & Fitness
+    /// permissions the relative altitude and pressure are available.
     public private(set) var availability: SourceAvailability
 
     public var eventsPublisher: AnyPublisher<SourceEvent, Never> {
@@ -26,11 +29,19 @@ public final class Altimeter: UpdatingSource, Controllable {
     @OptionalLengthProperty
     public private(set) var relativeAltitude: Measurement<UnitLength>?
 
+    @available(iOS 15, *)
+    @OptionalCMAbsoluteAltitudeDataProperty
+    public private(set) var absoluteAltitude: CMAbsoluteAltitudeData?
+
     @OptionalPressureProperty
     public private(set) var pressure: Measurement<UnitPressure>?
 
     public var allProperties: [AnyProperty] {
-        [$relativeAltitude, $pressure]
+        if #available(iOS 15, *) {
+            return [$relativeAltitude, $absoluteAltitude, $pressure]
+        } else {
+            return [$relativeAltitude, $pressure]
+        }
     }
 
     private let altimeter: CMAltimeter
@@ -52,6 +63,7 @@ public final class Altimeter: UpdatingSource, Controllable {
         self.altimeter = altimeter
         availability = CMAltimeter.availability
         _relativeAltitude = .meters(displayName: "Relative Altitude")
+        _absoluteAltitude = .init(displayName: "Absolute Altitude")
         _pressure = .kilopascals(displayName: "Pressure")
 
         propertiesCancellables = allProperties.map { property in
@@ -71,10 +83,10 @@ public final class Altimeter: UpdatingSource, Controllable {
     public func startUpdating() {
         guard !isUpdating else { return }
 
-        let oldAvailability = availability
-        availability = CMAltimeter.availability
+        let availability = CMAltimeter.availability
 
-        if availability != oldAvailability {
+        if availability != self.availability {
+            self.availability = availability
             eventsSubject.send(.availabilityUpdated(availability))
         }
 
@@ -85,7 +97,6 @@ public final class Altimeter: UpdatingSource, Controllable {
             eventsSubject.send(.failedToStart(error: .permissionDenied))
             return
         case .requiresPermissionsPrompt:
-            // Perhaps it will ask the user when `startRelativeAltitudeUpdates` is called?
             break
         case .restricted:
             eventsSubject.send(.failedToStart(error: .restricted))
@@ -99,6 +110,13 @@ public final class Altimeter: UpdatingSource, Controllable {
         updatesQueue.name = "GatheredKit Altimeter Updates"
 
         startRelativeAltitudeUpdates(to: updatesQueue)
+
+        let availabilityAfterStarting = CMAltimeter.availability
+
+        if availabilityAfterStarting != self.availability {
+            self.availability = availabilityAfterStarting
+            eventsSubject.send(.availabilityUpdated(availabilityAfterStarting))
+        }
 
         state = .monitoring(updatesQueue: updatesQueue)
         eventsSubject.send(.startedUpdating)
@@ -131,28 +149,82 @@ public final class Altimeter: UpdatingSource, Controllable {
             self._relativeAltitude.updateMeasuredValue(data.relativeAltitude.doubleValue)
             self._pressure.updateMeasuredValue(data.pressure.doubleValue)
         }
+
+        if #available(iOS 15, *) {
+            if CMAltimeter.isAbsoluteAltitudeAvailable() {
+                switch CMAltimeter.authorizationStatus() {
+                case .authorized, .notDetermined:
+                    // If the authorization status is not determined making this
+                    // call with trigger the permission dialogue.
+                    altimeter.startAbsoluteAltitudeUpdates(to: queue) { [weak self] data, error in
+                        guard let self = self else { return }
+
+                        self.absoluteAltitude = data
+                        self._absoluteAltitude.error = error
+
+                        let availability = CMAltimeter.availability
+
+                        if availability != self.availability {
+                            self.availability = availability
+                            self.eventsSubject.send(.availabilityUpdated(availability))
+                        }
+                    }
+                case .denied:
+                    _absoluteAltitude.error = DeniedError()
+                case .restricted:
+                    _absoluteAltitude.error = RestrictedError()
+                @unknown default:
+                    break
+                }
+            } else {
+                _absoluteAltitude.error = UnsupportedError()
+            }
+        }
+    }
+}
+
+public struct UnsupportedError: LocalizedError {
+    public var errorDescription: String? {
+        "Unsupported"
+    }
+}
+
+public struct DeniedError: LocalizedError {
+    public var errorDescription: String? {
+        "Permission Denied"
+    }
+}
+
+public struct RestrictedError: LocalizedError {
+    public var errorDescription: String? {
+        "Restricted Denied"
     }
 }
 
 extension CMAltimeter {
     fileprivate static var availability: SourceAvailability {
-        guard isRelativeAltitudeAvailable() else {
-            return .unavailable
+        if CMAltimeter.isRelativeAltitudeAvailable() {
+            return .available
         }
 
-        let authorizationStatus = authorizationStatus()
-        switch authorizationStatus {
-        case .authorized:
-            return .available
-        case .denied:
-            return .permissionDenied
-        case .notDetermined:
-            return .requiresPermissionsPrompt
-        case .restricted:
-            return .restricted
-        @unknown default:
-            return .unavailable
+        if #available(iOS 15, *) {
+            if CMAltimeter.isAbsoluteAltitudeAvailable() {
+                switch CMAltimeter.authorizationStatus() {
+                case .authorized:
+                    return .available
+                case .notDetermined:
+                    return .requiresPermissionsPrompt
+                case .denied:
+                    return .permissionDenied
+                case .restricted:
+                    return .restricted
+                @unknown default:
+                    return .unavailable
+                }
+            }
         }
+
+        return .unavailable
     }
 }
 
