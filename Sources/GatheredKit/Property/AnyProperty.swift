@@ -6,6 +6,8 @@ public protocol AnyProperty: AnyObject, AnySnapshot {
 
     var displayName: String { get }
     var date: Date { get }
+    var error: Error? { get }
+    var errorsPublisher: AnyPublisher<Error?, Never> { get }
     var typeErasedFormatter: Formatter { get }
     var typeErasedSnapshots: AsyncStream<AnySnapshot> { get }
     var typeErasedSnapshotPublisher: AnyPublisher<AnySnapshot, Never> { get }
@@ -18,6 +20,14 @@ extension AnyProperty {
             return nil
         }
         return typeErasedFormatter.string(for: typeErasedValue)
+    }
+
+    public var error: Error? {
+        nil
+    }
+
+    public var errorsPublisher: AnyPublisher<Error?, Never> {
+        Just(nil).eraseToAnyPublisher()
     }
 
     /// An asynchronous stream of values, starting with the current value.
