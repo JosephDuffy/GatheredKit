@@ -95,7 +95,11 @@ public final class ScreenProvider: UpdatingSourceProvider, ControllableSourcePro
         }
 
         sources = UIScreen.screens.map { uiScreen in
-            Screen(screen: uiScreen)
+            if let existingScreen = sources.first(where: { $0.uiScreen === uiScreen }) {
+                return existingScreen
+            } else {
+                return Screen(screen: uiScreen)
+            }
         }
 
         state = .monitoring(
