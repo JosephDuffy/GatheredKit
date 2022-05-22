@@ -1,14 +1,18 @@
 import Combine
 
-public protocol UpdatingSource: Source {
+public protocol UpdatesProviding: AnyObject {
+    /// A boolean indicating if the source is currently performing automatic updates.
+    var isUpdating: Bool { get }
+
+    var isUpdatingPublisher: AnyPublisher<Bool, Never> { get }
+}
+
+public protocol UpdatingSource: Source, UpdatesProviding {
     /// An `AsyncStream` of events emitted by this ``UpdatingSource``.
     var events: AsyncStream<SourceEvent> { get }
 
     /// A Combine publisher that publishes events as they occur.
     var eventsPublisher: AnyPublisher<SourceEvent, Never> { get }
-
-    /// A boolean indicating if the source is currently performing automatic updates.
-    var isUpdating: Bool { get }
 }
 
 extension UpdatingSource {

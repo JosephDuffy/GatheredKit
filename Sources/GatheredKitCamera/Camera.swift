@@ -23,7 +23,12 @@ public final class Camera: UpdatingSource, Controllable {
     private let eventsSubject = PassthroughSubject<SourceEvent, Never>()
 
     /// A boolean indicating if the screen is monitoring for brightness changes
+    @Published
     public private(set) var isUpdating: Bool = false
+
+    public var isUpdatingPublisher: AnyPublisher<Bool, Never> {
+        $isUpdating.eraseToAnyPublisher()
+    }
 
     /// The `UIScreen` this `Screen` represents.
     public let captureDevice: AVCaptureDevice

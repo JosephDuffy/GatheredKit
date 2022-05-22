@@ -22,7 +22,12 @@ public final class Accelerometer: UpdatingSource, CustomisableUpdateIntervalCont
 
     private let eventsSubject = PassthroughSubject<SourceEvent, Never>()
 
+    @Published
     public private(set) var isUpdating: Bool = false
+
+    public var isUpdatingPublisher: AnyPublisher<Bool, Never> {
+        $isUpdating.eraseToAnyPublisher()
+    }
 
     public var updateInterval: TimeInterval? {
         isUpdating ? motionManager.accelerometerUpdateInterval : nil

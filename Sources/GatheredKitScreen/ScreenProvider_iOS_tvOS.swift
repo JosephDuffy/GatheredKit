@@ -25,7 +25,12 @@ public final class ScreenProvider: UpdatingSourceProvider, ControllableSourcePro
     @Published
     public private(set) var sources: [Screen]
 
+    @Published
     public private(set) var isUpdating: Bool = false
+
+    public var isUpdatingPublisher: AnyPublisher<Bool, Never> {
+        $isUpdating.eraseToAnyPublisher()
+    }
 
     private var state: State = .notMonitoring {
         didSet {

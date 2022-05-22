@@ -29,13 +29,11 @@ public final class Screen: UpdatingSource, Controllable {
     private let eventsSubject = PassthroughSubject<SourceEvent, Never>()
 
     /// A boolean indicating if the screen is monitoring for brightness changes
-    public var isUpdating: Bool {
-        switch state {
-        case .notMonitoring:
-            return false
-        case .monitoring:
-            return true
-        }
+    @Published
+    public private(set) var isUpdating: Bool = false
+
+    public var isUpdatingPublisher: AnyPublisher<Bool, Never> {
+        $isUpdating.eraseToAnyPublisher()
     }
 
     /// The `UIScreen` this `Screen` represents.
@@ -104,7 +102,16 @@ public final class Screen: UpdatingSource, Controllable {
     }
 
     /// The internal state, indicating if the screen is monitoring for changes
-    private var state: State = .notMonitoring
+    private var state: State = .notMonitoring {
+        didSet {
+            switch state {
+            case .notMonitoring:
+                isUpdating = false
+            case .monitoring:
+                isUpdating = true
+            }
+        }
+    }
 
     private let notificationCenter: NotificationCenter
 

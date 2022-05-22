@@ -26,6 +26,10 @@ public final class Altimeter: UpdatingSource, Controllable {
     @Published
     public private(set) var isUpdating: Bool = false
 
+    public var isUpdatingPublisher: AnyPublisher<Bool, Never> {
+        $isUpdating.eraseToAnyPublisher()
+    }
+
     @OptionalLengthProperty
     public private(set) var relativeAltitude: Measurement<UnitLength>?
 

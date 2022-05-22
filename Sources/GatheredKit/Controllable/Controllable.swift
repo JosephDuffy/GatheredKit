@@ -1,17 +1,10 @@
 import Combine
 
-/// An object that be started and stopped
-public protocol Controllable: AnyObject {
-    /**
-     Starts automatic updates. Closures added via `addUpdateListener(_:)` will be
-     called when new properties are available
-     */
+/// An object that can have the status of its updates controlled.
+public protocol Controllable: UpdatesProviding {
+    /// Start automatically updating all properties.
     func startUpdating()
 
-    /**
-     Stops automatic updates
-     */
+    /// Stop automatically updating all properties.
     func stopUpdating()
-
-    var isUpdating: Bool { get }
 }

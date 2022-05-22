@@ -69,7 +69,12 @@ public final class Location: UpdatingSource, Controllable {
         ]
     }
 
+    @Published
     public private(set) var isUpdating: Bool = false
+
+    public var isUpdatingPublisher: AnyPublisher<Bool, Never> {
+        $isUpdating.eraseToAnyPublisher()
+    }
 
     private var locationManager: CLLocationManager? {
         switch state {
