@@ -154,7 +154,7 @@ public final class Altimeter: UpdatingSource, Controllable {
             self._pressure.updateMeasuredValue(data.pressure.doubleValue)
         }
 
-        if #available(iOS 15, *) {
+        if #available(iOS 15, *), !ProcessInfo.processInfo.isMacCatalystApp {
             if CMAltimeter.isAbsoluteAltitudeAvailable() {
                 switch CMAltimeter.authorizationStatus() {
                 case .authorized, .notDetermined:
@@ -211,7 +211,7 @@ extension CMAltimeter {
             return .available
         }
 
-        if #available(iOS 15, *) {
+        if #available(iOS 15, *), !ProcessInfo.processInfo.isMacCatalystApp {
             if CMAltimeter.isAbsoluteAltitudeAvailable() {
                 switch CMAltimeter.authorizationStatus() {
                 case .authorized:

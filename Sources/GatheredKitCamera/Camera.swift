@@ -4,6 +4,7 @@ import GatheredKit
 import AVFoundation
 
 /// A wrapper around `AVCaptureDevice`.
+@available(macOS 10.7, iOS 4, macCatalyst 14, *)
 public final class Camera: UpdatingSource, Controllable {
     /// The default, general-purpose camera. This will always have the device
     /// type `AVCaptureDevice.DeviceType.builtInWideAngleCamera`.
