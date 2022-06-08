@@ -33,15 +33,16 @@ public final class Altimeter: UpdatingSource, Controllable {
     @OptionalLengthProperty
     public private(set) var relativeAltitude: Measurement<UnitLength>?
 
-    @available(iOS 15, *)
+    /// This property is only available on iOS 15 and watchOS 8 or later. On
+    /// prior versions this will always be `nil`.
     @OptionalCMAbsoluteAltitudeDataProperty
-    public private(set) var absoluteAltitude: CMAbsoluteAltitudeData?
+    public private(set) var absoluteAltitude: CMAbsoluteAltitudeDataShim?
 
     @OptionalPressureProperty
     public private(set) var pressure: Measurement<UnitPressure>?
 
     public var allProperties: [AnyProperty] {
-        if #available(iOS 15, *) {
+        if #available(iOS 15, watchOS 8, *) {
             return [$relativeAltitude, $absoluteAltitude, $pressure]
         } else {
             return [$relativeAltitude, $pressure]
@@ -154,7 +155,7 @@ public final class Altimeter: UpdatingSource, Controllable {
             self._pressure.updateMeasuredValue(data.pressure.doubleValue)
         }
 
-        if #available(iOS 15, *), !ProcessInfo.processInfo.isMacCatalystApp {
+        if #available(iOS 15, watchOS 8, *), !ProcessInfo.processInfo.isMacCatalystApp {
             if CMAltimeter.isAbsoluteAltitudeAvailable() {
                 switch CMAltimeter.authorizationStatus() {
                 case .authorized, .notDetermined:
@@ -163,7 +164,7 @@ public final class Altimeter: UpdatingSource, Controllable {
                     altimeter.startAbsoluteAltitudeUpdates(to: queue) { [weak self] data, error in
                         guard let self = self else { return }
 
-                        self.absoluteAltitude = data
+                        self.absoluteAltitude = data.map(CMAbsoluteAltitudeDataShim.init(cmAbsoluteAltitudeData:))
                         self._absoluteAltitude.error = error
 
                         let availability = CMAltimeter.availability
@@ -211,7 +212,7 @@ extension CMAltimeter {
             return .available
         }
 
-        if #available(iOS 15, *), !ProcessInfo.processInfo.isMacCatalystApp {
+        if #available(iOS 15, watchOS 8, *), !ProcessInfo.processInfo.isMacCatalystApp {
             if CMAltimeter.isAbsoluteAltitudeAvailable() {
                 switch CMAltimeter.authorizationStatus() {
                 case .authorized:

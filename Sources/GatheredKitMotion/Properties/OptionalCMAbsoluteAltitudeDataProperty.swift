@@ -4,10 +4,9 @@ import CoreMotion
 import Foundation
 import GatheredKit
 
-@available(iOS 15.0, *)
 @propertyWrapper
 public final class OptionalCMAbsoluteAltitudeDataProperty: UpdatableProperty, PropertiesProviding {
-    public typealias Value = CMAbsoluteAltitudeData?
+    public typealias Value = CMAbsoluteAltitudeDataShim?
     #warning("TODO: Replace with a proper formatter")
     public typealias Formatter = CMAccelerationFormatter
 
