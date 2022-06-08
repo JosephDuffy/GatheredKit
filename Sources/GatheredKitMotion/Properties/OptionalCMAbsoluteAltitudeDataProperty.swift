@@ -8,6 +8,7 @@ import GatheredKit
 @propertyWrapper
 public final class OptionalCMAbsoluteAltitudeDataProperty: UpdatableProperty, PropertiesProviding {
     public typealias Value = CMAbsoluteAltitudeData?
+    #warning("TODO: Replace with a proper formatter")
     public typealias Formatter = CMAccelerationFormatter
 
     public var allProperties: [AnyProperty] {
