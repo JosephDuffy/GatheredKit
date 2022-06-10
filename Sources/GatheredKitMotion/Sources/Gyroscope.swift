@@ -1,9 +1,9 @@
-#if os(iOS) || os(watchOS)
 import Combine
 import CoreMotion
 import Foundation
 import GatheredKit
 
+@available(macOS, unavailable)
 public final class Gyroscope: UpdatingSource, CustomisableUpdateIntervalControllable {
     private enum State {
         case notMonitoring
@@ -111,4 +111,3 @@ public final class Gyroscope: UpdatingSource, CustomisableUpdateIntervalControll
         eventsSubject.send(.stoppedUpdating())
     }
 }
-#endif

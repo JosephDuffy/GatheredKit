@@ -1,7 +1,7 @@
-#if canImport(CoreMotion)
 import CoreMotion
 import Foundation
 
+@available(macOS, unavailable)
 public final class MagneticFieldCalibrationAccuracyFormatter: Formatter {
     public func string(for status: CMMagneticFieldCalibrationAccuracy) -> String {
         switch status {
@@ -32,4 +32,3 @@ public final class MagneticFieldCalibrationAccuracyFormatter: Formatter {
         false
     }
 }
-#endif

@@ -1,7 +1,7 @@
-#if os(iOS) || os(watchOS)
 import CoreMotion
 import Foundation
 
+@available(macOS, unavailable)
 public final class CMAccelerationFormatter: Formatter {
     public var measurementFormatter: MeasurementFormatter
 
@@ -44,4 +44,3 @@ public final class CMAccelerationFormatter: Formatter {
         false
     }
 }
-#endif

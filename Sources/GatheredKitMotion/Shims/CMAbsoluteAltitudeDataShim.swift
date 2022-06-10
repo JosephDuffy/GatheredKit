@@ -2,6 +2,7 @@ import CoreMotion
 
 /// A shim around `CMAbsoluteAltitudeData`. This object can only be initialised
 /// on iOS 15 and watchOS 8 or higher.
+@available(macOS, unavailable)
 public final class CMAbsoluteAltitudeDataShim: CMLogItem {
     /// The absolute altitude of the device in meters relative to sea level; could be positive or negative.
     public var altitude: Double {

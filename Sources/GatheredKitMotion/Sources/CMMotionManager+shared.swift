@@ -1,10 +1,11 @@
-#if os(iOS) || os(watchOS)
 import CoreMotion
 import Foundation
 
+@available(macOS, unavailable)
 private var _sharedCMMotionManager: CMMotionManager?
 private let accessLock = NSLock()
 
+@available(macOS, unavailable)
 extension CMMotionManager {
     /// A shared instance of ``CMMotionManager`` used by GatheredKitMotion.
     ///
@@ -38,5 +39,3 @@ extension CMMotionManager {
         }
     }
 }
-
-#endif

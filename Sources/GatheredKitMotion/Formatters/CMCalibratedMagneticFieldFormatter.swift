@@ -1,7 +1,7 @@
-#if os(iOS) || os(watchOS)
 import CoreMotion
 import Foundation
 
+@available(macOS, unavailable)
 open class CMCalibratedMagneticFieldFormatter: Formatter {
     public var magneticFieldFormatter: CMMagneticFieldFormatter
 
@@ -63,4 +63,3 @@ open class CMCalibratedMagneticFieldFormatter: Formatter {
         false
     }
 }
-#endif

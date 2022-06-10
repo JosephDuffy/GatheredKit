@@ -1,9 +1,9 @@
-#if os(iOS) || os(watchOS)
 import Combine
 import CoreMotion
 import Foundation
 import GatheredKit
 
+@available(macOS, unavailable)
 public final class Altimeter: UpdatingSource, Controllable {
     private enum State {
         case notMonitoring
@@ -206,6 +206,7 @@ public struct RestrictedError: LocalizedError {
     }
 }
 
+@available(macOS, unavailable)
 extension CMAltimeter {
     fileprivate static var availability: SourceAvailability {
         if CMAltimeter.isRelativeAltitudeAvailable() {
@@ -232,5 +233,3 @@ extension CMAltimeter {
         return .unavailable
     }
 }
-
-#endif

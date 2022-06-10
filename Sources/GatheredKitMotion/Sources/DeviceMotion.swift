@@ -1,9 +1,9 @@
-#if os(iOS) || os(watchOS)
 import Combine
 import CoreMotion
 import Foundation
 import GatheredKit
 
+@available(macOS, unavailable)
 public final class DeviceMotion: UpdatingSource, CustomisableUpdateIntervalControllable {
     private enum State {
         case notMonitoring
@@ -179,4 +179,3 @@ public final class DeviceMotion: UpdatingSource, CustomisableUpdateIntervalContr
         eventsSubject.send(.stoppedUpdating())
     }
 }
-#endif

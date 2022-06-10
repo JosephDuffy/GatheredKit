@@ -1,8 +1,8 @@
-#if os(iOS) || os(watchOS)
 import CoreMotion
 import Foundation
 import GatheredKit
 
+@available(macOS, unavailable)
 public final class CMMagneticFieldFormatter: Formatter {
     public var measurementFormatter: MeasurementFormatter
 
@@ -45,4 +45,3 @@ public final class CMMagneticFieldFormatter: Formatter {
         false
     }
 }
-#endif

@@ -1,9 +1,9 @@
-#if os(iOS) || os(watchOS)
 import Combine
 import CoreMotion
 import Foundation
 import GatheredKit
 
+@available(macOS, unavailable)
 public final class Accelerometer: UpdatingSource, CustomisableUpdateIntervalControllable {
     private enum State {
         case notMonitoring
@@ -109,4 +109,3 @@ public final class Accelerometer: UpdatingSource, CustomisableUpdateIntervalCont
         eventsSubject.send(.stoppedUpdating())
     }
 }
-#endif

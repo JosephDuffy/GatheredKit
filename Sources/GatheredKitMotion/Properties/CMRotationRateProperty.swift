@@ -1,9 +1,9 @@
-#if os(iOS) || os(watchOS)
 import Combine
 import CoreMotion
 import Foundation
 import GatheredKit
 
+@available(macOS, unavailable)
 @propertyWrapper
 public final class CMRotationRateProperty: UpdatableProperty, PropertiesProviding {
     public typealias Value = CMRotationRate
@@ -78,4 +78,3 @@ public final class CMRotationRateProperty: UpdatableProperty, PropertiesProvidin
         return snapshot
     }
 }
-#endif

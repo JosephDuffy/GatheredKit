@@ -1,9 +1,9 @@
-#if os(iOS) || os(watchOS)
 import Combine
 import CoreMotion
 import Foundation
 import GatheredKit
 
+@available(macOS, unavailable)
 @propertyWrapper
 public final class OptionalCMMagneticFieldProperty: UpdatableProperty, PropertiesProviding {
     public typealias Value = CMMagneticField?
@@ -80,4 +80,3 @@ public final class OptionalCMMagneticFieldProperty: UpdatableProperty, Propertie
         return snapshot
     }
 }
-#endif

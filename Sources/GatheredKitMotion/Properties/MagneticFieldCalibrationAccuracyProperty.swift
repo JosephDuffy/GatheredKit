@@ -1,11 +1,8 @@
-#if canImport(CoreMotion)
 import CoreMotion
 import GatheredKit
 
-public typealias CMMagneticFieldCalibrationAccuracyProperty = BasicProperty<
-    CMMagneticFieldCalibrationAccuracy, MagneticFieldCalibrationAccuracyFormatter
->
-public typealias OptionalCMMagneticFieldCalibrationAccuracyProperty = BasicProperty<
-    CMMagneticFieldCalibrationAccuracy?, MagneticFieldCalibrationAccuracyFormatter
->
-#endif
+@available(macOS, unavailable)
+public typealias CMMagneticFieldCalibrationAccuracyProperty = BasicProperty<CMMagneticFieldCalibrationAccuracy, MagneticFieldCalibrationAccuracyFormatter>
+
+@available(macOS, unavailable)
+public typealias OptionalCMMagneticFieldCalibrationAccuracyProperty = BasicProperty<CMMagneticFieldCalibrationAccuracy?, MagneticFieldCalibrationAccuracyFormatter>

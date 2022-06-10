@@ -1,9 +1,9 @@
-#if os(iOS) || os(watchOS)
 import Combine
 import CoreMotion
 import Foundation
 import GatheredKit
 
+@available(macOS, unavailable)
 @propertyWrapper
 public final class OptionalCMAbsoluteAltitudeDataProperty: UpdatableProperty, PropertiesProviding {
     public typealias Value = CMAbsoluteAltitudeDataShim?
@@ -91,4 +91,3 @@ public final class OptionalCMAbsoluteAltitudeDataProperty: UpdatableProperty, Pr
         return snapshot
     }
 }
-#endif

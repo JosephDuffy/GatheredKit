@@ -1,7 +1,7 @@
-#if os(iOS) || os(watchOS)
 import CoreMotion
 import Foundation
 
+@available(macOS, unavailable)
 public final class CMRotationMatrixFormatter: Formatter {
     public var numberFormatter: NumberFormatter
 
@@ -47,4 +47,3 @@ public final class CMRotationMatrixFormatter: Formatter {
         false
     }
 }
-#endif

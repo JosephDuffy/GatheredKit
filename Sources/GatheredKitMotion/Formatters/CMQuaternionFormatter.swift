@@ -1,7 +1,7 @@
-#if os(iOS) || os(watchOS)
 import CoreMotion
 import Foundation
 
+@available(macOS, unavailable)
 public final class CMQuaternionFormatter: Formatter {
     public var numberFormatter: NumberFormatter
 
@@ -42,4 +42,3 @@ public final class CMQuaternionFormatter: Formatter {
         false
     }
 }
-#endif

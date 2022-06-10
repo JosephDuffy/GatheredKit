@@ -1,9 +1,9 @@
-#if os(iOS) || os(watchOS)
 import Combine
 import CoreMotion
 import Foundation
 import GatheredKit
 
+@available(macOS, unavailable)
 @propertyWrapper
 public final class OptionalCMAccelerationProperty: UpdatableProperty, PropertiesProviding {
     public typealias Value = CMAcceleration?
@@ -80,4 +80,3 @@ public final class OptionalCMAccelerationProperty: UpdatableProperty, Properties
         return snapshot
     }
 }
-#endif

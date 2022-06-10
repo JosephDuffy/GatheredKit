@@ -1,9 +1,9 @@
-#if os(iOS) || os(watchOS)
 import Combine
 import CoreMotion
 import Foundation
 import GatheredKit
 
+@available(macOS, unavailable)
 @propertyWrapper
 public final class OptionalCMRotationMatrixProperty: UpdatableProperty, PropertiesProviding {
     public typealias Value = CMRotationMatrix?
@@ -116,4 +116,3 @@ public final class OptionalCMRotationMatrixProperty: UpdatableProperty, Properti
         return snapshot
     }
 }
-#endif
