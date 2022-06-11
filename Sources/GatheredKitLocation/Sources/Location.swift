@@ -121,6 +121,7 @@ public final class Location: UpdatingSource, Controllable {
         _altitude = .meters(displayName: "Altitude")
         _floor = .init(displayName: "Floor")
         _horizonalAccuracy = .meters(displayName: "Horizontal Accuracy")
+        #warning("TODO: Provide a custom formatter for 0 and negate values")
         _verticalAccuracy = .meters(displayName: "Vertical Accuracy")
         _authorizationStatus = .init(
             displayName: "Authorization Status", value: CLLocationManager.authorizationStatus()
