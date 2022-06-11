@@ -13,6 +13,10 @@ public final class Screen: UpdatingSource, Controllable {
         )
     }
 
+    public static var main: Screen? {
+        NSScreen.main.map { Screen(screen: $0) }
+    }
+
     public let availability: SourceAvailability = .available
 
     public let name = "Screen"

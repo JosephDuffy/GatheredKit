@@ -18,6 +18,10 @@ public final class Screen: UpdatingSource, Controllable {
         #endif
     }
 
+    public static var main: Screen {
+        Screen(screen: .main)
+    }
+
     public let availability: SourceAvailability = .available
 
     public let name: String
