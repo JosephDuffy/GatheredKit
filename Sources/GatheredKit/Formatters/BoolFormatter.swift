@@ -4,6 +4,21 @@ public final class BoolFormatter: Formatter {
     public var trueString: String
     public var falseString: String
 
+    public convenience override init() {
+        self.init(
+            trueString: NSLocalizedString(
+                "yes",
+                bundle: .module,
+                comment: "The value for a true value"
+            ),
+            falseString: NSLocalizedString(
+                "no",
+                bundle: .module,
+                comment: "The value for a false value"
+            )
+        )
+    }
+
     public required init(trueString: String, falseString: String) {
         self.trueString = trueString
         self.falseString = falseString
