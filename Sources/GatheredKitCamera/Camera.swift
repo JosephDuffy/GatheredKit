@@ -6,6 +6,11 @@ import AVFoundation
 /// A wrapper around `AVCaptureDevice`.
 @available(macOS 10.7, iOS 4, macCatalyst 14, *)
 public final class Camera: UpdatingSource, Controllable {
+    private enum State {
+        case notMonitoring
+        case monitoring(observations: [NSKeyValueObservation])
+    }
+
     /// The default, general-purpose camera. This will always have the device
     /// type `AVCaptureDevice.DeviceType.builtInWideAngleCamera`.
     public static var `default`: Camera? {
@@ -23,7 +28,6 @@ public final class Camera: UpdatingSource, Controllable {
 
     private let eventsSubject = PassthroughSubject<SourceEvent, Never>()
 
-    /// A boolean indicating if the screen is monitoring for brightness changes
     @Published
     public private(set) var isUpdating: Bool = false
 
@@ -40,33 +44,51 @@ public final class Camera: UpdatingSource, Controllable {
     @AVCaptureDevicePositionProperty
     public private(set) var position: AVCaptureDevice.Position
 
+    @BoolProperty
+    public private(set) var isConnected: Bool
+
     public var allProperties: [AnyProperty] {
         [
             $uniqueID,
             $position,
+            $isConnected,
         ]
+    }
+
+    private var state: State = .notMonitoring {
+        didSet {
+            switch state {
+            case .monitoring:
+                isUpdating = true
+            case .notMonitoring:
+                isUpdating = false
+            }
+        }
     }
 
     public init(captureDevice: AVCaptureDevice) {
         self.captureDevice = captureDevice
-        _uniqueID = .init(displayName: "Unique Identifier", value: captureDevice.uniqueID)
         name = captureDevice.localizedName
+        _uniqueID = .init(displayName: "Unique Identifier", value: captureDevice.uniqueID)
         _position = .init(displayName: "Position", value: captureDevice.position)
+        _isConnected = .init(displayName: "Connected", value: captureDevice.isConnected)
     }
 
-    /**
-     Start automatically monitoring changes to the source. This will start delegate methods being called
-     when new data is available
-     */
     public func startUpdating() {
+        guard !isUpdating else { return }
 
+        _isConnected.updateValueIfDifferent(captureDevice.isConnected)
+
+        let isConnectedObservation = captureDevice.observe(\.isConnected, options: .new) { [weak self] captureDevice, _ in
+            self?._isConnected.updateValueIfDifferent(captureDevice.isConnected)
+        }
+
+        state = .monitoring(observations: [isConnectedObservation])
     }
 
-    /**
-     Stop performing automatic date refreshes
-     */
     public func stopUpdating() {
-
+        guard isUpdating else { return }
+        state = .notMonitoring
     }
 }
 
