@@ -19,14 +19,11 @@ public final class ExternalAccessory: UpdatingSource, Controllable {
 
     private let eventsSubject = PassthroughSubject<SourceEvent, Never>()
 
-    /// A boolean indicating if the screen is monitoring for brightness changes
-    public var isUpdating: Bool {
-        switch state {
-        case .notMonitoring:
-            return false
-        case .monitoring:
-            return true
-        }
+    @Published
+    public private(set) var isUpdating: Bool = false
+
+    public var isUpdatingPublisher: AnyPublisher<Bool, Never> {
+        $isUpdating.eraseToAnyPublisher()
     }
 
     public let accessory: EAAccessory
@@ -64,7 +61,16 @@ public final class ExternalAccessory: UpdatingSource, Controllable {
         ]
     }
 
-    private var state: State = .notMonitoring
+    private var state: State = .notMonitoring {
+        didSet {
+            switch state {
+            case .monitoring:
+                isUpdating = true
+            case .notMonitoring:
+                isUpdating = false
+            }
+        }
+    }
 
     public init(accessory: EAAccessory) {
         self.accessory = accessory

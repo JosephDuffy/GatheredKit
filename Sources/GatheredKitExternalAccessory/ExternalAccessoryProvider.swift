@@ -19,7 +19,12 @@ public final class ExternalAccessoryProvider: UpdatingSourceProvider, Controllab
     @Published
     public private(set) var sources: [ExternalAccessory]
 
+    @Published
     public private(set) var isUpdating: Bool = false
+
+    public var isUpdatingPublisher: AnyPublisher<Bool, Never> {
+        $isUpdating.eraseToAnyPublisher()
+    }
 
     private var state: State = .notMonitoring {
         didSet {
