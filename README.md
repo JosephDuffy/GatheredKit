@@ -38,12 +38,10 @@ Below are the sources that are available in the Gathered app but have not yet be
 
 - [ ] Compass
 - [ ] Wi-Fi
-- [ ] Altimeter
 - [ ] Microphone
 - [ ] Cell Radio
 - [ ] Device Attitude
 - [ ] Proximity
-- [ ] Battery
 - [ ] Advertising
 - [ ] Audio Output
 - [ ] Device Orientation
@@ -53,8 +51,6 @@ Below are the sources that are available in the Gathered app but have not yet be
 - [ ] Device Metadata
 - [ ] Operating System
 - [ ] CPU
-- [ ] Cameras
-- [ ] Battery
 
 # Installation
 

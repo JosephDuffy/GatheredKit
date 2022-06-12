@@ -10,6 +10,7 @@ let package = Package(
     products: [
         .library(name: "GatheredKit", targets: ["GatheredKit"]),
         .library(name: "GatheredKitCamera", targets: ["GatheredKitCamera"]),
+        .library(name: "GatheredKitDevice", targets: ["GatheredKitDevice"]),
         .library(name: "GatheredKitExternalAccessory", targets: ["GatheredKitExternalAccessory"]),
         .library(name: "GatheredKitLocation", targets: ["GatheredKitLocation"]),
         .library(name: "GatheredKitMotion", targets: ["GatheredKitMotion"]),
@@ -28,6 +29,8 @@ let package = Package(
         .testTarget(name: "GatheredKitTests", dependencies: ["GatheredKit", "GatheredKitTestHelpers"]),
 
         .target(name: "GatheredKitCamera", dependencies: ["GatheredKit"]),
+
+        .target(name: "GatheredKitDevice", dependencies: ["GatheredKit"]),
 
         .target(name: "GatheredKitExternalAccessory", dependencies: ["GatheredKit"]),
 
