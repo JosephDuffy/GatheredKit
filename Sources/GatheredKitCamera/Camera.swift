@@ -1,7 +1,7 @@
 #if os(iOS) || os(macOS)
+import AVFoundation
 import Combine
 import GatheredKit
-import AVFoundation
 
 /// A wrapper around `AVCaptureDevice`.
 @available(macOS 10.7, iOS 4, macCatalyst 14, *)

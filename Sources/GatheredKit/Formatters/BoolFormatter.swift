@@ -4,7 +4,7 @@ public final class BoolFormatter: Formatter {
     public var trueString: String
     public var falseString: String
 
-    public convenience override init() {
+    public override convenience init() {
         self.init(
             trueString: NSLocalizedString(
                 "yes",
@@ -52,7 +52,7 @@ public final class BoolFormatter: Formatter {
 
     public override func string(for obj: Any?) -> String? {
         guard let bool = obj as? Bool else { return nil }
-        return self.string(for: bool)
+        return string(for: bool)
     }
 
     public override func getObjectValue(

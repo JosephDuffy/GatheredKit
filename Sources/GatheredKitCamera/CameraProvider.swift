@@ -21,18 +21,19 @@ public final class CameraProvider: SourceProvider {
             .builtInWideAngleCamera,
         ],
         positions: [AVCaptureDevice.Position] = [
-            .unspecified, .back, .front
+            .unspecified, .back, .front,
         ]
     ) {
         self.init(_deviceTypes: deviceTypes, _positions: positions)
     }
+
     #elseif os(macOS)
     public convenience init(
         deviceTypes: [AVCaptureDevice.DeviceType] = [
             .builtInWideAngleCamera,
         ],
         positions: [AVCaptureDevice.Position] = [
-            .unspecified, .back, .front
+            .unspecified, .back, .front,
         ]
     ) {
         self.init(_deviceTypes: deviceTypes, _positions: positions)

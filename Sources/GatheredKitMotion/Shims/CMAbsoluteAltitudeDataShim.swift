@@ -48,7 +48,7 @@ public final class CMAbsoluteAltitudeDataShim: CMLogItem {
 
     @available(iOS 15.0, watchOS 8, *)
     public init(cmAbsoluteAltitudeData: CMAbsoluteAltitudeData) {
-        self.backingData = cmAbsoluteAltitudeData
+        backingData = cmAbsoluteAltitudeData
 
         super.init()
     }

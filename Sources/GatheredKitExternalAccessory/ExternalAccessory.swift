@@ -1,6 +1,6 @@
 import Combine
-import GatheredKit
 import ExternalAccessory
+import GatheredKit
 
 /// A wrapper around `UIScreen`.
 public final class ExternalAccessory: UpdatingSource, Controllable {

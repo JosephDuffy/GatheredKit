@@ -30,7 +30,6 @@ open class BasePollingSource: UpdatingSource {
         }
     }
 
-
     @Published
     public private(set) var isUpdating: Bool = false
 
