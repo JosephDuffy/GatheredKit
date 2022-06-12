@@ -26,8 +26,11 @@ public final class Battery: UpdatingSource, Controllable {
         $isUpdating.eraseToAnyPublisher()
     }
 
-    /// The `AVCaptureDevice` this `Camera` represents.
+    /// The `UIDevice` to read the level and state from.
     public let device: UIDevice
+
+    /// The `ProcessInfo` used to determine if low power mode is enabled.
+    public let processInfo: ProcessInfo
 
     /// The current battery level, expressed as a percentage, ranging from 0.0
     /// to 1.0.
@@ -40,10 +43,14 @@ public final class Battery: UpdatingSource, Controllable {
     @BatteryStateProperty
     public private(set) var state: UIDevice.BatteryState
 
+    @BoolProperty
+    public private(set) var isLowPowerModeEnabled: Bool
+
     public var allProperties: [AnyProperty] {
         [
             $level,
             $state,
+            $isLowPowerModeEnabled,
         ]
     }
 
@@ -62,12 +69,13 @@ public final class Battery: UpdatingSource, Controllable {
 
     private var propertiesCancellables: [AnyCancellable] = []
 
-    public convenience init(device: UIDevice = .current) {
-        self.init(device: device, notificationCenter: .default)
+    public convenience init(device: UIDevice = .current, processInfo: ProcessInfo = .processInfo) {
+        self.init(device: device, processInfo: processInfo, notificationCenter: .default)
     }
 
-    internal init(device: UIDevice, notificationCenter: NotificationCenter) {
+    internal init(device: UIDevice, processInfo: ProcessInfo, notificationCenter: NotificationCenter) {
         self.device = device
+        self.processInfo = processInfo
         self.notificationCenter = notificationCenter
         name = "Battery"
         _level = .init(
@@ -77,6 +85,11 @@ public final class Battery: UpdatingSource, Controllable {
         _state = .init(
             displayName: "State",
             value: device.batteryState
+        )
+        _isLowPowerModeEnabled = .init(
+            displayName: "Low Power Mode",
+            value: processInfo.isLowPowerModeEnabled,
+            formatter: BoolFormatter(trueString: "Enabled", falseString: "Disabled")
         )
 
         propertiesCancellables = allProperties.map { property in
@@ -93,9 +106,6 @@ public final class Battery: UpdatingSource, Controllable {
         guard !isUpdating else { return }
 
         device.isBatteryMonitoringEnabled = true
-
-        _level.updateValueIfDifferent(device.batteryLevel)
-        _state.updateValueIfDifferent(device.batteryState)
 
         var notificationCancellables: Set<AnyCancellable> = []
 
@@ -114,6 +124,18 @@ public final class Battery: UpdatingSource, Controllable {
                 self._state.updateValueIfDifferent(self.device.batteryState)
             }
             .store(in: &notificationCancellables)
+
+        notificationCenter
+            .publisher(for: .NSProcessInfoPowerStateDidChange, object: processInfo)
+            .sink { [weak self] _ in
+                guard let self = self else { return }
+                self._isLowPowerModeEnabled.updateValueIfDifferent(self.processInfo.isLowPowerModeEnabled)
+            }
+            .store(in: &notificationCancellables)
+
+        _level.updateValueIfDifferent(device.batteryLevel)
+        _state.updateValueIfDifferent(device.batteryState)
+        _isLowPowerModeEnabled.updateValueIfDifferent(processInfo.isLowPowerModeEnabled)
 
         monitoringState = .monitoring(notificationCancellables: notificationCancellables)
     }
