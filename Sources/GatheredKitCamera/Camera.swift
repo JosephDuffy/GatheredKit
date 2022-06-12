@@ -35,7 +35,7 @@ public final class Camera: UpdatingSource, Controllable {
         $isUpdating.eraseToAnyPublisher()
     }
 
-    /// The `UIScreen` this `Screen` represents.
+    /// The `AVCaptureDevice` this `Camera` represents.
     public let captureDevice: AVCaptureDevice
 
     @StringProperty
