@@ -17,6 +17,7 @@ let package = Package(
         .library(name: "GatheredKitProcessInfo", targets: ["GatheredKitProcessInfo"]),
         .library(name: "GatheredKitScreen", targets: ["GatheredKitScreen"]),
         .library(name: "GatheredKitTestHelpers", targets: ["GatheredKitTestHelpers"]),
+        .library(name: "GatheredKitUserTracking", targets: ["GatheredKitUserTracking"]),
     ],
     targets: [
         .target(
@@ -47,5 +48,11 @@ let package = Package(
         .testTarget(name: "GatheredKitScreenTests", dependencies: ["GatheredKitScreen", "GatheredKitTestHelpers"]),
 
         .target(name: "GatheredKitTestHelpers", dependencies: ["GatheredKit"]),
+
+        .target(
+            name: "GatheredKitUserTracking",
+            dependencies: ["GatheredKit"],
+            exclude: ["README.md"]
+        ),
     ]
 )

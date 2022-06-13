@@ -17,6 +17,7 @@ let package = Package(
         .library(name: "GatheredKitProcessInfo", targets: ["GatheredKitProcessInfo"]),
         .library(name: "GatheredKitScreen", targets: ["GatheredKitScreen"]),
         .library(name: "GatheredKitTestHelpers", targets: ["GatheredKitTestHelpers"]),
+        .library(name: "GatheredKitUserTracking", targets: ["GatheredKitUserTracking"]),
     ],
     dependencies: [
         .package(url: "https://github.com/apple/swift-docc-plugin.git", exact: "1.0.0"),
@@ -50,5 +51,11 @@ let package = Package(
         .testTarget(name: "GatheredKitScreenTests", dependencies: ["GatheredKitScreen", "GatheredKitTestHelpers"]),
 
         .target(name: "GatheredKitTestHelpers", dependencies: ["GatheredKit"]),
+
+        .target(
+            name: "GatheredKitUserTracking",
+            dependencies: ["GatheredKit"],
+            exclude: ["README.md"]
+        ),
     ]
 )

@@ -1,32 +1,50 @@
 ![GatheredKit](https://josephduffy.github.io/GatheredKit/img/banner.png)
 
 [![Tests Status](https://github.com/JosephDuffy/GatheredKit/workflows/Tests/badge.svg)](https://launch-editor.github.com/actions?workflowID=Tests&event=push&nwo=JosephDuffy%2FGatheredKit)
-[![codecov](https://codecov.io/gh/JosephDuffy/GatheredKit/branch/master/graph/badge.svg)](https://codecov.io/gh/JosephDuffy/GatheredKit)
+[![codecov](https://codecov.io/gh/JosephDuffy/GatheredKit/branch/main/graph/badge.svg)](https://codecov.io/gh/JosephDuffy/GatheredKit)
 [![Documentation](https://josephduffy.github.io/GatheredKit/badge.svg)](https://josephduffy.github.io/GatheredKit/)
 ![Compatible with macOS, iOS, watchOS, and tvOS](https://img.shields.io/badge/platforms-macOS%20%7C%20iOS%20%7C%20watchOS%20%7C%20tvOS%20-4BC51D.svg)
 [![SwiftPM Compatible](https://img.shields.io/badge/SwiftPM-compatible-4BC51D.svg?style=flat)](https://github.com/apple/swift-package-manager)
 [![MIT License](https://img.shields.io/badge/License-MIT-4BC51D.svg?style=flat)](./LICENSE)
 --
 
-GatheredKit a protocol-based API for various data sources offered by macOS, iOS, watchOS, and tvOS.
+> :warning: GatheredKit it currently in a pre-release beta. The API is unstable, although the only large planned breaking fix is to introduce structured concurrency for thread safety.
 
-The code originated from [Gathered](https://geo.itunes.apple.com/app/gathered/id929726748?mt=8), hence the name and logo.
+GatheredKit a protocol-oriented API for various data sources offered by macOS, iOS, watchOS, and tvOS.
+
+The code originated from [Gathered](https://geo.itunes.apple.com/app/gathered/id929726748?mt=8), hence the name and logo. Prior to version 2.0 Gathered used a closed-source version of GatheredKit. [Version 2.0 is currently in beta and can accessed via TestFlight]().
 
 # Provided Libraries
 
-GatheredKit provides multiple libraries that each provide one or more data sources. This is done to allow the a subset of the data sources to be included, which both reduced bloat and ensures that consumers do not accidentally include APIs that require extra permissions, such as accessing the IDFA.
+GatheredKit provides multiple libraries that each provide one or more data sources. This is done to allow the a subset of the data sources to be included, which aids with documentation, discovery, and ensures that consumers do not accidentally include APIs that require extra permissions, such as accessing the IDFA.
+
+Each of these libraries roughly correlates to one of Apple's frameworks.
 
 ## [`GatheredKit`](./Sources/GatheredKit/README.md)
 
-The `GatheredKit` library is the core library that provides the types used by data source, but it does not provide any of the data sources itself.
+The `GatheredKit` library is the core library that provides the types used by data sources, but it does not provide any of the data sources itself.
 
-## `GatheredKitLocation`
+## [`GatheredKitCamera`](./Sources/GatheredKitCamera/README.md)
 
-`GatheredKitLocation` provides the `Location` data source.
+`GatheredKitCamera` provides access to cameras, both built-in and external. The `CameraProvider` can be used to query for connected cameras. It wraps the [`AVFoundation` framework](https://developer.apple.com/documentation/avfoundation/).
+
+## [`GatheredKitDevice`](./Sources/GatheredKitDevice/README.md)
+
+`GatheredKitDevice` provides various sources relating to the current device.
+
+On iOS this wraps the [`UIKit` framework](https://developer.apple.com/documentation/uikit/), specifically [`UIDevice`](https://developer.apple.com/documentation/uikit/uidevice).
+
+## [`GatheredKitLocation`](./Sources/GatheredKitLocation/README.md)
+
+`GatheredKitLocation` provides the `Location` data source, which is used to access location-based information provided by the GPS and associated sensors. It relies on the [Core Location framework](https://developer.apple.com/documentation/corelocation).
 
 ## `GatheredKitMotion`
 
 `GatheredKitMotion` provides data sources that utilise the `CoreMotion` framework, such as an `Accelerometer`, `Gyroscope`, and `Magnetometer`.
+
+## [`GatheredKitProcessInfo`](./Sources/GatheredKitProcessInfo/README.md)
+
+`GatheredKitProcessInfo` provides information relating to the computer the process is running on.
 
 ## `GatheredKitScreen`
 
