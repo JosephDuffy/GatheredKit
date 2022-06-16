@@ -18,6 +18,7 @@ let package = Package(
         .library(name: "GatheredKitScreen", targets: ["GatheredKitScreen"]),
         .library(name: "GatheredKitTestHelpers", targets: ["GatheredKitTestHelpers"]),
         .library(name: "GatheredKitUserTracking", targets: ["GatheredKitUserTracking"]),
+        .library(name: "GatheredKitWiFi", targets: ["GatheredKitWiFi"]),
     ],
     targets: [
         .target(
@@ -54,5 +55,7 @@ let package = Package(
             dependencies: ["GatheredKit"],
             exclude: ["README.md"]
         ),
+
+        .target(name: "GatheredKitWiFi", dependencies: ["GatheredKit"]),
     ]
 )

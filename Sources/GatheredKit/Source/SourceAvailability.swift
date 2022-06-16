@@ -21,3 +21,7 @@ public enum SourceAvailability {
     /// The device does not support this source
     case unavailable
 }
+
+public protocol AvailabilityProviding {
+    var availability: SourceAvailability { get }
+}

@@ -1,5 +1,9 @@
 import Combine
 
+public protocol AutomaticUpdatingSourceProvider: UpdatingSourceProvider & AnyAutomaticUpdatingSourceProvider {
+    var sourceProviderEventsPublisher: AnyPublisher<SourceProviderEvent<ProvidedSource>, Never> { get }
+}
+
 public protocol UpdatingSourceProvider: SourceProvider & AnyUpdatingSourceProvider {
     var sourceProviderEventsPublisher: AnyPublisher<SourceProviderEvent<ProvidedSource>, Never> { get }
 }
