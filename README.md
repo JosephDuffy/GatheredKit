@@ -55,7 +55,6 @@ On iOS this wraps the [`UIKit` framework](https://developer.apple.com/documentat
 Below are the sources that are available in the Gathered app but have not yet been added to this open source project.
 
 - [ ] Compass
-- [ ] Wi-Fi
 - [ ] Microphone
 - [ ] Cell Radio
 - [ ] Device Attitude
