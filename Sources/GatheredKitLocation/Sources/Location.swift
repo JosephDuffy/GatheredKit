@@ -177,7 +177,12 @@ public final class Location: UpdatingSource, Controllable {
         locationManager.desiredAccuracy = accuracy.asCLLocationAccuracy
         locationManagerConfigurator?(locationManager)
 
-        let authorizationStatus = CLLocationManager.authorizationStatus()
+        let authorizationStatus: CLAuthorizationStatus
+        if #available(iOS 14, *) {
+            authorizationStatus = locationManager.authorizationStatus
+        } else {
+            authorizationStatus = type(of: locationManager).authorizationStatus()
+        }
         _authorizationStatus.updateValueIfDifferent(authorizationStatus)
         let availability = SourceAvailability(authorizationStatus: authorizationStatus) ?? .unavailable
         if availability != self.availability {
