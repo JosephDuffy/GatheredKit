@@ -1,0 +1,90 @@
+name: Tests
+
+on: [push]
+
+jobs:
+  macos_tests:
+    name: macOS Tests (SwiftPM, Xcode ${{ matrix.xcode }})
+    runs-on: macos-12
+    strategy:
+      fail-fast: false
+      matrix:
+        xcode: ["13.4.1"]
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Select Xcode ${{ matrix.xcode }}
+        run: sudo xcode-select --switch /Applications/Xcode_${{ matrix.xcode }}.app
+
+      - name: SwiftPM tests
+        run: swift test --enable-code-coverage
+
+      - name: Convert coverage to lcov
+        run: xcrun llvm-cov export -format="lcov" .build/debug/GatheredKitPackageTests.xctest/Contents/MacOS/GatheredKitPackageTests -instr-profile .build/debug/codecov/default.profdata > coverage.lcov
+
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v1
+        with:
+          fail_ci_if_error: true
+
+  xcode_tests:
+    name: ${{ matrix.platform }} ${{ matrix.scheme }} Tests (Xcode ${{ matrix.xcode }})
+    runs-on: macos-12
+    strategy:
+      fail-fast: false
+      matrix:
+        xcode: ["13.4.1"]
+        platform: ["iOS", "tvOS", "macCatalyst", "watchOS"]
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Select Xcode ${{ matrix.xcode }}
+        run: sudo xcode-select --switch /Applications/Xcode_${{ matrix.xcode }}.app
+
+      - name: Install Mint
+        run: brew install mint
+
+      - name: Cache Mint
+        uses: actions/cache@v3
+        with:
+          path: ~/.mint
+          key: ${{ runner.os }}-mint-xcode_${{ matrix.xcode }}-${{ hashFiles('**/Mintfile') }}
+          restore-keys: |
+            ${{ runner.os }}-mint-xcode_${{ matrix.xcode }}
+
+      - run: mint bootstrap
+
+      - name: Cache SwiftPM
+        uses: actions/cache@v3
+        with:
+          path: .build
+          key: ${{ runner.os }}-xcode_${{ matrix.xcode }}-swiftpm-${{ hashFiles('**/Package.resolved') }}
+          restore-keys: |
+            ${{ runner.os }}-xcode_${{ matrix.xcode }}-swiftpm-
+
+      - name: Cache DerivedData
+        uses: actions/cache@v3
+        with:
+          path: ~/Library/Developer/Xcode/DerivedData
+          key: ${{ runner.os }}-${{ matrix.platform }}-derived_data-xcode_${{ matrix.xcode }}
+          restore-keys: |
+            ${{ runner.os }}-${{ matrix.platform }}-derived_data-
+
+      - name: Run Tests
+        run: mint run xcutils test ${{ matrix.platform }} --scheme GatheredKit-Package --enable-code-coverage | $(mint which xcbeautify)
+
+      - name: Convert coverage for Codecov
+        id: convert-coverage
+        uses: sersoft-gmbh/swift-coverage-action@v2.0.1
+        with:
+          format: lcov
+          ignore-conversion-failures: true
+          fail-on-empty-output: true
+
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v3
+        with:
+          files: ${{ join(fromJSON(steps.convert-coverage.outputs.files), ',') }}
+          fail_ci_if_error: true

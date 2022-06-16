@@ -1,37 +1,17 @@
 # Xcode
 
-## Build generated
-build/
-DerivedData/
-
-## Various settings
-*.pbxuser
-!default.pbxuser
-*.mode1v3
-!default.mode1v3
-*.mode2v3
-!default.mode2v3
-*.perspectivev3
-!default.perspectivev3
+## User settings
 xcuserdata/
 
-## Other
-*.moved-aside
-*.xccheckout
-*.xcscmblueprint
+## Build generated
+build/
+default.profraw
 
-## Obj-C/Swift specific
-*.hmap
-*.ipa
-*.dSYM.zip
-*.dSYM
+# Swift Package Manager
+.build/
 
-## fastlane
+# macOS
+.DS_Store
 
-fastlane/report.xml
-fastlane/test_output
-
-## Carthage
-
-Carthage/Checkouts
-Carthage/Build
+# Documentation
+docs/

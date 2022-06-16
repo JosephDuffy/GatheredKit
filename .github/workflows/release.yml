@@ -1,0 +1,43 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - "v*"
+
+jobs:
+  create_release:
+    name: Create Release
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Fetch tag
+        run: git fetch --depth=1 origin +${{ github.ref }}:${{ github.ref }}
+
+      - name: Get the release version
+        id: release_version
+        run: echo "::set-output name=version::${GITHUB_REF/refs\/tags\//}"
+
+      - name: Get release description
+        run: |
+          description="$(git tag -ln --format=$'%(contents:subject)\n\n%(contents:body)' ${{ steps.release_version.outputs.version }})"
+          # Fix set-output for multiline strings: https://github.community/t/set-output-truncates-multiline-strings/16852
+          description="${description//'%'/'%25'}"
+          description="${description//$'\n'/'%0A'}"
+          description="${description//$'\r'/'%0D'}"
+          echo "$description"
+          echo "::set-output name=description::$description"
+        id: release_description
+
+      - name: Create Release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ steps.release_version.outputs.version }}
+          release_name: ${{ steps.release_version.outputs.version }}
+          body: ${{ steps.release_description.outputs.description }}
+          prerelease: ${{ startsWith(steps.release_version.outputs.version, 'v0.') || contains(steps.release_version.outputs.version, '-') }}

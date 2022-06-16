@@ -1,0 +1,33 @@
+name: Lint
+
+on: [pull_request]
+
+jobs:
+  swift-format:
+    name: swift-format lint (Xcode ${{ matrix.xcode }})
+    runs-on: macos-12
+    strategy:
+      matrix:
+        xcode: ["13.4.1"]
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Select Xcode ${{ matrix.xcode }}
+        run: sudo xcode-select --switch /Applications/Xcode_${{ matrix.xcode }}.app
+
+      - name: Install Mint
+        run: brew install mint
+
+      - name: Cache Mint
+        uses: actions/cache@v3
+        with:
+          path: ~/.mint
+          key: ${{ runner.os }}-mint-xcode_${{ matrix.xcode }}-${{ hashFiles('**/Mintfile') }}
+          restore-keys: |
+            ${{ runner.os }}-mint-xcode_${{ matrix.xcode }}
+
+      - run: mint bootstrap
+
+      - name: Run SwiftFormat
+        run: mint run swiftformat --lint .
