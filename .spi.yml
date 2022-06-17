@@ -1,0 +1,14 @@
+version: 1
+builder:
+  configs:
+    - platform: iOS
+      documentation_targets:
+        - GatheredKit
+        - GatheredKitCamera
+        - GatheredKitDevice
+        - GatheredKitLocation
+        - GatheredKitMotion
+        - GatheredKitProcessInfo
+        - GatheredKitScreen
+        - GatheredKitUserTracking
+        - GatheredKitWiFi
