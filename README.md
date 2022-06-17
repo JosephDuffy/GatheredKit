@@ -12,7 +12,7 @@
 
 GatheredKit a protocol-oriented API for various data sources offered by macOS, iOS, watchOS, and tvOS.
 
-The code originated from [Gathered](https://geo.itunes.apple.com/app/gathered/id929726748?mt=8), hence the name and logo. Prior to version 2.0 Gathered used a closed-source version of GatheredKit. [Version 2.0 is currently in beta and can accessed via TestFlight]().
+The code originated from [Gathered](https://geo.itunes.apple.com/app/gathered/id929726748?mt=8), hence the name and logo. Prior to version 2.0 Gathered used a closed-source version of GatheredKit. [Version 2.0 is currently in beta and can accessed via TestFlight](https://testflight.apple.com/join/gsVcyywY).
 
 # Provided Libraries
 
