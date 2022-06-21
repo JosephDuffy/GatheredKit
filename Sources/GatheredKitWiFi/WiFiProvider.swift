@@ -10,8 +10,25 @@ public final class WiFiProvider: ManuallyUpdatableSingleTransientSourceProvider,
         case notAuthorized
     }
 
+    /// A closure used to request permission to access the user's location. Core
+    /// Location does not provide an async or closure-based API for this, so the
+    /// implementation of this is left up to the caller.
+    ///
+    ///
+    ///
+    /// An example implementation is provided in [CLLocationManager+requestAuthorization.swift](CLLocationManager+requestAuthorization.swift).
+    ///
+    /// You could also use a 3rd party package such as https://github.com/AsyncSwift/AsyncLocationKit
     public typealias RequestLocationPermissions = (_ locationManager: CLLocationManager) async -> CLAuthorizationStatus
 
+    /// A closure used to request temporary permission to access full accuracy
+    /// location data. This will only be called when the user has authorised
+    /// access to location data, but has provided reduced accuracy. An example
+    /// implementation of this would be:
+    ///
+    /// ```swift
+    /// try await locationManager.requestTemporaryFullAccuracyAuthorization(withPurposeKey: "<YOUR_KEY>")
+    /// ```
     public typealias RequestTemporaryFullAccuracyAuthorization = (_ locationManager: CLLocationManager) async throws -> Void
 
     public typealias ProvidedSource = WiFi

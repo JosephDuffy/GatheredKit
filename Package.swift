@@ -56,7 +56,11 @@ let package = Package(
             exclude: ["README.md"]
         ),
 
-        .target(name: "GatheredKitWiFi", dependencies: ["GatheredKit"]),
+        .target(
+            name: "GatheredKitWiFi",
+            dependencies: ["GatheredKit"],
+            exclude: ["CLLocationManager+requestAuthorization.swift"]
+        ),
     ]
 )
 
