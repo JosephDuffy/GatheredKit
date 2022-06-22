@@ -1,3 +1,4 @@
+#if canImport(CoreMotion)
 import CoreMotion
 import Foundation
 
@@ -63,3 +64,4 @@ open class CMCalibratedMagneticFieldFormatter: Formatter {
         false
     }
 }
+#endif

@@ -1,3 +1,4 @@
+#if canImport(CoreMotion)
 import Combine
 import CoreMotion
 import Foundation
@@ -93,3 +94,4 @@ public final class CMAttitudeProperty: UpdatableProperty, PropertiesProviding {
         return snapshot
     }
 }
+#endif

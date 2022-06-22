@@ -1,3 +1,4 @@
+#if canImport(CoreMotion)
 import Combine
 import CoreMotion
 import Foundation
@@ -109,3 +110,4 @@ public final class Accelerometer: UpdatingSource, CustomisableUpdateIntervalCont
         eventsSubject.send(.stoppedUpdating())
     }
 }
+#endif

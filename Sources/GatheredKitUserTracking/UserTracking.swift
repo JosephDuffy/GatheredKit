@@ -1,3 +1,4 @@
+#if canImport(AdSupport)
 import AdSupport
 import AppTrackingTransparency
 import Combine
@@ -73,3 +74,4 @@ public final class UserTracking: Source {
         }
     }
 }
+#endif

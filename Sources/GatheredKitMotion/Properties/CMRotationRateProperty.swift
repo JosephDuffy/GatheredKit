@@ -1,3 +1,4 @@
+#if canImport(CoreMotion)
 import Combine
 import CoreMotion
 import Foundation
@@ -78,3 +79,4 @@ public final class CMRotationRateProperty: UpdatableProperty, PropertiesProvidin
         return snapshot
     }
 }
+#endif

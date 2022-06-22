@@ -1,3 +1,4 @@
+#if canImport(ExternalAccessory)
 import Combine
 import ExternalAccessory
 import GatheredKit
@@ -142,3 +143,4 @@ private final class AccessoryDelegate: NSObject, EAAccessoryDelegate {
         accessoryDidDisconnectHandler(accessory)
     }
 }
+#endif

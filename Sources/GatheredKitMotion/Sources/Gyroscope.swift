@@ -1,3 +1,4 @@
+#if canImport(CoreMotion)
 import Combine
 import CoreMotion
 import Foundation
@@ -111,3 +112,4 @@ public final class Gyroscope: UpdatingSource, CustomisableUpdateIntervalControll
         eventsSubject.send(.stoppedUpdating())
     }
 }
+#endif

@@ -1,3 +1,4 @@
+#if canImport(ExternalAccessory)
 import Combine
 import ExternalAccessory
 import GatheredKit
@@ -99,3 +100,4 @@ public final class ExternalAccessoryProvider: UpdatingSourceProvider, Controllab
 //        sourceProviderEventsSubject.send(.sourceAdded(<#T##ExternalAccessory#>))
     }
 }
+#endif

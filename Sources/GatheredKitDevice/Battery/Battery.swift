@@ -3,6 +3,7 @@ import Combine
 import GatheredKit
 import UIKit
 
+@available(tvOS, unavailable)
 public final class Battery: UpdatingSource, Controllable {
     private enum State {
         case notMonitoring

@@ -1,3 +1,4 @@
+#if canImport(CoreMotion)
 import CoreMotion
 
 private let deviceBootTime = Date(timeIntervalSinceNow: -ProcessInfo.processInfo.systemUptime)
@@ -8,3 +9,4 @@ extension CMLogItem {
         Date(timeInterval: timestamp, since: deviceBootTime)
     }
 }
+#endif

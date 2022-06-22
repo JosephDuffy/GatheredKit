@@ -1,3 +1,4 @@
+#if canImport(CoreMotion)
 import CoreMotion
 import Foundation
 import GatheredKit
@@ -45,3 +46,4 @@ public final class CMMagneticFieldFormatter: Formatter {
         false
     }
 }
+#endif

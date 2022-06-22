@@ -1,3 +1,4 @@
+#if canImport(CoreMotion)
 import Combine
 import CoreMotion
 import Foundation
@@ -179,3 +180,4 @@ public final class DeviceMotion: UpdatingSource, CustomisableUpdateIntervalContr
         eventsSubject.send(.stoppedUpdating())
     }
 }
+#endif

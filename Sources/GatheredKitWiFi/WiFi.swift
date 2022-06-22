@@ -1,8 +1,11 @@
+#if canImport(NetworkExtension)
 import Combine
 import GatheredKit
 import NetworkExtension
 
 /// A wrapper around `NEHotspotNetwork`.
+@available(iOS 9, watchOS 7, macCatalyst 14, *)
+@available(macOS, unavailable)
 public final class WiFi: Source {
     public let availability: SourceAvailability = .available
 
@@ -42,3 +45,4 @@ public final class WiFi: Source {
         // `0`) when permission is provided via precise WiFi location.
     }
 }
+#endif

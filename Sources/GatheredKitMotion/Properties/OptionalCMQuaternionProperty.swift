@@ -1,3 +1,4 @@
+#if canImport(CoreMotion)
 import Combine
 import CoreMotion
 import Foundation
@@ -92,3 +93,4 @@ public final class OptionalCMQuaternionProperty: UpdatableProperty, PropertiesPr
         return snapshot
     }
 }
+#endif

@@ -1,3 +1,4 @@
+#if canImport(CoreMotion)
 import Combine
 import CoreMotion
 import Foundation
@@ -91,3 +92,4 @@ public final class OptionalCMAbsoluteAltitudeDataProperty: UpdatableProperty, Pr
         return snapshot
     }
 }
+#endif

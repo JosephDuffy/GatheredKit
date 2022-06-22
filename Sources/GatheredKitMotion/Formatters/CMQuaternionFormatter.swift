@@ -1,3 +1,4 @@
+#if canImport(CoreMotion)
 import CoreMotion
 import Foundation
 
@@ -42,3 +43,4 @@ public final class CMQuaternionFormatter: Formatter {
         false
     }
 }
+#endif

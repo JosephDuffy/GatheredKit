@@ -1,10 +1,13 @@
+#if canImport(NetworkExtension)
 import CoreLocation
 import Combine
 import GatheredKit
 import NetworkExtension
 
 // This _could_ be supported on iOS < 14 using CNCopyCurrentNetworkInfo.
-@available(iOS 14.0, *)
+@available(iOS 14, watchOS 7, macCatalyst 14, macOS 11, *)
+@available(macOS, unavailable)
+@available(tvOS, unavailable)
 public final class WiFiProvider: ManuallyUpdatableSingleTransientSourceProvider, UpdatingSourceProvider, AvailabilityProviding {
     public enum UpdateError: Error {
         case notAuthorized
@@ -129,3 +132,4 @@ public final class WiFiProvider: ManuallyUpdatableSingleTransientSourceProvider,
         return newSource
     }
 }
+#endif

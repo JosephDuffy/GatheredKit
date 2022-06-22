@@ -1,3 +1,4 @@
+#if canImport(CoreMotion)
 import CoreMotion
 import Foundation
 
@@ -39,3 +40,4 @@ extension CMMotionManager {
         }
     }
 }
+#endif

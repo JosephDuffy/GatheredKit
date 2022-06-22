@@ -1,3 +1,4 @@
+#if canImport(AppTrackingTransparency)
 import AppTrackingTransparency
 import Foundation
 
@@ -40,3 +41,4 @@ open class UserTrackingAuthorizationStatusFormatter: Formatter {
         false
     }
 }
+#endif

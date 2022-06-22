@@ -178,7 +178,7 @@ public final class Location: UpdatingSource, Controllable {
         locationManagerConfigurator?(locationManager)
 
         let authorizationStatus: CLAuthorizationStatus
-        if #available(iOS 14, *) {
+        if #available(iOS 14, macOS 11, tvOS 14, *) {
             authorizationStatus = locationManager.authorizationStatus
         } else {
             authorizationStatus = type(of: locationManager).authorizationStatus()

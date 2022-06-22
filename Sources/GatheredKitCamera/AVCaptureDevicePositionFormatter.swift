@@ -2,6 +2,7 @@ import AVFoundation
 import Foundation
 
 @available(macOS 10.7, iOS 4, macCatalyst 14, *)
+@available(tvOS, unavailable)
 open class AVCaptureDevicePositionFormatter: Formatter {
     public override init() {
         super.init()

@@ -1,3 +1,4 @@
+#if canImport(CoreMotion)
 import Combine
 import CoreMotion
 import Foundation
@@ -77,3 +78,4 @@ public final class OptionalCMCalibratedMagneticFieldProperty: UpdatableProperty,
         return snapshot
     }
 }
+#endif

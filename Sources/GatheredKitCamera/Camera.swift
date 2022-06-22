@@ -1,10 +1,10 @@
-#if os(iOS) || os(macOS)
 import AVFoundation
 import Combine
 import GatheredKit
 
 /// A wrapper around `AVCaptureDevice`.
 @available(macOS 10.7, iOS 4, macCatalyst 14, *)
+@available(tvOS, unavailable)
 public final class Camera: UpdatingSource, Controllable {
     private enum State {
         case notMonitoring
@@ -91,5 +91,3 @@ public final class Camera: UpdatingSource, Controllable {
         state = .notMonitoring
     }
 }
-
-#endif

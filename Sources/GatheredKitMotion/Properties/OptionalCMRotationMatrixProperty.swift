@@ -1,3 +1,4 @@
+#if canImport(CoreMotion)
 import Combine
 import CoreMotion
 import Foundation
@@ -116,3 +117,4 @@ public final class OptionalCMRotationMatrixProperty: UpdatableProperty, Properti
         return snapshot
     }
 }
+#endif

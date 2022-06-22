@@ -1,3 +1,4 @@
+#if canImport(CoreMotion)
 import Combine
 import CoreMotion
 import Foundation
@@ -107,3 +108,4 @@ public final class Magnetometer: UpdatingSource, CustomisableUpdateIntervalContr
         eventsSubject.send(.stoppedUpdating())
     }
 }
+#endif

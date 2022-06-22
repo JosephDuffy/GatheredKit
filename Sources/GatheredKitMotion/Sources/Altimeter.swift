@@ -1,3 +1,4 @@
+#if canImport(CoreMotion)
 import Combine
 import CoreMotion
 import Foundation
@@ -233,3 +234,4 @@ extension CMAltimeter {
         return .unavailable
     }
 }
+#endif

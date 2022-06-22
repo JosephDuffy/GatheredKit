@@ -2,6 +2,7 @@
 import Foundation
 import UIKit
 
+@available(tvOS, unavailable)
 open class BatteryStateFormatter: Formatter {
     public override init() {
         super.init()

@@ -1,3 +1,4 @@
+#if canImport(CoreMotion)
 import CoreMotion
 import Foundation
 
@@ -44,3 +45,4 @@ public final class CMAccelerationFormatter: Formatter {
         false
     }
 }
+#endif

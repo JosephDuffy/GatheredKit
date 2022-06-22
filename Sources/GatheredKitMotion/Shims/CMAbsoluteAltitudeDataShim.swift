@@ -1,3 +1,4 @@
+#if canImport(CoreMotion)
 import CoreMotion
 
 /// A shim around `CMAbsoluteAltitudeData`. This object can only be initialised
@@ -58,3 +59,4 @@ public final class CMAbsoluteAltitudeDataShim: CMLogItem {
         fatalError("init(coder:) has not been implemented")
     }
 }
+#endif
