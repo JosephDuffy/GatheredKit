@@ -1,4 +1,4 @@
-#if canImport(UIKit)
+#if os(iOS) || os(tvOS)
 import Combine
 import GatheredKit
 import UIKit

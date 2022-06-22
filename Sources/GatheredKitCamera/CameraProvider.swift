@@ -4,6 +4,7 @@ import GatheredKit
 
 @available(macOS 10.7, iOS 4, macCatalyst 14, *)
 @available(tvOS, unavailable)
+@available(watchOS, unavailable)
 public final class CameraProvider: SourceProvider {
     public let name = "Cameras"
 

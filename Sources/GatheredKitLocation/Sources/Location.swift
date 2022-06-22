@@ -178,7 +178,7 @@ public final class Location: UpdatingSource, Controllable {
         locationManagerConfigurator?(locationManager)
 
         let authorizationStatus: CLAuthorizationStatus
-        if #available(iOS 14, macOS 11, tvOS 14, *) {
+        if #available(iOS 14, macOS 11, tvOS 14, watchOS 7, *) {
             authorizationStatus = locationManager.authorizationStatus
         } else {
             authorizationStatus = type(of: locationManager).authorizationStatus()
@@ -454,7 +454,7 @@ extension SourceAvailability {
         }
         #elseif os(macOS)
         switch authorizationStatus {
-        case .authorizedAlways:
+        case .authorized:
             self = .available
         case .denied:
             self = .permissionDenied
