@@ -17,8 +17,6 @@ public final class WiFiProvider: ManuallyUpdatableSingleTransientSourceProvider,
     /// Location does not provide an async or closure-based API for this, so the
     /// implementation of this is left up to the caller.
     ///
-    ///
-    ///
     /// An example implementation is provided in [CLLocationManager+requestAuthorization.swift](CLLocationManager+requestAuthorization.swift).
     ///
     /// You could also use a 3rd party package such as https://github.com/AsyncSwift/AsyncLocationKit
