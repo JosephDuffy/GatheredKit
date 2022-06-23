@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>PropertiesProviding Protocol Reference</title>
+    <link rel="stylesheet" type="text/css" href="../css/jazzy.css" />
+    <link rel="stylesheet" type="text/css" href="../css/highlight.css" />
+    <meta charset='utf-8'>
+    <script src="../js/jquery.min.js" defer></script>
+    <script src="../js/jazzy.js" defer></script>
+    
+    <script src="../js/lunr.min.js" defer></script>
+    <script src="../js/typeahead.jquery.js" defer></script>
+    <script src="../js/jazzy.search.js" defer></script>
+  </head>
+  <body>
+    <a name="//apple_ref/swift/Protocol/PropertiesProviding" class="dashAnchor"></a>
+    <a title="PropertiesProviding Protocol Reference"></a>
+    <header>
+      <div class="content-wrapper">
+        <p><a href="../index.html"> Docs</a> (100% documented)</p>
+        <p class="header-right"><a href="https://github.com/JosephDuffy/GatheredKit"><img src="../img/gh.png" alt="GitHub"/>View on GitHub</a></p>
+        <div class="header-right">
+          <form role="search" action="../search.json">
+            <input type="text" placeholder="Search documentation" data-typeahead>
+          </form>
+        </div>
+      </div>
+    </header>
+    <div class="content-wrapper">
+      <p id="breadcrumbs">
+        <a href="../index.html"> Reference</a>
+        <img id="carat" src="../img/carat.png" alt=""/>
+        PropertiesProviding Protocol Reference
+      </p>
+    </div>
+    <div class="content-wrapper">
+      <nav class="sidebar">
+        <ul class="nav-groups">
+          <li class="nav-group-name">
+            <a href="../Classes.html">Classes</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Classes/BasePollingSource.html">BasePollingSource</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/BasicProperty.html">BasicProperty</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/BoolFormatter.html">BoolFormatter</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/MeasurementProperty.html">MeasurementProperty</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/OptionalMeasurementProperty.html">OptionalMeasurementProperty</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/PassthroughFormatter.html">PassthroughFormatter</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/PercentFormatter.html">PercentFormatter</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/ReadOnlyProperty.html">ReadOnlyProperty</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/ScaleFormatter.html">ScaleFormatter</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/SingleSourceProvider.html">SingleSourceProvider</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/SizeFormatter.html">SizeFormatter</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/UnitMagneticField.html">UnitMagneticField</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Enums.html">Enumerations</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Enums/AnySourceProviderEvent.html">AnySourceProviderEvent</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/ControllableError.html">ControllableError</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/SourceAvailability.html">SourceAvailability</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/SourceError.html">SourceError</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/SourceEvent.html">SourceEvent</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/SourceProviderEvent.html">SourceProviderEvent</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Extensions.html">Extensions</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Extensions/UnitFrequency.html">UnitFrequency</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Protocols.html">Protocols</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Protocols/AnyAutomaticUpdatingSourceProvider.html">AnyAutomaticUpdatingSourceProvider</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols.html#/s:11GatheredKit29AnyControllableSourceProviderP">AnyControllableSourceProvider</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/AnyProperty.html">AnyProperty</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/AnySnapshot.html">AnySnapshot</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/AnySourceProvider.html">AnySourceProvider</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/AnyUpdatingSourceProvider.html">AnyUpdatingSourceProvider</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/AutomaticUpdatingSourceProvider.html">AutomaticUpdatingSourceProvider</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/AvailabilityProviding.html">AvailabilityProviding</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/Controllable.html">Controllable</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols.html#/s:11GatheredKit26ControllableSourceProviderP">ControllableSourceProvider</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/CustomisableUpdateIntervalControllable.html">CustomisableUpdateIntervalControllable</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/ManuallyUpdatablePropertiesProvider.html">ManuallyUpdatablePropertiesProvider</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/ManuallyUpdatableSingleTransientSourceProvider.html">ManuallyUpdatableSingleTransientSourceProvider</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/PropertiesProviding.html">PropertiesProviding</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/Property.html">Property</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/SingleTransientSourceProvider.html">SingleTransientSourceProvider</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/Source.html">Source</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/SourceProvider.html">SourceProvider</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/UpdatableProperty.html">UpdatableProperty</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/UpdatesProviding.html">UpdatesProviding</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/UpdatingSource.html">UpdatingSource</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/UpdatingSourceProvider.html">UpdatingSourceProvider</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Structs.html">Structures</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Structs/Snapshot.html">Snapshot</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Typealiases.html">Type Aliases</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Typealiases.html#/s:11GatheredKit20AccelerationPropertya">AccelerationProperty</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Typealiases.html#/s:11GatheredKit13AnglePropertya">AngleProperty</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Typealiases.html#/s:11GatheredKit12BoolPropertya">BoolProperty</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Typealiases.html#/s:11GatheredKit14DoublePropertya">DoubleProperty</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Typealiases.html#/s:11GatheredKit13FloatPropertya">FloatProperty</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Typealiases.html#/s:11GatheredKit17FrequencyPropertya">FrequencyProperty</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Typealiases.html#/s:11GatheredKit11IntPropertya">IntProperty</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Typealiases.html#/s:11GatheredKit14LengthPropertya">LengthProperty</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Typealiases.html#/s:11GatheredKit21MagneticFieldPropertya">MagneticFieldProperty</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Typealiases.html#/s:11GatheredKit28OptionalAccelerationPropertya">OptionalAccelerationProperty</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Typealiases.html#/s:11GatheredKit21OptionalAnglePropertya">OptionalAngleProperty</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Typealiases.html#/s:11GatheredKit20OptionalBoolPropertya">OptionalBoolProperty</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Typealiases.html#/s:11GatheredKit22OptionalDoublePropertya">OptionalDoubleProperty</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Typealiases.html#/s:11GatheredKit21OptionalFloatPropertya">OptionalFloatProperty</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Typealiases.html#/s:11GatheredKit25OptionalFrequencyPropertya">OptionalFrequencyProperty</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Typealiases.html#/s:11GatheredKit19OptionalIntPropertya">OptionalIntProperty</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Typealiases.html#/s:11GatheredKit22OptionalLengthPropertya">OptionalLengthProperty</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Typealiases.html#/s:11GatheredKit29OptionalMagneticFieldPropertya">OptionalMagneticFieldProperty</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Typealiases.html#/s:11GatheredKit23OptionalPercentPropertya">OptionalPercentProperty</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Typealiases.html#/s:11GatheredKit24OptionalPressurePropertya">OptionalPressureProperty</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Typealiases.html#/s:11GatheredKit16OptionalPropertya">OptionalProperty</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Typealiases.html#/s:11GatheredKit21OptionalScalePropertya">OptionalScaleProperty</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Typealiases.html#/s:11GatheredKit20OptionalSizePropertya">OptionalSizeProperty</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Typealiases.html#/s:11GatheredKit21OptionalSpeedPropertya">OptionalSpeedProperty</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Typealiases.html#/s:11GatheredKit22OptionalStringPropertya">OptionalStringProperty</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Typealiases.html#/s:11GatheredKit15PercentPropertya">PercentProperty</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Typealiases.html#/s:11GatheredKit16PressurePropertya">PressureProperty</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Typealiases.html#/s:11GatheredKit13ScalePropertya">ScaleProperty</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Typealiases.html#/s:11GatheredKit12SizePropertya">SizeProperty</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Typealiases.html#/s:11GatheredKit13SpeedPropertya">SpeedProperty</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Typealiases.html#/s:11GatheredKit14StringPropertya">StringProperty</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+      <article class="main-content">
+        <section>
+          <section class="section">
+            <h1>PropertiesProviding</h1>
+              <div class="declaration">
+                <div class="language">
+                  
+                  <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">protocol</span> <span class="kt">PropertiesProviding</span> <span class="p">:</span> <span class="kt">AnyObject</span></code></pre>
+
+                </div>
+              </div>
+            <p>An object that provides properties.</p>
+
+          </section>
+          <section class="section task-group-section">
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:11GatheredKit19PropertiesProvidingP03allC0SayAA11AnyProperty_pGvp"></a>
+                    <a name="//apple_ref/swift/Property/allProperties" class="dashAnchor"></a>
+                    <a class="token" href="#/s:11GatheredKit19PropertiesProvidingP03allC0SayAA11AnyProperty_pGvp">allProperties</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>An array of all the properties provided by this object</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">allProperties</span><span class="p">:</span> <span class="p">[</span><span class="kt"><a href="../Protocols/AnyProperty.html">AnyProperty</a></span><span class="p">]</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </section>
+        </section>
+        <section id="footer">
+          <p>&copy; 2022 <a class="link" href="" target="_blank" rel="external noopener">Joseph Duffy</a>. All rights reserved. (Last updated: 2022-06-23)</p>
+          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external noopener">jazzy ♪♫ v0.14.2</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external noopener">Realm</a> project.</p>
+        </section>
+      </article>
+    </div>
+  </body>
+</html>

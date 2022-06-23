@@ -1,0 +1,1885 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>AnyProperty Protocol Reference</title>
+    <link rel="stylesheet" type="text/css" href="../css/jazzy.css" />
+    <link rel="stylesheet" type="text/css" href="../css/highlight.css" />
+    <meta charset='utf-8'>
+    <script src="../js/jquery.min.js" defer></script>
+    <script src="../js/jazzy.js" defer></script>
+    
+    <script src="../js/lunr.min.js" defer></script>
+    <script src="../js/typeahead.jquery.js" defer></script>
+    <script src="../js/jazzy.search.js" defer></script>
+  </head>
+  <body>
+    <a name="//apple_ref/swift/Protocol/AnyProperty" class="dashAnchor"></a>
+    <a title="AnyProperty Protocol Reference"></a>
+    <header>
+      <div class="content-wrapper">
+        <p><a href="../index.html"> Docs</a> (100% documented)</p>
+        <p class="header-right"><a href="https://github.com/JosephDuffy/GatheredKit"><img src="../img/gh.png" alt="GitHub"/>View on GitHub</a></p>
+        <div class="header-right">
+          <form role="search" action="../search.json">
+            <input type="text" placeholder="Search documentation" data-typeahead>
+          </form>
+        </div>
+      </div>
+    </header>
+    <div class="content-wrapper">
+      <p id="breadcrumbs">
+        <a href="../index.html"> Reference</a>
+        <img id="carat" src="../img/carat.png" alt=""/>
+        AnyProperty Protocol Reference
+      </p>
+    </div>
+    <div class="content-wrapper">
+      <nav class="sidebar">
+        <ul class="nav-groups">
+          <li class="nav-group-name">
+            <a href="../Classes.html">Classes</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Classes/BasePollingSource.html">BasePollingSource</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/BasicProperty.html">BasicProperty</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/BoolFormatter.html">BoolFormatter</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/MeasurementProperty.html">MeasurementProperty</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/OptionalMeasurementProperty.html">OptionalMeasurementProperty</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/PassthroughFormatter.html">PassthroughFormatter</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/PercentFormatter.html">PercentFormatter</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/ReadOnlyProperty.html">ReadOnlyProperty</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/ScaleFormatter.html">ScaleFormatter</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/SingleSourceProvider.html">SingleSourceProvider</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/SizeFormatter.html">SizeFormatter</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/UnitMagneticField.html">UnitMagneticField</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Enums.html">Enumerations</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Enums/AnySourceProviderEvent.html">AnySourceProviderEvent</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/ControllableError.html">ControllableError</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/SourceAvailability.html">SourceAvailability</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/SourceError.html">SourceError</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/SourceEvent.html">SourceEvent</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/SourceProviderEvent.html">SourceProviderEvent</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Extensions.html">Extensions</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Extensions/UnitFrequency.html">UnitFrequency</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Protocols.html">Protocols</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Protocols/AnyAutomaticUpdatingSourceProvider.html">AnyAutomaticUpdatingSourceProvider</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols.html#/s:11GatheredKit29AnyControllableSourceProviderP">AnyControllableSourceProvider</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/AnyProperty.html">AnyProperty</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/AnySnapshot.html">AnySnapshot</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/AnySourceProvider.html">AnySourceProvider</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/AnyUpdatingSourceProvider.html">AnyUpdatingSourceProvider</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/AutomaticUpdatingSourceProvider.html">AutomaticUpdatingSourceProvider</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/AvailabilityProviding.html">AvailabilityProviding</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/Controllable.html">Controllable</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols.html#/s:11GatheredKit26ControllableSourceProviderP">ControllableSourceProvider</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/CustomisableUpdateIntervalControllable.html">CustomisableUpdateIntervalControllable</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/ManuallyUpdatablePropertiesProvider.html">ManuallyUpdatablePropertiesProvider</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/ManuallyUpdatableSingleTransientSourceProvider.html">ManuallyUpdatableSingleTransientSourceProvider</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/PropertiesProviding.html">PropertiesProviding</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/Property.html">Property</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/SingleTransientSourceProvider.html">SingleTransientSourceProvider</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/Source.html">Source</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/SourceProvider.html">SourceProvider</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/UpdatableProperty.html">UpdatableProperty</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/UpdatesProviding.html">UpdatesProviding</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/UpdatingSource.html">UpdatingSource</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/UpdatingSourceProvider.html">UpdatingSourceProvider</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Structs.html">Structures</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Structs/Snapshot.html">Snapshot</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Typealiases.html">Type Aliases</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Typealiases.html#/s:11GatheredKit20AccelerationPropertya">AccelerationProperty</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Typealiases.html#/s:11GatheredKit13AnglePropertya">AngleProperty</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Typealiases.html#/s:11GatheredKit12BoolPropertya">BoolProperty</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Typealiases.html#/s:11GatheredKit14DoublePropertya">DoubleProperty</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Typealiases.html#/s:11GatheredKit13FloatPropertya">FloatProperty</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Typealiases.html#/s:11GatheredKit17FrequencyPropertya">FrequencyProperty</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Typealiases.html#/s:11GatheredKit11IntPropertya">IntProperty</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Typealiases.html#/s:11GatheredKit14LengthPropertya">LengthProperty</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Typealiases.html#/s:11GatheredKit21MagneticFieldPropertya">MagneticFieldProperty</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Typealiases.html#/s:11GatheredKit28OptionalAccelerationPropertya">OptionalAccelerationProperty</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Typealiases.html#/s:11GatheredKit21OptionalAnglePropertya">OptionalAngleProperty</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Typealiases.html#/s:11GatheredKit20OptionalBoolPropertya">OptionalBoolProperty</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Typealiases.html#/s:11GatheredKit22OptionalDoublePropertya">OptionalDoubleProperty</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Typealiases.html#/s:11GatheredKit21OptionalFloatPropertya">OptionalFloatProperty</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Typealiases.html#/s:11GatheredKit25OptionalFrequencyPropertya">OptionalFrequencyProperty</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Typealiases.html#/s:11GatheredKit19OptionalIntPropertya">OptionalIntProperty</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Typealiases.html#/s:11GatheredKit22OptionalLengthPropertya">OptionalLengthProperty</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Typealiases.html#/s:11GatheredKit29OptionalMagneticFieldPropertya">OptionalMagneticFieldProperty</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Typealiases.html#/s:11GatheredKit23OptionalPercentPropertya">OptionalPercentProperty</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Typealiases.html#/s:11GatheredKit24OptionalPressurePropertya">OptionalPressureProperty</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Typealiases.html#/s:11GatheredKit16OptionalPropertya">OptionalProperty</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Typealiases.html#/s:11GatheredKit21OptionalScalePropertya">OptionalScaleProperty</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Typealiases.html#/s:11GatheredKit20OptionalSizePropertya">OptionalSizeProperty</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Typealiases.html#/s:11GatheredKit21OptionalSpeedPropertya">OptionalSpeedProperty</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Typealiases.html#/s:11GatheredKit22OptionalStringPropertya">OptionalStringProperty</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Typealiases.html#/s:11GatheredKit15PercentPropertya">PercentProperty</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Typealiases.html#/s:11GatheredKit16PressurePropertya">PressureProperty</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Typealiases.html#/s:11GatheredKit13ScalePropertya">ScaleProperty</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Typealiases.html#/s:11GatheredKit12SizePropertya">SizeProperty</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Typealiases.html#/s:11GatheredKit13SpeedPropertya">SpeedProperty</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Typealiases.html#/s:11GatheredKit14StringPropertya">StringProperty</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+      <article class="main-content">
+        <section>
+          <section class="section">
+            <h1>AnyProperty</h1>
+              <div class="declaration">
+                <div class="language">
+                  
+                  <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">protocol</span> <span class="kt">AnyProperty</span> <span class="p">:</span> <span class="kt">AnyObject</span><span class="p">,</span> <span class="kt"><a href="../Protocols/AnySnapshot.html">AnySnapshot</a></span></code></pre>
+
+                </div>
+              </div>
+            
+          </section>
+          <section class="section task-group-section">
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:11GatheredKit11AnyPropertyP0C14UpdateListenera"></a>
+                    <a name="//apple_ref/swift/Alias/AnyUpdateListener" class="dashAnchor"></a>
+                    <a class="token" href="#/s:11GatheredKit11AnyPropertyP0C14UpdateListenera">AnyUpdateListener</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">typealias</span> <span class="kt">AnyUpdateListener</span> <span class="o">=</span> <span class="p">(</span><span class="n">_</span> <span class="nv">snapshot</span><span class="p">:</span> <span class="kt"><a href="../Protocols/AnySnapshot.html">AnySnapshot</a></span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Void</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:11GatheredKit11AnyPropertyP11displayNameSSvp"></a>
+                    <a name="//apple_ref/swift/Property/displayName" class="dashAnchor"></a>
+                    <a class="token" href="#/s:11GatheredKit11AnyPropertyP11displayNameSSvp">displayName</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">displayName</span><span class="p">:</span> <span class="kt">String</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:11GatheredKit11AnyPropertyP4date10Foundation4DateVvp"></a>
+                    <a name="//apple_ref/swift/Property/date" class="dashAnchor"></a>
+                    <a class="token" href="#/s:11GatheredKit11AnyPropertyP4date10Foundation4DateVvp">date</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">date</span><span class="p">:</span> <span class="kt">Date</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:11GatheredKit11AnyPropertyP5errors5Error_pSgvp"></a>
+                    <a name="//apple_ref/swift/Property/error" class="dashAnchor"></a>
+                    <a class="token" href="#/s:11GatheredKit11AnyPropertyP5errors5Error_pSgvp">error</a>
+                    </code>
+                      <span class="declaration-note">
+                        Default implementation
+                      </span>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        
+                      </div>
+                      <h4>Default Implementation</h4>
+                      <div class="default_impl abstract">
+                        
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">error</span><span class="p">:</span> <span class="kt">Error</span><span class="p">?</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:11GatheredKit11AnyPropertyP15errorsPublisher7Combine0cF0Vys5Error_pSgs5NeverOGvp"></a>
+                    <a name="//apple_ref/swift/Property/errorsPublisher" class="dashAnchor"></a>
+                    <a class="token" href="#/s:11GatheredKit11AnyPropertyP15errorsPublisher7Combine0cF0Vys5Error_pSgs5NeverOGvp">errorsPublisher</a>
+                    </code>
+                      <span class="declaration-note">
+                        Default implementation
+                      </span>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        
+                      </div>
+                      <h4>Default Implementation</h4>
+                      <div class="default_impl abstract">
+                        
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">errorsPublisher</span><span class="p">:</span> <span class="kt">AnyPublisher</span><span class="o">&lt;</span><span class="kt">Error</span><span class="p">?,</span> <span class="kt">Never</span><span class="o">&gt;</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:11GatheredKit11AnyPropertyP19typeErasedFormatterSo11NSFormatterCvp"></a>
+                    <a name="//apple_ref/swift/Property/typeErasedFormatter" class="dashAnchor"></a>
+                    <a class="token" href="#/s:11GatheredKit11AnyPropertyP19typeErasedFormatterSo11NSFormatterCvp">typeErasedFormatter</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">typeErasedFormatter</span><span class="p">:</span> <span class="kt">Formatter</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:11GatheredKit11AnyPropertyP19typeErasedSnapshotsScSyAA0C8Snapshot_pGvp"></a>
+                    <a name="//apple_ref/swift/Property/typeErasedSnapshots" class="dashAnchor"></a>
+                    <a class="token" href="#/s:11GatheredKit11AnyPropertyP19typeErasedSnapshotsScSyAA0C8Snapshot_pGvp">typeErasedSnapshots</a>
+                    </code>
+                      <span class="declaration-note">
+                        Default implementation
+                      </span>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        
+                      </div>
+                      <h4>Default Implementation</h4>
+                      <div class="default_impl abstract">
+                        <p>An asynchronous stream of values, starting with the current value.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">typeErasedSnapshots</span><span class="p">:</span> <span class="kt">AsyncStream</span><span class="o">&lt;</span><span class="kt"><a href="../Protocols/AnySnapshot.html">AnySnapshot</a></span><span class="o">&gt;</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:11GatheredKit11AnyPropertyP27typeErasedSnapshotPublisher7Combine0cH0VyAA0cG0_ps5NeverOGvp"></a>
+                    <a name="//apple_ref/swift/Property/typeErasedSnapshotPublisher" class="dashAnchor"></a>
+                    <a class="token" href="#/s:11GatheredKit11AnyPropertyP27typeErasedSnapshotPublisher7Combine0cH0VyAA0cG0_ps5NeverOGvp">typeErasedSnapshotPublisher</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">typeErasedSnapshotPublisher</span><span class="p">:</span> <span class="kt">AnyPublisher</span><span class="o">&lt;</span><span class="kt"><a href="../Protocols/AnySnapshot.html">AnySnapshot</a></span><span class="p">,</span> <span class="kt">Never</span><span class="o">&gt;</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:11GatheredKit11AnyPropertyPAAE12acceleration11displayName5value4unit9formatter4dateAA011MeasurementD0CySo18NSUnitAccelerationCGSS_SdAMSo22NSMeasurementFormatterC10Foundation4DateVtFZ"></a>
+                    <a name="//apple_ref/swift/Method/acceleration(displayName:value:unit:formatter:date:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:11GatheredKit11AnyPropertyPAAE12acceleration11displayName5value4unit9formatter4dateAA011MeasurementD0CySo18NSUnitAccelerationCGSS_SdAMSo22NSMeasurementFormatterC10Foundation4DateVtFZ">acceleration(displayName:<wbr>value:<wbr>unit:<wbr>formatter:<wbr>date:<wbr>)</a>
+                    </code>
+                      <span class="declaration-note">
+                        Extension method
+                      </span>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">acceleration</span><span class="p">(</span>
+    <span class="nv">displayName</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span>
+    <span class="nv">value</span><span class="p">:</span> <span class="kt">Double</span><span class="p">,</span>
+    <span class="nv">unit</span><span class="p">:</span> <span class="kt">UnitAcceleration</span><span class="p">,</span>
+    <span class="nv">formatter</span><span class="p">:</span> <span class="kt">MeasurementFormatter</span> <span class="o">=</span> <span class="kt">MeasurementFormatter</span><span class="p">(),</span>
+    <span class="nv">date</span><span class="p">:</span> <span class="kt">Date</span> <span class="o">=</span> <span class="kt">Date</span><span class="p">()</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Typealiases.html#/s:11GatheredKit20AccelerationPropertya">AccelerationProperty</a></span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:11GatheredKit11AnyPropertyPAAE12acceleration11displayName5value4unit9formatter4dateAA019OptionalMeasurementD0CySo18NSUnitAccelerationCGSS_SdSgAMSo22NSMeasurementFormatterC10Foundation4DateVtFZ"></a>
+                    <a name="//apple_ref/swift/Method/acceleration(displayName:value:unit:formatter:date:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:11GatheredKit11AnyPropertyPAAE12acceleration11displayName5value4unit9formatter4dateAA019OptionalMeasurementD0CySo18NSUnitAccelerationCGSS_SdSgAMSo22NSMeasurementFormatterC10Foundation4DateVtFZ">acceleration(displayName:<wbr>value:<wbr>unit:<wbr>formatter:<wbr>date:<wbr>)</a>
+                    </code>
+                      <span class="declaration-note">
+                        Extension method
+                      </span>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">acceleration</span><span class="p">(</span>
+    <span class="nv">displayName</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span>
+    <span class="nv">value</span><span class="p">:</span> <span class="kt">Double</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
+    <span class="nv">unit</span><span class="p">:</span> <span class="kt">UnitAcceleration</span><span class="p">,</span>
+    <span class="nv">formatter</span><span class="p">:</span> <span class="kt">MeasurementFormatter</span> <span class="o">=</span> <span class="kt">MeasurementFormatter</span><span class="p">(),</span>
+    <span class="nv">date</span><span class="p">:</span> <span class="kt">Date</span> <span class="o">=</span> <span class="kt">Date</span><span class="p">()</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Typealiases.html#/s:11GatheredKit28OptionalAccelerationPropertya">OptionalAccelerationProperty</a></span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:11GatheredKit11AnyPropertyPAAE22metersPerSecondSquared11displayName5value9formatter4dateAA011MeasurementD0CySo18NSUnitAccelerationCGSS_SdSo22NSMeasurementFormatterC10Foundation4DateVtFZ"></a>
+                    <a name="//apple_ref/swift/Method/metersPerSecondSquared(displayName:value:formatter:date:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:11GatheredKit11AnyPropertyPAAE22metersPerSecondSquared11displayName5value9formatter4dateAA011MeasurementD0CySo18NSUnitAccelerationCGSS_SdSo22NSMeasurementFormatterC10Foundation4DateVtFZ">metersPerSecondSquared(displayName:<wbr>value:<wbr>formatter:<wbr>date:<wbr>)</a>
+                    </code>
+                      <span class="declaration-note">
+                        Extension method
+                      </span>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">metersPerSecondSquared</span><span class="p">(</span>
+    <span class="nv">displayName</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span>
+    <span class="nv">value</span><span class="p">:</span> <span class="kt">Double</span><span class="p">,</span>
+    <span class="nv">formatter</span><span class="p">:</span> <span class="kt">MeasurementFormatter</span> <span class="o">=</span> <span class="kt">MeasurementFormatter</span><span class="p">(),</span>
+    <span class="nv">date</span><span class="p">:</span> <span class="kt">Date</span> <span class="o">=</span> <span class="kt">Date</span><span class="p">()</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Typealiases.html#/s:11GatheredKit20AccelerationPropertya">AccelerationProperty</a></span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:11GatheredKit11AnyPropertyPAAE22metersPerSecondSquared11displayName5value9formatter4dateAA019OptionalMeasurementD0CySo18NSUnitAccelerationCGSS_SdSgSo22NSMeasurementFormatterC10Foundation4DateVtFZ"></a>
+                    <a name="//apple_ref/swift/Method/metersPerSecondSquared(displayName:value:formatter:date:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:11GatheredKit11AnyPropertyPAAE22metersPerSecondSquared11displayName5value9formatter4dateAA019OptionalMeasurementD0CySo18NSUnitAccelerationCGSS_SdSgSo22NSMeasurementFormatterC10Foundation4DateVtFZ">metersPerSecondSquared(displayName:<wbr>value:<wbr>formatter:<wbr>date:<wbr>)</a>
+                    </code>
+                      <span class="declaration-note">
+                        Extension method
+                      </span>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">metersPerSecondSquared</span><span class="p">(</span>
+    <span class="nv">displayName</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span>
+    <span class="nv">value</span><span class="p">:</span> <span class="kt">Double</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
+    <span class="nv">formatter</span><span class="p">:</span> <span class="kt">MeasurementFormatter</span> <span class="o">=</span> <span class="kt">MeasurementFormatter</span><span class="p">(),</span>
+    <span class="nv">date</span><span class="p">:</span> <span class="kt">Date</span> <span class="o">=</span> <span class="kt">Date</span><span class="p">()</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Typealiases.html#/s:11GatheredKit28OptionalAccelerationPropertya">OptionalAccelerationProperty</a></span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:11GatheredKit11AnyPropertyPAAE7gravity11displayName5value9formatter4dateAA011MeasurementD0CySo18NSUnitAccelerationCGSS_SdSo22NSMeasurementFormatterC10Foundation4DateVtFZ"></a>
+                    <a name="//apple_ref/swift/Method/gravity(displayName:value:formatter:date:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:11GatheredKit11AnyPropertyPAAE7gravity11displayName5value9formatter4dateAA011MeasurementD0CySo18NSUnitAccelerationCGSS_SdSo22NSMeasurementFormatterC10Foundation4DateVtFZ">gravity(displayName:<wbr>value:<wbr>formatter:<wbr>date:<wbr>)</a>
+                    </code>
+                      <span class="declaration-note">
+                        Extension method
+                      </span>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">gravity</span><span class="p">(</span>
+    <span class="nv">displayName</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span>
+    <span class="nv">value</span><span class="p">:</span> <span class="kt">Double</span><span class="p">,</span>
+    <span class="nv">formatter</span><span class="p">:</span> <span class="kt">MeasurementFormatter</span> <span class="o">=</span> <span class="kt">MeasurementFormatter</span><span class="p">(),</span>
+    <span class="nv">date</span><span class="p">:</span> <span class="kt">Date</span> <span class="o">=</span> <span class="kt">Date</span><span class="p">()</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Typealiases.html#/s:11GatheredKit20AccelerationPropertya">AccelerationProperty</a></span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:11GatheredKit11AnyPropertyPAAE7gravity11displayName5value9formatter4dateAA019OptionalMeasurementD0CySo18NSUnitAccelerationCGSS_SdSgSo22NSMeasurementFormatterC10Foundation4DateVtFZ"></a>
+                    <a name="//apple_ref/swift/Method/gravity(displayName:value:formatter:date:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:11GatheredKit11AnyPropertyPAAE7gravity11displayName5value9formatter4dateAA019OptionalMeasurementD0CySo18NSUnitAccelerationCGSS_SdSgSo22NSMeasurementFormatterC10Foundation4DateVtFZ">gravity(displayName:<wbr>value:<wbr>formatter:<wbr>date:<wbr>)</a>
+                    </code>
+                      <span class="declaration-note">
+                        Extension method
+                      </span>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">gravity</span><span class="p">(</span>
+    <span class="nv">displayName</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span>
+    <span class="nv">value</span><span class="p">:</span> <span class="kt">Double</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
+    <span class="nv">formatter</span><span class="p">:</span> <span class="kt">MeasurementFormatter</span> <span class="o">=</span> <span class="kt">MeasurementFormatter</span><span class="p">(),</span>
+    <span class="nv">date</span><span class="p">:</span> <span class="kt">Date</span> <span class="o">=</span> <span class="kt">Date</span><span class="p">()</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Typealiases.html#/s:11GatheredKit28OptionalAccelerationPropertya">OptionalAccelerationProperty</a></span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:11GatheredKit11AnyPropertyPAAE5angle11displayName5value4unit9formatter4dateAA011MeasurementD0CySo11NSUnitAngleCGSS_SdAMSo22NSMeasurementFormatterC10Foundation4DateVtFZ"></a>
+                    <a name="//apple_ref/swift/Method/angle(displayName:value:unit:formatter:date:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:11GatheredKit11AnyPropertyPAAE5angle11displayName5value4unit9formatter4dateAA011MeasurementD0CySo11NSUnitAngleCGSS_SdAMSo22NSMeasurementFormatterC10Foundation4DateVtFZ">angle(displayName:<wbr>value:<wbr>unit:<wbr>formatter:<wbr>date:<wbr>)</a>
+                    </code>
+                      <span class="declaration-note">
+                        Extension method
+                      </span>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">angle</span><span class="p">(</span>
+    <span class="nv">displayName</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span>
+    <span class="nv">value</span><span class="p">:</span> <span class="kt">Double</span><span class="p">,</span>
+    <span class="nv">unit</span><span class="p">:</span> <span class="kt">UnitAngle</span><span class="p">,</span>
+    <span class="nv">formatter</span><span class="p">:</span> <span class="kt">MeasurementFormatter</span> <span class="o">=</span> <span class="kt">MeasurementFormatter</span><span class="p">(),</span>
+    <span class="nv">date</span><span class="p">:</span> <span class="kt">Date</span> <span class="o">=</span> <span class="kt">Date</span><span class="p">()</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Typealiases.html#/s:11GatheredKit13AnglePropertya">AngleProperty</a></span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:11GatheredKit11AnyPropertyPAAE5angle11displayName5value4unit9formatter4dateAA019OptionalMeasurementD0CySo11NSUnitAngleCGSS_SdSgAMSo22NSMeasurementFormatterC10Foundation4DateVtFZ"></a>
+                    <a name="//apple_ref/swift/Method/angle(displayName:value:unit:formatter:date:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:11GatheredKit11AnyPropertyPAAE5angle11displayName5value4unit9formatter4dateAA019OptionalMeasurementD0CySo11NSUnitAngleCGSS_SdSgAMSo22NSMeasurementFormatterC10Foundation4DateVtFZ">angle(displayName:<wbr>value:<wbr>unit:<wbr>formatter:<wbr>date:<wbr>)</a>
+                    </code>
+                      <span class="declaration-note">
+                        Extension method
+                      </span>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">angle</span><span class="p">(</span>
+    <span class="nv">displayName</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span>
+    <span class="nv">value</span><span class="p">:</span> <span class="kt">Double</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
+    <span class="nv">unit</span><span class="p">:</span> <span class="kt">UnitAngle</span><span class="p">,</span>
+    <span class="nv">formatter</span><span class="p">:</span> <span class="kt">MeasurementFormatter</span> <span class="o">=</span> <span class="kt">MeasurementFormatter</span><span class="p">(),</span>
+    <span class="nv">date</span><span class="p">:</span> <span class="kt">Date</span> <span class="o">=</span> <span class="kt">Date</span><span class="p">()</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Typealiases.html#/s:11GatheredKit21OptionalAnglePropertya">OptionalAngleProperty</a></span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:11GatheredKit11AnyPropertyPAAE7degrees11displayName5value9formatter4dateAA011MeasurementD0CySo11NSUnitAngleCGSS_SdSo22NSMeasurementFormatterC10Foundation4DateVtFZ"></a>
+                    <a name="//apple_ref/swift/Method/degrees(displayName:value:formatter:date:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:11GatheredKit11AnyPropertyPAAE7degrees11displayName5value9formatter4dateAA011MeasurementD0CySo11NSUnitAngleCGSS_SdSo22NSMeasurementFormatterC10Foundation4DateVtFZ">degrees(displayName:<wbr>value:<wbr>formatter:<wbr>date:<wbr>)</a>
+                    </code>
+                      <span class="declaration-note">
+                        Extension method
+                      </span>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">degrees</span><span class="p">(</span>
+    <span class="nv">displayName</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span>
+    <span class="nv">value</span><span class="p">:</span> <span class="kt">Double</span><span class="p">,</span>
+    <span class="nv">formatter</span><span class="p">:</span> <span class="kt">MeasurementFormatter</span> <span class="o">=</span> <span class="kt">MeasurementFormatter</span><span class="p">(),</span>
+    <span class="nv">date</span><span class="p">:</span> <span class="kt">Date</span> <span class="o">=</span> <span class="kt">Date</span><span class="p">()</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Typealiases.html#/s:11GatheredKit13AnglePropertya">AngleProperty</a></span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:11GatheredKit11AnyPropertyPAAE7degrees11displayName5value9formatter4dateAA019OptionalMeasurementD0CySo11NSUnitAngleCGSS_SdSgSo22NSMeasurementFormatterC10Foundation4DateVtFZ"></a>
+                    <a name="//apple_ref/swift/Method/degrees(displayName:value:formatter:date:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:11GatheredKit11AnyPropertyPAAE7degrees11displayName5value9formatter4dateAA019OptionalMeasurementD0CySo11NSUnitAngleCGSS_SdSgSo22NSMeasurementFormatterC10Foundation4DateVtFZ">degrees(displayName:<wbr>value:<wbr>formatter:<wbr>date:<wbr>)</a>
+                    </code>
+                      <span class="declaration-note">
+                        Extension method
+                      </span>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">degrees</span><span class="p">(</span>
+    <span class="nv">displayName</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span>
+    <span class="nv">value</span><span class="p">:</span> <span class="kt">Double</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
+    <span class="nv">formatter</span><span class="p">:</span> <span class="kt">MeasurementFormatter</span> <span class="o">=</span> <span class="kt">MeasurementFormatter</span><span class="p">(),</span>
+    <span class="nv">date</span><span class="p">:</span> <span class="kt">Date</span> <span class="o">=</span> <span class="kt">Date</span><span class="p">()</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Typealiases.html#/s:11GatheredKit21OptionalAnglePropertya">OptionalAngleProperty</a></span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:11GatheredKit11AnyPropertyPAAE7radians11displayName5value9formatter4dateAA011MeasurementD0CySo11NSUnitAngleCGSS_SdSo22NSMeasurementFormatterC10Foundation4DateVtFZ"></a>
+                    <a name="//apple_ref/swift/Method/radians(displayName:value:formatter:date:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:11GatheredKit11AnyPropertyPAAE7radians11displayName5value9formatter4dateAA011MeasurementD0CySo11NSUnitAngleCGSS_SdSo22NSMeasurementFormatterC10Foundation4DateVtFZ">radians(displayName:<wbr>value:<wbr>formatter:<wbr>date:<wbr>)</a>
+                    </code>
+                      <span class="declaration-note">
+                        Extension method
+                      </span>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">radians</span><span class="p">(</span>
+    <span class="nv">displayName</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span>
+    <span class="nv">value</span><span class="p">:</span> <span class="kt">Double</span><span class="p">,</span>
+    <span class="nv">formatter</span><span class="p">:</span> <span class="kt">MeasurementFormatter</span> <span class="o">=</span> <span class="kt">MeasurementFormatter</span><span class="p">(),</span>
+    <span class="nv">date</span><span class="p">:</span> <span class="kt">Date</span> <span class="o">=</span> <span class="kt">Date</span><span class="p">()</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Typealiases.html#/s:11GatheredKit13AnglePropertya">AngleProperty</a></span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:11GatheredKit11AnyPropertyPAAE7radians11displayName5value9formatter4dateAA019OptionalMeasurementD0CySo11NSUnitAngleCGSS_SdSgSo22NSMeasurementFormatterC10Foundation4DateVtFZ"></a>
+                    <a name="//apple_ref/swift/Method/radians(displayName:value:formatter:date:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:11GatheredKit11AnyPropertyPAAE7radians11displayName5value9formatter4dateAA019OptionalMeasurementD0CySo11NSUnitAngleCGSS_SdSgSo22NSMeasurementFormatterC10Foundation4DateVtFZ">radians(displayName:<wbr>value:<wbr>formatter:<wbr>date:<wbr>)</a>
+                    </code>
+                      <span class="declaration-note">
+                        Extension method
+                      </span>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">radians</span><span class="p">(</span>
+    <span class="nv">displayName</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span>
+    <span class="nv">value</span><span class="p">:</span> <span class="kt">Double</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
+    <span class="nv">formatter</span><span class="p">:</span> <span class="kt">MeasurementFormatter</span> <span class="o">=</span> <span class="kt">MeasurementFormatter</span><span class="p">(),</span>
+    <span class="nv">date</span><span class="p">:</span> <span class="kt">Date</span> <span class="o">=</span> <span class="kt">Date</span><span class="p">()</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Typealiases.html#/s:11GatheredKit21OptionalAnglePropertya">OptionalAngleProperty</a></span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:11GatheredKit11AnyPropertyPAAE11measurement11displayName5value4unit9formatter4dateAA011MeasurementD0Cyqd__GSS_Sdqd__So22NSMeasurementFormatterC10Foundation4DateVtSo6NSUnitCRbd__lFZ"></a>
+                    <a name="//apple_ref/swift/Method/measurement(displayName:value:unit:formatter:date:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:11GatheredKit11AnyPropertyPAAE11measurement11displayName5value4unit9formatter4dateAA011MeasurementD0Cyqd__GSS_Sdqd__So22NSMeasurementFormatterC10Foundation4DateVtSo6NSUnitCRbd__lFZ">measurement(displayName:<wbr>value:<wbr>unit:<wbr>formatter:<wbr>date:<wbr>)</a>
+                    </code>
+                      <span class="declaration-note">
+                        Extension method
+                      </span>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="n">measurement</span><span class="o">&lt;</span><span class="kt">Unit</span><span class="p">:</span> <span class="kt">Foundation</span><span class="o">.</span><span class="kt">Unit</span><span class="o">&gt;</span><span class="p">(</span>
+    <span class="nv">displayName</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span>
+    <span class="nv">value</span><span class="p">:</span> <span class="kt">Double</span><span class="p">,</span>
+    <span class="nv">unit</span><span class="p">:</span> <span class="kt">Unit</span><span class="p">,</span>
+    <span class="nv">formatter</span><span class="p">:</span> <span class="kt">MeasurementFormatter</span> <span class="o">=</span> <span class="kt">MeasurementFormatter</span><span class="p">(),</span>
+    <span class="nv">date</span><span class="p">:</span> <span class="kt">Date</span> <span class="o">=</span> <span class="kt">Date</span><span class="p">()</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Classes/MeasurementProperty.html">MeasurementProperty</a></span><span class="o">&lt;</span><span class="kt">Unit</span><span class="o">&gt;</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:11GatheredKit11AnyPropertyPAAE11measurement11displayNameAD9formatter4dateAA011MeasurementD0Cyqd__GSS_10Foundation0J0Vyqd__GSo22NSMeasurementFormatterCAK4DateVtSo6NSUnitCRbd__lFZ"></a>
+                    <a name="//apple_ref/swift/Method/measurement(displayName:measurement:formatter:date:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:11GatheredKit11AnyPropertyPAAE11measurement11displayNameAD9formatter4dateAA011MeasurementD0Cyqd__GSS_10Foundation0J0Vyqd__GSo22NSMeasurementFormatterCAK4DateVtSo6NSUnitCRbd__lFZ">measurement(displayName:<wbr>measurement:<wbr>formatter:<wbr>date:<wbr>)</a>
+                    </code>
+                      <span class="declaration-note">
+                        Extension method
+                      </span>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="n">measurement</span><span class="o">&lt;</span><span class="kt">Unit</span><span class="p">:</span> <span class="kt">Foundation</span><span class="o">.</span><span class="kt">Unit</span><span class="o">&gt;</span><span class="p">(</span>
+    <span class="nv">displayName</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span>
+    <span class="nv">measurement</span><span class="p">:</span> <span class="kt">Measurement</span><span class="o">&lt;</span><span class="kt">Unit</span><span class="o">&gt;</span><span class="p">,</span>
+    <span class="nv">formatter</span><span class="p">:</span> <span class="kt">MeasurementFormatter</span> <span class="o">=</span> <span class="kt">MeasurementFormatter</span><span class="p">(),</span>
+    <span class="nv">date</span><span class="p">:</span> <span class="kt">Date</span> <span class="o">=</span> <span class="kt">Date</span><span class="p">()</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Classes/MeasurementProperty.html">MeasurementProperty</a></span><span class="o">&lt;</span><span class="kt">Unit</span><span class="o">&gt;</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:11GatheredKit11AnyPropertyPAAE11measurement11displayName5value4unit9formatter4dateAA019OptionalMeasurementD0Cyqd__GSS_SdSgqd__So22NSMeasurementFormatterC10Foundation4DateVtSo6NSUnitCRbd__lFZ"></a>
+                    <a name="//apple_ref/swift/Method/measurement(displayName:value:unit:formatter:date:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:11GatheredKit11AnyPropertyPAAE11measurement11displayName5value4unit9formatter4dateAA019OptionalMeasurementD0Cyqd__GSS_SdSgqd__So22NSMeasurementFormatterC10Foundation4DateVtSo6NSUnitCRbd__lFZ">measurement(displayName:<wbr>value:<wbr>unit:<wbr>formatter:<wbr>date:<wbr>)</a>
+                    </code>
+                      <span class="declaration-note">
+                        Extension method
+                      </span>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="n">measurement</span><span class="o">&lt;</span><span class="kt">Unit</span><span class="p">:</span> <span class="kt">Foundation</span><span class="o">.</span><span class="kt">Unit</span><span class="o">&gt;</span><span class="p">(</span>
+    <span class="nv">displayName</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span>
+    <span class="nv">value</span><span class="p">:</span> <span class="kt">Double</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
+    <span class="nv">unit</span><span class="p">:</span> <span class="kt">Unit</span><span class="p">,</span>
+    <span class="nv">formatter</span><span class="p">:</span> <span class="kt">MeasurementFormatter</span> <span class="o">=</span> <span class="kt">MeasurementFormatter</span><span class="p">(),</span>
+    <span class="nv">date</span><span class="p">:</span> <span class="kt">Date</span> <span class="o">=</span> <span class="kt">Date</span><span class="p">()</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Classes/OptionalMeasurementProperty.html">OptionalMeasurementProperty</a></span><span class="o">&lt;</span><span class="kt">Unit</span><span class="o">&gt;</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:11GatheredKit11AnyPropertyPAAE11measurement11displayNameAD4unit9formatter4dateAA019OptionalMeasurementD0Cyqd__GSS_10Foundation0L0Vyqd__Gqd__So22NSMeasurementFormatterCAL4DateVtSo6NSUnitCRbd__lFZ"></a>
+                    <a name="//apple_ref/swift/Method/measurement(displayName:measurement:unit:formatter:date:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:11GatheredKit11AnyPropertyPAAE11measurement11displayNameAD4unit9formatter4dateAA019OptionalMeasurementD0Cyqd__GSS_10Foundation0L0Vyqd__Gqd__So22NSMeasurementFormatterCAL4DateVtSo6NSUnitCRbd__lFZ">measurement(displayName:<wbr>measurement:<wbr>unit:<wbr>formatter:<wbr>date:<wbr>)</a>
+                    </code>
+                      <span class="declaration-note">
+                        Extension method
+                      </span>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="n">measurement</span><span class="o">&lt;</span><span class="kt">Unit</span><span class="p">:</span> <span class="kt">Foundation</span><span class="o">.</span><span class="kt">Unit</span><span class="o">&gt;</span><span class="p">(</span>
+    <span class="nv">displayName</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span>
+    <span class="nv">measurement</span><span class="p">:</span> <span class="kt">Measurement</span><span class="o">&lt;</span><span class="kt">Unit</span><span class="o">&gt;</span><span class="p">,</span>
+    <span class="nv">unit</span><span class="p">:</span> <span class="kt">Unit</span><span class="p">,</span>
+    <span class="nv">formatter</span><span class="p">:</span> <span class="kt">MeasurementFormatter</span> <span class="o">=</span> <span class="kt">MeasurementFormatter</span><span class="p">(),</span>
+    <span class="nv">date</span><span class="p">:</span> <span class="kt">Date</span> <span class="o">=</span> <span class="kt">Date</span><span class="p">()</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Classes/OptionalMeasurementProperty.html">OptionalMeasurementProperty</a></span><span class="o">&lt;</span><span class="kt">Unit</span><span class="o">&gt;</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:11GatheredKit11AnyPropertyPAAE9frequency11displayName5value4unit9formatter4dateAA011MeasurementD0CySo15NSUnitFrequencyCGSS_SdAMSo22NSMeasurementFormatterC10Foundation4DateVtFZ"></a>
+                    <a name="//apple_ref/swift/Method/frequency(displayName:value:unit:formatter:date:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:11GatheredKit11AnyPropertyPAAE9frequency11displayName5value4unit9formatter4dateAA011MeasurementD0CySo15NSUnitFrequencyCGSS_SdAMSo22NSMeasurementFormatterC10Foundation4DateVtFZ">frequency(displayName:<wbr>value:<wbr>unit:<wbr>formatter:<wbr>date:<wbr>)</a>
+                    </code>
+                      <span class="declaration-note">
+                        Extension method
+                      </span>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">frequency</span><span class="p">(</span>
+    <span class="nv">displayName</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span>
+    <span class="nv">value</span><span class="p">:</span> <span class="kt">Double</span><span class="p">,</span>
+    <span class="nv">unit</span><span class="p">:</span> <span class="kt">UnitFrequency</span><span class="p">,</span>
+    <span class="nv">formatter</span><span class="p">:</span> <span class="kt">MeasurementFormatter</span> <span class="o">=</span> <span class="kt">MeasurementFormatter</span><span class="p">(),</span>
+    <span class="nv">date</span><span class="p">:</span> <span class="kt">Date</span> <span class="o">=</span> <span class="kt">Date</span><span class="p">()</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Typealiases.html#/s:11GatheredKit17FrequencyPropertya">FrequencyProperty</a></span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:11GatheredKit11AnyPropertyPAAE9frequency11displayName5value4unit9formatter4dateAA019OptionalMeasurementD0CySo15NSUnitFrequencyCGSS_SdSgAMSo22NSMeasurementFormatterC10Foundation4DateVtFZ"></a>
+                    <a name="//apple_ref/swift/Method/frequency(displayName:value:unit:formatter:date:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:11GatheredKit11AnyPropertyPAAE9frequency11displayName5value4unit9formatter4dateAA019OptionalMeasurementD0CySo15NSUnitFrequencyCGSS_SdSgAMSo22NSMeasurementFormatterC10Foundation4DateVtFZ">frequency(displayName:<wbr>value:<wbr>unit:<wbr>formatter:<wbr>date:<wbr>)</a>
+                    </code>
+                      <span class="declaration-note">
+                        Extension method
+                      </span>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">frequency</span><span class="p">(</span>
+    <span class="nv">displayName</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span>
+    <span class="nv">value</span><span class="p">:</span> <span class="kt">Double</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
+    <span class="nv">unit</span><span class="p">:</span> <span class="kt">UnitFrequency</span><span class="p">,</span>
+    <span class="nv">formatter</span><span class="p">:</span> <span class="kt">MeasurementFormatter</span> <span class="o">=</span> <span class="kt">MeasurementFormatter</span><span class="p">(),</span>
+    <span class="nv">date</span><span class="p">:</span> <span class="kt">Date</span> <span class="o">=</span> <span class="kt">Date</span><span class="p">()</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Typealiases.html#/s:11GatheredKit25OptionalFrequencyPropertya">OptionalFrequencyProperty</a></span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:11GatheredKit11AnyPropertyPAAE16radiansPerSecond11displayName5value9formatter4dateAA011MeasurementD0CySo15NSUnitFrequencyCGSS_SdSo22NSMeasurementFormatterC10Foundation4DateVtFZ"></a>
+                    <a name="//apple_ref/swift/Method/radiansPerSecond(displayName:value:formatter:date:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:11GatheredKit11AnyPropertyPAAE16radiansPerSecond11displayName5value9formatter4dateAA011MeasurementD0CySo15NSUnitFrequencyCGSS_SdSo22NSMeasurementFormatterC10Foundation4DateVtFZ">radiansPerSecond(displayName:<wbr>value:<wbr>formatter:<wbr>date:<wbr>)</a>
+                    </code>
+                      <span class="declaration-note">
+                        Extension method
+                      </span>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">radiansPerSecond</span><span class="p">(</span>
+    <span class="nv">displayName</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span>
+    <span class="nv">value</span><span class="p">:</span> <span class="kt">Double</span><span class="p">,</span>
+    <span class="nv">formatter</span><span class="p">:</span> <span class="kt">MeasurementFormatter</span> <span class="o">=</span> <span class="kt">MeasurementFormatter</span><span class="p">(),</span>
+    <span class="nv">date</span><span class="p">:</span> <span class="kt">Date</span> <span class="o">=</span> <span class="kt">Date</span><span class="p">()</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Typealiases.html#/s:11GatheredKit17FrequencyPropertya">FrequencyProperty</a></span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:11GatheredKit11AnyPropertyPAAE16radiansPerSecond11displayName5value9formatter4dateAA019OptionalMeasurementD0CySo15NSUnitFrequencyCGSS_SdSgSo22NSMeasurementFormatterC10Foundation4DateVtFZ"></a>
+                    <a name="//apple_ref/swift/Method/radiansPerSecond(displayName:value:formatter:date:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:11GatheredKit11AnyPropertyPAAE16radiansPerSecond11displayName5value9formatter4dateAA019OptionalMeasurementD0CySo15NSUnitFrequencyCGSS_SdSgSo22NSMeasurementFormatterC10Foundation4DateVtFZ">radiansPerSecond(displayName:<wbr>value:<wbr>formatter:<wbr>date:<wbr>)</a>
+                    </code>
+                      <span class="declaration-note">
+                        Extension method
+                      </span>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">radiansPerSecond</span><span class="p">(</span>
+    <span class="nv">displayName</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span>
+    <span class="nv">value</span><span class="p">:</span> <span class="kt">Double</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
+    <span class="nv">formatter</span><span class="p">:</span> <span class="kt">MeasurementFormatter</span> <span class="o">=</span> <span class="kt">MeasurementFormatter</span><span class="p">(),</span>
+    <span class="nv">date</span><span class="p">:</span> <span class="kt">Date</span> <span class="o">=</span> <span class="kt">Date</span><span class="p">()</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Typealiases.html#/s:11GatheredKit25OptionalFrequencyPropertya">OptionalFrequencyProperty</a></span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:11GatheredKit11AnyPropertyPAAE6length11displayName5value4unit9formatter4dateAA011MeasurementD0CySo12NSUnitLengthCGSS_SdAMSo22NSMeasurementFormatterC10Foundation4DateVtFZ"></a>
+                    <a name="//apple_ref/swift/Method/length(displayName:value:unit:formatter:date:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:11GatheredKit11AnyPropertyPAAE6length11displayName5value4unit9formatter4dateAA011MeasurementD0CySo12NSUnitLengthCGSS_SdAMSo22NSMeasurementFormatterC10Foundation4DateVtFZ">length(displayName:<wbr>value:<wbr>unit:<wbr>formatter:<wbr>date:<wbr>)</a>
+                    </code>
+                      <span class="declaration-note">
+                        Extension method
+                      </span>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">length</span><span class="p">(</span>
+    <span class="nv">displayName</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span>
+    <span class="nv">value</span><span class="p">:</span> <span class="kt">Double</span><span class="p">,</span>
+    <span class="nv">unit</span><span class="p">:</span> <span class="kt">UnitLength</span><span class="p">,</span>
+    <span class="nv">formatter</span><span class="p">:</span> <span class="kt">MeasurementFormatter</span> <span class="o">=</span> <span class="kt">MeasurementFormatter</span><span class="p">(),</span>
+    <span class="nv">date</span><span class="p">:</span> <span class="kt">Date</span> <span class="o">=</span> <span class="kt">Date</span><span class="p">()</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Typealiases.html#/s:11GatheredKit14LengthPropertya">LengthProperty</a></span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:11GatheredKit11AnyPropertyPAAE6length11displayName5value4unit9formatter4dateAA019OptionalMeasurementD0CySo12NSUnitLengthCGSS_SdSgAMSo22NSMeasurementFormatterC10Foundation4DateVtFZ"></a>
+                    <a name="//apple_ref/swift/Method/length(displayName:value:unit:formatter:date:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:11GatheredKit11AnyPropertyPAAE6length11displayName5value4unit9formatter4dateAA019OptionalMeasurementD0CySo12NSUnitLengthCGSS_SdSgAMSo22NSMeasurementFormatterC10Foundation4DateVtFZ">length(displayName:<wbr>value:<wbr>unit:<wbr>formatter:<wbr>date:<wbr>)</a>
+                    </code>
+                      <span class="declaration-note">
+                        Extension method
+                      </span>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">length</span><span class="p">(</span>
+    <span class="nv">displayName</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span>
+    <span class="nv">value</span><span class="p">:</span> <span class="kt">Double</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
+    <span class="nv">unit</span><span class="p">:</span> <span class="kt">UnitLength</span><span class="p">,</span>
+    <span class="nv">formatter</span><span class="p">:</span> <span class="kt">MeasurementFormatter</span> <span class="o">=</span> <span class="kt">MeasurementFormatter</span><span class="p">(),</span>
+    <span class="nv">date</span><span class="p">:</span> <span class="kt">Date</span> <span class="o">=</span> <span class="kt">Date</span><span class="p">()</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Typealiases.html#/s:11GatheredKit22OptionalLengthPropertya">OptionalLengthProperty</a></span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:11GatheredKit11AnyPropertyPAAE6meters11displayName5value9formatter4dateAA011MeasurementD0CySo12NSUnitLengthCGSS_SdSo22NSMeasurementFormatterC10Foundation4DateVtFZ"></a>
+                    <a name="//apple_ref/swift/Method/meters(displayName:value:formatter:date:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:11GatheredKit11AnyPropertyPAAE6meters11displayName5value9formatter4dateAA011MeasurementD0CySo12NSUnitLengthCGSS_SdSo22NSMeasurementFormatterC10Foundation4DateVtFZ">meters(displayName:<wbr>value:<wbr>formatter:<wbr>date:<wbr>)</a>
+                    </code>
+                      <span class="declaration-note">
+                        Extension method
+                      </span>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">meters</span><span class="p">(</span>
+    <span class="nv">displayName</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span>
+    <span class="nv">value</span><span class="p">:</span> <span class="kt">Double</span><span class="p">,</span>
+    <span class="nv">formatter</span><span class="p">:</span> <span class="kt">MeasurementFormatter</span> <span class="o">=</span> <span class="kt">MeasurementFormatter</span><span class="p">(),</span>
+    <span class="nv">date</span><span class="p">:</span> <span class="kt">Date</span> <span class="o">=</span> <span class="kt">Date</span><span class="p">()</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Typealiases.html#/s:11GatheredKit14LengthPropertya">LengthProperty</a></span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:11GatheredKit11AnyPropertyPAAE6meters11displayName5value9formatter4dateAA019OptionalMeasurementD0CySo12NSUnitLengthCGSS_SdSgSo22NSMeasurementFormatterC10Foundation4DateVtFZ"></a>
+                    <a name="//apple_ref/swift/Method/meters(displayName:value:formatter:date:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:11GatheredKit11AnyPropertyPAAE6meters11displayName5value9formatter4dateAA019OptionalMeasurementD0CySo12NSUnitLengthCGSS_SdSgSo22NSMeasurementFormatterC10Foundation4DateVtFZ">meters(displayName:<wbr>value:<wbr>formatter:<wbr>date:<wbr>)</a>
+                    </code>
+                      <span class="declaration-note">
+                        Extension method
+                      </span>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">meters</span><span class="p">(</span>
+    <span class="nv">displayName</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span>
+    <span class="nv">value</span><span class="p">:</span> <span class="kt">Double</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
+    <span class="nv">formatter</span><span class="p">:</span> <span class="kt">MeasurementFormatter</span> <span class="o">=</span> <span class="kt">MeasurementFormatter</span><span class="p">(),</span>
+    <span class="nv">date</span><span class="p">:</span> <span class="kt">Date</span> <span class="o">=</span> <span class="kt">Date</span><span class="p">()</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Typealiases.html#/s:11GatheredKit22OptionalLengthPropertya">OptionalLengthProperty</a></span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:11GatheredKit11AnyPropertyPAAE13magneticField11displayName5value4unit9formatter4dateAA011MeasurementD0CyAA012UnitMagneticF0CGSS_SdAMSo22NSMeasurementFormatterC10Foundation4DateVtFZ"></a>
+                    <a name="//apple_ref/swift/Method/magneticField(displayName:value:unit:formatter:date:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:11GatheredKit11AnyPropertyPAAE13magneticField11displayName5value4unit9formatter4dateAA011MeasurementD0CyAA012UnitMagneticF0CGSS_SdAMSo22NSMeasurementFormatterC10Foundation4DateVtFZ">magneticField(displayName:<wbr>value:<wbr>unit:<wbr>formatter:<wbr>date:<wbr>)</a>
+                    </code>
+                      <span class="declaration-note">
+                        Extension method
+                      </span>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">magneticField</span><span class="p">(</span>
+    <span class="nv">displayName</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span>
+    <span class="nv">value</span><span class="p">:</span> <span class="kt">Double</span><span class="p">,</span>
+    <span class="nv">unit</span><span class="p">:</span> <span class="kt"><a href="../Classes/UnitMagneticField.html">UnitMagneticField</a></span><span class="p">,</span>
+    <span class="nv">formatter</span><span class="p">:</span> <span class="kt">MeasurementFormatter</span> <span class="o">=</span> <span class="kt">MeasurementFormatter</span><span class="p">(),</span>
+    <span class="nv">date</span><span class="p">:</span> <span class="kt">Date</span> <span class="o">=</span> <span class="kt">Date</span><span class="p">()</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Typealiases.html#/s:11GatheredKit21MagneticFieldPropertya">MagneticFieldProperty</a></span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:11GatheredKit11AnyPropertyPAAE13magneticField11displayName5value4unit9formatter4dateAA019OptionalMeasurementD0CyAA012UnitMagneticF0CGSS_SdSgAMSo22NSMeasurementFormatterC10Foundation4DateVtFZ"></a>
+                    <a name="//apple_ref/swift/Method/magneticField(displayName:value:unit:formatter:date:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:11GatheredKit11AnyPropertyPAAE13magneticField11displayName5value4unit9formatter4dateAA019OptionalMeasurementD0CyAA012UnitMagneticF0CGSS_SdSgAMSo22NSMeasurementFormatterC10Foundation4DateVtFZ">magneticField(displayName:<wbr>value:<wbr>unit:<wbr>formatter:<wbr>date:<wbr>)</a>
+                    </code>
+                      <span class="declaration-note">
+                        Extension method
+                      </span>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">magneticField</span><span class="p">(</span>
+    <span class="nv">displayName</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span>
+    <span class="nv">value</span><span class="p">:</span> <span class="kt">Double</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
+    <span class="nv">unit</span><span class="p">:</span> <span class="kt"><a href="../Classes/UnitMagneticField.html">UnitMagneticField</a></span><span class="p">,</span>
+    <span class="nv">formatter</span><span class="p">:</span> <span class="kt">MeasurementFormatter</span> <span class="o">=</span> <span class="kt">MeasurementFormatter</span><span class="p">(),</span>
+    <span class="nv">date</span><span class="p">:</span> <span class="kt">Date</span> <span class="o">=</span> <span class="kt">Date</span><span class="p">()</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Typealiases.html#/s:11GatheredKit29OptionalMagneticFieldPropertya">OptionalMagneticFieldProperty</a></span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:11GatheredKit11AnyPropertyPAAE5tesla11displayName5value9formatter4dateAA011MeasurementD0CyAA17UnitMagneticFieldCGSS_SdSo22NSMeasurementFormatterC10Foundation4DateVtFZ"></a>
+                    <a name="//apple_ref/swift/Method/tesla(displayName:value:formatter:date:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:11GatheredKit11AnyPropertyPAAE5tesla11displayName5value9formatter4dateAA011MeasurementD0CyAA17UnitMagneticFieldCGSS_SdSo22NSMeasurementFormatterC10Foundation4DateVtFZ">tesla(displayName:<wbr>value:<wbr>formatter:<wbr>date:<wbr>)</a>
+                    </code>
+                      <span class="declaration-note">
+                        Extension method
+                      </span>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">tesla</span><span class="p">(</span>
+    <span class="nv">displayName</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span>
+    <span class="nv">value</span><span class="p">:</span> <span class="kt">Double</span><span class="p">,</span>
+    <span class="nv">formatter</span><span class="p">:</span> <span class="kt">MeasurementFormatter</span> <span class="o">=</span> <span class="kt">MeasurementFormatter</span><span class="p">(),</span>
+    <span class="nv">date</span><span class="p">:</span> <span class="kt">Date</span> <span class="o">=</span> <span class="kt">Date</span><span class="p">()</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Typealiases.html#/s:11GatheredKit21MagneticFieldPropertya">MagneticFieldProperty</a></span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:11GatheredKit11AnyPropertyPAAE5tesla11displayName5value9formatter4dateAA019OptionalMeasurementD0CyAA17UnitMagneticFieldCGSS_SdSgSo22NSMeasurementFormatterC10Foundation4DateVtFZ"></a>
+                    <a name="//apple_ref/swift/Method/tesla(displayName:value:formatter:date:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:11GatheredKit11AnyPropertyPAAE5tesla11displayName5value9formatter4dateAA019OptionalMeasurementD0CyAA17UnitMagneticFieldCGSS_SdSgSo22NSMeasurementFormatterC10Foundation4DateVtFZ">tesla(displayName:<wbr>value:<wbr>formatter:<wbr>date:<wbr>)</a>
+                    </code>
+                      <span class="declaration-note">
+                        Extension method
+                      </span>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">tesla</span><span class="p">(</span>
+    <span class="nv">displayName</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span>
+    <span class="nv">value</span><span class="p">:</span> <span class="kt">Double</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
+    <span class="nv">formatter</span><span class="p">:</span> <span class="kt">MeasurementFormatter</span> <span class="o">=</span> <span class="kt">MeasurementFormatter</span><span class="p">(),</span>
+    <span class="nv">date</span><span class="p">:</span> <span class="kt">Date</span> <span class="o">=</span> <span class="kt">Date</span><span class="p">()</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Typealiases.html#/s:11GatheredKit29OptionalMagneticFieldPropertya">OptionalMagneticFieldProperty</a></span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:11GatheredKit11AnyPropertyPAAE10microTesla11displayName5value9formatter4dateAA011MeasurementD0CyAA17UnitMagneticFieldCGSS_SdSo22NSMeasurementFormatterC10Foundation4DateVtFZ"></a>
+                    <a name="//apple_ref/swift/Method/microTesla(displayName:value:formatter:date:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:11GatheredKit11AnyPropertyPAAE10microTesla11displayName5value9formatter4dateAA011MeasurementD0CyAA17UnitMagneticFieldCGSS_SdSo22NSMeasurementFormatterC10Foundation4DateVtFZ">microTesla(displayName:<wbr>value:<wbr>formatter:<wbr>date:<wbr>)</a>
+                    </code>
+                      <span class="declaration-note">
+                        Extension method
+                      </span>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">microTesla</span><span class="p">(</span>
+    <span class="nv">displayName</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span>
+    <span class="nv">value</span><span class="p">:</span> <span class="kt">Double</span><span class="p">,</span>
+    <span class="nv">formatter</span><span class="p">:</span> <span class="kt">MeasurementFormatter</span> <span class="o">=</span> <span class="kt">MeasurementFormatter</span><span class="p">(),</span>
+    <span class="nv">date</span><span class="p">:</span> <span class="kt">Date</span> <span class="o">=</span> <span class="kt">Date</span><span class="p">()</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Typealiases.html#/s:11GatheredKit21MagneticFieldPropertya">MagneticFieldProperty</a></span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:11GatheredKit11AnyPropertyPAAE10microTesla11displayName5value9formatter4dateAA019OptionalMeasurementD0CyAA17UnitMagneticFieldCGSS_SdSgSo22NSMeasurementFormatterC10Foundation4DateVtFZ"></a>
+                    <a name="//apple_ref/swift/Method/microTesla(displayName:value:formatter:date:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:11GatheredKit11AnyPropertyPAAE10microTesla11displayName5value9formatter4dateAA019OptionalMeasurementD0CyAA17UnitMagneticFieldCGSS_SdSgSo22NSMeasurementFormatterC10Foundation4DateVtFZ">microTesla(displayName:<wbr>value:<wbr>formatter:<wbr>date:<wbr>)</a>
+                    </code>
+                      <span class="declaration-note">
+                        Extension method
+                      </span>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">microTesla</span><span class="p">(</span>
+    <span class="nv">displayName</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span>
+    <span class="nv">value</span><span class="p">:</span> <span class="kt">Double</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
+    <span class="nv">formatter</span><span class="p">:</span> <span class="kt">MeasurementFormatter</span> <span class="o">=</span> <span class="kt">MeasurementFormatter</span><span class="p">(),</span>
+    <span class="nv">date</span><span class="p">:</span> <span class="kt">Date</span> <span class="o">=</span> <span class="kt">Date</span><span class="p">()</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Typealiases.html#/s:11GatheredKit29OptionalMagneticFieldPropertya">OptionalMagneticFieldProperty</a></span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:11GatheredKit11AnyPropertyPAAE8pressure11displayName5value4unit9formatter4dateAA011MeasurementD0CySo14NSUnitPressureCGSS_SdAMSo22NSMeasurementFormatterC10Foundation4DateVtFZ"></a>
+                    <a name="//apple_ref/swift/Method/pressure(displayName:value:unit:formatter:date:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:11GatheredKit11AnyPropertyPAAE8pressure11displayName5value4unit9formatter4dateAA011MeasurementD0CySo14NSUnitPressureCGSS_SdAMSo22NSMeasurementFormatterC10Foundation4DateVtFZ">pressure(displayName:<wbr>value:<wbr>unit:<wbr>formatter:<wbr>date:<wbr>)</a>
+                    </code>
+                      <span class="declaration-note">
+                        Extension method
+                      </span>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">pressure</span><span class="p">(</span>
+    <span class="nv">displayName</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span>
+    <span class="nv">value</span><span class="p">:</span> <span class="kt">Double</span><span class="p">,</span>
+    <span class="nv">unit</span><span class="p">:</span> <span class="kt">UnitPressure</span><span class="p">,</span>
+    <span class="nv">formatter</span><span class="p">:</span> <span class="kt">MeasurementFormatter</span> <span class="o">=</span> <span class="kt">MeasurementFormatter</span><span class="p">(),</span>
+    <span class="nv">date</span><span class="p">:</span> <span class="kt">Date</span> <span class="o">=</span> <span class="kt">Date</span><span class="p">()</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Typealiases.html#/s:11GatheredKit16PressurePropertya">PressureProperty</a></span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:11GatheredKit11AnyPropertyPAAE8pressure11displayName5value4unit9formatter4dateAA019OptionalMeasurementD0CySo14NSUnitPressureCGSS_SdSgAMSo22NSMeasurementFormatterC10Foundation4DateVtFZ"></a>
+                    <a name="//apple_ref/swift/Method/pressure(displayName:value:unit:formatter:date:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:11GatheredKit11AnyPropertyPAAE8pressure11displayName5value4unit9formatter4dateAA019OptionalMeasurementD0CySo14NSUnitPressureCGSS_SdSgAMSo22NSMeasurementFormatterC10Foundation4DateVtFZ">pressure(displayName:<wbr>value:<wbr>unit:<wbr>formatter:<wbr>date:<wbr>)</a>
+                    </code>
+                      <span class="declaration-note">
+                        Extension method
+                      </span>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">pressure</span><span class="p">(</span>
+    <span class="nv">displayName</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span>
+    <span class="nv">value</span><span class="p">:</span> <span class="kt">Double</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
+    <span class="nv">unit</span><span class="p">:</span> <span class="kt">UnitPressure</span><span class="p">,</span>
+    <span class="nv">formatter</span><span class="p">:</span> <span class="kt">MeasurementFormatter</span> <span class="o">=</span> <span class="kt">MeasurementFormatter</span><span class="p">(),</span>
+    <span class="nv">date</span><span class="p">:</span> <span class="kt">Date</span> <span class="o">=</span> <span class="kt">Date</span><span class="p">()</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Typealiases.html#/s:11GatheredKit24OptionalPressurePropertya">OptionalPressureProperty</a></span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:11GatheredKit11AnyPropertyPAAE11kilopascals11displayName5value9formatter4dateAA011MeasurementD0CySo14NSUnitPressureCGSS_SdSo22NSMeasurementFormatterC10Foundation4DateVtFZ"></a>
+                    <a name="//apple_ref/swift/Method/kilopascals(displayName:value:formatter:date:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:11GatheredKit11AnyPropertyPAAE11kilopascals11displayName5value9formatter4dateAA011MeasurementD0CySo14NSUnitPressureCGSS_SdSo22NSMeasurementFormatterC10Foundation4DateVtFZ">kilopascals(displayName:<wbr>value:<wbr>formatter:<wbr>date:<wbr>)</a>
+                    </code>
+                      <span class="declaration-note">
+                        Extension method
+                      </span>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">kilopascals</span><span class="p">(</span>
+    <span class="nv">displayName</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span>
+    <span class="nv">value</span><span class="p">:</span> <span class="kt">Double</span><span class="p">,</span>
+    <span class="nv">formatter</span><span class="p">:</span> <span class="kt">MeasurementFormatter</span> <span class="o">=</span> <span class="kt">MeasurementFormatter</span><span class="p">(),</span>
+    <span class="nv">date</span><span class="p">:</span> <span class="kt">Date</span> <span class="o">=</span> <span class="kt">Date</span><span class="p">()</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Typealiases.html#/s:11GatheredKit16PressurePropertya">PressureProperty</a></span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:11GatheredKit11AnyPropertyPAAE11kilopascals11displayName5value9formatter4dateAA019OptionalMeasurementD0CySo14NSUnitPressureCGSS_SdSgSo22NSMeasurementFormatterC10Foundation4DateVtFZ"></a>
+                    <a name="//apple_ref/swift/Method/kilopascals(displayName:value:formatter:date:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:11GatheredKit11AnyPropertyPAAE11kilopascals11displayName5value9formatter4dateAA019OptionalMeasurementD0CySo14NSUnitPressureCGSS_SdSgSo22NSMeasurementFormatterC10Foundation4DateVtFZ">kilopascals(displayName:<wbr>value:<wbr>formatter:<wbr>date:<wbr>)</a>
+                    </code>
+                      <span class="declaration-note">
+                        Extension method
+                      </span>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">kilopascals</span><span class="p">(</span>
+    <span class="nv">displayName</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span>
+    <span class="nv">value</span><span class="p">:</span> <span class="kt">Double</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
+    <span class="nv">formatter</span><span class="p">:</span> <span class="kt">MeasurementFormatter</span> <span class="o">=</span> <span class="kt">MeasurementFormatter</span><span class="p">(),</span>
+    <span class="nv">date</span><span class="p">:</span> <span class="kt">Date</span> <span class="o">=</span> <span class="kt">Date</span><span class="p">()</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Typealiases.html#/s:11GatheredKit24OptionalPressurePropertya">OptionalPressureProperty</a></span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:11GatheredKit11AnyPropertyPAAE5speed11displayName5value4unit9formatter4dateAA011MeasurementD0CySo11NSUnitSpeedCGSS_SdAMSo22NSMeasurementFormatterC10Foundation4DateVtFZ"></a>
+                    <a name="//apple_ref/swift/Method/speed(displayName:value:unit:formatter:date:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:11GatheredKit11AnyPropertyPAAE5speed11displayName5value4unit9formatter4dateAA011MeasurementD0CySo11NSUnitSpeedCGSS_SdAMSo22NSMeasurementFormatterC10Foundation4DateVtFZ">speed(displayName:<wbr>value:<wbr>unit:<wbr>formatter:<wbr>date:<wbr>)</a>
+                    </code>
+                      <span class="declaration-note">
+                        Extension method
+                      </span>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">speed</span><span class="p">(</span>
+    <span class="nv">displayName</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span>
+    <span class="nv">value</span><span class="p">:</span> <span class="kt">Double</span><span class="p">,</span>
+    <span class="nv">unit</span><span class="p">:</span> <span class="kt">UnitSpeed</span><span class="p">,</span>
+    <span class="nv">formatter</span><span class="p">:</span> <span class="kt">MeasurementFormatter</span> <span class="o">=</span> <span class="kt">MeasurementFormatter</span><span class="p">(),</span>
+    <span class="nv">date</span><span class="p">:</span> <span class="kt">Date</span> <span class="o">=</span> <span class="kt">Date</span><span class="p">()</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Typealiases.html#/s:11GatheredKit13SpeedPropertya">SpeedProperty</a></span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:11GatheredKit11AnyPropertyPAAE15metersPerSecond11displayName5value9formatter4dateAA011MeasurementD0CySo11NSUnitSpeedCGSS_SdSo22NSMeasurementFormatterC10Foundation4DateVtFZ"></a>
+                    <a name="//apple_ref/swift/Method/metersPerSecond(displayName:value:formatter:date:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:11GatheredKit11AnyPropertyPAAE15metersPerSecond11displayName5value9formatter4dateAA011MeasurementD0CySo11NSUnitSpeedCGSS_SdSo22NSMeasurementFormatterC10Foundation4DateVtFZ">metersPerSecond(displayName:<wbr>value:<wbr>formatter:<wbr>date:<wbr>)</a>
+                    </code>
+                      <span class="declaration-note">
+                        Extension method
+                      </span>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">metersPerSecond</span><span class="p">(</span>
+    <span class="nv">displayName</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span>
+    <span class="nv">value</span><span class="p">:</span> <span class="kt">Double</span><span class="p">,</span>
+    <span class="nv">formatter</span><span class="p">:</span> <span class="kt">MeasurementFormatter</span> <span class="o">=</span> <span class="kt">MeasurementFormatter</span><span class="p">(),</span>
+    <span class="nv">date</span><span class="p">:</span> <span class="kt">Date</span> <span class="o">=</span> <span class="kt">Date</span><span class="p">()</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Typealiases.html#/s:11GatheredKit13SpeedPropertya">SpeedProperty</a></span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:11GatheredKit11AnyPropertyPAAE5speed11displayName5value4unit9formatter4dateAA019OptionalMeasurementD0CySo11NSUnitSpeedCGSS_SdSgAMSo22NSMeasurementFormatterC10Foundation4DateVtFZ"></a>
+                    <a name="//apple_ref/swift/Method/speed(displayName:value:unit:formatter:date:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:11GatheredKit11AnyPropertyPAAE5speed11displayName5value4unit9formatter4dateAA019OptionalMeasurementD0CySo11NSUnitSpeedCGSS_SdSgAMSo22NSMeasurementFormatterC10Foundation4DateVtFZ">speed(displayName:<wbr>value:<wbr>unit:<wbr>formatter:<wbr>date:<wbr>)</a>
+                    </code>
+                      <span class="declaration-note">
+                        Extension method
+                      </span>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">speed</span><span class="p">(</span>
+    <span class="nv">displayName</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span>
+    <span class="nv">value</span><span class="p">:</span> <span class="kt">Double</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
+    <span class="nv">unit</span><span class="p">:</span> <span class="kt">UnitSpeed</span><span class="p">,</span>
+    <span class="nv">formatter</span><span class="p">:</span> <span class="kt">MeasurementFormatter</span> <span class="o">=</span> <span class="kt">MeasurementFormatter</span><span class="p">(),</span>
+    <span class="nv">date</span><span class="p">:</span> <span class="kt">Date</span> <span class="o">=</span> <span class="kt">Date</span><span class="p">()</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Typealiases.html#/s:11GatheredKit21OptionalSpeedPropertya">OptionalSpeedProperty</a></span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:11GatheredKit11AnyPropertyPAAE15metersPerSecond11displayName5value9formatter4dateAA019OptionalMeasurementD0CySo11NSUnitSpeedCGSS_SdSgSo22NSMeasurementFormatterC10Foundation4DateVtFZ"></a>
+                    <a name="//apple_ref/swift/Method/metersPerSecond(displayName:value:formatter:date:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:11GatheredKit11AnyPropertyPAAE15metersPerSecond11displayName5value9formatter4dateAA019OptionalMeasurementD0CySo11NSUnitSpeedCGSS_SdSgSo22NSMeasurementFormatterC10Foundation4DateVtFZ">metersPerSecond(displayName:<wbr>value:<wbr>formatter:<wbr>date:<wbr>)</a>
+                    </code>
+                      <span class="declaration-note">
+                        Extension method
+                      </span>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">metersPerSecond</span><span class="p">(</span>
+    <span class="nv">displayName</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span>
+    <span class="nv">value</span><span class="p">:</span> <span class="kt">Double</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
+    <span class="nv">formatter</span><span class="p">:</span> <span class="kt">MeasurementFormatter</span> <span class="o">=</span> <span class="kt">MeasurementFormatter</span><span class="p">(),</span>
+    <span class="nv">date</span><span class="p">:</span> <span class="kt">Date</span> <span class="o">=</span> <span class="kt">Date</span><span class="p">()</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Typealiases.html#/s:11GatheredKit21OptionalSpeedPropertya">OptionalSpeedProperty</a></span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:11GatheredKit11AnyPropertyPAAE14formattedValueSSSgvp"></a>
+                    <a name="//apple_ref/swift/Property/formattedValue" class="dashAnchor"></a>
+                    <a class="token" href="#/s:11GatheredKit11AnyPropertyPAAE14formattedValueSSSgvp">formattedValue</a>
+                    </code>
+                      <span class="declaration-note">
+                        Extension method
+                      </span>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">formattedValue</span><span class="p">:</span> <span class="kt">String</span><span class="p">?</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </section>
+        </section>
+        <section id="footer">
+          <p>&copy; 2022 <a class="link" href="" target="_blank" rel="external noopener">Joseph Duffy</a>. All rights reserved. (Last updated: 2022-06-23)</p>
+          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external noopener">jazzy ♪♫ v0.14.2</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external noopener">Realm</a> project.</p>
+        </section>
+      </article>
+    </div>
+  </body>
+</html>
