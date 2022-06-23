@@ -1,4 +1,4 @@
-// swift-tools-version:5.5
+// swift-tools-version:5.6
 import PackageDescription
 
 let package = Package(
@@ -19,6 +19,9 @@ let package = Package(
         .library(name: "GatheredKitTestHelpers", targets: ["GatheredKitTestHelpers"]),
         .library(name: "GatheredKitUserTracking", targets: ["GatheredKitUserTracking"]),
         .library(name: "GatheredKitWiFi", targets: ["GatheredKitWiFi"]),
+    ],
+    dependencies: [
+        .package(url: "https://github.com/apple/swift-docc-plugin", exact: "1.0.0"),
     ],
     targets: [
         .target(
@@ -63,9 +66,3 @@ let package = Package(
         ),
     ]
 )
-
-#if swift(>=5.6)
-package.dependencies.append(
-    .package(url: "https://github.com/apple/swift-docc-plugin", .exact("1.0.0"))
-)
-#endif
