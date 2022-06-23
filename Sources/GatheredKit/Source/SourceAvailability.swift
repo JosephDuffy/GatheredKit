@@ -1,4 +1,4 @@
-public enum SourceAvailability {
+public enum SourceAvailability: Codable, Hashable {
     /// The source is available for use
     case available
 
