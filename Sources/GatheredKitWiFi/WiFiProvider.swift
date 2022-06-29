@@ -5,7 +5,7 @@ import GatheredKit
 import NetworkExtension
 
 // This _could_ be supported on iOS < 14 using CNCopyCurrentNetworkInfo.
-@available(iOS 14, watchOS 7, macCatalyst 14, macOS 11, *)
+@available(iOS 14, watchOS 7, macCatalyst 14, *)
 @available(macOS, unavailable)
 @available(tvOS, unavailable)
 public final class WiFiProvider: ManuallyUpdatableSingleTransientSourceProvider, UpdatingSourceProvider, AvailabilityProviding {
@@ -83,33 +83,15 @@ public final class WiFiProvider: ManuallyUpdatableSingleTransientSourceProvider,
             availability = .unavailable
         }
         #elseif os(macOS)
-        switch locationManager.authorizationStatus {
-        case .authorized:
-            switch locationManager.accuracyAuthorization {
-            case .fullAccuracy:
-                availability = .available
-            case .reducedAccuracy:
-                availability = .requiresPermissionsPrompt
-            @unknown default:
-                availability = .unavailable
-            }
-        case .notDetermined:
-            availability = .requiresPermissionsPrompt
-        case .denied:
-            availability = .permissionDenied
-        case .restricted:
-            availability = .restricted
-        @unknown default:
-            availability = .unavailable
-        }
+        availability = .unavailable
         #endif
 
         // TODO: Become the delegate of `locationManager` to update availability
     }
 
     public func updateSource() async throws -> WiFi? {
+        #if os(iOS) || os(tvOS) || os(watchOS)
         func continueWithStatus(_ authorizationStatus: CLAuthorizationStatus) async throws {
-            #if os(iOS) || os(tvOS) || os(watchOS)
             switch authorizationStatus {
             case .authorizedAlways, .authorizedWhenInUse:
                 switch locationManager.accuracyAuthorization {
@@ -128,26 +110,6 @@ public final class WiFiProvider: ManuallyUpdatableSingleTransientSourceProvider,
             @unknown default:
                 throw UpdateError.notAuthorized
             }
-            #elseif os(macOS)
-            switch authorizationStatus {
-            case .authorized:
-                switch locationManager.accuracyAuthorization {
-                case .fullAccuracy:
-                    break
-                case .reducedAccuracy:
-                    try await requestTemporaryFullAccuracyAuthorization(locationManager)
-                @unknown default:
-                    throw UpdateError.notAuthorized
-                }
-            case .notDetermined:
-                let resultingAuthorization = await requestLocationPermissions(locationManager)
-                try await continueWithStatus(resultingAuthorization)
-            case .denied, .restricted:
-                throw UpdateError.notAuthorized
-            @unknown default:
-                throw UpdateError.notAuthorized
-            }
-            #endif
         }
 
         try await continueWithStatus(locationManager.authorizationStatus)
@@ -171,6 +133,9 @@ public final class WiFiProvider: ManuallyUpdatableSingleTransientSourceProvider,
         sourceProviderEventsSubject.send(.sourceAdded(newSource))
 
         return newSource
+        #elseif os(macOS)
+        return nil
+        #endif
     }
 }
 #endif
