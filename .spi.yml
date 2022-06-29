@@ -1,7 +1,7 @@
 version: 1
 builder:
   configs:
-    - platform: iOS
+    - platform: ios
       documentation_targets:
         - GatheredKit
         - GatheredKitCamera
