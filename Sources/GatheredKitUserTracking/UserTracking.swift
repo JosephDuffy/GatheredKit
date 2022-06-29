@@ -70,7 +70,9 @@ public final class UserTracking: Source {
 
         ATTrackingManager.requestTrackingAuthorization { status in
             self.trackingAuthorizationStatus = status
+            #if os(iOS) || os(tvOS)
             self.advertisingIdentifier = self.identifierManager.advertisingIdentifier
+            #endif
         }
     }
 }
