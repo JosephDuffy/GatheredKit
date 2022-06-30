@@ -2,7 +2,6 @@
 
 [![Tests Status](https://github.com/JosephDuffy/GatheredKit/workflows/Tests/badge.svg)](https://launch-editor.github.com/actions?workflowID=Tests&event=push&nwo=JosephDuffy%2FGatheredKit)
 [![codecov](https://codecov.io/gh/JosephDuffy/GatheredKit/branch/main/graph/badge.svg)](https://codecov.io/gh/JosephDuffy/GatheredKit)
-[![Documentation](https://josephduffy.github.io/GatheredKit/badge.svg)](https://josephduffy.github.io/GatheredKit/)
 ![Compatible with macOS, iOS, watchOS, and tvOS](https://img.shields.io/badge/platforms-macOS%20%7C%20iOS%20%7C%20watchOS%20%7C%20tvOS%20-4BC51D.svg)
 [![SwiftPM Compatible](https://img.shields.io/badge/SwiftPM-compatible-4BC51D.svg?style=flat)](https://github.com/apple/swift-package-manager)
 [![MIT License](https://img.shields.io/badge/License-MIT-4BC51D.svg?style=flat)](./LICENSE)
@@ -10,9 +9,11 @@
 
 > :warning: GatheredKit it currently in a pre-release beta. The API is unstable, although the only large planned breaking fix is to introduce structured concurrency for thread safety.
 
-GatheredKit a protocol-oriented API for various data sources offered by macOS, iOS, watchOS, and tvOS.
+GatheredKit a consistent protocol-oriented API for various data sources offered by macOS, iOS, watchOS, and tvOS.
 
 The code originated from [Gathered](https://geo.itunes.apple.com/app/gathered/id929726748?mt=8), hence the name and logo. Prior to version 2.0 Gathered used a closed-source version of GatheredKit. [Version 2.0 is currently in beta and can accessed via TestFlight](https://testflight.apple.com/join/gsVcyywY).
+
+[Documentation is available online](https://swiftpackageindex.com/josephduffy/gatheredkit/main/documentation/gatheredkit). This documentation is compiled against iOS. This doesn't quite cover all symbols in the project so please checkout the project to view documentation for other platforms.
 
 # Provided Libraries
 
