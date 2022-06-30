@@ -46,13 +46,13 @@ public final class Screen: UpdatingSource, Controllable {
     /**
      The reported resolution of the screen
      */
-    @SizeProperty
+    @ResolutionProperty
     public private(set) var reportedResolution: CGSize
 
     /**
      The native resolution of the screen
      */
-    @SizeProperty
+    @ResolutionProperty
     public private(set) var nativeResolution: CGSize
 
     /**
@@ -139,12 +139,14 @@ public final class Screen: UpdatingSource, Controllable {
 
         _reportedResolution = .init(
             displayName: "Resolution (reported)",
-            value: screen.bounds.size
+            value: screen.bounds.size,
+            unit: .points(pixelsPerPoint: screen.nativeScale)
         )
 
         _nativeResolution = .init(
             displayName: "Resolution (native)",
-            value: screen.nativeBounds.size
+            value: screen.nativeBounds.size,
+            unit: .pixels
         )
 
         _reportedScale = .init(
@@ -161,9 +163,6 @@ public final class Screen: UpdatingSource, Controllable {
         let brightness = screen == .main ? screen.brightness : 1
         _brightness = .init(displayName: "Brightness", value: brightness)
         #endif
-
-        $reportedResolution.formatter.suffix = " Points"
-        $nativeResolution.formatter.suffix = " Pixels"
     }
 
     deinit {

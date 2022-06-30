@@ -40,7 +40,7 @@ public final class Screen: UpdatingSource, Controllable {
     /**
      The resolution of the screen
      */
-    @SizeProperty
+    @ResolutionProperty
     public private(set) var resolution: CGSize
 
     /**
@@ -98,11 +98,10 @@ public final class Screen: UpdatingSource, Controllable {
 
         _resolution = .init(
             displayName: "Resolution",
-            value: screen.frame.size
+            value: screen.frame.size,
+            unit: .pixels
         )
         _colorSpace = .init(displayName: "Colour Space", value: screen.colorSpace)
-
-        $resolution.formatter.suffix = " Pixels"
 
         propertiesCancellables = allProperties.map { property in
             property

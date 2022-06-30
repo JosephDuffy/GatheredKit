@@ -1,21 +1,21 @@
 import CoreGraphics
 import Foundation
 
-public final class SizeFormatter: Formatter {
+public final class ResolutionFormatter: Formatter {
     public var numberFormatter: NumberFormatter
 
-    public var suffix: String
+    public let unit: UnitResolution
 
-    public init(numberFormatter: NumberFormatter, suffix: String = "") {
+    public init(numberFormatter: NumberFormatter, unit: UnitResolution) {
         self.numberFormatter = numberFormatter
-        self.suffix = suffix
+        self.unit = unit
         super.init()
     }
 
-    public override convenience init() {
+    public convenience init(unit: UnitResolution) {
         let numberFormatter = NumberFormatter()
         numberFormatter.maximumFractionDigits = 0
-        self.init(numberFormatter: numberFormatter)
+        self.init(numberFormatter: numberFormatter, unit: unit)
     }
 
     @available(*, unavailable)
@@ -26,7 +26,7 @@ public final class SizeFormatter: Formatter {
     public func string(for size: CGSize) -> String {
         let width = numberFormatter.string(from: size.width as NSNumber) ?? "\(size.width)"
         let height = numberFormatter.string(from: size.height as NSNumber) ?? "\(size.height)"
-        return width + " × " + height + suffix
+        return width + " × " + height + " " + unit.symbol
     }
 
     public override func string(for obj: Any?) -> String? {

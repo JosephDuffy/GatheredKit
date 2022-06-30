@@ -15,7 +15,7 @@ public final class Screen: Source {
     /**
      The native resolution of the screen
      */
-    @SizeProperty
+    @ResolutionProperty
     public private(set) var resolution: CGSize
 
     /**
@@ -53,15 +53,14 @@ public final class Screen: Source {
 
         _resolution = .init(
             displayName: "Resolution",
-            value: device.screenBounds.size
+            value: device.screenBounds.size,
+            unit: .points(pixelsPerPoint: screen.nativeScale)
         )
 
         _scale = .init(
             displayName: "Scale",
             value: device.screenScale
         )
-
-        $resolution.formatter.suffix = " Points"
     }
 }
 
