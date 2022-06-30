@@ -26,6 +26,7 @@ extension SingleTransientSourceProvider {
 }
 
 public protocol ManuallyUpdatableSingleTransientSourceProvider: SingleTransientSourceProvider {
+    @discardableResult
     func updateSource() async throws -> ProvidedSource?
 }
 
