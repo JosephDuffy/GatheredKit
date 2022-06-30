@@ -1,7 +1,7 @@
 import Foundation
 
 /// A snapshot of data.
-public struct Snapshot<Value>: AnySnapshot {
+public struct Snapshot<Value: Sendable>: AnySnapshot {
     /// The value captured at `date`.
     public let value: Value
 
