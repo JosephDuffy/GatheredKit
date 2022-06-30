@@ -186,7 +186,7 @@ final class ScreenTests: XCTestCase {
             description: "Subscriber should be called with updated native scale")
         nativeScaleExpectation.expectedFulfillmentCount = 2
         nativeScaleExpectation.assertForOverFulfill = true
-        let nativeScaleCancellable = screen.$nativeScale.snapshotsPublisher.sink {
+        let nativeScaleCancellable = screen.$nativeScale.snapshotsPublisher.dropFirst().sink {
             nativeScale in
             nativeScaleExpectation.fulfill()
             XCTAssertEqual(nativeScale.value, uiScreen.nativeScale)
