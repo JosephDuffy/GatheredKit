@@ -257,16 +257,6 @@
             skipped = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "GatheredKitCoreTests"
-               BuildableName = "GatheredKitCoreTests"
-               BlueprintName = "GatheredKitCoreTests"
-               ReferencedContainer = "container:">
-            </BuildableReference>
-         </TestableReference>
-         <TestableReference
-            skipped = "NO">
-            <BuildableReference
-               BuildableIdentifier = "primary"
                BlueprintIdentifier = "GatheredKitLocationTests"
                BuildableName = "GatheredKitLocationTests"
                BlueprintName = "GatheredKitLocationTests"
