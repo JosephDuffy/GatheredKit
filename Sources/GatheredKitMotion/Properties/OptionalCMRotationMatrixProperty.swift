@@ -6,7 +6,7 @@ import GatheredKit
 
 @available(macOS, unavailable)
 @propertyWrapper
-public final class OptionalCMRotationMatrixProperty: UpdatableProperty, PropertiesProviding {
+public final class OptionalCMRotationMatrixProperty: UpdatableProperty, PropertiesProviding, @unchecked Sendable {
     public typealias Value = CMRotationMatrix?
     public typealias Formatter = CMRotationMatrixFormatter
 
@@ -75,6 +75,8 @@ public final class OptionalCMRotationMatrixProperty: UpdatableProperty, Properti
         $snapshot.eraseToAnyPublisher()
     }
 
+    private let updatesLock = NSLock()
+
     // MARK: Initialisers
 
     public init(
@@ -102,6 +104,11 @@ public final class OptionalCMRotationMatrixProperty: UpdatableProperty, Properti
 
     @discardableResult
     public func updateValue(_ value: CMRotationMatrix?, date: Date) -> Snapshot<CMRotationMatrix?> {
+        updatesLock.lock()
+        defer {
+            updatesLock.unlock()
+        }
+
         _m11.updateValue(value?.m11, date: date)
         _m12.updateValue(value?.m12, date: date)
         _m13.updateValue(value?.m13, date: date)

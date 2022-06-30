@@ -1,7 +1,7 @@
 #if canImport(AdSupport)
 import AdSupport
 import AppTrackingTransparency
-import Combine
+@preconcurrency import Combine
 import GatheredKit
 
 /// A source for requesting and reading the advertising identifier associated

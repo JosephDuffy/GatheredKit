@@ -4,7 +4,7 @@ import ExternalAccessory
 import GatheredKit
 
 /// A wrapper around `UIScreen`.
-public final class ExternalAccessory: UpdatingSource, Controllable {
+public final class ExternalAccessory: UpdatingSource, Controllable, @unchecked Sendable {
     private enum State {
         case notMonitoring
         case monitoring(delegate: AccessoryDelegate)

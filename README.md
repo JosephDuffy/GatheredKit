@@ -20,6 +20,7 @@ The code originated from [Gathered](https://geo.itunes.apple.com/app/gathered/id
 - Consistent API between types
   - Updating properties are marked `@Published`
   - Where reasonable, types have the same properties across platforms, using `@available` to mark properties as unavailable on some platforms
+- Thread-safe: types conform to `Sendable`
 - Protocol-oriented API
   - The Gathered app is protocol-driven, enabling the private packages to only depend on `GatheredKit`, enabling support for recording and remote sources of unknown types
 - Batteries included

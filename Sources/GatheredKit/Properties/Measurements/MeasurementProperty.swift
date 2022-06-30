@@ -2,7 +2,7 @@ import Combine
 import Foundation
 
 @propertyWrapper
-public final class MeasurementProperty<Unit: Foundation.Unit>: UpdatableProperty, Equatable {
+public final class MeasurementProperty<Unit: Foundation.Unit>: UpdatableProperty, Equatable, @unchecked Sendable {
     public typealias Value = Measurement<Unit>
 
     public static func == (lhs: MeasurementProperty<Unit>, rhs: MeasurementProperty<Unit>) -> Bool {

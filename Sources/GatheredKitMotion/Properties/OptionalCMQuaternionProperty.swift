@@ -6,7 +6,7 @@ import GatheredKit
 
 @available(macOS, unavailable)
 @propertyWrapper
-public final class OptionalCMQuaternionProperty: UpdatableProperty, PropertiesProviding {
+public final class OptionalCMQuaternionProperty: UpdatableProperty, PropertiesProviding, @unchecked Sendable {
     public typealias Value = CMQuaternion?
     public typealias Formatter = CMQuaternionFormatter
 
@@ -63,6 +63,8 @@ public final class OptionalCMQuaternionProperty: UpdatableProperty, PropertiesPr
         $snapshot.eraseToAnyPublisher()
     }
 
+    private let updatesLock = NSLock()
+
     // MARK: Initialisers
 
     public required init(
@@ -83,6 +85,11 @@ public final class OptionalCMQuaternionProperty: UpdatableProperty, PropertiesPr
 
     @discardableResult
     public func updateValue(_ value: Value, date: Date) -> Snapshot<Value> {
+        updatesLock.lock()
+        defer {
+            updatesLock.unlock()
+        }
+
         _x.updateValue(value?.x, date: date)
         _y.updateValue(value?.y, date: date)
         _z.updateValue(value?.z, date: date)

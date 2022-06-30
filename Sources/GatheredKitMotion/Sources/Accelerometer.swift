@@ -5,7 +5,7 @@ import Foundation
 import GatheredKit
 
 @available(macOS, unavailable)
-public final class Accelerometer: UpdatingSource, CustomisableUpdateIntervalControllable {
+public final class Accelerometer: UpdatingSource, CustomisableUpdateIntervalControllable, @unchecked Sendable {
     private enum State {
         case notMonitoring
         case monitoring(updatesQueue: OperationQueue)

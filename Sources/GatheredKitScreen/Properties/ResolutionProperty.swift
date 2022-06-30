@@ -4,7 +4,7 @@ import Foundation
 import GatheredKit
 
 @propertyWrapper
-public final class ResolutionProperty<Unit: UnitResolution>: UpdatableProperty, PropertiesProviding {
+public final class ResolutionProperty<Unit: UnitResolution>: UpdatableProperty, PropertiesProviding, @unchecked Sendable {
     public typealias Value = CGSize
 
     public var allProperties: [AnyProperty] {
@@ -52,6 +52,8 @@ public final class ResolutionProperty<Unit: UnitResolution>: UpdatableProperty, 
     @MeasurementProperty<UnitResolution>
     public private(set) var height: Measurement<UnitResolution>
 
+    private let updatesLock = NSLock()
+
     public required init(
         displayName: String,
         value: CGSize,
@@ -75,6 +77,11 @@ public final class ResolutionProperty<Unit: UnitResolution>: UpdatableProperty, 
     }
 
     public func updateValue(_ value: CGSize, date: Date) -> Snapshot<CGSize> {
+        updatesLock.lock()
+        defer {
+            updatesLock.unlock()
+        }
+
         _width.updateMeasuredValueIfDifferent(value.width, date: date)
         _height.updateMeasuredValueIfDifferent(value.height, date: date)
 

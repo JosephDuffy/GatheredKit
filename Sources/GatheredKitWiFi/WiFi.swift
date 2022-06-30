@@ -1,5 +1,5 @@
 #if canImport(NetworkExtension)
-import Combine
+@preconcurrency import Combine
 import GatheredKit
 import NetworkExtension
 
@@ -7,7 +7,7 @@ import NetworkExtension
 @available(iOS 9, watchOS 7, macCatalyst 14, *)
 @available(macOS, unavailable)
 @available(tvOS, unavailable)
-public final class WiFi: Source {
+public final class WiFi: Source, @unchecked Sendable {
     public let availability: SourceAvailability = .available
 
     public let name: String

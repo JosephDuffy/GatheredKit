@@ -5,7 +5,7 @@ import Foundation
 import GatheredKit
 
 @available(macOS, unavailable)
-public final class Altimeter: UpdatingSource, Controllable {
+public final class Altimeter: UpdatingSource, Controllable, @unchecked Sendable {
     private enum State {
         case notMonitoring
         case monitoring(updatesQueue: OperationQueue)
@@ -13,9 +13,7 @@ public final class Altimeter: UpdatingSource, Controllable {
 
     public let name = "Altimeter"
 
-    /// Unlike other sources this reflects the _hardware_ availablility, rather
-    /// than permissions; even when the user has denied Motion & Fitness
-    /// permissions the relative altitude and pressure are available.
+    @Published
     public private(set) var availability: SourceAvailability
 
     public var eventsPublisher: AnyPublisher<SourceEvent, Never> {

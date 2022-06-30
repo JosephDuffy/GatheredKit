@@ -3,13 +3,40 @@ import CoreLocation
 import Foundation
 import GatheredKit
 
-public final class Location: UpdatingSource, Controllable {
+@propertyWrapper
+public struct SendableValue<Value>: @unchecked Sendable {
+    public var wrappedValue: Value {
+        get {
+            lock.lock()
+            defer {
+                lock.unlock()
+            }
+            return _wrappedValue
+        }
+        set {
+            lock.lock()
+            _wrappedValue = newValue
+            lock.unlock()
+        }
+    }
+
+    private var _wrappedValue: Value
+
+    private let lock = NSLock()
+
+    public init(wrappedValue: Value) {
+        _wrappedValue = wrappedValue
+    }
+}
+
+public final class Location: UpdatingSource, Controllable, @unchecked Sendable {
     private enum State {
         case notMonitoring
         case askingForPermissions(locationManager: CLLocationManager, delegateProxy: CLLocationManagerDelegateProxy)
         case monitoring(locationManager: CLLocationManager, delegateProxy: CLLocationManagerDelegateProxy)
     }
 
+    @Published
     public private(set) var availability: SourceAvailability
 
     public let name = "Location"

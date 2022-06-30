@@ -1,10 +1,10 @@
 #if os(iOS) || os(tvOS)
-import Combine
+@preconcurrency import Combine
 import GatheredKit
 import UIKit
 
 @available(tvOS, unavailable)
-public final class Battery: UpdatingSource, Controllable {
+public final class Battery: UpdatingSource, Controllable, @unchecked Sendable {
     private enum State {
         case notMonitoring
         case monitoring(notificationCancellables: Set<AnyCancellable>)

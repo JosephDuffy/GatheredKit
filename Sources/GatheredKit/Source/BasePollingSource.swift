@@ -5,7 +5,7 @@ import Foundation
 ///
 /// To benefit from `BasePollingSource` your subclass must implement `ManuallyUpdatablePropertiesProvider`. This
 /// will add `CustomisableUpdateIntervalSource` conformance via an extension.
-open class BasePollingSource: UpdatingSource {
+open class BasePollingSource: UpdatingSource, @unchecked Sendable {
     public typealias ProducedValue = [AnyProperty]
 
     fileprivate enum State {

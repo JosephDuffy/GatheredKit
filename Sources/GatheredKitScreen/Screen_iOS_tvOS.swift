@@ -1,10 +1,10 @@
 #if os(iOS) || os(tvOS)
-import Combine
+@preconcurrency import Combine
 import GatheredKit
 import UIKit
 
 /// A wrapper around `UIScreen`.
-public final class Screen: UpdatingSource, Controllable {
+public final class Screen: UpdatingSource, Controllable, @unchecked Sendable {
     private enum State {
         case notMonitoring
         // swiftlint:disable duplicate_enum_cases

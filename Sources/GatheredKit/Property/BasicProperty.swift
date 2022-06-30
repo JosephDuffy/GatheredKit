@@ -2,7 +2,7 @@ import Combine
 import Foundation
 
 @propertyWrapper
-open class BasicProperty<Value, Formatter>: UpdatableProperty where Formatter: Foundation.Formatter {
+open class BasicProperty<Value, Formatter>: UpdatableProperty, @unchecked Sendable where Formatter: Foundation.Formatter {
     public var wrappedValue: Value {
         get {
             value

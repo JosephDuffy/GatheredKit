@@ -4,7 +4,7 @@ import Foundation
 import GatheredKit
 
 @propertyWrapper
-public final class OptionalCoordinateProperty: UpdatableProperty, PropertiesProviding {
+public final class OptionalCoordinateProperty: UpdatableProperty, PropertiesProviding, @unchecked Sendable {
     public typealias Value = CLLocationCoordinate2D?
 
     public var allProperties: [AnyProperty] {
@@ -52,6 +52,8 @@ public final class OptionalCoordinateProperty: UpdatableProperty, PropertiesProv
     @OptionalAngleProperty
     public private(set) var longitude: Measurement<UnitAngle>?
 
+    private let updatesLock = NSLock()
+
     public required init(
         displayName: String, value: CLLocationCoordinate2D? = nil,
         formatter: CoordinateFormatter = CoordinateFormatter(), date: Date = Date()
@@ -64,6 +66,11 @@ public final class OptionalCoordinateProperty: UpdatableProperty, PropertiesProv
     }
 
     public func updateValue(_ value: CLLocationCoordinate2D?, date: Date) -> Snapshot<CLLocationCoordinate2D?> {
+        updatesLock.lock()
+        defer {
+            updatesLock.unlock()
+        }
+
         _latitude.updateMeasuredValue(value?.latitude, date: date)
         _longitude.updateMeasuredValue(value?.longitude, date: date)
 

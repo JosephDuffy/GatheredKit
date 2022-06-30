@@ -6,7 +6,7 @@ import GatheredKit
 
 @available(macOS, unavailable)
 @propertyWrapper
-public final class OptionalCMRotationRateProperty: UpdatableProperty, PropertiesProviding {
+public final class OptionalCMRotationRateProperty: UpdatableProperty, PropertiesProviding, @unchecked Sendable {
     public typealias Value = CMRotationRate?
     public typealias Formatter = CMRotationRateFormatter
 
@@ -55,6 +55,8 @@ public final class OptionalCMRotationRateProperty: UpdatableProperty, Properties
         $snapshot.eraseToAnyPublisher()
     }
 
+    private let updatesLock = NSLock()
+
     // MARK: Initialisers
 
     public required init(
@@ -72,6 +74,11 @@ public final class OptionalCMRotationRateProperty: UpdatableProperty, Properties
 
     @discardableResult
     public func updateValue(_ value: Value, date: Date) -> Snapshot<Value> {
+        updatesLock.lock()
+        defer {
+            updatesLock.unlock()
+        }
+
         _x.updateMeasuredValue(value?.x, date: date)
         _y.updateMeasuredValue(value?.y, date: date)
         _z.updateMeasuredValue(value?.z, date: date)
