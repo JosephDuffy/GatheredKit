@@ -15,15 +15,25 @@ The code originated from [Gathered](https://geo.itunes.apple.com/app/gathered/id
 
 [Documentation is available online](https://swiftpackageindex.com/josephduffy/gatheredkit/main/documentation/gatheredkit). This documentation is compiled against iOS. This doesn't quite cover all symbols in the project so please checkout the project to view documentation for other platforms.
 
+# Features
+
+- Consistent API between types
+  - Updating properties are marked `@Published`
+  - Where reasonable, types have the same properties across platforms, using `@available` to mark properties as unavailable on some platforms
+- Protocol-oriented API
+  - The Gathered app is protocol-driven, enabling the private packages to only depend on `GatheredKit`, enabling support for recording and remote sources of unknown types
+- Batteries included
+  - Core library provides many types to help make new sources easily, such as properties for common types
+- Localised
+  - Currently localisation is only provided for British English. Contributions are welcome!
+
 # Provided Libraries
 
-GatheredKit provides multiple libraries that each provide one or more data sources. This is done to allow the a subset of the data sources to be included, which aids with documentation, discovery, and ensures that consumers do not accidentally include APIs that require extra permissions, such as accessing the IDFA.
+The core library, [`GatheredKit`](./Sources/GatheredKit/README.md), provides the protocols used by the other libraries, along with various convenience types such as `BasicProperty`.
+
+The remaining libraries each provide one or more data sources. This is done to allow the a subset of the data sources to be included, which aids with documentation, discovery, and prevents accidentally include APIs that require extra permissions, such as accessing the IDFA.
 
 Each of these libraries roughly correlates to one of Apple's frameworks.
-
-## [`GatheredKit`](./Sources/GatheredKit/README.md)
-
-The `GatheredKit` library is the core library that provides the types used by data sources, but it does not provide any of the data sources itself.
 
 ## [`GatheredKitCamera`](./Sources/GatheredKitCamera/README.md)
 
@@ -60,7 +70,6 @@ Below are the sources that are available in the Gathered app but have not yet be
 - [ ] Cell Radio
 - [ ] Device Attitude
 - [ ] Proximity
-- [ ] Advertising
 - [ ] Audio Output
 - [ ] Device Orientation
 - [ ] Bluetooth
@@ -80,7 +89,7 @@ To install via [SwiftPM](https://github.com/apple/swift-package-manager) add the
 let package = Package(
     ...
     dependencies: [
-        .package(url: "https://github.com/JosephDuffy/GatheredKit.git", from: "0.1.0"),
+        .package(url: "https://github.com/JosephDuffy/GatheredKit.git", branch: "main"),
     ],
     targets: [
         .target(name: "MyApp", dependencies: ["GatheredKit"]),
@@ -88,10 +97,6 @@ let package = Package(
     ...
 )
 ```
-
-# Documentation
-
-Documentation for GatheredKit is provided in the source code. Browsable documentation is available at [https://josephduffy.github.io/GatheredKit/](https://josephduffy.github.io/GatheredKit/).
 
 # License
 
