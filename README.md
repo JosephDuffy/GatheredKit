@@ -22,6 +22,10 @@ The code originated from [Gathered](https://geo.itunes.apple.com/app/gathered/id
   - Where reasonable, types have the same properties across platforms, using `@available` to mark properties as unavailable on some platforms
 - Protocol-oriented API
   - The Gathered app is protocol-driven, enabling the private packages to only depend on `GatheredKit`, enabling support for recording and remote sources of unknown types
+- Easily access formatted values
+  - Sensible defaults, fully customisable
+- `Measurement` values for all applicable types
+  - Provides type-safe and easy conversion to related units
 - Batteries included
   - Core library provides many types to help make new sources easily, such as properties for common types
 - Localised
@@ -68,7 +72,6 @@ Below are the sources that are available in the Gathered app but have not yet be
 - [ ] Compass
 - [ ] Microphone
 - [ ] Cell Radio
-- [ ] Device Attitude
 - [ ] Proximity
 - [ ] Audio Output
 - [ ] Device Orientation
