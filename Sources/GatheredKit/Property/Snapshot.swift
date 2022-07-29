@@ -1,7 +1,7 @@
 import Foundation
 
 /// A snapshot of data.
-public struct Snapshot<Value: Sendable>: AnySnapshot {
+public struct Snapshot<Value>: AnySnapshot {
     /// The value captured at `date`.
     public let value: Value
 
@@ -27,3 +27,4 @@ public struct Snapshot<Value: Sendable>: AnySnapshot {
 
 extension Snapshot: Equatable where Value: Equatable {}
 extension Snapshot: Hashable where Value: Hashable {}
+extension Snapshot: Sendable where Value: Sendable {}
