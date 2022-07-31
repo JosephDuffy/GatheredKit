@@ -140,7 +140,7 @@ public final class Screen: UpdatingSource, Controllable {
         _reportedResolution = .init(
             displayName: "Resolution (reported)",
             value: screen.bounds.size,
-            unit: .points(pixelsPerPoint: screen.nativeScale)
+            unit: .points(screenScale: screen.nativeScale)
         )
 
         _nativeResolution = .init(

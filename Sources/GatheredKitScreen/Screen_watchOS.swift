@@ -54,7 +54,7 @@ public final class Screen: Source {
         _resolution = .init(
             displayName: "Resolution",
             value: device.screenBounds.size,
-            unit: .points(pixelsPerPoint: screen.nativeScale)
+            unit: .points(screenScale: device.screenScale)
         )
 
         _scale = .init(

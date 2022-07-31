@@ -11,10 +11,10 @@ public final class UnitResolution: Dimension {
         symbol: "px", converter: UnitConverterLinear(coefficient: 1)
     )
 
-    public static func points(pixelsPerPoint: CGFloat) -> UnitResolution {
+    public static func points(screenScale: CGFloat) -> UnitResolution {
         UnitResolution(
             symbol: "pt",
-            converter: UnitConverterLinear(coefficient: 1 / pixelsPerPoint)
+            converter: UnitConverterLinear(coefficient: screenScale)
         )
     }
 }
