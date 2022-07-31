@@ -63,6 +63,7 @@ public final class OptionalCoordinateProperty: UpdatableProperty, PropertiesProv
         _longitude = .degrees(displayName: "Longitude", value: value?.longitude, date: date)
     }
 
+    @discardableResult
     public func updateValue(_ value: CLLocationCoordinate2D?, date: Date) -> Snapshot<CLLocationCoordinate2D?> {
         _latitude.updateMeasuredValue(value?.latitude, date: date)
         _longitude.updateMeasuredValue(value?.longitude, date: date)

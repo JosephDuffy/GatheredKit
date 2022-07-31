@@ -114,8 +114,7 @@ public final class ExternalAccessory: UpdatingSource, Controllable {
             guard let self = self else { return }
             assert(self.accessory === accessory)
             if !self.isConnected {
-                let snapshot = self._isConnected.updateValue(false)
-                self.eventsSubject.send(.propertyUpdated(property: self._isConnected, snapshot: snapshot))
+                self._isConnected.updateValue(false)
             }
         }
 

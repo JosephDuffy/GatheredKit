@@ -268,53 +268,35 @@ public final class Location: UpdatingSource, Controllable {
     }
 
     private func updateLocationValues(_ location: CLLocation? = nil) {
-        let coordinateSnapshot: Snapshot<CLLocationCoordinate2D?>
-        let speedSnapshot: Snapshot<Measurement<UnitSpeed>?>
-        let courseSnapshot: Snapshot<Measurement<UnitAngle>?>
-        let altitudeSnapshot: Snapshot<Measurement<UnitLength>?>
-        let floorSnapshot: Snapshot<Int?>
-        let horizonalAccuracySnapshot: Snapshot<Measurement<UnitLength>?>
-        let verticalAccuracySnapshot: Snapshot<Measurement<UnitLength>?>
-
-        defer {
-            eventsSubject.send(.propertyUpdated(property: $coordinate, snapshot: coordinateSnapshot))
-            eventsSubject.send(.propertyUpdated(property: $speed, snapshot: speedSnapshot))
-            eventsSubject.send(.propertyUpdated(property: $course, snapshot: courseSnapshot))
-            eventsSubject.send(.propertyUpdated(property: $altitude, snapshot: altitudeSnapshot))
-            eventsSubject.send(.propertyUpdated(property: $floor, snapshot: floorSnapshot))
-            eventsSubject.send(.propertyUpdated(property: $horizonalAccuracy, snapshot: horizonalAccuracySnapshot))
-            eventsSubject.send(.propertyUpdated(property: $verticalAccuracy, snapshot: verticalAccuracySnapshot))
-        }
-
         if let location = location {
             let timestamp = location.timestamp
 
-            coordinateSnapshot = _coordinate.updateValue(location.coordinate, date: timestamp)
+            _coordinate.updateValue(location.coordinate, date: timestamp)
 
             if location.speed < 0 {
-                speedSnapshot = _speed.updateValue(nil, date: timestamp)
+                _speed.updateValue(nil, date: timestamp)
             } else {
-                speedSnapshot = _speed.updateMeasuredValue(location.speed, date: timestamp)
+                _speed.updateMeasuredValue(location.speed, date: timestamp)
             }
 
             if location.course < 0 {
-                courseSnapshot = _course.updateValue(nil, date: timestamp)
+                _course.updateValue(nil, date: timestamp)
             } else {
-                courseSnapshot = _course.updateMeasuredValue(location.speed, date: timestamp)
+                _course.updateMeasuredValue(location.speed, date: timestamp)
             }
 
-            altitudeSnapshot = _altitude.updateMeasuredValue(location.altitude, date: timestamp)
-            floorSnapshot = _floor.updateValue(location.floor?.level, date: timestamp)
-            horizonalAccuracySnapshot = _horizonalAccuracy.updateMeasuredValue(location.horizontalAccuracy, date: timestamp)
-            verticalAccuracySnapshot = _verticalAccuracy.updateMeasuredValue(location.verticalAccuracy, date: timestamp)
+            _altitude.updateMeasuredValue(location.altitude, date: timestamp)
+            _floor.updateValue(location.floor?.level, date: timestamp)
+            _horizonalAccuracy.updateMeasuredValue(location.horizontalAccuracy, date: timestamp)
+            _verticalAccuracy.updateMeasuredValue(location.verticalAccuracy, date: timestamp)
         } else {
-            coordinateSnapshot = _coordinate.updateValue(nil)
-            speedSnapshot = _speed.updateValue(nil)
-            courseSnapshot = _course.updateValue(nil)
-            altitudeSnapshot = _altitude.updateValue(nil)
-            floorSnapshot = _floor.updateValue(nil)
-            horizonalAccuracySnapshot = _horizonalAccuracy.updateValue(nil)
-            verticalAccuracySnapshot = _verticalAccuracy.updateValue(nil)
+            _coordinate.updateValue(nil)
+            _speed.updateValue(nil)
+            _course.updateValue(nil)
+            _altitude.updateValue(nil)
+            _floor.updateValue(nil)
+            _horizonalAccuracy.updateValue(nil)
+            _verticalAccuracy.updateValue(nil)
         }
     }
 
@@ -325,8 +307,7 @@ public final class Location: UpdatingSource, Controllable {
         availability = SourceAvailability(authorizationStatus: status) ?? .unavailable
         eventsSubject.send(.availabilityUpdated(availability))
 
-        let snapshot = _authorizationStatus.updateValue(status)
-        eventsSubject.send(.propertyUpdated(property: $authorizationStatus, snapshot: snapshot))
+        _authorizationStatus.updateValue(status)
 
         switch availability {
         case .available:

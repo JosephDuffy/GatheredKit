@@ -80,8 +80,6 @@ public final class DeviceMotion: UpdatingSource, CustomisableUpdateIntervalContr
         }
     }
 
-    private var propertiesCancellables: [AnyCancellable] = []
-
     public init(motionManager: CMMotionManager = .gatheredKitShared) {
         self.motionManager = motionManager
         availability = motionManager.isDeviceMotionAvailable ? .available : .unavailable
@@ -91,15 +89,6 @@ public final class DeviceMotion: UpdatingSource, CustomisableUpdateIntervalContr
         _heading = .init(displayName: "Heading")
         _magneticField = .init(displayName: "Calibrated Magnetic Field")
         _rotationRate = .init(displayName: "Rotation Rate")
-
-        propertiesCancellables = allProperties.map { property in
-            property
-                .typeErasedSnapshotPublisher
-                .sink { [weak property, eventsSubject] snapshot in
-                    guard let property = property else { return }
-                    eventsSubject.send(.propertyUpdated(property: property, snapshot: snapshot))
-                }
-        }
     }
 
     deinit {

@@ -68,8 +68,6 @@ public final class Battery: UpdatingSource, Controllable {
 
     private let notificationCenter: NotificationCenter
 
-    private var propertiesCancellables: [AnyCancellable] = []
-
     public convenience init(device: UIDevice = .current, processInfo: ProcessInfo = .processInfo) {
         self.init(device: device, processInfo: processInfo, notificationCenter: .default)
     }
@@ -92,15 +90,6 @@ public final class Battery: UpdatingSource, Controllable {
             value: processInfo.isLowPowerModeEnabled,
             formatter: BoolFormatter(trueString: "Enabled", falseString: "Disabled")
         )
-
-        propertiesCancellables = allProperties.map { property in
-            property
-                .typeErasedSnapshotPublisher
-                .sink { [weak property, eventsSubject] snapshot in
-                    guard let property = property else { return }
-                    eventsSubject.send(.propertyUpdated(property: property, snapshot: snapshot))
-                }
-        }
     }
 
     public func startUpdating() {

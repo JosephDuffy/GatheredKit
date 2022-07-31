@@ -68,14 +68,11 @@ public final class ThermalState: UpdatingSource, Controllable {
             .receive(on: RunLoop.main)
             .sink { [weak self] processInfo in
                 guard let self = self else { return }
-                let snapshot = self._state.updateValue(processInfo.thermalState)
-                self.eventsSubject.send(.propertyUpdated(property: self._state, snapshot: snapshot))
+                self._state.updateValue(processInfo.thermalState)
             }
             .store(in: &cancellables)
 
-        if let snapshot = _state.updateValueIfDifferent(processInfo.thermalState) {
-            eventsSubject.send(.propertyUpdated(property: _state, snapshot: snapshot))
-        }
+        _state.updateValueIfDifferent(processInfo.thermalState)
     }
 
     /**

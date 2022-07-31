@@ -76,8 +76,6 @@ public final class Screen: UpdatingSource, Controllable {
 
     private let notificationCenter: NotificationCenter
 
-    private var propertiesCancellables: [AnyCancellable] = []
-
     /**
      Create a new instance of `Screen` for the `main` `UIScreen`.
      */
@@ -102,15 +100,6 @@ public final class Screen: UpdatingSource, Controllable {
             unit: .pixels
         )
         _colorSpace = .init(displayName: "Colour Space", value: screen.colorSpace)
-
-        propertiesCancellables = allProperties.map { property in
-            property
-                .typeErasedSnapshotPublisher
-                .sink { [weak property, eventsSubject] snapshot in
-                    guard let property = property else { return }
-                    eventsSubject.send(.propertyUpdated(property: property, snapshot: snapshot))
-                }
-        }
     }
 
     deinit {
@@ -133,9 +122,7 @@ public final class Screen: UpdatingSource, Controllable {
         ) { [weak self] _ in
             guard let self = self else { return }
 
-            if let snapshot = self._resolution.updateValueIfDifferent(self.nsScreen.frame.size) {
-                self.eventsSubject.send(.propertyUpdated(property: self.$resolution, snapshot: snapshot))
-            }
+            self._resolution.updateValueIfDifferent(self.nsScreen.frame.size)
         }
         _resolution.updateValueIfDifferent(nsScreen.frame.size)
 

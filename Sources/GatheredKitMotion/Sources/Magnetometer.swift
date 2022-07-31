@@ -54,21 +54,10 @@ public final class Magnetometer: UpdatingSource, CustomisableUpdateIntervalContr
         }
     }
 
-    private var propertiesCancellables: [AnyCancellable] = []
-
     public init(motionManager: CMMotionManager = .gatheredKitShared) {
         self.motionManager = motionManager
         availability = motionManager.isMagnetometerAvailable ? .available : .unavailable
         _magneticField = .init(displayName: "Magnetic Field")
-
-        propertiesCancellables = allProperties.map { property in
-            property
-                .typeErasedSnapshotPublisher
-                .sink { [weak property, eventsSubject] snapshot in
-                    guard let property = property else { return }
-                    eventsSubject.send(.propertyUpdated(property: property, snapshot: snapshot))
-                }
-        }
     }
 
     /**

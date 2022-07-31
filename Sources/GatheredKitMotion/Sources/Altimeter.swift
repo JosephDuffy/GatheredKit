@@ -63,23 +63,12 @@ public final class Altimeter: UpdatingSource, Controllable {
         }
     }
 
-    private var propertiesCancellables: [AnyCancellable] = []
-
     public init(altimeter: CMAltimeter = CMAltimeter()) {
         self.altimeter = altimeter
         availability = CMAltimeter.availability
         _relativeAltitude = .meters(displayName: "Relative Altitude")
         _absoluteAltitude = .init(displayName: "Absolute Altitude")
         _pressure = .kilopascals(displayName: "Pressure")
-
-        propertiesCancellables = allProperties.map { property in
-            property
-                .typeErasedSnapshotPublisher
-                .sink { [weak property, eventsSubject] snapshot in
-                    guard let property = property else { return }
-                    eventsSubject.send(.propertyUpdated(property: property, snapshot: snapshot))
-                }
-        }
     }
 
     deinit {

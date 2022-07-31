@@ -190,19 +190,10 @@ public final class Screen: UpdatingSource, Controllable {
             ) { [weak self] _ in
                 guard let self = self else { return }
 
-                if let snapshot = self._brightness.updateValueIfDifferent(self.uiScreen.brightness) {
-                    self.eventsSubject.send(
-                        .propertyUpdated(
-                            property: self.$brightness,
-                            snapshot: snapshot
-                        )
-                    )
-                }
+                self._brightness.updateValueIfDifferent(self.uiScreen.brightness)
             }
 
-            if let snapshot = _brightness.updateValueIfDifferent(uiScreen.brightness) {
-                eventsSubject.send(.propertyUpdated(property: $brightness, snapshot: snapshot))
-            }
+            _brightness.updateValueIfDifferent(uiScreen.brightness)
         } else {
             brightnessChangeObeserver = nil
         }
@@ -212,38 +203,10 @@ public final class Screen: UpdatingSource, Controllable {
             forName: UIScreen.modeDidChangeNotification, object: uiScreen, queue: updatesQueue
         ) { [weak self] _ in
             guard let self = self else { return }
-            if let snapshot = self._reportedResolution.updateValueIfDifferent(self.uiScreen.bounds.size) {
-                self.eventsSubject.send(
-                    .propertyUpdated(
-                        property: self.$reportedResolution,
-                        snapshot: snapshot
-                    )
-                )
-            }
-            if let snapshot = self._nativeResolution.updateValueIfDifferent(self.uiScreen.nativeBounds.size) {
-                self.eventsSubject.send(
-                    .propertyUpdated(
-                        property: self.$nativeResolution,
-                        snapshot: snapshot
-                    )
-                )
-            }
-            if let snapshot = self._reportedScale.updateValueIfDifferent(self.uiScreen.scale) {
-                self.eventsSubject.send(
-                    .propertyUpdated(
-                        property: self.$reportedResolution,
-                        snapshot: snapshot
-                    )
-                )
-            }
-            if let snapshot = self._nativeScale.updateValueIfDifferent(self.uiScreen.nativeScale) {
-                self.eventsSubject.send(
-                    .propertyUpdated(
-                        property: self.$nativeScale,
-                        snapshot: snapshot
-                    )
-                )
-            }
+            self._reportedResolution.updateValueIfDifferent(self.uiScreen.bounds.size)
+            self._nativeResolution.updateValueIfDifferent(self.uiScreen.nativeBounds.size)
+            self._reportedScale.updateValueIfDifferent(self.uiScreen.scale)
+            self._nativeScale.updateValueIfDifferent(self.uiScreen.nativeScale)
         }
 
         _reportedResolution.updateValueIfDifferent(uiScreen.bounds.size)
