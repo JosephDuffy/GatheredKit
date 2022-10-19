@@ -32,7 +32,7 @@ open class ProcessInfoThermalStateFormatter: Formatter {
             )
         case .critical:
             return NSLocalizedString(
-                "thermal-state.serious",
+                "thermal-state.critical",
                 bundle: .module,
                 comment: ""
             )
