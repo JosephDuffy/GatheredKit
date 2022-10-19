@@ -28,3 +28,5 @@ public struct Snapshot<Value>: AnySnapshot {
 extension Snapshot: Equatable where Value: Equatable {}
 extension Snapshot: Hashable where Value: Hashable {}
 extension Snapshot: Sendable where Value: Sendable {}
+extension Snapshot: Encodable where Value: Encodable {}
+extension Snapshot: Decodable where Value: Decodable {}
