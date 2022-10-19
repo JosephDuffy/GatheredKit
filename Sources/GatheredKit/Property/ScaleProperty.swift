@@ -1,4 +1,4 @@
 import CoreGraphics
 
-public typealias ScaleProperty = BasicProperty<CGFloat, ScaleFormatter>
-public typealias OptionalScaleProperty = BasicProperty<CGFloat?, ScaleFormatter>
+public typealias ScaleProperty = BasicProperty<CGFloat>
+public typealias OptionalScaleProperty = BasicProperty<CGFloat?>

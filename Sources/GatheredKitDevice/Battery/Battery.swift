@@ -38,7 +38,7 @@ public final class Battery: UpdatingSource, Controllable {
     ///
     /// This property will update automatically no more frequently than once per
     /// minute.
-    @BasicProperty<Float, BatteryLevelFormatter>
+    @BasicProperty<Float>
     public private(set) var level: Float
 
     @BatteryStateProperty

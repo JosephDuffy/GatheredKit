@@ -3,5 +3,5 @@ import GatheredKit
 import UIKit
 
 @available(tvOS, unavailable)
-public typealias BatteryStateProperty = BasicProperty<UIDevice.BatteryState, BatteryStateFormatter>
+public typealias BatteryStateProperty = BasicProperty<UIDevice.BatteryState>
 #endif

@@ -2,13 +2,23 @@ import Combine
 import Foundation
 
 @dynamicMemberLookup
-public final class ReadOnlyProperty<Property: AnyProperty>: AnyProperty {
+public final class ReadOnlyProperty<WrappedProperty: Property>: Property {
+    public typealias Value = WrappedProperty.Value
+
     public var displayName: String {
         wrapped.displayName
     }
 
     public var date: Date {
         wrapped.date
+    }
+
+    public var snapshot: Snapshot<WrappedProperty.Value> {
+        wrapped.snapshot
+    }
+
+    public var snapshotsPublisher: AnyPublisher<Snapshot<WrappedProperty.Value>, Never> {
+        wrapped.snapshotsPublisher
     }
 
     public var typeErasedSnapshotPublisher: AnyPublisher<AnySnapshot, Never> {
@@ -19,18 +29,18 @@ public final class ReadOnlyProperty<Property: AnyProperty>: AnyProperty {
         wrapped.typeErasedValue
     }
 
-    private let wrapped: Property
+    private let wrapped: WrappedProperty
 
-    init(_ wrapped: Property) {
+    init(_ wrapped: WrappedProperty) {
         self.wrapped = wrapped
     }
 
-    public subscript<Value>(dynamicMember keyPath: KeyPath<Property, Value>) -> Value {
+    public subscript<Value>(dynamicMember keyPath: KeyPath<WrappedProperty, Value>) -> Value {
         wrapped[keyPath: keyPath]
     }
 }
 
-extension ReadOnlyProperty: PropertiesProviding where Property: PropertiesProviding {
+extension ReadOnlyProperty: PropertiesProviding where WrappedProperty: PropertiesProviding {
     public var allProperties: [AnyProperty] {
         wrapped.allProperties
     }

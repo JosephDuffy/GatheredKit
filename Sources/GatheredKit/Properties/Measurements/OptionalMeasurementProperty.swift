@@ -33,10 +33,6 @@ public final class OptionalMeasurementProperty<Unit: Foundation.Unit>: Updatable
     /// A human-friendly display name that describes the property.
     public let displayName: String
 
-    /// A formatter that can be used to build a human-friendly string from the
-    /// value.
-    public let formatter: MeasurementFormatter
-
     public var snapshotsPublisher: AnyPublisher<Snapshot<Value>, Never> {
         $snapshot.eraseToAnyPublisher()
     }
@@ -47,7 +43,7 @@ public final class OptionalMeasurementProperty<Unit: Foundation.Unit>: Updatable
         value
     }
 
-    public private(set) var unit: Unit
+    public let unit: Unit
 
     public var measuredValue: Double? {
         measurement?.value
@@ -62,7 +58,6 @@ public final class OptionalMeasurementProperty<Unit: Foundation.Unit>: Updatable
         date: Date = Date()
     ) {
         self.displayName = displayName
-        self.formatter = formatter
         unit = measurement.unit
         snapshot = Snapshot(value: measurement, date: date)
     }
@@ -74,6 +69,9 @@ public final class OptionalMeasurementProperty<Unit: Foundation.Unit>: Updatable
         formatter: MeasurementFormatter = MeasurementFormatter(),
         date: Date = Date()
     ) {
+        self.displayName = displayName
+        self.unit = unit
+
         let measurement: Measurement<Unit>?
         if let measuredValue = measuredValue {
             measurement = Measurement(value: measuredValue, unit: unit)
@@ -81,20 +79,32 @@ public final class OptionalMeasurementProperty<Unit: Foundation.Unit>: Updatable
             measurement = nil
         }
 
-        self.displayName = displayName
-        self.formatter = formatter
+        snapshot = Snapshot(value: measurement, date: date)
+    }
+
+    public init(
+        unit: Unit,
+        value measuredValue: Double? = nil,
+        date: Date = Date()
+    ) {
+        self.displayName = ""
         self.unit = unit
+
+        let measurement: Measurement<Unit>?
+        if let measuredValue = measuredValue {
+            measurement = Measurement(value: measuredValue, unit: unit)
+        } else {
+            measurement = nil
+        }
+
         snapshot = Snapshot(value: measurement, date: date)
     }
 
     // MARK: Update Functions
 
     @discardableResult
-    public func updateValue(
-        _ measurement: Measurement<Unit>?,
-        date: Date = Date()
-    ) -> Snapshot<Value> {
-        let snapshot = Snapshot(value: measurement, date: date)
+    public func updateValue(_ value: Measurement<Unit>?, date: Date) -> Snapshot<Measurement<Unit>?> {
+        let snapshot = Snapshot(value: value, date: date)
         self.snapshot = snapshot
         return snapshot
     }
@@ -116,12 +126,15 @@ extension OptionalMeasurementProperty where Unit: Foundation.Dimension {
     public convenience init(
         displayName: String,
         value measuredValue: Double? = nil,
-        dimention: Unit = .baseUnit(),
+        dimension: Unit = .baseUnit(),
         formatter: MeasurementFormatter = MeasurementFormatter(),
         date: Date = Date()
     ) {
         self.init(
-            displayName: displayName, value: measuredValue, unit: dimention, formatter: formatter,
+            displayName: displayName,
+            value: measuredValue,
+            unit: dimension,
+            formatter: formatter,
             date: date
         )
     }

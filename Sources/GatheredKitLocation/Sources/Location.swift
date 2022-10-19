@@ -23,20 +23,20 @@ public final class Location: UpdatingSource, Controllable {
     @OptionalCoordinateProperty
     public private(set) var coordinate: CLLocationCoordinate2D?
 
-    @OptionalSpeedProperty
+    @OptionalMeasurementProperty(unit: .metersPerSecond)
     public private(set) var speed: Measurement<UnitSpeed>?
 
-    @OptionalAngleProperty
+    @OptionalMeasurementProperty(unit: .degrees)
     public private(set) var course: Measurement<UnitAngle>?
 
-    @OptionalLengthProperty
+    @OptionalMeasurementProperty(unit: .meters)
     public private(set) var altitude: Measurement<UnitLength>?
 
     @OptionalIntProperty
     public private(set) var floor: Int?
 
-    @OptionalLengthProperty
-    public private(set) var horizonalAccuracy: Measurement<UnitLength>?
+    @OptionalMeasurementProperty(unit: .meters)
+    public private(set) var horizontalAccuracy: Measurement<UnitLength>?
 
     @OptionalLengthProperty
     public private(set) var verticalAccuracy: Measurement<UnitLength>?
@@ -63,7 +63,7 @@ public final class Location: UpdatingSource, Controllable {
             $course,
             $altitude,
             $floor,
-            $horizonalAccuracy,
+            $horizontalAccuracy,
             $verticalAccuracy,
             $authorizationStatus,
         ]
@@ -116,11 +116,7 @@ public final class Location: UpdatingSource, Controllable {
         availability = SourceAvailability(authorizationStatus: authorizationStatus) ?? .unavailable
 
         _coordinate = .init(displayName: "Coordinate")
-        _speed = .metersPerSecond(displayName: "Speed", formatter: SpeedFormatter())
-        _course = .degrees(displayName: "Course", formatter: CourseFormatter())
-        _altitude = .meters(displayName: "Altitude")
         _floor = .init(displayName: "Floor")
-        _horizonalAccuracy = .meters(displayName: "Horizontal Accuracy")
         #warning("TODO: Provide a custom formatter for 0 and negate values")
         _verticalAccuracy = .meters(displayName: "Vertical Accuracy")
         _authorizationStatus = .init(
@@ -293,7 +289,7 @@ public final class Location: UpdatingSource, Controllable {
                 // When not updating floor will be `2146959360`
                 _floor.updateValue(nil, date: timestamp)
             }
-            _horizonalAccuracy.updateMeasuredValue(location.horizontalAccuracy, date: timestamp)
+            _horizontalAccuracy.updateMeasuredValue(location.horizontalAccuracy, date: timestamp)
             _verticalAccuracy.updateMeasuredValue(location.verticalAccuracy, date: timestamp)
         } else {
             _coordinate.updateValue(nil)
@@ -301,7 +297,7 @@ public final class Location: UpdatingSource, Controllable {
             _course.updateValue(nil)
             _altitude.updateValue(nil)
             _floor.updateValue(nil)
-            _horizonalAccuracy.updateValue(nil)
+            _horizontalAccuracy.updateValue(nil)
             _verticalAccuracy.updateValue(nil)
         }
     }

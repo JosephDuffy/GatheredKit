@@ -3,8 +3,8 @@ import CoreMotion
 import GatheredKit
 
 @available(macOS, unavailable)
-public typealias CMMagneticFieldCalibrationAccuracyProperty = BasicProperty<CMMagneticFieldCalibrationAccuracy, MagneticFieldCalibrationAccuracyFormatter>
+public typealias CMMagneticFieldCalibrationAccuracyProperty = BasicProperty<CMMagneticFieldCalibrationAccuracy>
 
 @available(macOS, unavailable)
-public typealias OptionalCMMagneticFieldCalibrationAccuracyProperty = BasicProperty<CMMagneticFieldCalibrationAccuracy?, MagneticFieldCalibrationAccuracyFormatter>
+public typealias OptionalCMMagneticFieldCalibrationAccuracyProperty = BasicProperty<CMMagneticFieldCalibrationAccuracy?>
 #endif

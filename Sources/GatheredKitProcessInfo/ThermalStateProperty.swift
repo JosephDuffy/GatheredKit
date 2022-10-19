@@ -1,5 +1,5 @@
 import Foundation
 import GatheredKit
 
-public typealias ProcessInfoThermalStateProperty = BasicProperty<ProcessInfo.ThermalState, ProcessInfoThermalStateFormatter>
-public typealias OptionalProcessInfoThermalStateProperty = BasicProperty<ProcessInfo.ThermalState?, ProcessInfoThermalStateFormatter>
+public typealias ProcessInfoThermalStateProperty = BasicProperty<ProcessInfo.ThermalState>
+public typealias OptionalProcessInfoThermalStateProperty = BasicProperty<ProcessInfo.ThermalState?>

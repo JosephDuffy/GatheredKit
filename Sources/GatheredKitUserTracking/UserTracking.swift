@@ -38,10 +38,10 @@ public final class UserTracking: Source {
 
     public let identifierManager: ASIdentifierManager
 
-    @BasicProperty<ATTrackingManager.AuthorizationStatus, UserTrackingAuthorizationStatusFormatter>
+    @BasicProperty<ATTrackingManager.AuthorizationStatus>
     public private(set) var trackingAuthorizationStatus: ATTrackingManager.AuthorizationStatus
 
-    @BasicProperty<UUID, AdvertisingIdentifierFormatter>
+    @BasicProperty<UUID>
     @available(macOS, deprecated, message: "Advertising identifier will be all zeros")
     public private(set) var advertisingIdentifier: UUID
 

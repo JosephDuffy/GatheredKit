@@ -1,5 +1,3 @@
 import Foundation
 
-public typealias OptionalProperty<UnwrappedValue, Formatter: Foundation.Formatter> = BasicProperty<
-    UnwrappedValue?, Formatter
->
+public typealias OptionalProperty<UnwrappedValue> = BasicProperty<UnwrappedValue?>

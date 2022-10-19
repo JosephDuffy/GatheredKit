@@ -1,2 +1,2 @@
-public typealias StringProperty = BasicProperty<String, PassthroughFormatter>
-public typealias OptionalStringProperty = BasicProperty<String?, PassthroughFormatter>
+public typealias StringProperty = BasicProperty<String>
+public typealias OptionalStringProperty = BasicProperty<String?>

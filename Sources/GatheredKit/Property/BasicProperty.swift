@@ -2,7 +2,7 @@ import Combine
 import Foundation
 
 @propertyWrapper
-open class BasicProperty<Value, Formatter>: UpdatableProperty where Formatter: Foundation.Formatter {
+public final class BasicProperty<Value>: UpdatableProperty {
     public var wrappedValue: Value {
         get {
             value
@@ -13,7 +13,7 @@ open class BasicProperty<Value, Formatter>: UpdatableProperty where Formatter: F
     }
 
     public var projectedValue: some Property<Value> {
-        self
+        ReadOnlyProperty(self)
     }
 
     // MARK: `Property` Requirements
@@ -35,24 +35,29 @@ open class BasicProperty<Value, Formatter>: UpdatableProperty where Formatter: F
         }
     }
 
-    /// A formatter that can be used to build a human-friendly string from the
-    /// value.
-    public let formatter: Formatter
-
     public var snapshotsPublisher: AnyPublisher<Snapshot<Value>, Never> {
         $snapshot.eraseToAnyPublisher()
     }
 
     // MARK: Initialisers
 
-    public required init(
+    public init(
         displayName: String,
         value: Value,
-        formatter: Formatter = Formatter(),
         date: Date = Date()
     ) {
         self.displayName = displayName
-        self.formatter = formatter
+        snapshot = Snapshot(value: value, date: date)
+    }
+
+    @available(*, deprecated, message: "Don't pass formatter")
+    public init<Formatter: Foundation.Formatter>(
+        displayName: String,
+        value: Value,
+        formatter: Formatter,
+        date: Date = Date()
+    ) {
+        self.displayName = displayName
         snapshot = Snapshot(value: value, date: date)
     }
 
@@ -78,9 +83,9 @@ open class BasicProperty<Value, Formatter>: UpdatableProperty where Formatter: F
 
 extension BasicProperty: Equatable where Value: Equatable {
     public static func == (
-        lhs: BasicProperty<Value, Formatter>, rhs: BasicProperty<Value, Formatter>
+        lhs: BasicProperty<Value>, rhs: BasicProperty<Value>
     ) -> Bool {
-        lhs.displayName == rhs.displayName && lhs.value == rhs.value && lhs.date == rhs.date
+        lhs.displayName == rhs.displayName && lhs.snapshot == rhs.snapshot
     }
 }
 
@@ -88,9 +93,18 @@ extension BasicProperty where Value: ExpressibleByNilLiteral {
     public convenience init(
         displayName: String,
         optionalValue: Value = nil,
-        formatter: Formatter = Formatter(),
         date: Date = Date()
     ) {
-        self.init(displayName: displayName, value: optionalValue, formatter: formatter, date: date)
+        self.init(displayName: displayName, value: optionalValue, date: date)
+    }
+
+    @available(*, deprecated, message: "Don't pass formatter")
+    public convenience init(
+        displayName: String,
+        optionalValue: Value = nil,
+        formatter: Formatter,
+        date: Date = Date()
+    ) {
+        self.init(displayName: displayName, value: optionalValue, date: date)
     }
 }
