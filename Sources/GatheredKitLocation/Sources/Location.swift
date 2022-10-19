@@ -286,7 +286,13 @@ public final class Location: UpdatingSource, Controllable {
             }
 
             _altitude.updateMeasuredValue(location.altitude, date: timestamp)
-            _floor.updateValue(location.floor?.level, date: timestamp)
+            switch state {
+            case .monitoring:
+                _floor.updateValue(location.floor?.level, date: timestamp)
+            case .askingForPermissions, .notMonitoring:
+                // When not updating floor will be `2146959360`
+                _floor.updateValue(nil, date: timestamp)
+            }
             _horizonalAccuracy.updateMeasuredValue(location.horizontalAccuracy, date: timestamp)
             _verticalAccuracy.updateMeasuredValue(location.verticalAccuracy, date: timestamp)
         } else {
