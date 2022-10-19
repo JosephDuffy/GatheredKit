@@ -3,11 +3,9 @@ import Foundation
 
 public protocol Property: AnyProperty {
     associatedtype Value
-    associatedtype Formatter: Foundation.Formatter
 
     var snapshot: Snapshot<Value> { get }
     var value: Value { get }
-    var formatter: Formatter { get }
     /// An asynchronous stream of snapshots, starting with the current snapshot.
     var snapshots: AsyncStream<Snapshot<Value>> { get }
 
@@ -56,12 +54,6 @@ extension Property {
     /// The type-erased current value of the property.
     public var typeErasedValue: Any? {
         snapshot.value
-    }
-
-    /// A type-erased formatter that can be used to build a human-friendly
-    /// string from the value.
-    public var typeErasedFormatter: Foundation.Formatter {
-        formatter
     }
 
     public var typeErasedSnapshotPublisher: AnyPublisher<AnySnapshot, Never> {

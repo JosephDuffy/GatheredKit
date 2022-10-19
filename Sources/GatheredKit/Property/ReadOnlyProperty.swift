@@ -11,10 +11,6 @@ public final class ReadOnlyProperty<Property: AnyProperty>: AnyProperty {
         wrapped.date
     }
 
-    public var typeErasedFormatter: Foundation.Formatter {
-        wrapped.typeErasedFormatter
-    }
-
     public var typeErasedSnapshotPublisher: AnyPublisher<AnySnapshot, Never> {
         wrapped.typeErasedSnapshotPublisher
     }
