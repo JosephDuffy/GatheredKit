@@ -12,12 +12,8 @@ open class BasicProperty<Value, Formatter>: UpdatableProperty where Formatter: F
         }
     }
 
-    public var projectedValue: ReadOnlyProperty<BasicProperty<Value, Formatter>> {
-        asReadOnlyProperty
-    }
-
-    public var asReadOnlyProperty: ReadOnlyProperty<BasicProperty<Value, Formatter>> {
-        ReadOnlyProperty(self)
+    public var projectedValue: some Property<Value> {
+        self
     }
 
     // MARK: `Property` Requirements

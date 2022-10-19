@@ -1,7 +1,7 @@
 import Combine
 import Foundation
 
-public protocol Property: AnyProperty {
+public protocol Property<Value>: AnyProperty {
     associatedtype Value
 
     var snapshot: Snapshot<Value> { get }
