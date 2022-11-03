@@ -25,9 +25,11 @@ public final class ResolutionProperty<Unit: UnitResolution>: UpdatableProperty, 
         }
     }
 
-    public var projectedValue: ReadOnlyProperty<ResolutionProperty> {
-        asReadOnlyProperty
+    public var projectedValue: some Property {
+        self
     }
+
+    public let unit: Unit
 
     // MARK: `Property` Requirements
 
@@ -54,6 +56,7 @@ public final class ResolutionProperty<Unit: UnitResolution>: UpdatableProperty, 
         date: Date = Date()
     ) {
         self.id = id
+        self.unit = unit
         snapshot = Snapshot(value: value, date: date)
         _width = MeasurementProperty(
             id: id.childIdentifierForPropertyId("width"),

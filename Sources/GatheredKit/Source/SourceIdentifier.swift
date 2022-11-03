@@ -54,6 +54,11 @@ public struct SourceIdentifier: Codable, Hashable, LosslessStringConvertible, Se
     /// identifier but the ``Camera`` source does.
     public let instanceIdentifier: InstanceIdentifier?
 
+    /// An identifier unique to the device this source originates from.
+    ///
+    /// When `nil` this source originated from the local device.
+    public let deviceIdentifier: String?
+
     /// The string representation in the form:
     ///
     /// <namespace>.<source-provider-identifier>[/<instance-identifier>]
@@ -62,16 +67,22 @@ public struct SourceIdentifier: Codable, Hashable, LosslessStringConvertible, Se
     public init(
         namespace: String = "GatheredKit",
         sourceKind: SourceKind,
-        instanceIdentifier: InstanceIdentifier? = nil
+        instanceIdentifier: InstanceIdentifier? = nil,
+        deviceIdentifier: String? = nil
     ) {
         self.namespace = namespace
         self.sourceKind = sourceKind
         self.instanceIdentifier = instanceIdentifier
+        self.deviceIdentifier = deviceIdentifier
 
         var description = namespace + "." + sourceKind.rawValue
 
         if let instanceIdentifier = instanceIdentifier {
             description += "/" + String(describing: instanceIdentifier)
+        }
+
+        if let deviceIdentifier {
+            description += "@" + deviceIdentifier
         }
 
         self.description = description
@@ -81,19 +92,29 @@ public struct SourceIdentifier: Codable, Hashable, LosslessStringConvertible, Se
         namespace: String = "GatheredKit",
         sourceKind: SourceKind,
         instanceIdentifier id: String,
-        isTransient: Bool
+        isTransient: Bool,
+        deviceIdentifier: String? = nil
     ) {
         self.namespace = namespace
         self.sourceKind = sourceKind
         let instanceIdentifier = InstanceIdentifier(id: id, isTransient: isTransient)
         self.instanceIdentifier = instanceIdentifier
-        self.description = namespace + "." + sourceKind.rawValue + "/" + String(describing: instanceIdentifier)
+        self.deviceIdentifier = deviceIdentifier
+
+        var description = namespace + "." + sourceKind.rawValue + "/" + String(describing: instanceIdentifier)
+
+        if let deviceIdentifier {
+            description += "@" + deviceIdentifier
+        }
+
+        self.description = description
     }
 
     public init?(_ description: String) {
         guard !description.isEmpty else { return nil }
 
-        let instanceSplit = description.split(separator: "/", maxSplits: 2)
+        let deviceSplit = description.split(separator: "@", maxSplits: 2)
+        let instanceSplit = deviceSplit[0].split(separator: "/", maxSplits: 2)
 
         let kindSplit = instanceSplit[0].split(separator: ".", maxSplits: 2)
 
@@ -102,6 +123,12 @@ public struct SourceIdentifier: Codable, Hashable, LosslessStringConvertible, Se
         self.namespace = String(kindSplit[0])
         self.sourceKind = SourceKind(String(kindSplit[1]))
         self.description = description
+
+        if deviceSplit.count == 2 {
+            deviceIdentifier = String(deviceSplit[1])
+        } else {
+            deviceIdentifier = nil
+        }
 
         if instanceSplit.count == 1 {
             instanceIdentifier = nil

@@ -273,20 +273,10 @@ public final class Location: UpdatingSource, Controllable {
             let timestamp = location.timestamp
 
             _coordinate.updateValue(location.coordinate, date: timestamp)
-
-            if location.speed < 0 {
-                _speed.updateValue(nil, date: timestamp)
-            } else {
-                _speed.updateMeasuredValue(location.speed, date: timestamp)
-            }
-
-            if location.course < 0 {
-                _course.updateValue(nil, date: timestamp)
-            } else {
-                _course.updateMeasuredValue(location.speed, date: timestamp)
-            }
-
+            _speed.updateMeasuredValue(location.speed, date: timestamp)
+            _course.updateMeasuredValue(location.speed, date: timestamp)
             _altitude.updateMeasuredValue(location.altitude, date: timestamp)
+
             switch state {
             case .monitoring:
                 _floor.updateValue(location.floor?.level, date: timestamp)
