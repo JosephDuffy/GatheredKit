@@ -8,9 +8,10 @@ import GatheredKit
 @propertyWrapper
 public final class CMCalibratedMagneticFieldProperty: UpdatableProperty, PropertiesProviding {
     public typealias Value = CMCalibratedMagneticField
-    public typealias Formatter = CMCalibratedMagneticFieldFormatter
 
-    public var allProperties: [AnyProperty] {
+    public let id: PropertyIdentifier
+
+    public var allProperties: [any Property] {
         [$accuracy, $field]
     }
 
@@ -35,18 +36,8 @@ public final class CMCalibratedMagneticFieldProperty: UpdatableProperty, Propert
         asReadOnlyProperty
     }
 
-    // MARK: `Property` Requirements
-
-    /// A human-friendly display name that describes the property.
-    public let displayName: String
-
-    /// The latest snapshot of data.
     @Published
     public internal(set) var snapshot: Snapshot<Value>
-
-    /// A formatter that can be used to build a human-friendly string from the
-    /// value.
-    public let formatter: CMCalibratedMagneticFieldFormatter
 
     public var snapshotsPublisher: AnyPublisher<Snapshot<Value>, Never> {
         $snapshot.eraseToAnyPublisher()
@@ -55,17 +46,23 @@ public final class CMCalibratedMagneticFieldProperty: UpdatableProperty, Propert
     // MARK: Initialisers
 
     public required init(
-        displayName: String,
+        id: PropertyIdentifier,
         value: Value,
-        formatter: CMCalibratedMagneticFieldFormatter = CMCalibratedMagneticFieldFormatter(),
         date: Date = Date()
     ) {
-        self.displayName = displayName
-        self.formatter = formatter
+        self.id = id
         snapshot = Snapshot(value: value, date: date)
 
-        _accuracy = .init(displayName: "Accuracy", value: value.accuracy, date: date)
-        _field = .init(displayName: "Field", value: value.field, date: date)
+        _accuracy = .init(
+            id: id.childIdentifierForPropertyId("accuracy"),
+            value: value.accuracy,
+            date: date
+        )
+        _field = .init(
+            id: id.childIdentifierForPropertyId("field"),
+            value: value.field,
+            date: date
+        )
     }
 
     @discardableResult

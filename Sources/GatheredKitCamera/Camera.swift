@@ -6,7 +6,7 @@ import GatheredKit
 @available(macOS 10.7, iOS 4, macCatalyst 14, *)
 @available(tvOS, unavailable)
 @available(watchOS, unavailable)
-public final class Camera: UpdatingSource, Controllable {
+public final class Camera: UpdatingSource, Controllable, Identifiable {
     private enum State {
         case notMonitoring
         case monitoring(observations: [NSKeyValueObservation])
@@ -21,7 +21,7 @@ public final class Camera: UpdatingSource, Controllable {
 
     public let availability: SourceAvailability = .available
 
-    public let name: String
+    public let id: SourceIdentifier
 
     public var eventsPublisher: AnyPublisher<SourceEvent, Never> {
         eventsSubject.eraseToAnyPublisher()
@@ -48,7 +48,7 @@ public final class Camera: UpdatingSource, Controllable {
     @BoolProperty
     public private(set) var isConnected: Bool
 
-    public var allProperties: [AnyProperty] {
+    public var allProperties: [any Property] {
         [
             $uniqueID,
             $position,
@@ -68,11 +68,24 @@ public final class Camera: UpdatingSource, Controllable {
     }
 
     public init(captureDevice: AVCaptureDevice) {
+        id = SourceIdentifier(
+            sourceKind: .camera,
+            instanceIdentifier: captureDevice.uniqueID,
+            isTransient: false
+        )
         self.captureDevice = captureDevice
-        name = captureDevice.localizedName
-        _uniqueID = .init(displayName: "Unique Identifier", value: captureDevice.uniqueID)
-        _position = .init(displayName: "Position", value: captureDevice.position)
-        _isConnected = .init(displayName: "Connected", value: captureDevice.isConnected)
+        _uniqueID = .init(
+            id: id.identifierForChildPropertyWithId("uniqueID"),
+            value: captureDevice.uniqueID
+        )
+        _position = .init(
+            id: id.identifierForChildPropertyWithId("position"),
+            value: captureDevice.position
+        )
+        _isConnected = .init(
+            id: id.identifierForChildPropertyWithId("isConnected"),
+            value: captureDevice.isConnected
+        )
     }
 
     public func startUpdating() {

@@ -3,51 +3,57 @@ import Foundation
 public typealias SpeedProperty = MeasurementProperty<UnitSpeed>
 public typealias OptionalSpeedProperty = OptionalMeasurementProperty<UnitSpeed>
 
-extension AnyProperty {
+extension Property {
     public static func speed(
-        displayName: String,
+        id: PropertyIdentifier,
         value: Double,
         unit: UnitSpeed,
-        formatter: MeasurementFormatter = MeasurementFormatter(),
         date: Date = Date()
     ) -> SpeedProperty {
         SpeedProperty(
-            displayName: displayName, value: value, unit: unit, formatter: formatter, date: date
+            id: id,
+            value: value,
+            unit: unit,
+            date: date
         )
     }
 
     public static func metersPerSecond(
-        displayName: String,
+        id: PropertyIdentifier,
         value: Double,
-        formatter: MeasurementFormatter = MeasurementFormatter(),
         date: Date = Date()
     ) -> SpeedProperty {
         SpeedProperty(
-            displayName: displayName, value: value, unit: .metersPerSecond, formatter: formatter,
+            id: id,
+            value: value,
+            unit: .metersPerSecond,
             date: date
         )
     }
 
     public static func speed(
-        displayName: String,
+        id: PropertyIdentifier,
         value: Double? = nil,
         unit: UnitSpeed,
-        formatter: MeasurementFormatter = MeasurementFormatter(),
         date: Date = Date()
     ) -> OptionalSpeedProperty {
-        OptionalSpeedProperty(
-            displayName: displayName, value: value, unit: unit, formatter: formatter, date: date
+        .init(
+            id: id,
+            unit: unit,
+            value: value,
+            date: date
         )
     }
 
     public static func metersPerSecond(
-        displayName: String,
+        id: PropertyIdentifier,
         value: Double? = nil,
-        formatter: MeasurementFormatter = MeasurementFormatter(),
         date: Date = Date()
     ) -> OptionalSpeedProperty {
-        OptionalSpeedProperty(
-            displayName: displayName, value: value, unit: .metersPerSecond, formatter: formatter,
+        .init(
+            id: id,
+            unit: .metersPerSecond,
+            value: value,
             date: date
         )
     }

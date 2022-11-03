@@ -3,72 +3,84 @@ import Foundation
 public typealias AngleProperty = MeasurementProperty<UnitAngle>
 public typealias OptionalAngleProperty = OptionalMeasurementProperty<UnitAngle>
 
-extension AnyProperty {
+extension Property {
     public static func angle(
-        displayName: String,
+        id: PropertyIdentifier,
         value: Double,
         unit: UnitAngle,
-        formatter: MeasurementFormatter = MeasurementFormatter(),
         date: Date = Date()
     ) -> AngleProperty {
-        AngleProperty(
-            displayName: displayName, value: value, unit: unit, formatter: formatter, date: date
+        .init(
+            id: id,
+            value: value,
+            unit: unit,
+            date: date
         )
     }
 
     public static func angle(
-        displayName: String,
+        id: PropertyIdentifier,
         value: Double? = nil,
         unit: UnitAngle,
-        formatter: MeasurementFormatter = MeasurementFormatter(),
         date: Date = Date()
     ) -> OptionalAngleProperty {
         OptionalAngleProperty(
-            displayName: displayName, value: value, unit: unit, formatter: formatter, date: date
+            id: id,
+            unit: unit,
+            value: value,
+            date: date
         )
     }
 
     public static func degrees(
-        displayName: String,
+        id: PropertyIdentifier,
         value: Double,
-        formatter: MeasurementFormatter = MeasurementFormatter(),
         date: Date = Date()
     ) -> AngleProperty {
-        AngleProperty(
-            displayName: displayName, value: value, unit: .degrees, formatter: formatter, date: date
+        .init(
+            id: id,
+            value: value,
+            unit: .degrees,
+            date: date
         )
     }
 
     public static func degrees(
-        displayName: String,
+        id: PropertyIdentifier,
         value: Double? = nil,
-        formatter: MeasurementFormatter = MeasurementFormatter(),
         date: Date = Date()
     ) -> OptionalAngleProperty {
         OptionalAngleProperty(
-            displayName: displayName, value: value, unit: .degrees, formatter: formatter, date: date
+            id: id,
+            unit: .degrees,
+            value: value,
+            date: date
         )
     }
 
     public static func radians(
-        displayName: String,
+        id: PropertyIdentifier,
         value: Double,
-        formatter: MeasurementFormatter = MeasurementFormatter(),
         date: Date = Date()
     ) -> AngleProperty {
         .init(
-            displayName: displayName, value: value, unit: .radians, formatter: formatter, date: date
+            id: id,
+            value: value,
+            unit: .radians,
+            date: date
         )
     }
 
     public static func radians(
-        displayName: String,
+        id: PropertyIdentifier,
         value: Double? = nil,
-        formatter: MeasurementFormatter = MeasurementFormatter(),
         date: Date = Date()
     ) -> OptionalAngleProperty {
         .init(
-            displayName: displayName, value: value, unit: .radians, formatter: formatter, date: date
+            id: id,
+            unit: .radians,
+            value: value,
+            date: date
         )
     }
 }

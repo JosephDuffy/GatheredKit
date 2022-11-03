@@ -1,12 +1,8 @@
-public protocol SourceProvider: AnySourceProvider {
+public protocol SourceProvider {
     /// The type of source this `SourceProvider` provides.
     associatedtype ProvidedSource: Source
 
-    var sources: [ProvidedSource] { get }
-}
+    var id: SourceProviderIdentifier { get }
 
-extension SourceProvider {
-    public var typeErasedSources: [Source] {
-        sources
-    }
+    var sources: [ProvidedSource] { get }
 }

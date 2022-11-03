@@ -3,7 +3,6 @@ import Combine
 import ExternalAccessory
 import GatheredKit
 
-/// A wrapper around `UIScreen`.
 public final class ExternalAccessory: UpdatingSource, Controllable {
     private enum State {
         case notMonitoring
@@ -12,7 +11,7 @@ public final class ExternalAccessory: UpdatingSource, Controllable {
 
     public let availability: SourceAvailability = .available
 
-    public let name: String
+    public let id: SourceIdentifier
 
     public var eventsPublisher: AnyPublisher<SourceEvent, Never> {
         eventsSubject.eraseToAnyPublisher()
@@ -50,7 +49,7 @@ public final class ExternalAccessory: UpdatingSource, Controllable {
     @StringProperty
     public private(set) var hardwareRevision: String
 
-    public var allProperties: [AnyProperty] {
+    public var allProperties: [any Property] {
         [
             $isConnected,
             $connectionID,
@@ -75,34 +74,37 @@ public final class ExternalAccessory: UpdatingSource, Controllable {
 
     public init(accessory: EAAccessory) {
         self.accessory = accessory
-        name = accessory.name
+        id = SourceIdentifier(
+            sourceKind: .externalAccessory,
+            instanceIdentifier: "\(accessory.connectionID)",
+            isTransient: true
+        )
         _isConnected = .init(
-            displayName: "Connected",
-            value: accessory.isConnected,
-            formatter: BoolFormatter(trueString: "Yes", falseString: "No")
+            id: id.identifierForChildPropertyWithId("connected"),
+            value: accessory.isConnected
         )
         _connectionID = .init(
-            displayName: "Connection Identifier",
+            id: id.identifierForChildPropertyWithId("connectionIdentifier"),
             value: accessory.connectionID
         )
         _manufacturer = .init(
-            displayName: "Manufacturer",
+            id: id.identifierForChildPropertyWithId("manufacturer"),
             value: accessory.manufacturer
         )
         _modelNumber = .init(
-            displayName: "Model Number",
+            id: id.identifierForChildPropertyWithId("modelNumber"),
             value: accessory.modelNumber
         )
         _serialNumber = .init(
-            displayName: "Serial Number",
+            id: id.identifierForChildPropertyWithId("serialNumber"),
             value: accessory.serialNumber
         )
         _firmwareRevision = .init(
-            displayName: "Firmware Revision",
+            id: id.identifierForChildPropertyWithId("firmwareRevision"),
             value: accessory.manufacturer
         )
         _hardwareRevision = .init(
-            displayName: "Hardware Revision",
+            id: id.identifierForChildPropertyWithId("hardwareRevision"),
             value: accessory.hardwareRevision
         )
     }

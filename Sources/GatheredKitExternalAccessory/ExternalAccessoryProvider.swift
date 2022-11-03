@@ -9,13 +9,13 @@ public final class ExternalAccessoryProvider: UpdatingSourceProvider, Controllab
         case monitoring(cancellables: Set<AnyCancellable>)
     }
 
-    public let name = "External Accessories"
-
     public var sourceProviderEventsPublisher: AnyPublisher<SourceProviderEvent<ExternalAccessory>, Never> {
         sourceProviderEventsSubject.eraseToAnyPublisher()
     }
 
     private let sourceProviderEventsSubject = PassthroughSubject<SourceProviderEvent<ExternalAccessory>, Never>()
+
+    public let id: SourceProviderIdentifier
 
     @Published
     public private(set) var sources: [ExternalAccessory]
@@ -47,6 +47,7 @@ public final class ExternalAccessoryProvider: UpdatingSourceProvider, Controllab
     }
 
     internal required init(accessoryManager: EAAccessoryManager, notificationCenter: NotificationCenter) {
+        id = SourceProviderIdentifier(sourceKind: .externalAccessory)
         self.accessoryManager = accessoryManager
         self.notificationCenter = notificationCenter
         sources = accessoryManager.connectedAccessories.map { accessory in

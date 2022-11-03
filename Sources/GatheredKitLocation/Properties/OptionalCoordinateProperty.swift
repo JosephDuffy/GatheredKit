@@ -7,7 +7,9 @@ import GatheredKit
 public final class OptionalCoordinateProperty: UpdatableProperty, PropertiesProviding {
     public typealias Value = CLLocationCoordinate2D?
 
-    public var allProperties: [AnyProperty] {
+    public let id: PropertyIdentifier
+
+    public var allProperties: [any Property] {
         [
             $latitude,
             $longitude,
@@ -33,13 +35,6 @@ public final class OptionalCoordinateProperty: UpdatableProperty, PropertiesProv
     @Published
     public internal(set) var snapshot: Snapshot<Value>
 
-    /// A human-friendly display name that describes the property.
-    public let displayName: String
-
-    /// A formatter that can be used to build a human-friendly string from the
-    /// value.
-    public let formatter: CoordinateFormatter
-
     public var snapshotsPublisher: AnyPublisher<Snapshot<Value>, Never> {
         $snapshot.eraseToAnyPublisher()
     }
@@ -53,14 +48,22 @@ public final class OptionalCoordinateProperty: UpdatableProperty, PropertiesProv
     public private(set) var longitude: Measurement<UnitAngle>?
 
     public required init(
-        displayName: String, value: CLLocationCoordinate2D? = nil,
-        formatter: CoordinateFormatter = CoordinateFormatter(), date: Date = Date()
+        id: PropertyIdentifier,
+        value: CLLocationCoordinate2D? = nil,
+        date: Date = Date()
     ) {
-        self.displayName = displayName
-        self.formatter = formatter
+        self.id = id
         snapshot = Snapshot(value: value, date: date)
-        _latitude = .degrees(displayName: "Latitude", value: value?.latitude, date: date)
-        _longitude = .degrees(displayName: "Longitude", value: value?.longitude, date: date)
+        _latitude = .degrees(
+            id: id.childIdentifierForPropertyId("latitude"),
+            value: value?.latitude,
+            date: date
+        )
+        _longitude = .degrees(
+            id: id.childIdentifierForPropertyId("longitude"),
+            value: value?.longitude,
+            date: date
+        )
     }
 
     @discardableResult

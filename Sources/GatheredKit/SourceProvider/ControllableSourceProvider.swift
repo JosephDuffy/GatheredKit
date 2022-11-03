@@ -1,3 +1,3 @@
 import Combine
 
-public protocol ControllableSourceProvider: SourceProvider, AnyControllableSourceProvider {}
+public protocol ControllableSourceProvider: SourceProvider {}

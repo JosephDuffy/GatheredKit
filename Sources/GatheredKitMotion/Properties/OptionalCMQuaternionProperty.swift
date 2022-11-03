@@ -6,11 +6,12 @@ import GatheredKit
 
 @available(macOS, unavailable)
 @propertyWrapper
-public final class OptionalCMQuaternionProperty: UpdatableProperty, PropertiesProviding {
+public final class OptionalCMQuaternionProperty: UpdatableProperty, PropertiesProviding, Identifiable {
     public typealias Value = CMQuaternion?
-    public typealias Formatter = CMQuaternionFormatter
 
-    public var allProperties: [AnyProperty] {
+    public let id: PropertyIdentifier
+
+    public var allProperties: [any Property] {
         [
             $x,
             $y,
@@ -48,16 +49,9 @@ public final class OptionalCMQuaternionProperty: UpdatableProperty, PropertiesPr
 
     // MARK: `Property` Requirements
 
-    /// A human-friendly display name that describes the property.
-    public let displayName: String
-
     /// The latest snapshot of data.
     @Published
     public internal(set) var snapshot: Snapshot<Value>
-
-    /// A formatter that can be used to build a human-friendly string from the
-    /// value.
-    public let formatter: Formatter
 
     public var snapshotsPublisher: AnyPublisher<Snapshot<Value>, Never> {
         $snapshot.eraseToAnyPublisher()
@@ -66,17 +60,33 @@ public final class OptionalCMQuaternionProperty: UpdatableProperty, PropertiesPr
     // MARK: Initialisers
 
     public required init(
-        displayName: String, value: Value = nil,
-        formatter: CMQuaternionFormatter = CMQuaternionFormatter(), date: Date = Date()
+        id: PropertyIdentifier,
+        value: Value = nil,
+        date: Date = Date()
     ) {
-        self.displayName = displayName
-        self.formatter = formatter
+        self.id = id
         snapshot = Snapshot(value: value, date: date)
 
-        _x = .init(displayName: "x", value: value?.x, date: date)
-        _y = .init(displayName: "y", value: value?.y, date: date)
-        _z = .init(displayName: "z", value: value?.z, date: date)
-        _w = .init(displayName: "w", value: value?.w, date: date)
+        _x = .init(
+            id: id.childIdentifierForPropertyId("x"),
+            value: value?.x,
+            date: date
+        )
+        _y = .init(
+            id: id.childIdentifierForPropertyId("y"),
+            value: value?.y,
+            date: date
+        )
+        _z = .init(
+            id: id.childIdentifierForPropertyId("z"),
+            value: value?.z,
+            date: date
+        )
+        _w = .init(
+            id: id.childIdentifierForPropertyId("w"),
+            value: value?.w,
+            date: date
+        )
     }
 
     // MARK: Update Functions

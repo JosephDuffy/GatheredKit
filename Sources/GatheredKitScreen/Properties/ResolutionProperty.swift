@@ -7,7 +7,9 @@ import GatheredKit
 public final class ResolutionProperty<Unit: UnitResolution>: UpdatableProperty, PropertiesProviding {
     public typealias Value = CGSize
 
-    public var allProperties: [AnyProperty] {
+    public let id: PropertyIdentifier
+
+    public var allProperties: [any Property] {
         [
             $width,
             $height,
@@ -33,45 +35,38 @@ public final class ResolutionProperty<Unit: UnitResolution>: UpdatableProperty, 
     @Published
     public internal(set) var snapshot: Snapshot<Value>
 
-    /// A human-friendly display name that describes the property.
-    public let displayName: String
-
-    /// A formatter that can be used to build a human-friendly string from the
-    /// value.
-    public let formatter: ResolutionFormatter
-
     public var snapshotsPublisher: AnyPublisher<Snapshot<Value>, Never> {
         $snapshot.eraseToAnyPublisher()
     }
 
     // MARK: Coodinate Properties
 
-    @MeasurementProperty<UnitResolution>
-    public private(set) var width: Measurement<UnitResolution>
+    @MeasurementProperty
+    public private(set) var width: Measurement<Unit>
 
-    @MeasurementProperty<UnitResolution>
-    public private(set) var height: Measurement<UnitResolution>
+    @MeasurementProperty
+    public private(set) var height: Measurement<Unit>
 
     public required init(
-        displayName: String,
+        id: PropertyIdentifier,
         value: CGSize,
-        formatter: ResolutionFormatter,
+        unit: Unit,
         date: Date = Date()
     ) {
-        self.displayName = displayName
-        self.formatter = formatter
+        self.id = id
         snapshot = Snapshot(value: value, date: date)
-        _width = MeasurementProperty(displayName: "Width", value: value.width, unit: formatter.unit, date: date)
-        _height = MeasurementProperty(displayName: "Height", value: value.height,unit: formatter.unit, date: date)
-    }
-
-    public convenience init(
-        displayName: String,
-        value: CGSize,
-        unit: UnitResolution,
-        date: Date = Date()
-    ) {
-        self.init(displayName: displayName, value: value, formatter: ResolutionFormatter(unit: unit), date: date)
+        _width = MeasurementProperty(
+            id: id.childIdentifierForPropertyId("width"),
+            value: value.width,
+            unit: unit,
+            date: date
+        )
+        _height = MeasurementProperty(
+            id: id.childIdentifierForPropertyId("height"),
+            value: value.height,
+            unit: unit,
+            date: date
+        )
     }
 
     public func updateValue(_ value: CGSize, date: Date) -> Snapshot<CGSize> {

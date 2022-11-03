@@ -2,14 +2,17 @@ import Combine
 import Foundation
 
 @propertyWrapper
-public final class OptionalMeasurementProperty<Unit: Foundation.Unit>: UpdatableProperty, Equatable {
+public final class OptionalMeasurementProperty<Unit: Foundation.Unit>: UpdatableProperty, Hashable {
     public typealias Value = Measurement<Unit>?
 
     public static func == (
-        lhs: OptionalMeasurementProperty<Unit>, rhs: OptionalMeasurementProperty<Unit>
+        lhs: OptionalMeasurementProperty<Unit>,
+        rhs: OptionalMeasurementProperty<Unit>
     ) -> Bool {
-        lhs.displayName == rhs.displayName && lhs.snapshot == rhs.snapshot
+        lhs.id == rhs.id && lhs.snapshot == rhs.snapshot
     }
+
+    public let id: PropertyIdentifier
 
     public var wrappedValue: Value {
         get {
@@ -24,14 +27,8 @@ public final class OptionalMeasurementProperty<Unit: Foundation.Unit>: Updatable
         asReadOnlyProperty
     }
 
-    // MARK: `Property` Requirements
-
-    /// The latest snapshot of data.
     @Published
     public internal(set) var snapshot: Snapshot<Value>
-
-    /// A human-friendly display name that describes the property.
-    public let displayName: String
 
     public var snapshotsPublisher: AnyPublisher<Snapshot<Value>, Never> {
         $snapshot.eraseToAnyPublisher()
@@ -52,24 +49,22 @@ public final class OptionalMeasurementProperty<Unit: Foundation.Unit>: Updatable
     // MARK: Initialisers
 
     public init(
-        displayName: String,
+        id: PropertyIdentifier,
         measurement: Measurement<Unit>,
-        formatter: MeasurementFormatter = MeasurementFormatter(),
         date: Date = Date()
     ) {
-        self.displayName = displayName
+        self.id = id
         unit = measurement.unit
         snapshot = Snapshot(value: measurement, date: date)
     }
 
     public init(
-        displayName: String,
-        value measuredValue: Double? = nil,
+        id: PropertyIdentifier,
         unit: Unit,
-        formatter: MeasurementFormatter = MeasurementFormatter(),
+        value measuredValue: Double? = nil,
         date: Date = Date()
     ) {
-        self.displayName = displayName
+        self.id = id
         self.unit = unit
 
         let measurement: Measurement<Unit>?
@@ -82,22 +77,9 @@ public final class OptionalMeasurementProperty<Unit: Foundation.Unit>: Updatable
         snapshot = Snapshot(value: measurement, date: date)
     }
 
-    public init(
-        unit: Unit,
-        value measuredValue: Double? = nil,
-        date: Date = Date()
-    ) {
-        self.displayName = ""
-        self.unit = unit
-
-        let measurement: Measurement<Unit>?
-        if let measuredValue = measuredValue {
-            measurement = Measurement(value: measuredValue, unit: unit)
-        } else {
-            measurement = nil
-        }
-
-        snapshot = Snapshot(value: measurement, date: date)
+    public func hash(into hasher: inout Hasher) {
+        hasher.combine(id)
+        hasher.combine(snapshot)
     }
 
     // MARK: Update Functions
@@ -124,17 +106,15 @@ public final class OptionalMeasurementProperty<Unit: Foundation.Unit>: Updatable
 
 extension OptionalMeasurementProperty where Unit: Foundation.Dimension {
     public convenience init(
-        displayName: String,
+        id: PropertyIdentifier,
         value measuredValue: Double? = nil,
         dimension: Unit = .baseUnit(),
-        formatter: MeasurementFormatter = MeasurementFormatter(),
         date: Date = Date()
     ) {
         self.init(
-            displayName: displayName,
-            value: measuredValue,
+            id: id,
             unit: dimension,
-            formatter: formatter,
+            value: measuredValue,
             date: date
         )
     }

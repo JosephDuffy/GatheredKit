@@ -11,7 +11,7 @@ public final class DeviceMotion: UpdatingSource, CustomisableUpdateIntervalContr
         case monitoring(updatesQueue: OperationQueue)
     }
 
-    public let name = "Device Motion"
+    public let id: SourceIdentifier
 
     public let availability: SourceAvailability
 
@@ -56,7 +56,7 @@ public final class DeviceMotion: UpdatingSource, CustomisableUpdateIntervalContr
     @OptionalCMRotationRateProperty
     public private(set) var rotationRate: CMRotationRate?
 
-    public var allProperties: [AnyProperty] {
+    public var allProperties: [any Property] {
         [
             $attitude,
             $gravity,
@@ -81,14 +81,15 @@ public final class DeviceMotion: UpdatingSource, CustomisableUpdateIntervalContr
     }
 
     public init(motionManager: CMMotionManager = .gatheredKitShared) {
+        id = SourceIdentifier(sourceKind: .deviceMotion)
         self.motionManager = motionManager
         availability = motionManager.isDeviceMotionAvailable ? .available : .unavailable
-        _attitude = .init(displayName: "Attitude")
-        _gravity = .init(displayName: "Gravity Acceleration")
-        _userAcceleration = .init(displayName: "User Acceleration")
-        _heading = .init(displayName: "Heading")
-        _magneticField = .init(displayName: "Calibrated Magnetic Field")
-        _rotationRate = .init(displayName: "Rotation Rate")
+        _attitude = .init(id: id.identifierForChildPropertyWithId("attitude"))
+        _gravity = .init(id: id.identifierForChildPropertyWithId("gravityAcceleration"))
+        _userAcceleration = .init(id: id.identifierForChildPropertyWithId("userAcceleration"))
+        _heading = .degrees(id: id.identifierForChildPropertyWithId("heading"))
+        _magneticField = .init(id: id.identifierForChildPropertyWithId("magneticField"))
+        _rotationRate = .init(id: id.identifierForChildPropertyWithId("rotationRate"))
     }
 
     deinit {

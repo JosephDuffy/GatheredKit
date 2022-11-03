@@ -9,7 +9,7 @@ public final class ScreenProvider: UpdatingSourceProvider, ControllableSourcePro
         case monitoring
     }
 
-    public let name = "Screens"
+    public let id: SourceProviderIdentifier
 
     public var sourceProviderEventsPublisher: AnyPublisher<SourceProviderEvent<Screen>, Never> {
         sourceProviderEventsSubject.eraseToAnyPublisher()
@@ -46,6 +46,7 @@ public final class ScreenProvider: UpdatingSourceProvider, ControllableSourcePro
 
     internal required init(notificationCenter: NotificationCenter) {
         self.notificationCenter = notificationCenter
+        id = SourceProviderIdentifier(sourceKind: .screen)
         sources = NSScreen.screens.map { nsScreen in
             Screen(screen: nsScreen)
         }
@@ -73,5 +74,4 @@ public final class ScreenProvider: UpdatingSourceProvider, ControllableSourcePro
         sourceProviderEventsSubject.send(.stoppedUpdating())
     }
 }
-
 #endif

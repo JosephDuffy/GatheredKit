@@ -34,7 +34,7 @@ public final class WiFiProvider: ManuallyUpdatableSingleTransientSourceProvider,
 
     public typealias ProvidedSource = WiFi
 
-    public let name: String
+    public let id: SourceProviderIdentifier
 
     @Published
     public private(set) var availability: SourceAvailability
@@ -57,7 +57,7 @@ public final class WiFiProvider: ManuallyUpdatableSingleTransientSourceProvider,
         requestTemporaryFullAccuracyAuthorization: @escaping RequestTemporaryFullAccuracyAuthorization,
         locationManager: CLLocationManager = CLLocationManager()
     ) {
-        self.name = "Wi-Fi"
+        self.id = SourceProviderIdentifier(sourceKind: .wifi)
         self.requestLocationPermissions = requestLocationPermissions
         self.requestTemporaryFullAccuracyAuthorization = requestTemporaryFullAccuracyAuthorization
         self.locationManager = locationManager

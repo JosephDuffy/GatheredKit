@@ -11,7 +11,7 @@ public final class Accelerometer: UpdatingSource, CustomisableUpdateIntervalCont
         case monitoring(updatesQueue: OperationQueue)
     }
 
-    public let name = "Accelerometer"
+    public let id: SourceIdentifier
 
     public let availability: SourceAvailability
 
@@ -34,10 +34,10 @@ public final class Accelerometer: UpdatingSource, CustomisableUpdateIntervalCont
         isUpdating ? motionManager.accelerometerUpdateInterval : nil
     }
 
-    @OptionalCMAccelerationProperty(displayName: "Acceleration")
+    @OptionalCMAccelerationProperty
     public private(set) var acceleration: CMAcceleration?
 
-    public var allProperties: [AnyProperty] {
+    public var allProperties: [any Property] {
         [$acceleration]
     }
 
@@ -55,8 +55,10 @@ public final class Accelerometer: UpdatingSource, CustomisableUpdateIntervalCont
     }
 
     public init(motionManager: CMMotionManager = .gatheredKitShared) {
+        id = SourceIdentifier(sourceKind: .accelerometer)
         self.motionManager = motionManager
         availability = motionManager.isAccelerometerAvailable ? .available : .unavailable
+        _acceleration = .init(id: id.identifierForChildPropertyWithId("acceleration"))
     }
 
     deinit {

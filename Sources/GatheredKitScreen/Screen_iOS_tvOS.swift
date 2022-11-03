@@ -24,7 +24,7 @@ public final class Screen: UpdatingSource, Controllable {
 
     public let availability: SourceAvailability = .available
 
-    public let name: String
+    public let id: SourceIdentifier
 
     public var eventsPublisher: AnyPublisher<SourceEvent, Never> {
         eventsSubject.eraseToAnyPublisher()
@@ -86,7 +86,7 @@ public final class Screen: UpdatingSource, Controllable {
      - Screen Resolution (native)
      - Brightness
      */
-    public var allProperties: [AnyProperty] {
+    public var allProperties: [any Property] {
         #if os(iOS)
         return [
             $reportedResolution,
@@ -133,35 +133,42 @@ public final class Screen: UpdatingSource, Controllable {
      - Parameter notificationCenter: The notification center to list to notifications from.
      */
     internal init(screen: UIScreen, notificationCenter: NotificationCenter = .default) {
-        name = screen == .main ? "Main Screen" : "External Screen"
+        if screen == .main {
+            id = SourceIdentifier(sourceKind: .screen, instanceIdentifier: "main", isTransient: false)
+        } else {
+            id = SourceIdentifier(sourceKind: .screen, instanceIdentifier: "external", isTransient: true)
+        }
         uiScreen = screen
         self.notificationCenter = notificationCenter
 
         _reportedResolution = .init(
-            displayName: "Resolution (reported)",
+            id: id.identifierForChildPropertyWithId("reportedResolution"),
             value: screen.bounds.size,
             unit: .points(screenScale: screen.nativeScale)
         )
 
         _nativeResolution = .init(
-            displayName: "Resolution (native)",
+            id: id.identifierForChildPropertyWithId("nativeResolution"),
             value: screen.nativeBounds.size,
             unit: .pixels
         )
 
         _reportedScale = .init(
-            displayName: "Scale (reported)",
+            id: id.identifierForChildPropertyWithId("reportedScale"),
             value: screen.scale
         )
 
         _nativeScale = .init(
-            displayName: "Scale (native)",
+            id: id.identifierForChildPropertyWithId("nativeScale"),
             value: screen.nativeScale
         )
 
         #if os(iOS)
         let brightness = screen == .main ? screen.brightness : 1
-        _brightness = .init(displayName: "Brightness", value: brightness)
+        _brightness = .init(
+            id: id.identifierForChildPropertyWithId("brightness"),
+            value: brightness
+        )
         #endif
     }
 

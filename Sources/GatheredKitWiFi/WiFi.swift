@@ -10,7 +10,7 @@ import NetworkExtension
 public final class WiFi: Source {
     public let availability: SourceAvailability = .available
 
-    public let name: String
+    public let id: SourceIdentifier
 
     public var eventsPublisher: AnyPublisher<SourceEvent, Never> {
         eventsSubject.eraseToAnyPublisher()
@@ -27,7 +27,7 @@ public final class WiFi: Source {
     /// The `NEHotspotNetwork` this `Network` represents.
     public let hostspotNetwork: NEHotspotNetwork
 
-    public var allProperties: [AnyProperty] {
+    public var allProperties: [any Property] {
         [
             $ssid,
             $bssid,
@@ -35,11 +35,21 @@ public final class WiFi: Source {
     }
 
     public init(hostspotNetwork: NEHotspotNetwork) {
-        name = hostspotNetwork.ssid
+        id = SourceIdentifier(
+            sourceKind: .wifi,
+            instanceIdentifier: hostspotNetwork.bssid,
+            isTransient: false
+        )
         self.hostspotNetwork = hostspotNetwork
 
-        _ssid = .init(displayName: "SSID", value: hostspotNetwork.ssid)
-        _bssid = .init(displayName: "BSSID", value: hostspotNetwork.bssid)
+        _ssid = .init(
+            id: id.identifierForChildPropertyWithId("ssid"),
+            value: hostspotNetwork.ssid
+        )
+        _bssid = .init(
+            id: id.identifierForChildPropertyWithId("bssid"),
+            value: hostspotNetwork.bssid
+        )
 
         // There are other properties, such as `didAutoJoin` and
         // `signalStrength`, which seem to return default values (`false` and

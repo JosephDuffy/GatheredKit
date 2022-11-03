@@ -14,7 +14,7 @@ public final class ScreenProvider: UpdatingSourceProvider, ControllableSourcePro
         }
     }
 
-    public let name = "Screens"
+    public let id: SourceProviderIdentifier
 
     public var sourceProviderEventsPublisher: AnyPublisher<SourceProviderEvent<Screen>, Never> {
         sourceProviderEventsSubject.eraseToAnyPublisher()
@@ -50,6 +50,7 @@ public final class ScreenProvider: UpdatingSourceProvider, ControllableSourcePro
     }
 
     internal required init(notificationCenter: NotificationCenter) {
+        id = SourceProviderIdentifier(sourceKind: .screen)
         self.notificationCenter = notificationCenter
         sources = UIScreen.screens.map { uiScreen in
             Screen(screen: uiScreen)

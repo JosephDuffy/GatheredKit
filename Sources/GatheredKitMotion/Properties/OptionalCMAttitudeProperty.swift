@@ -8,11 +8,12 @@ import GatheredKit
 @propertyWrapper
 public final class OptionalCMAttitudeProperty: UpdatableProperty, PropertiesProviding {
     public typealias Value = CMAttitude?
-    public typealias Formatter = CMAttitudeFormatter
+
+    public let id: PropertyIdentifier
 
     // MARK: `CMAttitude` Properties
 
-    public var allProperties: [AnyProperty] {
+    public var allProperties: [any Property] {
         [$roll, $pitch, $yaw, $quaternion, $rotationMatrix]
     }
 
@@ -46,18 +47,8 @@ public final class OptionalCMAttitudeProperty: UpdatableProperty, PropertiesProv
         asReadOnlyProperty
     }
 
-    // MARK: `Property` Requirements
-
-    /// A human-friendly display name that describes the property.
-    public let displayName: String
-
-    /// The latest snapshot of data.
     @Published
     public internal(set) var snapshot: Snapshot<Value>
-
-    /// A formatter that can be used to build a human-friendly string from the
-    /// value.
-    public let formatter: Formatter
 
     public var snapshotsPublisher: AnyPublisher<Snapshot<Value>, Never> {
         $snapshot.eraseToAnyPublisher()
@@ -66,20 +57,38 @@ public final class OptionalCMAttitudeProperty: UpdatableProperty, PropertiesProv
     // MARK: Initialisers
 
     public init(
-        displayName: String,
+        id: PropertyIdentifier,
         value: Value = nil,
-        formatter: CMAttitudeFormatter = CMAttitudeFormatter(),
         date: Date = Date()
     ) {
-        self.displayName = displayName
-        self.formatter = formatter
+        self.id = id
         snapshot = Snapshot(value: value, date: date)
 
-        _roll = .radians(displayName: "Roll", value: value?.roll, date: date)
-        _pitch = .radians(displayName: "Pitch", value: value?.pitch, date: date)
-        _yaw = .radians(displayName: "Yaw", value: value?.yaw, date: date)
-        _quaternion = .init(displayName: "Quaternion", value: value?.quaternion, date: date)
-        _rotationMatrix = .init(displayName: "Rotation Matrix", value: value?.rotationMatrix, date: date)
+        _roll = .radians(
+            id: id.childIdentifierForPropertyId("roll"),
+            value: value?.roll,
+            date: date
+        )
+        _pitch = .radians(
+            id: id.childIdentifierForPropertyId("pitch"),
+            value: value?.pitch,
+            date: date
+        )
+        _yaw = .radians(
+            id: id.childIdentifierForPropertyId("yaw"),
+            value: value?.yaw,
+            date: date
+        )
+        _quaternion = .init(
+            id: id.childIdentifierForPropertyId("quaternion"),
+            value: value?.quaternion,
+            date: date
+        )
+        _rotationMatrix = .init(
+            id: id.childIdentifierForPropertyId("rotationMatrix"),
+            value: value?.rotationMatrix,
+            date: date
+        )
     }
 
     // MARK: Update Functions

@@ -11,7 +11,7 @@ public final class Magnetometer: UpdatingSource, CustomisableUpdateIntervalContr
         case monitoring(updatesQueue: OperationQueue)
     }
 
-    public let name = "Magnetometer"
+    public let id: SourceIdentifier
 
     public let availability: SourceAvailability
 
@@ -37,7 +37,7 @@ public final class Magnetometer: UpdatingSource, CustomisableUpdateIntervalContr
     @OptionalCMMagneticFieldProperty
     public private(set) var magneticField: CMMagneticField?
 
-    public var allProperties: [AnyProperty] {
+    public var allProperties: [any Property] {
         [$magneticField]
     }
 
@@ -55,9 +55,10 @@ public final class Magnetometer: UpdatingSource, CustomisableUpdateIntervalContr
     }
 
     public init(motionManager: CMMotionManager = .gatheredKitShared) {
+        id = SourceIdentifier(sourceKind: .magnetometer)
         self.motionManager = motionManager
         availability = motionManager.isMagnetometerAvailable ? .available : .unavailable
-        _magneticField = .init(displayName: "Magnetic Field")
+        _magneticField = .init(id: id.identifierForChildPropertyWithId("magneticField"))
     }
 
     /**

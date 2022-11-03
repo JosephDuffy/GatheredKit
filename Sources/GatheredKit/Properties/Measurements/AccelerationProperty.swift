@@ -3,74 +3,84 @@ import Foundation
 public typealias AccelerationProperty = MeasurementProperty<UnitAcceleration>
 public typealias OptionalAccelerationProperty = OptionalMeasurementProperty<UnitAcceleration>
 
-extension AnyProperty {
+extension Property {
     public static func acceleration(
-        displayName: String,
+        id: PropertyIdentifier,
         value: Double,
         unit: UnitAcceleration,
-        formatter: MeasurementFormatter = MeasurementFormatter(),
         date: Date = Date()
     ) -> AccelerationProperty {
         .init(
-            displayName: displayName, value: value, unit: unit, formatter: formatter, date: date
+            id: id,
+            value: value,
+            unit: unit,
+            date: date
         )
     }
 
     public static func acceleration(
-        displayName: String,
+        id: PropertyIdentifier,
         value: Double? = nil,
         unit: UnitAcceleration,
-        formatter: MeasurementFormatter = MeasurementFormatter(),
         date: Date = Date()
     ) -> OptionalAccelerationProperty {
         .init(
-            displayName: displayName, value: value, unit: unit, formatter: formatter, date: date
+            id: id,
+            unit: unit,
+            value: value,
+            date: date
         )
     }
 
     public static func metersPerSecondSquared(
-        displayName: String,
+        id: PropertyIdentifier,
         value: Double,
-        formatter: MeasurementFormatter = MeasurementFormatter(),
         date: Date = Date()
     ) -> AccelerationProperty {
         .init(
-            displayName: displayName, value: value, unit: .metersPerSecondSquared,
-            formatter: formatter, date: date
+            id: id,
+            value: value,
+            unit: .metersPerSecondSquared,
+            date: date
         )
     }
 
     public static func metersPerSecondSquared(
-        displayName: String,
+        id: PropertyIdentifier,
         value: Double? = nil,
-        formatter: MeasurementFormatter = MeasurementFormatter(),
         date: Date = Date()
     ) -> OptionalAccelerationProperty {
         .init(
-            displayName: displayName, value: value, unit: .metersPerSecondSquared,
-            formatter: formatter, date: date
+            id: id,
+            unit: .metersPerSecondSquared,
+            value: value,
+            date: date
         )
     }
 
     public static func gravity(
-        displayName: String,
+        id: PropertyIdentifier,
         value: Double,
-        formatter: MeasurementFormatter = MeasurementFormatter(),
         date: Date = Date()
     ) -> AccelerationProperty {
         .init(
-            displayName: displayName, value: value, unit: .gravity, formatter: formatter, date: date
+            id: id,
+            value: value,
+            unit: .gravity,
+            date: date
         )
     }
 
     public static func gravity(
-        displayName: String,
+        id: PropertyIdentifier,
         value: Double? = nil,
-        formatter: MeasurementFormatter = MeasurementFormatter(),
         date: Date = Date()
     ) -> OptionalAccelerationProperty {
         .init(
-            displayName: displayName, value: value, unit: .gravity, formatter: formatter, date: date
+            id: id,
+            unit: .gravity,
+            value: value,
+            date: date
         )
     }
 }

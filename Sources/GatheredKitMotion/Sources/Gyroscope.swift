@@ -11,7 +11,7 @@ public final class Gyroscope: UpdatingSource, CustomisableUpdateIntervalControll
         case monitoring(updatesQueue: OperationQueue)
     }
 
-    public let name = "Gyroscope"
+    public let id: SourceIdentifier
 
     public let availability: SourceAvailability
 
@@ -37,7 +37,7 @@ public final class Gyroscope: UpdatingSource, CustomisableUpdateIntervalControll
     @OptionalCMRotationRateProperty
     public private(set) var rotationRate: CMRotationRate?
 
-    public var allProperties: [AnyProperty] {
+    public var allProperties: [any Property] {
         [$rotationRate]
     }
 
@@ -55,9 +55,10 @@ public final class Gyroscope: UpdatingSource, CustomisableUpdateIntervalControll
     }
 
     public init(motionManager: CMMotionManager = .gatheredKitShared) {
+        id = SourceIdentifier(sourceKind: .gyroscope)
         self.motionManager = motionManager
         availability = motionManager.isGyroAvailable ? .available : .unavailable
-        _rotationRate = .init(displayName: "Rotation Rate")
+        _rotationRate = .init(id: id.identifierForChildPropertyWithId("rotationRate"))
     }
 
     deinit {

@@ -3,73 +3,83 @@ import Foundation
 public typealias MagneticFieldProperty = MeasurementProperty<UnitMagneticField>
 public typealias OptionalMagneticFieldProperty = OptionalMeasurementProperty<UnitMagneticField>
 
-extension AnyProperty {
+extension Property {
     public static func magneticField(
-        displayName: String,
+        id: PropertyIdentifier,
         value: Double,
         unit: UnitMagneticField,
-        formatter: MeasurementFormatter = MeasurementFormatter(),
         date: Date = Date()
     ) -> MagneticFieldProperty {
-        MagneticFieldProperty(
-            displayName: displayName, value: value, unit: unit, formatter: formatter, date: date
+        .init(
+            id: id,
+            value: value,
+            unit: unit,
+            date: date
         )
     }
 
     public static func magneticField(
-        displayName: String,
+        id: PropertyIdentifier,
         value: Double? = nil,
         unit: UnitMagneticField,
-        formatter: MeasurementFormatter = MeasurementFormatter(),
         date: Date = Date()
     ) -> OptionalMagneticFieldProperty {
-        OptionalMagneticFieldProperty(
-            displayName: displayName, value: value, unit: unit, formatter: formatter, date: date
+        .init(
+            id: id,
+            unit: unit,
+            value: value,
+            date: date
         )
     }
 
     public static func tesla(
-        displayName: String,
+        id: PropertyIdentifier,
         value: Double,
-        formatter: MeasurementFormatter = MeasurementFormatter(),
         date: Date = Date()
     ) -> MagneticFieldProperty {
-        MagneticFieldProperty(
-            displayName: displayName, value: value, unit: .tesla, formatter: formatter, date: date
+        .init(
+            id: id,
+            value: value,
+            unit: .tesla,
+            date: date
         )
     }
 
     public static func tesla(
-        displayName: String,
+        id: PropertyIdentifier,
         value: Double? = nil,
-        formatter: MeasurementFormatter = MeasurementFormatter(),
         date: Date = Date()
     ) -> OptionalMagneticFieldProperty {
-        OptionalMagneticFieldProperty(
-            displayName: displayName, value: value, unit: .tesla, formatter: formatter, date: date
-        )
-    }
-
-    public static func microTesla(
-        displayName: String,
-        value: Double,
-        formatter: MeasurementFormatter = MeasurementFormatter(),
-        date: Date = Date()
-    ) -> MagneticFieldProperty {
-        MagneticFieldProperty(
-            displayName: displayName, value: value, unit: .microTesla, formatter: formatter,
+        .init(
+            id: id,
+            unit: .microTesla,
+            value: value,
             date: date
         )
     }
 
     public static func microTesla(
-        displayName: String,
+        id: PropertyIdentifier,
+        value: Double,
+        date: Date = Date()
+    ) -> MagneticFieldProperty {
+        .init(
+            id: id,
+            value: value,
+            unit: .microTesla,
+            date: date
+        )
+    }
+
+    public static func microTesla(
+        id: PropertyIdentifier,
         value: Double? = nil,
-        formatter: MeasurementFormatter = MeasurementFormatter(),
         date: Date = Date()
     ) -> OptionalMagneticFieldProperty {
-        OptionalMagneticFieldProperty(
-            displayName: displayName, value: value, unit: .microTesla, formatter: formatter,
+        .init(
+            id: id,
+            unit: .microTesla,
+            value: value,
             date: date
         )
     }

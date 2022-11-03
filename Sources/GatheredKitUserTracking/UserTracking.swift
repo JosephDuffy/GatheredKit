@@ -21,7 +21,7 @@ public final class UserTracking: Source {
 
     public let availability: SourceAvailability = .available
 
-    public let name: String
+    public let id: SourceIdentifier
 
     public var eventsPublisher: AnyPublisher<SourceEvent, Never> {
         eventsSubject.eraseToAnyPublisher()
@@ -38,14 +38,14 @@ public final class UserTracking: Source {
 
     public let identifierManager: ASIdentifierManager
 
-    @BasicProperty<ATTrackingManager.AuthorizationStatus>
+    @BasicProperty
     public private(set) var trackingAuthorizationStatus: ATTrackingManager.AuthorizationStatus
 
-    @BasicProperty<UUID>
+    @BasicProperty
     @available(macOS, deprecated, message: "Advertising identifier will be all zeros")
     public private(set) var advertisingIdentifier: UUID
 
-    public var allProperties: [AnyProperty] {
+    public var allProperties: [any Property] {
         [
             $trackingAuthorizationStatus,
             $advertisingIdentifier,
@@ -53,14 +53,14 @@ public final class UserTracking: Source {
     }
 
     public init(identifierManager: ASIdentifierManager = .shared()) {
+        id = SourceIdentifier(sourceKind: .userTracking)
         self.identifierManager = identifierManager
-        name = "User Tracking"
         _trackingAuthorizationStatus = .init(
-            displayName: "Authorisation Status",
+            id: id.identifierForChildPropertyWithId("trackingAuthorizationStatus"),
             value: ATTrackingManager.trackingAuthorizationStatus
         )
         _advertisingIdentifier = .init(
-            displayName: "Advertising Identifier",
+            id: id.identifierForChildPropertyWithId("advertisingIdentifier"),
             value: identifierManager.advertisingIdentifier
         )
     }

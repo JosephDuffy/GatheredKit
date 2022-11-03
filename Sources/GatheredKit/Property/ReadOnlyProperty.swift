@@ -5,8 +5,8 @@ import Foundation
 public final class ReadOnlyProperty<WrappedProperty: Property>: Property {
     public typealias Value = WrappedProperty.Value
 
-    public var displayName: String {
-        wrapped.displayName
+    public var id: PropertyIdentifier {
+        wrapped.id
     }
 
     public var date: Date {
@@ -21,14 +21,6 @@ public final class ReadOnlyProperty<WrappedProperty: Property>: Property {
         wrapped.snapshotsPublisher
     }
 
-    public var typeErasedSnapshotPublisher: AnyPublisher<AnySnapshot, Never> {
-        wrapped.typeErasedSnapshotPublisher
-    }
-
-    public var typeErasedValue: Any? {
-        wrapped.typeErasedValue
-    }
-
     private let wrapped: WrappedProperty
 
     init(_ wrapped: WrappedProperty) {
@@ -41,7 +33,7 @@ public final class ReadOnlyProperty<WrappedProperty: Property>: Property {
 }
 
 extension ReadOnlyProperty: PropertiesProviding where WrappedProperty: PropertiesProviding {
-    public var allProperties: [AnyProperty] {
+    public var allProperties: [any Property] {
         wrapped.allProperties
     }
 }

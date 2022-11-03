@@ -12,7 +12,7 @@ public final class Location: UpdatingSource, Controllable {
 
     public private(set) var availability: SourceAvailability
 
-    public let name = "Location"
+    public let id: SourceIdentifier
 
     public var eventsPublisher: AnyPublisher<SourceEvent, Never> {
         eventsSubject.eraseToAnyPublisher()
@@ -23,19 +23,19 @@ public final class Location: UpdatingSource, Controllable {
     @OptionalCoordinateProperty
     public private(set) var coordinate: CLLocationCoordinate2D?
 
-    @OptionalMeasurementProperty(unit: .metersPerSecond)
+    @OptionalMeasurementProperty
     public private(set) var speed: Measurement<UnitSpeed>?
 
-    @OptionalMeasurementProperty(unit: .degrees)
+    @OptionalMeasurementProperty
     public private(set) var course: Measurement<UnitAngle>?
 
-    @OptionalMeasurementProperty(unit: .meters)
+    @OptionalMeasurementProperty
     public private(set) var altitude: Measurement<UnitLength>?
 
     @OptionalIntProperty
     public private(set) var floor: Int?
 
-    @OptionalMeasurementProperty(unit: .meters)
+    @OptionalMeasurementProperty
     public private(set) var horizontalAccuracy: Measurement<UnitLength>?
 
     @OptionalLengthProperty
@@ -56,7 +56,7 @@ public final class Location: UpdatingSource, Controllable {
       - verticalAccuracy
       - authorisationStatus
      */
-    public var allProperties: [AnyProperty] {
+    public var allProperties: [any Property] {
         [
             $coordinate,
             $speed,
@@ -112,15 +112,20 @@ public final class Location: UpdatingSource, Controllable {
     }
 
     public init() {
+        id = SourceIdentifier(sourceKind: .location)
         let authorizationStatus = CLLocationManager.authorizationStatus()
         availability = SourceAvailability(authorizationStatus: authorizationStatus) ?? .unavailable
 
-        _coordinate = .init(displayName: "Coordinate")
-        _floor = .init(displayName: "Floor")
-        #warning("TODO: Provide a custom formatter for 0 and negate values")
-        _verticalAccuracy = .meters(displayName: "Vertical Accuracy")
+        _coordinate = .init(id: id.identifierForChildPropertyWithId("coordinate"))
+        _speed = .metersPerSecond(id: id.identifierForChildPropertyWithId("speed"))
+        _course = .degrees(id: id.identifierForChildPropertyWithId("course"))
+        _altitude = .meters(id: id.identifierForChildPropertyWithId("altitude"))
+        _floor = .init(id: id.identifierForChildPropertyWithId("floor"))
+        _horizontalAccuracy = .meters(id: id.identifierForChildPropertyWithId("horizontalAccuracy"))
+        _verticalAccuracy = .meters(id: id.identifierForChildPropertyWithId("verticalAccuracy"))
         _authorizationStatus = .init(
-            displayName: "Authorization Status", value: CLLocationManager.authorizationStatus()
+            id: id.identifierForChildPropertyWithId("authorizationStatus"),
+            value: CLLocationManager.authorizationStatus()
         )
     }
 

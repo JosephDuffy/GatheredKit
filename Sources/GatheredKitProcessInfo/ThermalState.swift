@@ -3,9 +3,9 @@ import Foundation
 import GatheredKit
 
 public final class ThermalState: UpdatingSource, Controllable {
-    public let availability: SourceAvailability = .available
+    public let id: SourceIdentifier
 
-    public let name: String
+    public let availability: SourceAvailability = .available
 
     public var eventsPublisher: AnyPublisher<SourceEvent, Never> {
         eventsSubject.eraseToAnyPublisher()
@@ -27,7 +27,7 @@ public final class ThermalState: UpdatingSource, Controllable {
     @ProcessInfoThermalStateProperty
     public private(set) var state: ProcessInfo.ThermalState
 
-    public var allProperties: [AnyProperty] {
+    public var allProperties: [any Property] {
         [
             $state,
         ]
@@ -38,20 +38,16 @@ public final class ThermalState: UpdatingSource, Controllable {
     private var cancellables: Set<AnyCancellable> = []
 
     public init(processInfo: ProcessInfo = .processInfo, notificationCenter: NotificationCenter = .default) {
+        id = SourceIdentifier(
+            sourceKind: .thermalState,
+            instanceIdentifier: "\(processInfo.processIdentifier)",
+            isTransient: true
+        )
         self.processInfo = processInfo
         self.notificationCenter = notificationCenter
         _state = .init(
-            displayName: NSLocalizedString(
-                "source.thermal-state.property.state",
-                bundle: .module,
-                comment: ""
-            ),
+            id: id.identifierForChildPropertyWithId("state"),
             value: processInfo.thermalState
-        )
-        name = NSLocalizedString(
-            "source.thermal-state.name",
-            bundle: .module,
-            comment: ""
         )
     }
 

@@ -11,7 +11,7 @@ public final class Altimeter: UpdatingSource, Controllable {
         case monitoring(updatesQueue: OperationQueue)
     }
 
-    public let name = "Altimeter"
+    public let id: SourceIdentifier
 
     /// Unlike other sources this reflects the _hardware_ availablility, rather
     /// than permissions; even when the user has denied Motion & Fitness
@@ -42,7 +42,7 @@ public final class Altimeter: UpdatingSource, Controllable {
     @OptionalPressureProperty
     public private(set) var pressure: Measurement<UnitPressure>?
 
-    public var allProperties: [AnyProperty] {
+    public var allProperties: [any Property] {
         if #available(iOS 15, watchOS 8, *) {
             return [$relativeAltitude, $absoluteAltitude, $pressure]
         } else {
@@ -64,11 +64,18 @@ public final class Altimeter: UpdatingSource, Controllable {
     }
 
     public init(altimeter: CMAltimeter = CMAltimeter()) {
+        id = SourceIdentifier(sourceKind: .altimeter)
         self.altimeter = altimeter
         availability = CMAltimeter.availability
-        _relativeAltitude = .meters(displayName: "Relative Altitude")
-        _absoluteAltitude = .init(displayName: "Absolute Altitude")
-        _pressure = .kilopascals(displayName: "Pressure")
+        _relativeAltitude = .meters(
+            id: id.identifierForChildPropertyWithId("relativeAltitude")
+        )
+        _absoluteAltitude = .init(
+            id: id.identifierForChildPropertyWithId("absoluteAltitude")
+        )
+        _pressure = .kilopascals(
+            id: id.identifierForChildPropertyWithId("pressure")
+        )
     }
 
     deinit {

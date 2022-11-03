@@ -7,7 +7,7 @@ import WatchKit
 public final class Screen: Source {
     public let availability: SourceAvailability = .available
 
-    public let name = "Screen"
+    public let id: SourceIdentifier
 
     /// The `WKInterfaceDevice` this `Screen` represents. This will always be `WKInterfaceDevice.current()`
     public let device: WKInterfaceDevice
@@ -29,7 +29,7 @@ public final class Screen: Source {
      - Resolution
      - Scale
      */
-    public var allProperties: [AnyProperty] {
+    public var allProperties: [any Property] {
         [
             $resolution,
             $scale,
@@ -50,15 +50,16 @@ public final class Screen: Source {
      */
     internal init(device: WKInterfaceDevice) {
         self.device = device
+        id = SourceIdentifier(sourceKind: .screen)
 
         _resolution = .init(
-            displayName: "Resolution",
+            id: id.identifierForChildPropertyWithId("resolution"),
             value: device.screenBounds.size,
             unit: .points(screenScale: device.screenScale)
         )
 
         _scale = .init(
-            displayName: "Scale",
+            id: id.identifierForChildPropertyWithId("scale"),
             value: device.screenScale
         )
     }

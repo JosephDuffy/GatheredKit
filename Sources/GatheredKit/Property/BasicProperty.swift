@@ -3,6 +3,8 @@ import Foundation
 
 @propertyWrapper
 public final class BasicProperty<Value>: UpdatableProperty {
+    public let id: PropertyIdentifier
+
     public var wrappedValue: Value {
         get {
             value
@@ -17,9 +19,6 @@ public final class BasicProperty<Value>: UpdatableProperty {
     }
 
     // MARK: `Property` Requirements
-
-    /// A human-friendly display name that describes the property.
-    public let displayName: String
 
     /// The latest snapshot of data.
     @Published
@@ -42,22 +41,11 @@ public final class BasicProperty<Value>: UpdatableProperty {
     // MARK: Initialisers
 
     public init(
-        displayName: String,
+        id: PropertyIdentifier,
         value: Value,
         date: Date = Date()
     ) {
-        self.displayName = displayName
-        snapshot = Snapshot(value: value, date: date)
-    }
-
-    @available(*, deprecated, message: "Don't pass formatter")
-    public init<Formatter: Foundation.Formatter>(
-        displayName: String,
-        value: Value,
-        formatter: Formatter,
-        date: Date = Date()
-    ) {
-        self.displayName = displayName
+        self.id = id
         snapshot = Snapshot(value: value, date: date)
     }
 
@@ -85,26 +73,16 @@ extension BasicProperty: Equatable where Value: Equatable {
     public static func == (
         lhs: BasicProperty<Value>, rhs: BasicProperty<Value>
     ) -> Bool {
-        lhs.displayName == rhs.displayName && lhs.snapshot == rhs.snapshot
+        lhs.id == rhs.id && lhs.snapshot == rhs.snapshot
     }
 }
 
 extension BasicProperty where Value: ExpressibleByNilLiteral {
     public convenience init(
-        displayName: String,
+        id: PropertyIdentifier,
         optionalValue: Value = nil,
         date: Date = Date()
     ) {
-        self.init(displayName: displayName, value: optionalValue, date: date)
-    }
-
-    @available(*, deprecated, message: "Don't pass formatter")
-    public convenience init(
-        displayName: String,
-        optionalValue: Value = nil,
-        formatter: Formatter,
-        date: Date = Date()
-    ) {
-        self.init(displayName: displayName, value: optionalValue, date: date)
+        self.init(id: id, value: optionalValue, date: date)
     }
 }

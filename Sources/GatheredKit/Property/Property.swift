@@ -1,9 +1,12 @@
 import Combine
 import Foundation
 
-public protocol Property<Value>: AnyProperty {
+public protocol Property<Value>: AnyObject, AnySnapshot {
     associatedtype Value
 
+    var id: PropertyIdentifier { get }
+    var error: Error? { get }
+    var errorsPublisher: AnyPublisher<Error?, Never> { get }
     var snapshot: Snapshot<Value> { get }
     var value: Value { get }
     /// An asynchronous stream of snapshots, starting with the current snapshot.
@@ -21,6 +24,14 @@ extension Property {
     /// The date of the latest value.
     public var date: Date {
         snapshot.date
+    }
+
+    public var error: Error? {
+        nil
+    }
+
+    public var errorsPublisher: AnyPublisher<Error?, Never> {
+        Just(nil).eraseToAnyPublisher()
     }
 
     public var snapshots: AsyncStream<Snapshot<Value>> {

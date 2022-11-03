@@ -3,10 +3,10 @@ import Foundation
 /// A snapshot of data.
 public struct Snapshot<Value>: AnySnapshot {
     /// The value captured at `date`.
-    public let value: Value
+    public var value: Value
 
     /// The point in time the data was captured.
-    public let date: Date
+    public var date: Date
 
     /// The data that was captured, erased as `Any`.
     public var typeErasedValue: Any? {
@@ -20,6 +20,11 @@ public struct Snapshot<Value>: AnySnapshot {
      - parameter date: The point in time the value was captured.
      */
     public init(value: Value, date: Date) {
+        self.value = value
+        self.date = date
+    }
+
+    public mutating func updateValue(_ value: Value, date: Date = Date()) {
         self.value = value
         self.date = date
     }

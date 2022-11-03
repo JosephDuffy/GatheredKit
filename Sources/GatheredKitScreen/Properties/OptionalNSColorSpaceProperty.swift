@@ -6,13 +6,14 @@ import GatheredKit
 @propertyWrapper
 public final class OptionalNSColorSpaceProperty: UpdatableProperty, PropertiesProviding {
     public typealias Value = NSColorSpace?
-    public typealias Formatter = NSColorSpaceFormatter
 
-    public var allProperties: [AnyProperty] {
+    public let id: PropertyIdentifier
+
+    public var allProperties: [any Property] {
         [$model]
     }
 
-    @OptionalNSColorSpaceModelProperty
+    @BasicProperty
     public private(set) var model: NSColorSpace.Model?
 
     // MARK: Property Wrapper Properties
@@ -30,18 +31,8 @@ public final class OptionalNSColorSpaceProperty: UpdatableProperty, PropertiesPr
         asReadOnlyProperty
     }
 
-    // MARK: `Property` Requirements
-
-    /// A human-friendly display name that describes the property.
-    public let displayName: String
-
-    /// The latest snapshot of data.
     @Published
     public internal(set) var snapshot: Snapshot<Value>
-
-    /// A formatter that can be used to build a human-friendly string from the
-    /// value.
-    public let formatter: NSColorSpaceFormatter
 
     public var snapshotsPublisher: AnyPublisher<Snapshot<Value>, Never> {
         $snapshot.eraseToAnyPublisher()
@@ -50,16 +41,17 @@ public final class OptionalNSColorSpaceProperty: UpdatableProperty, PropertiesPr
     // MARK: Initialisers
 
     public required init(
-        displayName: String,
+        id: PropertyIdentifier,
         value: NSColorSpace?,
-        formatter: NSColorSpaceFormatter = NSColorSpaceFormatter(),
         date: Date = Date()
     ) {
-        self.displayName = displayName
-        self.formatter = formatter
+        self.id = id
         snapshot = Snapshot(value: value, date: date)
 
-        _model = .init(displayName: "Model", value: value?.colorSpaceModel)
+        _model = .init(
+            id: id.childIdentifierForPropertyId("model"),
+            value: value?.colorSpaceModel
+        )
     }
 
     @discardableResult

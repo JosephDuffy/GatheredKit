@@ -1,5 +1,6 @@
 #if os(iOS) || os(watchOS)
 import CoreMotion
+import GatheredKit
 import GatheredKitMotion
 import XCTest
 
@@ -17,7 +18,15 @@ final class CMRotationMatrixPropertyTests: XCTestCase {
             m33: 33
         )
         let property = CMRotationMatrixProperty(
-            displayName: "Rotation Matrix",
+            id: PropertyIdentifier(
+                parent: .source(
+                    SourceIdentifier(
+                        namespace: "GatheredKitMotionTests",
+                        sourceKind: "Mock"
+                    )
+                ),
+                id: "test"
+            ),
             value: rotationMatrix
         )
         XCTAssertNotNil(property.formattedValue)

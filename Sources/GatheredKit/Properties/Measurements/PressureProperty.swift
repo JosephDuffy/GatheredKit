@@ -3,51 +3,57 @@ import Foundation
 public typealias PressureProperty = MeasurementProperty<UnitPressure>
 public typealias OptionalPressureProperty = OptionalMeasurementProperty<UnitPressure>
 
-extension AnyProperty {
+extension Property {
     public static func pressure(
-        displayName: String,
+        id: PropertyIdentifier,
         value: Double,
         unit: UnitPressure,
-        formatter: MeasurementFormatter = MeasurementFormatter(),
         date: Date = Date()
     ) -> PressureProperty {
         .init(
-            displayName: displayName, value: value, unit: unit, formatter: formatter, date: date
+            id: id,
+            value: value,
+            unit: unit,
+            date: date
         )
     }
 
     public static func pressure(
-        displayName: String,
+        id: PropertyIdentifier,
         value: Double? = nil,
         unit: UnitPressure,
-        formatter: MeasurementFormatter = MeasurementFormatter(),
         date: Date = Date()
     ) -> OptionalPressureProperty {
         .init(
-            displayName: displayName, value: value, unit: unit, formatter: formatter, date: date
-        )
-    }
-
-    public static func kilopascals(
-        displayName: String,
-        value: Double,
-        formatter: MeasurementFormatter = MeasurementFormatter(),
-        date: Date = Date()
-    ) -> PressureProperty {
-        .init(
-            displayName: displayName, value: value, unit: .kilopascals, formatter: formatter,
+            id: id,
+            unit: unit,
+            value: value,
             date: date
         )
     }
 
     public static func kilopascals(
-        displayName: String,
+        id: PropertyIdentifier,
+        value: Double,
+        date: Date = Date()
+    ) -> PressureProperty {
+        .init(
+            id: id,
+            value: value,
+            unit: .kilopascals,
+            date: date
+        )
+    }
+
+    public static func kilopascals(
+        id: PropertyIdentifier,
         value: Double? = nil,
-        formatter: MeasurementFormatter = MeasurementFormatter(),
         date: Date = Date()
     ) -> OptionalPressureProperty {
         .init(
-            displayName: displayName, value: value, unit: .kilopascals, formatter: formatter,
+            id: id,
+            unit: .kilopascals,
+            value: value,
             date: date
         )
     }

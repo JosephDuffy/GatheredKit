@@ -6,7 +6,7 @@ import GatheredKit
 @available(tvOS, unavailable)
 @available(watchOS, unavailable)
 public final class CameraProvider: SourceProvider {
-    public let name = "Cameras"
+    public let id: SourceProviderIdentifier
 
     @Published
     public private(set) var sources: [Camera]
@@ -43,6 +43,7 @@ public final class CameraProvider: SourceProvider {
     #endif
 
     private init(_deviceTypes deviceTypes: [AVCaptureDevice.DeviceType], _positions positions: [AVCaptureDevice.Position]) {
+        id = SourceProviderIdentifier(sourceKind: .camera)
         let captureDevices: [AVCaptureDevice] = positions.flatMap { position -> [AVCaptureDevice] in
             let discoverySession = AVCaptureDevice.DiscoverySession(
                 deviceTypes: deviceTypes,

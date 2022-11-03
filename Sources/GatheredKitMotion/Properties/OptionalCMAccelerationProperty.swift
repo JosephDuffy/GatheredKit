@@ -8,9 +8,10 @@ import GatheredKit
 @propertyWrapper
 public final class OptionalCMAccelerationProperty: UpdatableProperty, PropertiesProviding {
     public typealias Value = CMAcceleration?
-    public typealias Formatter = CMAccelerationFormatter
 
-    public var allProperties: [AnyProperty] {
+    public let id: PropertyIdentifier
+
+    public var allProperties: [any Property] {
         [$x, $y, $z]
     }
 
@@ -38,18 +39,8 @@ public final class OptionalCMAccelerationProperty: UpdatableProperty, Properties
         asReadOnlyProperty
     }
 
-    // MARK: `Property` Requirements
-
-    /// A human-friendly display name that describes the property.
-    public let displayName: String
-
-    /// The latest snapshot of data.
     @Published
     public internal(set) var snapshot: Snapshot<Value>
-
-    /// A formatter that can be used to build a human-friendly string from the
-    /// value.
-    public let formatter: Formatter
 
     public var snapshotsPublisher: AnyPublisher<Snapshot<Value>, Never> {
         $snapshot.eraseToAnyPublisher()
@@ -58,16 +49,28 @@ public final class OptionalCMAccelerationProperty: UpdatableProperty, Properties
     // MARK: Initialisers
 
     public required init(
-        displayName: String, value: Value = nil, formatter: Formatter = Formatter(),
+        id: PropertyIdentifier,
+        value: Value = nil,
         date: Date = Date()
     ) {
-        self.displayName = displayName
-        self.formatter = formatter
+        self.id = id
         snapshot = Snapshot(value: value, date: date)
 
-        _x = .gravity(displayName: "x", value: value?.x, date: date)
-        _y = .gravity(displayName: "y", value: value?.y, date: date)
-        _z = .gravity(displayName: "z", value: value?.z, date: date)
+        _x = .gravity(
+            id: id.childIdentifierForPropertyId("x"),
+            value: value?.x,
+            date: date
+        )
+        _y = .gravity(
+            id: id.childIdentifierForPropertyId("y"),
+            value: value?.y,
+            date: date
+        )
+        _z = .gravity(
+            id: id.childIdentifierForPropertyId("z"),
+            value: value?.z,
+            date: date
+        )
     }
 
     @discardableResult

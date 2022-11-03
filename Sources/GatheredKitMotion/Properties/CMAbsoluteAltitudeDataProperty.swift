@@ -8,9 +8,10 @@ import GatheredKit
 @propertyWrapper
 public final class CMAbsoluteAltitudeDataProperty: UpdatableProperty, PropertiesProviding {
     public typealias Value = CMAbsoluteAltitudeDataShim
-    public typealias Formatter = CMAccelerationFormatter
 
-    public var allProperties: [AnyProperty] {
+    public let id: PropertyIdentifier
+
+    public var allProperties: [any Property] {
         [$altitude, $accuracy, $precision]
     }
 
@@ -38,18 +39,8 @@ public final class CMAbsoluteAltitudeDataProperty: UpdatableProperty, Properties
         asReadOnlyProperty
     }
 
-    // MARK: `Property` Requirements
-
-    /// A human-friendly display name that describes the property.
-    public let displayName: String
-
-    /// The latest snapshot of data.
     @Published
     public internal(set) var snapshot: Snapshot<Value>
-
-    /// A formatter that can be used to build a human-friendly string from the
-    /// value.
-    public let formatter: Formatter
 
     public var snapshotsPublisher: AnyPublisher<Snapshot<Value>, Never> {
         $snapshot.eraseToAnyPublisher()
@@ -58,15 +49,28 @@ public final class CMAbsoluteAltitudeDataProperty: UpdatableProperty, Properties
     // MARK: Initialisers
 
     public required init(
-        displayName: String, value: Value, formatter: Formatter = Formatter(), date: Date = Date()
+        id: PropertyIdentifier,
+        value: Value,
+        date: Date = Date()
     ) {
-        self.displayName = displayName
-        self.formatter = formatter
+        self.id = id
         snapshot = Snapshot(value: value, date: date)
 
-        _altitude = .length(displayName: "Altitude", value: value.altitude, unit: .meters)
-        _accuracy = .length(displayName: "Accuracy", value: value.accuracy, unit: .meters)
-        _precision = .length(displayName: "Precision", value: value.precision, unit: .meters)
+        _altitude = .meters(
+            id: id.childIdentifierForPropertyId("altitude"),
+            value: value.altitude,
+            date: date
+        )
+        _accuracy = .meters(
+            id: id.childIdentifierForPropertyId("accuracy"),
+            value: value.accuracy,
+            date: date
+        )
+        _precision = .meters(
+            id: id.childIdentifierForPropertyId("precision"),
+            value: value.precision,
+            date: date
+        )
     }
 
     @discardableResult

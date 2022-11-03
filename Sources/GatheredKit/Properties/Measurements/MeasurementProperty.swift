@@ -6,8 +6,10 @@ public final class MeasurementProperty<Unit: Foundation.Unit>: UpdatableProperty
     public typealias Value = Measurement<Unit>
 
     public static func == (lhs: MeasurementProperty<Unit>, rhs: MeasurementProperty<Unit>) -> Bool {
-        lhs.displayName == rhs.displayName && lhs.snapshot == rhs.snapshot
+        lhs.id == rhs.id && lhs.snapshot == rhs.snapshot
     }
+
+    public let id: PropertyIdentifier
 
     public var wrappedValue: Value {
         get {
@@ -22,18 +24,8 @@ public final class MeasurementProperty<Unit: Foundation.Unit>: UpdatableProperty
         asReadOnlyProperty
     }
 
-    // MARK: `Property` Requirements
-
-    /// The latest snapshot of data.
     @Published
     public internal(set) var snapshot: Snapshot<Value>
-
-    /// A human-friendly display name that describes the property.
-    public let displayName: String
-
-    /// A formatter that can be used to build a human-friendly string from the
-    /// value.
-    public let formatter: MeasurementFormatter
 
     public var snapshotsPublisher: AnyPublisher<Snapshot<Value>, Never> {
         $snapshot.eraseToAnyPublisher()
@@ -56,26 +48,25 @@ public final class MeasurementProperty<Unit: Foundation.Unit>: UpdatableProperty
     // MARK: Initialisers
 
     public init(
-        displayName: String,
+        id: PropertyIdentifier,
         measurement: Measurement<Unit>,
-        formatter: MeasurementFormatter = MeasurementFormatter(),
         date: Date = Date()
     ) {
-        self.displayName = displayName
-        self.formatter = formatter
+        self.id = id
         snapshot = Snapshot(value: measurement, date: date)
     }
 
     public convenience init(
-        displayName: String,
+        id: PropertyIdentifier,
         value: Double,
         unit: Unit,
-        formatter: MeasurementFormatter = MeasurementFormatter(),
         date: Date = Date()
     ) {
         let measurement = Measurement(value: value, unit: unit)
         self.init(
-            displayName: displayName, measurement: measurement, formatter: formatter, date: date
+            id: id,
+            measurement: measurement,
+            date: date
         )
     }
 

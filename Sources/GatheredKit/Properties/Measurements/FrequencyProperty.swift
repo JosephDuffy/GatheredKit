@@ -3,51 +3,57 @@ import Foundation
 public typealias FrequencyProperty = MeasurementProperty<UnitFrequency>
 public typealias OptionalFrequencyProperty = OptionalMeasurementProperty<UnitFrequency>
 
-extension AnyProperty {
+extension Property {
     public static func frequency(
-        displayName: String,
+        id: PropertyIdentifier,
         value: Double,
         unit: UnitFrequency,
-        formatter: MeasurementFormatter = MeasurementFormatter(),
         date: Date = Date()
     ) -> FrequencyProperty {
         .init(
-            displayName: displayName, value: value, unit: unit, formatter: formatter, date: date
+            id: id,
+            value: value,
+            unit: unit,
+            date: date
         )
     }
 
     public static func frequency(
-        displayName: String,
+        id: PropertyIdentifier,
         value: Double? = nil,
         unit: UnitFrequency,
-        formatter: MeasurementFormatter = MeasurementFormatter(),
         date: Date = Date()
     ) -> OptionalFrequencyProperty {
         .init(
-            displayName: displayName, value: value, unit: unit, formatter: formatter, date: date
-        )
-    }
-
-    public static func radiansPerSecond(
-        displayName: String,
-        value: Double,
-        formatter: MeasurementFormatter = MeasurementFormatter(),
-        date: Date = Date()
-    ) -> FrequencyProperty {
-        .init(
-            displayName: displayName, value: value, unit: .radiansPerSecond, formatter: formatter,
+            id: id,
+            unit: unit,
+            value: value,
             date: date
         )
     }
 
     public static func radiansPerSecond(
-        displayName: String,
+        id: PropertyIdentifier,
+        value: Double,
+        date: Date = Date()
+    ) -> FrequencyProperty {
+        .init(
+            id: id,
+            value: value,
+            unit: .radiansPerSecond,
+            date: date
+        )
+    }
+
+    public static func radiansPerSecond(
+        id: PropertyIdentifier,
         value: Double? = nil,
-        formatter: MeasurementFormatter = MeasurementFormatter(),
         date: Date = Date()
     ) -> OptionalFrequencyProperty {
         .init(
-            displayName: displayName, value: value, unit: .radiansPerSecond, formatter: formatter,
+            id: id,
+            unit: .radiansPerSecond,
+            value: value,
             date: date
         )
     }

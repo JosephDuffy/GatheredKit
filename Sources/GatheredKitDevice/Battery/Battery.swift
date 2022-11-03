@@ -12,7 +12,7 @@ public final class Battery: UpdatingSource, Controllable {
 
     public let availability: SourceAvailability = .available
 
-    public let name: String
+    public let id: SourceIdentifier
 
     public var eventsPublisher: AnyPublisher<SourceEvent, Never> {
         eventsSubject.eraseToAnyPublisher()
@@ -38,16 +38,16 @@ public final class Battery: UpdatingSource, Controllable {
     ///
     /// This property will update automatically no more frequently than once per
     /// minute.
-    @BasicProperty<Float>
+    @BasicProperty
     public private(set) var level: Float
 
-    @BatteryStateProperty
+    @BasicProperty
     public private(set) var state: UIDevice.BatteryState
 
-    @BoolProperty
+    @BasicProperty
     public private(set) var isLowPowerModeEnabled: Bool
 
-    public var allProperties: [AnyProperty] {
+    public var allProperties: [any Property] {
         [
             $level,
             $state,
@@ -73,22 +73,21 @@ public final class Battery: UpdatingSource, Controllable {
     }
 
     internal init(device: UIDevice, processInfo: ProcessInfo, notificationCenter: NotificationCenter) {
+        id = SourceIdentifier(sourceKind: .battery)
         self.device = device
         self.processInfo = processInfo
         self.notificationCenter = notificationCenter
-        name = "Battery"
         _level = .init(
-            displayName: "Level",
+            id: id.identifierForChildPropertyWithId("level"),
             value: device.batteryLevel
         )
         _state = .init(
-            displayName: "State",
+            id: id.identifierForChildPropertyWithId("state"),
             value: device.batteryState
         )
         _isLowPowerModeEnabled = .init(
-            displayName: "Low Power Mode",
-            value: processInfo.isLowPowerModeEnabled,
-            formatter: BoolFormatter(trueString: "Enabled", falseString: "Disabled")
+            id: id.identifierForChildPropertyWithId("isLowPowerModeEnabled"),
+            value: processInfo.isLowPowerModeEnabled
         )
     }
 

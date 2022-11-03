@@ -8,5 +8,5 @@ public protocol ManuallyUpdatablePropertiesProvider: PropertiesProviding {
 
      - Returns: The properties after the update.
      */
-    func updateValues() -> [AnyProperty]
+    func updateValues() -> [any Property]
 }

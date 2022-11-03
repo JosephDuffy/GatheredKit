@@ -7,10 +7,9 @@ import GatheredKit
 @available(macOS, unavailable)
 @propertyWrapper
 public final class OptionalCMMagneticFieldProperty: UpdatableProperty, PropertiesProviding {
-    public typealias Value = CMMagneticField?
-    public typealias Formatter = CMMagneticFieldFormatter
+    public let id: PropertyIdentifier
 
-    public var allProperties: [AnyProperty] {
+    public var allProperties: [any Property] {
         [$x, $y, $z]
     }
 
@@ -25,7 +24,7 @@ public final class OptionalCMMagneticFieldProperty: UpdatableProperty, Propertie
 
     // MARK: Property Wrapper Properties
 
-    public var wrappedValue: Value {
+    public var wrappedValue: CMMagneticField? {
         get {
             value
         }
@@ -38,40 +37,42 @@ public final class OptionalCMMagneticFieldProperty: UpdatableProperty, Propertie
         asReadOnlyProperty
     }
 
-    // MARK: `Property` Requirements
-
-    /// A human-friendly display name that describes the property.
-    public let displayName: String
-
-    /// The latest snapshot of data.
     @Published
-    public internal(set) var snapshot: Snapshot<Value>
+    public internal(set) var snapshot: Snapshot<CMMagneticField?>
 
-    /// A formatter that can be used to build a human-friendly string from the
-    /// value.
-    public let formatter: Formatter
-
-    public var snapshotsPublisher: AnyPublisher<Snapshot<Value>, Never> {
+    public var snapshotsPublisher: AnyPublisher<Snapshot<CMMagneticField?>, Never> {
         $snapshot.eraseToAnyPublisher()
     }
 
     // MARK: Initialisers
 
     public required init(
-        displayName: String, value: Value = nil, formatter: Formatter = Formatter(),
+        id: PropertyIdentifier,
+        value: CMMagneticField? = nil,
         date: Date = Date()
     ) {
-        self.displayName = displayName
-        self.formatter = formatter
+        self.id = id
         snapshot = Snapshot(value: value, date: date)
 
-        _x = .microTesla(displayName: "x", value: value?.x, date: date)
-        _y = .microTesla(displayName: "y", value: value?.y, date: date)
-        _z = .microTesla(displayName: "z", value: value?.z, date: date)
+        _x = .microTesla(
+            id: id.childIdentifierForPropertyId("x"),
+            value: value?.x,
+            date: date
+        )
+        _y = .microTesla(
+            id: id.childIdentifierForPropertyId("y"),
+            value: value?.y,
+            date: date
+        )
+        _z = .microTesla(
+            id: id.childIdentifierForPropertyId("z"),
+            value: value?.z,
+            date: date
+        )
     }
 
     @discardableResult
-    public func updateValue(_ value: Value, date: Date) -> Snapshot<Value> {
+    public func updateValue(_ value: CMMagneticField?, date: Date) -> Snapshot<Value> {
         _x.updateMeasuredValue(value?.x, date: date)
         _y.updateMeasuredValue(value?.y, date: date)
         _z.updateMeasuredValue(value?.z, date: date)

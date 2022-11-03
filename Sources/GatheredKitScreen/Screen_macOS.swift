@@ -17,9 +17,9 @@ public final class Screen: UpdatingSource, Controllable {
         NSScreen.main.map { Screen(screen: $0) }
     }
 
-    public let availability: SourceAvailability = .available
+    public let id: SourceIdentifier
 
-    public let name = "Screen"
+    public let availability: SourceAvailability = .available
 
     public var eventsPublisher: AnyPublisher<SourceEvent, Never> {
         eventsSubject.eraseToAnyPublisher()
@@ -53,7 +53,7 @@ public final class Screen: UpdatingSource, Controllable {
      An array of the screen's properties, in the following order:
      - Resolution
      */
-    public var allProperties: [AnyProperty] {
+    public var allProperties: [any Property] {
         [
             $resolution,
             $colorSpace,
@@ -91,15 +91,37 @@ public final class Screen: UpdatingSource, Controllable {
      - Parameter notificationCenter: The notification center to listen to notifications from.
      */
     internal init(screen: NSScreen, notificationCenter: NotificationCenter = .default) {
+        let screenNumberKey = NSDeviceDescriptionKey("NSScreenNumber")
+        if
+            let displayId = screen.deviceDescription[screenNumberKey] as? UInt32,
+            let displayUUID = CGDisplayCreateUUIDFromDisplayID(displayId)?.takeRetainedValue()
+        {
+            let uuidString = String(CFUUIDCreateString(nil, displayUUID))
+            id = SourceIdentifier(
+                sourceKind: .screen,
+                instanceIdentifier: uuidString,
+                isTransient: false
+            )
+        } else {
+            id = SourceIdentifier(
+                sourceKind: .screen,
+                instanceIdentifier: "",
+                isTransient: true
+            )
+        }
+
         nsScreen = screen
         self.notificationCenter = notificationCenter
 
         _resolution = .init(
-            displayName: "Resolution",
+            id: id.identifierForChildPropertyWithId("resolution"),
             value: screen.frame.size,
             unit: .pixels
         )
-        _colorSpace = .init(displayName: "Colour Space", value: screen.colorSpace)
+        _colorSpace = .init(
+            id: id.identifierForChildPropertyWithId("colourSpace"),
+            value: screen.colorSpace
+        )
     }
 
     deinit {

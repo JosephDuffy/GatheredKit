@@ -6,13 +6,14 @@ import GatheredKit
 
 @available(macOS, unavailable)
 @propertyWrapper
-public final class OptionalCMRotationMatrixProperty: UpdatableProperty, PropertiesProviding {
+public final class OptionalCMRotationMatrixProperty: UpdatableProperty, PropertiesProviding, Identifiable {
     public typealias Value = CMRotationMatrix?
-    public typealias Formatter = CMRotationMatrixFormatter
+
+    public let id: PropertyIdentifier
 
     // MARK: `CMRotationMatrix` Properties
 
-    public var allProperties: [AnyProperty] {
+    public var allProperties: [any Property] {
         [$m11, $m12, $m13, $m21, $m22, $m23, $m31, $m32, $m33]
     }
 
@@ -60,16 +61,9 @@ public final class OptionalCMRotationMatrixProperty: UpdatableProperty, Properti
 
     // MARK: `Property` Requirements
 
-    /// A human-friendly display name that describes the property.
-    public let displayName: String
-
     /// The latest snapshot of data.
     @Published
     public internal(set) var snapshot: Snapshot<Value>
-
-    /// A formatter that can be used to build a human-friendly string from the
-    /// value.
-    public let formatter: CMRotationMatrixFormatter
 
     public var snapshotsPublisher: AnyPublisher<Snapshot<Value>, Never> {
         $snapshot.eraseToAnyPublisher()
@@ -78,24 +72,58 @@ public final class OptionalCMRotationMatrixProperty: UpdatableProperty, Properti
     // MARK: Initialisers
 
     public init(
-        displayName: String,
+        id: PropertyIdentifier,
         value: CMRotationMatrix? = nil,
-        formatter: CMRotationMatrixFormatter = CMRotationMatrixFormatter(),
         date: Date = Date()
     ) {
-        self.displayName = displayName
-        self.formatter = formatter
+        self.id = id
         snapshot = Snapshot(value: value, date: date)
 
-        _m11 = .init(displayName: "m11", value: value?.m11, date: date)
-        _m12 = .init(displayName: "m12", value: value?.m12, date: date)
-        _m13 = .init(displayName: "m13", value: value?.m13, date: date)
-        _m21 = .init(displayName: "m21", value: value?.m21, date: date)
-        _m22 = .init(displayName: "m22", value: value?.m22, date: date)
-        _m23 = .init(displayName: "m23", value: value?.m23, date: date)
-        _m31 = .init(displayName: "m31", value: value?.m31, date: date)
-        _m32 = .init(displayName: "m32", value: value?.m32, date: date)
-        _m33 = .init(displayName: "m33", value: value?.m33, date: date)
+        _m11 = .init(
+            id: id.childIdentifierForPropertyId("m11"),
+            value: value?.m11,
+            date: date
+        )
+        _m12 = .init(
+            id: id.childIdentifierForPropertyId("m12"),
+            value: value?.m12,
+            date: date
+        )
+        _m13 = .init(
+            id: id.childIdentifierForPropertyId("m13"),
+            value: value?.m13,
+            date: date
+        )
+        _m21 = .init(
+            id: id.childIdentifierForPropertyId("m21"),
+            value: value?.m21,
+            date: date
+        )
+        _m22 = .init(
+            id: id.childIdentifierForPropertyId("m22"),
+            value: value?.m22,
+            date: date
+        )
+        _m23 = .init(
+            id: id.childIdentifierForPropertyId("m23"),
+            value: value?.m23,
+            date: date
+        )
+        _m31 = .init(
+            id: id.childIdentifierForPropertyId("m31"),
+            value: value?.m31,
+            date: date
+        )
+        _m32 = .init(
+            id: id.childIdentifierForPropertyId("m32"),
+            value: value?.m32,
+            date: date
+        )
+        _m33 = .init(
+            id: id.childIdentifierForPropertyId("m33"),
+            value: value?.m33,
+            date: date
+        )
     }
 
     // MARK: Update Functions
