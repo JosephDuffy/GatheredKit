@@ -274,7 +274,7 @@ public final class Location: UpdatingSource, Controllable {
 
             _coordinate.updateValue(location.coordinate, date: timestamp)
             _speed.updateMeasuredValue(location.speed, date: timestamp)
-            _course.updateMeasuredValue(location.speed, date: timestamp)
+            _course.updateMeasuredValue(location.course, date: timestamp)
             _altitude.updateMeasuredValue(location.altitude, date: timestamp)
 
             switch state {
