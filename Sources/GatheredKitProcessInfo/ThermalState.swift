@@ -38,11 +38,7 @@ public final class ThermalState: UpdatingSource, Controllable {
     private var cancellables: Set<AnyCancellable> = []
 
     public init(processInfo: ProcessInfo = .processInfo, notificationCenter: NotificationCenter = .default) {
-        id = SourceIdentifier(
-            sourceKind: .thermalState,
-            instanceIdentifier: "\(processInfo.processIdentifier)",
-            isTransient: true
-        )
+        id = SourceIdentifier(sourceKind: .thermalState)
         self.processInfo = processInfo
         self.notificationCenter = notificationCenter
         _state = .init(
