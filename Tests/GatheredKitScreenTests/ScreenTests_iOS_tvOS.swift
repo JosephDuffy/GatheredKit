@@ -154,72 +154,53 @@ final class ScreenTests: XCTestCase {
         let notificationCenter = NotificationCenter()
         let screen = Screen(screen: uiScreen, notificationCenter: notificationCenter)
 
-        let reportedResolutionExpectation = XCTestExpectation(
-            description: "Subscriber should be called with updated reported resolution")
-        reportedResolutionExpectation.expectedFulfillmentCount = 2
-        reportedResolutionExpectation.assertForOverFulfill = true
-        let reportedResolutionCancellable = screen.$reportedResolution.snapshotsPublisher.sink { reportedResolution in
-            reportedResolutionExpectation.fulfill()
+        screen.startUpdating()
+
+        let reportedResolutionExpectation = expectation(
+            description: "Subscriber should be called with updated reported resolution"
+        )
+        let reportedResolutionCancellable = screen.$reportedResolution.snapshotsPublisher.dropFirst().sink { reportedResolution in
             XCTAssertEqual(reportedResolution.value as? CGSize, uiScreen.bounds.size)
+            reportedResolutionExpectation.fulfill()
         }
 
-        let nativeResolutionExpectation = XCTestExpectation(
-            description: "Subscriber should be called with updated native resolution")
-        nativeResolutionExpectation.expectedFulfillmentCount = 2
-        nativeResolutionExpectation.assertForOverFulfill = true
-        let nativeResolutionCancellable = screen.$nativeResolution.snapshotsPublisher.sink {
-            nativeResolution in
-            nativeResolutionExpectation.fulfill()
+        let nativeResolutionExpectation = expectation(
+            description: "Subscriber should be called with updated native resolution"
+        )
+        let nativeResolutionCancellable = screen.$nativeResolution.snapshotsPublisher.dropFirst().sink { nativeResolution in
             #warning("TODO: Check why this needs casting and e.g. scale does not")
             XCTAssertEqual(nativeResolution.value as? CGSize, uiScreen.nativeBounds.size)
+            nativeResolutionExpectation.fulfill()
         }
 
-        let reportedScaleExpectation = XCTestExpectation(
-            description: "Subscriber should be called with updated reported scale")
-        reportedScaleExpectation.expectedFulfillmentCount = 2
-        reportedScaleExpectation.assertForOverFulfill = true
-        let reportedScaleCancellable = screen.$reportedScale.snapshotsPublisher.sink {
-            reportedScale in
-            reportedScaleExpectation.fulfill()
+        let reportedScaleExpectation = expectation(
+            description: "Subscriber should be called with updated reported scale"
+        )
+        let reportedScaleCancellable = screen.$reportedScale.snapshotsPublisher.dropFirst().sink { reportedScale in
             XCTAssertEqual(reportedScale.value, uiScreen.scale)
+            reportedScaleExpectation.fulfill()
         }
 
-        let nativeScaleExpectation = XCTestExpectation(
-            description: "Subscriber should be called with updated native scale")
-        nativeScaleExpectation.expectedFulfillmentCount = 2
-        nativeScaleExpectation.assertForOverFulfill = true
-        let nativeScaleCancellable = screen.$nativeScale.snapshotsPublisher.sink {
-            nativeScale in
-            nativeScaleExpectation.fulfill()
+        let nativeScaleExpectation = expectation(
+            description: "Subscriber should be called with updated native scale"
+        )
+        let nativeScaleCancellable = screen.$nativeScale.snapshotsPublisher.dropFirst().sink { nativeScale in
             XCTAssertEqual(nativeScale.value, uiScreen.nativeScale)
+            nativeScaleExpectation.fulfill()
         }
-
-        screen.startUpdating()
 
         uiScreen.bounds.size = CGSize(width: 3008, height: 1692)
         uiScreen.nativeBounds.size = CGSize(width: 6016, height: 3384)
         uiScreen.scale = 2
         uiScreen.nativeScale = 2
         notificationCenter.post(name: UIScreen.modeDidChangeNotification, object: uiScreen)
-        XCTAssertEqual(screen.reportedResolution, uiScreen.bounds.size)
-        XCTAssertEqual(screen.nativeResolution, uiScreen.nativeBounds.size)
-        XCTAssertEqual(screen.reportedScale, uiScreen.scale)
-        XCTAssertEqual(screen.nativeScale, uiScreen.nativeScale)
 
-        reportedResolutionCancellable.cancel()
-        nativeResolutionCancellable.cancel()
-        reportedScaleCancellable.cancel()
-        nativeScaleCancellable.cancel()
+        waitForExpectations(timeout: 1)
 
-        wait(
-            for: [
-                reportedResolutionExpectation,
-                nativeResolutionExpectation,
-                reportedScaleExpectation,
-                nativeScaleExpectation,
-            ],
-            timeout: 0.01
-        )
+        _ = reportedResolutionCancellable
+        _ = nativeResolutionCancellable
+        _ = reportedScaleCancellable
+        _ = nativeScaleCancellable
     }
 
     #if os(iOS)
