@@ -42,6 +42,16 @@ public struct SourceIdentifier: Codable, Hashable, LosslessStringConvertible, Se
         }
     }
 
+    /// The character used to separate the namespace and the source kind.
+    public static let namespaceSuffix: Character = "."
+
+    /// The character used to separate the device identifier and the source
+    /// identifier.
+    public static let deviceIdentifierPrefix: Character = "@"
+
+    /// The character used to separate the source kind and the instance identifier.
+    public static let instanceIdentifierPrefix: Character = "|"
+
     public let namespace: String
 
     public let sourceKind: SourceKind
@@ -61,7 +71,7 @@ public struct SourceIdentifier: Codable, Hashable, LosslessStringConvertible, Se
 
     /// The string representation in the form:
     ///
-    /// <namespace>.<source-provider-identifier>[/<instance-identifier>]
+    /// <namespace>.<source-kind>[|<instance-identifier>][@<device-identifier>]
     public let description: String
 
     public init(
@@ -75,14 +85,18 @@ public struct SourceIdentifier: Codable, Hashable, LosslessStringConvertible, Se
         self.instanceIdentifier = instanceIdentifier
         self.deviceIdentifier = deviceIdentifier
 
-        var description = namespace + "." + sourceKind.rawValue
+        var description = namespace
+            + String(Self.namespaceSuffix)
+            + sourceKind.rawValue
 
         if let instanceIdentifier = instanceIdentifier {
-            description += "/" + String(describing: instanceIdentifier)
+            description += String(Self.instanceIdentifierPrefix)
+                + String(describing: instanceIdentifier)
         }
 
         if let deviceIdentifier {
-            description += "@" + deviceIdentifier
+            description += String(Self.deviceIdentifierPrefix)
+                + deviceIdentifier
         }
 
         self.description = description
@@ -101,10 +115,15 @@ public struct SourceIdentifier: Codable, Hashable, LosslessStringConvertible, Se
         self.instanceIdentifier = instanceIdentifier
         self.deviceIdentifier = deviceIdentifier
 
-        var description = namespace + "." + sourceKind.rawValue + "/" + String(describing: instanceIdentifier)
+        var description = namespace
+            + String(Self.namespaceSuffix)
+            + sourceKind.rawValue
+            + String(Self.instanceIdentifierPrefix)
+            + String(describing: instanceIdentifier)
 
         if let deviceIdentifier {
-            description += "@" + deviceIdentifier
+            description += String(Self.deviceIdentifierPrefix)
+                + deviceIdentifier
         }
 
         self.description = description
@@ -113,12 +132,12 @@ public struct SourceIdentifier: Codable, Hashable, LosslessStringConvertible, Se
     public init?(_ description: String) {
         guard !description.isEmpty else { return nil }
 
-        let deviceSplit = description.split(separator: "@", maxSplits: 2)
-        let instanceSplit = deviceSplit[0].split(separator: "/", maxSplits: 2)
+        let deviceSplit = description.split(separator: Self.deviceIdentifierPrefix, maxSplits: 2)
+        let instanceSplit = deviceSplit[0].split(separator: Self.instanceIdentifierPrefix, maxSplits: 2)
 
-        let kindSplit = instanceSplit[0].split(separator: ".", maxSplits: 2)
+        let kindSplit = instanceSplit[0].split(separator: Self.namespaceSuffix, maxSplits: 2)
 
-        guard kindSplit.count == 2 else { return nil}
+        guard kindSplit.count == 2 else { return nil }
 
         self.namespace = String(kindSplit[0])
         self.sourceKind = SourceKind(String(kindSplit[1]))
