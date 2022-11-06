@@ -5,8 +5,6 @@ import GatheredKit
 
 @propertyWrapper
 public final class ResolutionProperty<Unit: UnitResolution>: UpdatableProperty, PropertiesProviding {
-    public typealias Value = CGSize
-
     public let id: PropertyIdentifier
 
     public var allProperties: [any Property] {
@@ -35,9 +33,9 @@ public final class ResolutionProperty<Unit: UnitResolution>: UpdatableProperty, 
 
     /// The latest snapshot of data.
     @Published
-    public internal(set) var snapshot: Snapshot<Value>
+    public internal(set) var snapshot: Snapshot<CGSize>
 
-    public var snapshotsPublisher: AnyPublisher<Snapshot<Value>, Never> {
+    public var snapshotsPublisher: AnyPublisher<Snapshot<CGSize>, Never> {
         $snapshot.eraseToAnyPublisher()
     }
 

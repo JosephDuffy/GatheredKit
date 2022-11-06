@@ -43,7 +43,6 @@ let package = Package(
             dependencies: ["GatheredKit"],
             exclude: ["README.md"]
         ),
-        .testTarget(name: "GatheredKitMotionTests", dependencies: ["GatheredKitMotion"]),
 
         .target(name: "GatheredKitProcessInfo", dependencies: ["GatheredKit"]),
 

@@ -160,7 +160,7 @@ final class ScreenTests: XCTestCase {
         reportedResolutionExpectation.assertForOverFulfill = true
         let reportedResolutionCancellable = screen.$reportedResolution.snapshotsPublisher.sink { reportedResolution in
             reportedResolutionExpectation.fulfill()
-            XCTAssertEqual(reportedResolution.value, uiScreen.bounds.size)
+            XCTAssertEqual(reportedResolution.value as? CGSize, uiScreen.bounds.size)
         }
 
         let nativeResolutionExpectation = XCTestExpectation(
@@ -170,7 +170,8 @@ final class ScreenTests: XCTestCase {
         let nativeResolutionCancellable = screen.$nativeResolution.snapshotsPublisher.sink {
             nativeResolution in
             nativeResolutionExpectation.fulfill()
-            XCTAssertEqual(nativeResolution.value, uiScreen.nativeBounds.size)
+            #warning("TODO: Check why this needs casting and e.g. scale does not")
+            XCTAssertEqual(nativeResolution.value as? CGSize, uiScreen.nativeBounds.size)
         }
 
         let reportedScaleExpectation = XCTestExpectation(
