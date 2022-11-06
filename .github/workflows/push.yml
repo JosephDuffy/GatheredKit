@@ -73,7 +73,9 @@ jobs:
             ${{ runner.os }}-${{ matrix.platform }}-derived_data-
 
       - name: Run Tests
-        run: mint run xcutils test ${{ matrix.platform }} --scheme GatheredKit-Package --enable-code-coverage | $(mint which xcbeautify)
+        run: |
+          set -o pipefail
+          mint run xcutils test ${{ matrix.platform }} --scheme GatheredKit-Package --enable-code-coverage | $(mint which xcbeautify)
 
       - name: Convert coverage for Codecov
         id: convert-coverage
