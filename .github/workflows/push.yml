@@ -12,7 +12,7 @@ jobs:
         xcode: ["14.1"]
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
 
       - name: Select Xcode ${{ matrix.xcode }}
         run: sudo xcode-select --switch /Applications/Xcode_${{ matrix.xcode }}.app
@@ -24,7 +24,7 @@ jobs:
         run: xcrun llvm-cov export -format="lcov" .build/debug/GatheredKitPackageTests.xctest/Contents/MacOS/GatheredKitPackageTests -instr-profile .build/debug/codecov/default.profdata > coverage.lcov
 
       - name: Upload coverage to Codecov
-        uses: codecov/codecov-action@v1
+        uses: codecov/codecov-action@v3
         with:
           fail_ci_if_error: true
 
@@ -38,7 +38,7 @@ jobs:
         platform: ["iOS", "tvOS", "macCatalyst", "watchOS"]
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
 
       - name: Select Xcode ${{ matrix.xcode }}
         run: sudo xcode-select --switch /Applications/Xcode_${{ matrix.xcode }}.app
@@ -77,9 +77,8 @@ jobs:
 
       - name: Convert coverage for Codecov
         id: convert-coverage
-        uses: sersoft-gmbh/swift-coverage-action@v2.0.1
+        uses: sersoft-gmbh/swift-coverage-action@v3
         with:
-          format: lcov
           ignore-conversion-failures: true
           fail-on-empty-output: true
 
