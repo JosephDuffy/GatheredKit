@@ -27,7 +27,7 @@ public final class OptionalNSColorSpaceProperty: UpdatableProperty, PropertiesPr
         }
     }
 
-    public var projectedValue: some Property<NSColorSpace> {
+    public var projectedValue: some Property<NSColorSpace?> {
         asReadOnlyProperty
     }
 
