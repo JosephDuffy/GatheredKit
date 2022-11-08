@@ -15,7 +15,7 @@ public final class BasicProperty<Value>: UpdatableProperty {
     }
 
     public var projectedValue: some Property<Value> {
-        ReadOnlyProperty(self)
+        asReadOnlyProperty
     }
 
     // MARK: `Property` Requirements

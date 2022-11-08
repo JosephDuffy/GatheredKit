@@ -23,7 +23,7 @@ public final class ReadOnlyProperty<WrappedProperty: Property>: Property {
 
     private let wrapped: WrappedProperty
 
-    init(_ wrapped: WrappedProperty) {
+    public init(_ wrapped: WrappedProperty) {
         self.wrapped = wrapped
     }
 
@@ -39,6 +39,7 @@ extension ReadOnlyProperty: PropertiesProviding where WrappedProperty: Propertie
 }
 
 extension Property {
+    @inlinable
     public var asReadOnlyProperty: ReadOnlyProperty<Self> {
         ReadOnlyProperty(self)
     }
