@@ -43,7 +43,7 @@ public final class CMAttitudeProperty: UpdatableProperty, PropertiesProviding {
         }
     }
 
-    public var projectedValue: ReadOnlyProperty<CMAttitudeProperty> {
+    public var projectedValue: some Property<CMAttitude> {
         asReadOnlyProperty
     }
 

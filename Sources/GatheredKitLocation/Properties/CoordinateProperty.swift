@@ -5,8 +5,6 @@ import GatheredKit
 
 @propertyWrapper
 public final class CoordinateProperty: UpdatableProperty, PropertiesProviding {
-    public typealias Value = CLLocationCoordinate2D
-
     public let id: PropertyIdentifier
 
     public var allProperties: [any Property] {
@@ -25,7 +23,7 @@ public final class CoordinateProperty: UpdatableProperty, PropertiesProviding {
         }
     }
 
-    public var projectedValue: ReadOnlyProperty<CoordinateProperty> {
+    public var projectedValue: some Property<CLLocationCoordinate2D> {
         asReadOnlyProperty
     }
 
@@ -33,9 +31,9 @@ public final class CoordinateProperty: UpdatableProperty, PropertiesProviding {
 
     /// The latest snapshot of data.
     @Published
-    public internal(set) var snapshot: Snapshot<Value>
+    public internal(set) var snapshot: Snapshot<CLLocationCoordinate2D>
 
-    public var snapshotsPublisher: AnyPublisher<Snapshot<Value>, Never> {
+    public var snapshotsPublisher: AnyPublisher<Snapshot<CLLocationCoordinate2D>, Never> {
         $snapshot.eraseToAnyPublisher()
     }
 

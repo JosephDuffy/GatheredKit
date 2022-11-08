@@ -35,7 +35,7 @@ public final class CMAbsoluteAltitudeDataProperty: UpdatableProperty, Properties
         }
     }
 
-    public var projectedValue: ReadOnlyProperty<CMAbsoluteAltitudeDataProperty> {
+    public var projectedValue: some Property<CMAbsoluteAltitudeDataShim> {
         asReadOnlyProperty
     }
 

@@ -32,7 +32,7 @@ public final class CMCalibratedMagneticFieldProperty: UpdatableProperty, Propert
         }
     }
 
-    public var projectedValue: ReadOnlyProperty<CMCalibratedMagneticFieldProperty> {
+    public var projectedValue: some Property<CMCalibratedMagneticField> {
         asReadOnlyProperty
     }
 

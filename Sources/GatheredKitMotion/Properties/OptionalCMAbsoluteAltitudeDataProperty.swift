@@ -42,7 +42,7 @@ public final class OptionalCMAbsoluteAltitudeDataProperty: UpdatableProperty, Pr
         $error.eraseToAnyPublisher()
     }
 
-    public var projectedValue: ReadOnlyProperty<OptionalCMAbsoluteAltitudeDataProperty> {
+    public var projectedValue: some Property<CMAbsoluteAltitudeDataShim?> {
         asReadOnlyProperty
     }
 

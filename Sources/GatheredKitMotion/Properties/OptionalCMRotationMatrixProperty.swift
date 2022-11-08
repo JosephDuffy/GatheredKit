@@ -55,7 +55,7 @@ public final class OptionalCMRotationMatrixProperty: UpdatableProperty, Properti
         }
     }
 
-    public var projectedValue: ReadOnlyProperty<OptionalCMRotationMatrixProperty> {
+    public var projectedValue: some Property<CMRotationMatrix?> {
         asReadOnlyProperty
     }
 

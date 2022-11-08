@@ -35,7 +35,7 @@ public final class OptionalCMAccelerationProperty: UpdatableProperty, Properties
         }
     }
 
-    public var projectedValue: ReadOnlyProperty<OptionalCMAccelerationProperty> {
+    public var projectedValue: some Property<CMAcceleration?> {
         asReadOnlyProperty
     }
 

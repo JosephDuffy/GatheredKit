@@ -35,7 +35,7 @@ public final class CMRotationRateProperty: UpdatableProperty, PropertiesProvidin
         }
     }
 
-    public var projectedValue: ReadOnlyProperty<CMRotationRateProperty> {
+    public var projectedValue: some Property<CMRotationRate> {
         asReadOnlyProperty
     }
 

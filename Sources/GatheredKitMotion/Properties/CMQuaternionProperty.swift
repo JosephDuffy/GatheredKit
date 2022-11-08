@@ -43,7 +43,7 @@ public final class CMQuaternionProperty: UpdatableProperty, PropertiesProviding,
         }
     }
 
-    public var projectedValue: ReadOnlyProperty<CMQuaternionProperty> {
+    public var projectedValue: some Property<CMQuaternion> {
         asReadOnlyProperty
     }
 

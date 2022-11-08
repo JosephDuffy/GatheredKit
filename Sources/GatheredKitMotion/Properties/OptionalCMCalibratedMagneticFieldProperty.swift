@@ -30,7 +30,7 @@ public final class OptionalCMCalibratedMagneticFieldProperty: UpdatableProperty,
         }
     }
 
-    public var projectedValue: ReadOnlyProperty<OptionalCMCalibratedMagneticFieldProperty> {
+    public var projectedValue: some Property<CMCalibratedMagneticField?> {
         asReadOnlyProperty
     }
 

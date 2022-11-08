@@ -23,7 +23,7 @@ public final class ResolutionProperty<Unit: UnitResolution>: UpdatableProperty, 
         }
     }
 
-    public var projectedValue: some Property {
+    public var projectedValue: some Property<CGSize> {
         self
     }
 
