@@ -150,7 +150,10 @@ final class ScreenTests: XCTestCase {
 
     func testNotificationFromScreen() {
         let uiScreen = MockScreen()
+        uiScreen.scale = 1
         uiScreen.nativeScale = 1
+        uiScreen.bounds.size = CGSize(width: 1920, height: 1080)
+        uiScreen.nativeBounds.size = CGSize(width: 1920, height: 1080)
         let notificationCenter = NotificationCenter()
         let screen = Screen(screen: uiScreen, notificationCenter: notificationCenter)
 
