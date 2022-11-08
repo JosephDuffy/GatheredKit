@@ -20,7 +20,7 @@ public final class MeasurementProperty<Unit: Foundation.Unit>: UpdatableProperty
         }
     }
 
-    public var projectedValue: ReadOnlyProperty<MeasurementProperty<Unit>> {
+    public var projectedValue: some Property<Measurement<Unit>> {
         asReadOnlyProperty
     }
 

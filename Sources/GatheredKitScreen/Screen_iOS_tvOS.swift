@@ -184,7 +184,7 @@ public final class Screen: UpdatingSource, Controllable {
         guard !isUpdating else { return }
 
         let updatesQueue = OperationQueue()
-        updatesQueue.name = "uk.co.josephduffy.GatheredKit Screen Updates"
+        updatesQueue.name = "GatheredKit Screen Updates"
 
         #if os(iOS)
         let brightnessChangeObeserver: NSObjectProtocol?
@@ -207,7 +207,9 @@ public final class Screen: UpdatingSource, Controllable {
         #endif
 
         let modeChangeObeserver = notificationCenter.addObserver(
-            forName: UIScreen.modeDidChangeNotification, object: uiScreen, queue: updatesQueue
+            forName: UIScreen.modeDidChangeNotification,
+            object: uiScreen,
+            queue: updatesQueue
         ) { [weak self] _ in
             guard let self = self else { return }
             self._reportedResolution.updateValueIfDifferent(self.uiScreen.bounds.size)

@@ -160,7 +160,7 @@ final class ScreenTests: XCTestCase {
             description: "Subscriber should be called with updated reported resolution"
         )
         let reportedResolutionCancellable = screen.$reportedResolution.snapshotsPublisher.dropFirst().sink { reportedResolution in
-            XCTAssertEqual(reportedResolution.value as? CGSize, uiScreen.bounds.size)
+            XCTAssertEqual(reportedResolution.value, uiScreen.bounds.size)
             reportedResolutionExpectation.fulfill()
         }
 
@@ -168,8 +168,7 @@ final class ScreenTests: XCTestCase {
             description: "Subscriber should be called with updated native resolution"
         )
         let nativeResolutionCancellable = screen.$nativeResolution.snapshotsPublisher.dropFirst().sink { nativeResolution in
-            #warning("TODO: Check why this needs casting and e.g. scale does not")
-            XCTAssertEqual(nativeResolution.value as? CGSize, uiScreen.nativeBounds.size)
+            XCTAssertEqual(nativeResolution.value, uiScreen.nativeBounds.size)
             nativeResolutionExpectation.fulfill()
         }
 
