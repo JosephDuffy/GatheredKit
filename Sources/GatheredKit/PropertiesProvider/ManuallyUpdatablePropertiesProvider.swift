@@ -8,5 +8,6 @@ public protocol ManuallyUpdatablePropertiesProvider: PropertiesProviding {
 
      - Returns: The properties after the update.
      */
+    @discardableResult
     func updateValues() -> [any Property]
 }
