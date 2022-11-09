@@ -19,7 +19,12 @@ public struct Snapshot<Value>: AnySnapshot {
      - parameter value: The captured value.
      - parameter date: The point in time the value was captured.
      */
-    public init(value: Value, date: Date) {
+    public init(value: Value, date: Date = Date()) {
+        self.value = value
+        self.date = date
+    }
+
+    public init<Wrapped>(value: Wrapped? = nil, date: Date = Date()) where Value == Wrapped? {
         self.value = value
         self.date = date
     }
