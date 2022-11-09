@@ -15,6 +15,7 @@ let package = Package(
         .library(name: "GatheredKitMotion", targets: ["GatheredKitMotion"]),
         .library(name: "GatheredKitProcessInfo", targets: ["GatheredKitProcessInfo"]),
         .library(name: "GatheredKitScreen", targets: ["GatheredKitScreen"]),
+        .library(name: "GatheredKitSystemStatistics", targets: ["GatheredKitSystemStatistics"]),
         .library(name: "GatheredKitTestHelpers", targets: ["GatheredKitTestHelpers"]),
         .library(name: "GatheredKitUserTracking", targets: ["GatheredKitUserTracking"]),
         .library(name: "GatheredKitWiFi", targets: ["GatheredKitWiFi"]),
@@ -48,6 +49,8 @@ let package = Package(
 
         .target(name: "GatheredKitScreen", dependencies: ["GatheredKit"]),
         .testTarget(name: "GatheredKitScreenTests", dependencies: ["GatheredKitScreen", "GatheredKitTestHelpers"]),
+
+        .target(name: "GatheredKitSystemStatistics", dependencies: ["GatheredKit"]),
 
         .target(name: "GatheredKitTestHelpers", dependencies: ["GatheredKit"]),
 
