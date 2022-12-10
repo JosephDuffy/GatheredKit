@@ -13,8 +13,8 @@ final class ScreenTests: XCTestCase {
     func testValues() {
         let uiScreen = UIScreen.main
         let screen = Screen(screen: uiScreen)
-        XCTAssertEqual(screen.reportedResolution, uiScreen.bounds.size)
-        XCTAssertEqual(screen.nativeResolution, uiScreen.nativeBounds.size)
+        XCTAssertEqual(screen.reportedResolution.size, uiScreen.bounds.size)
+        XCTAssertEqual(screen.nativeResolution.size, uiScreen.nativeBounds.size)
         XCTAssertEqual(screen.reportedScale, uiScreen.scale)
         XCTAssertEqual(screen.nativeScale, uiScreen.nativeScale)
         #if os(iOS)
@@ -163,7 +163,7 @@ final class ScreenTests: XCTestCase {
             description: "Subscriber should be called with updated reported resolution"
         )
         let reportedResolutionCancellable = screen.$reportedResolution.snapshotsPublisher.dropFirst().sink { reportedResolution in
-            XCTAssertEqual(reportedResolution.value, uiScreen.bounds.size)
+            XCTAssertEqual(reportedResolution.value.size, uiScreen.bounds.size)
             reportedResolutionExpectation.fulfill()
         }
 
@@ -171,7 +171,7 @@ final class ScreenTests: XCTestCase {
             description: "Subscriber should be called with updated native resolution"
         )
         let nativeResolutionCancellable = screen.$nativeResolution.snapshotsPublisher.dropFirst().sink { nativeResolution in
-            XCTAssertEqual(nativeResolution.value, uiScreen.nativeBounds.size)
+            XCTAssertEqual(nativeResolution.value.size, uiScreen.nativeBounds.size)
             nativeResolutionExpectation.fulfill()
         }
 

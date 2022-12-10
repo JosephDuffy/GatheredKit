@@ -47,13 +47,13 @@ public final class Screen: UpdatingSource, Controllable {
      The reported resolution of the screen
      */
     @ResolutionProperty
-    public private(set) var reportedResolution: CGSize
+    public private(set) var reportedResolution: ResolutionMeasurement
 
     /**
      The native resolution of the screen
      */
     @ResolutionProperty
-    public private(set) var nativeResolution: CGSize
+    public private(set) var nativeResolution: ResolutionMeasurement
 
     /**
      The reported scale factor of the screen
@@ -141,16 +141,20 @@ public final class Screen: UpdatingSource, Controllable {
         uiScreen = screen
         self.notificationCenter = notificationCenter
 
-        _reportedResolution = .init(
+        _reportedResolution = ResolutionProperty(
             id: id.identifierForChildPropertyWithId("reportedResolution"),
-            value: screen.bounds.size,
-            unit: .points(screenScale: screen.nativeScale)
+            measurement: ResolutionMeasurement(
+                size: screen.bounds.size,
+                unit: .points(screenScale: screen.nativeScale)
+            )
         )
 
-        _nativeResolution = .init(
+        _nativeResolution = ResolutionProperty(
             id: id.identifierForChildPropertyWithId("nativeResolution"),
-            value: screen.nativeBounds.size,
-            unit: .pixels
+            measurement: ResolutionMeasurement(
+                size: screen.nativeBounds.size,
+                unit: .pixels
+            )
         )
 
         _reportedScale = .init(
@@ -170,10 +174,6 @@ public final class Screen: UpdatingSource, Controllable {
             value: brightness
         )
         #endif
-    }
-
-    deinit {
-        stopUpdating()
     }
 
     /**
@@ -212,14 +212,14 @@ public final class Screen: UpdatingSource, Controllable {
             queue: updatesQueue
         ) { [weak self] _ in
             guard let self = self else { return }
-            self._reportedResolution.updateValueIfDifferent(self.uiScreen.bounds.size)
-            self._nativeResolution.updateValueIfDifferent(self.uiScreen.nativeBounds.size)
+            self._reportedResolution.updateMeasuredValueIfDifferent(self.uiScreen.bounds.size)
+            self._nativeResolution.updateMeasuredValueIfDifferent(self.uiScreen.nativeBounds.size)
             self._reportedScale.updateValueIfDifferent(self.uiScreen.scale)
             self._nativeScale.updateValueIfDifferent(self.uiScreen.nativeScale)
         }
 
-        _reportedResolution.updateValueIfDifferent(uiScreen.bounds.size)
-        _nativeResolution.updateValueIfDifferent(uiScreen.nativeBounds.size)
+        _reportedResolution.updateMeasuredValueIfDifferent(uiScreen.bounds.size)
+        _nativeResolution.updateMeasuredValueIfDifferent(uiScreen.nativeBounds.size)
         _reportedScale.updateValueIfDifferent(uiScreen.scale)
         _nativeScale.updateValueIfDifferent(uiScreen.nativeScale)
 
