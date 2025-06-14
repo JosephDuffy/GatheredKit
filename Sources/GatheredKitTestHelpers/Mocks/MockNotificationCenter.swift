@@ -1,6 +1,6 @@
 import Foundation
 
-public final class MockNotificationCenter: NotificationCenter {
+public final class MockNotificationCenter: NotificationCenter, @unchecked Sendable {
     public typealias AddObserverParameters = (
         name: Notification.Name?, object: Any?, queue: OperationQueue?,
         block: (Notification) -> Void

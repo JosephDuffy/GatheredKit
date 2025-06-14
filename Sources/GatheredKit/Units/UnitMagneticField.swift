@@ -1,6 +1,6 @@
 import Foundation
 
-public final class UnitMagneticField: Dimension {
+public final class UnitMagneticField: Dimension, @unchecked Sendable {
     public override class func baseUnit() -> UnitMagneticField {
         tesla
     }

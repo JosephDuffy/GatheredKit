@@ -2,7 +2,7 @@ import CoreGraphics
 import Foundation
 
 /// Unit of measurement for screen resolution.
-public final class UnitResolution: Dimension {
+public final class UnitResolution: Dimension, @unchecked Sendable {
     public override class func baseUnit() -> UnitResolution {
         pixels
     }
