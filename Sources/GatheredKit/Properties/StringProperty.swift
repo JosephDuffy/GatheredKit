@@ -1,2 +1,2 @@
-public typealias StringProperty = BasicProperty<String>
-public typealias OptionalStringProperty = BasicProperty<String?>
+public typealias StringProperty = BasicProperty<String, Never>
+public typealias OptionalStringProperty = BasicProperty<String?, Never>

@@ -2,37 +2,7 @@ import Combine
 import Foundation
 
 @propertyWrapper
-public final class MeasurementProperty<Unit: Foundation.Unit>: UpdatableProperty, Equatable {
-    public typealias Value = Measurement<Unit>
-
-    public static func == (lhs: MeasurementProperty<Unit>, rhs: MeasurementProperty<Unit>) -> Bool {
-        lhs.id == rhs.id && lhs.snapshot == rhs.snapshot
-    }
-
-    public let id: PropertyIdentifier
-
-    public var wrappedValue: Value {
-        get {
-            value
-        }
-        set {
-            updateValue(newValue)
-        }
-    }
-
-    public var projectedValue: some Property<Measurement<Unit>> {
-        asReadOnlyProperty
-    }
-
-    @Published
-    public internal(set) var snapshot: Snapshot<Value>
-
-    public var snapshotsPublisher: AnyPublisher<Snapshot<Value>, Never> {
-        $snapshot.eraseToAnyPublisher()
-    }
-
-    // MARK: Measurement Properties
-
+open class MeasurementProperty<Unit: Foundation.Unit, Error: Swift.Error>: BasicProperty<Measurement<Unit>, Error> {
     public var measurement: Measurement<Unit> {
         value
     }
@@ -52,8 +22,7 @@ public final class MeasurementProperty<Unit: Foundation.Unit>: UpdatableProperty
         measurement: Measurement<Unit>,
         date: Date = Date()
     ) {
-        self.id = id
-        snapshot = Snapshot(value: measurement, date: date)
+        super.init(id: id, value: measurement, date: date)
     }
 
     public convenience init(
@@ -71,16 +40,6 @@ public final class MeasurementProperty<Unit: Foundation.Unit>: UpdatableProperty
     }
 
     // MARK: Update Functions
-
-    @discardableResult
-    public func updateValue(
-        _ value: Measurement<Unit>,
-        date: Date
-    ) -> Snapshot<Value> {
-        let snapshot = Snapshot(value: value, date: date)
-        self.snapshot = snapshot
-        return snapshot
-    }
 
     @discardableResult
     public func updateMeasuredValue(

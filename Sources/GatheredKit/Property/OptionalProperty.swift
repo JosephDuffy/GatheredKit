@@ -1,3 +1,3 @@
 import Foundation
 
-public typealias OptionalProperty<UnwrappedValue> = BasicProperty<UnwrappedValue?>
+public typealias OptionalProperty<UnwrappedValue> = BasicProperty<UnwrappedValue?, Never>

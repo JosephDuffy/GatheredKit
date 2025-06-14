@@ -8,6 +8,7 @@ import NetworkExtension
 @available(iOS 14, watchOS 7, macCatalyst 14, *)
 @available(macOS, unavailable)
 @available(tvOS, unavailable)
+@MainActor
 public final class WiFiProvider: ManuallyUpdatableSingleTransientSourceProvider, UpdatingSourceProvider, AvailabilityProviding {
     public enum UpdateError: Error {
         case notAuthorized

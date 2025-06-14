@@ -244,6 +244,34 @@
                ReferencedContainer = "container:">
             </BuildableReference>
          </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "YES"
+            buildForProfiling = "YES"
+            buildForArchiving = "YES"
+            buildForAnalyzing = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "GatheredKitSystemStatistics"
+               BuildableName = "GatheredKitSystemStatistics"
+               BlueprintName = "GatheredKitSystemStatistics"
+               ReferencedContainer = "container:">
+            </BuildableReference>
+         </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "YES"
+            buildForProfiling = "YES"
+            buildForArchiving = "YES"
+            buildForAnalyzing = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "GatheredKitSubscriptions"
+               BuildableName = "GatheredKitSubscriptions"
+               BlueprintName = "GatheredKitSubscriptions"
+               ReferencedContainer = "container:">
+            </BuildableReference>
+         </BuildActionEntry>
       </BuildActionEntries>
    </BuildAction>
    <TestAction
@@ -290,6 +318,16 @@
                BlueprintIdentifier = "GatheredKitMotionTests"
                BuildableName = "GatheredKitMotionTests"
                BlueprintName = "GatheredKitMotionTests"
+               ReferencedContainer = "container:">
+            </BuildableReference>
+         </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "GatheredKitSubscriptionsTests"
+               BuildableName = "GatheredKitSubscriptionsTests"
+               BlueprintName = "GatheredKitSubscriptionsTests"
                ReferencedContainer = "container:">
             </BuildableReference>
          </TestableReference>

@@ -45,10 +45,12 @@ public final class ScreenProvider: UpdatingSourceProvider, ControllableSourcePro
 
     private let notificationCenter: NotificationCenter
 
+    @MainActor
     public convenience init() {
         self.init(notificationCenter: .default)
     }
 
+    @MainActor
     internal required init(notificationCenter: NotificationCenter) {
         id = SourceProviderIdentifier(sourceKind: .screen)
         self.notificationCenter = notificationCenter
@@ -57,14 +59,16 @@ public final class ScreenProvider: UpdatingSourceProvider, ControllableSourcePro
         }
     }
 
+    @MainActor
     public func startUpdating() {
         guard !isUpdating else { return }
 
         let didConnectCancellable = notificationCenter.addObserver(
             forName: UIScreen.didConnectNotification,
             object: nil,
-            queue: nil
-        ) { [unowned self] notification in
+            queue: .main
+        ) { @MainActor(unsafe) [weak self] notification in
+            guard let self else { return }
             guard let uiScreen = notification.object as? UIScreen else { return }
             let screen = Screen(screen: uiScreen, notificationCenter: self.notificationCenter)
             let event = SourceProviderEvent.sourceAdded(screen)
@@ -84,7 +88,8 @@ public final class ScreenProvider: UpdatingSourceProvider, ControllableSourcePro
             forName: UIScreen.didDisconnectNotification,
             object: nil,
             queue: nil
-        ) { [unowned self] notification in
+        ) { @MainActor(unsafe) [weak self] notification in
+            guard let self else { return }
             guard let uiScreen = notification.object as? UIScreen else { return }
             guard let index = self.sources.firstIndex(where: { $0.uiScreen == uiScreen }) else {
                 return
@@ -110,6 +115,7 @@ public final class ScreenProvider: UpdatingSourceProvider, ControllableSourcePro
         sourceProviderEventsSubject.send(.startedUpdating)
     }
 
+    @MainActor
     public func stopUpdating() {
         guard isUpdating else { return }
 

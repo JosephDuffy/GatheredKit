@@ -4,6 +4,7 @@ import Foundation
 @propertyWrapper
 public final class OptionalMeasurementProperty<Unit: Foundation.Unit>: UpdatableProperty, Hashable {
     public typealias Value = Measurement<Unit>?
+    public typealias Error = Never
 
     public static func == (
         lhs: OptionalMeasurementProperty<Unit>,
@@ -23,7 +24,7 @@ public final class OptionalMeasurementProperty<Unit: Foundation.Unit>: Updatable
         }
     }
 
-    public var projectedValue: some Property<Measurement<Unit>?> {
+    public var projectedValue: some Property<Measurement<Unit>?, Error> {
         asReadOnlyProperty
     }
 

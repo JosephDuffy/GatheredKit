@@ -37,7 +37,11 @@ public final class ThermalState: UpdatingSource, Controllable {
 
     private var cancellables: Set<AnyCancellable> = []
 
-    public init(processInfo: ProcessInfo = .processInfo, notificationCenter: NotificationCenter = .default) {
+    public convenience init() {
+        self.init(processInfo: .processInfo, notificationCenter: .default)
+    }
+
+    public init(processInfo: ProcessInfo, notificationCenter: NotificationCenter) {
         id = SourceIdentifier(sourceKind: .thermalState)
         self.processInfo = processInfo
         self.notificationCenter = notificationCenter

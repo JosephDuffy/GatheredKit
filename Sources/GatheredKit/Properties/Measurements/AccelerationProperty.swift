@@ -1,6 +1,6 @@
 import Foundation
 
-public typealias AccelerationProperty = MeasurementProperty<UnitAcceleration>
+public typealias AccelerationProperty = MeasurementProperty<UnitAcceleration, Never>
 public typealias OptionalAccelerationProperty = OptionalMeasurementProperty<UnitAcceleration>
 
 extension Property {

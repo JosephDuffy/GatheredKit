@@ -1,10 +1,10 @@
 import Foundation
 
-public typealias DoubleProperty = BasicProperty<Double>
-public typealias OptionalDoubleProperty = BasicProperty<Double?>
+public typealias DoubleProperty = BasicProperty<Double, Never>
+public typealias OptionalDoubleProperty = BasicProperty<Double?, Never>
 
-public typealias FloatProperty = BasicProperty<Float>
-public typealias OptionalFloatProperty = BasicProperty<Float?>
+public typealias FloatProperty = BasicProperty<Float, Never>
+public typealias OptionalFloatProperty = BasicProperty<Float?, Never>
 
-public typealias IntProperty = BasicProperty<Int>
-public typealias OptionalIntProperty = BasicProperty<Int?>
+public typealias IntProperty = BasicProperty<Int, Never>
+public typealias OptionalIntProperty = BasicProperty<Int?, Never>

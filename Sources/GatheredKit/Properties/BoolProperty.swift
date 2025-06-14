@@ -1,2 +1,2 @@
-public typealias BoolProperty = BasicProperty<Bool>
-public typealias OptionalBoolProperty = BasicProperty<Bool?>
+public typealias BoolProperty = BasicProperty<Bool, Never>
+public typealias OptionalBoolProperty = BasicProperty<Bool?, Never>

@@ -129,10 +129,6 @@ public final class Location: UpdatingSource, Controllable {
         )
     }
 
-    deinit {
-        stopUpdating()
-    }
-
     #if os(iOS) || os(watchOS)
     public func startUpdating() {
         startUpdating(allowBackgroundUpdates: false, desiredAccuracy: .best)
@@ -339,7 +335,13 @@ public final class Location: UpdatingSource, Controllable {
     private func locationManager(
         _ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]
     ) {
-        locations.forEach(updateLocationValues(_:))
+        Task.detached {
+            await MainActor.run {
+                for location in locations {
+                    self.updateLocationValues(location)
+                }
+            }
+        }
     }
 }
 

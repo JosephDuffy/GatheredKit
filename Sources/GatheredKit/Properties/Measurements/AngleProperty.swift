@@ -1,6 +1,6 @@
 import Foundation
 
-public typealias AngleProperty = MeasurementProperty<UnitAngle>
+public typealias AngleProperty = MeasurementProperty<UnitAngle, Never>
 public typealias OptionalAngleProperty = OptionalMeasurementProperty<UnitAngle>
 
 extension Property {

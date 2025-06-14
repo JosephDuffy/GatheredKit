@@ -1,6 +1,6 @@
 import Foundation
 
-public typealias PressureProperty = MeasurementProperty<UnitPressure>
+public typealias PressureProperty = MeasurementProperty<UnitPressure, Never>
 public typealias OptionalPressureProperty = OptionalMeasurementProperty<UnitPressure>
 
 extension Property {

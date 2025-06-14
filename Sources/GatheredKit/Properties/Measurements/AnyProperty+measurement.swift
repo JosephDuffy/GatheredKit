@@ -6,8 +6,8 @@ extension Property {
         value: Double,
         unit: Unit,
         date: Date = Date()
-    ) -> MeasurementProperty<Unit> {
-        MeasurementProperty<Unit>(
+    ) -> MeasurementProperty<Unit, Never> {
+        MeasurementProperty<Unit, Never>(
             id: id,
             value: value,
             unit: unit,
@@ -19,8 +19,8 @@ extension Property {
         id: PropertyIdentifier,
         measurement: Measurement<Unit>,
         date: Date = Date()
-    ) -> MeasurementProperty<Unit> {
-        MeasurementProperty<Unit>(
+    ) -> MeasurementProperty<Unit, Never> {
+        MeasurementProperty<Unit, Never>(
             id: id,
             measurement: measurement,
             date: date

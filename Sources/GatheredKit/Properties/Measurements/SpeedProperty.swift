@@ -1,6 +1,6 @@
 import Foundation
 
-public typealias SpeedProperty = MeasurementProperty<UnitSpeed>
+public typealias SpeedProperty = MeasurementProperty<UnitSpeed, Never>
 public typealias OptionalSpeedProperty = OptionalMeasurementProperty<UnitSpeed>
 
 extension Property {

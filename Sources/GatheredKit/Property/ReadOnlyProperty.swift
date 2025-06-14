@@ -4,6 +4,7 @@ import Foundation
 @dynamicMemberLookup
 public final class ReadOnlyProperty<WrappedProperty: Property>: Property {
     public typealias Value = WrappedProperty.Value
+    public typealias Error = WrappedProperty.Error
 
     public var id: PropertyIdentifier {
         wrapped.id
@@ -15,10 +16,6 @@ public final class ReadOnlyProperty<WrappedProperty: Property>: Property {
 
     public var snapshot: Snapshot<WrappedProperty.Value> {
         wrapped.snapshot
-    }
-
-    public var snapshotsPublisher: AnyPublisher<Snapshot<WrappedProperty.Value>, Never> {
-        wrapped.snapshotsPublisher
     }
 
     private let wrapped: WrappedProperty

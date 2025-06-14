@@ -7,6 +7,7 @@ import NetworkExtension
 @available(iOS 9, watchOS 7, macCatalyst 14, *)
 @available(macOS, unavailable)
 @available(tvOS, unavailable)
+@MainActor
 public final class WiFi: Source {
     public let availability: SourceAvailability = .available
 
@@ -27,7 +28,7 @@ public final class WiFi: Source {
     /// The `NEHotspotNetwork` this `Network` represents.
     public let hostspotNetwork: NEHotspotNetwork
 
-    public var allProperties: [any Property] {
+    public nonisolated var allProperties: [any Property] {
         [
             $ssid,
             $bssid,

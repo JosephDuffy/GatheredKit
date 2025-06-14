@@ -68,10 +68,17 @@ public final class Battery: UpdatingSource, Controllable {
 
     private let notificationCenter: NotificationCenter
 
-    public convenience init(device: UIDevice = .current, processInfo: ProcessInfo = .processInfo) {
-        self.init(device: device, processInfo: processInfo, notificationCenter: .default)
+    @MainActor
+    public convenience init(device: UIDevice) {
+        self.init(device: device, processInfo: .processInfo, notificationCenter: .default)
     }
 
+    @MainActor
+    public convenience init(processInfo: ProcessInfo) {
+        self.init(device: .current, processInfo: processInfo, notificationCenter: .default)
+    }
+
+    @MainActor
     internal init(device: UIDevice, processInfo: ProcessInfo, notificationCenter: NotificationCenter) {
         id = SourceIdentifier(sourceKind: .battery)
         self.device = device
@@ -91,6 +98,7 @@ public final class Battery: UpdatingSource, Controllable {
         )
     }
 
+    @MainActor
     public func startUpdating() {
         guard !isUpdating else { return }
 
@@ -129,10 +137,12 @@ public final class Battery: UpdatingSource, Controllable {
         monitoringState = .monitoring(notificationCancellables: notificationCancellables)
     }
 
+    @MainActor
     public func stopUpdating() {
         stopUpdating(stopBatteryMonitoring: true)
     }
 
+    @MainActor
     public func stopUpdating(stopBatteryMonitoring: Bool) {
         guard isUpdating else { return }
         monitoringState = .notMonitoring

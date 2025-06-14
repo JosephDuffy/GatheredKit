@@ -3,6 +3,7 @@ import CoreLocation
 import Foundation
 import GatheredKit
 
+@MainActor
 @propertyWrapper
 public final class CoordinateProperty: UpdatableProperty, PropertiesProviding {
     public let id: PropertyIdentifier

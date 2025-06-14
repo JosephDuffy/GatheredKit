@@ -1,8 +1,8 @@
-import Combine
 import Foundation
+import GatheredKitSubscriptions
 
 @propertyWrapper
-public final class BasicProperty<Value>: UpdatableProperty {
+open class BasicProperty<Value: Sendable, Error: Swift.Error>: UpdatableProperty {
     public let id: PropertyIdentifier
 
     public var wrappedValue: Value {
@@ -14,15 +14,35 @@ public final class BasicProperty<Value>: UpdatableProperty {
         }
     }
 
-    public var projectedValue: some Property<Value> {
+    public nonisolated var projectedValue: some Property<Value, Error> {
         asReadOnlyProperty
     }
 
     // MARK: `Property` Requirements
 
     /// The latest snapshot of data.
-    @Published
-    public internal(set) var snapshot: Snapshot<Value>
+    public internal(set) var snapshot: Snapshot<Value> {
+        get {
+            snapshotLock.lock()
+            let snapshot = _snapshot
+            snapshotLock.unlock()
+            return snapshot
+        }
+        set {
+            snapshotLock.lock()
+            _snapshot = newValue
+            snapshotLock.unlock()
+            subscriptionsStorage.notifySubscribersOfValue(newValue)
+        }
+        _modify {
+            snapshotLock.lock()
+            var snapshot = _snapshot
+            yield &snapshot
+            _snapshot = snapshot
+            snapshotLock.unlock()
+            subscriptionsStorage.notifySubscribersOfValue(snapshot)
+        }
+    }
 
     /// The current value of the property.
     public internal(set) var value: Value {
@@ -34,9 +54,11 @@ public final class BasicProperty<Value>: UpdatableProperty {
         }
     }
 
-    public var snapshotsPublisher: AnyPublisher<Snapshot<Value>, Never> {
-        $snapshot.eraseToAnyPublisher()
-    }
+    private let snapshotLock = NSLock()
+
+    private var _snapshot: Snapshot<Value>
+
+    private let subscriptionsStorage: PropertySubscriptionsStorage<Snapshot<Value>, Error>
 
     // MARK: Initialisers
 
@@ -46,7 +68,13 @@ public final class BasicProperty<Value>: UpdatableProperty {
         date: Date = Date()
     ) {
         self.id = id
-        snapshot = Snapshot(value: value, date: date)
+        let snapshot = Snapshot(value: value, date: date)
+        _snapshot = snapshot
+        subscriptionsStorage = PropertySubscriptionsStorage()
+    }
+
+    public func makeSubscription() -> PropertySubscription<Snapshot<Value>, Error> {
+        subscriptionsStorage.makeValueSubscription()
     }
 
     // MARK: Update Functions
@@ -71,7 +99,7 @@ public final class BasicProperty<Value>: UpdatableProperty {
 
 extension BasicProperty: Equatable where Value: Equatable {
     public static func == (
-        lhs: BasicProperty<Value>, rhs: BasicProperty<Value>
+        lhs: BasicProperty<Value, Error>, rhs: BasicProperty<Value, Error>
     ) -> Bool {
         lhs.id == rhs.id && lhs.snapshot == rhs.snapshot
     }

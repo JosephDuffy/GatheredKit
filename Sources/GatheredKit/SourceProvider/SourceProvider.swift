@@ -1,4 +1,4 @@
-public protocol SourceProvider {
+public protocol SourceProvider: Sendable {
     /// The type of source this `SourceProvider` provides.
     associatedtype ProvidedSource: Source
 

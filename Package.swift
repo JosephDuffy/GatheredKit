@@ -8,6 +8,7 @@ let package = Package(
     ],
     products: [
         .library(name: "GatheredKit", targets: ["GatheredKit"]),
+        .library(name: "GatheredKitSubscriptions", targets: ["GatheredKitSubscriptions"]),
         .library(name: "GatheredKitCamera", targets: ["GatheredKitCamera"]),
         .library(name: "GatheredKitDevice", targets: ["GatheredKitDevice"]),
         .library(name: "GatheredKitExternalAccessory", targets: ["GatheredKitExternalAccessory"]),
@@ -26,44 +27,120 @@ let package = Package(
     targets: [
         .target(
             name: "GatheredKit",
-            exclude: ["README.md"]
+            dependencies: [
+                "GatheredKitSubscriptions",
+            ],
+            exclude: ["README.md"],
+            swiftSettings: [
+                .unsafeFlags([
+                    "-warn-concurrency",
+                ]),
+            ]
         ),
         .testTarget(name: "GatheredKitTests", dependencies: ["GatheredKit", "GatheredKitTestHelpers"]),
 
-        .target(name: "GatheredKitCamera", dependencies: ["GatheredKit"]),
+        .target(
+            name: "GatheredKitSubscriptions",
+            swiftSettings: [
+                .unsafeFlags([
+                    "-warn-concurrency",
+                ]),
+            ]
+        ),
+        .testTarget(name: "GatheredKitSubscriptionsTests", dependencies: ["GatheredKitSubscriptions"]),
 
-        .target(name: "GatheredKitDevice", dependencies: ["GatheredKit"]),
+        .target(
+            name: "GatheredKitCamera",
+            dependencies: ["GatheredKit"],
+            swiftSettings: [
+                .unsafeFlags([
+                    "-warn-concurrency",
+                ])
+            ]
+        ),
 
-        .target(name: "GatheredKitExternalAccessory", dependencies: ["GatheredKit"]),
+            .target(name: "GatheredKitDevice", dependencies: ["GatheredKit"],
+                    swiftSettings: [
+                        .unsafeFlags([
+                            "-warn-concurrency",
+                        ])
+                    ]),
 
-        .target(name: "GatheredKitLocation", dependencies: ["GatheredKit"]),
+            .target(name: "GatheredKitExternalAccessory", dependencies: ["GatheredKit"],
+                    swiftSettings: [
+                        .unsafeFlags([
+                            "-warn-concurrency",
+                        ])
+                    ]),
+
+            .target(name: "GatheredKitLocation", dependencies: ["GatheredKit"],
+                    swiftSettings: [
+                        .unsafeFlags([
+                            "-warn-concurrency",
+                        ])
+                    ]),
         .testTarget(name: "GatheredKitLocationTests", dependencies: ["GatheredKitLocation"]),
 
         .target(
             name: "GatheredKitMotion",
             dependencies: ["GatheredKit"],
-            exclude: ["README.md"]
+            exclude: ["README.md"],
+            swiftSettings: [
+                .unsafeFlags([
+                    "-warn-concurrency",
+                ])
+            ]
         ),
 
-        .target(name: "GatheredKitProcessInfo", dependencies: ["GatheredKit"]),
+            .target(name: "GatheredKitProcessInfo", dependencies: ["GatheredKit"],
+                    swiftSettings: [
+                        .unsafeFlags([
+                            "-warn-concurrency",
+                        ])
+                    ]),
 
-        .target(name: "GatheredKitScreen", dependencies: ["GatheredKit"]),
+            .target(name: "GatheredKitScreen", dependencies: ["GatheredKit"],
+                    swiftSettings: [
+                        .unsafeFlags([
+                            "-warn-concurrency",
+                        ])
+                    ]),
         .testTarget(name: "GatheredKitScreenTests", dependencies: ["GatheredKitScreen", "GatheredKitTestHelpers"]),
 
-        .target(name: "GatheredKitSystemStatistics", dependencies: ["GatheredKit"]),
+            .target(name: "GatheredKitSystemStatistics", dependencies: ["GatheredKit"],
+                    swiftSettings: [
+                        .unsafeFlags([
+                            "-warn-concurrency",
+                        ])
+                    ]),
 
-        .target(name: "GatheredKitTestHelpers", dependencies: ["GatheredKit"]),
+            .target(name: "GatheredKitTestHelpers", dependencies: ["GatheredKit"],
+                    swiftSettings: [
+                        .unsafeFlags([
+                            "-warn-concurrency",
+                        ])
+                    ]),
 
         .target(
             name: "GatheredKitUserTracking",
             dependencies: ["GatheredKit"],
-            exclude: ["README.md"]
+            exclude: ["README.md"],
+            swiftSettings: [
+                .unsafeFlags([
+                    "-warn-concurrency",
+                ])
+            ]
         ),
 
         .target(
             name: "GatheredKitWiFi",
             dependencies: ["GatheredKit"],
-            exclude: ["CLLocationManager+requestAuthorization.swift"]
+            exclude: ["CLLocationManager+requestAuthorization.swift"],
+            swiftSettings: [
+                .unsafeFlags([
+                    "-warn-concurrency",
+                ])
+            ]
         ),
     ]
 )

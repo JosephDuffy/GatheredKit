@@ -18,6 +18,7 @@ public final class Screen: UpdatingSource, Controllable {
         #endif
     }
 
+    @MainActor
     public static var main: Screen {
         Screen(screen: .main)
     }
@@ -122,6 +123,7 @@ public final class Screen: UpdatingSource, Controllable {
     /**
      Create a new instance of `Screen` for the `main` `UIScreen`.
      */
+    @MainActor
     public convenience init() {
         self.init(screen: UIScreen.main)
     }
@@ -132,6 +134,7 @@ public final class Screen: UpdatingSource, Controllable {
      - Parameter screen: The `UIScreen` to get data from.
      - Parameter notificationCenter: The notification center to list to notifications from.
      */
+    @MainActor
     internal init(screen: UIScreen, notificationCenter: NotificationCenter = .default) {
         if screen == .main {
             id = SourceIdentifier(sourceKind: .screen, instanceIdentifier: "main", isTransient: false)
@@ -180,6 +183,7 @@ public final class Screen: UpdatingSource, Controllable {
      Start automatically monitoring changes to the source. This will start delegate methods being called
      when new data is available
      */
+    @MainActor
     public func startUpdating() {
         guard !isUpdating else { return }
 
@@ -190,11 +194,12 @@ public final class Screen: UpdatingSource, Controllable {
         let brightnessChangeObeserver: NSObjectProtocol?
 
         if uiScreen == .main {
+            // TODO: Migrate to combine publisher for notification
             brightnessChangeObeserver = notificationCenter.addObserver(
                 forName: UIScreen.brightnessDidChangeNotification,
                 object: uiScreen,
-                queue: updatesQueue
-            ) { [weak self] _ in
+                queue: .main
+            ) { @MainActor(unsafe) [weak self] _ in
                 guard let self = self else { return }
 
                 self._brightness.updateValueIfDifferent(self.uiScreen.brightness)
@@ -209,8 +214,8 @@ public final class Screen: UpdatingSource, Controllable {
         let modeChangeObeserver = notificationCenter.addObserver(
             forName: UIScreen.modeDidChangeNotification,
             object: uiScreen,
-            queue: updatesQueue
-        ) { [weak self] _ in
+            queue: .main
+        ) { @MainActor(unsafe) [weak self] _ in
             guard let self = self else { return }
             self._reportedResolution.updateMeasuredValueIfDifferent(self.uiScreen.bounds.size)
             self._nativeResolution.updateMeasuredValueIfDifferent(self.uiScreen.nativeBounds.size)
@@ -242,6 +247,7 @@ public final class Screen: UpdatingSource, Controllable {
     /**
      Stop performing automatic date refreshes
      */
+    @MainActor
     public func stopUpdating() {
         #if os(iOS)
         guard case .monitoring(let brightnessChangeObeserver, let modeChangeObeserver, _) = state

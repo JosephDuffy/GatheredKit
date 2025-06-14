@@ -4,6 +4,7 @@ import GatheredKitTestHelpers
 import UIKit
 import XCTest
 
+@MainActor
 final class ScreenTests: XCTestCase {
     func testDefaultInitialiser() {
         let screen = Screen()
