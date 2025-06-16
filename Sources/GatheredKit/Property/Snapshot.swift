@@ -3,10 +3,10 @@ import Foundation
 /// A snapshot of data.
 public struct Snapshot<Value>: AnySnapshot {
     /// The value captured at `date`.
-    public var value: Value
+    public private(set) var value: Value
 
     /// The point in time the data was captured.
-    public var date: Date
+    public private(set) var date: Date
 
     /// The data that was captured, erased as `Any`.
     public var typeErasedValue: Any? {
