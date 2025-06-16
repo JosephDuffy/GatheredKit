@@ -1,4 +1,5 @@
-// swift-tools-version:5.6
+// swift-tools-version: 5.9
+import CompilerPluginSupport
 import PackageDescription
 
 let package = Package(
@@ -22,6 +23,8 @@ let package = Package(
     ],
     dependencies: [
         .package(url: "https://github.com/apple/swift-docc-plugin", exact: "1.0.0"),
+        .package(url: "https://github.com/swiftlang/swift-syntax", from: "509.0.0"),
+        .package(url: "https://github.com/apple/swift-algorithms.git", from: "1.2.1")
     ],
     targets: [
         .target(
@@ -30,13 +33,31 @@ let package = Package(
         ),
         .testTarget(name: "GatheredKitTests", dependencies: ["GatheredKit", "GatheredKitTestHelpers"]),
 
+        .target(
+            name: "GatheredKitMacros",
+            dependencies: [
+                .product(name: "Algorithms", package: "swift-algorithms"),
+                .product(name: "SwiftSyntaxMacros", package: "swift-syntax"),
+                .product(name: "SwiftCompilerPlugin", package: "swift-syntax"),
+                "GatheredKitMacrosMacros",
+            ]
+        ),
+        .macro(
+            name: "GatheredKitMacrosMacros",
+            dependencies: [
+                .product(name: "Algorithms", package: "swift-algorithms"),
+                .product(name: "SwiftSyntaxMacros", package: "swift-syntax"),
+                .product(name: "SwiftCompilerPlugin", package: "swift-syntax"),
+            ]
+        ),
+
         .target(name: "GatheredKitCamera", dependencies: ["GatheredKit"]),
 
         .target(name: "GatheredKitDevice", dependencies: ["GatheredKit"]),
 
         .target(name: "GatheredKitExternalAccessory", dependencies: ["GatheredKit"]),
 
-        .target(name: "GatheredKitLocation", dependencies: ["GatheredKit"]),
+        .target(name: "GatheredKitLocation", dependencies: ["GatheredKit", "GatheredKitMacros"]),
         .testTarget(name: "GatheredKitLocationTests", dependencies: ["GatheredKitLocation"]),
 
         .target(
