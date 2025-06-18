@@ -184,16 +184,22 @@ public struct UpdatableProperty: MemberMacro {
         }
 
         var unit: MemberAccessExprSyntax?
+        var formatter: ClosureExprSyntax?
 
         if let arguments = attribute.arguments?.as(LabeledExprListSyntax.self) {
             for argument in arguments {
                 guard let label = argument.label else { continue }
                 switch label.trimmed.text {
-                case "unit":
+                case "unit", "dimension":
                     guard let expression = argument.expression.as(MemberAccessExprSyntax.self) else {
                         continue
                     }
                     unit = expression
+                case "formatter":
+                    guard let expression = argument.expression.as(ClosureExprSyntax.self) else {
+                        continue
+                    }
+                    formatter = expression
                 default:
                     break
                 }

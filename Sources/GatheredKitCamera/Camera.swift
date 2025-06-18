@@ -80,7 +80,8 @@ public final class Camera: UpdatingSource, Controllable, Identifiable {
         )
         _position = .init(
             id: id.identifierForChildPropertyWithId("position"),
-            value: captureDevice.position
+            value: captureDevice.position,
+            formatter: { $0.formatted() }
         )
         _isConnected = .init(
             id: id.identifierForChildPropertyWithId("isConnected"),

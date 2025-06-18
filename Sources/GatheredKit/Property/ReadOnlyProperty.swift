@@ -21,6 +21,10 @@ public final class ReadOnlyProperty<WrappedProperty: Property>: Property {
         wrapped.snapshotsPublisher
     }
 
+    public var formatter: PropertyFormatter<WrappedProperty.Value>? {
+        wrapped.formatter
+    }
+
     private let wrapped: WrappedProperty
 
     public init(_ wrapped: WrappedProperty) {

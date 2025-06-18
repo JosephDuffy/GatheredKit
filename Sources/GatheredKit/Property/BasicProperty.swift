@@ -38,7 +38,21 @@ public final class BasicProperty<Value>: UpdatableProperty {
         $snapshot.eraseToAnyPublisher()
     }
 
+    /// A closure that provides a default format for a given value.
+    public let formatter: PropertyFormatter<Value>?
+
     // MARK: Initialisers
+
+    public init(
+        id: PropertyIdentifier,
+        value: Value,
+        formatter: PropertyFormatter<Value>?,
+        date: Date = Date()
+    ) {
+        self.id = id
+        self.formatter = formatter
+        snapshot = Snapshot(value: value, date: date)
+    }
 
     public init(
         id: PropertyIdentifier,
@@ -46,6 +60,7 @@ public final class BasicProperty<Value>: UpdatableProperty {
         date: Date = Date()
     ) {
         self.id = id
+        self.formatter = nil
         snapshot = Snapshot(value: value, date: date)
     }
 

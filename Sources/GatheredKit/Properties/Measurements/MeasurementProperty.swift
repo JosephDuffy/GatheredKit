@@ -45,14 +45,29 @@ public final class MeasurementProperty<Unit: Foundation.Unit>: UpdatableProperty
         measurement.value
     }
 
+    public let formatter: PropertyFormatter<Value>?
+
     // MARK: Initialisers
 
     public init(
         id: PropertyIdentifier,
         measurement: Measurement<Unit>,
+        formatter: PropertyFormatter<Value>? = nil,
         date: Date = Date()
     ) {
         self.id = id
+        self.formatter = formatter
+        snapshot = Snapshot(value: measurement, date: date)
+    }
+
+    public init(
+        id: PropertyIdentifier,
+        measurement: Measurement<Unit>,
+        formatter: PropertyFormatter<Value>? = .measurementFormatter(),
+        date: Date = Date()
+    ) where Unit: Dimension {
+        self.id = id
+        self.formatter = formatter
         snapshot = Snapshot(value: measurement, date: date)
     }
 
@@ -60,12 +75,30 @@ public final class MeasurementProperty<Unit: Foundation.Unit>: UpdatableProperty
         id: PropertyIdentifier,
         value: Double,
         unit: Unit,
+        formatter: PropertyFormatter<Value>? = nil,
         date: Date = Date()
     ) {
         let measurement = Measurement(value: value, unit: unit)
         self.init(
             id: id,
             measurement: measurement,
+            formatter: formatter,
+            date: date
+        )
+    }
+
+    public convenience init(
+        id: PropertyIdentifier,
+        value: Double,
+        unit: Unit,
+        formatter: PropertyFormatter<Value>? = .measurementFormatter(),
+        date: Date = Date()
+    ) where Unit: Dimension {
+        let measurement = Measurement(value: value, unit: unit)
+        self.init(
+            id: id,
+            measurement: measurement,
+            formatter: formatter,
             date: date
         )
     }
@@ -102,5 +135,17 @@ public final class MeasurementProperty<Unit: Foundation.Unit>: UpdatableProperty
     public func updateMeasuredValueIfDifferent(_ measuredValue: Double, date: Date = Date()) -> Snapshot<Value>? {
         guard measuredValue != self.measuredValue else { return nil }
         return updateMeasuredValue(measuredValue, date: date)
+    }
+}
+
+extension PropertyFormatter {
+    public static func measurementFormatter<Unit: Foundation.Dimension>() -> PropertyFormatter<Measurement<Unit>> {
+        PropertyFormatter<Measurement<Unit>> { property, formatStyleModifier in
+            var formatStyle: any Foundation.FormatStyle<Measurement<Unit>, String> = Measurement<Unit>.FormatStyle(
+                width: .abbreviated
+            )
+            formatStyleModifier?(&formatStyle)
+            return property.value.formatted(formatStyle)
+        }
     }
 }
