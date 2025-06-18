@@ -7,9 +7,9 @@ import GatheredKitMacros
 @UpdatableProperty<CLLocationCoordinate2D?>
 @propertyWrapper
 public final class OptionalCoordinateProperty: UpdatableProperty, PropertiesProviding {
-    @ChildProperty(\CLLocationCoordinate2D.latitude, unit: UnitAngle.degrees)
+    @PropertyValue(\CLLocationCoordinate2D.latitude, unit: UnitAngle.degrees)
     public private(set) var latitude: Measurement<UnitAngle>?
 
-    @ChildProperty(\CLLocationCoordinate2D.longitude, unit: UnitAngle.degrees)
+    @PropertyValue(\CLLocationCoordinate2D.longitude, unit: UnitAngle.degrees)
     public private(set) var longitude: Measurement<UnitAngle>?
 }

@@ -6,7 +6,7 @@ import SwiftCompilerPlugin
 
 @main
 struct GatheredKitMacros: CompilerPlugin {
-    var providingMacros: [Macro.Type] = [UpdatableProperty.self, ChildPropertyMeasurement.self]
+    var providingMacros: [Macro.Type] = [UpdatableProperty.self, PropertyValueMeasurement.self]
 }
 
 public struct UpdatableProperty: MemberMacro {
@@ -17,7 +17,7 @@ public struct UpdatableProperty: MemberMacro {
     ) throws -> [DeclSyntax] {
         let childPropertyCandidates = declaration.memberBlock.members
             .compactMap { $0.decl.as(VariableDeclSyntax.self) }
-            .filter(ChildPropertyMeasurement.isSupportedOnVariable(_:))
+            .filter(PropertyValueMeasurement.isSupportedOnVariable(_:))
 
         guard let valueType = (
             node.attributeName.as(IdentifierTypeSyntax.self)
@@ -179,7 +179,7 @@ public struct UpdatableProperty: MemberMacro {
             return nil
         }
 
-        guard let attribute = attribute(named: "ChildProperty") else {
+        guard let attribute = attribute(named: "PropertyValue") else {
             return ""
         }
 
@@ -322,7 +322,7 @@ public struct UpdatableProperty: MemberMacro {
     }
 }
 
-public struct ChildPropertyMeasurement: AccessorMacro {
+public struct PropertyValueMeasurement: AccessorMacro {
     public static func expansion(
         of node: AttributeSyntax,
         providingAccessorsOf declaration: some DeclSyntaxProtocol,
