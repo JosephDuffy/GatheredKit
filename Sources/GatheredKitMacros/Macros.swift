@@ -9,7 +9,7 @@ public macro UpdatableProperty<Value>() = #externalMacro(
 /// Marks a property as a child property of the parent ``UpdatableProperty()``.
 ///
 /// This property includes a unit of measurement
-@attached(peer)
+@attached(accessor)
 public macro ChildProperty<Root, Unit: Foundation.Unit>(
     _ property: KeyPath<Root, Double>,
     unit: Unit

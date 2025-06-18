@@ -322,12 +322,12 @@ public struct UpdatableProperty: MemberMacro {
     }
 }
 
-public struct ChildPropertyMeasurement: PeerMacro {
+public struct ChildPropertyMeasurement: AccessorMacro {
     public static func expansion(
         of node: AttributeSyntax,
-        providingPeersOf declaration: some DeclSyntaxProtocol,
+        providingAccessorsOf declaration: some DeclSyntaxProtocol,
         in context: some MacroExpansionContext
-    ) throws -> [DeclSyntax] {
+    ) throws -> [AccessorDeclSyntax] {
         guard let variable = declaration.as(VariableDeclSyntax.self) else {
 //            let fixIt = FixIt(
 //                message: HashableMacroFixItMessage(
@@ -379,8 +379,18 @@ public struct ChildPropertyMeasurement: PeerMacro {
 //            context.diagnose(diagnostic)
         }
 
-        // Only used to decorate members
-        return []
+        return [
+            """
+            get {
+                _\(variable.bindings.first!.pattern).wrappedValue
+            }
+            """,
+            """
+            set {
+                _\(variable.bindings.first!.pattern).updateValue(newValue)
+            }
+            """,
+        ]
     }
 
     public static func isSupportedOnVariable(_ variable: VariableDeclSyntax) -> Bool {
