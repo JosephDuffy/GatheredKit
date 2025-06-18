@@ -73,7 +73,7 @@ public struct UpdatableProperty: MemberMacro {
             valueType.as(IdentifierTypeSyntax.self)?.name.trimmed == "Optional"
         {
             initialiser = ("""
-            public required init(
+            public init(
                 id: PropertyIdentifier,
                 value: \(valueType) = nil,
                 date: Date = Date()
@@ -84,7 +84,7 @@ public struct UpdatableProperty: MemberMacro {
             """ as DeclSyntax).as(InitializerDeclSyntax.self)!
         } else {
             initialiser = ("""
-            public required init(
+            public init(
                 id: PropertyIdentifier,
                 value: \(valueType),
                 date: Date = Date()
