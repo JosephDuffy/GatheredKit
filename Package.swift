@@ -62,7 +62,10 @@ let package = Package(
 
         .target(
             name: "GatheredKitMotion",
-            dependencies: ["GatheredKit"],
+            dependencies: [
+                "GatheredKit",
+                "GatheredKitMacros",
+            ],
             exclude: ["README.md"]
         ),
 

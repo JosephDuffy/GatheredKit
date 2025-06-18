@@ -34,10 +34,8 @@ public final class Altimeter: UpdatingSource, Controllable {
     @OptionalLengthProperty
     public private(set) var relativeAltitude: Measurement<UnitLength>?
 
-    /// This property is only available on iOS 15 and watchOS 8 or later. On
-    /// prior versions this will always be `nil`.
     @OptionalCMAbsoluteAltitudeDataProperty
-    public private(set) var absoluteAltitude: CMAbsoluteAltitudeDataShim?
+    public private(set) var absoluteAltitude: CMAbsoluteAltitudeData?
 
     @OptionalPressureProperty
     public private(set) var pressure: Measurement<UnitPressure>?
@@ -161,7 +159,7 @@ public final class Altimeter: UpdatingSource, Controllable {
                     altimeter.startAbsoluteAltitudeUpdates(to: queue) { [weak self] data, error in
                         guard let self = self else { return }
 
-                        self.absoluteAltitude = data.map(CMAbsoluteAltitudeDataShim.init(cmAbsoluteAltitudeData:))
+                        self.absoluteAltitude = data
                         self._absoluteAltitude.error = error
 
                         let availability = CMAltimeter.availability

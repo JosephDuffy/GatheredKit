@@ -3,107 +3,25 @@ import Combine
 import CoreMotion
 import Foundation
 import GatheredKit
+import GatheredKitMacros
 
+@UpdatableProperty<CMAttitude?>
 @available(macOS, unavailable)
 @propertyWrapper
 public final class OptionalCMAttitudeProperty: UpdatableProperty, PropertiesProviding {
-    public typealias Value = CMAttitude?
-
-    public let id: PropertyIdentifier
-
-    // MARK: `CMAttitude` Properties
-
-    public var allProperties: [any Property] {
-        [$roll, $pitch, $yaw, $quaternion, $rotationMatrix]
-    }
-
-    @OptionalAngleProperty
+    @PropertyValue(\CMAttitude.roll, unit: UnitAngle.radians)
     public private(set) var roll: Measurement<UnitAngle>?
 
-    @OptionalAngleProperty
+    @PropertyValue(\CMAttitude.pitch, unit: UnitAngle.radians)
     public private(set) var pitch: Measurement<UnitAngle>?
 
-    @OptionalAngleProperty
+    @PropertyValue(\CMAttitude.yaw, unit: UnitAngle.radians)
     public private(set) var yaw: Measurement<UnitAngle>?
 
-    @OptionalCMQuaternionProperty
+    @ChildProperty(\CMAttitude.quaternion, propertyType: OptionalCMQuaternionProperty.self)
     public private(set) var quaternion: CMQuaternion?
 
-    @OptionalCMRotationMatrixProperty
+    @ChildProperty(\CMAttitude.rotationMatrix, propertyType: OptionalCMRotationMatrixProperty.self)
     public private(set) var rotationMatrix: CMRotationMatrix?
-
-    // MARK: Property Wrapper Properties
-
-    public var wrappedValue: Value {
-        get {
-            value
-        }
-        set {
-            updateValue(newValue)
-        }
-    }
-
-    public var projectedValue: some Property<CMAttitude?> {
-        asReadOnlyProperty
-    }
-
-    @Published
-    public internal(set) var snapshot: Snapshot<Value>
-
-    public var snapshotsPublisher: AnyPublisher<Snapshot<Value>, Never> {
-        $snapshot.eraseToAnyPublisher()
-    }
-
-    // MARK: Initialisers
-
-    public init(
-        id: PropertyIdentifier,
-        value: Value = nil,
-        date: Date = Date()
-    ) {
-        self.id = id
-        snapshot = Snapshot(value: value, date: date)
-
-        _roll = .radians(
-            id: id.childIdentifierForPropertyId("roll"),
-            value: value?.roll,
-            date: date
-        )
-        _pitch = .radians(
-            id: id.childIdentifierForPropertyId("pitch"),
-            value: value?.pitch,
-            date: date
-        )
-        _yaw = .radians(
-            id: id.childIdentifierForPropertyId("yaw"),
-            value: value?.yaw,
-            date: date
-        )
-        _quaternion = .init(
-            id: id.childIdentifierForPropertyId("quaternion"),
-            value: value?.quaternion,
-            date: date
-        )
-        _rotationMatrix = .init(
-            id: id.childIdentifierForPropertyId("rotationMatrix"),
-            value: value?.rotationMatrix,
-            date: date
-        )
-    }
-
-    // MARK: Update Functions
-
-    @discardableResult
-    public func updateValue(_ value: Value, date: Date = Date()) -> Snapshot<Value> {
-        _roll.updateMeasuredValue(value?.roll, date: date)
-        _pitch.updateMeasuredValue(value?.pitch, date: date)
-        _yaw.updateMeasuredValue(value?.yaw, date: date)
-        _quaternion.updateValue(value?.quaternion, date: date)
-        _rotationMatrix.updateValue(value?.rotationMatrix, date: date)
-
-        let snapshot = Snapshot(value: value, date: date)
-        self.snapshot = snapshot
-        return snapshot
-    }
 }
 #endif
