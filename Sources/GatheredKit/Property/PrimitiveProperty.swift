@@ -1,8 +1,10 @@
 import Combine
 import Foundation
 
+public typealias BasicProperty<Value> = PrimitiveProperty<Value>
+
 @propertyWrapper
-public final class BasicProperty<Value>: UpdatableProperty {
+public final class PrimitiveProperty<Value>: UpdatableProperty {
     public let id: PropertyIdentifier
 
     public var wrappedValue: Value {
