@@ -134,7 +134,7 @@ public struct UpdatableProperty: MemberMacro {
 
         // TODO: Generate `_` and `$` properties for each child property
 
-        return [
+        var declarations: [DeclSyntax] = [
             wrappedValueProperty,
             idProperty,
             allPropertiesProperty,
@@ -144,6 +144,17 @@ public struct UpdatableProperty: MemberMacro {
             DeclSyntax(initialiser),
             DeclSyntax(updateValueFunction),
         ]
+
+        for childPropertyCandidate in childPropertyCandidates {
+            do {
+                let storageAndAccess = try storageAndAccess(for: childPropertyCandidate)
+                declarations.append(contentsOf: storageAndAccess)
+            } catch {
+                print(error)
+            }
+        }
+
+        return declarations
     }
 
     private static func propertyInit(for variable: VariableDeclSyntax) throws -> ExprSyntax {
@@ -215,6 +226,79 @@ public struct UpdatableProperty: MemberMacro {
                 date: date
             )
             """
+        }
+    }
+
+    private static func storageAndAccess(for variable: VariableDeclSyntax) throws -> [DeclSyntax] {
+        guard let binding = variable.bindings.first else {
+            fatalError()
+        }
+        guard let typeAnnotation = binding.typeAnnotation else {
+            fatalError()
+        }
+
+        func unitForMeasurement(type: TypeSyntax) throws -> TypeSyntax {
+            guard let identifierType = type.as(IdentifierTypeSyntax.self) else {
+                fatalError()
+            }
+            guard let genericArgument = identifierType.genericArgumentClause?.arguments.first else {
+                fatalError()
+            }
+            return genericArgument.argument
+        }
+
+        if let optionalType = typeAnnotation.type.as(OptionalTypeSyntax.self) {
+            let unit = try unitForMeasurement(type: optionalType.wrappedType)
+            return [
+                """
+                private let _\(binding.pattern): OptionalMeasurementProperty<\(unit)>
+                """,
+                """
+                public var $\(binding.pattern): some Property<Measurement<\(unit)>?> {
+                    _\(binding.pattern).projectedValue
+                }
+                """,
+            ]
+        } else if let optionalType = typeAnnotation.type.as(ImplicitlyUnwrappedOptionalTypeSyntax.self) {
+            let unit = try unitForMeasurement(type: optionalType.wrappedType)
+            return [
+                """
+                private let _\(binding.pattern): OptionalMeasurementProperty<\(unit)>
+                """,
+                """
+                public var $\(binding.pattern): some Property<Measurement<\(unit)>?> {
+                    _\(binding.pattern).projectedValue
+                }
+                """,
+            ]
+        } else if
+            let identifierType = typeAnnotation.type.as(IdentifierTypeSyntax.self),
+            identifierType.name.trimmed == "Optional",
+            let genericType = identifierType.genericArgumentClause?.arguments.first
+        {
+            let unit = try unitForMeasurement(type: genericType.argument)
+            return [
+                """
+                private let _\(binding.pattern): OptionalMeasurementProperty<\(unit)>
+                """,
+                """
+                public var $\(binding.pattern): some Property<Measurement<\(unit)>?> {
+                    _\(binding.pattern).projectedValue
+                }
+                """,
+            ]
+        } else {
+            let unit = try unitForMeasurement(type: typeAnnotation.type)
+            return [
+                """
+                private let _\(binding.pattern): MeasurementProperty<\(unit)>
+                """,
+                """
+                public var $\(binding.pattern): some Property<Measurement<\(unit)>> {
+                    _\(binding.pattern).projectedValue
+                }
+                """,
+            ]
         }
     }
 

@@ -7,11 +7,23 @@ import GatheredKitMacros
 @UpdatableProperty<CLLocationCoordinate2D>
 @propertyWrapper
 public final class CoordinateProperty: UpdatableProperty, PropertiesProviding {
-    @ChildProperty(\CLLocationCoordinate2D.latitude, unit: UnitAngle.degrees)
-    @AngleProperty
-    public private(set) var latitude: Measurement<UnitAngle>
+    @ChildProperty(\CLLocationCoordinate2D.latitude, dimension: UnitAngle.degrees)
+    public private(set) var latitude: Measurement<UnitAngle> {
+        get {
+            _latitude.wrappedValue
+        }
+        set {
+            _latitude.updateValue(newValue)
+        }
+    }
 
-    @ChildProperty(\CLLocationCoordinate2D.longitude, unit: UnitAngle.degrees)
-    @AngleProperty
-    public private(set) var longitude: Measurement<UnitAngle>
+    @ChildProperty(\CLLocationCoordinate2D.longitude, dimension: UnitAngle.degrees)
+    public private(set) var longitude: Measurement<UnitAngle> {
+        get {
+            _longitude.wrappedValue
+        }
+        set {
+            _longitude.updateValue(newValue)
+        }
+    }
 }
