@@ -6,8 +6,11 @@ public macro UpdatableProperty<Value>() = #externalMacro(
     type: "UpdatableProperty"
 )
 
+/// Marks a property as a child property of the parent ``UpdatableProperty()``.
+///
+/// This property includes a unit of measurement
 @attached(peer)
-public macro ChildProperty<Root, Value>(
-    _ property: KeyPath<Root, Value>,
-    unit: UnitAngle
+public macro ChildProperty<Root, Unit: Foundation.Unit>(
+    _ property: KeyPath<Root, Double>,
+    unit: Unit
 ) = #externalMacro(module: "GatheredKitMacrosMacros", type: "ChildPropertyMeasurement")
