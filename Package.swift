@@ -36,9 +36,9 @@ let package = Package(
         .target(
             name: "GatheredKitMacros",
             dependencies: [
-                .product(name: "Algorithms", package: "swift-algorithms"),
                 .product(name: "SwiftSyntaxMacros", package: "swift-syntax"),
                 .product(name: "SwiftCompilerPlugin", package: "swift-syntax"),
+                "GatheredKit",
                 "GatheredKitMacrosMacros",
             ]
         ),
