@@ -28,25 +28,25 @@ public final class ExternalAccessory: UpdatingSource, Controllable {
 
     public let accessory: EAAccessory
 
-    @BoolProperty
+    @BasicProperty
     public private(set) var isConnected: Bool
 
-    @IntProperty
+    @BasicProperty
     public private(set) var connectionID: Int
 
-    @StringProperty
+    @BasicProperty
     public private(set) var manufacturer: String
 
-    @StringProperty
+    @BasicProperty
     public private(set) var modelNumber: String
 
-    @StringProperty
+    @BasicProperty
     public private(set) var serialNumber: String
 
-    @StringProperty
+    @BasicProperty
     public private(set) var firmwareRevision: String
 
-    @StringProperty
+    @BasicProperty
     public private(set) var hardwareRevision: String
 
     public var allProperties: [any Property] {

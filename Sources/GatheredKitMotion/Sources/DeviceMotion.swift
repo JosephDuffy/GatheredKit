@@ -47,7 +47,7 @@ public final class DeviceMotion: UpdatingSource, CustomisableUpdateIntervalContr
     @OptionalCMAccelerationProperty
     public private(set) var userAcceleration: CMAcceleration?
 
-    @OptionalAngleProperty
+    @OptionalMeasurementProperty
     public private(set) var heading: Measurement<UnitAngle>?
 
     @OptionalCMCalibratedMagneticFieldProperty
@@ -87,7 +87,10 @@ public final class DeviceMotion: UpdatingSource, CustomisableUpdateIntervalContr
         _attitude = .init(id: id.identifierForChildPropertyWithId("attitude"))
         _gravity = .init(id: id.identifierForChildPropertyWithId("gravityAcceleration"))
         _userAcceleration = .init(id: id.identifierForChildPropertyWithId("userAcceleration"))
-        _heading = .degrees(id: id.identifierForChildPropertyWithId("heading"))
+        _heading = OptionalMeasurementProperty(
+            id: id.identifierForChildPropertyWithId("heading"),
+            unit: .degrees
+        )
         _magneticField = .init(id: id.identifierForChildPropertyWithId("magneticField"))
         _rotationRate = .init(id: id.identifierForChildPropertyWithId("rotationRate"))
     }

@@ -39,13 +39,13 @@ public final class Camera: UpdatingSource, Controllable, Identifiable {
     /// The `AVCaptureDevice` this `Camera` represents.
     public let captureDevice: AVCaptureDevice
 
-    @StringProperty
+    @BasicProperty
     public private(set) var uniqueID: String
 
-    @AVCaptureDevicePositionProperty
+    @BasicProperty
     public private(set) var position: AVCaptureDevice.Position
 
-    @BoolProperty
+    @BasicProperty
     public private(set) var isConnected: Bool
 
     public var allProperties: [any Property] {

@@ -21,7 +21,7 @@ public final class Screen: Source {
     /**
      The native scale factor of the screen
      */
-    @ScaleProperty
+    @BasicProperty
     public private(set) var scale: CGFloat
 
     /**

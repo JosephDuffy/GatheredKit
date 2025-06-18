@@ -31,13 +31,13 @@ public final class Altimeter: UpdatingSource, Controllable {
         $isUpdating.eraseToAnyPublisher()
     }
 
-    @OptionalLengthProperty
+    @OptionalMeasurementProperty
     public private(set) var relativeAltitude: Measurement<UnitLength>?
 
     @OptionalCMAbsoluteAltitudeDataProperty
     public private(set) var absoluteAltitude: CMAbsoluteAltitudeData?
 
-    @OptionalPressureProperty
+    @OptionalMeasurementProperty
     public private(set) var pressure: Measurement<UnitPressure>?
 
     public var allProperties: [any Property] {
@@ -65,14 +65,16 @@ public final class Altimeter: UpdatingSource, Controllable {
         id = SourceIdentifier(sourceKind: .altimeter)
         self.altimeter = altimeter
         availability = CMAltimeter.availability
-        _relativeAltitude = .meters(
-            id: id.identifierForChildPropertyWithId("relativeAltitude")
+        _relativeAltitude = OptionalMeasurementProperty(
+            id: id.identifierForChildPropertyWithId("relativeAltitude"),
+            unit: .meters
         )
         _absoluteAltitude = .init(
             id: id.identifierForChildPropertyWithId("absoluteAltitude")
         )
-        _pressure = .kilopascals(
-            id: id.identifierForChildPropertyWithId("pressure")
+        _pressure = OptionalMeasurementProperty(
+            id: id.identifierForChildPropertyWithId("pressure"),
+            unit: .kilopascals
         )
     }
 

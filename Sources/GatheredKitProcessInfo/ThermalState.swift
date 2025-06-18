@@ -24,7 +24,7 @@ public final class ThermalState: UpdatingSource, Controllable {
     /// The `ProcessInfo` this `ThermalState` reads from.
     public let processInfo: ProcessInfo
 
-    @ProcessInfoThermalStateProperty
+    @BasicProperty
     public private(set) var state: ProcessInfo.ThermalState
 
     public var allProperties: [any Property] {

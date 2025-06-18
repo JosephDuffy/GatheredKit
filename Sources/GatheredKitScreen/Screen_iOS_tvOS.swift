@@ -58,13 +58,13 @@ public final class Screen: UpdatingSource, Controllable {
     /**
      The reported scale factor of the screen
      */
-    @ScaleProperty
+    @BasicProperty
     public private(set) var reportedScale: CGFloat
 
     /**
      The native scale factor of the screen
      */
-    @ScaleProperty
+    @BasicProperty
     public private(set) var nativeScale: CGFloat
 
     #if os(iOS)
@@ -74,7 +74,7 @@ public final class Screen: UpdatingSource, Controllable {
 
      If the screen is not the main screen this value will always be 1.
      */
-    @PercentProperty
+    @BasicProperty
     public private(set) var brightness: CGFloat
     #endif
 

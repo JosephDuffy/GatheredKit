@@ -32,16 +32,16 @@ public final class Location: UpdatingSource, Controllable {
     @OptionalMeasurementProperty
     public private(set) var altitude: Measurement<UnitLength>?
 
-    @OptionalIntProperty
+    @BasicProperty
     public private(set) var floor: Int?
 
     @OptionalMeasurementProperty
     public private(set) var horizontalAccuracy: Measurement<UnitLength>?
 
-    @OptionalLengthProperty
+    @OptionalMeasurementProperty
     public private(set) var verticalAccuracy: Measurement<UnitLength>?
 
-    @CLLocationAuthorizationProperty
+    @BasicProperty
     public private(set) var authorizationStatus: CLAuthorizationStatus
 
     /**
@@ -117,12 +117,27 @@ public final class Location: UpdatingSource, Controllable {
         availability = SourceAvailability(authorizationStatus: authorizationStatus) ?? .unavailable
 
         _coordinate = .init(id: id.identifierForChildPropertyWithId("coordinate"))
-        _speed = .metersPerSecond(id: id.identifierForChildPropertyWithId("speed"))
-        _course = .degrees(id: id.identifierForChildPropertyWithId("course"))
-        _altitude = .meters(id: id.identifierForChildPropertyWithId("altitude"))
+        _speed = OptionalMeasurementProperty(
+            id: id.identifierForChildPropertyWithId("speed"),
+            unit: .metersPerSecond
+        )
+        _course = OptionalMeasurementProperty(
+            id: id.identifierForChildPropertyWithId("course"),
+            unit: .degrees
+        )
+        _altitude = OptionalMeasurementProperty(
+            id: id.identifierForChildPropertyWithId("altitude"),
+            unit: .meters
+        )
         _floor = .init(id: id.identifierForChildPropertyWithId("floor"))
-        _horizontalAccuracy = .meters(id: id.identifierForChildPropertyWithId("horizontalAccuracy"))
-        _verticalAccuracy = .meters(id: id.identifierForChildPropertyWithId("verticalAccuracy"))
+        _horizontalAccuracy = OptionalMeasurementProperty(
+            id: id.identifierForChildPropertyWithId("horizontalAccuracy"),
+            unit: .meters
+        )
+        _verticalAccuracy = OptionalMeasurementProperty(
+            id: id.identifierForChildPropertyWithId("verticalAccuracy"),
+            unit: .meters
+        )
         _authorizationStatus = .init(
             id: id.identifierForChildPropertyWithId("authorizationStatus"),
             value: CLLocationManager.authorizationStatus()

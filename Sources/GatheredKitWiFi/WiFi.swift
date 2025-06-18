@@ -18,10 +18,10 @@ public final class WiFi: Source {
 
     private let eventsSubject = PassthroughSubject<SourceEvent, Never>()
 
-    @StringProperty
+    @BasicProperty
     public private(set) var ssid: String
 
-    @StringProperty
+    @BasicProperty
     public private(set) var bssid: String
 
     /// The `NEHotspotNetwork` this `Network` represents.
