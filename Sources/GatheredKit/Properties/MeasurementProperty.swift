@@ -2,12 +2,8 @@ import Combine
 import Foundation
 
 @propertyWrapper
-public final class MeasurementProperty<Unit: Foundation.Unit>: UpdatableProperty, Equatable {
+public final class MeasurementProperty<Unit: Foundation.Unit>: UpdatableProperty {
     public typealias Value = Measurement<Unit>
-
-    public static func == (lhs: MeasurementProperty<Unit>, rhs: MeasurementProperty<Unit>) -> Bool {
-        lhs.id == rhs.id && lhs.snapshot == rhs.snapshot
-    }
 
     public let id: PropertyIdentifier
 

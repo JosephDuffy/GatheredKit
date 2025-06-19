@@ -40,7 +40,7 @@ public final class Screen: UpdatingSource, Controllable {
     /**
      The resolution of the screen
      */
-    @ResolutionProperty
+    @ResolutionPixelsProperty
     public private(set) var resolution: CGSize
 
     /**
@@ -115,8 +115,7 @@ public final class Screen: UpdatingSource, Controllable {
 
         _resolution = .init(
             id: id.identifierForChildPropertyWithId("resolution"),
-            value: screen.frame.size,
-            unit: .pixels
+            value: screen.frame.size
         )
         _colorSpace = .init(
             id: id.identifierForChildPropertyWithId("colourSpace"),

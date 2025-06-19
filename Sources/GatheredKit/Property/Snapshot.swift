@@ -1,7 +1,7 @@
 import Foundation
 
 /// A snapshot of data.
-public struct Snapshot<Value>: AnySnapshot {
+public struct Snapshot<Value> {
     /// The value captured at `date`.
     public private(set) var value: Value
 

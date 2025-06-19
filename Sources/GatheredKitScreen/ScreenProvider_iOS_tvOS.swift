@@ -66,18 +66,20 @@ public final class ScreenProvider: UpdatingSourceProvider, ControllableSourcePro
             queue: nil
         ) { [unowned self] notification in
             guard let uiScreen = notification.object as? UIScreen else { return }
-            let screen = Screen(screen: uiScreen, notificationCenter: self.notificationCenter)
-            let event = SourceProviderEvent.sourceAdded(screen)
+            MainActor.assumeIsolated {
+                let screen = Screen(screen: uiScreen, notificationCenter: self.notificationCenter)
+                let event = SourceProviderEvent.sourceAdded(screen)
 
-            if self.sources.count == UIScreen.screens.count - 1,
-               let insertedIndex = UIScreen.screens.firstIndex(of: uiScreen)
-            {
-                self.sources.insert(screen, at: insertedIndex)
-            } else {
-                self.sources.append(screen)
+                if self.sources.count == UIScreen.screens.count - 1,
+                   let insertedIndex = UIScreen.screens.firstIndex(of: uiScreen)
+                {
+                    self.sources.insert(screen, at: insertedIndex)
+                } else {
+                    self.sources.append(screen)
+                }
+
+                self.sourceProviderEventsSubject.send(event)
             }
-
-            self.sourceProviderEventsSubject.send(event)
         }
 
         let didDisconnectCancellable = notificationCenter.addObserver(
@@ -86,13 +88,15 @@ public final class ScreenProvider: UpdatingSourceProvider, ControllableSourcePro
             queue: nil
         ) { [unowned self] notification in
             guard let uiScreen = notification.object as? UIScreen else { return }
-            guard let index = self.sources.firstIndex(where: { $0.uiScreen == uiScreen }) else {
-                return
-            }
-            let screen = self.sources.remove(at: index)
+            MainActor.assumeIsolated {
+                guard let index = self.sources.firstIndex(where: { $0.uiScreen == uiScreen }) else {
+                    return
+                }
+                let screen = self.sources.remove(at: index)
 
-            let event = SourceProviderEvent.sourceRemoved(screen)
-            self.sourceProviderEventsSubject.send(event)
+                let event = SourceProviderEvent.sourceRemoved(screen)
+                self.sourceProviderEventsSubject.send(event)
+            }
         }
 
         sources = UIScreen.screens.map { uiScreen in

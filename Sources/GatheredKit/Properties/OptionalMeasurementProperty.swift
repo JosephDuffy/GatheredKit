@@ -2,15 +2,8 @@ import Combine
 import Foundation
 
 @propertyWrapper
-public final class OptionalMeasurementProperty<Unit: Foundation.Unit>: UpdatableProperty, Hashable {
+public final class OptionalMeasurementProperty<Unit: Foundation.Unit>: UpdatableProperty {
     public typealias Value = Measurement<Unit>?
-
-    public static func == (
-        lhs: OptionalMeasurementProperty<Unit>,
-        rhs: OptionalMeasurementProperty<Unit>
-    ) -> Bool {
-        lhs.id == rhs.id && lhs.snapshot == rhs.snapshot
-    }
 
     public let id: PropertyIdentifier
 
@@ -75,11 +68,6 @@ public final class OptionalMeasurementProperty<Unit: Foundation.Unit>: Updatable
         }
 
         snapshot = Snapshot(value: measurement, date: date)
-    }
-
-    public func hash(into hasher: inout Hasher) {
-        hasher.combine(id)
-        hasher.combine(snapshot)
     }
 
     // MARK: Update Functions

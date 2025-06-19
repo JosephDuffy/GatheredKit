@@ -93,9 +93,14 @@ public final class Camera: UpdatingSource, Controllable, Identifiable {
 
         _isConnected.updateValueIfDifferent(captureDevice.isConnected)
 
-        let isConnectedObservation = captureDevice.observe(\.isConnected, options: .new) { [weak self] captureDevice, _ in
-            self?._isConnected.updateValueIfDifferent(captureDevice.isConnected)
-        }
+        let isConnectedObservation = captureDevice
+            .observe(\.isConnected, options: .new) { [weak self] captureDevice, _ in
+                let isConnected = captureDevice.isConnected
+                Task { @MainActor in
+                    guard let self = self else { return }
+                    self._isConnected.updateValueIfDifferent(isConnected)
+                }
+            }
 
         state = .monitoring(observations: [isConnectedObservation])
     }

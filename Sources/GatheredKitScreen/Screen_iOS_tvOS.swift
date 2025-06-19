@@ -10,11 +10,11 @@ public final class Screen: UpdatingSource, Controllable {
         // swiftlint:disable duplicate_enum_cases
         #if os(iOS)
         case monitoring(
-            brightnessChangeObeserver: NSObjectProtocol?, modeChangeObeserver: NSObjectProtocol,
-            updatesQueue: OperationQueue
+            brightnessChangeObeserver: NSObjectProtocol?,
+            modeChangeObeserver: NSObjectProtocol,
         )
         #elseif os(tvOS)
-        case monitoring(modeChangeObeserver: NSObjectProtocol, updatesQueue: OperationQueue)
+        case monitoring(modeChangeObeserver: NSObjectProtocol)
         #endif
     }
 
@@ -46,14 +46,14 @@ public final class Screen: UpdatingSource, Controllable {
     /**
      The reported resolution of the screen
      */
-    @ResolutionProperty
-    public private(set) var reportedResolution: ResolutionMeasurement
+    @ResolutionPixelsProperty
+    public private(set) var reportedResolution: CGSize
 
     /**
      The native resolution of the screen
      */
-    @ResolutionProperty
-    public private(set) var nativeResolution: ResolutionMeasurement
+    @ResolutionPixelsProperty
+    public private(set) var nativeResolution: CGSize
 
     /**
      The reported scale factor of the screen
@@ -141,20 +141,14 @@ public final class Screen: UpdatingSource, Controllable {
         uiScreen = screen
         self.notificationCenter = notificationCenter
 
-        _reportedResolution = ResolutionProperty(
+        _reportedResolution = ResolutionPixelsProperty(
             id: id.identifierForChildPropertyWithId("reportedResolution"),
-            measurement: ResolutionMeasurement(
-                size: screen.bounds.size,
-                unit: .points(screenScale: screen.nativeScale)
-            )
+            value: screen.bounds.size
         )
 
-        _nativeResolution = ResolutionProperty(
+        _nativeResolution = ResolutionPixelsProperty(
             id: id.identifierForChildPropertyWithId("nativeResolution"),
-            measurement: ResolutionMeasurement(
-                size: screen.nativeBounds.size,
-                unit: .pixels
-            )
+            value: screen.nativeBounds.size
         )
 
         _reportedScale = .init(
@@ -183,9 +177,6 @@ public final class Screen: UpdatingSource, Controllable {
     public func startUpdating() {
         guard !isUpdating else { return }
 
-        let updatesQueue = OperationQueue()
-        updatesQueue.name = "GatheredKit Screen Updates"
-
         #if os(iOS)
         let brightnessChangeObeserver: NSObjectProtocol?
 
@@ -193,11 +184,13 @@ public final class Screen: UpdatingSource, Controllable {
             brightnessChangeObeserver = notificationCenter.addObserver(
                 forName: UIScreen.brightnessDidChangeNotification,
                 object: uiScreen,
-                queue: updatesQueue
+                queue: nil
             ) { [weak self] _ in
-                guard let self = self else { return }
+                MainActor.assumeIsolated {
+                    guard let self else { return }
 
-                self._brightness.updateValueIfDifferent(self.uiScreen.brightness)
+                    self._brightness.updateValueIfDifferent(self.uiScreen.brightness)
+                }
             }
 
             _brightness.updateValueIfDifferent(uiScreen.brightness)
@@ -209,31 +202,29 @@ public final class Screen: UpdatingSource, Controllable {
         let modeChangeObeserver = notificationCenter.addObserver(
             forName: UIScreen.modeDidChangeNotification,
             object: uiScreen,
-            queue: updatesQueue
+            queue: nil
         ) { [weak self] _ in
-            guard let self = self else { return }
-            self._reportedResolution.updateMeasuredValueIfDifferent(self.uiScreen.bounds.size)
-            self._nativeResolution.updateMeasuredValueIfDifferent(self.uiScreen.nativeBounds.size)
-            self._reportedScale.updateValueIfDifferent(self.uiScreen.scale)
-            self._nativeScale.updateValueIfDifferent(self.uiScreen.nativeScale)
+            MainActor.assumeIsolated {
+                guard let self else { return }
+                self._reportedResolution.updateValue(self.uiScreen.bounds.size)
+                self._nativeResolution.updateValue(self.uiScreen.nativeBounds.size)
+                self._reportedScale.updateValueIfDifferent(self.uiScreen.scale)
+                self._nativeScale.updateValueIfDifferent(self.uiScreen.nativeScale)
+            }
         }
 
-        _reportedResolution.updateMeasuredValueIfDifferent(uiScreen.bounds.size)
-        _nativeResolution.updateMeasuredValueIfDifferent(uiScreen.nativeBounds.size)
+        _reportedResolution.updateValue(uiScreen.bounds.size)
+        _nativeResolution.updateValue(uiScreen.nativeBounds.size)
         _reportedScale.updateValueIfDifferent(uiScreen.scale)
         _nativeScale.updateValueIfDifferent(uiScreen.nativeScale)
 
         #if os(iOS)
         state = .monitoring(
             brightnessChangeObeserver: brightnessChangeObeserver,
-            modeChangeObeserver: modeChangeObeserver,
-            updatesQueue: updatesQueue
+            modeChangeObeserver: modeChangeObeserver
         )
         #elseif os(tvOS)
-        state = .monitoring(
-            modeChangeObeserver: modeChangeObeserver,
-            updatesQueue: updatesQueue
-        )
+        state = .monitoring(modeChangeObeserver: modeChangeObeserver)
         #endif
 
         eventsSubject.send(.startedUpdating)
@@ -244,7 +235,7 @@ public final class Screen: UpdatingSource, Controllable {
      */
     public func stopUpdating() {
         #if os(iOS)
-        guard case .monitoring(let brightnessChangeObeserver, let modeChangeObeserver, _) = state
+        guard case .monitoring(let brightnessChangeObeserver, let modeChangeObeserver) = state
         else { return }
 
         brightnessChangeObeserver.map { brightnessChangeObeserver in
@@ -256,7 +247,7 @@ public final class Screen: UpdatingSource, Controllable {
                 )
         }
         #elseif os(tvOS)
-        guard case .monitoring(let modeChangeObeserver, _) = state else { return }
+        guard case .monitoring(let modeChangeObeserver) = state else { return }
         #endif
 
         notificationCenter

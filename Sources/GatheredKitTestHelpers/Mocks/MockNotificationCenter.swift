@@ -64,7 +64,7 @@ public final class MockNotificationCenter: NotificationCenter, @unchecked Sendab
 
     public override func addObserver(
         forName name: Notification.Name?, object obj: Any?, queue: OperationQueue?,
-        using block: @escaping (Notification) -> Void
+        using block: @escaping @Sendable (Notification) -> Void
     ) -> NSObjectProtocol {
         defer {
             addObserverCallCount += 1

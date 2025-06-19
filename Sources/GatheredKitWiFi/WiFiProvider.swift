@@ -2,7 +2,7 @@
 import CoreLocation
 import Combine
 import GatheredKit
-import NetworkExtension
+@preconcurrency import NetworkExtension
 
 // This _could_ be supported on iOS < 14 using CNCopyCurrentNetworkInfo.
 @available(iOS 14, watchOS 7, macCatalyst 14, *)
@@ -20,7 +20,7 @@ public final class WiFiProvider: ManuallyUpdatableSingleTransientSourceProvider,
     /// An example implementation is provided in [CLLocationManager+requestAuthorization.swift](CLLocationManager+requestAuthorization.swift).
     ///
     /// You could also use a 3rd party package such as https://github.com/AsyncSwift/AsyncLocationKit
-    public typealias RequestLocationPermissions = (_ locationManager: CLLocationManager) async -> CLAuthorizationStatus
+    public typealias RequestLocationPermissions = @MainActor (_ locationManager: CLLocationManager) async -> CLAuthorizationStatus
 
     /// A closure used to request temporary permission to access full accuracy
     /// location data. This will only be called when the user has authorised
@@ -30,7 +30,7 @@ public final class WiFiProvider: ManuallyUpdatableSingleTransientSourceProvider,
     /// ```swift
     /// try await locationManager.requestTemporaryFullAccuracyAuthorization(withPurposeKey: "<YOUR_KEY>")
     /// ```
-    public typealias RequestTemporaryFullAccuracyAuthorization = (_ locationManager: CLLocationManager) async throws -> Void
+    public typealias RequestTemporaryFullAccuracyAuthorization = @MainActor (_ locationManager: CLLocationManager) async throws -> Void
 
     public typealias ProvidedSource = WiFi
 

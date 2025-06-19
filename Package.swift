@@ -1,4 +1,4 @@
-// swift-tools-version: 5.9
+// swift-tools-version: 6.1
 import CompilerPluginSupport
 import PackageDescription
 
@@ -53,7 +53,7 @@ let package = Package(
             ]
         ),
 
-        .target(name: "GatheredKitCamera", dependencies: ["GatheredKit"]),
+        .target(name: "GatheredKitCamera", dependencies: ["GatheredKit", "GatheredKitMacros"]),
 
         .target(name: "GatheredKitDevice", dependencies: ["GatheredKit"]),
 
@@ -73,7 +73,7 @@ let package = Package(
 
         .target(name: "GatheredKitProcessInfo", dependencies: ["GatheredKit"]),
 
-        .target(name: "GatheredKitScreen", dependencies: ["GatheredKit"]),
+        .target(name: "GatheredKitScreen", dependencies: ["GatheredKit", "GatheredKitMacros"]),
         .testTarget(name: "GatheredKitScreenTests", dependencies: ["GatheredKitScreen", "GatheredKitTestHelpers"]),
 
         .target(name: "GatheredKitSystemStatistics", dependencies: ["GatheredKit"]),

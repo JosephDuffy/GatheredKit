@@ -15,7 +15,7 @@ public final class Screen: Source {
     /**
      The native resolution of the screen
      */
-    @ResolutionProperty
+    @ResolutionPixelsProperty
     public private(set) var resolution: CGSize
 
     /**

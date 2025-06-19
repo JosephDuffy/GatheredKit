@@ -144,10 +144,6 @@ public final class Location: UpdatingSource, Controllable {
         )
     }
 
-    deinit {
-        stopUpdating()
-    }
-
     #if os(iOS) || os(watchOS)
     public func startUpdating() {
         startUpdating(allowBackgroundUpdates: false, desiredAccuracy: .best)

@@ -71,14 +71,6 @@ public final class PrimitiveProperty<Value>: UpdatableProperty {
     }
 }
 
-extension BasicProperty: Equatable where Value: Equatable {
-    public static func == (
-        lhs: BasicProperty<Value>, rhs: BasicProperty<Value>
-    ) -> Bool {
-        lhs.id == rhs.id && lhs.snapshot == rhs.snapshot
-    }
-}
-
 extension BasicProperty where Value: ExpressibleByNilLiteral {
     public convenience init(
         id: PropertyIdentifier,

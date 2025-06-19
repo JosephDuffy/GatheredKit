@@ -3,10 +3,6 @@ import CoreMotion
 import Foundation
 
 @available(macOS, unavailable)
-private var _sharedCMMotionManager: CMMotionManager?
-private let accessLock = NSLock()
-
-@available(macOS, unavailable)
 extension CMMotionManager {
     /// A shared instance of ``CMMotionManager`` used by GatheredKitMotion.
     ///
@@ -17,27 +13,23 @@ extension CMMotionManager {
     /// - ``DeviceMotion``
     /// - ``Gyroscope``
     /// - ``Magnetometer``
+    @MainActor
     public static var gatheredKitShared: CMMotionManager {
         get {
-            accessLock.lock()
-
-            defer {
-                accessLock.unlock()
-            }
-
-            if let motionManager = _sharedCMMotionManager {
+            if let motionManager = _gatheredKitShared {
                 return motionManager
             } else {
                 let motionManager = CMMotionManager()
-                _sharedCMMotionManager = motionManager
+                _gatheredKitShared = motionManager
                 return motionManager
             }
         }
         set {
-            accessLock.lock()
-            _sharedCMMotionManager = newValue
-            accessLock.unlock()
+            _gatheredKitShared = newValue
         }
     }
+
+    @MainActor
+    private static var _gatheredKitShared: CMMotionManager?
 }
 #endif

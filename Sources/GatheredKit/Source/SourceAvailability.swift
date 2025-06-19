@@ -22,6 +22,7 @@ public enum SourceAvailability: Codable, Hashable, Sendable {
     case unavailable
 }
 
+@MainActor
 public protocol AvailabilityProviding {
     var availability: SourceAvailability { get }
 }

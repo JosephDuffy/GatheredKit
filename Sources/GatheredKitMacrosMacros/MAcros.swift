@@ -35,6 +35,7 @@ public struct UpdatableProperty: MemberMacro {
     public static func expansion(
         of node: AttributeSyntax,
         providingMembersOf declaration: some DeclGroupSyntax,
+        conformingTo protocols: [TypeSyntax],
         in context: some MacroExpansionContext
     ) throws -> [DeclSyntax] {
         let childPropertyCandidates = declaration.memberBlock.members
@@ -346,7 +347,16 @@ public struct UpdatableProperty: MemberMacro {
                 guard let genericArgument = identifierType.genericArgumentClause?.arguments.first else {
                     return nil
                 }
+                #if canImport(SwiftSyntax601)
+                switch genericArgument.argument {
+                case .type(let type):
+                    return type
+                default:
+                    return nil
+                }
+                #else
                 return genericArgument.argument
+                #endif
             }
 
             if let optionalType = typeAnnotation.type.as(OptionalTypeSyntax.self) {
@@ -402,7 +412,18 @@ public struct UpdatableProperty: MemberMacro {
                 identifierType.name.trimmed == "Optional",
                 let genericType = identifierType.genericArgumentClause?.arguments.first
             {
-                if let unit = unitForMeasurement(type: genericType.argument) {
+                #if canImport(SwiftSyntax601)
+                let wrappedType: TypeSyntax
+                switch genericType.argument {
+                case .type(let type):
+                    wrappedType = type
+                default:
+                    return []
+                }
+                #else
+                let wrappedType = genericType.argument
+                #endif
+                if let unit = unitForMeasurement(type: wrappedType) {
                     return [
                         """
                         private let _\(binding.pattern): OptionalMeasurementProperty<\(unit)>

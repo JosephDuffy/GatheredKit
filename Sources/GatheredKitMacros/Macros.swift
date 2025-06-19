@@ -16,6 +16,12 @@ public macro PropertyValue<Root, Unit: Foundation.Unit>(
     unit: Unit
 ) = #externalMacro(module: "GatheredKitMacrosMacros", type: "PropertyValueMeasurement")
 
+@attached(accessor)
+public macro PropertyValue<Root, Unit: Foundation.Unit>(
+    _ property: KeyPath<Root, CGFloat>,
+    unit: Unit
+) = #externalMacro(module: "GatheredKitMacrosMacros", type: "PropertyValueMeasurement")
+
 /// Marks a property as a value of the parent ``UpdatableProperty()``.
 @attached(accessor)
 public macro PropertyValue<Root, Value>(

@@ -1,6 +1,6 @@
 #if canImport(CoreMotion)
 import Combine
-import CoreMotion
+@preconcurrency import CoreMotion
 import Foundation
 import GatheredKit
 

@@ -4,6 +4,7 @@ import UIKit
 
 // swift-format-ignore: NoLeadingUnderscores
 
+@MainActor
 final class MockScreen: UIScreen {
     static func == (lhs: MockScreen, rhs: UIScreen) -> Bool {
         if lhs.forceEqualToMain, rhs == .main {
@@ -24,10 +25,16 @@ final class MockScreen: UIScreen {
     var forceEqualToMain = false
 
     override func isEqual(_ object: Any?) -> Bool {
-        if forceEqualToMain, (object as? UIScreen)?.isEqual(UIScreen.main) == true {
-            return true
-        } else {
+        guard let screen = object as? UIScreen else {
             return super.isEqual(object)
+        }
+
+        return MainActor.assumeIsolated {
+            if forceEqualToMain, screen.isEqual(UIScreen.main) == true {
+                return true
+            } else {
+                return super.isEqual(screen)
+            }
         }
     }
 
