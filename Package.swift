@@ -26,7 +26,7 @@ let package = Package(
         // This could probably go back to 510.0.0 or earlier but it produces a space before the `(`
         // in `private(set)`, which in Swift 6 mode is an error.
         .package(url: "https://github.com/swiftlang/swift-syntax", "600.0.0"..<"602.0.0"),
-        .package(url: "https://github.com/apple/swift-algorithms.git", from: "1.2.1"),
+        .package(url: "https://github.com/apple/swift-algorithms.git", from: "1.0.0"),
     ],
     targets: [
         .target(
