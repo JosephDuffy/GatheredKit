@@ -4,13 +4,11 @@ import Combine
 import GatheredKit
 
 /// A wrapper around `NSScreen`.
+@MainActor
 public final class Screen: UpdatingSource, Controllable {
     private enum State {
         case notMonitoring
-        case monitoring(
-            screenParametersObserver: NSObjectProtocol, colorSpaceObserver: NSObjectProtocol,
-            updatesQueue: OperationQueue
-        )
+        case monitoring(notificationCancellables: Set<AnyCancellable>)
     }
 
     public static var main: Screen? {
@@ -123,10 +121,6 @@ public final class Screen: UpdatingSource, Controllable {
         )
     }
 
-    deinit {
-        stopUpdating()
-    }
-
     /**
      Start automatically monitoring changes to the source. This will start delegate methods being called
      when new data is available
@@ -134,35 +128,48 @@ public final class Screen: UpdatingSource, Controllable {
     public func startUpdating() {
         guard !isUpdating else { return }
 
-        let updatesQueue = OperationQueue()
-        updatesQueue.name = "uk.co.josephduffy.GatheredKit Screen Updates"
+        var notificationCancellables: Set<AnyCancellable> = []
 
-        let screenParametersObserver = notificationCenter.addObserver(
-            forName: NSApplication.didChangeScreenParametersNotification,
-            object: NSApplication.shared, queue: updatesQueue
-        ) { [weak self] _ in
-            guard let self = self else { return }
-
-            self._resolution.updateValueIfDifferent(self.nsScreen.frame.size)
-        }
         _resolution.updateValueIfDifferent(nsScreen.frame.size)
-
-        let colorSpaceObserver = notificationCenter.addObserver(
-            forName: NSScreen.colorSpaceDidChangeNotification,
-            object: nsScreen,
-            queue: updatesQueue
-        ) { [weak self] notification in
-            guard let self = self else { return }
-            guard let screen = notification.object as? NSScreen else { return }
-            self._colorSpace.updateValue(screen.colorSpace)
-        }
         _colorSpace.updateValueIfDifferent(nsScreen.colorSpace)
 
-        state = .monitoring(
-            screenParametersObserver: screenParametersObserver,
-            colorSpaceObserver: colorSpaceObserver,
-            updatesQueue: updatesQueue
-        )
+        notificationCenter
+            .publisher(
+                for: NSApplication.didChangeScreenParametersNotification,
+                object: NSApplication.shared
+            )
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] _ in
+                guard let self else { return }
+                self._resolution.updateValueIfDifferent(self.nsScreen.frame.size)
+            }
+            .store(in: &notificationCancellables)
+
+        notificationCenter
+            .publisher(
+                for: NSScreen.colorSpaceDidChangeNotification,
+                object: nsScreen
+            )
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] _ in
+                guard let self else { return }
+                self._colorSpace.updateValue(self.nsScreen.colorSpace)
+            }
+            .store(in: &notificationCancellables)
+
+        notificationCenter.addObserver(
+            forName: NSScreen.colorSpaceDidChangeNotification,
+            object: nsScreen,
+            queue: .main
+        ) { [weak self] notification in
+            guard let self = self else { return }
+
+            MainActor.assumeIsolated { () -> Void in
+                self._colorSpace.updateValue(self.nsScreen.colorSpace)
+            }
+        }
+
+        state = .monitoring(notificationCancellables: notificationCancellables)
         eventsSubject.send(.startedUpdating)
     }
 
@@ -170,22 +177,7 @@ public final class Screen: UpdatingSource, Controllable {
      Stop performing automatic date refreshes
      */
     public func stopUpdating() {
-        guard case .monitoring(let screenParametersObserver, let colorSpaceObserver, _) = state
-        else { return }
-
-        notificationCenter
-            .removeObserver(
-                screenParametersObserver,
-                name: NSApplication.didChangeScreenParametersNotification,
-                object: NSApplication.shared
-            )
-
-        notificationCenter
-            .removeObserver(
-                colorSpaceObserver,
-                name: NSScreen.colorSpaceDidChangeNotification,
-                object: nsScreen
-            )
+        guard case .monitoring = state else { return }
 
         state = .notMonitoring
         eventsSubject.send(.stoppedUpdating())
