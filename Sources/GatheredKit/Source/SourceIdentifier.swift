@@ -52,6 +52,9 @@ public struct SourceIdentifier: Codable, Hashable, LosslessStringConvertible, Se
     /// The character used to separate the source kind and the instance identifier.
     public static let instanceIdentifierPrefix: Character = "|"
 
+    /// The default namespace used for all sources provided by GatheredKit.
+    public static let gatheredKitNamespace = "GatheredKit"
+
     public let namespace: String
 
     public let sourceKind: SourceKind
@@ -75,8 +78,8 @@ public struct SourceIdentifier: Codable, Hashable, LosslessStringConvertible, Se
     public let description: String
 
     public init(
-        namespace: String = "GatheredKit",
         sourceKind: SourceKind,
+        namespace: String = Self.gatheredKitNamespace,
         instanceIdentifier: InstanceIdentifier? = nil,
         deviceIdentifier: String? = nil
     ) {
@@ -103,10 +106,10 @@ public struct SourceIdentifier: Codable, Hashable, LosslessStringConvertible, Se
     }
 
     public init(
-        namespace: String = "GatheredKit",
         sourceKind: SourceKind,
         instanceIdentifier id: String,
         isTransient: Bool,
+        namespace: String = Self.gatheredKitNamespace,
         deviceIdentifier: String? = nil
     ) {
         self.namespace = namespace
