@@ -94,11 +94,38 @@ public final class ExternalAccessoryProvider: UpdatingSourceProvider, Controllab
     }
 
     private func updateSources() {
-        #warning("TODO: Perform a diff based on ids")
-        sources = accessoryManager.connectedAccessories.map { accessory in
-            ExternalAccessory(accessory: accessory)
+        let previousIds = Set(sources.map { $0.connectionID })
+        let newIds = Set(accessoryManager.connectedAccessories.map(\.connectionID))
+
+        let removedIds = previousIds.subtracting(newIds)
+        let removedSources = sources.filter { source in
+            removedIds.contains(source.connectionID)
         }
-//        sourceProviderEventsSubject.send(.sourceAdded(<#T##ExternalAccessory#>))
+
+        /// The array of sources that this source provider will provide after the update.
+        var newSources: [ExternalAccessory] = []
+        /// The array of sources that were added during the update.
+        var addedSources: [ExternalAccessory] = []
+
+        for connectedAccessory in accessoryManager.connectedAccessories {
+            if let existingSource = sources.first(where: { $0.connectionID == connectedAccessory.connectionID }) {
+                newSources.append(existingSource)
+            } else {
+                let source = ExternalAccessory(accessory: connectedAccessory)
+                newSources.append(source)
+                addedSources.append(source)
+            }
+        }
+
+        sources = newSources
+
+        for source in removedSources {
+            sourceProviderEventsSubject.send(.sourceRemoved(source))
+        }
+
+        for source in addedSources {
+            sourceProviderEventsSubject.send(.sourceAdded(source))
+        }
     }
 }
 #endif
