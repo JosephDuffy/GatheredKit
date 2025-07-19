@@ -6,8 +6,8 @@ import GatheredKit
 public final class Location: UpdatingSource, Controllable {
     private enum State {
         case notMonitoring
-        case askingForPermissions(locationManager: CLLocationManager, delegateProxy: CLLocationManagerDelegateProxy)
-        case monitoring(locationManager: CLLocationManager, delegateProxy: CLLocationManagerDelegateProxy)
+        case askingForPermissions(delegateProxy: CLLocationManagerDelegateProxy)
+        case monitoring(delegateProxy: CLLocationManagerDelegateProxy)
     }
 
     public private(set) var availability: SourceAvailability
@@ -76,14 +76,7 @@ public final class Location: UpdatingSource, Controllable {
         $isUpdating.eraseToAnyPublisher()
     }
 
-    private var locationManager: CLLocationManager? {
-        switch state {
-        case .monitoring(let locationManager, _), .askingForPermissions(let locationManager, _):
-            return locationManager
-        case .notMonitoring:
-            return nil
-        }
-    }
+    private let locationManager: CLLocationManager
 
     private var locationManagerDelegateProxy: CLLocationManagerDelegateProxy?
 
@@ -113,7 +106,10 @@ public final class Location: UpdatingSource, Controllable {
 
     public init() {
         id = SourceIdentifier(sourceKind: .location)
-        let authorizationStatus = CLLocationManager.authorizationStatus()
+
+        let locationManager = CLLocationManager()
+        self.locationManager = locationManager
+        let authorizationStatus = locationManager.authorizationStatus
         availability = SourceAvailability(authorizationStatus: authorizationStatus) ?? .unavailable
 
         _coordinate = .init(id: id.identifierForChildPropertyWithId("coordinate"))
@@ -140,7 +136,7 @@ public final class Location: UpdatingSource, Controllable {
         )
         _authorizationStatus = .init(
             id: id.identifierForChildPropertyWithId("authorizationStatus"),
-            value: CLLocationManager.authorizationStatus()
+            value: authorizationStatus
         )
     }
 
@@ -171,19 +167,18 @@ public final class Location: UpdatingSource, Controllable {
         desiredAccuracy accuracy: Accuracy,
         locationManagerConfigurator: ((CLLocationManager) -> Void)?
     ) {
-        let (locationManager, delegateProxy) = { () -> (CLLocationManager, CLLocationManagerDelegateProxy) in
+        let delegateProxy = { () -> CLLocationManagerDelegateProxy in
             switch state {
             case .notMonitoring:
-                let locationManager = CLLocationManager()
                 let delegateProxy = CLLocationManagerDelegateProxy { [weak self] manager, status in
                     self?.locationManager(manager, didChangeAuthorization: status)
                 } didUpdateLocations: { [weak self] manager, locations in
                     self?.locationManager(manager, didUpdateLocations: locations)
                 }
                 locationManager.delegate = delegateProxy
-                return (locationManager, delegateProxy)
-            case .monitoring(let locationManager, let delegateProxy), .askingForPermissions(let locationManager, let delegateProxy):
-                return (locationManager, delegateProxy)
+                return delegateProxy
+            case .monitoring(let delegateProxy), .askingForPermissions(let delegateProxy):
+                return delegateProxy
             }
         }()
         locationManager.desiredAccuracy = accuracy.asCLLocationAccuracy
@@ -205,20 +200,20 @@ public final class Location: UpdatingSource, Controllable {
         #if os(iOS) || os(watchOS)
         switch authorizationStatus {
         case .authorizedAlways:
-            state = .monitoring(locationManager: locationManager, delegateProxy: delegateProxy)
+            state = .monitoring(delegateProxy: delegateProxy)
             locationManager.startUpdatingLocation()
             updateValues()
         case .authorizedWhenInUse:
             if locationManager.allowsBackgroundLocationUpdates {
-                state = .askingForPermissions(locationManager: locationManager, delegateProxy: delegateProxy)
+                state = .askingForPermissions(delegateProxy: delegateProxy)
                 locationManager.requestAlwaysAuthorization()
             } else {
-                state = .monitoring(locationManager: locationManager, delegateProxy: delegateProxy)
+                state = .monitoring(delegateProxy: delegateProxy)
                 locationManager.startUpdatingLocation()
                 updateValues()
             }
         case .notDetermined:
-            state = .askingForPermissions(locationManager: locationManager, delegateProxy: delegateProxy)
+            state = .askingForPermissions(delegateProxy: delegateProxy)
 
             if locationManager.allowsBackgroundLocationUpdates {
                 locationManager.requestAlwaysAuthorization()
@@ -234,15 +229,15 @@ public final class Location: UpdatingSource, Controllable {
         #elseif os(macOS)
         switch authorizationStatus {
         case .authorizedAlways:
-            state = .monitoring(locationManager: locationManager, delegateProxy: delegateProxy)
+            state = .monitoring(delegateProxy: delegateProxy)
             locationManager.startUpdatingLocation()
             updateValues()
         case .authorizedWhenInUse:
-            state = .monitoring(locationManager: locationManager, delegateProxy: delegateProxy)
+            state = .monitoring(delegateProxy: delegateProxy)
             locationManager.startUpdatingLocation()
             updateValues()
         case .notDetermined:
-            state = .askingForPermissions(locationManager: locationManager, delegateProxy: delegateProxy)
+            state = .askingForPermissions(delegateProxy: delegateProxy)
             locationManager.requestAlwaysAuthorization()
         case .denied, .restricted:
             updateLocationValues(nil)
@@ -253,11 +248,11 @@ public final class Location: UpdatingSource, Controllable {
         #elseif os(tvOS)
         switch authorizationStatus {
         case .authorizedAlways, .authorizedWhenInUse:
-            state = .monitoring(locationManager: locationManager, delegateProxy: delegateProxy)
+            state = .monitoring(delegateProxy: delegateProxy)
             locationManager.requestLocation()
             updateValues()
         case .notDetermined:
-            state = .askingForPermissions(locationManager: locationManager, delegateProxy: delegateProxy)
+            state = .askingForPermissions(delegateProxy: delegateProxy)
             locationManager.requestWhenInUseAuthorization()
         case .denied, .restricted:
             updateLocationValues(nil)
@@ -269,14 +264,12 @@ public final class Location: UpdatingSource, Controllable {
     }
 
     public func stopUpdating() {
-        guard let locationManager = locationManager else { return }
-
         locationManager.stopUpdatingLocation()
         state = .notMonitoring
     }
 
     private func updateValues() {
-        updateLocationValues(locationManager?.location)
+        updateLocationValues(locationManager.location)
     }
 
     private func updateLocationValues(_ location: CLLocation? = nil) {
