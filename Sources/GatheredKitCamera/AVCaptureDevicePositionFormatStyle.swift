@@ -1,6 +1,7 @@
 import AVFoundation
 import Foundation
 
+@available(watchOS, unavailable)
 public struct AVCaptureDevicePositionFormatStyle: FormatStyle {
     public func format(_ position: AVCaptureDevice.Position) -> String {
         switch position {
@@ -16,6 +17,7 @@ public struct AVCaptureDevicePositionFormatStyle: FormatStyle {
     }
 }
 
+@available(watchOS, unavailable)
 extension AVCaptureDevice.Position {
     public func formatted<S>(_ format: S) -> S.FormatOutput where Self == S.FormatInput, S : FormatStyle {
         format.format(self)
@@ -26,6 +28,7 @@ extension AVCaptureDevice.Position {
     }
 }
 
+@available(watchOS, unavailable)
 extension FormatStyle where Self == AVCaptureDevicePositionFormatStyle {
     public static var position: AVCaptureDevicePositionFormatStyle {
         AVCaptureDevicePositionFormatStyle()

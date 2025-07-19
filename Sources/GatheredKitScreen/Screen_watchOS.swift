@@ -54,8 +54,8 @@ public final class Screen: Source {
 
         _resolution = .init(
             id: id.identifierForChildPropertyWithId("resolution"),
-            value: device.screenBounds.size,
-            unit: .points(screenScale: device.screenScale)
+            value: device.screenBounds.size/*,
+            unit: .points(screenScale: device.screenScale)*/
         )
 
         _scale = .init(
