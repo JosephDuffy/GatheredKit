@@ -68,7 +68,11 @@ public final class UserTracking: Source {
     public func requestAuthorization() {
         guard ATTrackingManager.trackingAuthorizationStatus == .notDetermined else { return }
 
-        ATTrackingManager.requestTrackingAuthorization { status in
+        Task { [weak self] in
+            let status = await ATTrackingManager.requestTrackingAuthorization()
+
+            guard let self else { return }
+
             self.trackingAuthorizationStatus = status
             #if os(iOS) || os(tvOS)
             self.advertisingIdentifier = self.identifierManager.advertisingIdentifier
