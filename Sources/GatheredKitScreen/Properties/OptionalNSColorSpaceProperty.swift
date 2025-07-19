@@ -2,6 +2,7 @@
 import AppKit
 import Combine
 import GatheredKit
+import GatheredKitMacros
 
 @UpdatableProperty<NSColorSpace?>
 @propertyWrapper

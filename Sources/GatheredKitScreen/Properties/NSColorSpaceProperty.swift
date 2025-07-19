@@ -1,9 +1,8 @@
-#warning("Compile me and find that the key path is ignored :)")
-
 #if os(macOS)
 import AppKit
 import Combine
 import GatheredKit
+import GatheredKitMacros
 
 @UpdatableProperty<NSColorSpace>
 @propertyWrapper

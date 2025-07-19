@@ -45,7 +45,11 @@ public struct UpdatableProperty: MemberMacro {
         guard let valueType = (
             node.attributeName.as(IdentifierTypeSyntax.self)
         )?.genericArgumentClause?.arguments.first?.argument.trimmed else {
-            fatalError("Expected a generic argument for UpdatableProperty macro")
+            throw GatheredKitDiagnosticMessage(
+                id: "missing-UpdatableProperty-generic-argument",
+                message: "Expected a generic argument for UpdatableProperty macro",
+                severity: .error
+            )
         }
 
         let wrappedValueProperty: DeclSyntax = """
@@ -121,13 +125,9 @@ public struct UpdatableProperty: MemberMacro {
 
         if var body = initialiser.body {
             for childPropertyCandidate in childPropertyCandidates {
-                do {
-                    let propertyInit = try propertyInit(for: childPropertyCandidate)
-                    let codeBlock = CodeBlockItemSyntax(item: .expr(propertyInit))
-                    body.statements.insert(codeBlock, at: body.statements.indices.startIndex)
-                } catch {
-                    print(error)
-                }
+                let propertyInit = try propertyInit(for: childPropertyCandidate)
+                let codeBlock = CodeBlockItemSyntax(item: .expr(propertyInit))
+                body.statements.insert(codeBlock, at: body.statements.indices.startIndex)
             }
 
             initialiser.body = body
@@ -143,12 +143,9 @@ public struct UpdatableProperty: MemberMacro {
 
         if var body = updateValueFunction.body {
             for childPropertyCandidate in childPropertyCandidates {
-                do {
-                    let propertyValueUpdate = try propertyValueUpdate(for: childPropertyCandidate)
+                if let propertyValueUpdate = try propertyValueUpdate(for: childPropertyCandidate) {
                     let codeBlock = CodeBlockItemSyntax(item: .expr(propertyValueUpdate))
                     body.statements.insert(codeBlock, at: body.statements.indices.startIndex)
-                } catch {
-                    print(error)
                 }
             }
 
@@ -182,10 +179,18 @@ public struct UpdatableProperty: MemberMacro {
 
     private static func propertyInit(for variable: VariableDeclSyntax) throws -> ExprSyntax {
         guard let binding = variable.bindings.first else {
-            return "#error(\"Need a binding\")"
+            throw GatheredKitDiagnosticMessage(
+                id: "missing-PropertyValue-binding",
+                message: "Expected a binding for \(variable)",
+                severity: .error
+            )
         }
         guard let typeAnnotation = binding.typeAnnotation else {
-            return "#error(\"Need a type annotation\")"
+            throw GatheredKitDiagnosticMessage(
+                id: "missing-PropertyValue-typeAnnotation",
+                message: "Expected a type annotation for \(binding.pattern)",
+                severity: .error
+            )
         }
 
         func attribute(named macroName: String) -> AttributeSyntax? {
@@ -202,7 +207,36 @@ public struct UpdatableProperty: MemberMacro {
             return nil
         }
 
+        func valueKeyPathFromAttribute(attribute: AttributeSyntax) throws -> KeyPathComponentListSyntax {
+            guard let arguments = attribute.arguments?.as(LabeledExprListSyntax.self) else {
+                throw GatheredKitDiagnosticMessage(
+                    id: "missing-PropertyValue-attribute-arguments",
+                    message: "Expected arguments for \(attribute.attributeName.description) macro",
+                    severity: .error
+                )
+            }
+
+            guard let firstArgument = arguments.first else {
+                throw GatheredKitDiagnosticMessage(
+                    id: "missing-property-valueKeyPath",
+                    message: "Missing property argument in \(attribute.attributeName.description) macro",
+                    severity: .error
+                )
+            }
+
+            guard let keyPathExpression = firstArgument.expression.as(KeyPathExprSyntax.self) else {
+                throw GatheredKitDiagnosticMessage(
+                    id: "invalid-property-valueKeyPath",
+                    message: "'property' value must be a key path. \(firstArgument.expression)",
+                    severity: .error
+                )
+            }
+
+            return keyPathExpression.components
+        }
+
         if let attribute = attribute(named: "PropertyValue") {
+            let valueKeyPath = try valueKeyPathFromAttribute(attribute: attribute)
             var unit: MemberAccessExprSyntax?
 
             if let arguments = attribute.arguments?.as(LabeledExprListSyntax.self) {
@@ -230,7 +264,7 @@ public struct UpdatableProperty: MemberMacro {
                     _\(binding.pattern) = OptionalMeasurementProperty(
                         id: id.childIdentifierForPropertyId("\(binding.pattern)"),
                         unit: \(unit),
-                        value: value?.\(binding.pattern),
+                        value: value?\(valueKeyPath),
                         date: date
                     )
                     """
@@ -238,7 +272,7 @@ public struct UpdatableProperty: MemberMacro {
                     return """
                     _\(binding.pattern) = MeasurementProperty(
                         id: id.childIdentifierForPropertyId("\(binding.pattern)"),
-                        value: value.\(binding.pattern),
+                        value: value\(valueKeyPath),
                         unit: \(unit),
                         date: date
                     )
@@ -253,7 +287,7 @@ public struct UpdatableProperty: MemberMacro {
                     return """
                     _\(binding.pattern) = BasicProperty(
                         id: id.childIdentifierForPropertyId("\(binding.pattern)"),
-                        value: value?.\(binding.pattern),
+                        value: value?\(valueKeyPath),
                         date: date
                     )
                     """
@@ -261,13 +295,14 @@ public struct UpdatableProperty: MemberMacro {
                     return """
                     _\(binding.pattern) = BasicProperty(
                         id: id.childIdentifierForPropertyId("\(binding.pattern)"),
-                        value: value.\(binding.pattern),
+                        value: value\(valueKeyPath),
                         date: date
                     )
                     """
                 }
             }
         } else if let attribute = attribute(named: "ChildProperty") {
+            let valueKeyPath = try valueKeyPathFromAttribute(attribute: attribute)
             var propertyType: MemberAccessExprSyntax?
 
             if let arguments = attribute.arguments?.as(LabeledExprListSyntax.self) {
@@ -286,9 +321,11 @@ public struct UpdatableProperty: MemberMacro {
             }
 
             guard let propertyType = propertyType?.base else {
-                return """
-                #error("ChildProperty attribute requires a propertyType argument")
-                """
+                throw GatheredKitDiagnosticMessage(
+                    id: "missing-property-propertyType",
+                    message: "Missing propertyType argument in ChildProperty macro",
+                    severity: .error
+                )
             }
 
             if
@@ -299,7 +336,7 @@ public struct UpdatableProperty: MemberMacro {
                 return """
                 _\(binding.pattern) = \(propertyType)(
                     id: id.childIdentifierForPropertyId("\(binding.pattern)"),
-                    value: value?.\(binding.pattern),
+                    value: value?\(valueKeyPath),
                     date: date
                 )
                 """
@@ -307,7 +344,7 @@ public struct UpdatableProperty: MemberMacro {
                 return """
                 _\(binding.pattern) = \(propertyType)(
                     id: id.childIdentifierForPropertyId("\(binding.pattern)"),
-                    value: value.\(binding.pattern),
+                    value: value\(valueKeyPath),
                     date: date
                 )
                 """
@@ -319,10 +356,11 @@ public struct UpdatableProperty: MemberMacro {
 
     private static func storageAndAccess(for variable: VariableDeclSyntax) throws -> [DeclSyntax] {
         guard let binding = variable.bindings.first else {
-            fatalError()
+            return []
         }
         guard let typeAnnotation = binding.typeAnnotation else {
-            fatalError()
+            // TODO: Throw error if applicable macro is attached
+            return []
         }
 
         func attribute(named macroName: String) -> AttributeSyntax? {
@@ -342,7 +380,7 @@ public struct UpdatableProperty: MemberMacro {
         if attribute(named: "PropertyValue") != nil {
             func unitForMeasurement(type: TypeSyntax) -> TypeSyntax? {
                 guard let identifierType = type.as(IdentifierTypeSyntax.self) else {
-                    fatalError()
+                    return nil
                 }
                 guard let genericArgument = identifierType.genericArgumentClause?.arguments.first else {
                     return nil
@@ -549,12 +587,13 @@ public struct UpdatableProperty: MemberMacro {
         }
     }
 
-    private static func propertyValueUpdate(for variable: VariableDeclSyntax) throws -> ExprSyntax {
+    private static func propertyValueUpdate(for variable: VariableDeclSyntax) throws -> ExprSyntax? {
         guard let binding = variable.bindings.first else {
-            fatalError()
+            return nil
         }
         guard let typeAnnotation = binding.typeAnnotation else {
-            fatalError()
+            // TODO: Throw error if applicable macro is attached
+            return nil
         }
 
         var propertyIsOptional: Bool {
@@ -577,7 +616,36 @@ public struct UpdatableProperty: MemberMacro {
             return nil
         }
 
+        func valueKeyPathFromAttribute(attribute: AttributeSyntax) throws -> KeyPathComponentListSyntax {
+            guard let arguments = attribute.arguments?.as(LabeledExprListSyntax.self) else {
+                throw GatheredKitDiagnosticMessage(
+                    id: "missing-PropertyValue-attribute-arguments",
+                    message: "Expected arguments for \(attribute.attributeName.description) macro",
+                    severity: .error
+                )
+            }
+
+            guard let firstArgument = arguments.first else {
+                throw GatheredKitDiagnosticMessage(
+                    id: "missing-property-valueKeyPath",
+                    message: "Missing property argument in \(attribute.attributeName.description) macro",
+                    severity: .error
+                )
+            }
+
+            guard let keyPathExpression = firstArgument.expression.as(KeyPathExprSyntax.self) else {
+                throw GatheredKitDiagnosticMessage(
+                    id: "invalid-property-valueKeyPath",
+                    message: "'property' value must be a key path. \(firstArgument.expression)",
+                    severity: .error
+                )
+            }
+
+            return keyPathExpression.components
+        }
+
         if let attribute = attribute(named: "PropertyValue") {
+            let valueKeyPath = try valueKeyPathFromAttribute(attribute: attribute)
             var unit: MemberAccessExprSyntax?
 
             if let arguments = attribute.arguments?.as(LabeledExprListSyntax.self) {
@@ -597,17 +665,29 @@ public struct UpdatableProperty: MemberMacro {
 
             if unit != nil {
                 if propertyIsOptional {
-                    return "_\(binding.pattern).updateMeasuredValue(value?.\(binding.pattern))"
+                    return "_\(binding.pattern).updateMeasuredValue(value?\(valueKeyPath))"
                 } else {
-                    return "_\(binding.pattern).updateMeasuredValue(value.\(binding.pattern))"
+                    return "_\(binding.pattern).updateMeasuredValue(value\(valueKeyPath))"
                 }
+            } else if propertyIsOptional {
+                return "_\(binding.pattern).updateValue(value?\(valueKeyPath))"
+            } else {
+                return "_\(binding.pattern).updateValue(value\(valueKeyPath))"
             }
-        }
+        } else if let attribute  = attribute(named: "ChildProperty") {
+            let valueKeyPath = try valueKeyPathFromAttribute(attribute: attribute)
 
-        if propertyIsOptional {
-            return "_\(binding.pattern).updateValue(value?.\(binding.pattern))"
+            if propertyIsOptional {
+                return "_\(binding.pattern).updateValue(value?\(valueKeyPath))"
+            } else {
+                return "_\(binding.pattern).updateValue(value\(valueKeyPath))"
+            }
         } else {
-            return "_\(binding.pattern).updateValue(value.\(binding.pattern))"
+            throw GatheredKitDiagnosticMessage(
+                id: "missing-PropertyValue-macro",
+                message: "Expected either PropertyValue or ChildProperty macro on \(variable)",
+                severity: .error
+            )
         }
     }
 }
