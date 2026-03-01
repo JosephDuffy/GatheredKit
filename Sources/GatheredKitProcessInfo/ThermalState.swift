@@ -52,6 +52,8 @@ public final class ThermalState: UpdatingSource, Controllable {
      when new data is available
      */
     public func startUpdating() {
+        guard !isUpdating else { return }
+
         isUpdating = true
         eventsSubject.send(.startedUpdating)
         notificationCenter
