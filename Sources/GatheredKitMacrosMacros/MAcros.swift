@@ -1,7 +1,6 @@
 import Algorithms
 import SwiftSyntax
 import SwiftSyntaxMacros
-
 import SwiftCompilerPlugin
 
 @main
