@@ -38,8 +38,6 @@ let package = Package(
         .target(
             name: "GatheredKitMacros",
             dependencies: [
-                .product(name: "SwiftSyntaxMacros", package: "swift-syntax"),
-                .product(name: "SwiftCompilerPlugin", package: "swift-syntax"),
                 "GatheredKit",
                 "GatheredKitMacrosMacros",
             ]
@@ -48,6 +46,8 @@ let package = Package(
             name: "GatheredKitMacrosMacros",
             dependencies: [
                 .product(name: "Algorithms", package: "swift-algorithms"),
+                .product(name: "SwiftDiagnostics", package: "swift-syntax"),
+                .product(name: "SwiftSyntax", package: "swift-syntax"),
                 .product(name: "SwiftSyntaxMacros", package: "swift-syntax"),
                 .product(name: "SwiftCompilerPlugin", package: "swift-syntax"),
             ]
