@@ -10,6 +10,6 @@ public final class UnitMagneticField: Dimension, @unchecked Sendable {
     )
 
     public static let microTesla = UnitMagneticField(
-        symbol: "µT", converter: UnitConverterLinear(coefficient: 1 / 1000)
+        symbol: "µT", converter: UnitConverterLinear(coefficient: 1e-9)
     )
 }

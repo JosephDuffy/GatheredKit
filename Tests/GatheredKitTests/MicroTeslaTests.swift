@@ -4,6 +4,6 @@ import XCTest
 final class MicroTeslaTests: XCTestCase {
     func testMicroTesla() {
         let microTesla = UnitMagneticField.microTesla
-        XCTAssertEqual(microTesla.converter.baseUnitValue(fromValue: 1000), 1)
+        XCTAssertEqual(microTesla.converter.baseUnitValue(fromValue: 1_000_000_000), 1)
     }
 }
