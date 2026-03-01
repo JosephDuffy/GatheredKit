@@ -32,8 +32,8 @@ public final class CMAccelerationFormatter: Formatter {
     }
 
     public override func string(for obj: Any?) -> String? {
-        guard let magneticField = obj as? CMMagneticField else { return nil }
-        return string(for: magneticField)
+        guard let acceleration = obj as? CMAcceleration else { return nil }
+        return string(for: acceleration)
     }
 
     public override func getObjectValue(
