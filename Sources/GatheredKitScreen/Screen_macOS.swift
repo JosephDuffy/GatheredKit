@@ -157,18 +157,6 @@ public final class Screen: UpdatingSource, Controllable {
             }
             .store(in: &notificationCancellables)
 
-        notificationCenter.addObserver(
-            forName: NSScreen.colorSpaceDidChangeNotification,
-            object: nsScreen,
-            queue: .main
-        ) { [weak self] notification in
-            guard let self = self else { return }
-
-            MainActor.assumeIsolated { () -> Void in
-                self._colorSpace.updateValue(self.nsScreen.colorSpace)
-            }
-        }
-
         state = .monitoring(notificationCancellables: notificationCancellables)
         eventsSubject.send(.startedUpdating)
     }
