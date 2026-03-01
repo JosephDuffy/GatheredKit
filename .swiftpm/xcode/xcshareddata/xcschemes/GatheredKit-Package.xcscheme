@@ -28,20 +28,6 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "GatheredKitCore"
-               BuildableName = "GatheredKitCore"
-               BlueprintName = "GatheredKitCore"
-               ReferencedContainer = "container:">
-            </BuildableReference>
-         </BuildActionEntry>
-         <BuildActionEntry
-            buildForTesting = "YES"
-            buildForRunning = "YES"
-            buildForProfiling = "YES"
-            buildForArchiving = "YES"
-            buildForAnalyzing = "YES">
-            <BuildableReference
-               BuildableIdentifier = "primary"
                BlueprintIdentifier = "GatheredKitLocation"
                BuildableName = "GatheredKitLocation"
                BlueprintName = "GatheredKitLocation"
@@ -98,20 +84,6 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "GatheredKitCoreTests"
-               BuildableName = "GatheredKitCoreTests"
-               BlueprintName = "GatheredKitCoreTests"
-               ReferencedContainer = "container:">
-            </BuildableReference>
-         </BuildActionEntry>
-         <BuildActionEntry
-            buildForTesting = "YES"
-            buildForRunning = "YES"
-            buildForProfiling = "NO"
-            buildForArchiving = "NO"
-            buildForAnalyzing = "YES">
-            <BuildableReference
-               BuildableIdentifier = "primary"
                BlueprintIdentifier = "GatheredKitLocationTests"
                BuildableName = "GatheredKitLocationTests"
                BlueprintName = "GatheredKitLocationTests"
@@ -157,34 +129,6 @@
                BlueprintIdentifier = "GatheredKitProcessInfo"
                BuildableName = "GatheredKitProcessInfo"
                BlueprintName = "GatheredKitProcessInfo"
-               ReferencedContainer = "container:">
-            </BuildableReference>
-         </BuildActionEntry>
-         <BuildActionEntry
-            buildForTesting = "YES"
-            buildForRunning = "YES"
-            buildForProfiling = "YES"
-            buildForArchiving = "YES"
-            buildForAnalyzing = "YES">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "GatheredKit_GatheredKitMotion"
-               BuildableName = "GatheredKit_GatheredKitMotion"
-               BlueprintName = "GatheredKit_GatheredKitMotion"
-               ReferencedContainer = "container:">
-            </BuildableReference>
-         </BuildActionEntry>
-         <BuildActionEntry
-            buildForTesting = "YES"
-            buildForRunning = "YES"
-            buildForProfiling = "YES"
-            buildForArchiving = "YES"
-            buildForAnalyzing = "YES">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "GatheredKit_GatheredKit"
-               BuildableName = "GatheredKit_GatheredKit"
-               BlueprintName = "GatheredKit_GatheredKit"
                ReferencedContainer = "container:">
             </BuildableReference>
          </BuildActionEntry>
@@ -294,16 +238,6 @@
                BlueprintIdentifier = "GatheredKitTests"
                BuildableName = "GatheredKitTests"
                BlueprintName = "GatheredKitTests"
-               ReferencedContainer = "container:">
-            </BuildableReference>
-         </TestableReference>
-         <TestableReference
-            skipped = "NO">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "GatheredKitMotionTests"
-               BuildableName = "GatheredKitMotionTests"
-               BlueprintName = "GatheredKitMotionTests"
                ReferencedContainer = "container:">
             </BuildableReference>
          </TestableReference>
