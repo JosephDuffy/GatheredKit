@@ -101,7 +101,7 @@ public final class ExternalAccessory: UpdatingSource, Controllable {
         )
         _firmwareRevision = .init(
             id: id.identifierForChildPropertyWithId("firmwareRevision"),
-            value: accessory.manufacturer
+            value: accessory.firmwareRevision
         )
         _hardwareRevision = .init(
             id: id.identifierForChildPropertyWithId("hardwareRevision"),
