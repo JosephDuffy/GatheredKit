@@ -115,17 +115,20 @@ public final class ExternalAccessory: UpdatingSource, Controllable {
         let delegate = AccessoryDelegate { [weak self] accessory in
             guard let self = self else { return }
             assert(self.accessory === accessory)
-            if !self.isConnected {
+            if self.isConnected {
                 self._isConnected.updateValue(false)
             }
         }
 
         accessory.delegate = delegate
+        state = .monitoring(delegate: delegate)
 
         eventsSubject.send(.startedUpdating)
     }
 
     public func stopUpdating() {
+        guard isUpdating else { return }
+        accessory.delegate = nil
         state = .notMonitoring
         eventsSubject.send(.stoppedUpdating())
     }
