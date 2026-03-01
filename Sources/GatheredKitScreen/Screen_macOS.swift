@@ -158,7 +158,6 @@ public final class Screen: UpdatingSource, Controllable {
             .store(in: &notificationCancellables)
 
         state = .monitoring(notificationCancellables: notificationCancellables)
-        eventsSubject.send(.startedUpdating)
     }
 
     /**
@@ -168,7 +167,6 @@ public final class Screen: UpdatingSource, Controllable {
         guard case .monitoring = state else { return }
 
         state = .notMonitoring
-        eventsSubject.send(.stoppedUpdating())
     }
 }
 
