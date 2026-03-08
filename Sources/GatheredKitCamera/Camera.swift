@@ -103,10 +103,12 @@ public final class Camera: UpdatingSource, Controllable, Identifiable {
             }
 
         state = .monitoring(observations: [isConnectedObservation])
+        eventsSubject.send(.startedUpdating)
     }
 
     public func stopUpdating() {
         guard isUpdating else { return }
         state = .notMonitoring
+        eventsSubject.send(.stoppedUpdating())
     }
 }
