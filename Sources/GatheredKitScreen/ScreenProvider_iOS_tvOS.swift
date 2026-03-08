@@ -117,6 +117,19 @@ public final class ScreenProvider: UpdatingSourceProvider, ControllableSourcePro
     public func stopUpdating() {
         guard isUpdating else { return }
 
+        guard case .monitoring(let observers) = state else { return }
+
+        notificationCenter.removeObserver(
+            observers.didConnect,
+            name: UIScreen.didConnectNotification,
+            object: nil
+        )
+        notificationCenter.removeObserver(
+            observers.didDisconnect,
+            name: UIScreen.didDisconnectNotification,
+            object: nil
+        )
+
         state = .notMonitoring
         sourceProviderEventsSubject.send(.stoppedUpdating())
     }
