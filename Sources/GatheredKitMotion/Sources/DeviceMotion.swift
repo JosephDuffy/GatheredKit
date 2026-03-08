@@ -173,6 +173,8 @@ public final class DeviceMotion: UpdatingSource, CustomisableUpdateIntervalContr
     }
 
     public func stopUpdating() {
+        guard isUpdating else { return }
+
         motionManager.stopDeviceMotionUpdates()
         state = .notMonitoring
         eventsSubject.send(.stoppedUpdating())
