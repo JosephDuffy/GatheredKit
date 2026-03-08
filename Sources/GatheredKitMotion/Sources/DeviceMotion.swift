@@ -115,6 +115,11 @@ public final class DeviceMotion: UpdatingSource, CustomisableUpdateIntervalContr
         every updateInterval: TimeInterval,
         referenceFrame: CMAttitudeReferenceFrame?
     ) {
+        guard availability == .available else {
+            eventsSubject.send(.failedToStart(error: .unavailable))
+            return
+        }
+
         motionManager.deviceMotionUpdateInterval = updateInterval
 
         guard !isUpdating else { return }
