@@ -72,6 +72,11 @@ public final class Gyroscope: UpdatingSource, CustomisableUpdateIntervalControll
     public func startUpdating(
         every updateInterval: TimeInterval
     ) {
+        guard availability == .available else {
+            eventsSubject.send(.failedToStart(error: .unavailable))
+            return
+        }
+
         motionManager.gyroUpdateInterval = updateInterval
 
         guard !isUpdating else { return }
