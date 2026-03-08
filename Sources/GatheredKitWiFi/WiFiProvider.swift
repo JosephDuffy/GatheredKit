@@ -51,6 +51,34 @@ public final class WiFiProvider: ManuallyUpdatableSingleTransientSourceProvider,
     private let requestLocationPermissions: RequestLocationPermissions
     private let requestTemporaryFullAccuracyAuthorization: RequestTemporaryFullAccuracyAuthorization
     private let locationManager: CLLocationManager
+    private lazy var locationManagerDelegateProxy = LocationManagerDelegateProxy { [weak self] locationManager in
+        guard let self else { return }
+        let newAvailability = Self.availability(for: locationManager)
+        guard self.availability != newAvailability else { return }
+        self.availability = newAvailability
+    }
+
+    private static func availability(for locationManager: CLLocationManager) -> SourceAvailability {
+        switch locationManager.authorizationStatus {
+        case .authorizedAlways, .authorizedWhenInUse:
+            switch locationManager.accuracyAuthorization {
+            case .fullAccuracy:
+                return .available
+            case .reducedAccuracy:
+                return .requiresPermissionsPrompt
+            @unknown default:
+                return .unavailable
+            }
+        case .notDetermined:
+            return .requiresPermissionsPrompt
+        case .denied:
+            return .permissionDenied
+        case .restricted:
+            return .restricted
+        @unknown default:
+            return .unavailable
+        }
+    }
 
     public required init(
         requestLocationPermissions: @escaping RequestLocationPermissions,
@@ -62,35 +90,16 @@ public final class WiFiProvider: ManuallyUpdatableSingleTransientSourceProvider,
         self.requestTemporaryFullAccuracyAuthorization = requestTemporaryFullAccuracyAuthorization
         self.locationManager = locationManager
 
-        #if os(iOS) || os(tvOS) || os(watchOS)
-        switch locationManager.authorizationStatus {
-        case .authorizedAlways, .authorizedWhenInUse:
-            switch locationManager.accuracyAuthorization {
-            case .fullAccuracy:
-                availability = .available
-            case .reducedAccuracy:
-                availability = .requiresPermissionsPrompt
-            @unknown default:
-                availability = .unavailable
-            }
-        case .notDetermined:
-            availability = .requiresPermissionsPrompt
-        case .denied:
-            availability = .permissionDenied
-        case .restricted:
-            availability = .restricted
-        @unknown default:
-            availability = .unavailable
-        }
-        #elseif os(macOS)
-        availability = .unavailable
-        #endif
-
-        // TODO: Become the delegate of `locationManager` to update availability
+        availability = Self.availability(for: locationManager)
+        locationManagerDelegateProxy.attach(to: locationManager)
     }
 
     public func updateSource() async throws -> WiFi? {
         #if os(iOS) || os(tvOS) || os(watchOS)
+        defer {
+            availability = Self.availability(for: locationManager)
+        }
+
         func continueWithStatus(_ authorizationStatus: CLAuthorizationStatus) async throws {
             switch authorizationStatus {
             case .authorizedAlways, .authorizedWhenInUse:
@@ -136,6 +145,44 @@ public final class WiFiProvider: ManuallyUpdatableSingleTransientSourceProvider,
         #elseif os(macOS)
         return nil
         #endif
+    }
+}
+
+private final class LocationManagerDelegateProxy: NSObject, CLLocationManagerDelegate {
+    typealias AuthorizationDidChangeHandler = (_ locationManager: CLLocationManager) -> Void
+
+    private let authorizationDidChangeHandler: AuthorizationDidChangeHandler
+    private weak var originalDelegate: CLLocationManagerDelegate?
+
+    init(authorizationDidChangeHandler: @escaping AuthorizationDidChangeHandler) {
+        self.authorizationDidChangeHandler = authorizationDidChangeHandler
+        super.init()
+    }
+
+    func attach(to locationManager: CLLocationManager) {
+        originalDelegate = locationManager.delegate
+        locationManager.delegate = self
+    }
+
+    func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
+        authorizationDidChangeHandler(manager)
+        originalDelegate?.locationManagerDidChangeAuthorization?(manager)
+    }
+
+    override func responds(to aSelector: Selector!) -> Bool {
+        if originalDelegate?.responds(to: aSelector) == true {
+            return true
+        }
+
+        return super.responds(to: aSelector)
+    }
+
+    override func forwardingTarget(for aSelector: Selector!) -> Any? {
+        if originalDelegate?.responds(to: aSelector) == true {
+            return originalDelegate
+        }
+
+        return super.forwardingTarget(for: aSelector)
     }
 }
 #endif
