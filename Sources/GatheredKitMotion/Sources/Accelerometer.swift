@@ -72,6 +72,11 @@ public final class Accelerometer: UpdatingSource, CustomisableUpdateIntervalCont
     public func startUpdating(
         every updateInterval: TimeInterval
     ) {
+        guard availability == .available else {
+            eventsSubject.send(.failedToStart(error: .unavailable))
+            return
+        }
+
         motionManager.accelerometerUpdateInterval = updateInterval
 
         guard !isUpdating else { return }
