@@ -127,6 +127,7 @@ public final class Battery: UpdatingSource, Controllable {
         _isLowPowerModeEnabled.updateValueIfDifferent(processInfo.isLowPowerModeEnabled)
 
         monitoringState = .monitoring(notificationCancellables: notificationCancellables)
+        eventsSubject.send(.startedUpdating)
     }
 
     public func stopUpdating() {
@@ -139,6 +140,7 @@ public final class Battery: UpdatingSource, Controllable {
         if stopBatteryMonitoring {
             device.isBatteryMonitoringEnabled = false
         }
+        eventsSubject.send(.stoppedUpdating())
     }
 }
 #endif
