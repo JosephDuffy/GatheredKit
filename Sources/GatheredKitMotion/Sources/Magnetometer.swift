@@ -98,6 +98,8 @@ public final class Magnetometer: UpdatingSource, CustomisableUpdateIntervalContr
     }
 
     public func stopUpdating() {
+        guard isUpdating else { return }
+
         motionManager.stopMagnetometerUpdates()
         state = .notMonitoring
         eventsSubject.send(.stoppedUpdating())
