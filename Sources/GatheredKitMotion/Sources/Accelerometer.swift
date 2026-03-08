@@ -101,6 +101,8 @@ public final class Accelerometer: UpdatingSource, CustomisableUpdateIntervalCont
     }
 
     public func stopUpdating() {
+        guard isUpdating else { return }
+
         motionManager.stopAccelerometerUpdates()
         state = .notMonitoring
         eventsSubject.send(.stoppedUpdating())
