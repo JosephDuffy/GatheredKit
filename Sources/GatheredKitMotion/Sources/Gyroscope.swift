@@ -102,6 +102,8 @@ public final class Gyroscope: UpdatingSource, CustomisableUpdateIntervalControll
     }
 
     public func stopUpdating() {
+        guard isUpdating else { return }
+
         motionManager.stopGyroUpdates()
         state = .notMonitoring
         eventsSubject.send(.stoppedUpdating())
