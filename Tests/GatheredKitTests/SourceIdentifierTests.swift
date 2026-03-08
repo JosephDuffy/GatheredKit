@@ -43,4 +43,15 @@ final class SourceIdentifierTests: XCTestCase {
         XCTAssertNil(sourceIdentifier.deviceIdentifier)
         XCTAssertEqual(sourceIdentifier.description, identifierString)
     }
+
+    func testLosslessStringConvertibleConformanceWithSeparatorsInIdentifiers() throws {
+        let identifierString = "TestsNamespace.TestSource.ExtraIdentifier|test-instance|extra-instance~@device-id@extra-device-id"
+        let sourceIdentifier = try XCTUnwrap(SourceIdentifier(identifierString))
+        XCTAssertEqual(sourceIdentifier.namespace, "TestsNamespace")
+        XCTAssertEqual(sourceIdentifier.sourceKind.rawValue, "TestSource.ExtraIdentifier")
+        XCTAssertEqual(sourceIdentifier.instanceIdentifier?.id, "test-instance|extra-instance")
+        XCTAssertTrue(sourceIdentifier.instanceIdentifier?.isTransient ?? false)
+        XCTAssertEqual(sourceIdentifier.deviceIdentifier, "device-id@extra-device-id")
+        XCTAssertEqual(sourceIdentifier.description, identifierString)
+    }
 }

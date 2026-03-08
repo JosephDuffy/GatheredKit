@@ -135,10 +135,11 @@ public struct SourceIdentifier: Codable, Hashable, LosslessStringConvertible, Se
     public init?(_ description: String) {
         guard !description.isEmpty else { return nil }
 
-        let deviceSplit = description.split(separator: Self.deviceIdentifierPrefix, maxSplits: 2)
-        let instanceSplit = deviceSplit[0].split(separator: Self.instanceIdentifierPrefix, maxSplits: 2)
+        let deviceSplit = description.split(separator: Self.deviceIdentifierPrefix, maxSplits: 1)
 
-        let kindSplit = instanceSplit[0].split(separator: Self.namespaceSuffix, maxSplits: 2)
+        let instanceSplit = deviceSplit[0].split(separator: Self.instanceIdentifierPrefix, maxSplits: 1)
+
+        let kindSplit = instanceSplit[0].split(separator: Self.namespaceSuffix, maxSplits: 1)
 
         guard kindSplit.count == 2 else { return nil }
 
