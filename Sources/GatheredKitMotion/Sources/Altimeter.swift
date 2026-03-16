@@ -80,6 +80,9 @@ public final class Altimeter: UpdatingSource, Controllable {
 
     deinit {
         altimeter.stopRelativeAltitudeUpdates()
+        if #available(iOS 15, watchOS 8, *), !ProcessInfo.processInfo.isMacCatalystApp {
+            altimeter.stopAbsoluteAltitudeUpdates()
+        }
     }
 
     public func startUpdating() {
@@ -127,6 +130,9 @@ public final class Altimeter: UpdatingSource, Controllable {
     public func stopUpdating() {
         guard case .monitoring = state else { return }
         altimeter.stopRelativeAltitudeUpdates()
+        if #available(iOS 15, watchOS 8, *), !ProcessInfo.processInfo.isMacCatalystApp {
+            altimeter.stopAbsoluteAltitudeUpdates()
+        }
         state = .notMonitoring
         eventsSubject.send(.stoppedUpdating())
     }
