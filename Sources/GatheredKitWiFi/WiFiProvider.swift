@@ -126,7 +126,15 @@ public final class WiFiProvider: ManuallyUpdatableSingleTransientSourceProvider,
             }
         }
 
-        try await continueWithStatus(locationManager.authorizationStatus)
+        do {
+            try await continueWithStatus(locationManager.authorizationStatus)
+        } catch {
+            if let existingSource = source {
+                source = nil
+                sourceProviderEventsSubject.send(.sourceRemoved(existingSource))
+            }
+            throw error
+        }
 
         guard let connectedNetwork = await NEHotspotNetwork.fetchCurrent() else {
             if let existingSource = source {
