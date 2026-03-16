@@ -64,7 +64,8 @@ public final class ScreenProvider: UpdatingSourceProvider, ControllableSourcePro
             forName: UIScreen.didConnectNotification,
             object: nil,
             queue: nil
-        ) { [unowned self] notification in
+        ) { [weak self] notification in
+            guard let self else { return }
             guard let uiScreen = notification.object as? UIScreen else { return }
             MainActor.assumeIsolated {
                 let screen = Screen(screen: uiScreen, notificationCenter: self.notificationCenter)
@@ -86,7 +87,8 @@ public final class ScreenProvider: UpdatingSourceProvider, ControllableSourcePro
             forName: UIScreen.didDisconnectNotification,
             object: nil,
             queue: nil
-        ) { [unowned self] notification in
+        ) { [weak self] notification in
+            guard let self else { return }
             guard let uiScreen = notification.object as? UIScreen else { return }
             MainActor.assumeIsolated {
                 guard let index = self.sources.firstIndex(where: { $0.uiScreen == uiScreen }) else {
