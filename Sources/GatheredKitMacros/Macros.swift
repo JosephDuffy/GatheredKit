@@ -7,6 +7,25 @@ public macro UpdatableProperty<Value>() = #externalMacro(
     type: "UpdatableProperty"
 )
 
+/// Declares a `SourceKind` static member inside `extension SourceKind`.
+///
+/// - parameter sourceKind: The source kind to declare. The raw value will match this value.
+@freestanding(declaration, names: arbitrary)
+public macro SourceKind(_ sourceKind: String) = #externalMacro(
+    module: "GatheredKitMacrosMacros",
+    type: "SourceKindDeclaration"
+)
+
+/// Declares a `SourceKind` static member inside `extension SourceKind`.
+///
+/// - parameter sourceKind: The source kind to declare.
+/// - parameter rawValue: The raw value of the source kind.
+@freestanding(declaration, names: arbitrary)
+public macro SourceKind(_ sourceKind: String, rawValue: String) = #externalMacro(
+    module: "GatheredKitMacrosMacros",
+    type: "SourceKindDeclaration"
+)
+
 /// Marks a property as a value of the parent ``UpdatableProperty()``.
 ///
 /// This value includes a unit of measurement.

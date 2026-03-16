@@ -55,9 +55,9 @@ let package = Package(
 
         .target(name: "GatheredKitCamera", dependencies: ["GatheredKit", "GatheredKitMacros"]),
 
-        .target(name: "GatheredKitDevice", dependencies: ["GatheredKit"]),
+        .target(name: "GatheredKitDevice", dependencies: ["GatheredKit", "GatheredKitMacros"]),
 
-        .target(name: "GatheredKitExternalAccessory", dependencies: ["GatheredKit"]),
+        .target(name: "GatheredKitExternalAccessory", dependencies: ["GatheredKit", "GatheredKitMacros"]),
 
         .target(name: "GatheredKitLocation", dependencies: ["GatheredKit", "GatheredKitMacros"]),
         .testTarget(name: "GatheredKitLocationTests", dependencies: ["GatheredKitLocation"]),
@@ -71,25 +71,33 @@ let package = Package(
             exclude: ["README.md"]
         ),
 
-        .target(name: "GatheredKitProcessInfo", dependencies: ["GatheredKit"]),
+        .target(name: "GatheredKitProcessInfo", dependencies: ["GatheredKit", "GatheredKitMacros"]),
 
         .target(name: "GatheredKitScreen", dependencies: ["GatheredKit", "GatheredKitMacros"]),
         .testTarget(name: "GatheredKitScreenTests", dependencies: ["GatheredKitScreen", "GatheredKitTestHelpers"]),
 
-        .target(name: "GatheredKitSystemStatistics", dependencies: ["GatheredKit"]),
+        .target(name: "GatheredKitSystemStatistics", dependencies: ["GatheredKit", "GatheredKitMacros"]),
 
         .target(name: "GatheredKitTestHelpers", dependencies: ["GatheredKit"]),
 
         .target(
             name: "GatheredKitUserTracking",
-            dependencies: ["GatheredKit"],
+            dependencies: ["GatheredKit", "GatheredKitMacros"],
             exclude: ["README.md"]
         ),
 
         .target(
             name: "GatheredKitWiFi",
-            dependencies: ["GatheredKit"],
+            dependencies: ["GatheredKit", "GatheredKitMacros"],
             exclude: ["CLLocationManager+requestAuthorization.swift"]
+        ),
+
+        .testTarget(
+            name: "GatheredKitMacrosMacrosTests",
+            dependencies: [
+                "GatheredKitMacrosMacros",
+                .product(name: "SwiftSyntaxMacrosTestSupport", package: "swift-syntax"),
+            ]
         ),
     ]
 )

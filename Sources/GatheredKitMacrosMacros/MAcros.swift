@@ -7,10 +7,124 @@ import SwiftCompilerPlugin
 struct GatheredKitMacros: CompilerPlugin {
     var providingMacros: [Macro.Type] = [
         UpdatableProperty.self,
+        SourceKindDeclaration.self,
         PropertyValueMeasurement.self,
         ChildProperty.self,
         PropertyValue.self,
     ]
+}
+
+public struct SourceKindDeclaration: DeclarationMacro {
+    public static func expansion(
+        of node: some FreestandingMacroExpansionSyntax,
+        in context: some MacroExpansionContext
+    ) throws -> [DeclSyntax] {
+        let arguments = node.arguments
+
+        guard let sourceKindArgument = arguments.first else {
+            throw GatheredKitDiagnosticMessage(
+                id: "missing-SourceKind-sourceKind",
+                message: "#SourceKind requires a sourceKind string",
+                severity: .error
+            )
+        }
+
+        let memberName = try inferredName(
+            from: sourceKindArgument.expression,
+            diagnosticID: "invalid-SourceKind-sourceKind",
+            diagnosticMessage: "#SourceKind sourceKind argument must be a string literal with a valid identifier"
+        )
+
+        let rawValue: String
+        if arguments.count == 1 {
+            rawValue = memberName
+        } else if arguments.count == 2, let rawValueArgument = arguments.last {
+            if let label = rawValueArgument.label, label.text != "rawValue" {
+                throw GatheredKitDiagnosticMessage(
+                    id: "invalid-SourceKind-rawValue-label",
+                    message: "#SourceKind second argument label must be 'rawValue'",
+                    severity: .error
+                )
+            }
+            rawValue = try stringLiteralValue(
+                from: rawValueArgument.expression,
+                diagnosticID: "invalid-SourceKind-rawValue",
+                diagnosticMessage: "#SourceKind rawValue must be a string literal"
+            )
+        } else {
+            throw GatheredKitDiagnosticMessage(
+                id: "invalid-SourceKind-argument-count",
+                message: "#SourceKind supports one or two arguments",
+                severity: .error
+            )
+        }
+
+        let declaration: DeclSyntax = """
+        public static let \(raw: memberName): SourceKind = "\(raw: rawValue)"
+        """
+        return [declaration]
+    }
+
+    private static func inferredName(
+        from expression: ExprSyntax,
+        diagnosticID: String,
+        diagnosticMessage: String
+    ) throws -> String {
+        guard let literal = expression.as(StringLiteralExprSyntax.self) else {
+            throw GatheredKitDiagnosticMessage(
+                id: diagnosticID,
+                message: diagnosticMessage,
+                severity: .error
+            )
+        }
+
+        let value = try stringLiteralValue(
+            from: ExprSyntax(literal),
+            diagnosticID: diagnosticID,
+            diagnosticMessage: diagnosticMessage
+        )
+        guard isValidIdentifier(value) else {
+            throw GatheredKitDiagnosticMessage(
+                id: diagnosticID,
+                message: diagnosticMessage,
+                severity: .error
+            )
+        }
+
+        return value
+    }
+
+    private static func isValidIdentifier(_ name: String) -> Bool {
+        guard let first = name.first else { return false }
+        guard first == "_" || first.isLetter else { return false }
+        return name.dropFirst().allSatisfy { $0 == "_" || $0.isLetter || $0.isNumber }
+    }
+
+    private static func stringLiteralValue(
+        from expression: ExprSyntax,
+        diagnosticID: String,
+        diagnosticMessage: String
+    ) throws -> String {
+        guard let literal = expression.as(StringLiteralExprSyntax.self) else {
+            throw GatheredKitDiagnosticMessage(
+                id: diagnosticID,
+                message: diagnosticMessage,
+                severity: .error
+            )
+        }
+
+        guard literal.segments.count == 1,
+              let segment = literal.segments.first?.as(StringSegmentSyntax.self)
+        else {
+            throw GatheredKitDiagnosticMessage(
+                id: diagnosticID,
+                message: diagnosticMessage,
+                severity: .error
+            )
+        }
+
+        return segment.content.text
+    }
 }
 
 public struct UpdatableProperty: MemberMacro {

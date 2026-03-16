@@ -1,5 +1,6 @@
 import GatheredKit
+import GatheredKitMacros
 
 extension SourceKind {
-    public static let thermalState: SourceKind = "thermalState"
+    #SourceKind("thermalState")
 }

@@ -1,5 +1,6 @@
 import GatheredKit
+import GatheredKitMacros
 
 extension SourceKind {
-    public static let wifi: SourceKind = "wifi"
+    #SourceKind("wifi")
 }

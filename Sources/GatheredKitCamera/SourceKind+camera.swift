@@ -1,5 +1,6 @@
 import GatheredKit
+import GatheredKitMacros
 
 extension SourceKind {
-    public static let camera: SourceKind = "camera"
+    #SourceKind("camera")
 }
