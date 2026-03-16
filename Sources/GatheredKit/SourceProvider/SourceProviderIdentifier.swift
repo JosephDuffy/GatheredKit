@@ -116,12 +116,10 @@ public struct SourceProviderIdentifier: Codable, Hashable, LosslessStringConvert
         self.sourceKind = SourceKind(String(kindSplit[1]))
         self.description = description
 
-        if instanceSplit.count == 1 {
+        if instanceSplit.count < 2 {
             instanceIdentifier = nil
-        } else if instanceSplit.count == 2 {
-            instanceIdentifier = InstanceIdentifier(String(instanceSplit[1]))
         } else {
-            return nil
+            instanceIdentifier = InstanceIdentifier(String(instanceSplit[1]))
         }
     }
 }

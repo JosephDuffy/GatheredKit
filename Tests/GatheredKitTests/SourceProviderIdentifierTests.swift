@@ -30,4 +30,12 @@ final class SourceProviderIdentifierTests: XCTestCase {
         XCTAssertTrue(sourceProviderIdentifier.instanceIdentifier?.isEphemeral ?? false)
         XCTAssertEqual(sourceProviderIdentifier.description, identifierString)
     }
+
+    func testLosslessStringConvertibleConformanceWithEmptyIdentifierString() {
+        XCTAssertNil(SourceProviderIdentifier(""))
+    }
+
+    func testLosslessStringConvertibleConformanceWithoutNamespaceSeparator() {
+        XCTAssertNil(SourceProviderIdentifier("TestsNamespace"))
+    }
 }
