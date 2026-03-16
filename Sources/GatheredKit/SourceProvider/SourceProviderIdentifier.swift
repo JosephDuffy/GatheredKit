@@ -65,7 +65,7 @@ public struct SourceProviderIdentifier: Codable, Hashable, LosslessStringConvert
 
     /// The string representation in the form:
     ///
-    /// <namespace>.<source-provider-identifier>[/<instance-identifier>]
+    /// <namespace>.<source-kind>[/<instance-identifier>]
     public let description: String
 
     public init(
