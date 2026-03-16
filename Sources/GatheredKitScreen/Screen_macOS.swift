@@ -161,7 +161,7 @@ public final class Screen: UpdatingSource, Controllable {
     }
 
     /**
-     Stop performing automatic date refreshes
+     Stop performing automatic data refreshes
      */
     public func stopUpdating() {
         guard case .monitoring = state else { return }

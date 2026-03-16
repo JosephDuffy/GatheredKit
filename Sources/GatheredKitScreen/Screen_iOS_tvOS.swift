@@ -232,7 +232,7 @@ public final class Screen: UpdatingSource, Controllable {
     }
 
     /**
-     Stop performing automatic date refreshes
+     Stop performing automatic data refreshes
      */
     public func stopUpdating() {
         #if os(iOS)
