@@ -42,6 +42,12 @@ public struct SourceProviderIdentifier: Codable, Hashable, LosslessStringConvert
         }
     }
 
+    /// The character used to separate the namespace and the source kind.
+    public static let namespaceSuffix: Character = "."
+
+    /// The character used to separate the source kind and the instance identifier.
+    public static let instanceIdentifierPrefix: Character = "/"
+
     public let namespace: String
 
     public let sourceKind: SourceKind
@@ -68,10 +74,13 @@ public struct SourceProviderIdentifier: Codable, Hashable, LosslessStringConvert
         self.sourceKind = sourceKind
         self.instanceIdentifier = instanceIdentifier
 
-        var description = namespace + "." + sourceKind.rawValue
+        var description = namespace
+            + String(Self.namespaceSuffix)
+            + sourceKind.rawValue
 
         if let instanceIdentifier = instanceIdentifier {
-            description += "/" + String(describing: instanceIdentifier)
+            description += String(Self.instanceIdentifierPrefix)
+                + String(describing: instanceIdentifier)
         }
 
         self.description = description
@@ -87,15 +96,19 @@ public struct SourceProviderIdentifier: Codable, Hashable, LosslessStringConvert
         self.sourceKind = sourceKind
         let instanceIdentifier = InstanceIdentifier(id: id, isEphemeral: isEphemeral)
         self.instanceIdentifier = instanceIdentifier
-        self.description = namespace + "." + sourceKind.rawValue + "/" + String(describing: instanceIdentifier)
+        self.description = namespace
+            + String(Self.namespaceSuffix)
+            + sourceKind.rawValue
+            + String(Self.instanceIdentifierPrefix)
+            + String(describing: instanceIdentifier)
     }
 
     public init?(_ description: String) {
         guard !description.isEmpty else { return nil }
 
-        let instanceSplit = description.split(separator: "/", maxSplits: 1)
+        let instanceSplit = description.split(separator: Self.instanceIdentifierPrefix, maxSplits: 1)
 
-        let kindSplit = instanceSplit[0].split(separator: ".", maxSplits: 1)
+        let kindSplit = instanceSplit[0].split(separator: Self.namespaceSuffix, maxSplits: 1)
 
         guard kindSplit.count == 2 else { return nil }
 
