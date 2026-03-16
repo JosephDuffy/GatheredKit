@@ -93,11 +93,11 @@ public struct SourceProviderIdentifier: Codable, Hashable, LosslessStringConvert
     public init?(_ description: String) {
         guard !description.isEmpty else { return nil }
 
-        let instanceSplit = description.split(separator: "/", maxSplits: 2)
+        let instanceSplit = description.split(separator: "/", maxSplits: 1)
 
-        let kindSplit = instanceSplit[0].split(separator: ".", maxSplits: 2)
+        let kindSplit = instanceSplit[0].split(separator: ".", maxSplits: 1)
 
-        guard kindSplit.count == 2 else { return nil}
+        guard kindSplit.count == 2 else { return nil }
 
         self.namespace = String(kindSplit[0])
         self.sourceKind = SourceKind(String(kindSplit[1]))
