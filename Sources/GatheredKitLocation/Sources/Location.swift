@@ -264,6 +264,10 @@ public final class Location: UpdatingSource, Controllable {
     }
 
     public func stopUpdating() {
+        if case .notMonitoring = state {
+            return
+        }
+
         locationManager.stopUpdatingLocation()
         state = .notMonitoring
     }
