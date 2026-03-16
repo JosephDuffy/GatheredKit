@@ -60,7 +60,7 @@ public struct SourceProviderIdentifier: Codable, Hashable, LosslessStringConvert
     public let description: String
 
     public init(
-        namespace: String = "GatheredKit",
+        namespace: String = SourceIdentifier.gatheredKitNamespace,
         sourceKind: SourceKind,
         instanceIdentifier: InstanceIdentifier? = nil
     ) {
@@ -78,7 +78,7 @@ public struct SourceProviderIdentifier: Codable, Hashable, LosslessStringConvert
     }
 
     public init(
-        namespace: String = "GatheredKit",
+        namespace: String = SourceIdentifier.gatheredKitNamespace,
         sourceKind: SourceKind,
         instanceIdentifier id: String,
         isEphemeral: Bool
