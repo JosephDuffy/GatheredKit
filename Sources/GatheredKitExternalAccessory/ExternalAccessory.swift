@@ -116,7 +116,10 @@ public final class ExternalAccessory: UpdatingSource, Controllable {
 
         let delegate = AccessoryDelegate { [weak self] accessory in
             guard let self = self else { return }
-            assert(self.accessory === accessory)
+            guard self.accessory === accessory else {
+                assertionFailure("Expected disconnect event for wrapped accessory")
+                return
+            }
             if self.isConnected {
                 self._isConnected.updateValue(false)
             }
