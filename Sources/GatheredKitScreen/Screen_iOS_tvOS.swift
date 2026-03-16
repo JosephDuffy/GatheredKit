@@ -82,8 +82,8 @@ public final class Screen: UpdatingSource, Controllable {
      An array of the screen's properties, in the following order:
      - Screen Resolution (reported)
      - Screen Resolution (native)
-     - Screen Resolution (reported)
-     - Screen Resolution (native)
+     - Screen Scale (reported)
+     - Screen Scale (native)
      - Brightness
      */
     public var allProperties: [any Property] {
