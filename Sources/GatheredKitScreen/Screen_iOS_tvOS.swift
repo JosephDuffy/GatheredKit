@@ -84,7 +84,7 @@ public final class Screen: UpdatingSource, Controllable {
      - Screen Resolution (native)
      - Screen Scale (reported)
      - Screen Scale (native)
-     - Brightness
+     - Brightness (iOS only)
      */
     public var allProperties: [any Property] {
         #if os(iOS)
