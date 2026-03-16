@@ -78,16 +78,6 @@ public final class Location: UpdatingSource, Controllable {
 
     private let locationManager: CLLocationManager
 
-    private var locationManagerDelegateProxy: CLLocationManagerDelegateProxy?
-
-    private var isAskingForLocationPermissions: Bool {
-        if case .askingForPermissions = state {
-            return true
-        } else {
-            return false
-        }
-    }
-
     private var state: State = .notMonitoring {
         didSet {
             switch state {
