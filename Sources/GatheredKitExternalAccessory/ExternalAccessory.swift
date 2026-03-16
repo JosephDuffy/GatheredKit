@@ -80,11 +80,11 @@ public final class ExternalAccessory: UpdatingSource, Controllable {
             isTransient: true
         )
         _isConnected = .init(
-            id: id.identifierForChildPropertyWithId("connected"),
+            id: id.identifierForChildPropertyWithId("isConnected"),
             value: accessory.isConnected
         )
         _connectionID = .init(
-            id: id.identifierForChildPropertyWithId("connectionIdentifier"),
+            id: id.identifierForChildPropertyWithId("connectionID"),
             value: accessory.connectionID
         )
         _manufacturer = .init(
