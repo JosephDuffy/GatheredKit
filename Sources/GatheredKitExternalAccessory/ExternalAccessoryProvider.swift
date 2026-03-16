@@ -120,6 +120,7 @@ public final class ExternalAccessoryProvider: UpdatingSourceProvider, Controllab
         sources = newSources
 
         for source in removedSources {
+            source.stopUpdating()
             sourceProviderEventsSubject.send(.sourceRemoved(source))
         }
 
