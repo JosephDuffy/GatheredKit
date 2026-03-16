@@ -5,7 +5,7 @@ import Combine
 import GatheredKit
 
 /// A source for requesting and reading the advertising identifier associated
-/// the device.
+/// with the device.
 ///
 /// - Note: This does not conform to ``UpdatesProviding`` because the source can
 /// never be listening for updates; the authorisation status will only update in
