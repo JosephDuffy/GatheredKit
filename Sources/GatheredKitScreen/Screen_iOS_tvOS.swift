@@ -136,7 +136,8 @@ public final class Screen: UpdatingSource, Controllable {
         if screen == .main {
             id = SourceIdentifier(sourceKind: .screen, instanceIdentifier: "main", isTransient: false)
         } else {
-            id = SourceIdentifier(sourceKind: .screen, instanceIdentifier: "external", isTransient: true)
+            let externalId = "external-" + String(UInt(bitPattern: ObjectIdentifier(screen)))
+            id = SourceIdentifier(sourceKind: .screen, instanceIdentifier: externalId, isTransient: true)
         }
         uiScreen = screen
         self.notificationCenter = notificationCenter
