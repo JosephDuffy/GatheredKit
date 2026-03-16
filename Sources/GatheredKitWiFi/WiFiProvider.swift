@@ -8,7 +8,7 @@ import GatheredKit
 @available(iOS 14, watchOS 7, macCatalyst 14, *)
 @available(macOS, unavailable)
 @available(tvOS, unavailable)
-public final class WiFiProvider: ManuallyUpdatableSingleTransientSourceProvider, UpdatingSourceProvider, AvailabilityProviding {
+public final class WiFiProvider: ManuallyUpdatableSingleEphemeralSourceProvider, UpdatingSourceProvider, AvailabilityProviding {
     public enum UpdateError: Error {
         case notAuthorized
     }

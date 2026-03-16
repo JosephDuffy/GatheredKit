@@ -15,22 +15,22 @@ public final class SingleSourceProvider<Source: GatheredKit.Source>: SourceProvi
     }
 }
 
-public protocol SingleTransientSourceProvider: SourceProvider {
+public protocol SingleEphemeralSourceProvider: SourceProvider {
     var source: ProvidedSource? { get }
 }
 
-extension SingleTransientSourceProvider {
+extension SingleEphemeralSourceProvider {
     public var sources: [ProvidedSource] {
         source.map { [$0] } ?? []
     }
 }
 
-public protocol ManuallyUpdatableSingleTransientSourceProvider: SingleTransientSourceProvider {
+public protocol ManuallyUpdatableSingleEphemeralSourceProvider: SingleEphemeralSourceProvider {
     @discardableResult
     func updateSource() async throws -> ProvidedSource?
 }
 
-extension ManuallyUpdatableSingleTransientSourceProvider {
+extension ManuallyUpdatableSingleEphemeralSourceProvider {
     public func updateSource() async throws {
         _ = try await updateSource()
     }
