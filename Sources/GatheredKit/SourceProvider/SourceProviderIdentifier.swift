@@ -7,22 +7,22 @@ public struct SourceProviderIdentifier: Codable, Hashable, LosslessStringConvert
         /// When `true` the identifier is unique at the time of creation but is not
         /// guaranteed to be the same between runs of the program or changes in
         /// hardware state, e.g. disconnecting and reconnecting an external display.
-        public let isTransient: Bool
+        public let isEphemeral: Bool
 
         /// The string representation in the form:
         ///
         /// <instance-identifier>[~]
         ///
-        /// A `~` suffix indicates this is a transient identifier.
+        /// A `~` suffix indicates this is an ephemeral identifier.
         public let description: String
 
-        public init(id: String, isTransient: Bool) {
+        public init(id: String, isEphemeral: Bool) {
             assert(!id.hasSuffix("~"), "Instance identifier should not end with `~` to avoid serialisation issues")
 
             self.id = id
-            self.isTransient = isTransient
+            self.isEphemeral = isEphemeral
 
-            if isTransient {
+            if isEphemeral {
                 description = id + "~"
             } else {
                 description = id
@@ -31,10 +31,10 @@ public struct SourceProviderIdentifier: Codable, Hashable, LosslessStringConvert
 
         public init(_ description: String) {
             if description.hasSuffix("~") {
-                isTransient = true
+                isEphemeral = true
                 id = String(description.dropLast(1))
             } else {
-                isTransient = false
+                isEphemeral = false
                 id = description
             }
 
@@ -81,11 +81,11 @@ public struct SourceProviderIdentifier: Codable, Hashable, LosslessStringConvert
         namespace: String = "GatheredKit",
         sourceKind: SourceKind,
         instanceIdentifier id: String,
-        isTransient: Bool
+        isEphemeral: Bool
     ) {
         self.namespace = namespace
         self.sourceKind = sourceKind
-        let instanceIdentifier = InstanceIdentifier(id: id, isTransient: isTransient)
+        let instanceIdentifier = InstanceIdentifier(id: id, isEphemeral: isEphemeral)
         self.instanceIdentifier = instanceIdentifier
         self.description = namespace + "." + sourceKind.rawValue + "/" + String(describing: instanceIdentifier)
     }

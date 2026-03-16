@@ -9,7 +9,7 @@ final class PropertyIdentifierTests: XCTestCase {
         XCTAssertEqual(sourceIdentifier.namespace, "TestsNamespace")
         XCTAssertEqual(sourceIdentifier.sourceKind.rawValue, "TestSource")
         XCTAssertEqual(sourceIdentifier.instanceIdentifier?.id, "test-instance")
-        XCTAssertFalse(sourceIdentifier.instanceIdentifier?.isTransient ?? true)
+        XCTAssertFalse(sourceIdentifier.instanceIdentifier?.isEphemeral ?? true)
         XCTAssertEqual(sourceIdentifier.deviceIdentifier, "device-id")
         XCTAssertEqual(propertyIdentifier.description, identifierString)
     }
@@ -21,7 +21,7 @@ final class PropertyIdentifierTests: XCTestCase {
         XCTAssertEqual(sourceIdentifier.namespace, "TestsNamespace")
         XCTAssertEqual(sourceIdentifier.sourceKind.rawValue, "TestSource")
         XCTAssertEqual(sourceIdentifier.instanceIdentifier?.id, "test-instance")
-        XCTAssertFalse(sourceIdentifier.instanceIdentifier?.isTransient ?? true)
+        XCTAssertFalse(sourceIdentifier.instanceIdentifier?.isEphemeral ?? true)
         XCTAssertNil(sourceIdentifier.deviceIdentifier)
         XCTAssertEqual(propertyIdentifier.description, identifierString)
     }

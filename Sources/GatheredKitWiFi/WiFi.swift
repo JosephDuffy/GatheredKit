@@ -38,7 +38,7 @@ public final class WiFi: Source {
         id = SourceIdentifier(
             sourceKind: .wifi,
             instanceIdentifier: hotspotNetwork.bssid,
-            isTransient: false
+            isEphemeral: false
         )
         self.hotspotNetwork = hotspotNetwork
 

@@ -77,7 +77,7 @@ public final class ExternalAccessory: UpdatingSource, Controllable {
         id = SourceIdentifier(
             sourceKind: .externalAccessory,
             instanceIdentifier: "\(accessory.connectionID)",
-            isTransient: true
+            isEphemeral: true
         )
         _isConnected = .init(
             id: id.identifierForChildPropertyWithId("isConnected"),

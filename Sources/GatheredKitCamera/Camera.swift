@@ -71,7 +71,7 @@ public final class Camera: UpdatingSource, Controllable, Identifiable {
         id = SourceIdentifier(
             sourceKind: .camera,
             instanceIdentifier: captureDevice.uniqueID,
-            isTransient: false
+            isEphemeral: false
         )
         self.captureDevice = captureDevice
         _uniqueID = .init(

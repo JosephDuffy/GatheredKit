@@ -98,13 +98,13 @@ public final class Screen: UpdatingSource, Controllable {
             id = SourceIdentifier(
                 sourceKind: .screen,
                 instanceIdentifier: uuidString,
-                isTransient: false
+                isEphemeral: false
             )
         } else {
             id = SourceIdentifier(
                 sourceKind: .screen,
                 instanceIdentifier: "",
-                isTransient: true
+                isEphemeral: true
             )
         }
 

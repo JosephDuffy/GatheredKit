@@ -8,7 +8,7 @@ final class SourceIdentifierTests: XCTestCase {
         XCTAssertEqual(sourceIdentifier.namespace, "TestsNamespace")
         XCTAssertEqual(sourceIdentifier.sourceKind.rawValue, "TestSource")
         XCTAssertEqual(sourceIdentifier.instanceIdentifier?.id, "test-instance")
-        XCTAssertTrue(sourceIdentifier.instanceIdentifier?.isTransient ?? false)
+        XCTAssertTrue(sourceIdentifier.instanceIdentifier?.isEphemeral ?? false)
         XCTAssertEqual(sourceIdentifier.deviceIdentifier, "device-id")
         XCTAssertEqual(sourceIdentifier.description, identifierString)
     }
@@ -19,7 +19,7 @@ final class SourceIdentifierTests: XCTestCase {
         XCTAssertEqual(sourceIdentifier.namespace, "TestsNamespace")
         XCTAssertEqual(sourceIdentifier.sourceKind.rawValue, "TestSource")
         XCTAssertEqual(sourceIdentifier.instanceIdentifier?.id, "test-instance")
-        XCTAssertFalse(sourceIdentifier.instanceIdentifier?.isTransient ?? true)
+        XCTAssertFalse(sourceIdentifier.instanceIdentifier?.isEphemeral ?? true)
         XCTAssertNil(sourceIdentifier.deviceIdentifier)
         XCTAssertEqual(sourceIdentifier.description, identifierString)
     }
@@ -50,7 +50,7 @@ final class SourceIdentifierTests: XCTestCase {
         XCTAssertEqual(sourceIdentifier.namespace, "TestsNamespace")
         XCTAssertEqual(sourceIdentifier.sourceKind.rawValue, "TestSource.ExtraIdentifier")
         XCTAssertEqual(sourceIdentifier.instanceIdentifier?.id, "test-instance|extra-instance")
-        XCTAssertTrue(sourceIdentifier.instanceIdentifier?.isTransient ?? false)
+        XCTAssertTrue(sourceIdentifier.instanceIdentifier?.isEphemeral ?? false)
         XCTAssertEqual(sourceIdentifier.deviceIdentifier, "device-id@extra-device-id")
         XCTAssertEqual(sourceIdentifier.description, identifierString)
     }
