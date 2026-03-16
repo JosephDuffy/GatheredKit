@@ -94,6 +94,11 @@ public final class WiFiProvider: ManuallyUpdatableSingleTransientSourceProvider,
         locationManagerDelegateProxy.attach(to: locationManager)
     }
 
+    @MainActor
+    deinit {
+        locationManagerDelegateProxy.detach(from: locationManager)
+    }
+
     public func updateSource() async throws -> WiFi? {
         #if os(iOS) || os(tvOS) || os(watchOS)
         defer {
@@ -162,6 +167,11 @@ private final class LocationManagerDelegateProxy: NSObject, CLLocationManagerDel
     func attach(to locationManager: CLLocationManager) {
         originalDelegate = locationManager.delegate
         locationManager.delegate = self
+    }
+
+    func detach(from locationManager: CLLocationManager) {
+        guard locationManager.delegate === self else { return }
+        locationManager.delegate = originalDelegate
     }
 
     func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
