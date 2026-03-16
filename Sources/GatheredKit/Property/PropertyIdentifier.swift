@@ -70,42 +70,36 @@ public struct PropertyIdentifier: Codable, Hashable, LosslessStringConvertible, 
     public func asList() -> (SourceIdentifier, [PropertyIdentifier]) {
         var list: [PropertyIdentifier] = []
         var current = self
-        var sourceIdentifier: SourceIdentifier?
 
-        while sourceIdentifier == nil {
+        while true {
             list.insert(current, at: 0)
 
             switch current.parent {
-            case .source(let _sourceIdentifier):
-                sourceIdentifier = _sourceIdentifier
+            case .source(let sourceIdentifier):
+                return (sourceIdentifier, list)
             case .property(let path):
                 current = path
             }
         }
-
-        return (sourceIdentifier!, list)
     }
 
     public func lineage() -> PropertyLineage {
         var identifiers: [String] = []
         var current = self
-        var sourceIdentifier: SourceIdentifier?
 
-        while sourceIdentifier == nil {
+        while true {
             identifiers.insert(current.id, at: 0)
 
             switch current.parent {
-            case .source(let _sourceIdentifier):
-                sourceIdentifier = _sourceIdentifier
+            case .source(let sourceIdentifier):
+                return PropertyLineage(
+                    sourceIdentifier: sourceIdentifier,
+                    propertyIdentifiers: identifiers
+                )
             case .property(let path):
                 current = path
             }
         }
-
-        return PropertyLineage(
-            sourceIdentifier: sourceIdentifier!,
-            propertyIdentifiers: identifiers
-        )
     }
 }
 
