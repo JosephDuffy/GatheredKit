@@ -73,6 +73,8 @@ public final class ThermalState: UpdatingSource, Controllable {
      Stop performing automatic date refreshes
      */
     public func stopUpdating() {
+        guard isUpdating else { return }
+
         isUpdating = false
         cancellables = []
         eventsSubject.send(.stoppedUpdating())
