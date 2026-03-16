@@ -10,11 +10,11 @@ public final class Screen: UpdatingSource, Controllable {
         // swiftlint:disable duplicate_enum_cases
         #if os(iOS)
         case monitoring(
-            brightnessChangeObeserver: NSObjectProtocol?,
-            modeChangeObeserver: NSObjectProtocol,
+            brightnessChangeObserver: NSObjectProtocol?,
+            modeChangeObserver: NSObjectProtocol,
         )
         #elseif os(tvOS)
-        case monitoring(modeChangeObeserver: NSObjectProtocol)
+        case monitoring(modeChangeObserver: NSObjectProtocol)
         #endif
     }
 
@@ -179,10 +179,10 @@ public final class Screen: UpdatingSource, Controllable {
         guard !isUpdating else { return }
 
         #if os(iOS)
-        let brightnessChangeObeserver: NSObjectProtocol?
+        let brightnessChangeObserver: NSObjectProtocol?
 
         if uiScreen == .main {
-            brightnessChangeObeserver = notificationCenter.addObserver(
+            brightnessChangeObserver = notificationCenter.addObserver(
                 forName: UIScreen.brightnessDidChangeNotification,
                 object: uiScreen,
                 queue: nil
@@ -196,11 +196,11 @@ public final class Screen: UpdatingSource, Controllable {
 
             _brightness.updateValueIfDifferent(uiScreen.brightness)
         } else {
-            brightnessChangeObeserver = nil
+            brightnessChangeObserver = nil
         }
         #endif
 
-        let modeChangeObeserver = notificationCenter.addObserver(
+        let modeChangeObserver = notificationCenter.addObserver(
             forName: UIScreen.modeDidChangeNotification,
             object: uiScreen,
             queue: nil
@@ -221,11 +221,11 @@ public final class Screen: UpdatingSource, Controllable {
 
         #if os(iOS)
         state = .monitoring(
-            brightnessChangeObeserver: brightnessChangeObeserver,
-            modeChangeObeserver: modeChangeObeserver
+            brightnessChangeObserver: brightnessChangeObserver,
+            modeChangeObserver: modeChangeObserver
         )
         #elseif os(tvOS)
-        state = .monitoring(modeChangeObeserver: modeChangeObeserver)
+        state = .monitoring(modeChangeObserver: modeChangeObserver)
         #endif
 
         eventsSubject.send(.startedUpdating)
@@ -236,24 +236,24 @@ public final class Screen: UpdatingSource, Controllable {
      */
     public func stopUpdating() {
         #if os(iOS)
-        guard case .monitoring(let brightnessChangeObeserver, let modeChangeObeserver) = state
+        guard case .monitoring(let brightnessChangeObserver, let modeChangeObserver) = state
         else { return }
 
-        brightnessChangeObeserver.map { brightnessChangeObeserver in
+        brightnessChangeObserver.map { brightnessChangeObserver in
             notificationCenter
                 .removeObserver(
-                    brightnessChangeObeserver,
+                    brightnessChangeObserver,
                     name: UIScreen.brightnessDidChangeNotification,
                     object: uiScreen
                 )
         }
         #elseif os(tvOS)
-        guard case .monitoring(let modeChangeObeserver) = state else { return }
+        guard case .monitoring(let modeChangeObserver) = state else { return }
         #endif
 
         notificationCenter
             .removeObserver(
-                modeChangeObeserver,
+                modeChangeObserver,
                 name: UIScreen.modeDidChangeNotification,
                 object: uiScreen
             )
