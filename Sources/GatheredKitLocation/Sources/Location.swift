@@ -52,9 +52,9 @@ public final class Location: UpdatingSource, Controllable {
       - course
       - altitude
       - floor
-      - horizonalAccuracy
+      - horizontalAccuracy
       - verticalAccuracy
-      - authorisationStatus
+      - authorizationStatus
      */
     public var allProperties: [any Property] {
         [
