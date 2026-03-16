@@ -63,6 +63,9 @@ open class BasePollingSource: UpdatingSource {
 
 extension CustomisableUpdateIntervalControllable where Self: BasePollingSource, Self: ManuallyUpdatablePropertiesProvider {
     public func stopUpdating() {
+        guard isUpdating else { return }
+
         state = .notMonitoring
+        eventsSubject.send(.stoppedUpdating())
     }
 }
