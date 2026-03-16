@@ -91,7 +91,7 @@ public final class ScreenProvider: UpdatingSourceProvider, ControllableSourcePro
             guard let self else { return }
             guard let uiScreen = notification.object as? UIScreen else { return }
             MainActor.assumeIsolated {
-                guard let index = self.sources.firstIndex(where: { $0.uiScreen == uiScreen }) else {
+                guard let index = self.sources.firstIndex(where: { $0.uiScreen === uiScreen }) else {
                     return
                 }
                 let screen = self.sources.remove(at: index)
