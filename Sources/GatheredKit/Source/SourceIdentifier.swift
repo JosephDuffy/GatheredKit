@@ -1,5 +1,8 @@
 public struct SourceIdentifier: Codable, Hashable, LosslessStringConvertible, Sendable {
     public struct InstanceIdentifier: Codable, Hashable, LosslessStringConvertible, Sendable {
+        /// The character used to indicate the instance identifier is ephemeral.
+        public static let ephemeralSuffix: Character = "~"
+
         /// An identifier to differentiate between instances of the same source
         /// kind.
         public let id: String
@@ -17,20 +20,20 @@ public struct SourceIdentifier: Codable, Hashable, LosslessStringConvertible, Se
         public let description: String
 
         public init(id: String, isEphemeral: Bool) {
-            assert(!id.hasSuffix("~"), "Instance identifier should not end with `~` to avoid serialisation issues")
+            assert(!id.hasSuffix(String(Self.ephemeralSuffix)), "Instance identifier should not end with `~` to avoid serialisation issues")
 
             self.id = id
             self.isEphemeral = isEphemeral
 
             if isEphemeral {
-                description = id + "~"
+                description = id + String(Self.ephemeralSuffix)
             } else {
                 description = id
             }
         }
 
         public init(_ description: String) {
-            if description.hasSuffix("~") {
+            if description.hasSuffix(String(Self.ephemeralSuffix)) {
                 isEphemeral = true
                 id = String(description.dropLast(1))
             } else {
