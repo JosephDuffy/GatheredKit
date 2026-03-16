@@ -112,6 +112,8 @@ public final class ExternalAccessory: UpdatingSource, Controllable {
     public func startUpdating() {
         guard !isUpdating else { return }
 
+        _isConnected.updateValueIfDifferent(accessory.isConnected)
+
         let delegate = AccessoryDelegate { [weak self] accessory in
             guard let self = self else { return }
             assert(self.accessory === accessory)
