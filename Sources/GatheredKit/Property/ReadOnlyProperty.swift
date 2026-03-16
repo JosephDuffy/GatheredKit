@@ -21,6 +21,14 @@ public final class ReadOnlyProperty<WrappedProperty: Property>: Property {
         wrapped.snapshotsPublisher
     }
 
+    public var error: Error? {
+        wrapped.error
+    }
+
+    public var errorsPublisher: AnyPublisher<Error?, Never> {
+        wrapped.errorsPublisher
+    }
+
     private let wrapped: WrappedProperty
 
     public init(_ wrapped: WrappedProperty) {
