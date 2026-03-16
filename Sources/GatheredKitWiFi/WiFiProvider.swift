@@ -130,9 +130,9 @@ public final class WiFiProvider: ManuallyUpdatableSingleTransientSourceProvider,
             }
             return nil
         }
-        let newSource = WiFi(hostspotNetwork: connectedNetwork)
+        let newSource = WiFi(hotspotNetwork: connectedNetwork)
         if let existingSource = source {
-            guard existingSource.hostspotNetwork != newSource.hostspotNetwork else {
+            guard existingSource.hotspotNetwork != newSource.hotspotNetwork else {
                 return existingSource
             }
 

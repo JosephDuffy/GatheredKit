@@ -25,7 +25,7 @@ public final class WiFi: Source {
     public private(set) var bssid: String
 
     /// The `NEHotspotNetwork` this `Network` represents.
-    public let hostspotNetwork: NEHotspotNetwork
+    public let hotspotNetwork: NEHotspotNetwork
 
     public var allProperties: [any Property] {
         [
@@ -34,21 +34,21 @@ public final class WiFi: Source {
         ]
     }
 
-    public init(hostspotNetwork: NEHotspotNetwork) {
+    public init(hotspotNetwork: NEHotspotNetwork) {
         id = SourceIdentifier(
             sourceKind: .wifi,
-            instanceIdentifier: hostspotNetwork.bssid,
+            instanceIdentifier: hotspotNetwork.bssid,
             isTransient: false
         )
-        self.hostspotNetwork = hostspotNetwork
+        self.hotspotNetwork = hotspotNetwork
 
         _ssid = .init(
             id: id.identifierForChildPropertyWithId("ssid"),
-            value: hostspotNetwork.ssid
+            value: hotspotNetwork.ssid
         )
         _bssid = .init(
             id: id.identifierForChildPropertyWithId("bssid"),
-            value: hostspotNetwork.bssid
+            value: hotspotNetwork.bssid
         )
 
         // There are other properties, such as `didAutoJoin` and
