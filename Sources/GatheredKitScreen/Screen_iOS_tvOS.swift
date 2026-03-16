@@ -130,7 +130,7 @@ public final class Screen: UpdatingSource, Controllable {
      Create a new instance of `Screen` for the given `UIScreen` instance
 
      - Parameter screen: The `UIScreen` to get data from.
-     - Parameter notificationCenter: The notification center to list to notifications from.
+     - Parameter notificationCenter: The notification center to listen to notifications from.
      */
     internal init(screen: UIScreen, notificationCenter: NotificationCenter = .default) {
         if screen == .main {
